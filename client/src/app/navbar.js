@@ -20,8 +20,6 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 
 const Navbar = () => {
-  const name = JSON.parse(localStorage.getItem("user_name"));
-  const token = JSON.parse(localStorage.getItem("user_token"));
   const [userDetail, setUserDetail] = useState({
     firstname: "",
     lastname: "",
@@ -30,8 +28,7 @@ const Navbar = () => {
     role: "",
   });
 
-  // localStorage.removeItem("admin_token");
-  // const [isLoader, setLoader] = useState(false);
+
   const router = useRouter();
   const [isRefresh, setRefresh] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -103,11 +100,6 @@ const Navbar = () => {
         toast.success("Login successful!");
         handleClose();
         refreshData();
-        localStorage.setItem("user_token", JSON.stringify(res?.data?.token));
-        localStorage.setItem(
-          "user_name",
-          JSON.stringify(res?.data?.user?.firstname)
-        );
 
         // router.push("/user/user-dashboard");
       } else {
@@ -130,15 +122,10 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      const res = await axios.get("http://18.130.221.119:4000/api/auth/logout", {
-        headers: {
-          authorization: token,
-        },
-      });
+      const res = await axios.get("http://18.130.221.119:4000/api/auth/logout");
       if (res.status >= 200 && res.status < 300) {
         toast.success("Logout successfully");
-        localStorage.removeItem("user_token");
-        localStorage.removeItem("user_name");
+
         refreshData();
         // router.push("/login");
       } else {
@@ -161,11 +148,11 @@ const Navbar = () => {
     modal.close();
   };
 
-  useEffect(() => {
-    // Check if user token exists in local storage
-    const userToken = localStorage.getItem("user_token");
-    setIsLoggedIn(!!userToken); // Set isLoggedIn to true if user token exists
-  }, [!isRefresh]);
+  // useEffect(() => {
+  //   // Check if user token exists in local storage
+  
+  //   setIsLoggedIn(!!); // Set isLoggedIn to true if user token exists
+  // }, [!isRefresh]);
 
   const handleLoginClick = () => {
     document.getElementById("my_modal_2").showModal();
@@ -296,7 +283,7 @@ const Navbar = () => {
                     <hr className=" mx-auto 2xl:w-[345px] xl:w-[260px] lg:w-[180px] sm:w-[] w-[] 2xl:mt-[75px] xl:mt-[40px] lg:mt-[20px] sm:mt-[] mt-[]" />
                     <div className="text-center 2xl:mt-[35px] xl:mt-[15px] lg:mt-[10px] sm:mt-[8px] mt-[]">
                       <h1 className="alata font-[400] 2xl:text-[20px] xl:text-[14px] lg:text-[10px] 2xl:leading-[30px] sm:text-[12px] sm:leading-[33px]">
-                        {name}
+                        
                       </h1>
                       <p className="text-[#555555] alata font-[400] 2xl:text-[14px] xl:text-[10px] lg:text-[9px] sm:text-[10px] text-[] 2xl:leading-[26px] xl:leading-[22px] lg:leading-[16px] sm:leading-[16px] leading-[]">
                         ajay1489hardiyamail.com
@@ -351,7 +338,7 @@ const Navbar = () => {
                     </div>
 
                     <div className="nav_login1 flex gap-2">
-                      Welcome<p className="">{name}!</p>
+                      Welcome<p className=""></p>
                       {/* Add logout button or other logged in content here */}
                     </div>
                     <button>

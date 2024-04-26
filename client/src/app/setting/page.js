@@ -9,7 +9,6 @@ import myorder from "./assets/myorder-icon.svg";
 import profile from "./assets/profile-icon.svg";
 import logout from "./assets/logout-icon.svg";
 import Footer from "../footer";
-import NavBar from "../navBar";
 import Navbar from "../navbar";
 
 const Setting = () => {
