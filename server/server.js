@@ -7,7 +7,9 @@ const connectDB = require("./Utils/db");
 const path = require('path');
 
 const corsOptions = {
-  origin: ["http://localhost:3000", "*"],
+  origin: ["http://localhost:3000", "http://18.130.221.119:3000", "http://localhost:4000", 
+  "*"],
+
   credentials: true,
 };
 
