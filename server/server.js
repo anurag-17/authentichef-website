@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 require('dotenv').config();
 const {notFoundMiddleware}=require("../server/middleware/notfoundmiddleware")
 const connectDB = require("./Utils/db");
+const path = require('path');
 
 const corsOptions = {
   origin: ["http://localhost:3000", "*"],
@@ -35,6 +36,19 @@ server.get("/", (req, res) => {
   server.use('/api/SpiceLevel', require("./Route/SpiceRouter"));
   server.use('/api/Orders', require("./Route/cartRoutes"));
   server.use('/api/order',require("./Route/OrderRouter"))
+
+  if (process.env.NODE_ENV === "dev") {
+    server.use(express.static(path.join(__dirname, 'client', 'build')));
+  
+    // Define route to serve React app
+    server.get('*', (req, res) => {
+      res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+    });
+  } else {
+    server.get("/", (req, res) => {
+      res.send("API is running..");
+    });
+  }
 
     // Not found Middleware
 
