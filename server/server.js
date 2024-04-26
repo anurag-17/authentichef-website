@@ -1,15 +1,17 @@
+
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 require('dotenv').config();
-const { notFoundMiddleware } = require("../server/middleware/notfoundmiddleware");
+ const {notFoundMiddleware}=require("../server/middleware/notfoundmiddleware")
 const connectDB = require('./Utils/db');
 const path = require('path');
 
 const corsOptions = {
-  origin: '*',
+  origin: ['http://18.130.221.119:3000','http://18.130.221.119:3001', '*'],
   credentials: true,
 };
+console.log('Origin:', corsOptions.origin);
 
 const server = express();
 
@@ -21,6 +23,7 @@ server.use(cors(corsOptions));
 connectDB();
 
 // Showing Api is Running or not //
+
 server.get('/', (req, res) => {
   res.send('API is Running');
 });
