@@ -73,7 +73,7 @@ const connectDB = require('./Utils/db');
 const path = require('path');
 
 const corsOptions = {
-  origin: ['http://18.130.221.119:3000', '*'],
+  origin: ['http://18.130.221.119:3000','http://18.130.221.119:3001', '*'],
   credentials: true,
 };
 console.log('Origin:', corsOptions.origin);
