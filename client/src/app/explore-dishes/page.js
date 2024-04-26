@@ -67,7 +67,7 @@ const ExploreDishes = ({ item }) => {
   const defaultDish = () => {
     const option = {
       method: "GET",
-      url: "http://localhost:4000/api/menu/menuItems",
+      url: "http://18.130.221.119:4000/api/menu/menuItems",
       params: {
         Cuisines_id: cuisinesFilter,
         Dietary_id: dietaryFilter,
@@ -100,7 +100,7 @@ const ExploreDishes = ({ item }) => {
     } else {
       const option = {
         method: "GET",
-        url: `http://localhost:4000/api/menu/menuItems?search=${search}`,
+        url: `http://18.130.221.119:4000/api/menu/menuItems?search=${search}`,
       };
       axios
         .request(option)
@@ -124,7 +124,7 @@ const ExploreDishes = ({ item }) => {
   const defaultCuisines = () => {
     const option = {
       method: "GET",
-      url: "http://localhost:4000/api/cuisines/getAllCuisines",
+      url: "http://18.130.221.119:4000/api/cuisines/getAllCuisines",
     };
     axios
       .request(option)
@@ -138,7 +138,7 @@ const ExploreDishes = ({ item }) => {
   const defaultDietary = () => {
     const option = {
       method: "GET",
-      url: "http://localhost:4000/api/dietary/dietaries",
+      url: "http://18.130.221.119:4000/api/dietary/dietaries",
     };
     axios
       .request(option)
@@ -152,7 +152,7 @@ const ExploreDishes = ({ item }) => {
   const defaultDishtype = () => {
     const option = {
       method: "GET",
-      url: "http://localhost:4000/api/DishType/dishTypes",
+      url: "http://18.130.221.119:4000/api/DishType/dishTypes",
     };
     axios
       .request(option)
@@ -167,7 +167,7 @@ const ExploreDishes = ({ item }) => {
   const defaultSpicelevel = () => {
     const option = {
       method: "GET",
-      url: "http://localhost:4000/api/SpiceLevel/spiceLevels",
+      url: "http://18.130.221.119:4000/api/SpiceLevel/spiceLevels",
     };
     axios
       .request(option)
@@ -188,7 +188,7 @@ const ExploreDishes = ({ item }) => {
       setCuisinesFilter(e.target.value);
       const options = {
         method: "GET",
-        url: `http://localhost:4000/api/menu/menuItem/sort?Cuisines_id=${e.target.value}&Dietary_id=${dietaryFilter}&Dishtype_id=${moreFilters}`,
+        url: `http://18.130.221.119:4000/api/menu/menuItem/sort?Cuisines_id=${e.target.value}&Dietary_id=${dietaryFilter}&Dishtype_id=${moreFilters}`,
       };
       axios
         .request(options)
@@ -221,7 +221,7 @@ const ExploreDishes = ({ item }) => {
       setDietaryFilter(e.target.value);
       const options = {
         method: "GET",
-        url: `http://localhost:4000/api/menu/menuItem/sort?Dietary_id=${e.target.value}&Cuisines_id=${cuisinesFilter}&Dishtype_id=${moreFilters}`,
+        url: `http://18.130.221.119:4000/api/menu/menuItem/sort?Dietary_id=${e.target.value}&Cuisines_id=${cuisinesFilter}&Dishtype_id=${moreFilters}`,
       };
       axios
         .request(options)
@@ -254,7 +254,7 @@ const ExploreDishes = ({ item }) => {
       setMoreFilters(e.target.value);
       const options = {
         method: "GET",
-        url: `http://localhost:4000/api/menu/menuItem/sort?Dishtype_id=${e.target.value}&Cuisines_id=${cuisinesFilter}&Dietary_id=${dietaryFilter}`,
+        url: `http://18.130.221.119:4000/api/menu/menuItem/sort?Dishtype_id=${e.target.value}&Cuisines_id=${cuisinesFilter}&Dietary_id=${dietaryFilter}`,
       };
       axios
         .request(options)
@@ -283,7 +283,7 @@ const ExploreDishes = ({ item }) => {
     // setLoader(true);
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/Orders/AddtoCart",
+        "http://18.130.221.119:4000/api/Orders/AddtoCart",
         {
           menuItem: id,
         }
@@ -311,7 +311,7 @@ const ExploreDishes = ({ item }) => {
   const defaultCartItem = () => {
     const option = {
       method: "GET",
-      url: "http://localhost:4000/api/Orders/getCartItem",
+      url: "http://18.130.221.119:4000/api/Orders/getCartItem",
 
       headers: {
         Authorization: token,
@@ -357,7 +357,7 @@ const ExploreDishes = ({ item }) => {
 
     try {
       const response = await axios.delete(
-        "http://localhost:4000/api/Orders/deleteAllCartItem"
+        "http://18.130.221.119:4000/api/Orders/deleteAllCartItem"
       );
 
       if (response.status === 200) {
@@ -706,9 +706,7 @@ const ExploreDishes = ({ item }) => {
                   >
                     <button
                       className=""
-                      onClick={() =>
-                        document.getElementById("my_modal_1").showModal()
-                      }
+                    
                     >
                       <img
                         src={item.ProfileImage}

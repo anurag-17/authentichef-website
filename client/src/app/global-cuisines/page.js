@@ -1,5 +1,4 @@
 import React from "react";
-import NavBar from "../navBar";
 import Footer from "../footer";
 import Image from "next/image";
 import poster from "./assets/global-banner.png";
