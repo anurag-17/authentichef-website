@@ -283,7 +283,7 @@ const Navbar = () => {
                     <hr className=" mx-auto 2xl:w-[345px] xl:w-[260px] lg:w-[180px] sm:w-[] w-[] 2xl:mt-[75px] xl:mt-[40px] lg:mt-[20px] sm:mt-[] mt-[]" />
                     <div className="text-center 2xl:mt-[35px] xl:mt-[15px] lg:mt-[10px] sm:mt-[8px] mt-[]">
                       <h1 className="alata font-[400] 2xl:text-[20px] xl:text-[14px] lg:text-[10px] 2xl:leading-[30px] sm:text-[12px] sm:leading-[33px]">
-                        {name}
+                        
                       </h1>
                       <p className="text-[#555555] alata font-[400] 2xl:text-[14px] xl:text-[10px] lg:text-[9px] sm:text-[10px] text-[] 2xl:leading-[26px] xl:leading-[22px] lg:leading-[16px] sm:leading-[16px] leading-[]">
                         ajay1489hardiyamail.com
@@ -338,7 +338,7 @@ const Navbar = () => {
                     </div>
 
                     <div className="nav_login1 flex gap-2">
-                      Welcome<p className="">{name}!</p>
+                      Welcome<p className=""></p>
                       {/* Add logout button or other logged in content here */}
                     </div>
                     <button>
