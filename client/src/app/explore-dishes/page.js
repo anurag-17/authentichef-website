@@ -36,7 +36,6 @@ import "react-toastify/dist/ReactToastify.css";
 import allCuisines from "./assets/all-cuisines.png";
 
 const ExploreDishes = ({ item }) => {
-  const token = JSON.parse(localStorage.getItem("user_token"));
   const { addToCart } = useCart();
   const { cart, removeFromCart, clearCart } = useCart();
   const [count, setCount] = useState(0);
@@ -313,9 +312,7 @@ const ExploreDishes = ({ item }) => {
       method: "GET",
       url: "http://18.130.221.119:4000/api/Orders/getCartItem",
 
-      headers: {
-        Authorization: token,
-      },
+  
     };
     axios
       .request(option)

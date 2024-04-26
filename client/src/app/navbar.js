@@ -20,8 +20,6 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 
 const Navbar = () => {
-  const name = JSON.parse(localStorage.getItem("user_name"));
-  const token = JSON.parse(localStorage.getItem("user_token"));
   const [userDetail, setUserDetail] = useState({
     firstname: "",
     lastname: "",
@@ -30,8 +28,7 @@ const Navbar = () => {
     role: "",
   });
 
-  // localStorage.removeItem("admin_token");
-  // const [isLoader, setLoader] = useState(false);
+
   const router = useRouter();
   const [isRefresh, setRefresh] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -103,11 +100,6 @@ const Navbar = () => {
         toast.success("Login successful!");
         handleClose();
         refreshData();
-        localStorage.setItem("user_token", JSON.stringify(res?.data?.token));
-        localStorage.setItem(
-          "user_name",
-          JSON.stringify(res?.data?.user?.firstname)
-        );
 
         // router.push("/user/user-dashboard");
       } else {
@@ -130,15 +122,10 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      const res = await axios.get("http://18.130.221.119:4000/api/auth/logout", {
-        headers: {
-          authorization: token,
-        },
-      });
+      const res = await axios.get("http://18.130.221.119:4000/api/auth/logout");
       if (res.status >= 200 && res.status < 300) {
         toast.success("Logout successfully");
-        localStorage.removeItem("user_token");
-        localStorage.removeItem("user_name");
+
         refreshData();
         // router.push("/login");
       } else {
@@ -161,11 +148,11 @@ const Navbar = () => {
     modal.close();
   };
 
-  useEffect(() => {
-    // Check if user token exists in local storage
-    const userToken = localStorage.getItem("user_token");
-    setIsLoggedIn(!!userToken); // Set isLoggedIn to true if user token exists
-  }, [!isRefresh]);
+  // useEffect(() => {
+  //   // Check if user token exists in local storage
+  
+  //   setIsLoggedIn(!!); // Set isLoggedIn to true if user token exists
+  // }, [!isRefresh]);
 
   const handleLoginClick = () => {
     document.getElementById("my_modal_2").showModal();

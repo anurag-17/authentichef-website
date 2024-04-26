@@ -12,11 +12,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 
 const Footer = () => {
-  const name = JSON.parse(localStorage.getItem("user_name"));
-  const token = JSON.parse(localStorage.getItem("user_token"));
 
-  // localStorage.removeItem("admin_token");
-  // const [isLoader, setLoader] = useState(false);
   const router = useRouter();
   const [isRefresh, setRefresh] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -56,11 +52,7 @@ const Footer = () => {
         toast.success("Login successful!");
         handleClose();
         refreshData();
-        localStorage.setItem("user_token", JSON.stringify(res?.data?.token));
-        localStorage.setItem(
-          "user_name",
-          JSON.stringify(res?.data?.user?.firstname)
-        );
+      
 
         // router.push("/user/user-dashboard");
       } else {
@@ -90,8 +82,7 @@ const Footer = () => {
       });
       if (res.status >= 200 && res.status < 300) {
         toast.success("Logout successfully");
-        localStorage.removeItem("user_token");
-        localStorage.removeItem("user_name");
+       
         refreshData();
         // router.push("/login");
       } else {
@@ -114,11 +105,10 @@ const Footer = () => {
     modal.close();
   };
 
-  useEffect(() => {
-    // Check if user token exists in local storage
-    const userToken = localStorage.getItem("user_token");
-    setIsLoggedIn(!!userToken); // Set isLoggedIn to true if user token exists
-  }, [!isRefresh]);
+  // useEffect(() => {
+  //   // Check if user token exists in local storage
+  //   setIsLoggedIn(!!userToken); // Set isLoggedIn to true if user token exists
+  // }, [!isRefresh]);
 
   const handleLoginClick = () => {
     document.getElementById("my_modal_2").showModal();

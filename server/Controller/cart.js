@@ -17,8 +17,7 @@ const User = require("../Model/User");
 //                 customization,
 //             };
 //             // Store cart data in local storage
-//             // You can use localStorage.setItem() to store the data
-//             // For example: localStorage.setItem('cart', JSON.stringify(cartData));
+//    
 
 //             // Retrieve the menu item corresponding to cartData.menuItem
 //             const menuItems = await MenuItem.findOne({ _id: cartData.menuItem }).select("name price");
