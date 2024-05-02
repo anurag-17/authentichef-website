@@ -55,7 +55,7 @@ const orderSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ["pending", "preparing", "ready", "delivered"],
+        enum: ["pending", "preparing", "ready", "delivered" , "cancelled"],
         default: "pending",
     },
     orderDate: {
@@ -68,6 +68,13 @@ const orderSchema = new mongoose.Schema({
     },
     totalAmount: {
         type: Number,
+    },
+    payment: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Payment",
+    },
+    TransactionId:{
+      type:String
     }
 });
 

@@ -70,8 +70,6 @@ exports.addToCart = async (req, res, next) => {
     }
 
     let userCart = await Cart.findOne({ user: userId });
-
-    console.log("userCart is" , userCart)
     if (!userCart) {
       userCart = new Cart({
         user: userId,
@@ -82,8 +80,6 @@ exports.addToCart = async (req, res, next) => {
 
 const existingItemIndex = userCart.items.findIndex(item => {
   const itemMenuItemString = item.menuItem.toString(); // Convert ObjectId to string
-  console.log("menuItem:", menuItem);
-  console.log("item.menuItem:", itemMenuItemString);
   return itemMenuItemString === menuItem[0]; // Compare with the first element of the menuItem array
 });
 

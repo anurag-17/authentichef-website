@@ -334,18 +334,23 @@ exports.forgotPassword = async (req, res, next) => {
   const { email } = req.body;
 
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email:email });
 
+    // Console the User Email
+
+    console.log("Email is " , user.email) 
     if (!user) {
       return res.status(401).json(`${email} this email is not registered`);
     }
     const resetToken = user.getResetPasswordToken();
+
+    console.log("Reset Token", resetToken);
     
   
 
     await user.save();
 
-    const resetUrl = `http://18.130.221.119:4000/auth/reset-password/${resetToken}`;
+    const resetUrl = `http://13.43.174.21:4000/auth/reset-password/${resetToken}`;
 
     const message = `
     <!DOCTYPE html>
@@ -412,10 +417,12 @@ exports.forgotPassword = async (req, res, next) => {
     `;
     try {
       await sendEmail({
+        from: process.env.CLIENT_EMAIL,
         to: user.email,
         subject: "Account Password Reset Link",
         text: message,
       });
+
       res.status(200).json({
         success: true,
         data: "Password Reset Email Sent Successfully",
@@ -434,6 +441,7 @@ exports.forgotPassword = async (req, res, next) => {
     next(error);
   }
 };
+
 
 exports.resetPassword = async (req, res, next) => {
   try {
