@@ -54,7 +54,7 @@ const Navbar = () => {
     try {
       // setLoader(true);
       const response = await axios.post(
-        "http://18.130.221.119:4000/api/auth/register",
+        "http://localhost:4000/api/auth/register",
         userDetail
       );
       if (response.status === 201) {
@@ -87,7 +87,7 @@ const Navbar = () => {
     // setLoader(true);
     try {
       const res = await axios.post(
-        "http://18.130.221.119:4000/api/auth/login",
+        "http://localhost:4000/api/auth/login",
         loginDetails,
         {
           headers: {
@@ -122,7 +122,7 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      const res = await axios.get("http://18.130.221.119:4000/api/auth/logout");
+      const res = await axios.get("http://localhost:4000/api/auth/logout");
       if (res.status >= 200 && res.status < 300) {
         toast.success("Logout successfully");
 
@@ -282,9 +282,7 @@ const Navbar = () => {
 
                     <hr className=" mx-auto 2xl:w-[345px] xl:w-[260px] lg:w-[180px] sm:w-[] w-[] 2xl:mt-[75px] xl:mt-[40px] lg:mt-[20px] sm:mt-[] mt-[]" />
                     <div className="text-center 2xl:mt-[35px] xl:mt-[15px] lg:mt-[10px] sm:mt-[8px] mt-[]">
-                      <h1 className="alata font-[400] 2xl:text-[20px] xl:text-[14px] lg:text-[10px] 2xl:leading-[30px] sm:text-[12px] sm:leading-[33px]">
-                        
-                      </h1>
+                      
                       <p className="text-[#555555] alata font-[400] 2xl:text-[14px] xl:text-[10px] lg:text-[9px] sm:text-[10px] text-[] 2xl:leading-[26px] xl:leading-[22px] lg:leading-[16px] sm:leading-[16px] leading-[]">
                         ajay1489hardiyamail.com
                       </p>
@@ -454,9 +452,9 @@ const Navbar = () => {
                 </button>
               </div>
               <div>
-                <h1 className="alata font-[400] 2xl:my-[20px] xl:my-[10px] text-[14px] leading-[26px] text-center">
+                <p className="alata font-[400] 2xl:my-[20px] xl:my-[10px] text-[14px] leading-[26px] text-center">
                   or
-                </h1>
+                </p>
               </div>
               <div className="flex 2xl:mt-[20px]">
                 <div className="mx-auto  2xl:w-[368px] xl:w-[230px]">
@@ -467,7 +465,7 @@ const Navbar = () => {
                     <div className=" social_div ">
                       <div className="flex social_btn ">
                         <Image className=" social_img " src={google} />
-                        <h1 className="checkoutlable">Continue with Google</h1>
+                        <h3 className="checkoutlable">Continue with Google</h3>
                       </div>
                     </div>
                   </Link>
@@ -475,18 +473,18 @@ const Navbar = () => {
                     <div className="my-[12px] social_div">
                       <div className="social_btn">
                         <Image className="social_img " src={fb} />
-                        <h1 className="checkoutlable">
+                        <h3 className="checkoutlable">
                           Continue with Facebook
-                        </h1>
+                        </h3>
                       </div>
                     </div>{" "}
                   </Link>
                 </div>
               </div>
               <div className="my-[30px]">
-                <h1 className="text-[#555555] alata font-[400] text-[14px] leading-[26px] text-center">
+                <h4 className="text-[#555555] alata font-[400] text-[14px] leading-[26px] text-center">
                   Browse as Guest
-                </h1>
+                </h4>
               </div>
             </div>
           </form>
@@ -554,9 +552,9 @@ const Navbar = () => {
                   </button>
                 </div>
                 <div>
-                  <h1 className="alata font-[400] 2xl:my-[20px] xl:my-[10px] text-[14px] leading-[26px] text-center">
+                  <p className="alata font-[400] 2xl:my-[20px] xl:my-[10px] text-[14px] leading-[26px] text-center">
                     or
-                  </h1>
+                  </p>
                 </div>
 
                 <div className="my-[30px] flex justify-center">
@@ -566,9 +564,9 @@ const Navbar = () => {
                     }
                     className="nav_login1"
                   >
-                    <h1 className="text-[#DB5353] alata font-[400] text-[14px] leading-[26px] text-center mx-auto">
+                    <h4 className="text-[#DB5353] alata font-[400] text-[14px] leading-[26px] text-center mx-auto">
                       Sign Up
-                    </h1>
+                    </h4>
                   </button>
                 </div>
               </div>
