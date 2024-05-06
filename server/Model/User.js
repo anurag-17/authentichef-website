@@ -5,6 +5,11 @@ const jwt = require("jsonwebtoken");
 
 const UserSchema = new mongoose.Schema(
   {
+
+    googleId:{
+    type:String,
+    required:false
+    },
     // User's first name
     firstname: {
       type: String,
@@ -36,6 +41,10 @@ const UserSchema = new mongoose.Schema(
     // Token for email verification or account activation
     activeToken: {
       type: String,
+    },
+    img:{
+      type:String,
+      required:false
     },
     // User's address
     address: String,

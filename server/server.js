@@ -6,13 +6,28 @@ require('dotenv').config();
  const {notFoundMiddleware}=require("../server/middleware/notfoundmiddleware")
 const connectDB = require('./Utils/db');
 const path = require('path');
+const passport = require('passport');
+require('./config/passport')(passport);
+const session = require('express-session'); // Import express-session module
 
 const corsOptions = {
-  origin: ['http://18.130.221.119:3000','http://18.130.221.119:3001', '*'],
+  origin: ['http://13.43.174.21:3000','http://13.43.174.21:3001', '*'],
   credentials: true,
 };
 
 const server = express();
+
+server.use(session({
+  secret: 'mySecretKey123', // Replace 'mySecretKey123' with your actual secret key
+  resave: false,
+  saveUninitialized: false,
+  
+}));
+
+
+  // Passport middleware
+  server.use(passport.initialize())
+  server.use(passport.session())
 
 server.use(express.json({ limit: '50mb' }));
 server.use(express.urlencoded({ limit: '500kb', extended: true }));
@@ -53,8 +68,8 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-// Not found Middleware
-server.use(notFoundMiddleware);
+// // Not found Middleware
+// server.use(notFoundMiddleware);
 
 const PORT = process.env.PORT || 4000;
 server.listen(PORT, '0.0.0.0', (err) => {

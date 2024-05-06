@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
+const passport = require('passport');
 const {
   register,
   login,
@@ -22,6 +23,26 @@ const {
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
+
+// Google OAuth
+
+router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+router.get('/google/callback', passport.authenticate('google', { failureRedirect: 'http://www.authentichef.com/' }), (req, res) => {
+  res.redirect('http://www.authentichef.com/explore-dishes');
+}
+)
+
+router.get('/logout_google', (req, res) => {
+  req.logout(err => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ message: 'Logout failed' });
+    }
+    res.redirect('http://www.authentichef.com/');
+  });
+});
+
 
 router.route("/login").post(login);
 
