@@ -54,7 +54,7 @@ const Navbar = () => {
     try {
       // setLoader(true);
       const response = await axios.post(
-        "http://localhost:4000/api/auth/register",
+        "http://13.43.174.21:4000/api/auth/register",
         userDetail
       );
       if (response.status === 201) {
@@ -87,7 +87,7 @@ const Navbar = () => {
     // setLoader(true);
     try {
       const res = await axios.post(
-        "http://localhost:4000/api/auth/login",
+        "http://13.43.174.21:4000/api/auth/login",
         loginDetails,
         {
           headers: {
@@ -122,7 +122,7 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      const res = await axios.get("http://localhost:4000/api/auth/logout");
+      const res = await axios.get("http://13.43.174.21:4000/api/auth/logout");
       if (res.status >= 200 && res.status < 300) {
         toast.success("Logout successfully");
 

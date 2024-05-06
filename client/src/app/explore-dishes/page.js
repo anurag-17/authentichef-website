@@ -66,7 +66,7 @@ const ExploreDishes = ({ item }) => {
   const defaultDish = () => {
     const option = {
       method: "GET",
-      url: "http://localhost:4000/api/menu/menuItems",
+      url: "http://13.43.174.21:4000/api/menu/menuItems",
       params: {
         Cuisines_id: cuisinesFilter,
         Dietary_id: dietaryFilter,
@@ -99,7 +99,7 @@ const ExploreDishes = ({ item }) => {
     } else {
       const option = {
         method: "GET",
-        url: `http://localhost:4000/api/menu/menuItems?search=${search}`,
+        url: `http://13.43.174.21:4000/api/menu/menuItems?search=${search}`,
       };
       axios
         .request(option)
@@ -123,7 +123,7 @@ const ExploreDishes = ({ item }) => {
   const defaultCuisines = () => {
     const option = {
       method: "GET",
-      url: "http://localhost:4000/api/cuisines/getAllCuisines",
+      url: "http://13.43.174.21:4000/api/cuisines/getAllCuisines",
     };
     axios
       .request(option)
@@ -137,7 +137,7 @@ const ExploreDishes = ({ item }) => {
   const defaultDietary = () => {
     const option = {
       method: "GET",
-      url: "http://localhost:4000/api/dietary/dietaries",
+      url: "http://13.43.174.21:4000/api/dietary/dietaries",
     };
     axios
       .request(option)
@@ -151,7 +151,7 @@ const ExploreDishes = ({ item }) => {
   const defaultDishtype = () => {
     const option = {
       method: "GET",
-      url: "http://localhost:4000/api/DishType/dishTypes",
+      url: "http://13.43.174.21:4000/api/DishType/dishTypes",
     };
     axios
       .request(option)
@@ -166,7 +166,7 @@ const ExploreDishes = ({ item }) => {
   const defaultSpicelevel = () => {
     const option = {
       method: "GET",
-      url: "http://localhost:4000/api/SpiceLevel/spiceLevels",
+      url: "http://13.43.174.21:4000/api/SpiceLevel/spiceLevels",
     };
     axios
       .request(option)
@@ -187,7 +187,7 @@ const ExploreDishes = ({ item }) => {
       setCuisinesFilter(_id);
       const options = {
         method: "GET",
-        url: `http://localhost:4000/api/menu/menuItem/sort?Cuisines_id=${_id}&Dietary_id=${dietaryFilter}&Dishtype_id=${moreFilters}`,
+        url: `http://13.43.174.21:4000/api/menu/menuItem/sort?Cuisines_id=${_id}&Dietary_id=${dietaryFilter}&Dishtype_id=${moreFilters}`,
       };
       axios
         .request(options)
@@ -220,7 +220,7 @@ const ExploreDishes = ({ item }) => {
       setDietaryFilter(_id);
       const options = {
         method: "GET",
-        url: `http://localhost:4000/api/menu/menuItem/sort?Dietary_id=${_id}&Cuisines_id=${cuisinesFilter}&Dishtype_id=${moreFilters}`,
+        url: `http://13.43.174.21:4000/api/menu/menuItem/sort?Dietary_id=${_id}&Cuisines_id=${cuisinesFilter}&Dishtype_id=${moreFilters}`,
       };
       axios
         .request(options)
@@ -255,7 +255,7 @@ const ExploreDishes = ({ item }) => {
       setMoreFilters(_id);
       const options = {
         method: "GET",
-        url: `http://localhost:4000/api/menu/menuItem/sort?Dishtype_id=${_id}&Cuisines_id=${cuisinesFilter}&Dietary_id=${dietaryFilter}`,
+        url: `http://13.43.174.21:4000/api/menu/menuItem/sort?Dishtype_id=${_id}&Cuisines_id=${cuisinesFilter}&Dietary_id=${dietaryFilter}`,
       };
       axios
         .request(options)
@@ -286,7 +286,7 @@ const ExploreDishes = ({ item }) => {
     // setLoader(true);
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/Orders/AddtoCart",
+        "http://13.43.174.21:4000/api/Orders/AddtoCart",
         {
           menuItem: id,
         }
@@ -314,7 +314,7 @@ const ExploreDishes = ({ item }) => {
   const defaultCartItem = () => {
     const option = {
       method: "GET",
-      url: "http://localhost:4000/api/Orders/getCartItem",
+      url: "http://13.43.174.21:4000/api/Orders/getCartItem",
     };
     axios
       .request(option)
@@ -356,7 +356,7 @@ const ExploreDishes = ({ item }) => {
 
     try {
       const response = await axios.delete(
-        "http://localhost:4000/api/Orders/deleteAllCartItem"
+        "http://13.43.174.21:4000/api/Orders/deleteAllCartItem"
       );
 
       if (response.status === 200) {
