@@ -39,7 +39,7 @@ const Footer = () => {
     // setLoader(true);
     try {
       const res = await axios.post(
-        "http://18.130.221.119:4000/api/auth/login",
+        "http://13.43.174.21:4000/api/auth/login",
         loginDetails,
         {
           headers: {
@@ -75,7 +75,7 @@ const Footer = () => {
 
   const handleLogout = async () => {
     try {
-      const res = await axios.get("http://18.130.221.119:4000/api/auth/logout", {
+      const res = await axios.get("http://13.43.174.21:4000/api/auth/logout", {
         headers: {
           authorization: token,
         },
@@ -124,7 +124,7 @@ const Footer = () => {
           <div className="flex  md:justify-between flex-wrap">
             <div className="lg:w-auto md:w-[230px] sm:w-1/2 w-full my-3 md:my-0">
               <div className="lg:text-start text-center">
-                <h1 className="footer_heading">Quick Links</h1>
+                <h4 className="footer_heading">Quick Links</h4>
                 <Link href="/about-us">
                   <p className="footer_text">About us</p>
                 </Link>
@@ -141,7 +141,7 @@ const Footer = () => {
             </div>
             <div className="lg:w-auto md:w-[230px] sm:w-1/2 w-full my-3 md:my-0">
               <div className="lg:text-start text-center">
-                <h1 className="footer_heading">Resources</h1>
+                <h4 className="footer_heading">Resources</h4>
                 <Link href="/become-chef">
                   <p className="footer_text">Become a chef</p>
                 </Link>
@@ -158,7 +158,7 @@ const Footer = () => {
             </div>
             <div className="lg:w-auto md:w-[230px] sm:w-1/2 w-full my-3 md:my-0">
               <div className="lg:text-start text-center">
-                <h1 className="footer_heading">Other Links</h1>
+                <h4 className="footer_heading">Other Links</h4>
                 <button
                   onClick={() =>
                     document.getElementById("my_modal_2").showModal()
@@ -186,7 +186,7 @@ const Footer = () => {
             </div>
             <div className="lg:w-auto md:w-[230px] sm:w-1/2 w-full my-3 md:my-4 lg:my-0">
               <div className="lg:text-start text-center">
-                <h1 className="footer_heading">Connect with us</h1>
+                <h4 className="footer_heading">Connect with us</h4>
                 <div className="flex gap-2 justify-center lg:justify-start">
                   <div>
                     <Link
@@ -232,9 +232,9 @@ const Footer = () => {
           <hr className="2xl:mt-[56px] xl:mt-[25px] lg:mt-[15px] first-letter sm:mt-[15px] mt-[10px]" />
           <div>
             <div className="flex justify-center 2xl:my-5 xl:my-3 lg:my-2 sm:my-2">
-              <h1 className="footer_text_b ">
+              <h4 className="footer_text_b ">
                 © 2024 Authentichef | All Rights Reserved.
-              </h1>
+              </h4>
             </div>
           </div>
         </div>
@@ -321,9 +321,9 @@ const Footer = () => {
                 </button>
               </div>
               <div>
-                <h1 className="alata font-[400] 2xl:my-[20px] xl:my-[10px] text-[14px] leading-[26px] text-center">
+                <p className="alata font-[400] 2xl:my-[20px] xl:my-[10px] text-[14px] leading-[26px] text-center">
                   or
-                </h1>
+                </p>
               </div>
               <div className="flex 2xl:mt-[20px]">
                 <div className="mx-auto  2xl:w-[368px] xl:w-[230px]">
@@ -334,7 +334,7 @@ const Footer = () => {
                     <div className=" social_div ">
                       <div className="flex social_btn ">
                         <Image className=" social_img " src={google} />
-                        <h1 className="checkoutlable">Continue with Google</h1>
+                        <h4 className="checkoutlable">Continue with Google</h4>
                       </div>
                     </div>
                   </Link>
@@ -342,18 +342,18 @@ const Footer = () => {
                     <div className="my-[12px] social_div">
                       <div className="social_btn">
                         <Image className="social_img " src={fb} />
-                        <h1 className="checkoutlable">
+                        <h4 className="checkoutlable">
                           Continue with Facebook
-                        </h1>
+                        </h4>
                       </div>
                     </div>{" "}
                   </Link>
                 </div>
               </div>
               <div className="my-[30px]">
-                <h1 className="text-[#555555] alata font-[400] text-[14px] leading-[26px] text-center">
+                <h4 className="text-[#555555] alata font-[400] text-[14px] leading-[26px] text-center">
                   Browse as Guest
-                </h1>
+                </h4>
               </div>
             </div>
           </form>
@@ -387,7 +387,7 @@ const Footer = () => {
                     />
                   </svg>
                 </div>
-                <h1 className="fourth_p">Login</h1>
+                <h2 className="fourth_p">Login</h2>
               </div>
               <div className="2xl:w-[368px] xl:w-[280px] lg:w-[220px] sm:w-[] w-[]">
                 <div className="2xl:mt-[35px] mt-[25px]">
@@ -421,9 +421,9 @@ const Footer = () => {
                   </button>
                 </div>
                 <div>
-                  <h1 className="alata font-[400] 2xl:my-[20px] xl:my-[10px] text-[14px] leading-[26px] text-center">
+                  <p className="alata font-[400] 2xl:my-[20px] xl:my-[10px] text-[14px] leading-[26px] text-center">
                     or
-                  </h1>
+                  </p>
                 </div>
 
                 <div className="my-[30px] flex justify-center">

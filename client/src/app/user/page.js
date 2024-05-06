@@ -56,15 +56,14 @@ const LandingPage = () => {
         <div className="hidden md:block 2xl:h-screen ">
           <div className="poster-bg flex justify-center ">
             <div className="">
-              <h1 className="alata font-[400] text-white 2xl:text-[65px] 2xl:leading-[70px] xl:text-[46px] xl:leading-[55px] 2xl:mt-[54%] xl:mt-[50%] lg:text-[35px] lg:leading-[30px lg:mt-[50%] mt-[130%] mx-auto mdestination">
+              <h1 className="alata font-[400] text-white 2xl:text-[65px] 2xl:leading-[70px] xl:text-[46px] xl:leading-[55px] 2xl:pt-[54%] xl:pt-[50%] lg:text-[35px] lg:leading-[30px lg:pt-[50%] pt-[130%] mx-auto mdestination">
                 Where’s your next food destination?
               </h1>
               <div className="flex justify-center 2xl:mt-12 xl:mt-6 lg:mt-5 mt-4">
-              <Link href="/explore-dishes">
-
-                <button className=" alata font-[400] bg-[#DB5353] text-white rounded-[5px] 2xl:w-[218px] 2xl:h-[60px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[14px] xl:w-[150px] xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1 hover:bg-[#7e2727]  ">
-                  Explore Dishes
-                </button>
+                <Link href="/explore-dishes">
+                  <button className=" alata font-[400] bg-[#DB5353] text-white rounded-[5px] 2xl:w-[218px] 2xl:h-[60px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[14px] xl:w-[150px] xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1 hover:bg-[#7e2727]  ">
+                    Explore Dishes
+                  </button>
                 </Link>
               </div>
               {/* <div className="flex 2xl:mt-14 xl:mt-8 lg:mt-5 mt-4">
@@ -81,14 +80,14 @@ const LandingPage = () => {
         <div className="md:hidden block">
           <div className=" poster-bg-m  h-screen flex justify-center ">
             <div className="">
-              <h1 className="alata font-[400] text-white  mt-[130%] mx-auto">
+              <h1 className="alata font-[400] text-white  pt-[130%] mx-auto">
                 Where’s your next food destination?
               </h1>
               <div className="flex mt-4">
                 <Link href="/explore-dishes">
-                <button className=" alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] px-3 py-1 ">
-                  Explore Dishes
-                </button>
+                  <button className=" alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] px-3 py-1 ">
+                    Explore Dishes
+                  </button>
                 </Link>
               </div>
               {/* <div className="flex mt-4">
@@ -104,9 +103,9 @@ const LandingPage = () => {
             src={offer}
             className="2xl:w-[48px] 2xl:h-[48px] 2xl:w-[30px] 2xl:h-[30px] w-[25px] h-[25px]"
           />
-          <h1 className="alata font-[400] 2xl:text-[40px] 2xl:leading-[50px] xl:text-[25px] leading-[35px] text-[20px]">
+          <h3 className="alata font-[400] 2xl:text-[40px] 2xl:leading-[50px] xl:text-[25px] leading-[35px] text-[20px]">
             30% off on your first order ‘Welcome30’
-          </h1>
+          </h3>
         </div>
 
         {/* ===================Third================== */}
@@ -276,7 +275,7 @@ const LandingPage = () => {
         <div className="flex justify-center 2xl:py-20 xl:py-10 lg:py-10 py-10 bg-[#F9F2F2]">
           <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px] mnavbar">
             <div className="flex">
-              <h1 className="four_head">Popular Dishes</h1>
+              <h2 className="four_head">Popular Dishes</h2>
             </div>
             <div className="flex flex-col md:flex-row justify-center flex-wrap lg:justify-between md:my-5 lg:my-0">
               <div className="2xl:w-[373px] xl:w-[260px] lg:w-[190px] md:w-1/2 mx-10 sm:mx-0 my-5  2xl:my-5 lg:my-4 mfbox ">
@@ -289,10 +288,10 @@ const LandingPage = () => {
                 </div>
                 <div className="2xl:my-5 xl:my-5  my-5">
                   <div>
-                    <h1 className="fourth_title">Spaghetti</h1>
+                    <h3 className="fourth_title">Spaghetti</h3>
                     <div className="flex items-center 2xl:gap-3 xl:gap-2 lg:gap-2  gap-2 xl:my-3 lg:my-2 my-2">
                       <Image alt="image" src={p1} className="four_img2 " />
-                      <h1 className="fourth_name ">Chef Radha</h1>
+                      <h3 className="fourth_name ">Chef Radha</h3>
                     </div>
                   </div>
                   <p className="fourth_p">Chef Cuisine - Indian & Italian</p>
@@ -318,12 +317,12 @@ const LandingPage = () => {
                 </div>
                 <div className="2xl:my-5 xl:my-5  my-5 mx-auto">
                   <div>
-                    <h1 className="fourth_title">
+                    <h3 className="fourth_title">
                       Cheese, honey, omelette sandwich
-                    </h1>
+                    </h3>
                     <div className="flex items-center 2xl:gap-3 xl:gap-2 lg:gap-2  gap-2 xl:my-3 lg:my-2 my-2">
                       <Image alt="image" src={p2} className="four_img2 " />
-                      <h1 className="fourth_name ">Chef Kumari</h1>
+                      <h3 className="fourth_name ">Chef Kumari</h3>
                     </div>
                   </div>
                   <p className="fourth_p">Chef Cuisine - Indian</p>
@@ -349,10 +348,10 @@ const LandingPage = () => {
                 </div>
                 <div className="2xl:my-5 xl:my-5  my-5 mx-auto">
                   <div>
-                    <h1 className="fourth_title">Chicken kabab</h1>
+                    <h3 className="fourth_title">Chicken kabab</h3>
                     <div className="flex items-center 2xl:gap-3 xl:gap-2 lg:gap-2  gap-2 xl:my-3 lg:my-2 my-2">
                       <Image alt="image" src={p3} className="four_img2 " />
-                      <h1 className="fourth_name ">Chef Dinesh</h1>
+                      <h3 className="fourth_name ">Chef Dinesh</h3>
                     </div>
                   </div>
                   <p className="fourth_p">Chef Cuisine - Indian & Italian</p>
@@ -378,10 +377,10 @@ const LandingPage = () => {
                 </div>
                 <div className="2xl:my-5 xl:my-5  my-5 mx-auto">
                   <div>
-                    <h1 className="fourth_title">Paneer butter masala</h1>
+                    <h3 className="fourth_title">Paneer butter masala</h3>
                     <div className="flex items-center 2xl:gap-3 xl:gap-2 lg:gap-2  gap-2 xl:my-3 lg:my-2 my-2">
                       <Image alt="image" src={p4} className="four_img2 " />
-                      <h1 className="fourth_name ">Chef Rajesh</h1>
+                      <h3 className="fourth_name ">Chef Rajesh</h3>
                     </div>
                   </div>
                   <p className="fourth_p">Chef Cuisine - Indian</p>
@@ -407,10 +406,10 @@ const LandingPage = () => {
                 </div>
                 <div className="2xl:my-5 xl:my-5  my-5 mx-auto">
                   <div>
-                    <h1 className="fourth_title">Indian Thali</h1>
+                    <h3 className="fourth_title">Indian Thali</h3>
                     <div className="flex items-center 2xl:gap-3 xl:gap-2 lg:gap-2  gap-2 xl:my-3 lg:my-2 my-2">
                       <Image alt="image" src={p1} className="four_img2 " />
-                      <h1 className="fourth_name ">Chef Radha</h1>
+                      <h3 className="fourth_name ">Chef Radha</h3>
                     </div>
                   </div>
                   <p className="fourth_p">Chef Cuisine - Indian & Italian</p>
@@ -436,12 +435,12 @@ const LandingPage = () => {
                 </div>
                 <div className="2xl:my-5 xl:my-5  my-5 mx-auto">
                   <div>
-                    <h1 className="fourth_title">
+                    <h3 className="fourth_title">
                       Cheese, honey, omelette sandwich
-                    </h1>
+                    </h3>
                     <div className="flex items-center 2xl:gap-3 xl:gap-2 lg:gap-2  gap-2 xl:my-3 lg:my-2 my-2">
                       <Image alt="image" src={p2} className="four_img2 " />
-                      <h1 className="fourth_name ">Chef Kumari</h1>
+                      <h3 className="fourth_name ">Chef Kumari</h3>
                     </div>
                   </div>
                   <p className="fourth_p">Chef Cuisine - Indian</p>
@@ -467,10 +466,10 @@ const LandingPage = () => {
                 </div>
                 <div className="2xl:my-5 xl:my-5  my-5 mx-auto"></div>
                 <div>
-                  <h1 className="fourth_title">Chicken kabab</h1>
+                  <h3 className="fourth_title">Chicken kabab</h3>
                   <div className="flex items-center 2xl:gap-3 xl:gap-2 lg:gap-2  gap-2 xl:my-3 lg:my-2 my-2">
                     <Image alt="image" src={p3} className="four_img2 " />
-                    <h1 className="fourth_name ">Chef Dinesh</h1>
+                    <h3 className="fourth_name ">Chef Dinesh</h3>
                   </div>
                 </div>
                 <p className="fourth_p">Chef Cuisine - Indian & Italian</p>
@@ -491,10 +490,10 @@ const LandingPage = () => {
                 </div>
                 <div className="2xl:my-5 xl:my-5  my-5 mx-auto">
                   <div>
-                    <h1 className="fourth_title">Paneer butter masala</h1>
+                    <h3 className="fourth_title">Paneer butter masala</h3>
                     <div className="flex items-center 2xl:gap-3 xl:gap-2 lg:gap-2  gap-2 xl:my-3 lg:my-2 my-2">
                       <Image alt="image" src={p4} className="four_img2 " />
-                      <h1 className="fourth_name ">Chef Rajesh</h1>
+                      <h3 className="fourth_name ">Chef Rajesh</h3>
                     </div>
                   </div>
                   <p className="fourth_p">Chef Cuisine - Indian</p>
@@ -520,9 +519,9 @@ const LandingPage = () => {
             <div className=" flex justify-center ">
               <div className="mx-5 sm:mx-0">
                 <div className="mx-auto">
-                  <h1 className=" alata font-[400] 2xl:text-[55px] 2xl:leading-[75px] text-center mx-auto xl:text-[35px] xl:leading-[45px] text-[25px] leading-[35px]">
+                  <h2 className=" alata font-[400] 2xl:text-[55px] 2xl:leading-[75px] text-center mx-auto xl:text-[35px] xl:leading-[45px] text-[25px] leading-[35px]">
                     How it Works?
-                  </h1>
+                  </h2>
                   <p className="five_p">
                     We understand the demands of busy lives without compromising
                     on the quality of personalised meal choices on a daily
@@ -552,9 +551,9 @@ const LandingPage = () => {
                       className="mx-auto 2xl:w-[77.89px] 2xl:h-[94px] xl:w-[50px] xl:h-auto lg:w-auto lg:h-[50px] sm:w-[40px] sm:h-[50px] w-[35px] h-[35px]"
                     />
                   </div>
-                  <h1 className="five_head2 2xl:w-auto xl:w-[302px] lg:w-[250px]">
+                  <h4 className="five_head2 2xl:w-auto xl:w-[302px] lg:w-[250px]">
                     Select dishes based on your dietary preferences
-                  </h1>
+                  </h4>
                   <p className="five_p2 text-center  mx-auto  ">
                     Mix and match from a range of global dishes
                   </p>
@@ -569,9 +568,9 @@ const LandingPage = () => {
                       className="mx-auto 2xl:w-[89.2px] 2xl:h-[94px] xl:w-[50px] xl:h-auto lg:w-[40px] lg:h-auto sm:w-[40px] sm:h-[50px] w-[35px] h-[35px]"
                     />
                   </div>
-                  <h1 className="five_head2">
+                  <h4 className="five_head2">
                     Choose your preferred delivery date
-                  </h1>
+                  </h4>
                   <p className="five_p2 text-center  mx-auto">
                     We deliver all your dishes in sustainable recyclable
                     packaging, without compromising on dish quality
@@ -588,7 +587,7 @@ const LandingPage = () => {
 "
                     />
                   </div>
-                  <h1 className="five_head2">Heat and enjoy the experience</h1>
+                  <h4 className="five_head2">Heat and enjoy the experience</h4>
                   <p className="five_p2 text-center  mx-auto 2xl:w-[392px] xl:w-[302px] lg:w-[260px]">
                     Dishes delivered frozen ready to heat and eat, or store in
                     your freezer, whenever you need
@@ -605,7 +604,7 @@ const LandingPage = () => {
           <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px]  flex flex-wrap mnavbar ">
             <div className="mx-20 sm:mx-auto">
               <div className="flex justify-center lg:justify-start">
-                <h1 className="six_head mx-auto">Our Commitment</h1>
+                <h2 className="six_head mx-auto">Our Commitment</h2>
               </div>
               <div className=" flex flex-col lg:flex-row justify-center lg:justify-between flex-wrap">
                 {" "}
@@ -673,7 +672,7 @@ const LandingPage = () => {
 
         <div className="yellow-bg 2xl:h-[1050px] md:w-full lg:flex justify-center 2xl:pt-[100px] 2xl:pb-[100px] xl:pt-[60px] pt-[25px] xl:pb-[60px] hidden lg:block">
           <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px] mnavbar ">
-            <h1 className="seven_head">Our Chef Community</h1>
+            <h2 className="seven_head">Our Chef Community</h2>
             <p className="seven_p">
               Our independent chefs, create dishes born from their passion for
               wholesome homemade meals. Made with love and care to give you a
@@ -687,58 +686,58 @@ const LandingPage = () => {
                   Lorem ipsum dolor sit amet. Non quos sunt et provident
                   <span className="text-[#DB5353]">...more</span>
                 </p>
-                <h2 className="seven_h2 text-[#DB5353] 2xl:mt-[20px] xl:mt-[10px] lg:mt-[8px]">
+                <h3 className="seven_h2 text-[#DB5353] 2xl:mt-[20px] xl:mt-[10px] lg:mt-[8px]">
                   Thai
-                </h2>
-                <h2 className="seven_h2">Vegetarian, Dairy Free</h2>
+                </h3>
+                <h4 className="seven_h2">Vegetarian, Dairy Free</h4>
               </div>
               <div className="w-[160px] 2xl:w-[286px]  xl:w-[200px]">
                 <Image alt="person2" src={person2} className="seven_img" />
-                <h2 className="seven_name">Chef Jason Bosh</h2>
+                <h3 className="seven_name">Chef Jason Bosh</h3>
                 <p className="seven_p2 ">
                   Lorem ipsum dolor sit amet. Non quos sunt et provident
                   <span className="text-[#DB5353]">...more</span>
                 </p>
-                <h2 className="seven_h2 text-[#DB5353] 2xl:mt-[20px] xl:mt-[10px] lg:mt-[8px]">
+                <h4 className="seven_h2 text-[#DB5353] 2xl:mt-[20px] xl:mt-[10px] lg:mt-[8px]">
                   Indian
-                </h2>
-                <h2 className="seven_h2">Plant-Based, Vegan</h2>
+                </h4>
+                <h4 className="seven_h2">Plant-Based, Vegan</h4>
               </div>
               <div className="w-[160px] 2xl:w-[286px]  xl:w-[200px]">
                 <Image alt="person3" src={person3} className="seven_img" />
-                <h2 className="seven_name">Chef Mathew Kaymer</h2>
+                <h3 className="seven_name">Chef Mathew Kaymer</h3>
                 <p className="seven_p2 ">
                   Lorem ipsum dolor sit amet. Non quos sunt et provident
                   <span className="text-[#DB5353]">...more</span>
                 </p>
-                <h2 className="seven_h2 text-[#DB5353] 2xl:mt-[20px] xl:mt-[10px] lg:mt-[8px]">
+                <h4 className="seven_4 text-[#DB5353] 2xl:mt-[20px] xl:mt-[10px] lg:mt-[8px]">
                   Hong-Kong
-                </h2>
-                <h2 className="seven_h2">Meat, Gluten-Free</h2>
+                </h4>
+                <h4 className="seven_h2">Meat, Gluten-Free</h4>
               </div>
               <div className="w-[160px] 2xl:w-[286px]  xl:w-[200px]">
                 <Image alt="person4" src={person4} className="seven_img" />
-                <h2 className="seven_name">Chef Scarlet Carter</h2>
+                <h3 className="seven_name">Chef Scarlet Carter</h3>
                 <p className="seven_p2 ">
                   Lorem ipsum dolor sit amet. Non quos sunt et provident
                   <span className="text-[#DB5353]">...more</span>
                 </p>
-                <h2 className="seven_h2 text-[#DB5353] 2xl:mt-[20px] xl:mt-[10px] lg:mt-[8px]">
+                <h4 className="seven_h2 text-[#DB5353] 2xl:mt-[20px] xl:mt-[10px] lg:mt-[8px]">
                   Indian
-                </h2>
-                <h2 className="seven_h2">Vegetarian, Dairy Free</h2>
+                </h4>
+                <h4 className="seven_h2">Vegetarian, Dairy Free</h4>
               </div>
               <div className="w-[160px] 2xl:w-[286px]  xl:w-[200px]">
                 <Image alt="person5" src={person5} className="seven_img" />
-                <h2 className="seven_name">Chef Karan Malhotra</h2>
+                <h3 className="seven_name">Chef Karan Malhotra</h3>
                 <p className="seven_p2 ">
                   Lorem ipsum dolor sit amet. Non quos sunt et provident
                   <span className="text-[#DB5353]">...more</span>
                 </p>
-                <h2 className="seven_h2 text-[#DB5353] 2xl:mt-[20px] xl:mt-[10px] lg:mt-[8px]">
+                <h4 className="seven_h2 text-[#DB5353] 2xl:mt-[20px] xl:mt-[10px] lg:mt-[8px]">
                   Thai
-                </h2>
-                <h2 className="seven_h2">Plant-Based, Vegan</h2>
+                </h4>
+                <h4 className="seven_h2">Plant-Based, Vegan</h4>
               </div>
             </div>
             <div className="flex ">
@@ -752,7 +751,7 @@ const LandingPage = () => {
         <div className="flex justify-center xl:py-28 lg:py-14 md:py-8 py-5 border-b-[1px] border-[#B1B1B1]">
           <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px] flex flex-col-reverse lg:flex-row mnavbar">
             <div className="mx-10 sm:w-1/2 sm:mx-auto lg:mx-0">
-              <h1 className=" eight_head ">Food Safety</h1>
+              <h2 className=" eight_head ">Food Safety</h2>
               <p className="eight_p">
                 Our chef community takes great care and affection in preparing
                 their food, prioritising the highest standards of food safety
@@ -764,9 +763,9 @@ const LandingPage = () => {
                 assurance and peace of mind.
               </p>
               <div className="flex justify-center lg:justify-start">
-              <Link href="/food-safety">
-              <button className=" eight_btn ">Food Safety</button>
-              </Link>
+                <Link href="/food-safety">
+                  <button className=" eight_btn ">Food Safety</button>
+                </Link>
               </div>
             </div>
             <div className="mx-10 sm:w-1/2 flex sm:mx-auto my-5 lg:my-0 lg:flex-none">
@@ -781,9 +780,9 @@ const LandingPage = () => {
 
         {/* ===================Nine================== */}
 
-        <div className="flex justify-center lg:my-14 xl:my-28 my-10">
+        <div className="flex justify-center lg:py-14 xl:py-28 py-10">
           <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px] mnavbar">
-            <h1 className="nine_head">Testimonials</h1>
+            <h2 className="nine_head">Testimonials</h2>
             <p className="nine_p text-center">
               All our chefs have fans raving about their food
             </p>

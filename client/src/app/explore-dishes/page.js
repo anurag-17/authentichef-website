@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import emptyCart from "../../../public/images/emptyCart.svg";
@@ -66,7 +66,7 @@ const ExploreDishes = ({ item }) => {
   const defaultDish = () => {
     const option = {
       method: "GET",
-      url: "http://18.130.221.119:4000/api/menu/menuItems",
+      url: "http://13.43.174.21:4000/api/menu/menuItems",
       params: {
         Cuisines_id: cuisinesFilter,
         Dietary_id: dietaryFilter,
@@ -99,7 +99,7 @@ const ExploreDishes = ({ item }) => {
     } else {
       const option = {
         method: "GET",
-        url: `http://18.130.221.119:4000/api/menu/menuItems?search=${search}`,
+        url: `http://13.43.174.21:4000/api/menu/menuItems?search=${search}`,
       };
       axios
         .request(option)
@@ -123,7 +123,7 @@ const ExploreDishes = ({ item }) => {
   const defaultCuisines = () => {
     const option = {
       method: "GET",
-      url: "http://18.130.221.119:4000/api/cuisines/getAllCuisines",
+      url: "http://13.43.174.21:4000/api/cuisines/getAllCuisines",
     };
     axios
       .request(option)
@@ -137,7 +137,7 @@ const ExploreDishes = ({ item }) => {
   const defaultDietary = () => {
     const option = {
       method: "GET",
-      url: "http://18.130.221.119:4000/api/dietary/dietaries",
+      url: "http://13.43.174.21:4000/api/dietary/dietaries",
     };
     axios
       .request(option)
@@ -151,7 +151,7 @@ const ExploreDishes = ({ item }) => {
   const defaultDishtype = () => {
     const option = {
       method: "GET",
-      url: "http://18.130.221.119:4000/api/DishType/dishTypes",
+      url: "http://13.43.174.21:4000/api/DishType/dishTypes",
     };
     axios
       .request(option)
@@ -166,7 +166,7 @@ const ExploreDishes = ({ item }) => {
   const defaultSpicelevel = () => {
     const option = {
       method: "GET",
-      url: "http://18.130.221.119:4000/api/SpiceLevel/spiceLevels",
+      url: "http://13.43.174.21:4000/api/SpiceLevel/spiceLevels",
     };
     axios
       .request(option)
@@ -181,21 +181,21 @@ const ExploreDishes = ({ item }) => {
 
   // ========= Filter By Cuisines =======
   const [cuisinesFilter, setCuisinesFilter] = useState("");
-  const handleSearchCuisines = (e) => {
+  const handleSearchCuisines = (_id) => {
     // setLoader(true);
     try {
-      setCuisinesFilter(e.target.value);
+      setCuisinesFilter(_id);
       const options = {
         method: "GET",
-        url: `http://18.130.221.119:4000/api/menu/menuItem/sort?Cuisines_id=${e.target.value}&Dietary_id=${dietaryFilter}&Dishtype_id=${moreFilters}`,
+        url: `http://13.43.174.21:4000/api/menu/menuItem/sort?Cuisines_id=${_id}&Dietary_id=${dietaryFilter}&Dishtype_id=${moreFilters}`,
       };
       axios
         .request(options)
         .then((response) => {
           if (response.status === 200) {
             setGetAllDish(response?.data?.menuItem);
-            console.log(response?.data, "sort");
-
+            // console.log(response?.data, "sort");
+            document.getElementById("my_modal_3").close();
             // setLoader(false);
           } else {
             // setLoader(false);
@@ -206,7 +206,7 @@ const ExploreDishes = ({ item }) => {
           console.error(error);
           // setLoader(false);
         });
-    } catch {
+    } catch (error) {
       console.error(error);
       // setLoader(false);
     }
@@ -214,19 +214,21 @@ const ExploreDishes = ({ item }) => {
 
   // ========= Filter By Dietary =======
   const [dietaryFilter, setDietaryFilter] = useState("");
-  const handleSearchDietary = (e) => {
+  const handleSearchDietary = (_id) => {
     // setLoader(true);
     try {
-      setDietaryFilter(e.target.value);
+      setDietaryFilter(_id);
       const options = {
         method: "GET",
-        url: `http://18.130.221.119:4000/api/menu/menuItem/sort?Dietary_id=${e.target.value}&Cuisines_id=${cuisinesFilter}&Dishtype_id=${moreFilters}`,
+        url: `http://13.43.174.21:4000/api/menu/menuItem/sort?Dietary_id=${_id}&Cuisines_id=${cuisinesFilter}&Dishtype_id=${moreFilters}`,
       };
       axios
         .request(options)
         .then((response) => {
           if (response.status === 200) {
             setGetAllDish(response?.data?.menuItem);
+            document.getElementById("my_modal_4").close();
+
             // setLoader(false);
           } else {
             // setLoader(false);
@@ -247,19 +249,21 @@ const ExploreDishes = ({ item }) => {
 
   const [moreFilters, setMoreFilters] = useState("");
 
-  const handleSearchMoreFilter = (e) => {
+  const handleSearchMoreFilter = (_id) => {
     // setLoader(true);
     try {
-      setMoreFilters(e.target.value);
+      setMoreFilters(_id);
       const options = {
         method: "GET",
-        url: `http://18.130.221.119:4000/api/menu/menuItem/sort?Dishtype_id=${e.target.value}&Cuisines_id=${cuisinesFilter}&Dietary_id=${dietaryFilter}`,
+        url: `http://13.43.174.21:4000/api/menu/menuItem/sort?Dishtype_id=${_id}&Cuisines_id=${cuisinesFilter}&Dietary_id=${dietaryFilter}`,
       };
       axios
         .request(options)
         .then((response) => {
           if (response.status === 200) {
             setGetAllDish(response?.data?.menuItem);
+            document.getElementById("my_modal_5").close();
+
             // setLoader(false);
           } else {
             // setLoader(false);
@@ -282,7 +286,7 @@ const ExploreDishes = ({ item }) => {
     // setLoader(true);
     try {
       const response = await axios.post(
-        "http://18.130.221.119:4000/api/Orders/AddtoCart",
+        "http://13.43.174.21:4000/api/Orders/AddtoCart",
         {
           menuItem: id,
         }
@@ -310,9 +314,7 @@ const ExploreDishes = ({ item }) => {
   const defaultCartItem = () => {
     const option = {
       method: "GET",
-      url: "http://18.130.221.119:4000/api/Orders/getCartItem",
-
-  
+      url: "http://13.43.174.21:4000/api/Orders/getCartItem",
     };
     axios
       .request(option)
@@ -354,7 +356,7 @@ const ExploreDishes = ({ item }) => {
 
     try {
       const response = await axios.delete(
-        "http://18.130.221.119:4000/api/Orders/deleteAllCartItem"
+        "http://13.43.174.21:4000/api/Orders/deleteAllCartItem"
       );
 
       if (response.status === 200) {
@@ -388,12 +390,26 @@ const ExploreDishes = ({ item }) => {
                 <div className="flex 2xl:gap-5 xl:gap-3 lg:gap-2">
                   {/* Open the modal using document.getElementById('ID').showModal() method */}
                   <button
-                    className=" border py-1 px-2"
+                    className="2xl:w-[153px] third_select flex justify-center items-center gap-2"
                     onClick={() =>
                       document.getElementById("my_modal_3").showModal()
                     }
                   >
-                    open modal
+                    All Cuisines{" "}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="w-6 h-6"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="m19.5 8.25-7.5 7.5-7.5-7.5"
+                      />
+                    </svg>
                   </button>
                   <dialog
                     id="my_modal_3"
@@ -424,35 +440,46 @@ const ExploreDishes = ({ item }) => {
                     </form>
                     <div className=" flex flex-wrap gap-[20px]  2xl:w-[1602px] xl:w-[1200px] h-auto mx-[0px]">
                       {/* ================= Cuisines =========== */}
-                      <div className="dropbox">
-                        <Image
-                          src={allCuisines}
-                          className="rounded-[5px] 2xl:w-[74px] 2xl:h-[74px] h-auto xl:w-[50px] lg:w-[] sm:w-[] w-[]  "
-                        />
-                        <h1>All Cuisines</h1>
-                      </div>
+                      <button onClick={defaultCuisines}>
+                        <div className="dropbox">
+                          <Image
+                            src={allCuisines}
+                            className="rounded-[5px] 2xl:w-[74px] 2xl:h-[74px] h-auto xl:w-[50px] lg:w-[] sm:w-[] w-[]"
+                          />
+                          <h1>All Cuisines</h1>
+                        </div>
+                      </button>
 
                       {Array.isArray(getAllCuisines) &&
                         getAllCuisines.map((item) => (
-                          <div key={item._id} className="dropbox">
-                            <img
-                              src={item.ProfileImage}
-                              className="rounded-[5px] 2xl:w-[74px] 2xl:h-[74px] h-auto xl:w-[50px] lg:w-[] sm:w-[] w-[]  "
-                            />
-                            <h1>{item.title}</h1>
-                          </div>
+                          <button
+                            key={item._id}
+                            onClick={() => handleSearchCuisines(item._id)}
+                          >
+                            <div className="dropbox">
+                              <img
+                                src={item.ProfileImage}
+                                className="rounded-[5px] 2xl:w-[74px] 2xl:h-[74px] h-auto xl:w-[50px] lg:w-[] sm:w-[] w-[]  "
+                              />
+                              <h4>{item.title}</h4>
+                            </div>
+                          </button>
                         ))}
 
                       {/* ================= Dietary=========== */}
 
                       {/* <div className=" flex flex-wrap gap-[20px]  2xl:w-[1602px] h-auto mx-auto">
-                      {Array.isArray(getAllDietary) &&
-                        getAllDietary.map((item) => (
-                          <div key={item._id} className="dropbox">
-                            <h1>{item.title}</h1>
-                          </div>
-                        ))}
-                    </div> */}
+                        {Array.isArray(getAllDietary) &&
+                          getAllDietary.map((item) => (
+                            <div key={item._id} className="dropbox">
+                              <img
+                                src={item.ProfileImage}
+                                className="rounded-[5px] 2xl:w-[30px] 2xl:h-[30px] h-auto xl:w-[50px] lg:w-[] sm:w-[] w-[]  "
+                              />
+                              <h1>{item.title}</h1>
+                            </div>
+                          ))}
+                      </div> */}
 
                       {/* ================= Dish Type =========== */}
 
@@ -488,7 +515,7 @@ const ExploreDishes = ({ item }) => {
                   </dialog>
                   {/* =================Cuisines========================== */}
 
-                  <div className="">
+                  {/* <div className="">
                     <select
                       id="cuisines"
                       className="2xl:w-[153px] third_select"
@@ -508,11 +535,121 @@ const ExploreDishes = ({ item }) => {
                           </option>
                         ))}
                     </select>
-                  </div>
+                  </div> */}
 
                   {/* =================Dietary========================== */}
+                  <button
+                    className="2xl:w-[153px] third_select flex justify-center items-center gap-2"
+                    onClick={() =>
+                      document.getElementById("my_modal_4").showModal()
+                    }
+                  >
+                    All Dietary
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="w-6 h-6"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="m19.5 8.25-7.5 7.5-7.5-7.5"
+                      />
+                    </svg>
+                  </button>
+                  <dialog
+                    id="my_modal_4"
+                    className="modal relative bg-base-100 flex justify-center items-center xl:mt-52 2xl:mt-72 2xl:w-[1660px] xl:w-[1100px] lg:w-[850px] 2xl:h-[520px] xl:h-[350px] 2xl:px-[0px] 2xl:py-[75px] xl:px-[30px] xl:py-[40px] "
+                  >
+                    <form method="dialog" className="modal-backdrop ">
+                      <button
+                        onClick={() =>
+                          document.getElementById("my_modal_4").close()
+                        }
+                        className="absolute 2xl:top-2 2xl:right-4 xl:top-2 xl:right-2 xl:w-6 2xl:w-auto"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="currentColor"
+                          class="text-black 2xl:w-10 2xl:h-10 xl:w-[8] xl:h-[8]"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M6 18 18 6M6 6l12 12"
+                          />
+                        </svg>
+                      </button>
+                    </form>
+                    <div className=" flex flex-wrap gap-[20px]  2xl:w-[1602px] xl:w-[1200px] h-auto mx-[0px]">
+                      {/* ================= Dietary=========== */}
+                      {/* 
+                      <div className=" flex flex-wrap gap-[20px]  2xl:w-[1602px] h-auto mx-auto">
+                        {Array.isArray(getAllDietary) &&
+                          getAllDietary.map((item) => (
+                            <div key={item._id} className="dropbox">
+                              <img
+                                src={item.ProfileImage}
+                                className="rounded-[5px] 2xl:w-[35px] 2xl:h-[35px] h-auto xl:w-[50px] lg:w-[] sm:w-[] w-[]  "
+                              />
+                              <h1>{item.title}</h1>
+                            </div>
+                          ))}
+                      </div> */}
+                      {Array.isArray(getAllDietary) &&
+                        getAllDietary.map((item) => (
+                          <button
+                            key={item._id}
+                            onClick={() => handleSearchDietary(item._id)}
+                          >
+                            <div className="dropbox">
+                              <img
+                                src={item.ProfileImage}
+                                className="rounded-[5px] 2xl:w-[35px] 2xl:h-[35px] h-auto xl:w-[50px] lg:w-[] sm:w-[] w-[]  "
+                              />
+                              <h4>{item.title}</h4>
+                            </div>
+                          </button>
+                        ))}
+                      {/* ================= Dish Type =========== */}
 
-                  <div className="">
+                      {/* <div className="flex justify-between 2xl:w-[1602px] h-auto mx-auto">
+                        <div>
+                          <h1 className="alata font-[400] 2xl:text-[20px] xl:text-[14px] lg:text-[10px] sm:text-[] text-[] my-1 ">
+                            Dish Type
+                          </h1>
+                          <div className=" flex flex-wrap gap-[20px]  ">
+                            {Array.isArray(getAllDishtype) &&
+                              getAllDishtype.map((item) => (
+                                <div key={item._id} className="dropbox3">
+                                  <h1>{item.title}</h1>
+                                </div>
+                              ))}
+                          </div>
+                        </div>
+                        <div>
+                          <h1 className="alata font-[400] 2xl:text-[20px] xl:text-[14px] lg:text-[10px] sm:text-[] text-[] my-1 ">
+                            Spice Level
+                          </h1>
+                          <div className=" flex flex-wrap gap-[20px] ">
+                            {Array.isArray(getAllSpiceL) &&
+                              getAllSpiceL.map((item) => (
+                                <div key={item._id} className="dropbox3">
+                                  <h1>{item.title}</h1>
+                                </div>
+                              ))}
+                          </div>
+                        </div>
+                      </div> */}
+                    </div>
+                  </dialog>
+                  {/* <div className="">
                     <select
                       id="dietary"
                       className="2xl:w-[126px] third_select"
@@ -532,11 +669,128 @@ const ExploreDishes = ({ item }) => {
                           </option>
                         ))}
                     </select>
-                  </div>
+                  </div> */}
 
                   {/* =================More Filter========================== */}
+                  <button
+                    className="2xl:w-[153px] third_select flex justify-center items-center gap-2"
+                    onClick={() =>
+                      document.getElementById("my_modal_5").showModal()
+                    }
+                  >
+                    More filters{" "}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="w-6 h-6"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="m19.5 8.25-7.5 7.5-7.5-7.5"
+                      />
+                    </svg>
+                  </button>
+                  <dialog
+                    id="my_modal_5"
+                    className="modal relative bg-base-100 flex justify-center items-center xl:mt-52 2xl:mt-72 2xl:w-[1660px] xl:w-[1100px] lg:w-[850px] 2xl:h-[520px] xl:h-[350px] 2xl:px-[0px] 2xl:py-[75px] xl:px-[30px] xl:py-[40px] "
+                  >
+                    <form method="dialog" className="modal-backdrop ">
+                      <button
+                        onClick={() =>
+                          document.getElementById("my_modal_5").close()
+                        }
+                        className="absolute 2xl:top-2 2xl:right-4 xl:top-2 xl:right-2 xl:w-6 2xl:w-auto"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="currentColor"
+                          class="text-black 2xl:w-10 2xl:h-10 xl:w-[8] xl:h-[8]"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M6 18 18 6M6 6l12 12"
+                          />
+                        </svg>
+                      </button>
+                    </form>
+                    <div className=" flex flex-wrap gap-[20px]  2xl:w-[1602px] xl:w-[1200px] h-auto mx-[0px]">
+                      {/* ================= Dish Type =========== */}
 
-                  <div className="">
+                      <div className="flex justify-between 2xl:w-[1602px] h-auto mx-auto">
+                        <div>
+                          <h1 className="alata font-[400] 2xl:text-[20px] xl:text-[14px] lg:text-[10px] sm:text-[] text-[] my-1 ">
+                            Dish Type
+                          </h1>
+                          <div className=" flex flex-wrap gap-[20px]  ">
+                            {/* {Array.isArray(getAllDishtype) &&
+                              getAllDishtype.map((item) => (
+                                <div key={item._id} className="dropbox3">
+                                  <h1>{item.title}</h1>
+                                </div>
+                              ))} */}
+
+                            {Array.isArray(getAllDishtype) &&
+                              getAllDishtype.map((item) => (
+                                <button
+                                  key={item._id}
+                                  onClick={() =>
+                                    handleSearchMoreFilter(item._id)
+                                  }
+                                >
+                                  <div className="dropbox3 gap-3">
+                                    <img
+                                      src={item.ProfileImage}
+                                      className="rounded-[5px] 2xl:w-[25px] 2xl:h-[25px] h-auto xl:w-[50px] lg:w-[] sm:w-[] w-[]  "
+                                    />
+                                    <h4>{item.title}</h4>
+                                  </div>
+                                </button>
+                              ))}
+                          </div>
+                        </div>
+                        <div>
+                          <h1 className="alata font-[400] 2xl:text-[20px] xl:text-[14px] lg:text-[10px] sm:text-[] text-[] my-1 ">
+                            Spice Level
+                          </h1>
+                          <div className=" flex flex-wrap gap-[20px] ">
+                            {/* {Array.isArray(getAllSpiceL) &&
+                              getAllSpiceL.map((item) => (
+                                <div key={item._id} className="dropbox3">
+                                  <h1>{item.title}</h1>
+                                </div>
+                              ))} */}
+
+                            {Array.isArray(getAllSpiceL) &&
+                              getAllSpiceL.map((item) => (
+                                <button
+                                  key={item._id}
+                                  onClick={() =>
+                                    handleSearchMoreFilter(item._id)
+                                  }
+                                >
+                                  <div className="dropbox3 gap-3">
+                                    <img
+                                      src={item.ProfileImage}
+                                      className="rounded-[5px] 2xl:w-[25px] 2xl:h-[25px] h-auto xl:w-[50px] lg:w-[] sm:w-[] w-[]  "
+                                    />
+                                    <h4>{item.title}</h4>
+                                  </div>
+                                </button>
+                              ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </dialog>
+                  {/* <div className="">
                     <select
                       id="moreFilters"
                       className="2xl:w-[143px] third_select"
@@ -556,7 +810,7 @@ const ExploreDishes = ({ item }) => {
                           </option>
                         ))}
                     </select>
-                  </div>
+                  </div> */}
 
                   <div className="relative">
                     <svg
@@ -701,10 +955,7 @@ const ExploreDishes = ({ item }) => {
                     key={item.id}
                     className="  my-5 2xl:w-[345px] 2xl:h-[560px] lg:w-[23%]  md:w-[31%] w-[45%]  relative  rounded-[9.8px] mexploreD "
                   >
-                    <button
-                      className=""
-                    
-                    >
+                    <button className="">
                       <img
                         src={item.ProfileImage}
                         alt={item.title}
@@ -736,7 +987,9 @@ const ExploreDishes = ({ item }) => {
                             src={vegetarian}
                             className="2xl:w-[13px] 2xl:h-[13px] lg:w-[10px] lg:h-[10px] w-[10px] h-auto"
                           />
-                          <p className="fourth_day">{item?.Dietary_id?.title}</p>
+                          <p className="fourth_day">
+                            {item?.Dietary_id?.title}
+                          </p>
                         </button>
                         <button className="four_btn">
                           <Image
