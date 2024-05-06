@@ -10,12 +10,16 @@ const passport = require('passport');
 require('./config/passport')(passport);
 const session = require('express-session'); // Import express-session module
 
-const corsOptions = {
-  origin: ['http://13.43.174.21:3000','http://13.43.174.21:3001', '*'],
-  credentials: true,
-};
+// const corsOptions = {
+//   origin: ['http://13.43.174.21:3000','http://13.43.174.21:3001', '*'],
+//   credentials: true,
+// };
 
 const server = express();
+
+server.use(cors());
+
+
 
 server.use(session({
   secret: 'mySecretKey123', // Replace 'mySecretKey123' with your actual secret key
@@ -32,7 +36,7 @@ server.use(session({
 server.use(express.json({ limit: '50mb' }));
 server.use(express.urlencoded({ limit: '500kb', extended: true }));
 server.use(bodyParser.urlencoded({ extended: true }));
-server.use(cors(corsOptions));
+// server.use(cors(corsOptions));
 
 connectDB();
 
