@@ -1,5 +1,6 @@
 // Import required modules
 const Chef = require("../Model/Chef");
+const MenuItem = require("../Model/MenuItem");
 const multer = require('multer');
 const AWS = require("aws-sdk");
 const dotenv = require('dotenv');
@@ -237,6 +238,31 @@ const deleteImagesFromS3buket = async (imageUrls) => {
   } catch (error) {
     console.error("Error deleting images from S3:", error);
     throw error;
+  }
+};
+
+
+// Get chefs by specific by id 
+
+exports.getChefByParams = async (req, res, next) => {
+  const { id } = req.params;
+  validateMongoDbId(id);
+  try {
+    // Find chef by ID
+    const chef = await Chef.findById(id);
+    if (!chef) {
+      return res.status(404).json({ error: "Chef not found" });
+    }
+
+    // Find menu items by chef ID
+    const menuItems = await MenuItem.find({ chef_id: id }).populate('Cuisines_id Dishtype_id Dietary_id spice_level_id chef_id').exec();
+    if (!menuItems || menuItems.length === 0) {
+      return res.status(404).json({ error: "Menu items not found" });
+    }
+
+    res.json({ chef, menuItems });
+  } catch (error) {
+    next(error);
   }
 };
 
