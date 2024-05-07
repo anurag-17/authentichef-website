@@ -157,7 +157,7 @@ const ExploreDishes = ({ item }) => {
       .request(option)
       .then((response) => {
         setGetAllDishtype(response?.data?.dishTypes);
-        // console.log(response?.data?.dishTypes, "dish");
+        console.log(response?.data?.dishTypes, "dish");
       })
       .catch((error) => {
         console.log(error, "Error");
@@ -968,17 +968,25 @@ const ExploreDishes = ({ item }) => {
                       <h1 className="alata capitalize font-[400] text-[#DB5353] 2xl:my-4 xl:my-3 my-2 2xl:text-[20px] 2xl:leading-[20px]  xl:text-[14px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[10px]">
                         {item.name}
                       </h1>
-                      <div className="flex items-center 2xl:gap-3 xl:gap-2 lg:gap-2  gap-2 xl:my-3 lg:my-2 my-2">
-                        <img
-                          alt="image"
-                          src={item.chef_id.images}
-                          className="four_img2 "
-                        />
-                        <div>
-                          <h1 className="fourth_name ">{item.chef_id.name}</h1>
-                          <p className="fourth_p text-[#6765EB]">Indian</p>
-                        </div>
-                      </div>
+
+                      {/* ===============Chef ============= */}
+                      <Link href={`/pages/chef-details/${item?.chef_id?._id}`}>
+                        <button onClick={item.chef_id._id}>
+                          <div className="flex items-center 2xl:gap-3 xl:gap-2 lg:gap-2  gap-2 xl:my-3 lg:my-2 my-2">
+                            <img
+                              alt="image"
+                              src={item.chef_id.images}
+                              className="four_img2 "
+                            />
+                            <div>
+                              <h1 className="fourth_name ">
+                                {item.chef_id.name}
+                              </h1>
+                              <p className="fourth_p text-[#6765EB]">Indian</p>
+                            </div>
+                          </div>
+                        </button>
+                      </Link>
 
                       <div className="flex gap-5 2xl:my-[20px] xl:my-[15px] my-[12px]">
                         <button className="four_btn">
