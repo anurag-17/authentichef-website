@@ -8,7 +8,7 @@ import fb from "../../../public/images/fb.svg";
 import insta from "../../../public/images/insta.svg";
 import tiktok from "../../../public/images/tiktok.svg";
 import foodPoster from "../assets/cartPoster.webp";
-import chef from "../../../public/images/chef.svg";
+// import chef from "../../../public/images/chef.svg";
 import img1 from "../../../public/images/fi_4767107.svg";
 import img2 from "../../../public/images/fi_4718655.svg";
 import img3 from "../../../public/images/fi_11493268.svg";
@@ -172,11 +172,11 @@ const Products = ({ item }) => {
                 />
                 <div className="flex 2xl:my-12 2xl:gap-8 lg:gap-3 ">
                   <div className="xl:mt-5 lg:mt-6 mt-6">
-                    <Image
-                      src={chef}
+                    {/* <Image
+                      // src={chef}
                       alt="chef"
                       className="2xl:w-[154px] 2xl:h-[154px] mx-auto xl:w-[80px] xl:h-[80px] lg:w-[70px] lg:h-[70px] w-[70px] h-[70px]"
-                    />
+                    /> */}
                   </div>
                   <div className="">
                     <h1 className=" alata font-[400] 2xl:text-[35px] 2xl:leading-[45px] 2xl:my-1 xl:text-[20px] xl:leading-[30px] xl:my-0 xl:mt-5 lg:text-[16px] lg:leading-[25px] lg:mt-6 mt-4 sm:text-[18px] sm:leading-[30px] my-1 text-[14px] leading-[30px]">

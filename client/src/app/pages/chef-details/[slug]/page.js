@@ -9,9 +9,7 @@ import punjabithali1 from "./assets/punjabi-thali1.png";
 import palakpaneer1 from "./assets/palak-paneer1.png";
 import sarsoda1 from "./assets/sarsoda1.png";
 import butterpaneer1 from "./assets/butterpaneer1.png";
-
 import spicemedium from "./assets/spice-medium.svg";
-
 import vegetarian from "./assets/vegetarian.svg";
 import vegan from "./assets/vegan.svg";
 import chef from "./assets/chef.svg";
@@ -19,6 +17,7 @@ import fb from "./assets/fb.svg";
 import insta from "./assets/instagram.svg";
 import cook from "./assets/fi_4767107.svg";
 import cook2 from "./assets/fi_4718655.svg";
+import addCart from "../../../../../public/images/addCart.svg"
 
 const ChefDetails = ({ params }) => {
   const [getAChef, setGetAChef] = useState({});
@@ -148,7 +147,7 @@ const ChefDetails = ({ params }) => {
           <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px]  2xl:pt-[120px] xl:pt-[60px] pt-[40px] mx-auto mnavbar">
             <div className="">
               <div>
-                <h1 className="third_head">Starter</h1>
+                <h1 className="third_head">Popular Dishes</h1>
               </div>
             </div>
             <div className=" flex flex-wrap justify-between  w-full px-10 md:px-0 mx-auto">
@@ -180,7 +179,7 @@ const ChefDetails = ({ params }) => {
                             {" "}
                             {item?.chef_id?.name}
                           </h1>
-                          <p className="fourth_p text-[#6765EB]">Indian</p>
+                          <p className="fourth_p text-[#6765EB]">{item?.Cuisines_id?.title}</p>
                         </div>
                       </div>
 
@@ -196,21 +195,21 @@ const ChefDetails = ({ params }) => {
                         <button className="four_btn">
                           <img
                             alt="image"
-                            src={vegan}
+                            src={item?.Dietary_id?.ProfileImage}
                             className="2xl:w-[13px] 2xl:h-[13px] lg:w-[10px] lg:h-[10px] w-[10px] h-auto"
                           />
-                          <p className="fourth_day">Vegan</p>
+                          <p className="fourth_day">{item?.Dietary_id?.title}</p>
                         </button>
                       </div>
                       <div className="flex items-center gap-5  2xl:my-[20px] xl:my-[15px] my-[12px]">
-                        <h1 className="fourth_p">Spice level</h1>
+                        <h1 className="fourth_p">Spice Level</h1>
                         <button className="four_btn">
                           <img
                             alt="image"
-                            src={item.spiceImg}
+                            src={item?.spice_level_id?.ProfileImage}
                             className="2xl:w-[13px] 2xl:h-[13px] lg:w-[10px] lg:h-[10px] w-[10px] h-auto"
                           />
-                          <p className="fourth_day">Meddium</p>
+                          <p className="fourth_day">{item?.spice_level_id?.title}</p>
                         </button>
                       </div>
 
@@ -225,8 +224,8 @@ const ChefDetails = ({ params }) => {
                         //   alert("Product Added");
                         // }}
                         >
-                          <img
-                            src={item.image2}
+                          <Image
+                            src={addCart}
                             alt={item.title}
                             className=" mr-8 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
                           />
@@ -238,14 +237,14 @@ const ChefDetails = ({ params }) => {
             </div>
           </div>
         </div>
-        <div className="2xl:mt-[0px] xl:mt-[0px] mt-[0px] ">
+        {/* <div className="2xl:mt-[0px] xl:mt-[0px] mt-[0px] ">
           <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px]  2xl:pt-[85px] xl:pt-[30px] pt-[15px] mx-auto mnavbar">
             <div className="">
               <div>
                 <h1 className="third_head">Mains</h1>
               </div>
             </div>
-            {/* <div className=" flex flex-wrap justify-between  w-full px-10 md:px-0 mx-auto">
+            <div className=" flex flex-wrap justify-between  w-full px-10 md:px-0 mx-auto">
               {data2.map((item) => (
                 <div
                   key={item.id}
@@ -325,18 +324,18 @@ const ChefDetails = ({ params }) => {
                   </div>
                 </div>
               ))}
-            </div> */}
+            </div>
           </div>
-        </div>
+        </div> */}
 
-        <div className="2xl:mt-[0px] xl:mt-[0px] mt-[0px] ">
+        {/* <div className="2xl:mt-[0px] xl:mt-[0px] mt-[0px] ">
           <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px]  2xl:pt-[85px] xl:pt-[30px] pt-[15px] mx-auto mnavbar">
             <div className="">
               <div>
                 <h1 className="third_head">Sides</h1>
               </div>
             </div>
-            {/* <div className=" flex flex-wrap justify-between  w-full px-10 md:px-0 mx-auto">
+            <div className=" flex flex-wrap justify-between  w-full px-10 md:px-0 mx-auto">
               {data2.map((item) => (
                 <div
                   key={item.id}
@@ -416,9 +415,9 @@ const ChefDetails = ({ params }) => {
                   </div>
                 </div>
               ))}
-            </div> */}
+            </div>
           </div>
-        </div>
+        </div> */}
 
         <Footer />
       </section>
