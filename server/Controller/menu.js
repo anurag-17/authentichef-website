@@ -22,11 +22,13 @@ AWS.config.update({
 const s3 = new AWS.S3();
 
 // Define the file filter function for multer
+
+// add svg 
 const fileFilter = (req, file, cb) => {
-    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
-        return cb(new Error('Only image files are allowed!'));
-    }
-    cb(null, true);
+  if (!file.originalname.match(/\.(jpg|jpeg|png|gif|svg)$/)) {
+      return cb(new Error('Only image files (jpg, jpeg, png, gif, svg) are allowed!'));
+  }
+  cb(null, true);
 };
 
 // Configure multer with file filter function
