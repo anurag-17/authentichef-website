@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import emptyCart from "../../../public/images/emptyCart.svg";
 import Link from "next/link";
@@ -34,12 +34,22 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import allCuisines from "./assets/all-cuisines.png";
+import { Dialog, Transition } from "@headlessui/react";
+import DishDetails from "./dish-details/page";
 
 const ExploreDishes = ({ item }) => {
   const { addToCart } = useCart();
   const { cart, removeFromCart, clearCart } = useCart();
   const [count, setCount] = useState(0);
+  const [isOpenDelete, setOpenDelete] = useState(false);
+  const closeModal = () => setOpenDelete(false);
   let subtotalPrice = 0;
+  const [dishID, setDishID] = useState("");
+
+  function openModal(id) {
+    setDishID(id);
+    setOpenDelete(true);
+  }
 
   const handleIncrement = () => {
     setCount(count + 1);
@@ -62,6 +72,7 @@ const ExploreDishes = ({ item }) => {
   // ========= Get All Dish  =============
 
   const [getAllDish, setGetAllDish] = useState("");
+  console.log(getAllDish, "dis");
 
   const defaultDish = () => {
     const option = {
@@ -955,7 +966,7 @@ const ExploreDishes = ({ item }) => {
                     key={item.id}
                     className="  my-5 2xl:w-[345px] 2xl:h-[560px] lg:w-[23%]  md:w-[31%] w-[45%]  relative  rounded-[9.8px] mexploreD "
                   >
-                    <button className="">
+                    <button className="" onClick={() => openModal(item._id)}>
                       <img
                         src={item.ProfileImage}
                         alt={item.title}
@@ -1254,11 +1265,11 @@ const ExploreDishes = ({ item }) => {
       </section>
       {/* ===============PopUp=============== */}
       <dialog
-        id="my_modal_1"
+        id="my_modal_10"
         className="2xl:w-[1000px] 2xl:h-[939px] xl:w-[720px] w-[600px] h-auto mx-auto rounded-[10px]  my-auto 2xl:px-[40px] 2xl:py-[45px] xl:px-[25px] xl:py-[30px] px-[15px] py-[20px]"
       >
         <button
-          onClick={() => document.getElementById("my_modal_1").close()}
+          onClick={() => document.getElementById("my_modal_10").close()}
           className="absolute right-4 "
         >
           <svg
@@ -1560,6 +1571,52 @@ const ExploreDishes = ({ item }) => {
           </ul>
         </div>
       </div>
+
+      <Transition appear show={isOpenDelete} as={Fragment}>
+        <Dialog as="div" className="relative z-10" onClose={() => {}}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-25" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="2xl:w-[1000px] 2xl:h-[939px] xl:w-[720px] w-[600px] h-auto mx-auto rounded-[10px]  my-auto 2xl:px-[40px] 2xl:py-[45px] xl:px-[25px] xl:py-[30px] px-[15px] py-[20px]transform overflow-hidden  bg-white text-left align-middle shadow-xl transition-all mt-[100px]">
+                  <Dialog.Title
+                    as="h3"
+                    onClick={closeModal}
+                    className="custom_heading_text font-semibold leading-6 text-gray-900 mt lg:mt-0"
+                  >
+                    {" "}
+                    X
+                  </Dialog.Title>
+                  <DishDetails
+                    dishID={dishID}
+                    closeModal={closeModal}
+                    refreshData={refreshData}
+                  />
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
     </>
   );
 };
