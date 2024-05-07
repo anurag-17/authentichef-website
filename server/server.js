@@ -7,7 +7,8 @@ require('dotenv').config();
 const connectDB = require('./Utils/db');
 const path = require('path');
 const passport = require('passport');
-require('./config/passport')(passport);
+require('./config/googleconfig')(passport);
+require('./config/facebookconfig')(passport);
 const session = require('express-session'); // Import express-session module
 
 // const corsOptions = {
@@ -17,10 +18,10 @@ const session = require('express-session'); // Import express-session module
 
 const server = express();
 
+// cors config
 server.use(cors());
 
-
-
+// Session middleware
 server.use(session({
   secret: 'mySecretKey123', // Replace 'mySecretKey123' with your actual secret key
   resave: false,
@@ -28,10 +29,11 @@ server.use(session({
   
 }));
 
-
   // Passport middleware
-  server.use(passport.initialize())
-  server.use(passport.session())
+server.use(passport.initialize())
+server.use(passport.session())
+
+/
 
 server.use(express.json({ limit: '50mb' }));
 server.use(express.urlencoded({ limit: '500kb', extended: true }));
@@ -45,6 +47,8 @@ connectDB();
 server.get('/', (req, res) => {
   res.send('API is Running');
 });
+
+
 
 // Express routes here
 server.use('/api/auth', require('./Route/AuthRouter'));

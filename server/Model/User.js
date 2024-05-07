@@ -10,6 +10,11 @@ const UserSchema = new mongoose.Schema(
     type:String,
     required:false
     },
+
+    facebookId:{
+      type:String,
+      required:false
+    },
     // User's first name
     firstname: {
       type: String,

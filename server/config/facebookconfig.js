@@ -1,36 +1,38 @@
-const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
+// Make a config for facebook login in the same way as the google login config.
+
+// Path: Food-work/server/config/facebookconfig.js
+
 const User = require("../Model/User");
 const dotenv = require('dotenv');
+const FacebookStrategy = require('passport-facebook').Strategy;
 dotenv.config();
 
+
 module.exports = function (passport) {
-    passport.use(new GoogleStrategy({
-        clientID: process.env.CLIENT_ID,
-        clientSecret: process.env.CLIENT_SECRET,
-        callbackURL: 'http://localhost:4000/api/auth/google/callback',
+    passport.use(new FacebookStrategy({
+        clientID: process.env.FACEBOOK_APP_ID,
+        clientSecret: process.env.FACEBOOK_APP_SECRET,
+        callbackURL: 'http://13.43.174.21:4000/api/auth/facebook/callback',
+        profileFields: ['id', 'displayName', 'photos', 'email']
     }, async (accessToken, refreshToken, profile, done) => {
         try {
-    
             const newUser = {
-                googleId: profile.id,
-                firstname: profile.name.givenName,
-                lastname: profile.name.familyName,
+                facebookId: profile.id,
+                firstname: profile.displayName,
                 email: profile.emails[0].value,
                 img: profile.photos[0].value,
-                
             };
 
-            let user = await User.findOne({ googleId: profile.id });
-            
+            let user = await User.findOne({ facebookId: profile.id });
+
             if (!user) {
                 user = await User.findOne({ email: profile.emails[0].value });
                 if (!user) {
                     user = await User.create(newUser);
                 } else {
-                    // If a user with the same email exists but with a different googleId,
-                    // update the googleId in the existing user document
-                    user.googleId = profile.id;
+                    // If a user with the same email exists but with a different facebookId,
+                    // update the facebookId in the existing user document
+                    user.facebookId = profile.id;
                     await user.save();
                 }
             }
@@ -58,4 +60,4 @@ module.exports = function (passport) {
                 done(err, null);
             });
     });
-};
+}
