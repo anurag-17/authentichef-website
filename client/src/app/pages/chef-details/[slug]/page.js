@@ -30,7 +30,7 @@ const ChefDetails = ({ params }) => {
   const defaultChef = () => {
     const option = {
       method: "GET",
-      url: `http://localhost:4000/api/chef/chefs/sort/${params.slug}`,
+      url: `http://13.43.174.21:4000/api/chef/chefs/sort/${params.slug}`,
     };
     axios
       .request(option)
