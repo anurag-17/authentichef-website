@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 
-const DishDetails = ({ dishId, closeModal, refreshData }) => {
-
-    console.log(dishId ,"diss")
+const DishDetails = () => {
   const [count, setCount] = useState(0);
 
   const handleIncrement = () => {

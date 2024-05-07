@@ -37,7 +37,7 @@ import allCuisines from "./assets/all-cuisines.png";
 import { Dialog, Transition } from "@headlessui/react";
 import DishDetails from "./dish-details/page";
 
-const ExploreDishes = ({ item }) => {
+const ExploreDishes = () => {
   const { addToCart } = useCart();
   const { cart, removeFromCart, clearCart } = useCart();
   const [count, setCount] = useState(0);
@@ -982,21 +982,19 @@ const ExploreDishes = ({ item }) => {
 
                       {/* ===============Chef ============= */}
                       <Link href={`/pages/chef-details/${item?.chef_id?._id}`}>
-                        <button onClick={item.chef_id._id}>
-                          <div className="flex items-center 2xl:gap-3 xl:gap-2 lg:gap-2  gap-2 xl:my-3 lg:my-2 my-2">
-                            <img
-                              alt="image"
-                              src={item.chef_id.images}
-                              className="four_img2 "
-                            />
-                            <div>
-                              <h1 className="fourth_name ">
-                                {item.chef_id.name}
-                              </h1>
-                              <p className="fourth_p text-[#6765EB]">Indian</p>
-                            </div>
+                        <div className="flex items-center 2xl:gap-3 xl:gap-2 lg:gap-2  gap-2 xl:my-3 lg:my-2 my-2">
+                          <img
+                            alt="image"
+                            src={item.chef_id.images}
+                            className="four_img2 "
+                          />
+                          <div>
+                            <h1 className="fourth_name ">
+                              {item.chef_id.name}
+                            </h1>
+                            <p className="fourth_p text-[#6765EB]">Indian</p>
                           </div>
-                        </button>
+                        </div>
                       </Link>
 
                       <div className="flex gap-5 2xl:my-[20px] xl:my-[15px] my-[12px]">
