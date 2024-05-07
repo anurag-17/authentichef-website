@@ -61,6 +61,7 @@ server.use('/api/SpiceLevel', require('./Route/SpiceRouter'));
 server.use('/api/Orders', require('./Route/cartRoutes'));
 server.use('/api/order', require('./Route/OrderRouter'));
 
+
 // Serve static assets in production
 if (process.env.NODE_ENV === 'production') {
   // Set static folder

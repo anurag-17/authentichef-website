@@ -48,6 +48,7 @@ const menuItemSchema = new mongoose.Schema(
       type:mongoose.Schema.Types.ObjectId,
       ref:'SpiceLevel'
     },
+    
     chef_id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Chef",
