@@ -86,7 +86,11 @@ body {
   background-size: cover;
   background-position: center;
 }
-
+.soonbg {
+  background-image: url("../../public/images/soon-bg.png");
+  background-size: cover;
+  background-position: center;
+}
 .login-inputad {
   @apply px-4 py-2 2xl:h-[60px] xl:h-[40px] lg:h-[40px] border-[#E4E4E4] bg-[#F3F3F3] rounded-[5px] text-[#262628] 2xl:text-[14px] xl:text-[10px] lg:text-[10px] text-[10px] font-[400px] leading-normal focus-visible:outline-none placeholder:text-[14px] placeholder:text-[#262628];
 }

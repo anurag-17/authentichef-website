@@ -28,7 +28,6 @@ const Navbar = () => {
     role: "",
   });
 
-
   const router = useRouter();
   const [isRefresh, setRefresh] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -54,7 +53,7 @@ const Navbar = () => {
     try {
       // setLoader(true);
       const response = await axios.post(
-        "http://13.43.174.21:4000/api/auth/register",
+        "http://localhost:4000/api/auth/register",
         userDetail
       );
       if (response.status === 201) {
@@ -87,7 +86,7 @@ const Navbar = () => {
     // setLoader(true);
     try {
       const res = await axios.post(
-        "http://13.43.174.21:4000/api/auth/login",
+        "http://localhost:4000/api/auth/login",
         loginDetails,
         {
           headers: {
@@ -122,7 +121,7 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      const res = await axios.get("http://13.43.174.21:4000/api/auth/logout");
+      const res = await axios.get("http://localhost:4000/api/auth/logout");
       if (res.status >= 200 && res.status < 300) {
         toast.success("Logout successfully");
 
@@ -150,7 +149,7 @@ const Navbar = () => {
 
   // useEffect(() => {
   //   // Check if user token exists in local storage
-  
+
   //   setIsLoggedIn(!!); // Set isLoggedIn to true if user token exists
   // }, [!isRefresh]);
 
@@ -282,7 +281,6 @@ const Navbar = () => {
 
                     <hr className=" mx-auto 2xl:w-[345px] xl:w-[260px] lg:w-[180px] sm:w-[] w-[] 2xl:mt-[75px] xl:mt-[40px] lg:mt-[20px] sm:mt-[] mt-[]" />
                     <div className="text-center 2xl:mt-[35px] xl:mt-[15px] lg:mt-[10px] sm:mt-[8px] mt-[]">
-                      
                       <p className="text-[#555555] alata font-[400] 2xl:text-[14px] xl:text-[10px] lg:text-[9px] sm:text-[10px] text-[] 2xl:leading-[26px] xl:leading-[22px] lg:leading-[16px] sm:leading-[16px] leading-[]">
                         ajay1489hardiyamail.com
                       </p>
@@ -496,7 +494,7 @@ const Navbar = () => {
       <div className="">
         <dialog
           id="my_modal_2"
-          className="modal rounded-[10px] 2xl:w-[1000px] 2xl:h-[632px] xl:w-[620px] xl:h-[450px] lg:w-[480px] h-[400px] 2xl:mt-40 xl:mt-24 mt-14 p-0"
+          className="modal rounded-[10px] 2xl:w-[1000px] 2xl:h-[501px] xl:w-[620px] xl:h-[350px] lg:w-[480px] h-[350px] 2xl:mt-40 xl:mt-24 mt-14 p-0"
         >
           <form method="dialog" className=" mt-0" onSubmit={handleSubmit}>
             {/* if there is a button in form, it will close the modal */}
@@ -520,7 +518,7 @@ const Navbar = () => {
                 </div>
                 <h1 className="fourth_p">Login</h1>
               </div>
-              <div className="2xl:w-[368px] xl:w-[280px] lg:w-[220px] sm:w-[] w-[]">
+              <div className="2xl:w-[368px]  xl:w-[280px] lg:w-[220px] sm:w-[] w-[]">
                 <div className="2xl:mt-[35px] mt-[25px]">
                   <input
                     type="email"
@@ -532,7 +530,7 @@ const Navbar = () => {
                     title="enter valid email ex. abc@gmail.com"
                   />
                 </div>
-                <div className="2xl:mt-[35px] mt-[25px]">
+                <div className="2xl:mt-[35px] mt-[20px]">
                   <input
                     type="password"
                     name="password"
@@ -546,7 +544,7 @@ const Navbar = () => {
                 <div className="flex">
                   <button
                     type="submit"
-                    className="w-full mx-auto alata text-white 2xl:text-[20px] 2xl:w-[368px] xl:w-[280px] lg:w-[220px] xl:text-[16px] text-[12px] rounded-[5px] 2xl:mt-[20px] xl:mt-[15px] mt-[15px] 2xl:h-[60px] xl:h-[40px] lg:h-[32px] text-center bg-[#DB5353]"
+                    className="w-full mx-auto alata text-white 2xl:text-[20px] 2xl:w-[368px] xl:w-[280px] lg:w-[220px] xl:text-[16px] text-[12px] rounded-[5px] 2xl:mt-[40px] xl:mt-[25px] mt-[20px] 2xl:h-[60px] xl:h-[40px] lg:h-[32px] text-center bg-[#DB5353]"
                   >
                     Login
                   </button>
