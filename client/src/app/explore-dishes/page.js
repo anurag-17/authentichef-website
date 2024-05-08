@@ -38,7 +38,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import DishDetails from "./dish-details/page";
 
 const ExploreDishes = () => {
-  const { addToCart } = useCart();
+  // const { addToCart } = useCart();
   const { cart, removeFromCart, clearCart } = useCart();
   const [count, setCount] = useState(0);
   const [isOpenDelete, setOpenDelete] = useState(false);

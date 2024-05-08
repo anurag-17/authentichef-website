@@ -2,17 +2,13 @@
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import sidemanu from "../../../public/images/side-menu.svg";
-import logo from "../../../public/images/logo.svg";
 import fb from "../../../public/images/fb.svg";
 import insta from "../../../public/images/insta.svg";
 import tiktok from "../../../public/images/tiktok.svg";
 import foodPoster from "../assets/cartPoster.webp";
-// import chef from "../../../public/images/chef.svg";
 import img1 from "../../../public/images/fi_4767107.svg";
 import img2 from "../../../public/images/fi_4718655.svg";
 import img3 from "../../../public/images/fi_11493268.svg";
-// import img4 from "../../../public/images/Group.svg";
 import Link from "next/link";
 import Rectangle1 from "../assets/populardishes-spaghetti.png";
 import Rectangle2 from "../assets/populardishes-cheesesandwich.png";
@@ -32,7 +28,6 @@ import { useCart } from "../create-context/cart-context";
 import { CartProvider } from "../create-context/cart-context";
 import plus from "../../../public/images/plus.svg";
 import minus from "../../../public/images/minus.svg";
-import { ToastContainer, toast } from "react-toastify";
 import Navbar from "../navbar";
 
 const data = [
@@ -147,7 +142,7 @@ const Products = ({ item }) => {
   return (
     <>
       <section className="bg-[#EFEFEF]">
-      <Navbar/>
+        <Navbar />
 
         {/* ===================First================== */}
         <div className="w-full 2xl:h-[149px] xl:h-[75px] lg:h-[60px] h-[60px] flex justify-center items-center bg-[#F5F5F5]">
