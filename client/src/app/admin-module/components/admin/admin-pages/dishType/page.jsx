@@ -79,7 +79,7 @@ const DishType = () => {
     setLoader(true);
     const options = {
       method: "GET",
-      url: "http://localhost:4000/api/DishType/dishTypes",
+      url: "http://13.43.174.21:4000/api/DishType/dishTypes",
       headers: {
         Authorization: token,
         "Content-Type": "application/json",
@@ -111,7 +111,7 @@ const DishType = () => {
     try {
       const options = {
         method: "GET",
-        url: `http://localhost:4000/api/DishType/dishTypes/${_id}`,
+        url: `http://13.43.174.21:4000/api/DishType/dishTypes/${_id}`,
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",

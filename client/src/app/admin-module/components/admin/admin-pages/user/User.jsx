@@ -125,7 +125,7 @@ const User = () => {
     setIsLoader(true);
     const options = {
       method: "GET",
-      url: `http://localhost:4000/api/auth/all-users?page=${pageNo}&limit=${visiblePageCount}`,
+      url: `http://13.43.174.21:4000/api/auth/all-users?page=${pageNo}&limit=${visiblePageCount}`,
       headers: {
         Authorization: token,
         "Content-Type": "application/json",

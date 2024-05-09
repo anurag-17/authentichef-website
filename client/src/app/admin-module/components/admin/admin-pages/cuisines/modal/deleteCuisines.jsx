@@ -13,7 +13,7 @@ const DeleteCuisines = ({ deleteId, closeModal, refreshData }) => {
 
     const options = {
       method: "DELETE",
-      url: `http://localhost:4000/api/cuisines/deleteCuisines/${deleteId}`,
+      url: `http://13.43.174.21:4000/api/cuisines/deleteCuisines/${deleteId}`,
       headers: {
         Authorization: token,
         "Content-Type": "application/json",

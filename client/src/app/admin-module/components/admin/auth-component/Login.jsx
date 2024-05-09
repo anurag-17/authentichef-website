@@ -29,7 +29,7 @@ const Login = () => {
     setLoading(true);
     try {
       const res = await axios.post(
-        "http://localhost:4000/api/auth/adminLogin",
+        "http://13.43.174.21:4000/api/auth/adminLogin",
         loginDetails,
         {
           headers: {

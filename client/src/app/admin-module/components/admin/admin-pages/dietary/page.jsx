@@ -79,7 +79,7 @@ const Dietary = () => {
     setLoader(true);
     const options = {
       method: "GET",
-      url: "http://localhost:4000/api/dietary/dietaries",
+      url: "http://13.43.174.21:4000/api/dietary/dietaries",
       headers: {
         Authorization: token,
         "Content-Type": "application/json",
@@ -111,7 +111,7 @@ const Dietary = () => {
     try {
       const options = {
         method: "GET",
-        url: `http://localhost:4000/api/dietary/dietaries/${_id}`,
+        url: `http://13.43.174.21:4000/api/dietary/dietaries/${_id}`,
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",

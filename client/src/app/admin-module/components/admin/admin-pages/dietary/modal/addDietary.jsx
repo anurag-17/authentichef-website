@@ -23,7 +23,7 @@ const AddDietary = ({ closeDrawer, refreshData }) => {
       formData.append("ProfileImage", dietaryDetail.ProfileImage); // Append image to FormData
 
       const response = await axios.post(
-        "http://localhost:4000/api/dietary/dietaries",
+        "http://13.43.174.21:4000/api/dietary/dietaries",
         formData,
         {
           headers: {

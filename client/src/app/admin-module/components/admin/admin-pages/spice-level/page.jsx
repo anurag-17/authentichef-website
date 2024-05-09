@@ -78,7 +78,7 @@ const SpiceLevel = () => {
     setLoader(true);
     const options = {
       method: "GET",
-      url: "http://localhost:4000/api/SpiceLevel/spiceLevels",
+      url: "http://13.43.174.21:4000/api/SpiceLevel/spiceLevels",
       headers: {
         Authorization: token,
         "Content-Type": "application/json",
@@ -110,7 +110,7 @@ const SpiceLevel = () => {
     try {
       const options = {
         method: "GET",
-        url: `http://localhost:4000/api/SpiceLevel/spiceLevels/${_id}`,
+        url: `http://13.43.174.21:4000/api/SpiceLevel/spiceLevels/${_id}`,
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
