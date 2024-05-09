@@ -7,6 +7,7 @@ import DeleteDietary from "./modal/page";
 import EditModal from "./modal/update";
 import UpdateDietary from "./modal/update";
 import AddDietary from "./modal/addDietary";
+import { useSelector } from "react-redux";
 
 export const headItems = [
   "S. No.",
@@ -17,7 +18,8 @@ export const headItems = [
 ];
 
 const Dietary = () => {
-  const token = JSON.parse(localStorage.getItem("admin_token"));
+  const { token } = useSelector((state) => state?.auth);
+
   const [addNewDietary, setAddNewDietary] = useState(false);
   const [allData, setAllData] = useState("");
   const [searchText, setSearchText] = useState("");

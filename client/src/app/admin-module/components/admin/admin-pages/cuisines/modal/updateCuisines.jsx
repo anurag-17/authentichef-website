@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 import Loader from "../../../loader/Index";
+import { useSelector } from "react-redux";
 
 const UpdateCuisines = ({
   closeDrawerO,
@@ -10,7 +11,8 @@ const UpdateCuisines = ({
   editData,
   dietaryEdit,
 }) => {
-  const token = JSON.parse(localStorage.getItem("admin_token"));
+  const { token } = useSelector((state) => state?.auth);
+
   const [formData, setFormData] = useState(editData);
   const [ProfileImage, setProfileImage] = useState(null); // State to store the profile image file
   const [isLoader, setLoader] = useState(false);

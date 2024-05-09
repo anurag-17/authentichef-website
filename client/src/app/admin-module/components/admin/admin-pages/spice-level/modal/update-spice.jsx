@@ -3,9 +3,11 @@ import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 import Loader from "../../../loader/Index";
+import { useSelector } from "react-redux";
 
 const UpdateSpice = ({ closeDrawerO, refreshData, editData, dietaryEdit }) => {
-  const token = JSON.parse(localStorage.getItem("admin_token"));
+  const { token } = useSelector((state) => state?.auth);
+
   const [formData, setFormData] = useState(editData);
   const [isLoader, setLoader] = useState(false);
 

@@ -4,7 +4,7 @@ import axios from "axios";
 
 
 const DeleteModal = ({ token,deleteId, closeModal, refreshData}) => {
-
+  const { token } = useSelector((state) => state?.auth);
   const [isLoading, setLoading] = useState(false);
 
   const handleDelete = (e) => {

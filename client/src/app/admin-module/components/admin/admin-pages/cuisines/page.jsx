@@ -6,6 +6,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import DeleteCuisines from "./modal/deleteCuisines";
 import UpdateCuisines from "./modal/updateCuisines";
 import AddCuisines from "./modal/addCuisines";
+import { useSelector } from "react-redux";
 
 export const headItems = [
   "S. No.",
@@ -16,7 +17,8 @@ export const headItems = [
 ];
 
 const Cuisines = () => {
-  const token = JSON.parse(localStorage.getItem("admin_token"));
+  const { token } = useSelector((state) => state?.auth);
+
   const [allData, setAllData] = useState("");
   const [searchText, setSearchText] = useState("");
   const [openDelete, setOpenDelete] = useState(false);
