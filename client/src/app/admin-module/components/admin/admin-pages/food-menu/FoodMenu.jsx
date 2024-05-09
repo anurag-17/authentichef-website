@@ -64,7 +64,7 @@ const FoodMenu = () => {
       setIsLoader(true);
       const options = {
         method: "GET",
-        url: `http://localhost:4000/api/menu/menuItems/${id}`,
+        url: `http://13.43.174.21:4000/api/menu/menuItems/${id}`,
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -146,7 +146,7 @@ const FoodMenu = () => {
     setIsLoader(true);
     const options = {
       method: "GET",
-      url: `http://localhost:4000/api/menu/menuItems?page=${pageNo}&limit=${visiblePageCount}`,
+      url: `http://13.43.174.21:4000/api/menu/menuItems?page=${pageNo}&limit=${visiblePageCount}`,
       headers: {
         Authorization: token,
         "Content-Type": "application/json",

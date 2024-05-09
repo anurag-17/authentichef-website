@@ -22,7 +22,7 @@ const AddSpice = ({ closeDrawer, refreshData }) => {
       formData.append("ProfileImage", dietaryDetail.ProfileImage); // Append image to FormData
 
       const response = await axios.post(
-        "http://localhost:4000/api/SpiceLevel/spiceLevels",
+        "http://13.43.174.21:4000/api/SpiceLevel/spiceLevels",
         formData,
         {
           headers: {

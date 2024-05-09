@@ -76,7 +76,7 @@ const Cuisines = () => {
     setLoader(true);
     const options = {
       method: "GET",
-      url: "http://localhost:4000/api/cuisines/getAllCuisines ",
+      url: "http://13.43.174.21:4000/api/cuisines/getAllCuisines ",
       headers: {
         Authorization: token,
         "Content-Type": "application/json",
@@ -108,7 +108,7 @@ const Cuisines = () => {
     try {
       const options = {
         method: "GET",
-        url: `http://localhost:4000/api/cuisines/getCuisinesById/${_id}`,
+        url: `http://13.43.174.21:4000/api/cuisines/getCuisinesById/${_id}`,
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",

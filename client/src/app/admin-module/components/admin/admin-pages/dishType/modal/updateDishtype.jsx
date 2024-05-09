@@ -32,7 +32,7 @@ const UpdateDishtype = ({
         formDataWithImage.append("ProfileImage", profileImage); // Append profile image to FormData if selected
       }
       const res = await axios.put(
-        `http://localhost:4000/api/DishType/dishTypes/${dietaryEdit}`,
+        `http://13.43.174.21:4000/api/DishType/dishTypes/${dietaryEdit}`,
         formDataWithImage,
         {
           headers: {

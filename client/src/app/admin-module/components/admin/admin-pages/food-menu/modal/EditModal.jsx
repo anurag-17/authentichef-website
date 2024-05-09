@@ -110,7 +110,7 @@ const EditModal = ({ closeModal, refreshData, editData, updateId }) => {
       // console.log(formData);
       setLoading(true);
       try {
-        const res = await axios.put(`http://localhost:4000/api/menu/menuItems/${updateId}`, formData, {
+        const res = await axios.put(`http://13.43.174.21:4000/api/menu/menuItems/${updateId}`, formData, {
           headers: {
             authorization: `${token}`,
             "Content-Type": "application/json",

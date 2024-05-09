@@ -16,7 +16,7 @@ const UpdateSpice = ({ closeDrawerO, refreshData, editData, dietaryEdit }) => {
     try {
       setLoader(true);
       const res = await axios.put(
-        `http://localhost:4000/api/SpiceLevel/spiceLevels/${dietaryEdit}`,
+        `http://13.43.174.21:4000/api/SpiceLevel/spiceLevels/${dietaryEdit}`,
         formData,
         {
           headers: {

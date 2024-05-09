@@ -12,7 +12,7 @@ const DeleteSpice = ({ deleteId, closeModal, refreshData }) => {
 
     const options = {
       method: "DELETE",
-      url: `http://localhost:4000/api/SpiceLevel/spiceLevels/${deleteId}`,
+      url: `http://13.43.174.21:4000/api/SpiceLevel/spiceLevels/${deleteId}`,
       headers: {
         Authorization: token,
         "Content-Type": "application/json",

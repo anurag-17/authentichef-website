@@ -44,7 +44,7 @@ const AddModal = ({ closeModal, refreshData }) => {
       formData.append("images", chefData.images);
 
       const response = await axios.post(
-        "http://localhost:4000/api/chef/chefs",
+        "http://13.43.174.21:4000/api/chef/chefs",
         formData,
         {
           headers: {

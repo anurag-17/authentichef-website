@@ -24,7 +24,7 @@ const AddModal = ({ closeAddPopup, refreshData }) => {
       formData.append("ProfileImage", dishDetails.ProfileImage);
 
       const response = await axios.post(
-        "http://localhost:4000/api/menu/menuItems",
+        "http://13.43.174.21:4000/api/menu/menuItems",
         formData,
         {
           headers: {

@@ -30,7 +30,7 @@ const UpdateDietary = ({
       formDataWithImage.append("title", formData.title);
       formDataWithImage.append("ProfileImage", profileImage); // Append profile image to FormData
       const res = await axios.put(
-        `http://localhost:4000/api/dietary/dietaries/${dietaryEdit}`,
+        `http://13.43.174.21:4000/api/dietary/dietaries/${dietaryEdit}`,
         formDataWithImage,
         {
           headers: {
