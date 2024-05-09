@@ -13,12 +13,12 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     setToken: (state, action) => {
-      state.ad_token = action.payload;
+      state.token = action.payload;
       state.isLoggedIn = true;
       
     },
     removeToken: (state, action) => {
-      state.ad_token = null;
+      state.token = null;
       state.isLoggedIn = false;
     },
     adDetails : (state, action) => {
