@@ -1,14 +1,14 @@
+"use client";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
-
-const DeleteModal = ({ token,deleteId, closeModal, refreshData}) => {
+const DeleteModal = ({  deleteId, closeModal, refreshData }) => {
   const { token } = useSelector((state) => state?.auth);
   const [isLoading, setLoading] = useState(false);
 
   const handleDelete = (e) => {
-    
     e.preventDefault();
     setLoading(true);
 
@@ -17,14 +17,13 @@ const DeleteModal = ({ token,deleteId, closeModal, refreshData}) => {
       url: `http://13.43.174.21:4000/api/menu/menuItems/${deleteId}`,
       headers: {
         Authorization: token,
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     };
-
     axios
       .request(options)
       .then(function (res) {
-        if (res.data?.success || res.status === 200 ) {
+        if (res.data?.success || res.status === 200) {
           setLoading(false);
           toast.success("Deleted successfully!");
           closeModal();
@@ -52,21 +51,18 @@ const DeleteModal = ({ token,deleteId, closeModal, refreshData}) => {
 
       <div className="mt-8">
         <div className="flex md:flex-row flex-col gap-3 justify-between gap-x-5">
-          <button
-            className="w-full secondary_btn"
-            onClick={()=>closeModal()}
-          >
+          <button className="w-full secondary_btn" onClick={() => closeModal()}>
             No, Keep It
           </button>
-        
-            <button
-              className={`w-full 
-              ${isLoading ?  "text-[gray]" : "delete_btn" }`}
-              disabled={isLoading}
-              onClick={handleDelete}
-            >
-              { isLoading ? "Loading..." : "Yes, Delete It" }
-            </button>
+
+          <button
+            className={`w-full 
+              ${isLoading ? "text-[gray]" : "delete_btn"}`}
+            disabled={isLoading}
+            onClick={handleDelete}
+          >
+            {isLoading ? "Loading..." : "Yes, Delete It"}
+          </button>
         </div>
       </div>
     </>
