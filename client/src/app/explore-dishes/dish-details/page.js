@@ -1,5 +1,8 @@
 "use client"
 import React, { useState } from "react";
+import popimg from "../assets/pop-img.png";
+import Image from "next/image"
+
 
 const DishDetails = () => {
   const [count, setCount] = useState(0);
@@ -19,7 +22,7 @@ const DishDetails = () => {
         <div>
           <div className="flex 2xl:gap-[60px] xl:gap-[40px] gap-[20px] justify-between ">
             <div className="2xl:w-[459px] xl:w-[360px] w-[260px] ">
-              {/* <Image src={popimg} className="rounded-[15px]" /> */}
+              <Image src={popimg} className="rounded-[15px]" />
             </div>
             <div className="2xl:w-[400px] xl:w-[359px] w-[300px]">
               <div>
