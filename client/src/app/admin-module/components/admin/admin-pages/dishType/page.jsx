@@ -1,3 +1,4 @@
+"use client"
 import React, { Fragment, useEffect, useState } from "react";
 import CloseIcon from "../Svg/CloseIcon";
 import axios from "axios";
