@@ -4,8 +4,12 @@ import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 
 import axios from "axios";
-import Loader from "@/components/admin/loader/Index";
-import { setToken, removeToken, adDetails } from "@/redux/adminSlice/authSlice";
+import Loader from "../components/admin/loader/Index";
+import {
+  setToken,
+  removeToken,
+  adDetails,
+} from "../redux/adminSlice/authSlice";
 
 // import Loader from '../loader';
 
@@ -45,16 +49,16 @@ const protectedRoute = (WrappedComponent) => {
         if (res.status === 200) {
           setIsAuth(true);
           setIsLoading(false);
-          router.push("/admin");
+          router.push("/admin-module/admin/sign-in");
           return;
         } else {
           dispatch(removeToken());
-          router.push("/admin");
+          router.push("/admin-module/admin/sign-in");
           setIsLoading(false);
         }
       } catch (error) {
         console.error("Error occurred:", error);
-        router.push("/admin");
+        router.push("/admin-module/admin/sign-in");
         setIsLoading(false);
       }
     };
