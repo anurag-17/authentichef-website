@@ -1,13 +1,13 @@
-import { combineReducers,configureStore } from '@reduxjs/toolkit'
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage'; 
+import storage from 'redux-persist/lib/storage';
 import authReducer from "./adminSlice/authSlice";
 
-
+// Corrected combineReducers call
 const rootReducer = combineReducers({
   auth: authReducer,
-  //add all your reducers here
-},);
+  // Add all your reducers here
+});
 
 const persistConfig = {
   key: 'root',
@@ -16,7 +16,6 @@ const persistConfig = {
   // blacklist: ['auth']
 };
 
-
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
@@ -24,5 +23,3 @@ export const store = configureStore({
 });
 
 export const persistor = persistStore(store);
-
-
