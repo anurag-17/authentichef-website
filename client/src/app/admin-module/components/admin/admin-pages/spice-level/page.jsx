@@ -6,6 +6,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import DeleteSpice from "./modal/delete-spice";
 import UpdateSpice from "./modal/update-spice";
 import AddSpice from "./modal/add-spice";
+import { useSelector } from "react-redux";
 
 export const headItems = [
   "S. No.",
@@ -16,7 +17,7 @@ export const headItems = [
 ];
 
 const SpiceLevel = () => {
-  const token = JSON.parse(localStorage.getItem("admin_token"));
+  const { token } = useSelector((state) => state?.auth);
   const [addNewDietary, setAddNewDietary] = useState(false);
   const [allData, setAllData] = useState("");
   const [searchText, setSearchText] = useState("");

@@ -1,13 +1,13 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
 
 import CloseIcon from "../Svg/CloseIcon";
 import Loader from "../../loader/Index";
 import AddModal from "./modal/AddModal";
 import EditModal from "./modal/EditModal";
 import DeleteUser from "./modal/DeleteModal";
+import { useSelector } from "react-redux";
 
 export const headItems = [
   "S. No.",
@@ -20,8 +20,7 @@ export const headItems = [
 ];
 
 const FoodMenu = () => {
-  const token = JSON.parse(localStorage.getItem("admin_token"));
-
+  const { token } = useSelector((state) => state?.auth);
   const [isRefresh, setRefresh] = useState(false);
   const [allData, setAllData] = useState([]);
   const [isLoader, setIsLoader] = useState(false);

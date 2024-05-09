@@ -1,12 +1,13 @@
-
 "use client";
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const AddCuisines = ({ closeDrawer, refreshData }) => {
-  const token = JSON.parse(localStorage.getItem("admin_token"));
+  const { token } = useSelector((state) => state?.auth);
+
   const [dietaryDetail, setDietaryDetail] = useState({
     title: "",
     ProfileImage: null, // Changed to null

@@ -2,10 +2,12 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const DeleteDietary = ({ deleteId, closeModal, refreshData }) => {
   const [isLoading, setLoading] = useState(false);
-  const token = JSON.parse(localStorage.getItem("admin_token"));
+  const { token } = useSelector((state) => state?.auth);
+
 
   const handleDelete = (e) => {
     e.preventDefault();

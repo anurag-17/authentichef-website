@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import Loader from "../../../loader/Index";
+import { useSelector } from "react-redux";
 
 const EditModal = ({ closeModal, refreshData, editData, updateId }) => {
-  const token = JSON.parse(localStorage.getItem("admin_token"));
+  const { token } = useSelector((state) => state?.auth);
+
   const [formData, setFormData] = useState();
   const [image, setImage] = useState("");
   const [isLoading, setLoading] = useState(false);

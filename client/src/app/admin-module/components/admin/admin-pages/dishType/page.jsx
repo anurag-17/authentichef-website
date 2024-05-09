@@ -6,6 +6,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import DeleteDishtype from "./modal/deleteDishtype";
 import UpdateDishtype from "./modal/updateDishtype";
 import AddDishtype from "./modal/addDishtype";
+import { useSelector } from "react-redux";
 
 
 export const headItems = [
@@ -17,7 +18,8 @@ export const headItems = [
 ];
 
 const DishType = () => {
-  const token = JSON.parse(localStorage.getItem("admin_token"));
+  const { token } = useSelector((state) => state?.auth);
+
   const [addNewDietary, setAddNewDietary] = useState(false);
   const [allData, setAllData] = useState("");
   const [searchText, setSearchText] = useState("");
