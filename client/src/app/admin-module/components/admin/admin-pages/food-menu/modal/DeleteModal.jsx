@@ -2,8 +2,9 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
-const DeleteModal = ({ token, deleteId, closeModal, refreshData }) => {
+const DeleteModal = ({  deleteId, closeModal, refreshData }) => {
   const { token } = useSelector((state) => state?.auth);
   const [isLoading, setLoading] = useState(false);
 
