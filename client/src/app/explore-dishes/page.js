@@ -36,6 +36,8 @@ import "react-toastify/dist/ReactToastify.css";
 import allCuisines from "./assets/all-cuisines.png";
 import { Dialog, Transition } from "@headlessui/react";
 import DishDetails from "./dish-details/page";
+import Slider from "react-slick";
+import Carousel from "react-elastic-carousel";
 
 const ExploreDishes = () => {
   // const { addToCart } = useCart();
@@ -384,27 +386,35 @@ const ExploreDishes = () => {
     }
   };
 
+  // Slider
+
+  const breakPoints = [
+    { width: 1, itemsToShow: 1 }, // Mobile: Show 1 item
+    { width: 425, itemsToShow: 2 }, // Mobile: Show 1 item
+    { width: 640, itemsToShow: 3 }, // Tablet: Show 3 items
+    { width: 750, itemsToShow: 3 },
+    { width: 1024, itemsToShow: 10 }, // Laptop: Show 7 items
+  ];
+
   return (
     <>
       <ToastContainer autoClose={1000} />
       <section>
         <Navbar />
 
-        <div className="flex justify-center 2xl:py-20 xl:py-14 lg:py-8 hidden lg:block mnavbar 2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] mx-auto">
-          <div className="2xl:pt-[130px] xl:pt-[90px] pt-[60px]">
-            <div className="mnavbar 2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px] flex justify-between mx-auto">
-              <div className="">
-                <h1 className="third_head">Select Cuisine</h1>
+        <div class="flex justify-center 2xl:py-20 xl:py-14 lg:py-8 md:gap-2 xs:hidden  md:lg:block mnavbar 2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] mx-auto  grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 xs:gap-3 justify-items-center my-10  sm:my-6 xs:">
+          <div class="2xl:pt-[130px] xl:pt-[90px] pt-[60px]">
+            <div class="mnavbar 2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] sm:w-[642px]   xs:w-[300px]  flex justify-between mx-auto gap-4 sm:gap-3  xs:grid-cols-2 md:grid-cols-4 lg:grid-cols-7 ">
+              <div class="flex justify-center xs:flex-col xs:items-center xs:py-10">
+                <h1 className="third_head mb-4">Select Cuisine </h1>
               </div>
 
-              <div className="flex justify-between 2xl:gap-10 xl:gap-5 lg:gap-4 items-center">
-                <div className="flex 2xl:gap-5 xl:gap-3 lg:gap-2">
+              <div className="flex justify-between 2xl:gap-10 xl:gap-5 lg:gap-4   items-center md:gap-4 sm:gap-6">
+                <div className="flex 2xl:gap-3 xs:w-full xs:gap4 xl:gap-3 lg:gap-2 sm:gap-2  md:gap-2">
                   {/* Open the modal using document.getElementById('ID').showModal() method */}
                   <button
-                    className="2xl:w-[153px] third_select flex justify-center items-center gap-2"
-                    onClick={() =>
-                      document.getElementById("my_modal_3").showModal()
-                    }
+                    className="2xl:w-[153px] third_select flex justify-center items-center gap-3 md:text-[12px] sm:text-[12px] md:pl-2 sm:pl-2 xs:text-[6px]"
+                    onclick="document.getElementById('my_modal_3').showModal()"
                   >
                     All Cuisines{" "}
                     <svg
@@ -413,7 +423,7 @@ const ExploreDishes = () => {
                       viewBox="0 0 24 24"
                       stroke-width="1.5"
                       stroke="currentColor"
-                      class="w-6 h-6"
+                      className="w-6 h-6 sm:w-4 sm:h-4 md:w-4 md:h-4"
                     >
                       <path
                         stroke-linecap="round"
@@ -478,79 +488,13 @@ const ExploreDishes = () => {
                         ))}
 
                       {/* ================= Dietary=========== */}
-
-                      {/* <div className=" flex flex-wrap gap-[20px]  2xl:w-[1602px] h-auto mx-auto">
-                        {Array.isArray(getAllDietary) &&
-                          getAllDietary.map((item) => (
-                            <div key={item._id} className="dropbox">
-                              <img
-                                src={item.ProfileImage}
-                                className="rounded-[5px] 2xl:w-[30px] 2xl:h-[30px] h-auto xl:w-[50px] lg:w-[] sm:w-[] w-[]  "
-                              />
-                              <h1>{item.title}</h1>
-                            </div>
-                          ))}
-                      </div> */}
-
-                      {/* ================= Dish Type =========== */}
-
-                      {/* <div className="flex justify-between 2xl:w-[1602px] h-auto mx-auto">
-                        <div>
-                          <h1 className="alata font-[400] 2xl:text-[20px] xl:text-[14px] lg:text-[10px] sm:text-[] text-[] my-1 ">
-                            Dish Type
-                          </h1>
-                          <div className=" flex flex-wrap gap-[20px]  ">
-                            {Array.isArray(getAllDishtype) &&
-                              getAllDishtype.map((item) => (
-                                <div key={item._id} className="dropbox3">
-                                  <h1>{item.title}</h1>
-                                </div>
-                              ))}
-                          </div>
-                        </div>
-                        <div>
-                          <h1 className="alata font-[400] 2xl:text-[20px] xl:text-[14px] lg:text-[10px] sm:text-[] text-[] my-1 ">
-                            Spice Level
-                          </h1>
-                          <div className=" flex flex-wrap gap-[20px] ">
-                            {Array.isArray(getAllSpiceL) &&
-                              getAllSpiceL.map((item) => (
-                                <div key={item._id} className="dropbox3">
-                                  <h1>{item.title}</h1>
-                                </div>
-                              ))}
-                          </div>
-                        </div>
-                      </div> */}
                     </div>
                   </dialog>
                   {/* =================Cuisines========================== */}
 
-                  {/* <div className="">
-                    <select
-                      id="cuisines"
-                      className="2xl:w-[153px] third_select"
-                      onChange={(e) => {
-                        handleSearchCuisines(e);
-                      }}
-                    >
-                      <option value=""> All Cuisines</option>
-                      {Array.isArray(getAllCuisines) &&
-                        getAllCuisines.map((item) => (
-                          <option
-                            key={item._id}
-                            value={item._id}
-                            className="custom_dropdown_text  capitalize"
-                          >
-                            {item.title}
-                          </option>
-                        ))}
-                    </select>
-                  </div> */}
-
                   {/* =================Dietary========================== */}
                   <button
-                    className="2xl:w-[153px] third_select flex justify-center items-center gap-2"
+                    className="2xl:w-[153px] third_select flex justify-center items-center gap-2 md:text-[12px] sm:text-[12px] md:pl-2 sm:pl-2 xs:text-[6px]"
                     onClick={() =>
                       document.getElementById("my_modal_4").showModal()
                     }
@@ -562,7 +506,7 @@ const ExploreDishes = () => {
                       viewBox="0 0 24 24"
                       stroke-width="1.5"
                       stroke="currentColor"
-                      class="w-6 h-6"
+                      class="w-6 h-6 sm:w-4 sm:h-4 md:w-4 md:h-4"
                     >
                       <path
                         stroke-linecap="round"
@@ -684,7 +628,7 @@ const ExploreDishes = () => {
 
                   {/* =================More Filter========================== */}
                   <button
-                    className="2xl:w-[153px] third_select flex justify-center items-center gap-2"
+                    className="2xl:w-[153px] third_select flex justify-center items-center gap-2 md:text-[12px] sm:text-[12px] md:pl-2 sm:pl-2"
                     onClick={() =>
                       document.getElementById("my_modal_5").showModal()
                     }
@@ -696,7 +640,7 @@ const ExploreDishes = () => {
                       viewBox="0 0 24 24"
                       stroke-width="1.5"
                       stroke="currentColor"
-                      class="w-6 h-6"
+                      class="w-6 h-6 sm:w-4 sm:h-4 md:w-4 md:h-4"
                     >
                       <path
                         stroke-linecap="round"
@@ -830,7 +774,7 @@ const ExploreDishes = () => {
                       viewBox="0 0 24 24"
                       strokeWidth={1.5}
                       stroke="currentColor"
-                      className="w-[13px] h-[13px] absolute 2xl:right-3 2xl:top-[16px] xl:right-3 xl:top-[10px] lg:right-3 lg:top-[5px] lg:text-[8px]"
+                      className="w-[13px] h-[13px] absolute 2xl:right-3 2xl:top-[16px] xl:right-3 xl:top-[10px] lg:right-3 lg:top-[5px] lg:text-[8px] md:mt-1.5 sm:mt-1.5 "
                     >
                       <path
                         strokeLinecap="round"
@@ -844,222 +788,303 @@ const ExploreDishes = () => {
                       name="search"
                       onChange={handleSearch}
                       placeholder="Search"
-                      className=" third_input text-[#F38181]"
+                      className="md:pl-4 sm:pl-4  third_input text-[#F38181] md:text-[13px] sm:text-[13px] rounded-lg"
                     />
                   </div>
                 </div>
               </div>
             </div>
-            <div className="flex justify-center 2xl:my-10 xl:my-6 lg:my-5">
-              <div className="carousel  2xl:gap-[40px] xl:gap-7 lg:gap-5">
-                <div className="">
+
+            {/* <div class="flex flex-col sm:flex-row justify-center my-10 mx-6 sm:my-6 sm:{}">
+              <div class="carousel gap-4 sm:gap-6 grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7">
+                <div class="">
                   <Image
-                    className="rounded-[5px] 2xl:w-[195px] 2xl:h-[195px] xl:w-[160px] lg:w-[125px] mcusinimg "
+                    className="rounded-[5px] w-[100%]  h-auto mcusinimg"
                     src={cuisineindia}
                     alt="cuisine-india"
                   />
-                  <h1
-                    className="alata font-[400] 2xl:text-[20px] 2xl:leading-[20px] 2xl:mt-[20px] xl:text-[14px] xl:leading-[20px] xl:my-3
-                  lg:text-[12px] lg:leading-[18px] lg:my-2  mx-auto text-center"
-                  >
+                  <h1 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
                     Indian
                   </h1>
                 </div>
-                <div className="">
+                <div class="">
                   <Image
                     alt="cuisine-american"
-                    className="rounded-[5px] 2xl:w-[195px] 2xl:h-[195px] xl:w-[160px] lg:w-[125px] mcusinimg"
+                    className="rounded-[5px] w-[100%] h-auto mcusinimg"
                     src={cuisineamerican}
                   />
-                  <h1
-                    className="alata font-[400] 2xl:text-[20px] 2xl:leading-[20px] 2xl:mt-[20px] xl:text-[14px] xl:leading-[20px] xl:my-3
-                  lg:text-[12px] lg:leading-[18px] lg:my-2  mx-auto text-center"
-                  >
+                  <h1 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
                     American
                   </h1>
                 </div>
-                <div className="">
+                <div class="">
                   <Image
                     alt="cuisine-mexican"
-                    className="rounded-[5px] 2xl:w-[195px] 2xl:h-[195px] xl:w-[160px] lg:w-[125px] mcusinimg"
+                    className="rounded-[5px] w-[100%] h-auto mcusinimg"
                     src={cuisinemexican}
                   />
-                  <h1
-                    className="alata font-[400] 2xl:text-[20px] 2xl:leading-[20px] 2xl:mt-[20px] xl:text-[14px] xl:leading-[20px] xl:my-3
-                  lg:text-[12px] lg:leading-[18px] lg:my-2  mx-auto text-center"
-                  >
+                  <h1 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
                     Mexican
                   </h1>
                 </div>
-                <div className="">
+                <div class="">
                   <Image
                     alt="cuisine-mediterranean"
-                    className="rounded-[5px] 2xl:w-[195px] 2xl:h-[195px] xl:w-[160px] lg:w-[125px] mcusinimg"
+                    className="rounded-[5px] w-[100%]   h-auto mcusinimg"
                     src={cuisinemediterranean}
                   />
-                  <h1
-                    className="alata font-[400] 2xl:text-[20px] 2xl:leading-[20px] 2xl:mt-[20px] xl:text-[14px] xl:leading-[20px] xl:my-3
-                  lg:text-[12px] lg:leading-[18px] lg:my-2  mx-auto text-center"
-                  >
+                  <h1 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
                     Mediterranean
                   </h1>
                 </div>
-                <div className="">
+                <div class="">
                   <Image
                     alt="cuisine-italian"
-                    className="rounded-[5px] 2xl:w-[195px] 2xl:h-[195px] xl:w-[160px] lg:w-[125px] mcusinimg"
+                    className="rounded-[5px] w-[100%] h-auto mcusinimg"
                     src={cuisineitalian}
                   />
-                  <h1
-                    className="alata font-[400] 2xl:text-[20px] 2xl:leading-[20px] 2xl:mt-[20px] xl:text-[14px] xl:leading-[20px] xl:my-3
-                  lg:text-[12px] lg:leading-[18px] lg:my-2  mx-auto text-center"
-                  >
+                  <h1 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
                     Italian
                   </h1>
                 </div>
-                <div className="">
+                <div class="">
                   <Image
                     alt="cuisine-middleEastern"
-                    className="rounded-[5px] 2xl:w-[195px] 2xl:h-[195px] xl:w-[160px] lg:w-[125px] mcusinimg"
+                    className="rounded-[5px] w-[100%] h-auto mcusinimg"
                     src={cuisinemiddleEastern}
                   />
-                  <h1
-                    className="alata font-[400] 2xl:text-[20px] 2xl:leading-[20px] 2xl:mt-[20px] xl:text-[14px] xl:leading-[20px] xl:my-3
-                  lg:text-[12px] lg:leading-[18px] lg:my-2  mx-auto text-center"
-                  >
+                  <h1 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
                     Middle Eastern
                   </h1>
                 </div>
-                <div className="">
+                <div class="">
                   <Image
                     alt="cuisine-middleEastern"
-                    className="rounded-[5px] 2xl:w-[195px] 2xl:h-[195px] xl:w-[160px] lg:w-[125px] mcusinimg"
+                    className="rounded-[5px] w-[100%] h-auto mcusinimg"
                     src={cuisinesoutheast}
                   />
-                  <h1
-                    className="alata font-[400] 2xl:text-[20px] 2xl:leading-[20px] 2xl:mt-[20px] xl:text-[14px] xl:leading-[20px] xl:my-3
-                  lg:text-[12px] lg:leading-[18px] lg:my-2  mx-auto text-center"
-                  >
+                  <h1 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
                     Southeast Asian
-                  </h1>
+                  </h1> 
                 </div>
+              </div>
+            </div> */}
+
+            <div className=" sm:flex-row justify-center my-10  sm:my-6 sm:{}">
+              <div className="carousel-container ">
+                <Carousel breakPoints={breakPoints} className="gap-2">
+                  <div className="carousel-item">
+                    <div className="text-center">
+                      {" "}
+                      {/* Center aligns the content */}
+                      <Image
+                        className="rounded-[5px] w-[195px] h-[195px] mcusinimg"
+                        src={cuisineindia}
+                        alt="cuisine-india"
+                      />
+                      <h1 className="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
+                        Indian
+                      </h1>
+                    </div>
+                  </div>
+                  <div className="carousel-item">
+                    <div className="text-center">
+                      <Image
+                        alt="cuisine-american"
+                        className="rounded-[5px] w-[195px] h-[195px] mcusinimg"
+                        src={cuisineamerican}
+                      />
+                      <h1 className="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
+                        American
+                      </h1>
+                    </div>
+                  </div>
+                  <div className="carousel-item">
+                    <div className="text-center">
+                      <Image
+                        alt="cuisine-mexican"
+                        className="rounded-[5px] w-[195px] h-[195px] mcusinimg"
+                        src={cuisinemexican}
+                      />
+                      <h1 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
+                        Mexican
+                      </h1>
+                    </div>
+                  </div>
+                  <div class="carousel-item">
+                    <div className="text-center">
+                      <Image
+                        alt="cuisine-mediterranean"
+                        className="rounded-[5px] w-[195px] h-[195px] mcusinimg"
+                        src={cuisinemediterranean}
+                      />
+                      <h1 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
+                        Mediterranean
+                      </h1>
+                    </div>
+                  </div>
+                  <div class="carousel-item">
+                    <div className="text-center">
+                      <Image
+                        alt="cuisine-italian"
+                        className="rounded-[5px] w-[195px] h-[195px]  mcusinimg"
+                        src={cuisineitalian}
+                      />
+                      <h1 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
+                        Italian
+                      </h1>
+                    </div>
+                  </div>
+                  <div class="carousel-item">
+                    <div className="text-center">
+                      <Image
+                        alt="cuisine-middleEastern"
+                        className="rounded-[5px] w-[195px] h-[195px] mcusinimg"
+                        src={cuisinemiddleEastern}
+                      />
+                      <h1 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
+                        Middle Eastern
+                      </h1>
+                    </div>
+                  </div>
+                  <div class="carousel-item">
+                    <div className="text-center">
+                      <Image
+                        alt="cuisine-middleEastern"
+                        className="rounded-[5px] w-[195px] h-[195px]  mcusinimg"
+                        src={cuisinesoutheast}
+                      />
+                      <h1 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
+                        Southeast Asian
+                      </h1>
+                    </div>
+                  </div>
+                </Carousel>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="2xl:my-[20px] xl:my-[20px] my-[50px] bg-[#F9F2F2]">
-          <div className="mnavbar 2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px]  2xl:py-[60px] xl:py-[60px] py-[40px] mx-auto">
-            <div className="flex justify-center">
-              <div>
-                <h1 className="third_head text-center">Explore Dishes</h1>
-                <p className="seven_p 2xl:w-[980px] xl:w-[600px] lg:w-[460px] w-[460px]">
-                  Browse world of authentic homemade dishes by our independent
-                  chef community. More chefs and dishes added every week.
-                </p>
+        <div className="sm:col-2">
+          <div className="2xl:my-[20px] xl:my-[20px] my-[50px] bg-[#F9F2F2]">
+            <div className="mnavbar 2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px]  2xl:py-[60px] xl:py-[60px] py-[40px] mx-auto">
+              <div className="flex justify-center">
+                <div class="px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 mt-3">
+                  <h1 class="third_head text-center text-3xl sm:text-4xl md:text-55px">
+                    Explore Dishes
+                  </h1>
+                  <p class="seven_p mt-4 text-base sm:text-lg md:text-xl lg:text-lg xl:text-xl 2xl:text-lg">
+                    Browse the world of authentic homemade dishes by our
+                    independent chef community. More chefs and dishes added
+                    every week.
+                  </p>
+                </div>
               </div>
-            </div>
-            <div className=" flex flex-wrap gap-[20px] xl:gap-[25px] 2xl:gap-[70px] w-full px-10 md:px-0 mx-auto">
-              {Array.isArray(getAllDish) &&
-                getAllDish.map((item) => (
-                  <div
-                    key={item.id}
-                    className="  my-5 2xl:w-[345px] 2xl:h-[560px] lg:w-[23%]  md:w-[31%] w-[45%]  relative  rounded-[9.8px] mexploreD "
-                  >
-                    <button className="" onClick={() => openModal(item._id)}>
-                      <img
-                        src={item.ProfileImage}
-                        alt={item.title}
-                        width={345}
-                        height={278}
-                        className="w-full h-auto 2xl:w-[365.5px] 2xl:h-[278px] rounded-[10px] mexplorimg"
-                      />
-                    </button>
-                    <div className="">
-                      <h1 className="alata capitalize font-[400] text-[#DB5353] 2xl:my-4 xl:my-3 my-2 2xl:text-[20px] 2xl:leading-[20px]  xl:text-[14px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[10px]">
-                        {item.name}
-                      </h1>
 
-                      {/* ===============Chef ============= */}
-                      <Link href={`/pages/chef-details/${item?.chef_id?._id}`}>
-                        <div className="flex items-center 2xl:gap-3 xl:gap-2 lg:gap-2  gap-2 xl:my-3 lg:my-2 my-2">
-                          <img
-                            alt="image"
-                            src={item.chef_id.images}
-                            className="four_img2 "
-                          />
-                          <div>
-                            <h1 className="fourth_name ">
-                              {item.chef_id.name}
-                            </h1>
-                            <p className="fourth_p text-[#6765EB]">Indian</p>
-                          </div>
-                        </div>
-                      </Link>
+              <div className=" flex flex-wrap gap-[20px] xl:gap-[25px] 2xl:gap-[70px] w-full px-10 md:px-0 mx-auto ">
+                {Array.isArray(getAllDish) &&
+                  getAllDish.map((item) => (
+                    <div
+                      key={item.id}
+                      className="  my-5 2xl:w-[345px] 2xl:h-[560px] lg:w-[23%]  md:w-[31%] w-[45%]  relative  rounded-[9.8px] mexploreD "
+                    >
+                      <button className="" onClick={() => openModal(item._id)}>
+                        <img
+                          src={item.ProfileImage}
+                          alt={item.title}
+                          width={345}
+                          height={278}
+                          className="w-full h-auto 2xl:w-[365.5px] 2xl:h-[278px] rounded-[10px] mexplorimg"
+                        />
+                      </button>
+                      <div className="">
+                        <h1 className="alata capitalize font-[400] text-[#DB5353] 2xl:my-4 xl:my-3 my-2 2xl:text-[20px] 2xl:leading-[20px]  xl:text-[14px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[10px]">
+                          {item.name}
+                        </h1>
 
-                      <div className="flex gap-5 2xl:my-[20px] xl:my-[15px] my-[12px]">
-                        <button className="four_btn">
-                          <Image
-                            alt="image"
-                            src={vegetarian}
-                            className="2xl:w-[13px] 2xl:h-[13px] lg:w-[10px] lg:h-[10px] w-[10px] h-auto"
-                          />
-                          <p className="fourth_day">
-                            {item?.Dietary_id?.title}
-                          </p>
-                        </button>
-                        <button className="four_btn">
-                          <Image
-                            alt="image"
-                            src={vegan}
-                            className="2xl:w-[13px] 2xl:h-[13px] lg:w-[10px] lg:h-[10px] w-[10px] h-auto"
-                          />
-                          <p className="fourth_day">Vegan</p>
-                        </button>
-                      </div>
-                      <div className="flex items-center gap-5  2xl:my-[20px] xl:my-[15px] my-[12px]">
-                        <h1 className="fourth_p">Spice level</h1>
-                        <button className="four_btn">
-                          <Image
-                            alt="image"
-                            src={spicemedium}
-                            className="2xl:w-[13px] 2xl:h-[13px] lg:w-[10px] lg:h-[10px] w-[10px] h-auto"
-                          />
-                          <p className="fourth_day">
-                            {item.spice_level_id.title}
-                          </p>
-                        </button>
-                      </div>
-
-                      <div className=" w-full bottom-0 flex justify-between items-center  2xl:my-[22px] xl:my-[18px] my-[15px]">
-                        <p className="alata font-[400] text-[#000] 2xl:text-[20px] 2xl:leading-[24px] xl:text-[14px] xl:leading-[18px] lg:text-[12px] lg:leading-[16px] text-[12px] leading-[16px] ">
-                          Serves 1 (500g){" "}
-                          <span className="text-[#DB5353]">£8.50</span>
-                        </p>
-                        <button
-                          onClick={() => {
-                            // addToCart(item);
-                            handleAddToCart(item?._id);
-                          }}
+                        {/* ===============Chef ============= */}
+                        <Link
+                          href={`/pages/chef-details/${item?.chef_id?._id}`}
                         >
-                          <div className="drawer-content">
-                            {/* Page content here */}
-                            <label
-                              htmlFor="my-drawer-4"
-                              className="drawer-button"
-                            >
-                              <Image
-                                src={addCart}
-                                alt={item.title}
-                                className=" 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
-                              />
-                            </label>
+                          <div className="flex items-center 2xl:gap-3 xl:gap-2 lg:gap-2  gap-2 xl:my-3 lg:my-2 my-2">
+                            <img
+                              alt="image"
+                              src={item.chef_id.images}
+                              className="four_img2 "
+                            />
+                            <div>
+                              <h1 className="fourth_name ">
+                                {item.chef_id.name}
+                              </h1>
+                              <p className="fourth_p text-[#6765EB]">Indian</p>
+                            </div>
                           </div>
-                        </button>
+                        </Link>
+
+                        <div className="flex gap-5 2xl:my-[20px] xl:my-[15px] my-[12px]">
+                          <button className="four_btn">
+                            <Image
+                              alt="image"
+                              src={vegetarian}
+                              className="2xl:w-[13px] 2xl:h-[13px] lg:w-[10px] lg:h-[10px] w-[10px] h-auto"
+                            />
+                            <p className="fourth_day">
+                              {item?.Dietary_id?.title}
+                            </p>
+                          </button>
+                          <button className="four_btn">
+                            <Image
+                              alt="image"
+                              src={vegan}
+                              className="2xl:w-[13px] 2xl:h-[13px] lg:w-[10px] lg:h-[10px] w-[10px] h-auto"
+                            />
+                            <p className="fourth_day">Vegan</p>
+                          </button>
+                        </div>
+                        <div className="flex items-center gap-5  2xl:my-[20px] xl:my-[15px] my-[12px]">
+                          <h1 className="fourth_p">Spice level</h1>
+                          <button className="four_btn">
+                            <Image
+                              alt="image"
+                              src={spicemedium}
+                              className="2xl:w-[13px] 2xl:h-[13px] lg:w-[10px] lg:h-[10px] w-[10px] h-auto"
+                            />
+                            <p className="fourth_day">
+                              {item.spice_level_id.title}
+                            </p>
+                          </button>
+                        </div>
+
+                        <div className=" w-full bottom-0 flex justify-between items-center  2xl:my-[22px] xl:my-[18px] my-[15px]">
+                          <p className="alata font-[400] text-[#000] 2xl:text-[20px] 2xl:leading-[24px] xl:text-[14px] xl:leading-[18px] lg:text-[12px] lg:leading-[16px] text-[12px] leading-[16px] ">
+                            Serves 1 (500g){" "}
+                            <span className="text-[#DB5353]">£8.50</span>
+                          </p>
+                          <button
+                            onClick={() => {
+                              // addToCart(item);
+                              handleAddToCart(item?._id);
+                            }}
+                          >
+                            <div className="drawer-content">
+                              {/* Page content here */}
+                              <label
+                                htmlFor="my-drawer-4"
+                                className="drawer-button"
+                              >
+                                <Image
+                                  src={addCart}
+                                  alt={item.title}
+                                  className=" 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
+                                />
+                              </label>
+                            </div>
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+              </div>
             </div>
           </div>
         </div>
@@ -1486,70 +1511,70 @@ const ExploreDishes = () => {
                     </div>
                   </div>
                 ) : (
-                  <div className="">
+                  <div className="xs:justify-center flex">
                     <div
-                      className=" flex justify-end mt-10 md:mr-5"
+                      className="flex justify-end mt-10 md:mr-5"
                       onClick={() => handleAllClear()}
                     >
                       <button className="border p-2 text-[20px]">
                         All Clear
                       </button>
                     </div>
-                    {getCartItem.map((item) => (
-                      <div key={item.id}>
-                        <div className="flex justify-between items-center 2xl:my-6 my-2">
-                          <div className="flex items-center gap-2 2xl:gap-4 xl:h-[70px]">
+                    <div className="grid grid-cols-1 gap-4 xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2 justify-items-center">
+                      {getCartItem.map((item) => (
+                        <div key={item.id} className="my-2 max-w-xs">
+                          <div className="flex flex-col items-center gap-2">
                             <img
                               src={item.image}
                               alt={item.name}
-                              className="2xl:w-[70px] 2xl:h-[70px] xl:w-[50px] xl:h-[50px] lg:w-[40px] lg:h-[40px] rounded-[5.8px]"
+                              className="w-[70px] h-[70px] rounded-[5.8px]"
                             />
-                            <div>
-                              <h1 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px]  xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
+                            <div className="text-center">
+                              <h1 className="alata font-[400] text-[#111] my-0 text-[18px] leading-[28px]">
                                 {item?.title}
                               </h1>
-                              <h1 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px]  xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
+                              <h1 className="alata font-[400] text-[#111] my-0 text-[18px] leading-[28px]">
                                 £{item?.price}
                               </h1>
                             </div>
+                            <div className="flex items-center gap-2">
+                              <button
+                                className="text-[#DB5353] rounded-l"
+                                onClick={() => {
+                                  handleDecrement(item?.id);
+                                  removeFromCart(item.id);
+                                  alert("Removed from cart");
+                                }}
+                              >
+                                <Image
+                                  src={minus}
+                                  className="w-[15px] h-[15px]"
+                                />
+                              </button>
+                              <p className="text-[10px] leading-[28px]">
+                                {count}
+                              </p>
+                              <button
+                                className="text-[#DB5353] rounded-r"
+                                onClick={() => handleIncrement(item?.id)}
+                              >
+                                <Image
+                                  src={plus}
+                                  className="w-[15px] h-[15px]"
+                                />
+                              </button>
+                            </div>
                           </div>
-                          <div className="flex justify-center 2xl:w-[103px] 2xl:h-[39px] xl:w-[60px] xl:h-[22px] lg:w-[50px] lg:h-[20px] border rounded-[5px] ">
-                            {" "}
-                            <button
-                              className="   text-[#DB5353] rounded-l w-1/3"
-                              onClick={() => {
-                                handleDecrement(item?.id);
-                                removeFromCart(item.id);
-                                alert("Removed from cart");
-                              }}
-                            >
-                              <Image
-                                src={minus}
-                                className="2xl:w-[15px] 2xl:h-[15px] xl:w-[10px] xl:h-[10px] lg:w-[8px] lg:h-[8px] mx-auto "
-                              />
-                            </button>
-                            <p className=" flex mx-auto items-center text-[10px] xl:text-[12px] 2xl:text-[18px]  2xl:leading-[28px] ">
-                              {count}
-                            </p>
-                            <button
-                              className="    text-[#DB5353] rounded-r w-1/3"
-                              onClick={() => handleIncrement(item?.id)}
-                            >
-                              <Image
-                                src={plus}
-                                className="2xl:w-[15px] 2xl:h-[15px] xl:w-[10px] xl:h-[10px] lg:w-[8px] lg:h-[8px] mx-auto "
-                              />
-                            </button>
-                          </div>
+                          <button
+                            className="px-4 text-[13px] border rounded h-[25px] text-red hover:bg-[#efb3b38a] w-full"
+                            onClick={() => handleRemove(item?._id)}
+                          >
+                            Remove
+                          </button>
                         </div>
-                        <button
-                          className="px-4 text-[13px] border rounded h-[25px] text-[red] hover:bg-[#efb3b38a]"
-                          onClick={() => handleRemove(item?._id)}
-                        >
-                          Remove
-                        </button>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
+
                     <div className="flex justify-between items-center mt-20">
                       <div>
                         <h1 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
@@ -1557,7 +1582,7 @@ const ExploreDishes = () => {
                         </h1>
                       </div>
                       <div>
-                        <button className=" alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1 ">
+                        <button className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1">
                           Checkout
                         </button>
                       </div>

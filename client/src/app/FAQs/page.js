@@ -156,20 +156,20 @@ const FAQs = () => {
         <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px]  mx-auto 2xl:py-[150px] xl:py-[120px] py-[70px] mnavbar">
           <div className=" mx-auto text-center ">
             <h2 className="faqhead ">Your Questions Answered</h2>
-            <h2 className="pop-head 2xl:mt-[60px] xl:mt-[40px] lg:mt-[25px] sm:mt-[20px] mt-[]">
+            <h2 className="pop-head 2xl:mt-[60px] xl:mt-[40px] lg:mt-[25px] sm:mt-[20px] mt-[] my-3">
               About Authentichef
             </h2>
           </div>
           <div className="bg-[#F38181] text-white mx-auto 2xl:w-[1129px] xl:w-[700px] lg:w-[550px] sm:w-[] w-[] 2xl:h-[210px] flex items-center 2xl:px-[30px] xl:px-[20px] lg:px-[15px] sm:px-[10px] px-[] 2xl:mt-[30px] xl:mt-[20px] lg:mt-[10px] sm:mt-[10px] mt-[] py-[12px] xl:py-[15px] 2xl:py-0">
             <div className="">
-              <h1 className="nine_p">
+              <h1 className="nine_p xs:text-[15px] xs:center xs:mx-4  md:text-[18px] sm:text-[15px]">
                 What makes authentichef different from other food delivery
                 companies?
               </h1>
-              <h2 className="seven_p2">
+              <h2 className="seven_p2 xs:text-[15px] sm:text-[15px]   xs:center xs:mx-4 xs:my-2 md:my-2 md:text-[18px]">
                 We believe food is not just a need; they’re journeys.
               </h2>
-              <p className="2xl:w-[981px] xl:w-[] lg:w-[] sm:w-[] w-[] seven_p2">
+              <p className="2xl:w-[981px] xl:w-[] lg:w-[] sm:w-[] w-[] seven_p2 xs:text-[15px] xs:center xs:mx-4 xs:my-2 md:my-2 md:text-[18px] xl:leading-5 2xl:leading-5 md:leading-5 sm:text-[15px]">
                 We connect you with delicious, authentic dishes from around the
                 world, handcrafted by passionate independent chefs in the UK.
                 Each dish is a culinary adventure, inspired by traditional
@@ -180,16 +180,16 @@ const FAQs = () => {
           </div>
 
           <div className="2xl:mt-[60px] xl:mt-[40px] lg:mt-[20px] sm:mt-[10px] mt-[] text-center">
-            <h2 className="pop-head 2xl:mt-[60px] xl:mt-[40px] lg:mt-[25px] sm:mt-[20px] mt-[]">
+            <h2 className="pop-head 2xl:mt-[60px] xl:mt-[40px] lg:mt-[25px] sm:mt-[20px] mt-[] my-3">
               Chef Community
             </h2>
-            <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] mx-auto mnavbar">
+            <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] mx-auto mnavbar ">
               <div className="2xl:w-[1129px] xl:w-[700px] lg:w-[550px] sm:w-[] w-[] mx-auto">
                 <div className="join join-vertical w-full text-start">
                   {/* Mapping through accordion items */}
                   {data.map((item, index) => (
                     <div
-                      className="collapse collapse-arrow join-item border-b"
+                      className="collapse collapse-arrow join-item border-b xs:text-[12px]"
                       key={index}
                     >
                       <input
@@ -198,19 +198,19 @@ const FAQs = () => {
                         defaultChecked={openIndex === index}
                       />
                       <div
-                        className="collapse-title text-xl font-medium flex justify-between items-center nine_p"
+                        className="collapse-title text-xl font-medium flex justify-between items-center nine_p xs:text-[12px]"
                         onClick={() => toggleAccordion(index)}
                       >
                         {item.question}
                         <div
-                          className={`rounded-full bg-[#F38181] 2xl:w-[32px] 2xl:h-[32px] o xl:w-[25px] lg:w-[16px] sm:w-[16px] w-[] flex items-center justify-center`}
+                          className={`rounded-full bg-[#F38181] 2xl:w-[32px] 2xl:h-[32px] o xl:w-[25px] lg:w-[16px] sm:w-[16px] w-[] flex items-center justify-center xs:text-[12px]`}
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
                             stroke-width="1.5"
                             stroke="currentColor"
-                            className="text-white 2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] xl:h-[18px] w-[12px] h-[12px]"
+                            className="text-white 2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] xl:h-[18px] w-[12px] h-[12px] xs:text-[12px]"
                           >
                             <path
                               strokeLinecap="round"
@@ -230,7 +230,7 @@ const FAQs = () => {
             </div>
           </div>
 
-          <div className="2xl:mt-[60px] xl:mt-[40px] lg:mt-[20px] sm:mt-[10px] mt-[] text-center">
+          <div className="2xl:mt-[60px] xl:mt-[40px] lg:mt-[20px] sm:mt-[10px] mt-[] text-center my-3">
             <h2 className="pop-head 2xl:mt-[60px] xl:mt-[40px] lg:mt-[25px] sm:mt-[20px] mt-[]">
               Ordering
             </h2>
@@ -241,7 +241,7 @@ const FAQs = () => {
                   {/* Mapping through accordion items */}
                   {data2.map((item, index) => (
                     <div
-                      className="collapse collapse-arrow join-item border-b"
+                      className="collapse collapse-arrow join-item border-b xs:text-[12px]"
                       key={index}
                     >
                       <input
@@ -250,12 +250,12 @@ const FAQs = () => {
                         defaultChecked={openIndex === index}
                       />
                       <div
-                        className="collapse-title text-xl font-medium flex justify-between items-center nine_p"
+                        className="collapse-title text-xl font-medium flex justify-between items-center nine_p xs:text-[12px]"
                         onClick={() => toggleAccordion(index)}
                       >
                         {item.question}
                         <div
-                          className={`rounded-full bg-[#F38181] 2xl:w-[32px] 2xl:h-[32px] o xl:w-[25px] lg:w-[16px] sm:w-[16px] w-[] flex items-center justify-center`}
+                          className={`rounded-full bg-[#F38181] 2xl:w-[32px] 2xl:h-[32px] o xl:w-[25px] lg:w-[16px] sm:w-[16px] w-[] flex items-center justify-center xs:text-[12px]`}
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -282,7 +282,7 @@ const FAQs = () => {
             </div>
           </div>
 
-          <div className="2xl:mt-[60px] xl:mt-[40px] lg:mt-[20px] sm:mt-[10px] mt-[] text-center">
+          <div className="2xl:mt-[60px] xl:mt-[40px] lg:mt-[20px] sm:mt-[10px] mt-[] text-center my-4">
             <h2 className="pop-head 2xl:mt-[60px] xl:mt-[40px] lg:mt-[25px] sm:mt-[20px] mt-[]">
               Dish
             </h2>
@@ -292,7 +292,7 @@ const FAQs = () => {
                   {/* Mapping through accordion items */}
                   {data3.map((item, index) => (
                     <div
-                      className="collapse collapse-arrow join-item border-b"
+                      className="collapse collapse-arrow join-item border-b xs:text-[12px]"
                       key={index}
                     >
                       <input
@@ -301,12 +301,12 @@ const FAQs = () => {
                         defaultChecked={openIndex === index}
                       />
                       <div
-                        className="collapse-title text-xl font-medium flex justify-between items-center nine_p"
+                        className="collapse-title text-xl font-medium flex justify-between items-center nine_p xs:text-[12px]"
                         onClick={() => toggleAccordion(index)}
                       >
                         {item.question}
                         <div
-                          className={`rounded-full bg-[#F38181] 2xl:w-[32px] 2xl:h-[32px] o xl:w-[25px] lg:w-[16px] sm:w-[16px] w-[] flex items-center justify-center`}
+                          className={`rounded-full bg-[#F38181] 2xl:w-[32px] 2xl:h-[32px] o xl:w-[25px] lg:w-[16px] sm:w-[16px] w-[] flex items-center justify-center xs:text-[12px]`}
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -333,7 +333,7 @@ const FAQs = () => {
             </div>
           </div>
 
-          <div className="2xl:mt-[60px] xl:mt-[40px] lg:mt-[20px] sm:mt-[10px] mt-[] text-center">
+          <div className="2xl:mt-[60px] xl:mt-[40px] lg:mt-[20px] sm:mt-[10px] mt-[] text-center my-4">
             <h2 className="pop-head 2xl:mt-[60px] xl:mt-[40px] lg:mt-[25px] sm:mt-[20px] mt-[]">
               Delivery
             </h2>
@@ -344,7 +344,7 @@ const FAQs = () => {
                   {/* Mapping through accordion items */}
                   {data4.map((item, index) => (
                     <div
-                      className="collapse collapse-arrow join-item border-b"
+                      className="collapse collapse-arrow join-item border-b xs:text-[12px]"
                       key={index}
                     >
                       <input
@@ -353,12 +353,12 @@ const FAQs = () => {
                         defaultChecked={openIndex === index}
                       />
                       <div
-                        className="collapse-title text-xl font-medium flex justify-between items-center nine_p"
+                        className="collapse-title text-xl font-medium flex justify-between items-center nine_p xs:text-[12px]"
                         onClick={() => toggleAccordion(index)}
                       >
                         {item.question}
                         <div
-                          className={`rounded-full bg-[#F38181] 2xl:w-[32px] 2xl:h-[32px] o xl:w-[25px] lg:w-[16px] sm:w-[16px] w-[] flex items-center justify-center`}
+                          className={`rounded-full bg-[#F38181] 2xl:w-[32px] 2xl:h-[32px] o xl:w-[25px] lg:w-[16px] sm:w-[16px] w-[] flex items-center justify-center xs:text-[12px]`}
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -385,7 +385,7 @@ const FAQs = () => {
             </div>
           </div>
 
-          <div className="2xl:mt-[60px] xl:mt-[40px] lg:mt-[20px] sm:mt-[10px] mt-[] text-center">
+          <div className="2xl:mt-[60px] xl:mt-[40px] lg:mt-[20px] sm:mt-[10px] mt-[] text-center my-4">
             <h2 className="pop-head 2xl:mt-[60px] xl:mt-[40px] lg:mt-[25px] sm:mt-[20px] mt-[]">
               Packaging and Sustainability
             </h2>
@@ -396,7 +396,7 @@ const FAQs = () => {
                   {/* Mapping through accordion items */}
                   {data5.map((item, index) => (
                     <div
-                      className="collapse collapse-arrow join-item border-b"
+                      className="collapse collapse-arrow join-item border-b xs:text-[12px]"
                       key={index}
                     >
                       <input
@@ -405,12 +405,12 @@ const FAQs = () => {
                         defaultChecked={openIndex === index}
                       />
                       <div
-                        className="collapse-title text-xl font-medium flex justify-between items-center nine_p"
+                        className="collapse-title text-xl font-medium flex justify-between items-center nine_p xs:text-[12px]"
                         onClick={() => toggleAccordion(index)}
                       >
                         {item.question}
                         <div
-                          className={`rounded-full bg-[#F38181] 2xl:w-[32px] 2xl:h-[32px] o xl:w-[25px] lg:w-[16px] sm:w-[16px] w-[] flex items-center justify-center`}
+                          className={`rounded-full bg-[#F38181] 2xl:w-[32px] 2xl:h-[32px] o xl:w-[25px] lg:w-[16px] sm:w-[16px] w-[] flex items-center justify-center xs:text-[12px]`}
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
