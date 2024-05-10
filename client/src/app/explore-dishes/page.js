@@ -1624,7 +1624,7 @@ const ExploreDishes = () => {
                   <Dialog.Title
                     as="h3"
                     onClick={closeModal}
-                    className="custom_heading_text font-semibold leading-6 text-gray-900 mt lg:mt-0"
+                    className="custom_heading_text font-semibold leading-6 text-gray-900 mt lg:mt-0 absolute right-5 text-[30px]"
                   >
                     {" "}
                     X

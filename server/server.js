@@ -59,6 +59,7 @@ server.use('/api/DishType', require('./Route/DishTypeRouter'));
 server.use('/api/SpiceLevel', require('./Route/SpiceRouter'));
 server.use('/api/Orders', require('./Route/cartRoutes'));
 server.use('/api/order', require('./Route/OrderRouter'));
+server.use('/Google_OAuth', require('./Route/googleRouter'));
 
 
 // Serve static assets in production
