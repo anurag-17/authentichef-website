@@ -76,27 +76,25 @@ const AboutUs = () => {
             </div>
           </div>
 
-
-
-          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px] flex justify-between mx-auto  mnavbar">
-            <div className="flex justify-between w-full 2xl:mb-[140px] xl:mb-[100px] mb-[60px] ">
-              <div className="2xl:w-[760px] xl:w-[500px] lg:w-[380px] sm:w-[] w-[] aboutusbox ">
+          <div class="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] sm:w-full w-full flex justify-between mx-auto mnavbar">
+            <div class="flex flex-col w-full md:flex-row md:justify-between 2xl:mb-[140px] xl:mb-[100px] mb-[60px] ">
+              <div class="w-full md:w-[48%]">
                 <Image
                   src={aboutDishes}
-                  className=" 2xl:h-[507px] h-auto rounded-[15px] aboutusimg"
+                  className="2xl:w-full h-auto rounded-[15px] aboutusimg"
                 />
-                <p className="2xl:w-[704px] xl:w-[420px] lg:w-[300px] sm:w-[] w-[] 2xl:mt-[40px] xl:mt-[20px] mt-[10px] aboutPara">
+                <p class="2xl:w-[704px] xl:w-[420px] lg:w-[300px] sm:w-full w-full 2xl:mt-[40px] xl:mt-[20px] mt-[10px] aboutPara">
                   Each dish has a story that spans generations, rooted in
                   culture, tradition, and a love for distinct flavours, serving
                   people from all walks of life.
                 </p>
               </div>
-              <div className="2xl:w-[760px] xl:w-[500px] lg:w-[380px] sm:w-[] w-[] aboutusbox">
+              <div class="w-full md:w-[48%] mt-8 md:mt-0">
                 <Image
                   src={aboutChef}
-                  className=" 2xl:h-[507px] h-auto rounded-[15px] aboutusimg"
+                  className="2xl:w-full h-auto rounded-[15px] aboutusimg"
                 />
-                <p className="2xl:w-[704px] xl:w-[490px] lg:w-[380px] sm:w-[] w-[] 2xl:mt-[40px] xl:mt-[20px] mt-[10px] aboutPara">
+                <p class="2xl:w-[704px] xl:w-[490px] lg:w-[380px] sm:w-full w-full 2xl:mt-[40px] xl:mt-[20px] mt-[10px] aboutPara">
                   Our chef-community believe that everyone deserves homemade
                   cooked food, no matter where they are. When served, they
                   strive to bring feelings of comfort, joy and a sense of
