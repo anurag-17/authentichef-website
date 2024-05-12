@@ -6,17 +6,14 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { sideMenus } from "../../config/data";
 import CloseIcon from "./admin-pages/Svg/CloseIcon";
-import {
-  removeToken,
-  rem_AdDetails,
-} from "../../redux/adminSlice/authSlice.js";
+
 
 const AdminDashboard = () => {
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
   const [ComponentId, setComponentId] = useState(0);
 
   const [showDrawer, setShowDrawer] = useState(false);
-  const { token } = useSelector((state) => state?.auth);
+ // const { token } = useSelector((state) => state?.auth);
   const router = useRouter();
 
   const handleClick = (id, url) => {
@@ -27,7 +24,7 @@ const AdminDashboard = () => {
     try {
       const res = await axios.get(`/api/auth/logout`, {
         headers: {
-          Authorization: token,
+          // Authorization: token,
           "Content-Type": "application/json",
         },
       });

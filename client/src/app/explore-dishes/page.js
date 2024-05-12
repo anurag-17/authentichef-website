@@ -40,8 +40,6 @@ import Slider from "react-slick";
 import Carousel from "react-elastic-carousel";
 
 const ExploreDishes = () => {
-  // const { addToCart } = useCart();
-  const { cart, removeFromCart, clearCart } = useCart();
   const [count, setCount] = useState(0);
   const [isOpenDelete, setOpenDelete] = useState(false);
   const closeModal = () => setOpenDelete(false);
@@ -1540,11 +1538,11 @@ const ExploreDishes = () => {
                             <div className="flex items-center gap-2">
                               <button
                                 className="text-[#DB5353] rounded-l"
-                                onClick={() => {
-                                  handleDecrement(item?.id);
-                                  removeFromCart(item.id);
-                                  alert("Removed from cart");
-                                }}
+                                // onClick={() => {
+                                //   handleDecrement(item?.id);
+                                //   removeFromCart(item.id);
+                                //   alert("Removed from cart");
+                                // }}
                               >
                                 <Image
                                   src={minus}

@@ -9,7 +9,7 @@ import RightSection from "./RightSection";
 import Link from "next/link";
 
 const Login = () => {
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
   const router = useRouter();
   const [loginDetails, setLoginDetails] = useState({
     email: "",

@@ -16,7 +16,7 @@ import {
 const protectedRoute = (WrappedComponent) => {
   const Wrapper = (props) => {
     const router = useRouter();
-    const dispatch = useDispatch();
+    //const dispatch = useDispatch();
     const { ad_token, isLoggedIn } = useSelector((state) => state.auth);
     // const loading = true
     const [isLoading, setIsLoading] = useState(false);

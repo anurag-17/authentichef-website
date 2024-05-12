@@ -20,7 +20,7 @@ export const headItems = [
 ];
 
 const FoodMenu = () => {
-  const { token } = useSelector((state) => state?.auth);
+ // const { token } = useSelector((state) => state?.auth);
   const [isRefresh, setRefresh] = useState(false);
   const [allData, setAllData] = useState([]);
   const [isLoader, setIsLoader] = useState(false);
@@ -33,7 +33,7 @@ const FoodMenu = () => {
   const [Id, setId] = useState(null);
 
   const visiblePageCount = 10;
-  // const { token } = useSelector((state) => state?.auth);
+  //// const { token } = useSelector((state) => state?.auth);
   // console.log(allData);
   
   const refreshData = () => {
@@ -119,7 +119,7 @@ const FoodMenu = () => {
       method: "GET",
       url: `/api/menu/menuItems?search=${search_cate}`,
       headers: {
-        Authorization: token,
+        // Authorization: token,
         "Content-Type": "multipart/form-data",
       },
     };
@@ -147,7 +147,7 @@ const FoodMenu = () => {
       method: "GET",
       url: `http://13.43.174.21:4000/api/menu/menuItems?page=${pageNo}&limit=${visiblePageCount}`,
       headers: {
-        Authorization: token,
+        // Authorization: token,
         "Content-Type": "application/json",
       },
     };
@@ -327,7 +327,7 @@ const FoodMenu = () => {
                   <AddModal
                     closeAddPopup={closeAddPopup}
                     refreshData={refreshData}
-                    token={token}
+                    //token={token}
                   />
                 </Dialog.Panel>
               </Transition.Child>
@@ -374,7 +374,7 @@ const FoodMenu = () => {
                     refreshData={refreshData}
                     editData={editData}
                     updateId={updateId}
-                    token={token}
+                    //token={token}
                   />
                 </Dialog.Panel>
               </Transition.Child>
@@ -419,7 +419,7 @@ const FoodMenu = () => {
                     closeModal={closeDeleteModal}
                     refreshData={refreshData}
                     deleteId={Id}
-                    token={token}
+                    //token={token}
                   />
                 </Dialog.Panel>
               </Transition.Child>

@@ -17,7 +17,7 @@ export const headItems = [
 ];
 
 const SpiceLevel = () => {
-  const { token } = useSelector((state) => state?.auth);
+ // const { token } = useSelector((state) => state?.auth);
   const [addNewDietary, setAddNewDietary] = useState(false);
   const [allData, setAllData] = useState("");
   const [searchText, setSearchText] = useState("");
@@ -82,7 +82,7 @@ const SpiceLevel = () => {
       method: "GET",
       url: "http://13.43.174.21:4000/api/SpiceLevel/spiceLevels",
       headers: {
-        Authorization: token,
+        // Authorization: token,
         "Content-Type": "application/json",
       },
     };
@@ -293,7 +293,7 @@ const SpiceLevel = () => {
                     closeModal={closeDeleteModal}
                     refreshData={refreshData}
                     deleteId={Id}
-                    token={token}
+                    //token={token}
                   />
                 </Dialog.Panel>
               </Transition.Child>

@@ -7,10 +7,9 @@ import { toast } from "react-toastify";
 import Link from "next/link";
 
 import RightSection from "./RightSection";
-import { setToken, removeToken, adDetails } from "../../../redux/adminSlice/authSlice.js";
 
 const Login = () => {
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
   const router = useRouter();
   const [loginDetails, setLoginDetails] = useState({
     email: "",

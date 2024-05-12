@@ -17,7 +17,7 @@ export const headItems = [
 ];
 
 const Cuisines = () => {
-  const { token } = useSelector((state) => state?.auth);
+ // const { token } = useSelector((state) => state?.auth);
 
   const [allData, setAllData] = useState("");
   const [searchText, setSearchText] = useState("");
@@ -81,7 +81,7 @@ const Cuisines = () => {
       method: "GET",
       url: "http://13.43.174.21:4000/api/cuisines/getAllCuisines ",
       headers: {
-        Authorization: token,
+        // Authorization: token,
         "Content-Type": "application/json",
       },
     };
@@ -292,7 +292,7 @@ const Cuisines = () => {
                     closeModal={closeDeleteModal}
                     refreshData={refreshData}
                     deleteId={Id}
-                    token={token}
+                    //token={token}
                   />
                 </Dialog.Panel>
               </Transition.Child>
