@@ -11,7 +11,7 @@ const UpdateDietary = ({
   editData,
   dietaryEdit,
 }) => {
- // const { token } = useSelector((state) => state?.auth);
+ const { token } = useSelector((state) => state?.auth);
 
   const [formData, setFormData] = useState(editData);
   const [profileImage, setProfileImage] = useState(null); // State to store the profile image file

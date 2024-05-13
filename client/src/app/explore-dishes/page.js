@@ -40,6 +40,8 @@ import Slider from "react-slick";
 import Carousel from "react-elastic-carousel";
 
 const ExploreDishes = () => {
+  // const { addToCart } = useCart();
+  const { cart, removeFromCart, clearCart } = useCart();
   const [count, setCount] = useState(0);
   const [isOpenDelete, setOpenDelete] = useState(false);
   const closeModal = () => setOpenDelete(false);
@@ -399,9 +401,9 @@ const ExploreDishes = () => {
       <ToastContainer autoClose={1000} />
       <section>
         <Navbar />
-
-        <div class="flex justify-center 2xl:py-20 xl:py-14 lg:py-8 md:gap-2 xs:hidden  md:lg:block mnavbar 2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] mx-auto  grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 xs:gap-3 justify-items-center my-10  sm:my-6 xs:">
-          <div class="2xl:pt-[130px] xl:pt-[90px] pt-[60px]">
+        <div class="2xl:pt-[130px] xl:pt-[90px] pt-[60px]">
+          <div class="flex justify-center 2xl:py-20 xl:py-14 lg:py-8 md:gap-2 xs:hidden  md:lg:block mnavbar 2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] mx-auto  grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 xs:gap-3 justify-items-center my-10  sm:my-6 xs:">
+          
             <div class="mnavbar 2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] sm:w-[642px]   xs:w-[300px]  flex justify-between mx-auto gap-4 sm:gap-3  xs:grid-cols-2 md:grid-cols-4 lg:grid-cols-7 ">
               <div class="flex justify-center xs:flex-col xs:items-center xs:py-10">
                 <h1 className="third_head mb-4">Select Cuisine </h1>
@@ -1538,11 +1540,11 @@ const ExploreDishes = () => {
                             <div className="flex items-center gap-2">
                               <button
                                 className="text-[#DB5353] rounded-l"
-                                // onClick={() => {
-                                //   handleDecrement(item?.id);
-                                //   removeFromCart(item.id);
-                                //   alert("Removed from cart");
-                                // }}
+                                onClick={() => {
+                                  handleDecrement(item?.id);
+                                  removeFromCart(item.id);
+                                  alert("Removed from cart");
+                                }}
                               >
                                 <Image
                                   src={minus}

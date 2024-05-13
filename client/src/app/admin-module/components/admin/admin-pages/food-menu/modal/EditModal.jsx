@@ -5,7 +5,7 @@ import Loader from "../../../loader/Index";
 import { useSelector } from "react-redux";
 
 const EditModal = ({ closeModal, refreshData, editData, updateId }) => {
- // const { token } = useSelector((state) => state?.auth);
+ const { token } = useSelector((state) => state?.auth);
 
   const [formData, setFormData] = useState();
   const [image, setImage] = useState("");

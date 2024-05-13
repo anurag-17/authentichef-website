@@ -6,7 +6,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 
 const AddDishtype = ({ closeDrawer, refreshData }) => {
- // const { token } = useSelector((state) => state?.auth);
+ const { token } = useSelector((state) => state?.auth);
 
   const [dietaryDetail, setDietaryDetail] = useState({
     title: "",

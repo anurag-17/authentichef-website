@@ -11,7 +11,7 @@ const UpdateDishtype = ({
   editData,
   dietaryEdit,
 }) => {
- // const { token } = useSelector((state) => state?.auth);
+ const { token } = useSelector((state) => state?.auth);
 
   const [formData, setFormData] = useState(editData);
   const [isLoader, setLoader] = useState(false);

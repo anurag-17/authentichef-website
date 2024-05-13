@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 const DeleteDietary = ({ deleteId, closeModal, refreshData }) => {
   const [isLoading, setLoading] = useState(false);
- // const { token } = useSelector((state) => state?.auth);
+ const { token } = useSelector((state) => state?.auth);
 
 
   const handleDelete = (e) => {
@@ -17,7 +17,7 @@ const DeleteDietary = ({ deleteId, closeModal, refreshData }) => {
       method: "DELETE",
       url: `http://13.43.174.21:4000/api/dietary/dietaries/${deleteId}`,
       headers: {
-        // Authorization: token,
+        Authorization: token,
         "Content-Type": "application/json",
       },
     };

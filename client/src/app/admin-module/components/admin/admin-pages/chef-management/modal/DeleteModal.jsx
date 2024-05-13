@@ -16,7 +16,7 @@ const DeleteModal = ({ token,deleteId, closeModal, refreshdata}) => {
       method: "DELETE",
       url: `http://13.43.174.21:4000/api/chef/chefs/${deleteId}`,
       headers: {
-        // Authorization: token,
+        Authorization: token,
         'Content-Type': 'application/json',
       },
     };

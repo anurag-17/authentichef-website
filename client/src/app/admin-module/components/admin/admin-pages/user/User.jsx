@@ -127,7 +127,7 @@ const User = () => {
       method: "GET",
       url: `http://13.43.174.21:4000/api/auth/all-users?page=${pageNo}&limit=${visiblePageCount}`,
       headers: {
-        // Authorization: token,
+        Authorization: token,
         "Content-Type": "application/json",
       },
     };
@@ -336,7 +336,7 @@ const User = () => {
                     closeModal={closeDeleteModal}
                     refreshdata={refreshdata}
                     deleteId={Id}
-                    //token={token}
+                    token={token}
                   />
                 </Dialog.Panel>
               </Transition.Child>
