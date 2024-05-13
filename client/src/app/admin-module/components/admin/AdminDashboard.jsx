@@ -6,14 +6,14 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { sideMenus } from "../../config/data";
 import CloseIcon from "./admin-pages/Svg/CloseIcon";
-
+import { rem_AdDetails, removeToken } from "@/app/redux/slice";
+import protectedRoute from "../../config/protectedRoute";
 
 const AdminDashboard = () => {
-  //const dispatch = useDispatch();
+  const { token } = useSelector((state) => state?.auth);
+  const dispatch = useDispatch();
   const [ComponentId, setComponentId] = useState(0);
-
   const [showDrawer, setShowDrawer] = useState(false);
- // const { token } = useSelector((state) => state?.auth);
   const router = useRouter();
 
   const handleClick = (id, url) => {
@@ -22,9 +22,9 @@ const AdminDashboard = () => {
   };
   const handleSignout = async () => {
     try {
-      const res = await axios.get(`/api/auth/logout`, {
+      const res = await axios.get("http://localhost:4000/api/auth/logout", {
         headers: {
-          // Authorization: token,
+          Authorization: token,
           "Content-Type": "application/json",
         },
       });
@@ -84,7 +84,7 @@ const AdminDashboard = () => {
                 Admin Dashboard
               </h1>
             </div>
-            <div className="bg-white h-[1px] w-[70%] mx-auto"></div>
+            <div className="bg-white h-[1px] w-[70%] mx-auto overscroll-y-auto"></div>
             <div className="flex flex-col 2xl:gap-6 gap-3 pt-[60px]">
               {sideMenus.map((item, index) => (
                 <div

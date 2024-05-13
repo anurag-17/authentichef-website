@@ -1,9 +1,24 @@
-const { configureStore } = require("@reduxjs/toolkit");
-// import userReducers from "./slice"
-// import todoReducer from "./todoSlice"
-export const store = configureStore({
-  reducer: {
-    // useData :userReducers,
-    // todosData:todoReducer
-  },
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import authReducer from "./slice";
+
+const rootReducer = combineReducers({
+  auth: authReducer,
+  //add all your reducers here
 });
+
+const persistConfig = {
+  key: "root",
+  storage,
+  // Optionally, you can blacklist specific reducers if you don't want to persist them
+  // blacklist: ['auth']
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+export const store = configureStore({
+  reducer: persistedReducer,
+});
+
+export const persistor = persistStore(store);
