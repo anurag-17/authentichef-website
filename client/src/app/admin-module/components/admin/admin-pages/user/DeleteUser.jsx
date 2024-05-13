@@ -16,7 +16,7 @@ const DeleteUser = ({ deleteId, closeModal, refreshdata, token}) => {
       method: "DELETE",
       url: `http://13.43.174.21:4000/api/auth/deleteaUser/${deleteId}`,
       headers: {
-        // Authorization: token,
+        Authorization: token,
         'Content-Type': 'application/json',
       },
     };

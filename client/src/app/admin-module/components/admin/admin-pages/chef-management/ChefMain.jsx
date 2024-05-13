@@ -142,7 +142,7 @@ const ChefMain = () => {
       method: "GET",
       url: "http://13.43.174.21:4000/api/chef/chefs",
       headers: {
-        // Authorization: token,
+        Authorization: token,
         "Content-Type": "application/json",
       },
     };
@@ -326,7 +326,7 @@ const ChefMain = () => {
                   <AddModal
                     closeModal={closeAddPopup}
                     refreshData={refreshData}
-                    //token={token}
+                    token={token}
                   />
                 </Dialog.Panel>
               </Transition.Child>
@@ -378,7 +378,7 @@ const ChefMain = () => {
                     refreshData={refreshData}
                     editData={editData}
                     updateId={updateId}
-                    //token={token}
+                    token={token}
                   />
                 </Dialog.Panel>
               </Transition.Child>
@@ -423,7 +423,7 @@ const ChefMain = () => {
                     closeModal={closeDeleteModal}
                     refreshData={refreshData}
                     deleteId={Id}
-                    //token={token}
+                    token={token}
                   />
                 </Dialog.Panel>
               </Transition.Child>

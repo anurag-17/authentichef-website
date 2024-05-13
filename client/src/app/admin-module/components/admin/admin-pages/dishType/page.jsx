@@ -18,7 +18,7 @@ export const headItems = [
 ];
 
 const DishType = () => {
- // const { token } = useSelector((state) => state?.auth);
+ const { token } = useSelector((state) => state?.auth);
 
   const [addNewDietary, setAddNewDietary] = useState(false);
   const [allData, setAllData] = useState("");
@@ -84,7 +84,7 @@ const DishType = () => {
       method: "GET",
       url: "http://13.43.174.21:4000/api/DishType/dishTypes",
       headers: {
-        // Authorization: token,
+        Authorization: token,
         "Content-Type": "application/json",
       },
     };
@@ -295,7 +295,7 @@ const DishType = () => {
                     closeModal={closeDeleteModal}
                     refreshData={refreshData}
                     deleteId={Id}
-                    //token={token}
+                    token={token}
                   />
                 </Dialog.Panel>
               </Transition.Child>
