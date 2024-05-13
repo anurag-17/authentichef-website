@@ -8,6 +8,7 @@ import AddModal from "./modal/AddModal";
 import EditModal from "./modal/EditModal";
 import DeleteUser from "./modal/DeleteModal";
 import { useSelector } from "react-redux";
+import Link from "next/link";
 
 export const headItems = [
   "S. No.",
@@ -20,7 +21,7 @@ export const headItems = [
 ];
 
 const FoodMenu = () => {
- const { token } = useSelector((state) => state?.auth);
+  const { token } = useSelector((state) => state?.auth);
   const [isRefresh, setRefresh] = useState(false);
   const [allData, setAllData] = useState([]);
   const [isLoader, setIsLoader] = useState(false);
@@ -35,7 +36,7 @@ const FoodMenu = () => {
   const visiblePageCount = 10;
   //const { token } = useSelector((state) => state?.auth);
   // console.log(allData);
-  
+
   const refreshData = () => {
     setRefresh(!isRefresh);
   };
@@ -44,9 +45,8 @@ const FoodMenu = () => {
     setAddNewChef(false);
   };
 
-
   const handleDelete = (del_id) => {
-    setId(del_id)
+    setId(del_id);
     setOpenDelete(true);
   };
 
@@ -73,7 +73,7 @@ const FoodMenu = () => {
         .request(options)
         .then((res) => {
           console.log(res?.data);
-          if (res.status === 200 || res.status === 304  ) {
+          if (res.status === 200 || res.status === 304) {
             // console.log(res);
             setIsLoader(false);
             setEditData(res?.data);
@@ -137,8 +137,6 @@ const FoodMenu = () => {
         console.error("Error:", error);
       });
   };
-
-
 
   // get all data ----
   const getAllData = (pageNo) => {
@@ -205,12 +203,11 @@ const FoodMenu = () => {
               </div>
             </div>
             <div className="">
-              <button
-                className="primary_btn py-2"
-                onClick={() => setAddNewChef(true)}
-              >
-                Add new menu
+                <Link href="/admin-module/components/admin/admin-pages/food-menu/add-menu">
+              <button className="primary_btn py-2">
+                  Add new menu
               </button>
+                </Link>
             </div>
           </div>
           <div className="">
@@ -235,14 +232,18 @@ const FoodMenu = () => {
                       <tr key={index}>
                         {/* {console.log(items)} */}
                         <td className="table_data">{index + 1}</td>
-                        <td className="table_data capitalize">
-                          {items?.name}
-                        </td>
+                        <td className="table_data capitalize">{items?.name}</td>
                         {/* <td className="table_data">{items?.description} </td> */}
-                        <td className="table_data">  
-                        <div className="cursor-pointer">{items?.chef_id?.name}</div></td>
                         <td className="table_data">
-                          <img src={items?.ProfileImage} className="w-10 rounded-md" />
+                          <div className="cursor-pointer">
+                            {items?.chef_id?.name}
+                          </div>
+                        </td>
+                        <td className="table_data">
+                          <img
+                            src={items?.ProfileImage}
+                            className="w-10 rounded-md"
+                          />
                         </td>
                         <td className="table_data">{items?.price}</td>
                         <td className="table_data">
@@ -272,11 +273,12 @@ const FoodMenu = () => {
                 </tbody>
               </table>
             </div>
-            {Array.isArray(allData?.menuItems) && allData?.menuItems?.length === 0 && (
-              <div className="no_data">
-                <p className="text-[18px] fontsemibold">No data</p>
-              </div>
-            )}
+            {Array.isArray(allData?.menuItems) &&
+              allData?.menuItems?.length === 0 && (
+                <div className="no_data">
+                  <p className="text-[18px] fontsemibold">No data</p>
+                </div>
+              )}
           </div>
 
           {/* {allData?.totalPages > 1 && (
@@ -292,7 +294,7 @@ const FoodMenu = () => {
 
       {/*---------- Add popup---------- */}
       <Transition appear show={addNewChef} as={Fragment}>
-        <Dialog as="div" className="relative z-[11]" onClose={()=>{}}>
+        <Dialog as="div" className="relative z-[11]" onClose={() => {}}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -319,11 +321,16 @@ const FoodMenu = () => {
                 <Dialog.Panel className="w-full max-w-[600px] transform overflow-hidden rounded-2xl bg-white p-[40px]  text-left align-middle shadow-xl transition-all relative">
                   <Dialog.Title
                     as="h3"
-                    className="xl:text-[20px] text-[18px] font-medium leading-6 text-gray-900 " 
+                    className="xl:text-[20px] text-[18px] font-medium leading-6 text-gray-900 "
                   >
                     Add new menu item
                   </Dialog.Title>
-                  <div className="absolute right-5 top-5 z-10 cursor-pointer" onClick={closeAddPopup}><CloseIcon /> </div>
+                  <div
+                    className="absolute right-5 top-5 z-10 cursor-pointer"
+                    onClick={closeAddPopup}
+                  >
+                    <CloseIcon />{" "}
+                  </div>
                   <AddModal
                     closeAddPopup={closeAddPopup}
                     refreshData={refreshData}
@@ -337,7 +344,7 @@ const FoodMenu = () => {
       </Transition>
       {/*---------- Edit popup---------- */}
       <Transition appear show={openEdit} as={Fragment}>
-        <Dialog as="div" className="relative z-[11]" onClose={()=>{}}>
+        <Dialog as="div" className="relative z-[11]" onClose={() => {}}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -364,11 +371,16 @@ const FoodMenu = () => {
                 <Dialog.Panel className="w-full max-w-[600px] transform overflow-hidden rounded-2xl bg-white p-[40px]  text-left align-middle shadow-xl transition-all relative">
                   <Dialog.Title
                     as="h3"
-                    className="xl:text-[20px] text-[18px] font-medium leading-6 text-gray-900 " 
+                    className="xl:text-[20px] text-[18px] font-medium leading-6 text-gray-900 "
                   >
-                  Edit chefs details
+                    Edit chefs details
                   </Dialog.Title>
-                  <div className="absolute right-5 top-5 z-10" onClick={closeEditPopup}><CloseIcon /> </div>
+                  <div
+                    className="absolute right-5 top-5 z-10"
+                    onClick={closeEditPopup}
+                  >
+                    <CloseIcon />{" "}
+                  </div>
                   <EditModal
                     closeModal={closeEditPopup}
                     refreshData={refreshData}

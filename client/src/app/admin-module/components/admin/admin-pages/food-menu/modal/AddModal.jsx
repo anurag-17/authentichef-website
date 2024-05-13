@@ -65,6 +65,9 @@ const AddModal = ({ closeAddPopup, refreshData }) => {
     }
   };
 
+
+  
+
   return (
     <>
       <ToastContainer autoClose={1000} />
