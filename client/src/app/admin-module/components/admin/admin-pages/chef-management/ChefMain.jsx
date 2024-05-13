@@ -2,7 +2,6 @@ import React, { Fragment, useState, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-
 import CloseIcon from "../Svg/CloseIcon";
 import Loader from "../../loader/Index";
 import AddModal from "./modal/AddModal";
@@ -32,8 +31,8 @@ const ChefMain = () => {
   const [Id, setId] = useState(null);
 
   const visiblePageCount = 10;
- // const { token } = useSelector((state) => state?.auth);
-  // console.log(allData);
+  const { token } = useSelector((state) => state?.auth);
+  // console.log(token, "token");
 
   const refreshData = () => {
     setRefresh(!isRefresh);
@@ -63,7 +62,7 @@ const ChefMain = () => {
         method: "GET",
         url: `http://13.43.174.21:4000/api/chef/chefs/${id}`,
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: token,
           "Content-Type": "application/json",
         },
       };
@@ -117,7 +116,7 @@ const ChefMain = () => {
       method: "GET",
       url: `http://13.43.174.21:4000/api/chef/chefs?search=${search_cate}`,
       headers: {
-        // Authorization: token,
+        Authorization: token,
         "Content-Type": "multipart/form-data",
       },
     };
