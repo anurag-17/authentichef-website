@@ -1010,12 +1010,12 @@ const ExploreDishes = () => {
                           <div className="flex items-center 2xl:gap-3 xl:gap-2 lg:gap-2  gap-2 xl:my-3 lg:my-2 my-2">
                             <img
                               alt="image"
-                              src={item.chef_id.images}
+                              src={item?.chef_id?.images}
                               className="four_img2 "
                             />
                             <div>
                               <h1 className="fourth_name ">
-                                {item.chef_id.name}
+                                {item?.chef_id?.name}
                               </h1>
                               <p className="fourth_p text-[#6765EB]">Indian</p>
                             </div>

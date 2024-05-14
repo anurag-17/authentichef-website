@@ -1,7 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import axios from "axios";
-
 import CloseIcon from "../Svg/CloseIcon";
 import Loader from "../../loader/Index";
 import AddModal from "./modal/AddModal";
@@ -50,6 +49,14 @@ const FoodMenu = () => {
     setId(del_id);
     setOpenDelete(true);
   };
+
+  const openmodal = () => {
+    setAddNewChef(true);
+  };
+
+  const closedopenmodel = () => {
+    setAddNewChef(false);
+  }
 
   const closeDeleteModal = () => {
     setOpenDelete(false);
@@ -204,9 +211,7 @@ const FoodMenu = () => {
               </div>
             </div>
             <div className="">
-              <Link href="/admin-module/components/admin/admin-pages/food-menu/add-menu">
-                <button className="primary_btn py-2">Add new menu</button>
-              </Link>
+                <button onClick={openmodal} className="primary_btn py-2 " >Add new menu</button>
             </div>
           </div>
           <div className="">
@@ -253,11 +258,14 @@ const FoodMenu = () => {
                             >
                               Preview
                             </button> */}
-                            <Link href={`/pages/edit-menu/${items?._id}`}>
-                              <button className="secondary_btn py-1">
-                                Edit
-                              </button>
-                            </Link>
+
+                            <button
+                              onClick={() => handleEdit(items?._id)}
+                              className="secondary_btn py-1"
+                            >
+                              Edit
+                            </button>
+
                             <button
                               className="delete_btn py-1"
                               onClick={() => handleDelete(items?._id)}
@@ -366,7 +374,7 @@ const FoodMenu = () => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-[600px] transform overflow-hidden rounded-2xl bg-white p-[40px]  text-left align-middle shadow-xl transition-all relative">
+                <Dialog.Panel className="w-full max-w-[1000px] transform overflow-hidden rounded-2xl bg-white p-[40px]  text-left align-middle shadow-xl transition-all relative">
                   <Dialog.Title
                     as="h3"
                     className="xl:text-[20px] text-[18px] font-medium leading-6 text-gray-900 "
