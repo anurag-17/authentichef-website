@@ -1,6 +1,6 @@
 "use client";
 import dynamic from "next/dynamic";
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import Image from "next/image";
 import logo from "../assets/logo.png";
 import food1 from "../assets/cuisine-india.png";
@@ -47,10 +47,21 @@ import howworkbanner from "../assets/how-it-works-banner.png";
 import Footer from "../footer";
 import axios from "axios";
 import addCart from "../../../public/images/addCart.svg";
+import DishDetails from "../explore-dishes/dish-details/page";
+import { Dialog, Transition } from "@headlessui/react";
 
 const LandingPage = () => {
   const [getAllDish, setGetAllDish] = useState({});
   console.log(getAllDish, "dis");
+  const [isOpen, setOpen] = useState(false);
+
+  const [dishID, setDishID] = useState("");
+  const closeModal = () => setOpen(false);
+
+  function openModal(id) {
+    setDishID(id);
+    setOpen(true);
+  }
 
   useEffect(() => {
     defaultDish();
@@ -720,6 +731,50 @@ const LandingPage = () => {
         {/* ===================Footer================== */}
         <Footer />
       </section>
+      <Transition appear show={isOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-10" onClose={() => {}}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-25" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex items-center justify-center p-4 text-center h-screen">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="2xl:w-[1000px]  xl:w-[720px] w-[600px]  mx-auto rounded-[10px]  my-auto 2xl:px-[40px] 2xl:py-[45px] xl:px-[25px] xl:py-[30px] px-[15px] py-[20px] transform overflow-hidden  bg-white text-left align-middle shadow-xl transition-all ">
+                  <Dialog.Title
+                    as="h3"
+                    onClick={closeModal}
+                    className="custom_heading_text font-semibold leading-6 text-gray-900 mt lg:mt-0 absolute right-5 text-[30px]"
+                  >
+                    {" "}
+                    X
+                  </Dialog.Title>
+                  <DishDetails
+                    dishID={dishID}
+                    closeModal={closeModal}
+                  />
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
     </>
   );
 };

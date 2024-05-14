@@ -2,7 +2,7 @@
 import Footer from "@/app/footer";
 import Navbar from "@/app/navbar";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import vegetarian from "./assets/vegetarian.svg";
@@ -11,10 +11,21 @@ import insta from "./assets/instagram.svg";
 import cook from "./assets/fi_4767107.svg";
 import cook2 from "./assets/fi_4718655.svg";
 import addCart from "../../../../../public/images/addCart.svg";
+import config from "@/config";
+import DishDetails from "@/app/explore-dishes/dish-details/page";
+import { Dialog, Transition } from "@headlessui/react";
 
 const ChefDetails = ({ params }) => {
   const [getAChef, setGetAChef] = useState({});
   const [chefItems, setChefItems] = useState("");
+  const [isOpen, setOpen] = useState(false);
+  const [dishID, setDishID] = useState("");
+  const closeModal = () => setOpen(false);
+
+  function openModal(id) {
+    setDishID(id);
+    setOpen(true);
+  }
 
   useEffect(() => {
     defaultChef();
@@ -22,7 +33,7 @@ const ChefDetails = ({ params }) => {
   const defaultChef = () => {
     const option = {
       method: "GET",
-      url: `http://13.43.174.21:4000/api/chef/chefs/sort/${params.slug}`,
+      url: `${config.baseURL}/api/chef/chefs/sort/${params.slug}`,
     };
     axios
       .request(option)
@@ -35,7 +46,6 @@ const ChefDetails = ({ params }) => {
         console.log(error, "Error");
       });
   };
-
   return (
     <>
       <section>
@@ -85,7 +95,7 @@ const ChefDetails = ({ params }) => {
                       <p className="fourth_day text-[#838383]">Food safety</p>
                     </div>
                   </div>
-                 
+
                   {/* <div className="flex gap-[50px] 2xl:my-[30px] xl:my-[20px] my-[10px]">
                     <div className="2xl:w-[404px] xl:w-[280px] w-[204px] ">
                       <h2 className="fourth_p text-[#555555]">
@@ -144,13 +154,15 @@ const ChefDetails = ({ params }) => {
                     key={item.id}
                     className="  my-5 2xl:w-[345px] 2xl:h-[560px] lg:w-[23%]  md:w-[31%] w-[45%]  relative  rounded-[9.8px] "
                   >
-                    <img
-                      src={item.ProfileImage[0]}
-                      alt={item.title}
-                      width={345}
-                      height={278}
-                      className="w-full h-auto 2xl:w-[365.5px] 2xl:h-[278px] rounded-[10px]"
-                    />
+                    <button className="" onClick={() => openModal(item._id)}>
+                      <img
+                        src={item.ProfileImage[0]}
+                        alt={item.title}
+                        width={345}
+                        height={278}
+                        className="w-full h-auto 2xl:w-[365.5px] 2xl:h-[278px] rounded-[10px]"
+                      />
+                    </button>
                     <div className="">
                       <h1 className="alata font-[400] text-[#DB5353] 2xl:my-4 xl:my-3 my-2 2xl:text-[20px] 2xl:leading-[20px]  xl:text-[14px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[10px]">
                         {item?.name}
@@ -414,6 +426,50 @@ const ChefDetails = ({ params }) => {
 
         <Footer />
       </section>
+      <Transition appear show={isOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-10" onClose={() => {}}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-25" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex items-center justify-center p-4 text-center h-screen">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="2xl:w-[1000px]  xl:w-[720px] w-[600px]  mx-auto rounded-[10px]  my-auto 2xl:px-[40px] 2xl:py-[45px] xl:px-[25px] xl:py-[30px] px-[15px] py-[20px] transform overflow-hidden  bg-white text-left align-middle shadow-xl transition-all ">
+                  <Dialog.Title
+                    as="h3"
+                    onClick={closeModal}
+                    className="custom_heading_text font-semibold leading-6 text-gray-900 mt lg:mt-0 absolute right-5 text-[30px]"
+                  >
+                    {" "}
+                    X
+                  </Dialog.Title>
+                  <DishDetails
+                    dishID={dishID}
+                    closeModal={closeModal}
+                  />
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
     </>
   );
 };

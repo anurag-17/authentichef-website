@@ -38,19 +38,20 @@ import { Dialog, Transition } from "@headlessui/react";
 import DishDetails from "./dish-details/page";
 import Slider from "react-slick";
 import Carousel from "react-elastic-carousel";
+import config from "@/config";
 
 const ExploreDishes = () => {
   // const { addToCart } = useCart();
   const { cart, removeFromCart, clearCart } = useCart();
   const [count, setCount] = useState(0);
-  const [isOpenDelete, setOpenDelete] = useState(false);
-  const [dishID, setDishID] = useState("");
-  const closeModal = () => setOpenDelete(false);
   let subtotalPrice = 0;
+  const [isOpen, setOpen] = useState(false);
+  const [dishID, setDishID] = useState("");
+  const closeModal = () => setOpen(false);
 
   function openModal(id) {
     setDishID(id);
-    setOpenDelete(true);
+    setOpen(true);
   }
 
   const handleIncrement = () => {
@@ -79,7 +80,7 @@ const ExploreDishes = () => {
   const defaultDish = () => {
     const option = {
       method: "GET",
-      url: "http://13.43.174.21:4000/api/menu/menuItems",
+      url: `${config.baseURL}/api/menu/menuItems`,
       params: {
         Cuisines_id: cuisinesFilter,
         Dietary_id: dietaryFilter,
@@ -112,7 +113,7 @@ const ExploreDishes = () => {
     } else {
       const option = {
         method: "GET",
-        url: `http://13.43.174.21:4000/api/menu/menuItems?search=${search}`,
+        url: `${config.baseURL}/api/menu/menuItems?search=${search}`,
       };
       axios
         .request(option)
@@ -136,7 +137,7 @@ const ExploreDishes = () => {
   const defaultCuisines = () => {
     const option = {
       method: "GET",
-      url: "http://13.43.174.21:4000/api/cuisines/getAllCuisines",
+      url: `${config.baseURL}/api/cuisines/getAllCuisines`,
     };
     axios
       .request(option)
@@ -150,7 +151,7 @@ const ExploreDishes = () => {
   const defaultDietary = () => {
     const option = {
       method: "GET",
-      url: "http://13.43.174.21:4000/api/dietary/dietaries",
+      url: `${config.baseURL}/api/dietary/dietaries`,
     };
     axios
       .request(option)
@@ -164,7 +165,7 @@ const ExploreDishes = () => {
   const defaultDishtype = () => {
     const option = {
       method: "GET",
-      url: "http://13.43.174.21:4000/api/DishType/dishTypes",
+      url: `${config.baseURL}/api/DishType/dishTypes`,
     };
     axios
       .request(option)
@@ -179,7 +180,7 @@ const ExploreDishes = () => {
   const defaultSpicelevel = () => {
     const option = {
       method: "GET",
-      url: "http://13.43.174.21:4000/api/SpiceLevel/spiceLevels",
+      url: `${config.baseURL}/api/SpiceLevel/spiceLevels`,
     };
     axios
       .request(option)
@@ -200,7 +201,7 @@ const ExploreDishes = () => {
       setCuisinesFilter(_id);
       const options = {
         method: "GET",
-        url: `http://13.43.174.21:4000/api/menu/menuItem/sort?Cuisines_id=${_id}&Dietary_id=${dietaryFilter}&Dishtype_id=${moreFilters}`,
+        url: `${config.baseURL}/api/menu/menuItem/sort?Cuisines_id=${_id}&Dietary_id=${dietaryFilter}&Dishtype_id=${moreFilters}`,
       };
       axios
         .request(options)
@@ -233,7 +234,7 @@ const ExploreDishes = () => {
       setDietaryFilter(_id);
       const options = {
         method: "GET",
-        url: `http://13.43.174.21:4000/api/menu/menuItem/sort?Dietary_id=${_id}&Cuisines_id=${cuisinesFilter}&Dishtype_id=${moreFilters}`,
+        url: `${config.baseURL}/api/menu/menuItem/sort?Dietary_id=${_id}&Cuisines_id=${cuisinesFilter}&Dishtype_id=${moreFilters}`,
       };
       axios
         .request(options)
@@ -268,7 +269,7 @@ const ExploreDishes = () => {
       setMoreFilters(_id);
       const options = {
         method: "GET",
-        url: `http://13.43.174.21:4000/api/menu/menuItem/sort?Dishtype_id=${_id}&Cuisines_id=${cuisinesFilter}&Dietary_id=${dietaryFilter}`,
+        url: `${config.baseURL}/api/menu/menuItem/sort?Dishtype_id=${_id}&Cuisines_id=${cuisinesFilter}&Dietary_id=${dietaryFilter}`,
       };
       axios
         .request(options)
@@ -299,7 +300,7 @@ const ExploreDishes = () => {
     // setLoader(true);
     try {
       const response = await axios.post(
-        "http://13.43.174.21:4000/api/Orders/AddtoCart",
+        `${config.baseURL}/api/Orders/AddtoCart`,
         {
           menuItem: id,
         }
@@ -327,7 +328,7 @@ const ExploreDishes = () => {
   const defaultCartItem = () => {
     const option = {
       method: "GET",
-      url: "http://13.43.174.21:4000/api/Orders/getCartItem",
+      url: `${config.baseURL}/api/Orders/getCartItem`,
     };
     axios
       .request(option)
@@ -342,25 +343,25 @@ const ExploreDishes = () => {
 
   // ========= Delete Cart Item =======
 
-  const handleRemove = async (id) => {
-    setLoader(true);
+  // const handleRemove = async (id) => {
+  //   setLoader(true);
 
-    try {
-      const response = await axios.delete(`DeleteById/${id}`);
+  //   try {
+  //     const response = await axios.delete(`DeleteById/${id}`);
 
-      if (response.status === 200) {
-        toast.success("Item remove successfully!");
-        refreshData();
-      } else {
-        toast.error("Failed. Something went wrong!");
-      }
-    } catch (error) {
-      console.error(error);
-      toast.error("Failed. Something went wrong!");
-    } finally {
-      setLoader(false);
-    }
-  };
+  //     if (response.status === 200) {
+  //       toast.success("Item remove successfully!");
+  //       refreshData();
+  //     } else {
+  //       toast.error("Failed. Something went wrong!");
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //     toast.error("Failed. Something went wrong!");
+  //   } finally {
+  //     setLoader(false);
+  //   }
+  // };
 
   // ========= Clear Cart Item =======
 
@@ -369,7 +370,7 @@ const ExploreDishes = () => {
 
     try {
       const response = await axios.delete(
-        "http://13.43.174.21:4000/api/Orders/deleteAllCartItem"
+        `${config.baseURL}/api/Orders/deleteAllCartItem`
       );
 
       if (response.status === 200) {
@@ -1598,7 +1599,7 @@ const ExploreDishes = () => {
         </div>
       </div>
 
-      <Transition appear show={isOpenDelete} as={Fragment}>
+      <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={() => {}}>
           <Transition.Child
             as={Fragment}
@@ -1613,7 +1614,7 @@ const ExploreDishes = () => {
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center p-4 text-center">
+            <div className="flex items-center justify-center p-4 text-center h-screen">
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
@@ -1623,7 +1624,7 @@ const ExploreDishes = () => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="2xl:w-[1000px] 2xl:h-[939px] xl:w-[720px] w-[600px] h-auto mx-auto rounded-[10px]  my-auto 2xl:px-[40px] 2xl:py-[45px] xl:px-[25px] xl:py-[30px] px-[15px] py-[20px]transform overflow-hidden  bg-white text-left align-middle shadow-xl transition-all mt-[100px]">
+                <Dialog.Panel className="2xl:w-[1000px]  xl:w-[720px] w-[600px]  mx-auto rounded-[10px]  my-auto 2xl:px-[40px] 2xl:py-[45px] xl:px-[25px] xl:py-[30px] px-[15px] py-[20px] transform overflow-hidden  bg-white text-left align-middle shadow-xl transition-all ">
                   <Dialog.Title
                     as="h3"
                     onClick={closeModal}
@@ -1632,11 +1633,7 @@ const ExploreDishes = () => {
                     {" "}
                     X
                   </Dialog.Title>
-                  <DishDetails
-                    dishID={dishID}
-                    closeModal={closeModal}
-                    refreshData={refreshData}
-                  />
+                  <DishDetails dishID={dishID} closeModal={closeModal} />
                 </Dialog.Panel>
               </Transition.Child>
             </div>

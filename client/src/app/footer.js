@@ -10,13 +10,16 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const Footer = () => {
-
   const router = useRouter();
   const [isRefresh, setRefresh] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState("success");
+  const { success } = useSelector((state) => state?.auth);
+
+
   const handleToggle = () => {
     setShowPassword(!showPassword);
   };
@@ -24,6 +27,12 @@ const Footer = () => {
     email: "",
     password: "",
   });
+
+  useEffect(() => {
+    if (success !== undefined) {
+      setIsLoggedIn(success);
+    }
+  }, [success]);
 
   const InputHandler = (e) => {
     setLoginDetails({ ...loginDetails, [e.target.name]: e.target.value });
@@ -52,7 +61,6 @@ const Footer = () => {
         toast.success("Login successful!");
         handleClose();
         refreshData();
-      
 
         // router.push("/user/user-dashboard");
       } else {
@@ -82,7 +90,7 @@ const Footer = () => {
       });
       if (res.status >= 200 && res.status < 300) {
         toast.success("Logout successfully");
-       
+
         refreshData();
         // router.push("/login");
       } else {
@@ -101,7 +109,7 @@ const Footer = () => {
     modal.close();
   };
   const handleClosee = () => {
-    const modal = document.getElementById("my_modal_1" );
+    const modal = document.getElementById("my_modal_1");
     modal.close();
   };
 
@@ -159,23 +167,30 @@ const Footer = () => {
             <div className="lg:w-auto md:w-[230px] sm:w-1/2 w-full my-3 md:my-0">
               <div className="lg:text-start text-center">
                 <h4 className="footer_heading">Other Links</h4>
-                <button
-                  onClick={() =>
-                    document.getElementById("my_modal_2").showModal()
-                  }
-                  className="nav_login1"
-                >
-                  <p className="footer_text">Log In</p>
-                </button>
-                <br />
-                <button
-                  onClick={() =>
-                    document.getElementById("my_modal_1").showModal()
-                  }
-                  className="nav_login1"
-                >
-                  <p className="footer_text">Sign Up</p>
-                </button>
+
+                {isLoggedIn === success ? (
+                  ""
+                ) : (
+                  <div>
+                    <button
+                      onClick={() =>
+                        document.getElementById("my_modal_2").showModal()
+                      }
+                      className="nav_login1"
+                    >
+                      <p className="footer_text">Log In</p>
+                    </button>
+                    <br />
+                    <button
+                      onClick={() =>
+                        document.getElementById("my_modal_1").showModal()
+                      }
+                      className="nav_login1"
+                    >
+                      <p className="footer_text">Sign Up</p>
+                    </button>
+                  </div>
+                )}
                 <Link href="/privacy-policy">
                   <p className="footer_text">Privacy Policy</p>
                 </Link>
