@@ -6,6 +6,14 @@ const menuItemSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+
+
+    popular_dish: {
+      type:String,
+      enum:['Yes','No'],
+      default:'No'
+    },
+
     description: {
       type: String,
     },

@@ -8,12 +8,16 @@ const {
     deleteMenuItemById,
     getMenuItemByParams,
     getMenuItemsByChefId,
+    getPopularDish,
     upload
 } = require("../Controller/menu");
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
 
 // Create a new menu item
 router.post("/menuItems",  upload, createMenuItem);
+
+// Get popular dishes
+router.get("/menuItems/popular", getPopularDish);
 
 // Get all menu item
 router.route("/menuItems").get(getAllMenuItems);
@@ -34,5 +38,7 @@ router.get("/menuItem/sort", getMenuItemByParams)
 
 // Get menu items by chef ID
 router.get("/menuItems/chef/:chef_id", getMenuItemsByChefId);
+
+
 
 module.exports = router;

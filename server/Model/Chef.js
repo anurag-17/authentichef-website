@@ -31,6 +31,9 @@ const chefSchema = new mongoose.Schema({
   images: {
     type: Array,
   },
+  bannerImage: {
+    type: Array,
+  },
   activeToken: {
     type: String
   },

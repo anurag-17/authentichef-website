@@ -44,7 +44,7 @@ exports.upload = upload;
 
 exports.createMenuItem = async (req, res, next) => {
   try {
-    const { name, description, price, weight, portion_Size, Ingredients, Heating_Instruction, List_of_Ingredients, Cuisines_id, Dishtype_id, Dietary_id, spice_level_id,  chef_id } = req.body;
+    const { name, description, price, weight, portion_Size, Ingredients, Heating_Instruction, List_of_Ingredients, Cuisines_id, Dishtype_id, Dietary_id, spice_level_id,  chef_id ,popular_dish } = req.body;
 
     // Call multer middleware to handle file upload
     upload(req, res, async (error) => {
@@ -86,6 +86,7 @@ exports.createMenuItem = async (req, res, next) => {
         Dietary_id,
         spice_level_id,
         chef_id,
+        popular_dish:popular_dish || 'No' ,
         ProfileImage: imageUrl
       });
       // Save the menu item to the database
@@ -294,6 +295,24 @@ exports.getMenuItemsByChefId = async (req, res, next) => {
     next(error);
   }
 };
+
+
+// Get data of Popoular dish
+
+exports.getPopularDish = async (req, res) => {
+
+  try {
+    const popularDish = await MenuItem.find({  popular_dish: 'Yes' })
+    .populate("chef_id").populate("Cuisines_id").populate("Dishtype_id").populate("Dietary_id").populate("spice_level_id");
+
+    if (!popularDish || popularDish.length === 0) {
+      return res.status(404).json({ error: 'Popular dish not found' });
+    }
+
+    res.status(200).json(popularDish);
+  } catch (error) {
+  }
+}
 
 
 
