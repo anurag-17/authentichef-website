@@ -77,7 +77,7 @@ const Footer = () => {
     try {
       const res = await axios.get("http://13.43.174.21:4000/api/auth/logout", {
         headers: {
-          authorization: token,
+          Authorization: token,
         },
       });
       if (res.status >= 200 && res.status < 300) {

@@ -5,9 +5,8 @@ import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import Link from "next/link";
-
+import { setToken, removeToken } from "@/app/redux/slice";
 import RightSection from "./RightSection";
-import { setToken, removeToken, adDetails } from "../../../redux/adminSlice/authSlice.js";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -42,7 +41,6 @@ const Login = () => {
         toast.success("Login successfully!");
         setLoading(false);
         dispatch(setToken(res?.data?.token));
-        localStorage.setItem("admin_token", JSON.stringify(res?.data?.token));
 
         router.push("/admin-module/admin");
       } else {

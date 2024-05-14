@@ -5,7 +5,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 
 const DeleteModal = ({  deleteId, closeModal, refreshData }) => {
-  const { token } = useSelector((state) => state?.auth);
+ const { token } = useSelector((state) => state?.auth);
   const [isLoading, setLoading] = useState(false);
 
   const handleDelete = (e) => {

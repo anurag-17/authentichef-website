@@ -6,7 +6,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 
 const AddModal = ({ closeAddPopup, refreshData }) => {
-  const { token } = useSelector((state) => state?.auth);
+ const { token } = useSelector((state) => state?.auth);
 
   const [dishDetails, setDishDetails] = useState({
     name: "",
@@ -64,6 +64,9 @@ const AddModal = ({ closeAddPopup, refreshData }) => {
       });
     }
   };
+
+
+  
 
   return (
     <>

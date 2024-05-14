@@ -1,13 +1,20 @@
-import React, { useState } from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
-import Loader from "../../../loader/Index";
+
 import { useSelector } from "react-redux";
+import Loader from "@/app/admin-module/components/admin/loader/Index";
 
-const EditModal = ({ closeModal, refreshData, editData, updateId }) => {
- const { token } = useSelector((state) => state?.auth);
+const EditModal = ({ params }) => {
+  const { token } = useSelector((state) => state?.auth);
 
-  const [formData, setFormData] = useState();
+  const [formData, setFormData] = useState({
+    name: "",
+    price: "",
+    description: "",
+    // Add other fields as needed
+  });
   const [image, setImage] = useState("");
   const [isLoading, setLoading] = useState(false);
   const [imageDisable, setImageDisable] = useState(false);
@@ -16,11 +23,55 @@ const EditModal = ({ closeModal, refreshData, editData, updateId }) => {
   const [imageView, setImageview] = useState("");
   const [imageRemoved, setImageRemoved] = useState(false);
 
-  console.log(formData)
+  console.log(formData);
   const handleVideo = (vid) => {
     setImageview(vid);
     setOpenImage(true);
   };
+
+
+  useEffect(() => {
+    // Fetch data using params and set the formData state
+    setFormData({
+      name: params.name,
+      price: params.price,
+      description: params.description,
+      // Add other fields as needed
+    });
+  }, [params]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.put(
+        `http://13.43.174.21:4000/api/menu/menuItems/${params}`, 
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+       
+      if (response.status === 200) {
+        toast.success("Item updated successfully");
+        // Perform any additional actions needed after successful update
+      } else {
+        toast.error("Failed to update item");
+      }
+    } catch (error) {
+      console.error("Error updating item:", error);
+      toast.error("An error occurred while updating item");
+    }
+  };
+  console.log(params,"hasd")
 
   const removeVideo = (videoUrl) => {
     // setLoading(true);
@@ -69,9 +120,8 @@ const EditModal = ({ closeModal, refreshData, editData, updateId }) => {
   };
 
   const uploadImage = async () => {
-
-  console.log(formData)
-  return;
+    console.log(formData);
+    return;
 
     setImageUploading(true);
     try {
@@ -104,37 +154,51 @@ const EditModal = ({ closeModal, refreshData, editData, updateId }) => {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (formData?.images?.length<1) {
-      toast.error("Please upload Image");
-    } else {
-      // console.log(formData);
-      setLoading(true);
-      try {
-        const res = await axios.put(`http://13.43.174.21:4000/api/menu/menuItems/${updateId}`, formData, {
-          headers: {
-            authorization: `${token}`,
-            "Content-Type": "application/json",
-          },
+  const [editData, setEditData] = useState([]);
+  const [updateId, setUpdateId] = useState(null);
+
+
+  useEffect(() => {
+    handleEdit();
+  }, []);
+
+  const handleEdit = (id) => {
+    setUpdateId(id);
+    try {
+      setIsLoader(true);
+      const options = {
+        method: "GET",
+        url: `http://13.43.174.21:4000/api/menu/menuItems/${id}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      };
+      axios
+        .request(options)
+        .then((res) => {
+          console.log(res?.data);
+          if (res.status === 200 || res.status === 304) {
+            // console.log(res);
+            setIsLoader(false);
+            setEditData(res?.data);
+            setOpenEdit(true);
+          } else {
+            setIsLoader(false);
+            return;
+          }
+        })
+        .catch((error) => {
+          setIsLoader(false);
+          console.error("Error:", error);
         });
-        // console.log(res);
-        if (res.status === 200) {
-          toast.success("Details updated successfully.");
-          setLoading(false);
-          refreshData();
-          closeModal();
-        }  else {
-          toast.error("Invalid details");
-          setLoading(false);
-        }
-      } catch (error) {
-        console.error("Error during category:", error);
-        toast.error( error.response?.data?.error || "Server error");
-        setLoading(false);
-      }
+    } catch (e) {
+      console.log(e);
     }
   };
+
+  console.log(formData,"abnasdjk")
+
 
   return (
     <>
@@ -149,8 +213,8 @@ const EditModal = ({ closeModal, refreshData, editData, updateId }) => {
                 name="name"
                 placeholder="Enter chef name"
                 className="login-input w-full mt-1 "
-                defaultValue={editData?.name}
-                onChange={InputHandler}
+                value={formData.name}
+                onChange={handleChange}
                 required
               />
             </div>

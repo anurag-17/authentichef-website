@@ -7,6 +7,7 @@ import PasswordIcon from "./Svg/PasswordIcon";
 import ProfileIcon from "./Svg/ProfileIcon";
 import SignOutIcon from "./Svg/SignOutIcon";
 import UsersIcon from "./Svg/UsersIcon";
+import protectedRoute from "@/app/admin-module/config/protectedRoute";
 
 const Dashboard = () => {
   // const { userDetails } = useSelector((state) => state?.auth);
@@ -21,10 +22,13 @@ const Dashboard = () => {
             </p>
             <p className="text-[20px] md:text-[22px] font-semibold leading-tight text-center mt-[30px] md:hidden block">
               Welcome to
-              <br/> Admin Dashboard
+              <br /> Admin Dashboard
             </p>
             <div className="flexCenter gap-x-7 lg:gap-x-5 md:flex-auto flex-wrap gap-y-3 md:justify-end">
-              <Menu as="div" className="relative text-left w-[50px] h-[50px] rounded-[50%] border p-1 flexCenter">
+              <Menu
+                as="div"
+                className="relative text-left w-[50px] h-[50px] rounded-[50%] border p-1 flexCenter"
+              >
                 <div>
                   <Menu.Button className="flexCenter w-full ">
                     <ProfileIcon className="ml-2 h-4 w-4 text-gray-700" />
@@ -72,14 +76,20 @@ const Dashboard = () => {
         <div className="px-[20px]">
           <div className="md:py-[30px] py-[20px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
             <div className="col-span-1 bg-white px-5 py-4 rounded flex items-center gap-5">
-              <div className="bg-primary h-[50px] w-[50px] flexCenter rounded-[6px]" > <UsersIcon /> </div>
+              <div className="bg-primary h-[50px] w-[50px] flexCenter rounded-[6px]">
+                {" "}
+                <UsersIcon />{" "}
+              </div>
               <div className="">
                 <h6 className="capitalize text-[15px]">Total Chefs</h6>
                 <h6 className="capitalize text-[16px] font-semibold pt-1">4</h6>
               </div>
             </div>
-           < div className="col-span-1 bg-white px-5 py-4 rounded flex items-center gap-5">
-              <div className="bg-primary h-[50px] w-[50px] flexCenter rounded-[6px]" > <UsersIcon /> </div>
+            <div className="col-span-1 bg-white px-5 py-4 rounded flex items-center gap-5">
+              <div className="bg-primary h-[50px] w-[50px] flexCenter rounded-[6px]">
+                {" "}
+                <UsersIcon />{" "}
+              </div>
               <div className="">
                 <h6 className="capitalize text-[15px]">Total Orders</h6>
                 <h6 className="capitalize text-[16px] font-semibold pt-2">
@@ -103,4 +113,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default protectedRoute(Dashboard);

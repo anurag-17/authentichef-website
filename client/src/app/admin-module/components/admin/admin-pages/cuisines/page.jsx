@@ -7,6 +7,7 @@ import DeleteCuisines from "./modal/deleteCuisines";
 import UpdateCuisines from "./modal/updateCuisines";
 import AddCuisines from "./modal/addCuisines";
 import { useSelector } from "react-redux";
+import protectedRoute from "@/app/admin-module/config/protectedRoute";
 
 export const headItems = [
   "S. No.",
@@ -17,7 +18,7 @@ export const headItems = [
 ];
 
 const Cuisines = () => {
-  const { token } = useSelector((state) => state?.auth);
+ const { token } = useSelector((state) => state?.auth);
 
   const [allData, setAllData] = useState("");
   const [searchText, setSearchText] = useState("");
@@ -386,4 +387,4 @@ const Cuisines = () => {
   );
 };
 
-export default Cuisines;
+export default protectedRoute(Cuisines);

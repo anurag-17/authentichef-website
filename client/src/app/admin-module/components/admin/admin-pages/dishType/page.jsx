@@ -7,6 +7,7 @@ import DeleteDishtype from "./modal/deleteDishtype";
 import UpdateDishtype from "./modal/updateDishtype";
 import AddDishtype from "./modal/addDishtype";
 import { useSelector } from "react-redux";
+import protectedRoute from "@/app/admin-module/config/protectedRoute";
 
 
 export const headItems = [
@@ -18,7 +19,7 @@ export const headItems = [
 ];
 
 const DishType = () => {
-  const { token } = useSelector((state) => state?.auth);
+ const { token } = useSelector((state) => state?.auth);
 
   const [addNewDietary, setAddNewDietary] = useState(false);
   const [allData, setAllData] = useState("");
@@ -389,4 +390,4 @@ const DishType = () => {
   );
 };
 
-export default DishType;
+export default protectedRoute(DishType);

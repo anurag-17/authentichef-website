@@ -1,16 +1,15 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
-import authReducer from "./adminSlice/authSlice";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import authReducer from "./slice";
 
-// Corrected combineReducers call
 const rootReducer = combineReducers({
   auth: authReducer,
-  // Add all your reducers here
+  //add all your reducers here
 });
 
 const persistConfig = {
-  key: 'root',
+  key: "root",
   storage,
   // Optionally, you can blacklist specific reducers if you don't want to persist them
   // blacklist: ['auth']
@@ -19,7 +18,7 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: persistedReducer
+  reducer: persistedReducer,
 });
 
 export const persistor = persistStore(store);

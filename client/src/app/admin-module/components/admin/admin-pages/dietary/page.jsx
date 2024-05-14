@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { Fragment, useEffect, useState } from "react";
 import CloseIcon from "../Svg/CloseIcon";
 import axios from "axios";
@@ -8,6 +8,7 @@ import EditModal from "./modal/update";
 import UpdateDietary from "./modal/update";
 import AddDietary from "./modal/addDietary";
 import { useSelector } from "react-redux";
+import protectedRoute from "@/app/admin-module/config/protectedRoute";
 
 export const headItems = [
   "S. No.",
@@ -19,7 +20,6 @@ export const headItems = [
 
 const Dietary = () => {
   const { token } = useSelector((state) => state?.auth);
-
   const [addNewDietary, setAddNewDietary] = useState(false);
   const [allData, setAllData] = useState("");
   const [searchText, setSearchText] = useState("");
@@ -94,7 +94,7 @@ const Dietary = () => {
         console.log(res);
         if (res?.status === 200) {
           setAllData(res?.data?.dietaries);
-            console.log(res?.data , "gjhkkgk");
+          console.log(res?.data, "gjhkkgk");
           setLoader(false);
         } else {
           setLoader(false);
@@ -389,4 +389,4 @@ const Dietary = () => {
   );
 };
 
-export default Dietary;
+export default protectedRoute(Dietary);

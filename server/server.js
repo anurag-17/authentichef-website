@@ -80,7 +80,7 @@ if (process.env.NODE_ENV === 'production') {
 // // Not found Middleware
 // server.use(notFoundMiddleware);
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 4001;
 server.listen(PORT, '0.0.0.0', (err) => {
   if (err) throw err;
   console.log(`Server is running on http://localhost:${PORT}`);

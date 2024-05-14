@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 const DeleteCuisines = ({ deleteId, closeModal, refreshData }) => {
   const [isLoading, setLoading] = useState(false);
-  const { token } = useSelector((state) => state?.auth);
+ const { token } = useSelector((state) => state?.auth);
 
 
   const handleDelete = (e) => {

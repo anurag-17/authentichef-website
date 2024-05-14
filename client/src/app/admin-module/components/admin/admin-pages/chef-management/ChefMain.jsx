@@ -2,12 +2,12 @@ import React, { Fragment, useState, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-
 import CloseIcon from "../Svg/CloseIcon";
 import Loader from "../../loader/Index";
 import AddModal from "./modal/AddModal";
 import EditModal from "./modal/EditModal";
 import DeleteUser from "./modal/DeleteModal";
+import protectedRoute from "@/app/admin-module/config/protectedRoute";
 
 export const headItems = [
   "S. No.",
@@ -33,7 +33,7 @@ const ChefMain = () => {
 
   const visiblePageCount = 10;
   const { token } = useSelector((state) => state?.auth);
-  // console.log(allData);
+  // console.log(token, "token");
 
   const refreshData = () => {
     setRefresh(!isRefresh);
@@ -63,7 +63,7 @@ const ChefMain = () => {
         method: "GET",
         url: `http://13.43.174.21:4000/api/chef/chefs/${id}`,
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: token,
           "Content-Type": "application/json",
         },
       };
@@ -436,4 +436,4 @@ const ChefMain = () => {
   );
 };
 
-export default ChefMain;
+export default protectedRoute(ChefMain);
