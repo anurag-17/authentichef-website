@@ -58,7 +58,7 @@ const LandingPage = () => {
   const defaultDish = () => {
     const option = {
       method: "GET",
-      url: "http://localhost:4000/api/menu/menuItems/popular",
+      url: "http://13.43.174.21:4000/api/menu/menuItems/popular",
       // params: {
       //   Cuisines_id: cuisinesFilter,
       //   Dietary_id: dietaryFilter,
