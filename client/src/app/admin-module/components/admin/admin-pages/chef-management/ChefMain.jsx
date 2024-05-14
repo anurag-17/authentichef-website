@@ -7,6 +7,7 @@ import Loader from "../../loader/Index";
 import AddModal from "./modal/AddModal";
 import EditModal from "./modal/EditModal";
 import DeleteUser from "./modal/DeleteModal";
+import protectedRoute from "@/app/admin-module/config/protectedRoute";
 
 export const headItems = [
   "S. No.",
@@ -435,4 +436,4 @@ const ChefMain = () => {
   );
 };
 
-export default ChefMain;
+export default protectedRoute(ChefMain);

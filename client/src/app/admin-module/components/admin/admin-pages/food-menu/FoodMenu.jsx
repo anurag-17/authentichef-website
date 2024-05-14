@@ -9,6 +9,7 @@ import EditModal from "./modal/EditModal";
 import DeleteUser from "./modal/DeleteModal";
 import { useSelector } from "react-redux";
 import Link from "next/link";
+import protectedRoute from "@/app/admin-module/config/protectedRoute";
 
 export const headItems = [
   "S. No.",
@@ -440,4 +441,4 @@ const FoodMenu = () => {
   );
 };
 
-export default FoodMenu;
+export default protectedRoute(FoodMenu);
