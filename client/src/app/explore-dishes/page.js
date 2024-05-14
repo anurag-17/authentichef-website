@@ -341,29 +341,6 @@ const ExploreDishes = () => {
       });
   };
 
-  // ========= Delete Cart Item =======
-
-  // const handleRemove = async (id) => {
-  //   setLoader(true);
-
-  //   try {
-  //     const response = await axios.delete(`DeleteById/${id}`);
-
-  //     if (response.status === 200) {
-  //       toast.success("Item remove successfully!");
-  //       refreshData();
-  //     } else {
-  //       toast.error("Failed. Something went wrong!");
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //     toast.error("Failed. Something went wrong!");
-  //   } finally {
-  //     setLoader(false);
-  //   }
-  // };
-
-  // ========= Clear Cart Item =======
 
   const handleAllClear = async () => {
     setLoader(true);
@@ -463,7 +440,7 @@ const ExploreDishes = () => {
                     </form>
                     <div className=" flex flex-wrap gap-[20px]  2xl:w-[1602px] xl:w-[1200px] h-auto mx-[0px]">
                       {/* ================= Cuisines =========== */}
-                      <button onClick={defaultCuisines}>
+                      <button>
                         <div className="dropbox">
                           <Image
                             src={allCuisines}
@@ -484,7 +461,7 @@ const ExploreDishes = () => {
                                 src={item.ProfileImage}
                                 className="rounded-[5px] 2xl:w-[74px] 2xl:h-[74px] h-auto xl:w-[50px] lg:w-[] sm:w-[] w-[]  "
                               />
-                              <h4>{item.title}</h4>
+                              <h4 className="capitalize">{item.title}</h4>
                             </div>
                           </button>
                         ))}
@@ -570,7 +547,7 @@ const ExploreDishes = () => {
                                 src={item.ProfileImage}
                                 className="rounded-[5px] 2xl:w-[35px] 2xl:h-[35px] h-auto xl:w-[50px] lg:w-[] sm:w-[] w-[]  "
                               />
-                              <h4>{item.title}</h4>
+                              <h4 className="capitalize">{item.title}</h4>
                             </div>
                           </button>
                         ))}
@@ -707,7 +684,7 @@ const ExploreDishes = () => {
                                       src={item.ProfileImage}
                                       className="rounded-[5px] 2xl:w-[25px] 2xl:h-[25px] h-auto xl:w-[50px] lg:w-[] sm:w-[] w-[]  "
                                     />
-                                    <h4>{item.title}</h4>
+                                    <h4 className="capitalize">{item.title}</h4>
                                   </div>
                                 </button>
                               ))}
@@ -738,7 +715,7 @@ const ExploreDishes = () => {
                                       src={item.ProfileImage}
                                       className="rounded-[5px] 2xl:w-[25px] 2xl:h-[25px] h-auto xl:w-[50px] lg:w-[] sm:w-[] w-[]  "
                                     />
-                                    <h4>{item.title}</h4>
+                                    <h4 className="capitalize">{item.title}</h4>
                                   </div>
                                 </button>
                               ))}
