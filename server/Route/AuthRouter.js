@@ -45,13 +45,13 @@ router.get('/logout_google', (req, res) => {
 
 
 // facebook OAuth
-
 router.get('/facebook', passport.authenticate('facebook', { scope: ['email'] }));
 
+
 router.get('/facebook/callback', passport.authenticate('facebook', { failureRedirect: 'http://www.authentichef.com/' }), (req, res) => {
-  res.redirect('http://www.authentichef.com/explore-dishes');
-}
-)
+  res.redirect('http://localhost:4000');
+});
+
 
 router.get('/logout_facebook', (req, res) => {
 

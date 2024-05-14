@@ -34,6 +34,12 @@ const chefSchema = new mongoose.Schema({
   bannerImage: {
     type: Array,
   },
+  Instagram_Link: {
+    type: String
+  },
+  Facebook_Link: {
+   type: String
+  },
   activeToken: {
     type: String
   },
