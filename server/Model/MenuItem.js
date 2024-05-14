@@ -34,7 +34,7 @@ const menuItemSchema = new mongoose.Schema(
     type:String,
     },
 
-    List_of_Ingredients:{
+    List_of_Allergens:{
       type:String,
     },
 
@@ -61,9 +61,12 @@ const menuItemSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Chef",
     },
+
+
     ProfileImage: {
-      type: String,
+      type: Array,
     },
+
   },
   {
     timestamps: true,

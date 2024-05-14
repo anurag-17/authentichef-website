@@ -8,97 +8,101 @@ const multer = require('multer');
 const dotenv = require('dotenv')
 dotenv.config()
 
+
 // Configure the AWS region
 AWS.config.update({
-    accessKeyId: process.env.AWS_ACCESS_KEY,
-    secretAccessKey: process.env.AWS_SECRET_KEY,
-    region: process.env.REGION,
-    
-
+  accessKeyId: process.env.AWS_ACCESS_KEY,
+  secretAccessKey: process.env.AWS_SECRET_KEY,
+  region: process.env.REGION,
 });
-
 
 // Create an S3 service object
 const s3 = new AWS.S3();
 
 // Define the file filter function for multer
-
-// add svg 
 const fileFilter = (req, file, cb) => {
   if (!file.originalname.match(/\.(jpg|jpeg|png|gif|svg)$/)) {
-      return cb(new Error('Only image files (jpg, jpeg, png, gif, svg) are allowed!'));
+    return cb(new Error('Only image files (jpg, jpeg, png, gif, svg) are allowed!'));
   }
   cb(null, true);
 };
 
-// Configure multer with file filter function
-const upload = multer({ fileFilter }).single('ProfileImage');
+const multerConfig = {
+  fileFilter,
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 5 * 1024 * 1024 // 5MB limit
+  }
+}
 
-// Export the upload middleware
-exports.upload = upload;
+// Configure multer with file filter function for multiple files
+const upload = multer(multerConfig).fields([
+  { name: 'ProfileImage', maxCount: 5 }
+]);
 
 // Export the upload middleware
 exports.upload = upload;
 
 // Create a new menu item
-
-exports.createMenuItem = async (req, res, next) => {
+exports.createMenuItem = async (req, res) => {
   try {
-    const { name, description, price, weight, portion_Size, Ingredients, Heating_Instruction, List_of_Ingredients, Cuisines_id, Dishtype_id, Dietary_id, spice_level_id,  chef_id ,popular_dish } = req.body;
 
-    // Call multer middleware to handle file upload
-    upload(req, res, async (error) => {
-      // Access the uploaded file from req.file
-      const ProfileImage = req.file;
-      if (!ProfileImage) {
-        return res.status(400).json({ error: "Please upload an image" });
-      }
+    const { name, description, price, weight, portion_Size, Ingredients, Heating_Instruction, List_of_Allergens, Cuisines_id, Dishtype_id, Dietary_id, spice_level_id, chef_id, popular_dish } = req.body;
 
-      // Ensure that ProfileImage.buffer is accessible
-      if (!ProfileImage.buffer || ProfileImage.buffer.length === 0) {
-        return res.status(400).json({ error: 'Uploaded file buffer is empty or undefined' });
-      }
+    // Access the uploaded files from req.files
+    const profileImages = req.files['ProfileImage'];
+
+    if (!profileImages || profileImages.length === 0) {
+      return res.status(400).json({ error: "Please upload at least one image" });
+    }
+
+    // Array to store image URLs
+    const imageUrls = [];
+
+    // Iterate through uploaded images
+    for (let i = 0; i < profileImages.length; i++) {
+      const image = profileImages[i];
 
       // Upload image to S3
       const bucketName = process.env.BUCKET;
       const uploadParams = {
         Bucket: bucketName,
-        Key: `profile-images/${name}-${Date.now()}`,
-        Body: ProfileImage.buffer,
-        ContentType: ProfileImage.mimetype
+        Key: `profile-images/${name}-${Date.now()}-${i}`,
+        Body: image.buffer,
+        ContentType: image.mimetype
       };
+
       const s3UploadResponse = await s3.upload(uploadParams).promise();
-      console.log(s3UploadResponse.Location);
-      const imageUrl = s3UploadResponse.Location;
+      imageUrls.push(s3UploadResponse.Location);
+    }
 
-      // Create a new menu item with the image URL
-      const menuItem = new MenuItem({
-        name,
-        description,
-        price,
-        weight,
-        portion_Size,
-        Ingredients,
-        Heating_Instruction,
-        List_of_Ingredients,
-        Cuisines_id,
-        Dishtype_id,
-        Dietary_id,
-        spice_level_id,
-        chef_id,
-        popular_dish:popular_dish || 'No' ,
-        ProfileImage: imageUrl
-      });
-      // Save the menu item to the database
-      const newMenuItem = await menuItem.save();
-      // Send response with the created menu item
-      res.status(201).json(newMenuItem);
+    // Create a new menu item with the image URLs
+    const menuItem = new MenuItem({
+      name,
+      description,
+      price,
+      weight,
+      portion_Size,
+      Ingredients,
+      Heating_Instruction,
+      List_of_Allergens,
+      Cuisines_id,
+      Dishtype_id,
+      Dietary_id,
+      spice_level_id,
+      chef_id,
+      popular_dish: popular_dish || 'No',
+      ProfileImage: imageUrls
     });
-  } catch (error) {
-    next(error);
-  }
 
-}
+    // Save the menu item to the database
+    const newMenuItem = await menuItem.save();
+
+    // Send response with the created menu item
+    res.status(201).json(newMenuItem);
+  } catch (error) {
+  }
+};
 
 
 
