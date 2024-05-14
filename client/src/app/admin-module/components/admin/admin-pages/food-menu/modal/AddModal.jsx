@@ -26,7 +26,7 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
     spice_level_id: "",
     chef_id: "",
     ProfileImage: [],
-    popular_dish: null, // Initial state is set to null
+    popular_dish: "",
   });
 
   const refreshData = () => {
@@ -66,9 +66,11 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
       // Append dropdown values
       formData.append("Dishtype_id", menuItem.Dishtype_id);
       formData.append("Dietary_id", menuItem.Dietary_id);
-      formData.append("spice_level_id", menuItem.spice_level_id);
+      formData.append("spice_level_id", menuItem.spice_level_id); 
       formData.append("chef_id", menuItem.chef_id);
 
+      // Append popular_dish
+      formData.append("popular_dish", menuItem.popular_dish);
       // Append ProfileImage
       // Append ProfileImage
       for (let i = 0; i < menuItem.ProfileImage.length; i++) {
@@ -175,7 +177,6 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
     const newValue = checked ? "Yes" : "No"; // Set value to "No" when unchecked
     setMenuItem({ ...menuItem, popular_dish: newValue });
   };
-
 
   return (
     <form
