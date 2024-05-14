@@ -12,17 +12,32 @@ const AddModal = ({ closeModal, refreshData }) => {
     name: "",
     specialty: "",
     bio: "",
-    images: null, // Changed to match key in state
+    images: null,
+    bannerImage: [],
+    Instagram_Link: "",
+    Facebook_Link: "",
   });
   const [isLoading, setLoading] = useState(false);
 
   const inputHandler = (e) => {
     const { name, value, files } = e.target;
 
-    if (name === "images") {
+    if (name === "images" || name === "bannerImage") {
+      // Check file size
+      const fileSize = files[0].size; // in bytes
+      const maxSize = name === "bannerImage" ? 1024 * 1024 : 200 * 1024; // 1MB for bannerImage, 200KB for images
+      if (fileSize > maxSize) {
+        toast.error(
+          `File size exceeds the limit. Maximum allowed size is ${
+            name === "bannerImage" ? "1 MB" : "200 KB"
+          }.`
+        );
+        return; // Prevent setting state if file size exceeds the limit
+      }
+
       setChefData({
         ...chefData,
-        [name]: files[0], // Use files[0] for file input
+        [name]: files[0],
       });
     } else {
       setChefData({
@@ -34,7 +49,7 @@ const AddModal = ({ closeModal, refreshData }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true); // Set loading to true when form is submitted
+    setLoading(true);
 
     try {
       const formData = new FormData();
@@ -42,6 +57,9 @@ const AddModal = ({ closeModal, refreshData }) => {
       formData.append("specialty", chefData.specialty);
       formData.append("bio", chefData.bio);
       formData.append("images", chefData.images);
+      formData.append("bannerImage", chefData.bannerImage);
+      formData.append("Instagram_Link", chefData.Instagram_Link);
+      formData.append("Facebook_Link", chefData.Facebook_Link);
 
       const response = await axios.post(
         "http://13.43.174.21:4000/api/chef/chefs",
@@ -49,12 +67,12 @@ const AddModal = ({ closeModal, refreshData }) => {
         {
           headers: {
             authorization: `${token}`,
-            "Content-Type": "multipart/form-data", // Use multipart/form-data for file uploads
+            "Content-Type": "multipart/form-data",
           },
         }
       );
-      
-      if (response.status === 201) {
+
+      if (response.status === 200) {
         toast.success("Chef added successfully.");
         setLoading(false);
         refreshData();
@@ -89,20 +107,22 @@ const AddModal = ({ closeModal, refreshData }) => {
             </div>
 
             <div className="py-2 ">
-              <span className="login-input-label capitalize"> specialty :</span>
+              <span className="login-input-label capitalize">
+                {" "}
+                Nationality :
+              </span>
               <input
                 type="text"
                 name="specialty"
-                placeholder="Enter specialty"
+                placeholder="Enter Nationality"
                 className="login-input w-full mt-1 "
                 onChange={inputHandler}
               />
             </div>
 
             <div className="py-2 ">
-              <span className="login-input-label capitalize"> bio :</span>
-              <input
-                type="text"
+              <span className="login-input-label capitalize"> Bio :</span>
+              <textarea
                 name="bio"
                 placeholder="Enter chef`s bio"
                 className="login-input w-full mt-1 "
@@ -112,13 +132,61 @@ const AddModal = ({ closeModal, refreshData }) => {
 
             <div>
               <label className="custom_input_label">Profile Image</label>
+              <p className="text-sm text-red-500 mt-1">
+                Profile Image size should be width 288px and height 323px pixels.
+              </p>
               <input
                 type="file"
                 onChange={inputHandler}
-                name="images" // Changed to match key in state
+                name="images"
                 className="custom_inputt"
-                accept="image/*" // Limit to image files
+                accept="image/*"
                 required
+              />
+              
+            </div>
+
+            <div>
+              <label className="custom_input_label">Banner Image</label>
+              <p className="text-sm text-red-500 mt-1">
+                Banner Image size should be width 1600px and height 529px pixels.
+              </p>
+              <input
+                type="file"
+                onChange={inputHandler}
+                name="bannerImage"
+                className="custom_inputt"
+                accept="image/*"
+                required
+              />
+              
+            </div>
+
+            <div>
+              <span className="login-input-label capitalize">
+                {" "}
+                Instagram Link :
+              </span>
+              <input
+                type="text"
+                name="Instagram_Link"
+                placeholder="Enter Instagram link"
+                className="login-input w-full mt-1 "
+                onChange={inputHandler}
+              />
+            </div>
+
+            <div>
+              <span className="login-input-label capitalize">
+                {" "}
+                Facebook Link :
+              </span>
+              <input
+                type="text"
+                name="Facebook_Link"
+                placeholder="Enter Facebook link"
+                className="login-input w-full mt-1 "
+                onChange={inputHandler}
               />
             </div>
 

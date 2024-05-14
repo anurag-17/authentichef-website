@@ -172,11 +172,11 @@ const ChefMain = () => {
     <>
       {isLoader && <Loader />}
       <section className="w-full">
-        <div className=" mx-auto">
-          <div className="rounded-[10px] bg-white py-[20px] flexBetween  md:flex-row gap-3 px-[20px] mt-[20px] lg:mt-0">
-            <p className=" text-[22px] font-semibold">Chef Management</p>
+        <div className="mx-auto">
+          <div className="rounded-[10px] bg-white py-[20px] flexBetween md:flex-row gap-3 px-[20px] mt-[20px] lg:mt-0">
+            <p className="text-[22px] font-semibold">Chef Management</p>
             <div className="flexCenter gap-x-7 lg:gap-x-5 md:flex-auto gap-y-3 ">
-              <div className="border rounded border-primary  bg-[#302f2f82]] flexCenter h-[32px] pl-[10px] md:w-auto w-full">
+              <div className="border rounded border-primary bg-[#302f2f82]] flexCenter h-[32px] pl-[10px] md:w-auto w-full">
                 <input
                   type="text"
                   className="input_search"
@@ -209,9 +209,9 @@ const ChefMain = () => {
               </button>
             </div>
           </div>
-          <div className="">
+          <div className="table-container overflow-auto max-h-[780px] mt-4">
             <div className="outer_table">
-              <table className="w-full min-w-[640px] table-auto mt-[20px] ">
+              <table className="w-full min-w-[640px] table-auto">
                 <thead className="">
                   <tr className=" ">
                     {headItems.map((items, inx) => (
@@ -243,11 +243,11 @@ const ChefMain = () => {
                         <td className="table_data">
                           <div className="table_btn_div">
                             {/* <button
-                              className="secondary_btn"
-                              onClick={() => handlePreview(items?._id)}
-                            >
-                              Preview
-                            </button> */}
+                        className="secondary_btn"
+                        onClick={() => handlePreview(items?._id)}
+                      >
+                        Preview
+                      </button> */}
                             <button
                               className="secondary_btn py-1"
                               onClick={() => handleEdit(items?._id)}
@@ -275,13 +275,13 @@ const ChefMain = () => {
           </div>
 
           {/* {allData?.totalPages > 1 && (
-            <Pagination
-              currentpage={allData?.currentPage}
-              totalCount={allData?.totalPages}
-              visiblePageCount={visiblePageCount}
-              getAllData={getAllData}
-            />
-          )} */}
+      <Pagination
+        currentpage={allData?.currentPage}
+        totalCount={allData?.totalPages}
+        visiblePageCount={visiblePageCount}
+        getAllData={getAllData}
+      />
+    )} */}
         </div>
       </section>
 
