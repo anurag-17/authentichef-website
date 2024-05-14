@@ -1,258 +1,215 @@
-  import React, { useState } from "react";
-  import { ToastContainer, toast } from "react-toastify";
-  import axios from "axios";
-  import Loader from "../../../loader/Index";
+import React, { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import axios from "axios";
+import Loader from "../../../loader/Index";
 
-  const EditModal = ({ closeModal, refreshdata, editData, updateId, token }) => {
-    const [formData, setFormData] = useState();
-    const [image, setImage] = useState("");
-    const [isLoading, setLoading] = useState(false);
-    const [imageDisable, setImageDisable] = useState(false);
-    const [imageUploading, setImageUploading] = useState(false);
-    const [openImage, setOpenImage] = useState(false);
-    const [imageView, setImageview] = useState("");
-    const [imageRemoved, setImageRemoved] = useState(false);
+const EditModal = ({ closeModal, refreshdata, editData, updateId, token }) => {
+  const [formData, setFormData] = useState({
+    name: editData?.name || "",
+    specialty: editData?.specialty || "",
+    bio: editData?.bio || "",
+    images: editData?.images[0] || "", // Set the first image as default
+    bannerImage: editData?.bannerImage[0] || "", // Set the first banner image as default
+    Instagram_Link: editData?.Instagram_Link || "",
+    Facebook_Link: editData?.Facebook_Link || "",
+  });
+  const [isLoading, setLoading] = useState(false);
 
-    console.log(formData)
-    const handleVideo = (vid) => {
-      setImageview(vid);
-      setOpenImage(true);
-    };
+  const inputHandler = (e) => {
+    const { name, value, files } = e.target;
 
-    const removeVideo = (videoUrl) => {
-      // setLoading(true);
-      setEdit({ ...edit, [`image`]: "" });
-      setImageRemoved(true);
-      return;
-      const options = {
-        method: "DELETE",
-        url: "localhost:13.43.174.21:4000/api/pages/",
-        data: {
-          image: videoUrl,
-        },
-        headers: {
-          authorization: `${token}`,
-          "Content-Type": "application/json",
-        },
-      };
-
-      axios
-        .request(options)
-        .then(function (response) {
-          console.log(response);
-          if (response.status === 200) {
-            setLoading(false);
-            toast.success("Removed successfully !");
-            refreshdata();
-          } else {
-            setLoading(false);
-            toast.error("Failed. something went wrong!");
-            return;
-          }
-        })
-        .catch(function (error) {
-          setLoading(false);
-          console.error(error);
-          toast.error("Failed. something went wrong!");
-        });
-    };
-
-    const InputHandler = (e) => {
-      if (e.target.name === "image") {
-        setImage({ file: e.target.files[0] });
-      } else {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (name === "images" || name === "bannerImage") {
+      const fileSize = files[0].size; // in bytes
+      const maxSize = 200 * 1024; // 200KB for images
+      if (fileSize > maxSize) {
+        toast.error(
+          `File size exceeds the limit. Maximum allowed size is 200 KB.`
+        );
+        return;
       }
-    };
 
-    const uploadImage = async () => {
+      setFormData({
+        ...formData,
+        [name]: files[0],
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
+  };
 
-    console.log(formData)
-    return;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
 
-      setImageUploading(true);
-      try {
-        if (!image) {
-          setImageUploading(false);
-          return toast.warn("Please upload Image");
-        }
+    try {
+      const formDataToSend = new FormData();
+      formDataToSend.append("name", formData.name);
+      formDataToSend.append("specialty", formData.specialty);
+      formDataToSend.append("bio", formData.bio);
+      formDataToSend.append("images", formData.images);
+      formDataToSend.append("bannerImage", formData.bannerImage);
+      formDataToSend.append("Instagram_Link", formData.Instagram_Link);
+      formDataToSend.append("Facebook_Link", formData.Facebook_Link);
 
-        const response = await axios.post("http://13.43.174.21:4000/api/auth/upload", image, {
+      const response = await axios.put(
+        `http://13.43.174.21:4000/api/chef/chefs/${updateId}`,
+        formDataToSend,
+        {
           headers: {
             authorization: `${token}`,
             "Content-Type": "multipart/form-data",
           },
-        });
-        if (response.status === 200) {
-          const videoUrl = response?.data?.url;
-          setFormData({ ...formData, ["image"]: videoUrl });
-          setImageDisable(true);
-          setImageUploading(false);
-        } else {
-          setImageDisable(false);
-          setImageUploading(false);
         }
-      } catch (error) {
-        console.error(
-          "Error uploading Image:",
-          error.response?.data || error.message
-        );
-        setImageUploading(false);
-      }
-    };
+      );
 
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      if (formData?.images?.length<1) {
-        toast.error("Please upload Image");
+      if (response.status === 200) {
+        toast.success("Details updated successfully.");
+        setLoading(false);
+        refreshdata();
+        closeModal();
       } else {
-        // console.log(formData);
-        setLoading(true);
-        try {
-          const res = await axios.put(`http://13.43.174.21:4000/api/chef/chefs/${updateId}`, formData, {
-            headers: {
-              authorization: `${token}`,
-              "Content-Type": "application/json",
-            },
-          });
-          // console.log(res);
-          if (res.status === 200) {
-            toast.success("Details updated successfully.");
-            setLoading(false);
-            refreshdata();
-            closeModal();
-          }  else {
-            toast.error("Invalid details");
-            setLoading(false);
-          }
-        } catch (error) {
-          console.error("Error during category:", error);
-          toast.error( error.response?.data?.error || "Server error");
-          setLoading(false);
-        }
+        toast.error("Invalid details");
+        setLoading(false);
       }
-    };
-
-    return (
-      <>
-  <ToastContainer autoClose={1000}/>      <div className="">
-          <form action="" className="" onSubmit={handleSubmit}>
-            <div className="flex flex-col justify-center px-4 lg:px-8 py-4 ">
-              <div className="py-2 ">
-                <span className="login-input-label capitalize"> Name :</span>
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Enter chef name"
-                  className="login-input w-full mt-1 "
-                  defaultValue={editData?.name}
-                  onChange={InputHandler}
-                  required
-                />
-              </div>
-
-              <div className="py-2 ">
-                <span className="login-input-label capitalize"> specialty :</span>
-                <input
-                  type="text"
-                  name="specialty"
-                  placeholder="Enter specialty"
-                  className="login-input w-full mt-1 "
-                  defaultValue={editData?.specialty}
-                  onChange={InputHandler}
-                  required
-                />
-              </div>
-
-              <div className="py-2 ">
-                <span className="login-input-label capitalize"> bio :</span>
-                <input
-                  type="text"
-                  name="bio"
-                  placeholder="Enter chef`s bio"
-                  className="login-input w-full mt-1 "
-                  defaultValue={editData?.bio}
-                  onChange={InputHandler}
-                  required
-                />
-              </div>
-
-              {/*------------------- image -------------------*/}
-              <div className="py-2 mt-1 flex  items-end gap-x-10">
-                <div className="w-[50%]">
-                  <span className="login-input-label cursor-pointer mb-1">
-                    Images :
-                  </span>
-
-                  {editData?.image !== "" && !imageRemoved && (
-                    <div className="p-1 flex">
-                      <div
-                        className={`text-[14px] font-[400] cursor-pointer text-[blue] whitespace-nowrap`}
-                        onClick={() => handleVideo(editData?.image)}
-                      >
-                        background video
-                      </div>
-                      <button
-                        type="button"
-                        className={`text-[14px] px-4 font-[400] border rounded h-[25px] text-[red] hover:bg-[#efb3b38a] ml-4`}
-                        onClick={() => removeVideo(editData?.image)}
-                      >
-                        Remove
-                      </button>
-                    </div>
-                  )}
-
-                  <div className="flex items-center  w-full mt-1">
-                    <input
-                      id="image"
-                      type="file"
-                      name="image"
-                      className="w-full"
-                      onChange={InputHandler}
-                      accept="video/mp4,video/x-m4v,video/*"
-                      disabled={imageDisable}
-                    />
-                  </div>
-                </div>
-                <div className="">
-                  <button
-                    className={`focus-visible:outline-none  text-white text-[13px] px-4 py-1 rounded
-                              ${imageDisable ? "bg-[green]" : "bg-[#070708bd]"}`}
-                    type="button"
-                    onClick={uploadImage}
-                    disabled={imageDisable || imageUploading}
-                  >
-                    {imageDisable
-                      ? "Uploaded"
-                      : imageUploading
-                      ? "Loading.."
-                      : "Upload"}
-                  </button>
-                </div>
-              </div>
-              {/*------------------- image -------------------*/}
-
-              <div className="py-[20px] flex items-center justify-center md:justify-end  md:flex-nowrap gap-y-3 gap-x-3 ">
-                <button
-                  type="button"
-                  className="secondary_btn w-full"
-                  onClick={() => closeModal()}
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  disabled={isLoading}
-                  className="primary_btn w-full"
-                >
-                  {isLoading ? "Loading.." : "Add"}
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </>
-    );
+    } catch (error) {
+      console.error("Error during category:", error);
+      toast.error(error.response?.data?.error || "Server error");
+      setLoading(false);
+    }
   };
 
-  export default EditModal;
+  return (
+    <>
+      <ToastContainer autoClose={1000} />
+      <div className="">
+        <form action="" className="" onSubmit={handleSubmit}>
+          <div className="flex flex-col justify-center px-4 lg:px-8 py-4 ">
+            <div className="py-2 ">
+              <span className="login-input-label capitalize"> Name :</span>
+              <input
+                type="text"
+                name="name"
+                placeholder="Enter chef name"
+                className="login-input w-full mt-1 "
+                value={formData.name}
+                onChange={inputHandler}
+                required
+              />
+            </div>
+
+            <div className="py-2 ">
+              <span className="login-input-label capitalize"> Nationality :</span>
+              <input
+                type="text"
+                name="specialty"
+                placeholder="Enter Nationality"
+                className="login-input w-full mt-1 "
+                value={formData.specialty}
+                onChange={inputHandler}
+                required
+              />
+            </div>
+
+            <div className="py-2 ">
+              <span className="login-input-label capitalize"> bio :</span>
+              <input
+                type="text"
+                name="bio"
+                placeholder="Enter chef`s bio"
+                className="login-input w-full mt-1 "
+                value={formData.bio}
+                onChange={inputHandler}
+                required
+              />
+            </div>
+
+            {/*------------------- image -------------------*/}
+            {/* Profile Image */}
+            <div className="py-2 ">
+              <span className="login-input-label capitalize"> Profile Image :</span>
+              <input
+                type="file"
+                name="images"
+                className="login-input w-full mt-1 "
+                onChange={inputHandler}
+                accept="image/*"
+              />
+              {formData.images && (
+                <img src={formData.images} alt="Profile" />
+              )}
+            </div>
+
+            {/* Banner Image */}
+            <div className="py-2 ">
+              <span className="login-input-label capitalize"> Banner Image :</span>
+              <input
+                type="file"
+                name="bannerImage"
+                className="login-input w-full mt-1 "
+                onChange={inputHandler}
+                accept="image/*"
+              />
+              {formData.bannerImage && (
+                <img src={formData.bannerImage} alt="Banner" />
+              )}
+            </div>
+
+            {/*------------------- image -------------------*/}
+
+            <div className="py-2 ">
+              <span className="login-input-label capitalize">
+                {" "}
+                Instagram Link :
+              </span>
+              <input
+                type="text"
+                name="Instagram_Link"
+                placeholder="Enter Instagram link"
+                className="login-input w-full mt-1 "
+                value={formData.Instagram_Link}
+                onChange={inputHandler}
+              />
+            </div>
+
+            <div className="py-2 ">
+              <span className="login-input-label capitalize">
+                {" "}
+                Facebook Link :
+              </span>
+              <input
+                type="text"
+                name="Facebook_Link"
+                placeholder="Enter Facebook link"
+                className="login-input w-full mt-1 "
+                value={formData.Facebook_Link}
+                onChange={inputHandler}
+              />
+            </div>
+
+            <div className="py-[20px] flex items-center justify-center md:justify-end  md:flex-nowrap gap-y-3 gap-x-3 ">
+              <button
+                type="button"
+                className="secondary_btn w-full"
+                onClick={() => closeModal()}
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="primary_btn w-full"
+              >
+                {isLoading ? "Loading.." : "Add"}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </>
+  );
+};
+
+export default EditModal;
