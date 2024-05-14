@@ -25,7 +25,8 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
     Dietary_id: "",
     spice_level_id: "",
     chef_id: "",
-    ProfileImage: null, // Changed to an array to hold multiple images
+    ProfileImage: [],
+    popular_dish: null, // Initial state is set to null
   });
 
   const refreshData = () => {
@@ -38,9 +39,13 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
   };
 
   const handleImageChange = (e) => {
+    const files = Array.from(e.target.files); // Convert FileList to Array
+    const selectedImages = files.slice(0, 5); // Limit to 5 images
+
+    // Update state with selected images
     setMenuItem({
       ...menuItem,
-      ProfileImage: e.target.files[0],
+      ProfileImage: selectedImages,
     });
   };
 
@@ -65,7 +70,10 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
       formData.append("chef_id", menuItem.chef_id);
 
       // Append ProfileImage
-      formData.append("ProfileImage", menuItem.ProfileImage);
+      // Append ProfileImage
+      for (let i = 0; i < menuItem.ProfileImage.length; i++) {
+        formData.append("ProfileImage", menuItem.ProfileImage[i]);
+      }
 
       const response = await axios.post(
         "http://13.43.174.21:4000/api/menu/menuItems",
@@ -161,6 +169,13 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
 
     fetchChefs();
   }, []);
+
+  const handleCheckboxChange = (e) => {
+    const { checked } = e.target;
+    const newValue = checked ? "Yes" : "No"; // Set value to "No" when unchecked
+    setMenuItem({ ...menuItem, popular_dish: newValue });
+  };
+
 
   return (
     <form
@@ -261,6 +276,19 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
             className="w-full px-3 py-2 border rounded"
             required
           />
+        </div>
+        {/* Checkbox for Popular Dish */}
+        <div className="mb-4">
+          <label className="block mb-1">
+            Popular Dish:
+            <input
+              type="checkbox"
+              name="popular_dish"
+              checked={menuItem.popular_dish === "Yes"} // Check if the value is "Yes"
+              onChange={handleCheckboxChange}
+              className="ml-2"
+            />
+          </label>
         </div>
       </div>
 
@@ -379,13 +407,14 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
 
       {/* Image Upload */}
       <div className="w-full px-4">
-        <label htmlFor="ProfileImage">Profile Image:</label>
+        <label htmlFor="ProfileImages">Profile Images:</label>
         <input
           type="file"
-          id="ProfileImage"
-          name="ProfileImage"
+          id="ProfileImages"
+          name="ProfileImages"
           onChange={handleImageChange}
           accept="image/*"
+          multiple // Allow multiple file selection
           required
         />
         <p className="text-sm text-red-500 mt-1">

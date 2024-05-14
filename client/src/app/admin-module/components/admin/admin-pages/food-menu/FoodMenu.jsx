@@ -324,7 +324,7 @@ const FoodMenu = () => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-[600px] transform overflow-hidden rounded-2xl bg-white p-[40px]  text-left align-middle shadow-xl transition-all relative">
+                <Dialog.Panel className="w-full max-w-[1000px] transform overflow-hidden rounded-2xl bg-white p-[40px]  text-left align-middle shadow-xl transition-all relative">
                   <Dialog.Title
                     as="h3"
                     className="xl:text-[20px] text-[18px] font-medium leading-6 text-gray-900 "
