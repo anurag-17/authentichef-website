@@ -7,6 +7,7 @@ import { Switch } from "@headlessui/react";
 import CloseIcon from "../Svg/CloseIcon";
 import Loader from "../../loader/Index";
 import DeleteUser from "./DeleteUser";
+import protectedRoute from "@/app/admin-module/config/protectedRoute";
 
 export const headItems = [
   "S. No.",
@@ -30,8 +31,6 @@ const User = () => {
   const [previewData, setPreviewData] = useState({});
   const visiblePageCount = 10;
   // const {ad_token, isLoggedIn} = useSelector((state) => state.auth);
-  ;
-
   // console.log(previewData);
   const refreshdata = () => {
     setRefresh(!isRefresh);
@@ -135,7 +134,7 @@ const User = () => {
       .request(options)
       .then((res) => {
         // console.log(res);
-        if (res?.data?.success || res.status === 200 ) {
+        if (res?.data?.success || res.status === 200) {
           setIsLoader(false);
           setAllData(res?.data);
         } else {
@@ -160,12 +159,15 @@ const User = () => {
         `/api/auth/edit-user/${userId}`,
         { isBlocked: !isBlocked },
         {
-          headers: { "Content-Type": "application/json", Authorization: ad_token },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: ad_token,
+          },
         }
       );
 
       if (res.data?.success) {
-        refreshdata()
+        refreshdata();
         return;
       } else {
         console.error("Toggle blocked request failed.");
@@ -233,11 +235,11 @@ const User = () => {
                       <tr key={index}>
                         <td className="table_data">{index + 1}</td>
                         <td className="table_data capitalize">
-                          {items?.firstname}   {items?.lastname}
+                          {items?.firstname} {items?.lastname}
                         </td>
                         <td className="table_data">{items?.mobile} </td>
                         <td className="table_data">{items?.email}</td>
-                        <td className="table_data">{items?.orders?.length }</td>
+                        <td className="table_data">{items?.orders?.length}</td>
                         {/* <td className="table_data">
                           <Switch
                             checked={items?.isBlocked}
@@ -344,9 +346,8 @@ const User = () => {
           </div>
         </Dialog>
       </Transition>
-
     </>
   );
 };
 
-export default User;
+export default protectedRoute(User);

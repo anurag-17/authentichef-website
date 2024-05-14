@@ -7,6 +7,7 @@ import DeleteSpice from "./modal/delete-spice";
 import UpdateSpice from "./modal/update-spice";
 import AddSpice from "./modal/add-spice";
 import { useSelector } from "react-redux";
+import protectedRoute from "@/app/admin-module/config/protectedRoute";
 
 export const headItems = [
   "S. No.",
@@ -387,4 +388,4 @@ const SpiceLevel = () => {
   );
 };
 
-export default SpiceLevel;
+export default protectedRoute(SpiceLevel);

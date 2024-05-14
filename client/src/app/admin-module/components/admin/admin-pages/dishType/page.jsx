@@ -7,6 +7,7 @@ import DeleteDishtype from "./modal/deleteDishtype";
 import UpdateDishtype from "./modal/updateDishtype";
 import AddDishtype from "./modal/addDishtype";
 import { useSelector } from "react-redux";
+import protectedRoute from "@/app/admin-module/config/protectedRoute";
 
 
 export const headItems = [
@@ -389,4 +390,4 @@ const DishType = () => {
   );
 };
 
-export default DishType;
+export default protectedRoute(DishType);
