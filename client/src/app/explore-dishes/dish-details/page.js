@@ -6,7 +6,7 @@ import axios from "axios";
 
 const DishDetails = ({ dishID }) => {
   const [count, setCount] = useState(1);
-  console.log(dishID, "dishID");
+  // console.log(dishID, "dishID");
   const [getADish, setGetADish] = useState("");
 
   useEffect(() => {
@@ -16,11 +16,11 @@ const DishDetails = ({ dishID }) => {
   const defaultDish = () => {
     const option = {
       method: "GET",
-      url: `http://localhost:4000/api/menu/menuItems/${dishID}`,
+      url: `http://13.43.174.21:4000/api/menu/menuItems/${dishID}`,
     };
     axios.request(option).then((response) => {
       setGetADish(response?.data);
-      console.log(response?.data, "data");
+      // console.log(response?.data, "data");
     });
   };
 
@@ -39,7 +39,10 @@ const DishDetails = ({ dishID }) => {
         <div>
           <div className="flex 2xl:gap-[60px] xl:gap-[40px] gap-[20px] justify-between ">
             <div className="2xl:w-[459px] xl:w-[280px] w-[180px] ">
-              <img src={getADish?.ProfileImage} className="rounded-[15px] 2xl:w-[459px] 2xl:h-[339px] xl:w-[280px] xl:h-[200px]" />
+              <img
+                src={getADish?.ProfileImage}
+                className="rounded-[15px] 2xl:w-[459px] 2xl:h-[339px] xl:w-[280px] xl:h-[200px]"
+              />
             </div>
             <div className="2xl:w-[400px] xl:w-[359px] w-[300px]">
               <div>
@@ -149,38 +152,21 @@ const DishDetails = ({ dishID }) => {
                 <p className="fourth_p ">{getADish?.List_of_Allergens}</p>
               </div>
               <div className="2xl:w-[578px] xl:w-[430px] w-[360px]">
-                <p className="fourth_p text-[#555555]">
-                  Best Cooked directly from FROZEN
-                </p>{" "}
-                <p className="fourth_p ">
-                  OVEN: Preheat oven to 180°C (Gas Mark 5). Remove lid and any
-                  outer packaging. Place on a baking tray at the top of oven for
-                  20 minutes or until piping hot.
-                </p>
+                <p className="fourth_p text-[#555555]"></p>{" "}
+                <p className="fourth_p "></p>
               </div>
             </div>
           </div>
           <div className="2xl:my-[20px] xl:my-[12px] my-[10px]">
             <div className="flex justify-between">
-              {/* <div>
-                <p className="fourth_p text-[#555555]">Storage</p>{" "}
-                <p className="fourth_p 2xl:w-[270px] xl:w-[200px] w-[160px]">
-                  Store immediately in freezer on delivery.
-                </p>
-                <p className="fourth_p ">Keep frozen at -18℃.</p>
-                <p className="fourth_p 2xl:w-[270px] xl:w-[200px] w-[180px]">
-                  Should this product defrost, keep refrigerated, heat and eat
-                  within 48 hours.
-                </p>
-              </div> */}
+              <div>
+                <p className="fourth_p text-[#555555]"></p>{" "}
+                <p className="fourth_p 2xl:w-[270px] xl:w-[200px] w-[160px]"></p>
+                <p className="fourth_p "></p>
+                <p className="fourth_p 2xl:w-[270px] xl:w-[200px] w-[180px]"></p>
+              </div>
               <div className="">
-                <p className="fourth_p ">
-                  MICROWAVE: Remove lid and place loosely on the container.
-                  Place on a microwaveable plate and heat on full power for 7-8
-                  minutes. Halfway through heating, add 2 tablespoons of water
-                  to rice and stir contents together. Re-cover and continue
-                  heating. Heat until piping hot and stand for 1 minute.
-                </p>
+                <p className="fourth_p "></p>
               </div>
             </div>
           </div>

@@ -1,2 +1,4 @@
-
-export const URL = "http://18.130.221.11:4000";
+const config = {
+  baseURL: "http://13.43.174.21:4000",
+};
+export default config;
