@@ -12,6 +12,7 @@ const MenuItemForm = () => {
   const router = useRouter();
   const { token } = useSelector((state) => state?.auth);
   const [isRefresh, setRefresh] = useState(false);
+  
   const [menuItem, setMenuItem] = useState({
     name: "",
     description: "",
@@ -57,7 +58,6 @@ const MenuItemForm = () => {
       formData.append("Ingredients", menuItem.Ingredients);
       formData.append("Heating_Instruction", menuItem.Heating_Instruction);
       formData.append("List_of_Ingredients", menuItem.List_of_Ingredients);
-
       // Append dropdown values
       formData.append("Dishtype_id", menuItem.Dishtype_id);
       formData.append("Dietary_id", menuItem.Dietary_id);
