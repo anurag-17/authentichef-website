@@ -150,7 +150,10 @@ const LandingPage = () => {
             <div className="flex flex-col md:flex-row  flex-wrap gap-[20px] xl:gap-[25px] 2xl:gap-[35px] md:my-5 lg:my-0">
               {Array.isArray(getAllDish) &&
                 getAllDish.map((item, index) => (
-                  <div className="2xl:w-[373px] xl:w-[260px] lg:w-[190px] md:w-1/2 mx-10 sm:mx-0 my-5  2xl:my-5 lg:my-4 mfbox ">
+                  <div
+                    key={index}
+                    className="2xl:w-[373px] xl:w-[260px] lg:w-[190px] md:w-1/2 mx-10 sm:mx-0 my-5  2xl:my-5 lg:my-4 mfbox "
+                  >
                     <div>
                       <button className="" onClick={() => openModal(item._id)}>
                         <img
