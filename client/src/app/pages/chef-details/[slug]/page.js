@@ -72,27 +72,21 @@ const ChefDetails = ({ params }) => {
                     Punjabi · North Indian · South Indian · Indian · Vegetarian
                   </p>
                   <div className="flex gap-3 2xl:my-[20px] xl:my-[15px] my-[10px]">
-                    <div className="2xl:w-[197px] 2xl:h-[37px] xl:w-[140px] xl:h-[30px] w-[130px]  h-[25px] bg-[#F3F3F3] flex justify-around items-center">
+                    {/* <div className="2xl:w-[197px] 2xl:h-[37px] xl:w-[140px] xl:h-[30px] w-[130px]  h-[25px] bg-[#F3F3F3] flex justify-around items-center">
                       <Image src={cook} className="w-[17px]" />
                       <p className="fourth_day">1.1k+</p>
                       <p className=" fourth_day text-[#838383]">
                         Meals prepared
                       </p>
-                    </div>
+                    </div> */}
                     <div className="2xl:w-[197px] 2xl:h-[37px] xl:w-[140px] xl:h-[30px] w-[130px]  h-[25px bg-[#F3F3F3] flex justify-around items-center">
                       <Image src={cook2} className="w-[17px]" />
                       <p className="fourth_day">Certified</p>
                       <p className="fourth_day text-[#838383]">Food safety</p>
                     </div>
                   </div>
-                  <p className="fourth_day 2xl:w-[869px] xl:w-[600px] w-[540px]">
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industrys
-                    standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled it to make a
-                    type specimen book.
-                  </p>
-                  <div className="flex gap-[50px] 2xl:my-[30px] xl:my-[20px] my-[10px]">
+                 
+                  {/* <div className="flex gap-[50px] 2xl:my-[30px] xl:my-[20px] my-[10px]">
                     <div className="2xl:w-[404px] xl:w-[280px] w-[204px] ">
                       <h2 className="fourth_p text-[#555555]">
                         Lorem Ipsum is simply dummy
@@ -117,8 +111,8 @@ const ChefDetails = ({ params }) => {
                         to make a type specimen book.
                       </p>
                     </div>
-                  </div>
-                  <div className="2xl:my-[30px] ">
+                  </div> */}
+                  {/* <div className="2xl:my-[30px] ">
                     <h2 className="fourth_p text-[#555555]">
                       Lorem Ipsum is simply dummy
                     </h2>
@@ -129,7 +123,7 @@ const ChefDetails = ({ params }) => {
                       printer took a galley of type and scrambled it to make a
                       type specimen book.
                     </p>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -143,7 +137,7 @@ const ChefDetails = ({ params }) => {
                 <h1 className="third_head">Popular Dishes</h1>
               </div>
             </div>
-            <div className=" flex flex-wrap justify-between  w-full px-10 md:px-0 mx-auto">
+            <div className=" flex flex-wrap gap-[20px] xl:gap-[25px] 2xl:gap-[70px] w-full px-10 md:px-0 mx-auto">
               {Array.isArray(chefItems) &&
                 chefItems.map((item) => (
                   <div
@@ -151,7 +145,7 @@ const ChefDetails = ({ params }) => {
                     className="  my-5 2xl:w-[345px] 2xl:h-[560px] lg:w-[23%]  md:w-[31%] w-[45%]  relative  rounded-[9.8px] "
                   >
                     <img
-                      src={item.ProfileImage}
+                      src={item.ProfileImage[0]}
                       alt={item.title}
                       width={345}
                       height={278}

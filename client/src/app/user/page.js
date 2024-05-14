@@ -1,5 +1,6 @@
+"use client";
 import dynamic from "next/dynamic";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import logo from "../assets/logo.png";
 import food1 from "../assets/cuisine-india.png";
@@ -44,8 +45,37 @@ import Navbar from "../navbar";
 import offer from "../assets/offer.svg";
 import howworkbanner from "../assets/how-it-works-banner.png";
 import Footer from "../footer";
+import axios from "axios";
+import addCart from "../../../public/images/addCart.svg";
 
 const LandingPage = () => {
+  const [getAllDish, setGetAllDish] = useState({});
+  console.log(getAllDish, "dis");
+
+  useEffect(() => {
+    defaultDish();
+  }, []);
+  const defaultDish = () => {
+    const option = {
+      method: "GET",
+      url: "http://localhost:4000/api/menu/menuItems/popular",
+      // params: {
+      //   Cuisines_id: cuisinesFilter,
+      //   Dietary_id: dietaryFilter,
+      //   Dishtype_id: moreFilters,
+      // },
+    };
+    axios
+      .request(option)
+      .then((response) => {
+        setGetAllDish(response?.data);
+        console.log(response?.data, "dish");
+        // console.log(response?.data, "DATA");
+      })
+      .catch((error) => {
+        console.log(error, "Error");
+      });
+  };
   return (
     <>
       <section className="">
@@ -110,166 +140,6 @@ const LandingPage = () => {
 
         {/* ===================Third================== */}
 
-        {/* <div className="flex justify-center 2xl:my-20 xl:my-14 lg:my-8 hidden lg:block">
-          <div className="">
-            <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px] flex justify-between mx-auto">
-              <div className="">
-                <h1 className="third_head">Select your cuisine</h1>
-              </div>
-              <div className="flex justify-between 2xl:gap-10 xl:gap-5 lg:gap-4 items-center">
-                <div className="flex 2xl:gap-5 xl:gap-3 lg:gap-2">
-                  <div className="">
-                    <label for="cuisines">All Cuisines:</label>
-                    <select
-                      id="cuisines"
-                      className="2xl:w-[153px] third_select"
-                    >
-                      <option disabled selected>
-                        All Cuisines
-                      </option>
-                      <option>a</option>
-                      <option>b</option>
-                      <option>c</option>
-                    </select>
-                  </div>
-
-                  <div className="">
-                    <label for="dietary">Dietary:</label>
-                    <select id="dietary" className="2xl:w-[126px] third_select">
-                      <option disabled selected>
-                        Dietary
-                      </option>
-                      <option>d</option>
-                      <option>e</option>
-                      <option>f</option>
-                    </select>
-                  </div>
-
-                  <div className="">
-                    <label for="moreFilters">More Filters:</label>
-                    <select
-                      id="moreFilters"
-                      className="2xl:w-[143px] third_select"
-                    >
-                      <option disabled selected>
-                        More filters
-                      </option>
-                      <option>x</option>
-                      <option>y</option>
-                      <option>z</option>
-                    </select>
-                  </div>
-
-                  <div className="relative">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="w-[13px] h-[13px] absolute 2xl:right-3 2xl:top-[16px] xl:right-3 xl:top-[10px] lg:right-3 lg:top-[5px] lg:text-[8px]"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-                      />
-                    </svg>
-
-                    <input
-                      type=" search"
-                      placeholder="Search"
-                      className=" third_input"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="flex justify-center 2xl:my-10 xl:my-8 lg:my-5">
-              <div className="carousel  2xl:gap-14 xl:gap-7 lg:gap-5">
-                <div className="">
-                  <Image
-                    className="rounded-[5px] 2xl:w-[216px] 2xl:h-[216px] xl:w-[160px] xl:h-[160px] lg:w-[125px] lg:h-[125px]"
-                    src={food1}
-                    alt="cuisine-india"
-                  />
-                  <h1
-                    className="alata font-[400] 2xl:text-[20px] 2xl:leading-[20px] 2xl:my-4 xl:text-[14px] xl:leading-[20px] xl:my-4
-                  lg:text-[12px] lg:leading-[18px] lg:my-3  mx-auto text-center"
-                  >
-                    Indian
-                  </h1>
-                </div>
-                <div className="">
-                  <Image
-                    alt="cuisine-american"
-                    className="rounded-[5px] 2xl:w-[216px] 2xl:h-[216px] xl:w-[160px] xl:h-[160px] lg:w-[125px] lg:h-[125px]"
-                    src={food2}
-                  />
-                  <h1
-                    className="alata font-[400] 2xl:text-[20px] 2xl:leading-[20px] 2xl:my-4 xl:text-[14px] xl:leading-[20px] xl:my-4
-                  lg:text-[12px] lg:leading-[18px] lg:my-3  mx-auto text-center"
-                  >
-                    American
-                  </h1>
-                </div>
-                <div className="">
-                  <Image
-                    alt="cuisine-mexican"
-                    className="rounded-[5px] 2xl:w-[216px] 2xl:h-[216px] xl:w-[160px] xl:h-[160px] lg:w-[125px] lg:h-[125px]"
-                    src={food3}
-                  />
-                  <h1
-                    className="alata font-[400] 2xl:text-[20px] 2xl:leading-[20px] 2xl:my-4 xl:text-[14px] xl:leading-[20px] xl:my-4
-                  lg:text-[12px] lg:leading-[18px] lg:my-3  mx-auto text-center"
-                  >
-                    Mexican
-                  </h1>
-                </div>
-                <div className="">
-                  <Image
-                    alt="cuisine-mediterranean"
-                    className="rounded-[5px] 2xl:w-[216px] 2xl:h-[216px] xl:w-[160px] xl:h-[160px] lg:w-[125px] lg:h-[125px]"
-                    src={food4}
-                  />
-                  <h1
-                    className="alata font-[400] 2xl:text-[20px] 2xl:leading-[20px] 2xl:my-4 xl:text-[14px] xl:leading-[20px] xl:my-4
-                  lg:text-[12px] lg:leading-[18px] lg:my-3  mx-auto text-center"
-                  >
-                    Mediterranean
-                  </h1>
-                </div>
-                <div className="">
-                  <Image
-                    alt="cuisine-italian"
-                    className="rounded-[5px] 2xl:w-[216px] 2xl:h-[216px] xl:w-[160px] xl:h-[160px] lg:w-[125px] lg:h-[125px]"
-                    src={food5}
-                  />
-                  <h1
-                    className="alata font-[400] 2xl:text-[20px] 2xl:leading-[20px] 2xl:my-4 xl:text-[14px] xl:leading-[20px] xl:my-4
-                  lg:text-[12px] lg:leading-[18px] lg:my-3  mx-auto text-center"
-                  >
-                    Italian
-                  </h1>
-                </div>
-                <div className="">
-                  <Image
-                    alt="cuisine-middleEastern"
-                    className="rounded-[5px] 2xl:w-[216px] 2xl:h-[216px] xl:w-[160px] xl:h-[160px] lg:w-[125px] lg:h-[125px]"
-                    src={food6}
-                  />
-                  <h1
-                    className="alata font-[400] 2xl:text-[20px] 2xl:leading-[20px] 2xl:my-4 xl:text-[14px] xl:leading-[20px] xl:my-4
-                  lg:text-[12px] lg:leading-[18px] lg:my-3  mx-auto text-center"
-                  >
-                    Middle Eastern
-                  </h1>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> */}
-
         {/* ===================Four================== */}
 
         <div className="flex justify-center 2xl:py-20 xl:py-10 lg:py-10 py-10 bg-[#F9F2F2]">
@@ -277,237 +147,106 @@ const LandingPage = () => {
             <div className="flex">
               <h2 className="four_head">Popular Dishes</h2>
             </div>
-            <div className="flex flex-col md:flex-row justify-center flex-wrap lg:justify-between md:my-5 lg:my-0">
-              <div className="2xl:w-[373px] xl:w-[260px] lg:w-[190px] md:w-1/2 mx-10 sm:mx-0 my-5  2xl:my-5 lg:my-4 mfbox ">
-                <div>
-                  <Image
-                    alt="spaghetti"
-                    src={Rectangle1}
-                    className="four_img "
-                  />
-                </div>
-                <div className="2xl:my-5 xl:my-5  my-5">
-                  <div>
-                    <h3 className="fourth_title">Spaghetti</h3>
-                    <div className="flex items-center 2xl:gap-3 xl:gap-2 lg:gap-2  gap-2 xl:my-3 lg:my-2 my-2">
-                      <Image alt="image" src={p1} className="four_img2 " />
-                      <h3 className="fourth_name ">Chef Radha</h3>
+            <div className="flex flex-col md:flex-row  flex-wrap gap-[20px] xl:gap-[25px] 2xl:gap-[35px] md:my-5 lg:my-0">
+              {Array.isArray(getAllDish) &&
+                getAllDish.map((item, index) => (
+                  <div className="2xl:w-[373px] xl:w-[260px] lg:w-[190px] md:w-1/2 mx-10 sm:mx-0 my-5  2xl:my-5 lg:my-4 mfbox ">
+                    <div>
+                      <button className="" onClick={() => openModal(item._id)}>
+                        <img
+                          alt="spaghetti"
+                          src={item?.ProfileImage[0]}
+                          className="four_img "
+                        />
+                      </button>
+                    </div>
+                    <div className="">
+                      <h1 className="alata capitalize font-[400] text-[#DB5353] 2xl:my-4 xl:my-3 my-2 2xl:text-[20px] 2xl:leading-[20px]  xl:text-[14px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[10px]">
+                        {item.name}
+                      </h1>
+
+                      {/* ===============Chef ============= */}
+                      <Link href={`/pages/chef-details/${item?.chef_id?._id}`}>
+                        <div className="flex items-center 2xl:gap-3 xl:gap-2 lg:gap-2  gap-2 xl:my-3 lg:my-2 my-2">
+                          <img
+                            alt="image"
+                            src={item?.chef_id?.images}
+                            className="four_img2 "
+                          />
+                          <div>
+                            <h1 className="fourth_name ">
+                              {item?.chef_id?.name}
+                            </h1>
+                            <p className="fourth_p text-[#6765EB]">Indian</p>
+                          </div>
+                        </div>
+                      </Link>
+
+                      <div className="flex gap-5 2xl:my-[20px] xl:my-[15px] my-[12px]">
+                        <button className="four_btn">
+                          <img
+                            alt="image"
+                            src={item?.Dietary_id?.ProfileImage}
+                            className="2xl:w-[13px] 2xl:h-[13px] lg:w-[10px] lg:h-[10px] w-[10px] h-auto"
+                          />
+                          <p className="fourth_day">
+                            {item?.Dietary_id?.title}
+                          </p>
+                        </button>
+                        {/* <button className="four_btn">
+                          <Image
+                            alt="image"
+                            src={vegan}
+                            className="2xl:w-[13px] 2xl:h-[13px] lg:w-[10px] lg:h-[10px] w-[10px] h-auto"
+                          />
+                          <p className="fourth_day">Vegan</p>
+                        </button> */}
+                      </div>
+                      <div className="flex items-center gap-5  2xl:my-[20px] xl:my-[15px] my-[12px]">
+                        <h1 className="fourth_p">Spice level</h1>
+                        <button className="four_btn">
+                          <img
+                            alt="image"
+                            src={item.spice_level_id.ProfileImage}
+                            className="2xl:w-[13px] 2xl:h-[13px] lg:w-[10px] lg:h-[10px] w-[10px] h-auto"
+                          />
+                          <p className="fourth_day">
+                            {item.spice_level_id.title}
+                          </p>
+                        </button>
+                      </div>
+
+                      <div className=" w-full bottom-0 flex justify-between items-center  2xl:my-[22px] xl:my-[18px] my-[15px]">
+                        <p className="alata font-[400] text-[#000] 2xl:text-[20px] 2xl:leading-[24px] xl:text-[14px] xl:leading-[18px] lg:text-[12px] lg:leading-[16px] text-[12px] leading-[16px] ">
+                          Serves 1 ({item?.weight}gm){" "}
+                          <span className="text-[#DB5353]">
+                            Rs.{item?.price}
+                          </span>
+                        </p>
+                        <button
+                          onClick={() => {
+                            // addToCart(item);
+                            handleAddToCart(item?._id);
+                          }}
+                        >
+                          <div className="drawer-content">
+                            {/* Page content here */}
+                            <label
+                              htmlFor="my-drawer-4"
+                              className="drawer-button"
+                            >
+                              <Image
+                                src={addCart}
+                                alt={item.title}
+                                className=" 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
+                              />
+                            </label>
+                          </div>
+                        </button>
+                      </div>
                     </div>
                   </div>
-                  <p className="fourth_p">Chef Cuisine - Indian & Italian</p>
-                  <p className="fourth_p">Dietary Specialty - Veg only</p>
-                  <button className="four_btn">
-                    <Image
-                      alt="image"
-                      src={day}
-                      className="2xl:w-[13px] 2xl:h-[13px] lg:w-[10px] h-auto w-[10px]"
-                    />
-                    <p className="fourth_day">Wednesday</p>
-                  </button>
-                </div>
-              </div>
-
-              <div className="2xl:w-[373px] xl:w-[260px] lg:w-[190px] md:w-1/2 mx-10 sm:mx-0 my-5  2xl:my-5 lg:my-4 mfbox">
-                <div>
-                  <Image
-                    alt="cheesesandwich"
-                    src={Rectangle2}
-                    className="four_img"
-                  />
-                </div>
-                <div className="2xl:my-5 xl:my-5  my-5 mx-auto">
-                  <div>
-                    <h3 className="fourth_title">
-                      Cheese, honey, omelette sandwich
-                    </h3>
-                    <div className="flex items-center 2xl:gap-3 xl:gap-2 lg:gap-2  gap-2 xl:my-3 lg:my-2 my-2">
-                      <Image alt="image" src={p2} className="four_img2 " />
-                      <h3 className="fourth_name ">Chef Kumari</h3>
-                    </div>
-                  </div>
-                  <p className="fourth_p">Chef Cuisine - Indian</p>
-                  <p className="fourth_p">Dietary Specialty - Veg & Nonveg</p>
-                  <button className="four_btn">
-                    <Image
-                      alt="image"
-                      src={day}
-                      className="2xl:w-[13px] 2xl:h-[13px] lg:w-[10px] lg:h-[10px]"
-                    />
-                    <p className="fourth_day">Friday</p>
-                  </button>
-                </div>
-              </div>
-
-              <div className="2xl:w-[373px] xl:w-[260px] lg:w-[190px] md:w-1/2 mx-10 sm:mx-0 my-5  2xl:my-5 lg:my-4 mfbox">
-                <div>
-                  <Image
-                    alt="chickenkabab"
-                    src={Rectangle3}
-                    className="four_img"
-                  />
-                </div>
-                <div className="2xl:my-5 xl:my-5  my-5 mx-auto">
-                  <div>
-                    <h3 className="fourth_title">Chicken kabab</h3>
-                    <div className="flex items-center 2xl:gap-3 xl:gap-2 lg:gap-2  gap-2 xl:my-3 lg:my-2 my-2">
-                      <Image alt="image" src={p3} className="four_img2 " />
-                      <h3 className="fourth_name ">Chef Dinesh</h3>
-                    </div>
-                  </div>
-                  <p className="fourth_p">Chef Cuisine - Indian & Italian</p>
-                  <p className="fourth_p">Dietary Specialty - Veg only</p>
-                  <button className="four_btn">
-                    <Image
-                      alt="image"
-                      src={day}
-                      className="2xl:w-[13px] 2xl:h-[13px] lg:w-[10px] lg:h-[10px]"
-                    />
-                    <p className="fourth_day">Monday</p>
-                  </button>
-                </div>
-              </div>
-
-              <div className="2xl:w-[373px] xl:w-[260px] lg:w-[190px] md:w-1/2 mx-10 sm:mx-0 my-5  2xl:my-5 lg:my-4 mfbox">
-                <div>
-                  <Image
-                    alt="paneerbuttermasala"
-                    src={Rectangle4}
-                    className="four_img"
-                  />
-                </div>
-                <div className="2xl:my-5 xl:my-5  my-5 mx-auto">
-                  <div>
-                    <h3 className="fourth_title">Paneer butter masala</h3>
-                    <div className="flex items-center 2xl:gap-3 xl:gap-2 lg:gap-2  gap-2 xl:my-3 lg:my-2 my-2">
-                      <Image alt="image" src={p4} className="four_img2 " />
-                      <h3 className="fourth_name ">Chef Rajesh</h3>
-                    </div>
-                  </div>
-                  <p className="fourth_p">Chef Cuisine - Indian</p>
-                  <p className="fourth_p">Dietary Specialty - Veg & Nonveg</p>
-                  <button className="four_btn">
-                    <Image
-                      alt="image"
-                      src={day}
-                      className="2xl:w-[13px] 2xl:h-[13px] lg:w-[10px] lg:h-[10px]"
-                    />
-                    <p className="fourth_day">Sunday</p>
-                  </button>
-                </div>
-              </div>
-
-              <div className="2xl:w-[373px] xl:w-[260px] lg:w-[190px] md:w-1/2 mx-10 sm:mx-0 my-5  2xl:my-5 lg:my-4 mfbox">
-                <div>
-                  <Image
-                    alt="indianthali"
-                    src={Rectangle5}
-                    className="four_img"
-                  />
-                </div>
-                <div className="2xl:my-5 xl:my-5  my-5 mx-auto">
-                  <div>
-                    <h3 className="fourth_title">Indian Thali</h3>
-                    <div className="flex items-center 2xl:gap-3 xl:gap-2 lg:gap-2  gap-2 xl:my-3 lg:my-2 my-2">
-                      <Image alt="image" src={p1} className="four_img2 " />
-                      <h3 className="fourth_name ">Chef Radha</h3>
-                    </div>
-                  </div>
-                  <p className="fourth_p">Chef Cuisine - Indian & Italian</p>
-                  <p className="fourth_p">Dietary Specialty - Veg only</p>
-                  <button className="four_btn">
-                    <Image
-                      alt="image"
-                      src={day}
-                      className="2xl:w-[13px] 2xl:h-[13px] lg:w-[10px] lg:h-[10px]"
-                    />
-                    <p className="fourth_day">Wednesday</p>
-                  </button>
-                </div>
-              </div>
-
-              <div className="2xl:w-[373px] xl:w-[260px] lg:w-[190px] md:w-1/2 mx-10 sm:mx-0 my-5  2xl:my-5 lg:my-4 mfbox">
-                <div>
-                  <Image
-                    alt="omelettesandwich"
-                    src={Rectangle6}
-                    className="four_img"
-                  />
-                </div>
-                <div className="2xl:my-5 xl:my-5  my-5 mx-auto">
-                  <div>
-                    <h3 className="fourth_title">
-                      Cheese, honey, omelette sandwich
-                    </h3>
-                    <div className="flex items-center 2xl:gap-3 xl:gap-2 lg:gap-2  gap-2 xl:my-3 lg:my-2 my-2">
-                      <Image alt="image" src={p2} className="four_img2 " />
-                      <h3 className="fourth_name ">Chef Kumari</h3>
-                    </div>
-                  </div>
-                  <p className="fourth_p">Chef Cuisine - Indian</p>
-                  <p className="fourth_p">Dietary Specialty - Veg & Nonveg</p>
-                  <button className="four_btn">
-                    <Image
-                      alt="image"
-                      src={day}
-                      className="2xl:w-[13px] 2xl:h-[13px] lg:w-[10px] lg:h-[10px]"
-                    />
-                    <p className="fourth_day">Friday</p>
-                  </button>
-                </div>
-              </div>
-
-              <div className="2xl:w-[373px] xl:w-[260px] lg:w-[190px] md:w-1/2 mx-10 sm:mx-0 my-5  2xl:my-5 lg:my-4 mfbox">
-                <div>
-                  <Image
-                    alt="chickenkabab2nd"
-                    src={Rectangle7}
-                    className="four_img"
-                  />
-                </div>
-                <div className="2xl:my-5 xl:my-5  my-5 mx-auto"></div>
-                <div>
-                  <h3 className="fourth_title">Chicken kabab</h3>
-                  <div className="flex items-center 2xl:gap-3 xl:gap-2 lg:gap-2  gap-2 xl:my-3 lg:my-2 my-2">
-                    <Image alt="image" src={p3} className="four_img2 " />
-                    <h3 className="fourth_name ">Chef Dinesh</h3>
-                  </div>
-                </div>
-                <p className="fourth_p">Chef Cuisine - Indian & Italian</p>
-                <p className="fourth_p">Dietary Specialty - Veg only</p>
-                <button className="four_btn">
-                  <Image
-                    alt="image"
-                    src={day}
-                    className="2xl:w-[13px] 2xl:h-[13px] lg:w-[10px] lg:h-[10px]"
-                  />
-                  <p className="fourth_day">Monday</p>
-                </button>
-              </div>
-
-              <div className="2xl:w-[373px] xl:w-[260px] lg:w-[190px] md:w-1/2 mx-10 sm:mx-0 my-5  2xl:my-5 lg:my-4 mfbox">
-                <div>
-                  <Image alt="fish" src={Rectangle8} className="four_img" />
-                </div>
-                <div className="2xl:my-5 xl:my-5  my-5 mx-auto">
-                  <div>
-                    <h3 className="fourth_title">Paneer butter masala</h3>
-                    <div className="flex items-center 2xl:gap-3 xl:gap-2 lg:gap-2  gap-2 xl:my-3 lg:my-2 my-2">
-                      <Image alt="image" src={p4} className="four_img2 " />
-                      <h3 className="fourth_name ">Chef Rajesh</h3>
-                    </div>
-                  </div>
-                  <p className="fourth_p">Chef Cuisine - Indian</p>
-                  <p className="fourth_p">Dietary Specialty - Veg & Nonveg</p>
-                  <button className="four_btn">
-                    <Image
-                      alt="image"
-                      src={day}
-                      className="2xl:w-[13px] 2xl:h-[13px] lg:w-[10px] lg:h-[10px]"
-                    />
-                    <p className="fourth_day">Sunday</p>
-                  </button>
-                </div>
-              </div>
+                ))}
             </div>
           </div>
         </div>
@@ -983,3 +722,165 @@ const LandingPage = () => {
 };
 
 export default dynamic(() => Promise.resolve(LandingPage), { ssr: false });
+
+{
+  /* <div className="flex justify-center 2xl:my-20 xl:my-14 lg:my-8 hidden lg:block">
+          <div className="">
+            <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px] flex justify-between mx-auto">
+              <div className="">
+                <h1 className="third_head">Select your cuisine</h1>
+              </div>
+              <div className="flex justify-between 2xl:gap-10 xl:gap-5 lg:gap-4 items-center">
+                <div className="flex 2xl:gap-5 xl:gap-3 lg:gap-2">
+                  <div className="">
+                    <label for="cuisines">All Cuisines:</label>
+                    <select
+                      id="cuisines"
+                      className="2xl:w-[153px] third_select"
+                    >
+                      <option disabled selected>
+                        All Cuisines
+                      </option>
+                      <option>a</option>
+                      <option>b</option>
+                      <option>c</option>
+                    </select>
+                  </div>
+
+                  <div className="">
+                    <label for="dietary">Dietary:</label>
+                    <select id="dietary" className="2xl:w-[126px] third_select">
+                      <option disabled selected>
+                        Dietary
+                      </option>
+                      <option>d</option>
+                      <option>e</option>
+                      <option>f</option>
+                    </select>
+                  </div>
+
+                  <div className="">
+                    <label for="moreFilters">More Filters:</label>
+                    <select
+                      id="moreFilters"
+                      className="2xl:w-[143px] third_select"
+                    >
+                      <option disabled selected>
+                        More filters
+                      </option>
+                      <option>x</option>
+                      <option>y</option>
+                      <option>z</option>
+                    </select>
+                  </div>
+
+                  <div className="relative">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-[13px] h-[13px] absolute 2xl:right-3 2xl:top-[16px] xl:right-3 xl:top-[10px] lg:right-3 lg:top-[5px] lg:text-[8px]"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                      />
+                    </svg>
+
+                    <input
+                      type=" search"
+                      placeholder="Search"
+                      className=" third_input"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-center 2xl:my-10 xl:my-8 lg:my-5">
+              <div className="carousel  2xl:gap-14 xl:gap-7 lg:gap-5">
+                <div className="">
+                  <Image
+                    className="rounded-[5px] 2xl:w-[216px] 2xl:h-[216px] xl:w-[160px] xl:h-[160px] lg:w-[125px] lg:h-[125px]"
+                    src={food1}
+                    alt="cuisine-india"
+                  />
+                  <h1
+                    className="alata font-[400] 2xl:text-[20px] 2xl:leading-[20px] 2xl:my-4 xl:text-[14px] xl:leading-[20px] xl:my-4
+                  lg:text-[12px] lg:leading-[18px] lg:my-3  mx-auto text-center"
+                  >
+                    Indian
+                  </h1>
+                </div>
+                <div className="">
+                  <Image
+                    alt="cuisine-american"
+                    className="rounded-[5px] 2xl:w-[216px] 2xl:h-[216px] xl:w-[160px] xl:h-[160px] lg:w-[125px] lg:h-[125px]"
+                    src={food2}
+                  />
+                  <h1
+                    className="alata font-[400] 2xl:text-[20px] 2xl:leading-[20px] 2xl:my-4 xl:text-[14px] xl:leading-[20px] xl:my-4
+                  lg:text-[12px] lg:leading-[18px] lg:my-3  mx-auto text-center"
+                  >
+                    American
+                  </h1>
+                </div>
+                <div className="">
+                  <Image
+                    alt="cuisine-mexican"
+                    className="rounded-[5px] 2xl:w-[216px] 2xl:h-[216px] xl:w-[160px] xl:h-[160px] lg:w-[125px] lg:h-[125px]"
+                    src={food3}
+                  />
+                  <h1
+                    className="alata font-[400] 2xl:text-[20px] 2xl:leading-[20px] 2xl:my-4 xl:text-[14px] xl:leading-[20px] xl:my-4
+                  lg:text-[12px] lg:leading-[18px] lg:my-3  mx-auto text-center"
+                  >
+                    Mexican
+                  </h1>
+                </div>
+                <div className="">
+                  <Image
+                    alt="cuisine-mediterranean"
+                    className="rounded-[5px] 2xl:w-[216px] 2xl:h-[216px] xl:w-[160px] xl:h-[160px] lg:w-[125px] lg:h-[125px]"
+                    src={food4}
+                  />
+                  <h1
+                    className="alata font-[400] 2xl:text-[20px] 2xl:leading-[20px] 2xl:my-4 xl:text-[14px] xl:leading-[20px] xl:my-4
+                  lg:text-[12px] lg:leading-[18px] lg:my-3  mx-auto text-center"
+                  >
+                    Mediterranean
+                  </h1>
+                </div>
+                <div className="">
+                  <Image
+                    alt="cuisine-italian"
+                    className="rounded-[5px] 2xl:w-[216px] 2xl:h-[216px] xl:w-[160px] xl:h-[160px] lg:w-[125px] lg:h-[125px]"
+                    src={food5}
+                  />
+                  <h1
+                    className="alata font-[400] 2xl:text-[20px] 2xl:leading-[20px] 2xl:my-4 xl:text-[14px] xl:leading-[20px] xl:my-4
+                  lg:text-[12px] lg:leading-[18px] lg:my-3  mx-auto text-center"
+                  >
+                    Italian
+                  </h1>
+                </div>
+                <div className="">
+                  <Image
+                    alt="cuisine-middleEastern"
+                    className="rounded-[5px] 2xl:w-[216px] 2xl:h-[216px] xl:w-[160px] xl:h-[160px] lg:w-[125px] lg:h-[125px]"
+                    src={food6}
+                  />
+                  <h1
+                    className="alata font-[400] 2xl:text-[20px] 2xl:leading-[20px] 2xl:my-4 xl:text-[14px] xl:leading-[20px] xl:my-4
+                  lg:text-[12px] lg:leading-[18px] lg:my-3  mx-auto text-center"
+                  >
+                    Middle Eastern
+                  </h1>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> */
+}
