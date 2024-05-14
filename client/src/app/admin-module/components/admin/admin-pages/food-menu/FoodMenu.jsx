@@ -203,11 +203,9 @@ const FoodMenu = () => {
               </div>
             </div>
             <div className="">
-                <Link href="/admin-module/components/admin/admin-pages/food-menu/add-menu">
-              <button className="primary_btn py-2">
-                  Add new menu
-              </button>
-                </Link>
+              <Link href="/admin-module/components/admin/admin-pages/food-menu/add-menu">
+                <button className="primary_btn py-2">Add new menu</button>
+              </Link>
             </div>
           </div>
           <div className="">
@@ -254,12 +252,11 @@ const FoodMenu = () => {
                             >
                               Preview
                             </button> */}
-                            <button
-                              className="secondary_btn py-1"
-                              onClick={() => handleEdit(items?._id)}
-                            >
-                              Edit
-                            </button>
+                            <Link href={`/pages/edit-menu/${items?._id}`}>
+                              <button className="secondary_btn py-1">
+                                Edit
+                              </button>
+                            </Link>
                             <button
                               className="delete_btn py-1"
                               onClick={() => handleDelete(items?._id)}
