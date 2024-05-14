@@ -44,9 +44,9 @@ const ExploreDishes = () => {
   const { cart, removeFromCart, clearCart } = useCart();
   const [count, setCount] = useState(0);
   const [isOpenDelete, setOpenDelete] = useState(false);
+  const [dishID, setDishID] = useState("");
   const closeModal = () => setOpenDelete(false);
   let subtotalPrice = 0;
-  const [dishID, setDishID] = useState("");
 
   function openModal(id) {
     setDishID(id);
@@ -1058,8 +1058,10 @@ const ExploreDishes = () => {
 
                         <div className=" w-full bottom-0 flex justify-between items-center  2xl:my-[22px] xl:my-[18px] my-[15px]">
                           <p className="alata font-[400] text-[#000] 2xl:text-[20px] 2xl:leading-[24px] xl:text-[14px] xl:leading-[18px] lg:text-[12px] lg:leading-[16px] text-[12px] leading-[16px] ">
-                            Serves 1 (500g){" "}
-                            <span className="text-[#DB5353]">£8.50</span>
+                            Serves 1 ({item?.weight}gm){" "}
+                            <span className="text-[#DB5353]">
+                              Rs.{item?.price}
+                            </span>
                           </p>
                           <button
                             onClick={() => {

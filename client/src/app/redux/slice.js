@@ -11,21 +11,26 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     setToken: (state, action) => {
-      console.log(action, "remove");
       state.token = action.payload;
+    },
+    removeToken: (state, action) => {
+      state.token = action.null;
+    },
+    setUser: (state, action) => {
+      state.user = action.payload;
+    },
+    removeUser: (state, action) => {
+      state.user = action.null;
     },
     setUserId: (state, action) => {
       state._id = action.payload;
     },
-    removeToken: (state, action) => {
-      console.log(action, "remove");
-      state.token = action.null;
+
+    setSuccess: (state, action) => {
+      state.success = action.payload;
     },
-    adDetails: (state, action) => {
-      state.ad_details = action.payload;
-    },
-    rem_AdDetails: (state, action) => {
-      state.ad_details = null;
+    removeSuccess: (state, action) => {
+      state.success = action.null;
     },
     superAdminDetails: (state, action) => {
       state.superAdminDetails = action.payload;
@@ -37,9 +42,13 @@ export const {
   setUserId,
   setToken,
   removeToken,
+  setUser,
   adDetails,
   superAdminDetails,
   rem_AdDetails,
+  removeUser,
+  setSuccess,
+  removeSuccess
 } = authSlice.actions;
 
 export default authSlice.reducer;

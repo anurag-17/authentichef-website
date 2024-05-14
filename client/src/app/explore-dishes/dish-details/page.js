@@ -1,18 +1,35 @@
-"use client"
-import React, { useState } from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import popimg from "../assets/pop-img.png";
-import Image from "next/image"
+import Image from "next/image";
+import axios from "axios";
 
+const DishDetails = ({ dishID }) => {
+  const [count, setCount] = useState(1);
+  console.log(dishID, "dishID");
+  const [getADish, setGetADish] = useState("");
 
-const DishDetails = () => {
-  const [count, setCount] = useState(0);
+  useEffect(() => {
+    defaultDish();
+  }, []);
+
+  const defaultDish = () => {
+    const option = {
+      method: "GET",
+      url: `http://localhost:4000/api/menu/menuItems/${dishID}`,
+    };
+    axios.request(option).then((response) => {
+      setGetADish(response?.data);
+      console.log(response?.data, "data");
+    });
+  };
 
   const handleIncrement = () => {
     setCount(count + 1);
   };
 
   const handleDecrement = () => {
-    if (count > 0) {
+    if (count > 1) {
       setCount(count - 1);
     }
   };
@@ -21,26 +38,26 @@ const DishDetails = () => {
       <section>
         <div>
           <div className="flex 2xl:gap-[60px] xl:gap-[40px] gap-[20px] justify-between ">
-            <div className="2xl:w-[459px] xl:w-[360px] w-[260px] ">
-              <Image src={popimg} className="rounded-[15px]" />
+            <div className="2xl:w-[459px] xl:w-[280px] w-[180px] ">
+              <img src={getADish?.ProfileImage} className="rounded-[15px] 2xl:w-[459px] 2xl:h-[339px] xl:w-[280px] xl:h-[200px]" />
             </div>
             <div className="2xl:w-[400px] xl:w-[359px] w-[300px]">
               <div>
-                <h1 className="pop-head">Chicken kabab</h1>
-                <p className="pop-chef">by Chef Radha</p>
+                <h1 className="pop-head capitalize">{getADish?.name}</h1>
+                <p className="pop-chef">by Chef {getADish?.chef_id?.name}</p>
               </div>
               <div className="flex justify-between pop-detail">
-                <h3>Price: £8.50</h3>
-                <h3>Weight: 400g</h3>
+                <h3>Price: {getADish?.price}</h3>
+                <h3>Weight: {getADish?.weight}</h3>
                 <h3>Portion Size: Serves 1</h3>
               </div>
               <div className="flex flex-wrap 2xl:gap-[10px] xl:gap-[8px] gap-[6px]  2xl:my-[15px] xl:my-[12px] my-[8px]">
                 <div className="pop">
-                  {/* <Image
-                      src={nonveg}
-                      className="2xl:[18px] xl:w-[14px] w-[12px]"
-                    /> */}
-                  <h3>Non-Veg</h3>
+                  <img
+                    src={getADish?.Dietary_id?.ProfileImage}
+                    className="2xl:[18px] xl:w-[14px] w-[12px]"
+                  />
+                  <h3>{getADish?.Dietary_id?.title}</h3>
                 </div>
                 <div className="pop">
                   {/* <Image
@@ -109,10 +126,7 @@ const DishDetails = () => {
             <div className="">
               <p className="fourth_p text-[#555555]">Description</p>{" "}
               <p className="fourth_p 2xl:w-[890px] xl:w-[660px] w-[550px]">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industrys standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book.
+                {getADish?.description}
               </p>
             </div>
           </div>
@@ -120,15 +134,11 @@ const DishDetails = () => {
             <div className="flex justify-between">
               <div>
                 <p className="fourth_p text-[#555555]">Ingredients</p>{" "}
-                <p className="fourth_p ">Chicken, Egg, Tomato, etc</p>
+                <p className="fourth_p "> {getADish?.Ingredients}</p>
               </div>
               <div className="2xl:w-[578px] xl:w-[430px] w-[360px]">
                 <p className="fourth_p text-[#555555]">Heating instructions</p>{" "}
-                <p className="fourth_p ">
-                  As our food is hand-made by our chefs, these reheating
-                  instructions are a guide. Check your food is piping hot
-                  throughout before serving.
-                </p>
+                <p className="fourth_p ">{getADish?.Heating_Instruction}</p>
               </div>
             </div>
           </div>
@@ -136,7 +146,7 @@ const DishDetails = () => {
             <div className="flex justify-between">
               <div>
                 <p className="fourth_p text-[#555555]">List of Allergens</p>{" "}
-                <p className="fourth_p ">Dish contains i.e Celery,  Egg</p>
+                <p className="fourth_p ">{getADish?.List_of_Allergens}</p>
               </div>
               <div className="2xl:w-[578px] xl:w-[430px] w-[360px]">
                 <p className="fourth_p text-[#555555]">
@@ -152,7 +162,7 @@ const DishDetails = () => {
           </div>
           <div className="2xl:my-[20px] xl:my-[12px] my-[10px]">
             <div className="flex justify-between">
-              <div>
+              {/* <div>
                 <p className="fourth_p text-[#555555]">Storage</p>{" "}
                 <p className="fourth_p 2xl:w-[270px] xl:w-[200px] w-[160px]">
                   Store immediately in freezer on delivery.
@@ -162,8 +172,8 @@ const DishDetails = () => {
                   Should this product defrost, keep refrigerated, heat and eat
                   within 48 hours.
                 </p>
-              </div>
-              <div className="2xl:w-[578px] xl:w-[430px] w-[360px]">
+              </div> */}
+              <div className="">
                 <p className="fourth_p ">
                   MICROWAVE: Remove lid and place loosely on the container.
                   Place on a microwaveable plate and heat on full power for 7-8
