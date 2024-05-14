@@ -60,7 +60,7 @@ router.get('/logout_facebook', (req, res) => {
       console.error(err);
       return res.status(500).json({ message: 'Logout failed' });
     }
-    res.redirect('http://www.authentichef.com/');
+    res.redirect('http://www.authentichef.com/explore-dishes');
   });
 }
 )
