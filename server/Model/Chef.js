@@ -7,18 +7,18 @@ const chefSchema = new mongoose.Schema({
   name: {
     type: String,
   },
-  email: {
-    type: String,
-    unique: true,
-  },
+  // email: {
+  //   type: String,
+  //   unique: true,
+  // },
   mobile: {
     type: String,
   },
-  password: {
-    type: String,
-    minlength: 8,
-    select: false,
-  },
+  // password: {
+  //   type: String,
+  //   minlength: 8,
+  //   select: false,
+  // },
   specialty: {
     type: String,
   },
@@ -48,38 +48,38 @@ const chefSchema = new mongoose.Schema({
   passwordResetExpires: Date,
 });
 
-chefSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) {
-    return next(); // Skip hashing if password is not modified
-  }
+// chefSchema.pre("save", async function (next) {
+//   if (!this.isModified("password")) {
+//     return next(); // Skip hashing if password is not modified
+//   }
 
-  try {
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
-    next();
-  } catch (error) {
-    next(error); // Pass any errors to the next middleware
-  }
-});
+//   try {
+//     const salt = await bcrypt.genSalt(10);
+//     this.password = await bcrypt.hash(this.password, salt);
+//     next();
+//   } catch (error) {
+//     next(error); // Pass any errors to the next middleware
+//   }
+// });
 
 
-chefSchema.methods.matchPasswords = async function (password) {
-  return await bcrypt.compare(password, this.password);
-};
+// chefSchema.methods.matchPasswords = async function (password) {
+//   return await bcrypt.compare(password, this.password);
+// };
 
-chefSchema.methods.getSignedToken = function () {
-  return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRE,
-  });
-};
+// chefSchema.methods.getSignedToken = function () {
+//   return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+//     expiresIn: process.env.JWT_EXPIRE,
+//   });
+// };
 
-chefSchema.methods.getResetPasswordToken = function () {
-  const resetToken = crypto.randomBytes(20).toString("hex");
+// chefSchema.methods.getResetPasswordToken = function () {
+//   const resetToken = crypto.randomBytes(20).toString("hex");
 
-  this.passwordResetToken = resetToken;
-  this.passwordResetExpires = Date.now() + 10 * 60 * 1000; // 10 minutes
-  return resetToken;
-};
+//   this.passwordResetToken = resetToken;
+//   this.passwordResetExpires = Date.now() + 10 * 60 * 1000; // 10 minutes
+//   return resetToken;
+// };
 
 const Chef = mongoose.model('Chef', chefSchema);
 

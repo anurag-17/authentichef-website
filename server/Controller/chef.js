@@ -49,7 +49,7 @@ exports.upload = upload;
 
 exports.createChef = async (req, res, next) => {
   try {
-    const { name, email, mobile, password, specialty, bio, experience ,  Instagram_Link , Facebook_Link} = req.body;
+    const { name,  mobile,  specialty, bio, experience ,  Instagram_Link , Facebook_Link} = req.body;
 
     // Access uploaded files directly from req.files
     const images = req.files['images'];
@@ -92,9 +92,7 @@ exports.createChef = async (req, res, next) => {
 
     const chef = new Chef({
       name,
-      email,
       mobile,
-      password,
       specialty,
       bio,
       experience,
