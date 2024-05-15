@@ -3,7 +3,7 @@ import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 import Loader from "../../../loader/Index";
 
-const EditModal = ({ closeModal, refreshdata, editData, updateId, token }) => {
+const EditModal = ({ closeModal, editData, updateId, token, refreshData }) => {
   const [formData, setFormData] = useState({
     name: editData?.name || "",
     specialty: editData?.specialty || "",
@@ -68,7 +68,7 @@ const EditModal = ({ closeModal, refreshdata, editData, updateId, token }) => {
       if (response.status === 200) {
         toast.success("Details updated successfully.");
         setLoading(false);
-        refreshdata();
+        refreshData();
         closeModal();
       } else {
         toast.error("Invalid details");
@@ -101,7 +101,10 @@ const EditModal = ({ closeModal, refreshdata, editData, updateId, token }) => {
             </div>
 
             <div className="py-2 ">
-              <span className="login-input-label capitalize"> Nationality :</span>
+              <span className="login-input-label capitalize">
+                {" "}
+                Nationality :
+              </span>
               <input
                 type="text"
                 name="specialty"
@@ -113,13 +116,12 @@ const EditModal = ({ closeModal, refreshdata, editData, updateId, token }) => {
               />
             </div>
 
-            <div className="py-2 ">
-              <span className="login-input-label capitalize"> bio :</span>
-              <input
-                type="text"
+            <div className="py-2">
+              <span className="login-input-label capitalize"> Bio:</span>
+              <textarea
                 name="bio"
-                placeholder="Enter chef`s bio"
-                className="login-input w-full mt-1 "
+                placeholder="Enter chef's bio"
+                className="login-input w-full mt-1"
                 value={formData.bio}
                 onChange={inputHandler}
                 required
@@ -128,33 +130,47 @@ const EditModal = ({ closeModal, refreshdata, editData, updateId, token }) => {
 
             {/*------------------- image -------------------*/}
             {/* Profile Image */}
-            <div className="py-2 ">
-              <span className="login-input-label capitalize"> Profile Image :</span>
+            <div className="py-2">
+              <span className="login-input-label capitalize">
+                {" "}
+                Profile Image :
+              </span>
               <input
                 type="file"
                 name="images"
-                className="login-input w-full mt-1 "
+                className="login-input w-full mt-1"
                 onChange={inputHandler}
                 accept="image/*"
               />
-              {formData.images && (
-                <img src={formData.images} alt="Profile" />
-              )}
+              {formData.images ? (
+                <img src={formData.images} alt="Profile" className="mt-4" />
+              ) : editData?.images[0] ? (
+                <img src={editData.images[0]} alt="Profile" className="mt-4" />
+              ) : null}
             </div>
 
             {/* Banner Image */}
-            <div className="py-2 ">
-              <span className="login-input-label capitalize"> Banner Image :</span>
+            <div className="py-2">
+              <span className="login-input-label capitalize">
+                {" "}
+                Banner Image :
+              </span>
               <input
                 type="file"
                 name="bannerImage"
-                className="login-input w-full mt-1 "
+                className="login-input w-full mt-1"
                 onChange={inputHandler}
                 accept="image/*"
               />
-              {formData.bannerImage && (
-                <img src={formData.bannerImage} alt="Banner" />
-              )}
+              {formData.bannerImage ? (
+                <img src={formData.bannerImage} alt="Banner" className="mt-4" />
+              ) : editData?.bannerImage[0] ? (
+                <img
+                  src={editData.bannerImage[0]}
+                  alt="Banner"
+                  className="mt-4"
+                />
+              ) : null}
             </div>
 
             {/*------------------- image -------------------*/}

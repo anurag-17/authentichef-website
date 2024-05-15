@@ -5,7 +5,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../../loader/Index";
 
-const AddModal = ({ closeModal, refreshData }) => {
+const AddModal = ({ closeModal }) => {
   const token = JSON.parse(localStorage.getItem("admin_token"));
 
   const [chefData, setChefData] = useState({
@@ -18,6 +18,11 @@ const AddModal = ({ closeModal, refreshData }) => {
     Facebook_Link: "",
   });
   const [isLoading, setLoading] = useState(false);
+  const [isRefresh, setRefresh] = useState(false);
+
+  const refreshData = () => {
+    setRefresh(!isRefresh);
+  };
 
   const inputHandler = (e) => {
     const { name, value, files } = e.target;

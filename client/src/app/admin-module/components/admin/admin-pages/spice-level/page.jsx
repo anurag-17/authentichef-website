@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { Fragment, useEffect, useState } from "react";
 import CloseIcon from "../Svg/CloseIcon";
 import axios from "axios";
@@ -18,7 +18,7 @@ export const headItems = [
 ];
 
 const SpiceLevel = () => {
- const { token } = useSelector((state) => state?.auth);
+  const { token } = useSelector((state) => state?.auth);
   const [addNewDietary, setAddNewDietary] = useState(false);
   const [allData, setAllData] = useState("");
   const [searchText, setSearchText] = useState("");
@@ -177,9 +177,9 @@ const SpiceLevel = () => {
               </button>
             </div>
           </div>
-          <div className="">
+          <div className="overflow-auto mt-4 max-h-[680px]">
             <div className="outer_table">
-              <table className="w-full min-w-[640px] table-auto mt-[20px] ">
+              <table className="w-full min-w-[640px] table-auto ">
                 <thead className="">
                   <tr className=" ">
                     {headItems.map((items, inx) => (
@@ -214,11 +214,11 @@ const SpiceLevel = () => {
                         <td className="table_data">
                           <div className="table_btn_div">
                             {/* <button
-                              className="secondary_btn"
-                              onClick={() => handlePreview(items?._id)}
-                            >
-                              Preview
-                            </button> */}
+                        className="secondary_btn"
+                        onClick={() => handlePreview(items?._id)}
+                      >
+                        Preview
+                      </button> */}
                             <button
                               className="secondary_btn py-1"
                               onClick={() => openDrawerO(items?._id)}
@@ -237,23 +237,22 @@ const SpiceLevel = () => {
                     ))}
                 </tbody>
               </table>
+              {Array.isArray(allData?.menuItems) &&
+                allData?.menuItems?.length === 0 && (
+                  <div className="no_data">
+                    <p className="text-[18px] fontsemibold">No data</p>
+                  </div>
+                )}
             </div>
-            {Array.isArray(allData?.menuItems) &&
-              allData?.menuItems?.length === 0 && (
-                <div className="no_data">
-                  <p className="text-[18px] fontsemibold">No data</p>
-                </div>
-              )}
           </div>
-
           {/* {allData?.totalPages > 1 && (
-            <Pagination
-              currentpage={allData?.currentPage}
-              totalCount={allData?.totalPages}
-              visiblePageCount={visiblePageCount}
-              getAllData={getAllData}
-            />
-          )} */}
+      <Pagination
+        currentpage={allData?.currentPage}
+        totalCount={allData?.totalPages}
+        visiblePageCount={visiblePageCount}
+        getAllData={getAllData}
+      />
+    )} */}
         </div>
       </section>
 

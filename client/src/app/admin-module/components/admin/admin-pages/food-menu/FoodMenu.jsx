@@ -56,7 +56,7 @@ const FoodMenu = () => {
 
   const closedopenmodel = () => {
     setAddNewChef(false);
-  }
+  };
 
   const closeDeleteModal = () => {
     setOpenDelete(false);
@@ -147,11 +147,11 @@ const FoodMenu = () => {
   };
 
   // get all data ----
-  const getAllData = (pageNo) => {
+  const getAllData = () => {
     setIsLoader(true);
     const options = {
       method: "GET",
-      url: `http://13.43.174.21:4000/api/menu/menuItems?page=${pageNo}&limit=${visiblePageCount}`,
+      url: `http://13.43.174.21:4000/api/menu/menuItems`,
       headers: {
         Authorization: token,
         "Content-Type": "application/json",
@@ -174,19 +174,28 @@ const FoodMenu = () => {
         console.error("Error:", error);
       });
   };
+
   useEffect(() => {
-    getAllData(1);
+    getAllData();
   }, [isRefresh]);
+
+  const [maxHeight, setMaxHeight] = useState("780px");
+
+  useEffect(() => {
+    const screenHeight = window.innerHeight;
+    const calculatedMaxHeight = screenHeight * 0.8; 
+    setMaxHeight(`${calculatedMaxHeight}px`);
+  }, []);
 
   return (
     <>
       {isLoader && <Loader />}
       <section className="w-full">
-        <div className=" mx-auto">
-          <div className="rounded-[10px] bg-white py-[20px] flexBetween  md:flex-row gap-3 px-[20px] mt-[20px] lg:mt-0">
-            <p className=" text-[22px] font-semibold">Menu Items</p>
-            <div className="flexCenter gap-x-7 lg:gap-x-5 md:flex-auto gap-y-3 ">
-              <div className="border rounded border-primary  bg-[#302f2f82]] flexCenter h-[32px] pl-[10px] md:w-auto w-full">
+        <div className="mx-auto">
+          <div className="rounded-[10px] bg-white py-[20px] flexBetween md:flex-row gap-3 px-[20px] mt-[20px] lg:mt-0">
+            <p className="text-[22px] font-semibold">Menu Items</p>
+            <div className="flexCenter gap-x-7 lg:gap-x-5 md:flex-auto gap-y-3">
+              <div className="border rounded border-primary bg-[#302f2f82]] flexCenter h-[32px] pl-[10px] md:w-auto w-full">
                 <input
                   type="text"
                   className="input_search"
@@ -211,90 +220,70 @@ const FoodMenu = () => {
               </div>
             </div>
             <div className="">
-                <button onClick={openmodal} className="primary_btn py-2 " >Add new menu</button>
+              <button onClick={openmodal} className="primary_btn py-2">
+                Add new menu
+              </button>
             </div>
           </div>
-          <div className="">
-            <div className="outer_table">
-              <table className="w-full min-w-[640px] table-auto mt-[20px] ">
-                <thead className="">
-                  <tr className=" ">
-                    {headItems.map((items, inx) => (
-                      <th className="table_head" key={inx}>
-                        <p className="block text-[13px] font-medium uppercase whitespace-nowrap text-[#72727b]">
-                          {items}
-                        </p>
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-
-                <tbody>
-                  {Array.isArray(allData?.menuItems) &&
-                    allData?.menuItems?.length > 0 &&
-                    allData?.menuItems?.map((items, index) => (
-                      <tr key={index}>
-                        {/* {console.log(items)} */}
-                        <td className="table_data">{index + 1}</td>
-                        <td className="table_data capitalize">{items?.name}</td>
-                        {/* <td className="table_data">{items?.description} </td> */}
-                        <td className="table_data">
-                          <div className="cursor-pointer">
-                            {items?.chef_id?.name}
-                          </div>
-                        </td>
-                        <td className="table_data">
-                          <img
-                            src={items?.ProfileImage}
-                            className="w-10 rounded-md"
-                          />
-                        </td>
-                        <td className="table_data">{items?.price}</td>
-                        <td className="table_data">
-                          <div className="table_btn_div">
-                            {/* <button
-                              className="secondary_btn"
-                              onClick={() => handlePreview(items?._id)}
-                            >
-                              Preview
-                            </button> */}
-
-                            <button
-                              onClick={() => handleEdit(items?._id)}
-                              className="secondary_btn py-1"
-                            >
-                              Edit
-                            </button>
-
-                            <button
-                              className="delete_btn py-1"
-                              onClick={() => handleDelete(items?._id)}
-                            >
-                              Delete
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                </tbody>
-              </table>
-            </div>
-            {Array.isArray(allData?.menuItems) &&
-              allData?.menuItems?.length === 0 && (
-                <div className="no_data">
-                  <p className="text-[18px] fontsemibold">No data</p>
-                </div>
-              )}
+          <div className=" overflow-y-auto" style={{ maxHeight: maxHeight, marginTop: "4px" }}>
+            <table className="w-full min-w-[640px] table-auto mt-[20px]">
+              <thead>
+                <tr>
+                  {headItems.map((items, inx) => (
+                    <th className="table_head" key={inx}>
+                      <p className="block text-[13px] font-medium uppercase whitespace-nowrap text-[#72727b]">
+                        {items}
+                      </p>
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody className="bg-white">
+                {Array.isArray(allData?.menuItems) &&
+                  allData?.menuItems?.length > 0 &&
+                  allData?.menuItems?.map((items, index) => (
+                    <tr key={index}>
+                      <td className="table_data">{index + 1}</td>
+                      <td className="table_data capitalize">{items?.name}</td>
+                      <td className="table_data">
+                        <div className="cursor-pointer">
+                          {items?.chef_id?.name}
+                        </div>
+                      </td>
+                      <td className="table_data">
+                        <img
+                          src={items?.ProfileImage}
+                          className="w-10 rounded-md"
+                        />
+                      </td>
+                      <td className="table_data">{items?.price}</td>
+                      <td className="table_data">
+                        <div className="table_btn_div">
+                          <button
+                            onClick={() => handleEdit(items?._id)}
+                            className="secondary_btn py-1"
+                          >
+                            Edit
+                          </button>
+                          <button
+                            onClick={() => handleDelete(items?._id)}
+                            className="delete_btn py-1"
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
           </div>
-
-          {/* {allData?.totalPages > 1 && (
-            <Pagination
-              currentpage={allData?.currentPage}
-              totalCount={allData?.totalPages}
-              visiblePageCount={visiblePageCount}
-              getAllData={getAllData}
-            />
-          )} */}
+          {Array.isArray(allData?.menuItems) &&
+            allData?.menuItems?.length === 0 && (
+              <div className="no_data">
+                <p className="text-[18px] fontsemibold">No data</p>
+              </div>
+            )}
         </div>
       </section>
 
@@ -350,7 +339,7 @@ const FoodMenu = () => {
       </Transition>
       {/*---------- Edit popup---------- */}
       <Transition appear show={openEdit} as={Fragment}>
-        <Dialog as="div" className="relative z-[11]" onClose={() => {}}>
+        <Dialog as="div" className="relative z-[11]" onClose={() => {closedopenmodel}}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -388,7 +377,7 @@ const FoodMenu = () => {
                     <CloseIcon />{" "}
                   </div>
                   <EditModal
-                    closeModal={closeEditPopup}
+                    closeEditPopup  ={closeEditPopup}
                     refreshData={refreshData}
                     editData={editData}
                     updateId={updateId}
