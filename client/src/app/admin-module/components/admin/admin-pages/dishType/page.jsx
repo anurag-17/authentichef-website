@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { Fragment, useEffect, useState } from "react";
 import CloseIcon from "../Svg/CloseIcon";
 import axios from "axios";
@@ -9,7 +9,6 @@ import AddDishtype from "./modal/addDishtype";
 import { useSelector } from "react-redux";
 import protectedRoute from "@/app/admin-module/config/protectedRoute";
 
-
 export const headItems = [
   "S. No.",
   "Dietary Name",
@@ -19,7 +18,7 @@ export const headItems = [
 ];
 
 const DishType = () => {
- const { token } = useSelector((state) => state?.auth);
+  const { token } = useSelector((state) => state?.auth);
 
   const [addNewDietary, setAddNewDietary] = useState(false);
   const [allData, setAllData] = useState("");
@@ -142,17 +141,17 @@ const DishType = () => {
   return (
     <>
       <section className="w-full">
-        <div className=" mx-auto">
-          <div className="rounded-[10px] bg-white py-[20px] flexBetween  md:flex-row gap-3 px-[20px] mt-[20px] lg:mt-0">
-            <p className=" text-[22px] font-semibold">DishType List</p>
+        <div className="mx-auto">
+          <div className="rounded-[10px] bg-white py-[20px] flexBetween md:flex-row gap-3 px-[20px] mt-[20px] lg:mt-0">
+            <p className="text-[22px] font-semibold">DishType List</p>
             <div className="flexCenter gap-x-7 lg:gap-x-5 md:flex-auto gap-y-3 ">
-              <div className="border rounded border-primary  bg-[#302f2f82]] flexCenter h-[32px] pl-[10px] md:w-auto w-full">
+              <div className="border rounded border-primary bg-[#302f2f82]] flexCenter h-[32px] pl-[10px] md:w-auto w-full">
                 <input
                   type="text"
                   className="input_search"
-                  //   value={searchText}
-                  //   onChange={handleSearchInput}
-                  //   onKeyDown={handleKeyDown}
+                  // value={searchText}
+                  // onChange={handleSearchInput}
+                  // onKeyDown={handleKeyDown}
                   placeholder="Search by name, contact, email."
                 />
                 {searchText !== "" ? (
@@ -179,11 +178,11 @@ const DishType = () => {
               </button>
             </div>
           </div>
-          <div className="">
+          <div className="overflow-auto mt-4 max-h-[680px]">
             <div className="outer_table">
-              <table className="w-full min-w-[640px] table-auto mt-[20px] ">
-                <thead className="">
-                  <tr className=" ">
+              <table className="w-full min-w-[640px] table-auto">
+                <thead>
+                  <tr>
                     {headItems.map((items, inx) => (
                       <th className="table_head" key={inx}>
                         <p className="block text-[13px] font-medium uppercase whitespace-nowrap text-[#72727b]">
@@ -193,34 +192,24 @@ const DishType = () => {
                     ))}
                   </tr>
                 </thead>
-
                 <tbody>
                   {Array.isArray(allData) &&
                     allData?.length > 0 &&
                     allData?.map((items, index) => (
                       <tr key={index}>
-                        {/* {console.log(items)} */}
                         <td className="table_data">{index + 1}</td>
                         <td className="table_data capitalize">
                           {items?.title}
                         </td>
-                        {/* <td className="table_data">{items?.description} </td> */}
-
                         <td className="table_data">
                           <img
                             src={items?.ProfileImage}
                             className="w-10 rounded-md"
+                            alt={items?.title}
                           />
                         </td>
-
                         <td className="table_data">
                           <div className="table_btn_div">
-                            {/* <button
-                              className="secondary_btn"
-                              onClick={() => handlePreview(items?._id)}
-                            >
-                              Preview
-                            </button> */}
                             <button
                               className="secondary_btn py-1"
                               onClick={() => openDrawerO(items?._id)}
@@ -243,19 +232,10 @@ const DishType = () => {
             {Array.isArray(allData?.menuItems) &&
               allData?.menuItems?.length === 0 && (
                 <div className="no_data">
-                  <p className="text-[18px] fontsemibold">No data</p>
+                  <p className="text-[18px] font-semibold">No data</p>
                 </div>
               )}
           </div>
-
-          {/* {allData?.totalPages > 1 && (
-            <Pagination
-              currentpage={allData?.currentPage}
-              totalCount={allData?.totalPages}
-              visiblePageCount={visiblePageCount}
-              getAllData={getAllData}
-            />
-          )} */}
         </div>
       </section>
 

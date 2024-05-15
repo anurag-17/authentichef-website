@@ -168,6 +168,14 @@ const ChefMain = () => {
     getAllData(1);
   }, [isRefresh]);
 
+  const [maxHeight, setMaxHeight] = useState("780px");
+
+  useEffect(() => {
+    const screenHeight = window.innerHeight;
+    const calculatedMaxHeight = screenHeight * 0.8; 
+    setMaxHeight(`${calculatedMaxHeight}px`);
+  }, []);
+
   return (
     <>
       {isLoader && <Loader />}
@@ -209,7 +217,7 @@ const ChefMain = () => {
               </button>
             </div>
           </div>
-          <div className="table-container overflow-auto max-h-[780px] mt-4">
+          <div className="table-container overflow-auto" style={{ maxHeight: maxHeight, marginTop: "4px" }}>
             <div className="outer_table">
               <table className="w-full min-w-[640px] table-auto">
                 <thead className="">

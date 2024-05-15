@@ -393,10 +393,10 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
         </div>
         <div className="mb-4">
           <label className="block mb-1" htmlFor="ingredientsList">
-            List of Ingredients:
+            List of Allergens:
           </label>
           <textarea
-            id="ingredientsList"
+            id="ingredientsList"  
             name="List_of_Ingredients"
             value={menuItem.List_of_Ingredients}
             onChange={handleChange}
