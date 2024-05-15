@@ -138,6 +138,14 @@ const Dietary = () => {
     setIsDrawerOpenO(false);
   };
 
+  const [maxHeight, setMaxHeight] = useState("780px");
+
+  useEffect(() => {
+    const screenHeight = window.innerHeight;
+    const calculatedMaxHeight = screenHeight * 0.8; 
+    setMaxHeight(`${calculatedMaxHeight}px`);
+  }, []);
+
   return (
     <>
       <section className="w-full">
@@ -176,7 +184,7 @@ const Dietary = () => {
               </button>
             </div>
           </div>
-          <div className="overflow-auto mt-4 max-h-[680px]">
+          <div className="overflow-auto" style={{ maxHeight: maxHeight, marginTop: "4px" }}>
             <div className="outer_table">
               <table className="w-full min-w-[640px] table-auto">
                 <thead>
