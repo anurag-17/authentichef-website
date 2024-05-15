@@ -173,14 +173,12 @@ exports.updateMenuItemById = async (req, res, next) => {
 
       // Update menu item details
       const updatedMenuItem = await MenuItem.findByIdAndUpdate(id, req.body, { new: true });
-      console.log(req.body);
-      console.log(updatedMenuItem);
 
-      if (req.file) {
+      if (req.files['ProfileImage']) {
           // Delete old images from S3 bucket
           await deleteImagesFromS3(menuItem.ProfileImage);
 
-          let profileImages = req.file;
+          let profileImages = req.files['ProfileImage'];
           if (!Array.isArray(profileImages)) {
               profileImages = [profileImages];
           }
@@ -195,7 +193,7 @@ exports.updateMenuItemById = async (req, res, next) => {
               const bucketName = process.env.BUCKET;
               const uploadParams = {
                   Bucket: bucketName,
-                  Key: `profile-images/${req.body.title || menuItem.title}-${Date.now()}-${i}`,
+                  Key: `profile-images/${req.body.name || menuItem.name}-${Date.now()}-${i}`,
                   Body: image.buffer,
                   ContentType: image.mimetype
               };
@@ -221,6 +219,7 @@ exports.updateMenuItemById = async (req, res, next) => {
 // Helper function to delete images from S3 bucket
 const deleteImagesFromS3 = async (imageUrls) => {
   try {
+
     const promises = imageUrls.map(async (imageUrl) => {
       const key = imageUrl.split('/').pop();
       const params = {
