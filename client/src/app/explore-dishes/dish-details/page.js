@@ -18,10 +18,15 @@ const DishDetails = ({ dishID }) => {
       method: "GET",
       url: `http://13.43.174.21:4000/api/menu/menuItems/${dishID}`,
     };
-    axios.request(option).then((response) => {
-      setGetADish(response?.data);
-      // console.log(response?.data, "data");
-    });
+    axios
+      .request(option)
+      .then((response) => {
+        setGetADish(response?.data);
+        // console.log(response?.data, "data");
+      })
+      .catch((error) => {
+        console.log(error, "Error");
+      });
   };
 
   const handleIncrement = () => {
