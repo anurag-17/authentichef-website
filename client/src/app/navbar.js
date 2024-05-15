@@ -27,6 +27,9 @@ import {
   removeSuccess,
 } from "./redux/slice";
 import { useDispatch, useSelector } from "react-redux";
+import plus from "../../public/images/plus.svg";
+import minus from "../../public/images/minus.svg";
+import { removeItemFromCart, clearCart } from "./redux/dishSlice";
 
 const Navbar = () => {
   const [userDetail, setUserDetail] = useState({
@@ -48,6 +51,24 @@ const Navbar = () => {
   const [isRefresh, setRefresh] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState("success");
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  const handleRemoveItem = (_id) => {
+    console.log(_id, "iggg");
+    dispatch(removeItemFromCart({ _id }));
+  };
+
+  const handleClearCart = () => {
+    dispatch(clearCart());
+  };
+
+  const handleDrawerOpen = () => {
+    setIsDrawerOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setIsDrawerOpen(false);
+  };
   const handleToggle = () => {
     setShowPassword(!showPassword);
   };
@@ -182,6 +203,14 @@ const Navbar = () => {
   const handleSignUpClick = () => {
     document.getElementById("my_modal_1").showModal();
   };
+
+  const { cart } = useSelector((state) => state?.userCart);
+  // const data = dish?.data;
+
+  cart.forEach((item, index) => {
+    const { data } = item;
+    console.log(data, `data from item ${index + 1}`);
+  });
   return (
     <>
       <ToastContainer className="mt-24" autoClose={1000} />
@@ -358,7 +387,7 @@ const Navbar = () => {
               </a>
             </div>
             <div className="w-1/3 md:w-1/2 flex justify-end ">
-              <div className="flex justify-end md:gap-11 gap-2 md:ml-6">
+              <div className="flex justify-end md:gap-0 gap-2 md:ml-6">
                 {isLoggedIn === success ? (
                   <div className="flex justify-end md:gap-7 gap-2 w-1/3">
                     <div className="relative flex items-center">
@@ -403,11 +432,179 @@ const Navbar = () => {
                     <button>{/* Add your Image component here */}</button>
                   </div>
                 )}
+
+                <button onClick={handleDrawerOpen}>
+                  <Image src={beg} className="2xl:w-10 2xl:h-10" />
+                </button>
               </div>
             </div>
           </div>
         </nav>
       </section>
+      {/* ===============Right drawer=============== */}
+      <div className="z-50 drawer drawer-end">
+        <input
+          id="my-drawer-4"
+          type="checkbox"
+          className="drawer-toggle"
+          checked={isDrawerOpen}
+          onChange={() => {}}
+        />
+
+        <div className="drawer-side">
+          <label
+            htmlFor="my-drawer-4"
+            aria-label="close sidebar"
+            className="drawer-overlay"
+            onClick={handleDrawerClose}
+          ></label>
+          <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content 2xl:w-[505px] xl:w-[350px] lg:w-[290px] bg-white 2xl:mt-[116px] xl:mt-[80px] lg:mt-[50px] sm:mt-[45px] mt-12">
+            <div className="bg-white hidden lg:block rounded-s-[15px]">
+              <div>
+                <div className="">
+                  <button
+                    onClick={handleDrawerClose}
+                    className="border rounded-md"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="w-10 h-10"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"
+                      />
+                    </svg>
+                  </button>
+                  <h1 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[22px] text-[22px] 2xl:leading-[32px] xl:text-[18px] xl:leading-[24px] lg:text-[14px] lg:leading-[20px]">
+                    My Basket
+                  </h1>
+                </div>
+
+                {cart.length === 0 ? (
+                  <div>
+                    <div className="2xl:mt-40">
+                      {/* <Image
+                        src={emptyCart}
+                        className="2xl:w-[268.25px] 2xl:h-[265px] mx-auto"
+                        alt="Empty cart"
+                      /> */}
+                    </div>
+                    <h1 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[25px] 2xl:leading-[35px] xl:text-[20px] xl:leading-[28px] lg:text-[16px] lg:leading-[24px] text-center 2xl:mt-24">
+                      Explore a World of Deliciousness
+                    </h1>
+                    <p className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[16px] 2xl:leading-[26px] xl:text-[14px] xl:leading-[20px] lg:text-[12px] lg:leading-[18px] text-center">
+                      Add dishes to your cart now.
+                    </p>
+                    <div className="flex 2xl:mt-12 xl:mt-6 lg:mt-5 mt-4">
+                      <button
+                        className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[221px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1"
+                        onClick={handleDrawerClose}
+                      >
+                        Explore Dishes
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="">
+                    <div className="flex justify-end mt-10 md:mr-5">
+                      <button
+                        className="alata font-[400] rounded-[5px] p-2 text-[20px] bg-[#DB5353] text-white 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px]"
+                        onClick={handleClearCart}
+                      >
+                        All Clear
+                      </button>
+                    </div>
+                    <div className="">
+                      {cart.map((item, index) => {
+                        const { data } = item;
+                        return (
+                          <div
+                            key={index}
+                            className="my-5  flex w-full border rounded-md"
+                          >
+                            <div className="flex  items-center gap-2 w-full">
+                              <div>
+                                <img
+                                  src={data.ProfileImage}
+                                  alt={item.name}
+                                  className="w-[90px] h-auto rounded-[5.8px]"
+                                />
+                              </div>
+                              <div className="text-center">
+                                <h1 className="alata font-[400] text-[#111] my-0 text-[18px] leading-[28px]">
+                                  {data.name}
+                                </h1>
+                                <h1 className="alata font-[400] text-[#111] my-0 text-[18px] leading-[28px]">
+                                  {data.price}
+                                </h1>
+                                <h1 className="alata font-[400] text-[#111] my-0 text-[18px] leading-[28px]">
+                                  Quantity:1
+                                </h1>
+                              </div>
+                              {/* <div className="flex items-center gap-2">
+                                <button
+                                  className="text-[#DB5353] rounded-l"
+                                  onClick={() => {
+                                    handleDecrement(item?.id);
+                                    removeFromCart(item.id);
+                                    alert("Removed from cart");
+                                  }}
+                                >
+                                  <Image
+                                    src={minus}
+                                    className="w-[15px] h-[15px]"
+                                  />
+                                </button>
+                                <p className="text-[10px] leading-[28px]">
+                                  {count}
+                                </p>
+                                <button
+                                  className="text-[#DB5353] rounded-r"
+                                  onClick={() => handleIncrement(item?.id)}
+                                >
+                                  <Image
+                                    src={plus}
+                                    className="w-[15px] h-[15px]"
+                                  />
+                                </button>
+                              </div> */}
+                            </div>
+                            <button
+                              className="px-4 text-[13px] border rounded h-[25px] text-red hover:bg-[#efb3b38a] "
+                              onClick={() => handleRemoveItem(data._id)}
+                            >
+                              X
+                            </button>
+                          </div>
+                        );
+                      })}
+
+                      <div className="flex justify-between items-center mt-20">
+                        <div>
+                          <h1 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
+                            {/* {subtotalPrice} */}
+                          </h1>
+                        </div>
+                        <div>
+                          <button className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1">
+                            Checkout
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </ul>
+        </div>
+      </div>
 
       {/* =======Signup popup======= */}
 
@@ -545,7 +742,6 @@ const Navbar = () => {
           className="modal rounded-[10px] 2xl:w-[1000px] 2xl:h-[501px] xl:w-[620px] xl:h-[350px] lg:w-[480px] h-[350px] 2xl:mt-40 xl:mt-24 mt-14 p-0"
         >
           <form method="dialog" className=" mt-0" onSubmit={handleSubmit}>
-            {/* if there is a button in form, it will close the modal */}
             <div className=" ">
               <div className="flex justify-center items-center w-full ">
                 <div className="absolute right-3" onClick={handleClose}>

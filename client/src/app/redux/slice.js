@@ -32,6 +32,7 @@ export const authSlice = createSlice({
     removeSuccess: (state, action) => {
       state.success = action.null;
     },
+  
     superAdminDetails: (state, action) => {
       state.superAdminDetails = action.payload;
     },
@@ -48,7 +49,7 @@ export const {
   rem_AdDetails,
   removeUser,
   setSuccess,
-  removeSuccess
+  removeSuccess,
 } = authSlice.actions;
 
 export default authSlice.reducer;
