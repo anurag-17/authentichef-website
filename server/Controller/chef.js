@@ -160,6 +160,75 @@ exports.getChefById = async (req, res, next) => {
 };
 
 // Update a chef by ID
+// exports.updateChefById = async (req, res, next) => {
+//   const { id } = req.params;
+//   validateMongoDbId(id);
+
+//   try {
+//     const chef = await Chef.findById(id);
+//     if (!chef) {
+//       return res.status(404).json({ error: "Chef not found" });
+//     }
+
+//     // Update chef details
+//     const updatedChef = await Chef.findByIdAndUpdate(id, req.body, { new: true });
+
+//     if (req.files) {
+//       // Delete old images from S3 bucket
+//       await deleteImagesFromS3(chef.images);
+
+//       // Upload new images to S3 bucket
+//       const images = req.files['images'];
+//       if (!images || images.length === 0) {
+//         return res.status(400).json({ error: 'No images uploaded' });
+//       }
+
+//       const imageUrls = [];
+//       for (let i = 0; i < images.length; i++) {
+//         const image = images[i];
+//         const bucketName = process.env.BUCKET;
+//         const uploadParams = {
+//           Bucket: bucketName,
+//           Key: `chef-images/${chef.name}-${Date.now()}-${i}`,
+//           Body: image.buffer,
+//           ContentType: image.mimetype
+//         };
+
+//         const data = await s3.upload(uploadParams).promise();
+//         imageUrls.push(data.Location);
+//       }
+      
+//       // Update chef with new images
+//       updatedChef.images = imageUrls;
+//       await updatedChef.save();
+//     }
+
+//     // If there's a banner image, update it
+//     if (req.files && req.files['bannerImage']) { // Check if bannerImage exists in req.files
+//       // Delete old banner image from S3 bucket
+//       await deleteImagesFromS3([chef.bannerImage]);
+
+//       // Upload new banner image to S3 bucket
+//       const bannerImage = req.files['bannerImage'][0]; // Access the first file in the array
+//       const bucketName = process.env.BUCKET;
+//       const uploadParams = {
+//         Bucket: bucketName,
+//         Key: `chef-banner/${chef.name}-${Date.now()}`,
+//         Body: bannerImage.buffer,
+//         ContentType: bannerImage.mimetype
+//       };
+
+//       const data = await s3.upload(uploadParams).promise();
+//       updatedChef.bannerImage = data.Location;
+//       await updatedChef.save();
+//     }
+
+//     res.status(200).json({ message: 'Chef updated successfully', updatedChef });
+//   } catch (error) {
+//     next(error);
+//   }
+// };
+// Update a chef by ID
 exports.updateChefById = async (req, res, next) => {
   const { id } = req.params;
   validateMongoDbId(id);
@@ -174,60 +243,52 @@ exports.updateChefById = async (req, res, next) => {
     const updatedChef = await Chef.findByIdAndUpdate(id, req.body, { new: true });
 
     if (req.files) {
-      // Delete old images from S3 bucket
-      await deleteImagesFromS3(chef.images);
+      // Upload new images to S3 bucket if available
+      if (req.files['images'] && req.files['images'].length > 0) {
+        const images = req.files['images'];
+        const imageUrls = [];
+        for (let i = 0; i < images.length; i++) {
+          const image = images[i];
+          const bucketName = process.env.BUCKET;
+          const uploadParams = {
+            Bucket: bucketName,
+            Key: `chef-images/${chef.name}-${Date.now()}-${i}`,
+            Body: image.buffer,
+            ContentType: image.mimetype
+          };
 
-      // Upload new images to S3 bucket
-      const images = req.files['images'];
-      if (!images || images.length === 0) {
-        return res.status(400).json({ error: 'No images uploaded' });
+          const data = await s3.upload(uploadParams).promise();
+          imageUrls.push(data.Location);
+        }
+        
+        // Update chef with new images
+        updatedChef.images = imageUrls;
       }
 
-      const imageUrls = [];
-      for (let i = 0; i < images.length; i++) {
-        const image = images[i];
+      // Upload new banner image to S3 bucket if available
+      if (req.files['bannerImage'] && req.files['bannerImage'].length > 0) {
+        const bannerImage = req.files['bannerImage'][0];
         const bucketName = process.env.BUCKET;
         const uploadParams = {
           Bucket: bucketName,
-          Key: `chef-images/${chef.name}-${Date.now()}-${i}`,
-          Body: image.buffer,
-          ContentType: image.mimetype
+          Key: `chef-banner/${chef.name}-${Date.now()}`,
+          Body: bannerImage.buffer,
+          ContentType: bannerImage.mimetype
         };
 
         const data = await s3.upload(uploadParams).promise();
-        imageUrls.push(data.Location);
+        updatedChef.bannerImage = data.Location;
       }
-      
-      // Update chef with new images
-      updatedChef.images = imageUrls;
-      await updatedChef.save();
     }
 
-    // If there's a banner image, update it
-    if (req.files && req.files['bannerImage']) { // Check if bannerImage exists in req.files
-      // Delete old banner image from S3 bucket
-      await deleteImagesFromS3([chef.bannerImage]);
-
-      // Upload new banner image to S3 bucket
-      const bannerImage = req.files['bannerImage'][0]; // Access the first file in the array
-      const bucketName = process.env.BUCKET;
-      const uploadParams = {
-        Bucket: bucketName,
-        Key: `chef-banner/${chef.name}-${Date.now()}`,
-        Body: bannerImage.buffer,
-        ContentType: bannerImage.mimetype
-      };
-
-      const data = await s3.upload(uploadParams).promise();
-      updatedChef.bannerImage = data.Location;
-      await updatedChef.save();
-    }
+    await updatedChef.save();
 
     res.status(200).json({ message: 'Chef updated successfully', updatedChef });
   } catch (error) {
     next(error);
   }
 };
+
 
 
 // Helper function to delete images from S3 bucket
