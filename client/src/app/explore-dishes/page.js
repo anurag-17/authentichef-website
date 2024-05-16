@@ -818,7 +818,7 @@ const ExploreDishes = () => {
               </div>
             </div>
 
-            {/* <div class="flex flex-col sm:flex-row justify-center my-10 mx-6 sm:my-6 sm:{}">
+            <div class="flex flex-col sm:flex-row justify-center my-10 mx-6 sm:my-6 sm:{}">
               <div class="carousel gap-4 sm:gap-6 grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7">
                 <div class="">
                   <Image
@@ -891,15 +891,15 @@ const ExploreDishes = () => {
                   </h1> 
                 </div>
               </div>
-            </div> */}
+            </div>
 
-            <div className=" sm:flex-row justify-center my-10  sm:my-6 sm:{}">
+            {/* <div className=" sm:flex-row justify-center my-10  sm:my-6 sm:{}">
               <div className="carousel-container ">
                 <Carousel breakPoints={breakPoints} className="gap-2">
                   <div className="carousel-item">
                     <div className="text-center">
                       {" "}
-                      {/* Center aligns the content */}
+                      
                       <Image
                         className="rounded-[5px] w-[195px] h-[195px] mcusinimg"
                         src={cuisineindia}
@@ -984,7 +984,7 @@ const ExploreDishes = () => {
                   </div>
                 </Carousel>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -1009,7 +1009,7 @@ const ExploreDishes = () => {
                   getAllDish.map((item) => (
                     <div
                       key={item.id}
-                      className="  my-5 2xl:w-[345px] 2xl:h-[560px] lg:w-[23%]  md:w-[31%] w-[45%]  relative  rounded-[9.8px] mexploreD "
+                      className="  my-5 2xl:w-[345px] 2xl:h-[560px] lg:w-[23%]  md:w-[31%] w-[100%]  relative  rounded-[9.8px] mexploreD "
                     >
                       <button className="" onClick={() => openModal(item._id)}>
                         <img
@@ -1111,7 +1111,7 @@ const ExploreDishes = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div>  
 
         <div className="flex justify-center lg:my-14 xl:my-28 my-10">
           <div className="mnavbar 2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px]">
