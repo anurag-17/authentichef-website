@@ -38,7 +38,7 @@ const FoodSefty = () => {
             </div>
           </div>
         </div>
-
+    
         <div className="bg-[#F5C7C7] 2xl:py-[115px] xl:py-[80px] py-[50px]">
           <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] w-full mx-auto mnavbar">
             <div>
@@ -57,7 +57,7 @@ const FoodSefty = () => {
                 <h1 className="become-no 2xl:mt-[20px] xl:mt-[12px] mt-[8px]">
                   Food Hygiene Rating:
                 </h1>
-                <p className="seven_p2 2xl:mt-[15px] xl:mt-[10px] mt-[5px] 2xl:w-[320px] xl:w-[210px] w-full  xs:text-[12px]">
+                <p className="xs:text-[10px] sm:text-[10px] md:text-[10px] lg:text-[10px] font-[500] xl:text-[14px] 2xl:text-[16px]  2xl:mt-[15px] xl:mt-[10px] mt-[5px] 2xl:w-[320px] xl:w-[210px] w-full">
                   Approved by their local council and strive for the highest
                   food rating score of 5 stars
                 </p>
@@ -71,7 +71,7 @@ const FoodSefty = () => {
                 <h1 className="become-no 2xl:mt-[20px] xl:mt-[12px] mt-[8px]">
                   Certified Expertise:
                 </h1>
-                <p className="sm:text-[10px] md:text-[14px] lg:text-[10px] font-[500] xl:text-[18px] 2xl:text-[18px]  2xl:mt-[15px] xl:mt-[10px] mt-[5px] 2xl:w-[330px] xl:w-[205px] w-full ">
+                <p className="xs:text-[10px] sm:text-[10px] md:text-[10px] lg:text-[10px] font-[500] xl:text-[14px] 2xl:text-[16px]  2xl:mt-[15px] xl:mt-[10px] mt-[5px] 2xl:w-[330px] xl:w-[205px] w-full ">
                   Each chef holds a minimum level 2 food safety and hygiene
                   certification
                 </p>
@@ -85,7 +85,7 @@ const FoodSefty = () => {
                 <h1 className="become-no 2xl:mt-[20px]  xl:mt-[12px] mt-[8px]">
                   Quality Ingredients:
                 </h1>
-                <p class="sm:text-[10px] md:text-[14px] lg:text-[10px] font-[500] xl:text-[18px] 2xl:text-[18px] 2xl:w-[315px] xl:w-[210px] w-full mt-[5px]">
+                <p class="xs:text-[10px] sm:text-[10px] md:text-[10px] lg:text-[10px] font-[500] xl:text-[14px] 2xl:text-[16px] 2xl:w-[315px] xl:w-[210px] w-full mt-[5px]">
                   We believe that the foundation of a great dish lies in the
                   quality of its ingredients. That's why our chefs select the
                   finest specialty ingredients available, locking in flavor
@@ -100,11 +100,11 @@ const FoodSefty = () => {
                 <h1 className="become-no 2xl:mt-[20px] xl:mt-[12px] mt-[8px]">
                   Traditional Cooking Techniques:
                 </h1>
-                <p className="seven_p2 2xl:mt-[15px] xl:mt-[10px] mt-[5px] 2xl:w-[315px] xl:w-[210px] w-full text-sm  xs:text-[12px]">
+                <p className="xs:text-[10px] sm:text-[10px]  md:text-[10px] lg:text-[10px] font-[500] xl:text-[14px] 2xl:text-[16px] 2xl:mt-[15px] xl:mt-[10px] mt-[5px] 2xl:w-[315px] xl:w-[210px] w-full">
                   While we embrace innovation and creativity in our dishes, our
                   chefs hold true to their traditional cooking techniques to
                   provide an authentic experience
-                </p>
+                </p>        
               </div>
             </div>
           </div>
