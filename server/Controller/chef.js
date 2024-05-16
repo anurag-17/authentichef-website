@@ -245,6 +245,7 @@ exports.updateChefById = async (req, res, next) => {
     if (req.files) {
       // Upload new images to S3 bucket if available
       if (req.files['images'] && req.files['images'].length > 0) {
+        await deleteImagesFromS3(chef.images);
         const images = req.files['images'];
         const imageUrls = [];
         for (let i = 0; i < images.length; i++) {
@@ -267,6 +268,7 @@ exports.updateChefById = async (req, res, next) => {
 
       // Upload new banner image to S3 bucket if available
       if (req.files['bannerImage'] && req.files['bannerImage'].length > 0) {
+        await deleteImagesFromS3([chef.bannerImage]);
         const bannerImage = req.files['bannerImage'][0];
         const bucketName = process.env.BUCKET;
         const uploadParams = {
