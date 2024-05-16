@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { Fragment, useEffect, useState } from "react";
 import CloseIcon from "../Svg/CloseIcon";
 import axios from "axios";
@@ -18,7 +18,7 @@ export const headItems = [
 ];
 
 const Cuisines = () => {
- const { token } = useSelector((state) => state?.auth);
+  const { token } = useSelector((state) => state?.auth);
 
   const [allData, setAllData] = useState("");
   const [searchText, setSearchText] = useState("");
@@ -136,31 +136,37 @@ const Cuisines = () => {
     setIsDrawerOpenO(false);
   };
 
+  const [maxHeight, setMaxHeight] = useState("780px");
+
+  useEffect(() => {
+    const screenHeight = window.innerHeight;
+    const calculatedMaxHeight = screenHeight * 0.8;
+    setMaxHeight(`${calculatedMaxHeight}px`);
+  }, []);
+
   return (
     <>
       <section className="w-full">
-        <div className=" mx-auto">
-          <div className="rounded-[10px] bg-white py-[20px] flexBetween  md:flex-row gap-3 px-[20px] mt-[20px] lg:mt-0">
-            <p className=" text-[22px] font-semibold">Cuisines List</p>
-            <div className="flexCenter gap-x-7 lg:gap-x-5 md:flex-auto gap-y-3 ">
-              <div className="border rounded border-primary  bg-[#302f2f82]] flexCenter h-[32px] pl-[10px] md:w-auto w-full">
+        <div className="mx-auto">
+          <div className="rounded-[10px] bg-white py-[20px] flexBetween md:flex-row gap-3 px-[20px] mt-[20px] lg:mt-0">
+            <p className="text-[22px] font-semibold">Cuisines List</p>
+            <div className="flexCenter gap-x-7 lg:gap-x-5 md:flex-auto gap-y-3">
+              <div className="border rounded border-primary bg-[#302f2f82]] flexCenter h-[32px] pl-[10px] md:w-auto w-full">
                 <input
                   type="text"
                   className="input_search"
-                  //   value={searchText}
-                  //   onChange={handleSearchInput}
-                  //   onKeyDown={handleKeyDown}
+                  // value={searchText}
+                  // onChange={handleSearchInput}
+                  // onKeyDown={handleKeyDown}
                   placeholder="Search by name, contact, email."
                 />
-                {searchText !== "" ? (
+                {searchText !== "" && (
                   <button
                     className="clear_search_btn"
                     // onClick={handleClearSearch}
                   >
                     <CloseIcon />
                   </button>
-                ) : (
-                  ""
                 )}
                 <button
                   className="search_btn"
@@ -176,13 +182,16 @@ const Cuisines = () => {
               </button>
             </div>
           </div>
-          <div className="">
+          <div
+            className="overflow-auto mt-4"
+            style={{ maxHeight: maxHeight, marginTop: "4px" }}
+          >
             <div className="outer_table">
-              <table className="w-full min-w-[640px] table-auto mt-[20px] ">
-                <thead className="">
-                  <tr className=" ">
-                    {headItems.map((items, inx) => (
-                      <th className="table_head" key={inx}>
+              <table className="w-full min-w-[640px] table-auto">
+                <thead>
+                  <tr>
+                    {headItems.map((items, index) => (
+                      <th className="table_head" key={index}>
                         <p className="block text-[13px] font-medium uppercase whitespace-nowrap text-[#72727b]">
                           {items}
                         </p>
@@ -190,43 +199,31 @@ const Cuisines = () => {
                     ))}
                   </tr>
                 </thead>
-
                 <tbody>
                   {Array.isArray(allData) &&
-                    allData?.length > 0 &&
-                    allData?.map((items, index) => (
+                    allData.length > 0 &&
+                    allData.map((items, index) => (
                       <tr key={index}>
-                        {/* {console.log(items)} */}
                         <td className="table_data">{index + 1}</td>
-                        <td className="table_data capitalize">
-                          {items?.title}
-                        </td>
-                        {/* <td className="table_data">{items?.description} </td> */}
-
+                        <td className="table_data capitalize">{items.title}</td>
                         <td className="table_data">
                           <img
-                            src={items?.ProfileImage}
+                            src={items.ProfileImage}
                             className="w-10 rounded-md"
+                            alt={items.title}
                           />
                         </td>
-
                         <td className="table_data">
                           <div className="table_btn_div">
-                            {/* <button
-                              className="secondary_btn"
-                              onClick={() => handlePreview(items?._id)}
-                            >
-                              Preview
-                            </button> */}
                             <button
                               className="secondary_btn py-1"
-                              onClick={() => openDrawerO(items?._id)}
+                              onClick={() => openDrawerO(items._id)}
                             >
                               Edit
                             </button>
                             <button
                               className="delete_btn py-1"
-                              onClick={() => handleDelete(items?._id)}
+                              onClick={() => handleDelete(items._id)}
                             >
                               Delete
                             </button>
@@ -238,21 +235,12 @@ const Cuisines = () => {
               </table>
             </div>
             {Array.isArray(allData?.menuItems) &&
-              allData?.menuItems?.length === 0 && (
+              allData.menuItems.length === 0 && (
                 <div className="no_data">
-                  <p className="text-[18px] fontsemibold">No data</p>
+                  <p className="text-[18px] font-semibold">No data</p>
                 </div>
               )}
           </div>
-
-          {/* {allData?.totalPages > 1 && (
-            <Pagination
-              currentpage={allData?.currentPage}
-              totalCount={allData?.totalPages}
-              visiblePageCount={visiblePageCount}
-              getAllData={getAllData}
-            />
-          )} */}
         </div>
       </section>
 

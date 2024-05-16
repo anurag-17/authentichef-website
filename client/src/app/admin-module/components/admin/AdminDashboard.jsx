@@ -85,7 +85,7 @@ const AdminDashboard = () => {
               </h1>
             </div>
             <div className="bg-white h-[1px] w-[70%] mx-auto overscroll-y-auto"></div>
-            <div className="flex flex-col 2xl:gap-6 gap-3 pt-[60px]">
+            <div className="flex flex-col 2xl:gap-5 gap-2 pt-[30px]">
               {sideMenus.map((item, index) => (
                 <div
                   key={index}

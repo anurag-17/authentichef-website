@@ -42,84 +42,83 @@ const BecomeChef = () => {
             </div>
           </div>
 
-          <div className="bg-[#F5C7C7]">
-            <div className="xs:w-[420px] bg-[#F5C7C7]">
-              <div className="2xl:w-[1600px] xl:w-[1540px] lg:w-[850px]  md:w-[700px]  mx-auto 2xl:py-[150px] xl:py-[120px] py-[70px]   2xl:mt-[70px] xl:mt-[40px] mt-[30px] 2xl:pt-[100px] xl:pt-[60px] pt-[40px] 2xl:pb-[125px] xl:pb-[80px] pb-[60px] mnavbar ">
-                <div className="flex flex-col sm:flex-row justify-between items-center w-full  ">
-                  <div className="mbecome-img sm:order-2 mb-5 sm:mb-0">
-                    <Image
-                      src={banner1}
-                      width={920}
-                      height={507}
-                      className="2xl:w-full h-auto rounded-[15px] xl:w-[630px] w-[490px] sm:mr-4  xs:w-[400px] xs:h-[300px]"
-                    />
-                  </div>
-                  <div className="2xl:w-[566px] xl:w-[360px]  alata font-[400] sm:mx-3 2xl:text-[25px] 2xl:leading-[35px] xl:text-[16px] xl:leading-[28px] lg:text-[12px] lg:leading-[20px] sm:w-[50%] xs:my-2 md:mx-2">
-                    <p>
-                      We believe that every chef has a story worth sharing and a
-                      talent worth celebrating.
-                    </p>
-                    <p className="2xl:my-[30px] xl:my-[20px] my-[12px] xs:mx-2 md:mx-2">
-                      By joining authentichef, you not only gain a platform to
-                      showcase your unique culinary creations, but also become
-                      part of a growing and vibrant community of like-minded
-                      individuals passionate about food and culture.
-                    </p>
-                    <p>
-                      With our dedicated support, you can turn your love for
-                      cooking into a growing food business, all while sharing
-                      your delicious dishes with people across the UK.
-                    </p>
-                  </div>
+          <div className="bg-[#F5C7C7] w-full mt-7">
+            <div className="max-w-[1440px] mx-auto bg-[#F5C7C7] px-4">
+              <div className="flex flex-col lg:flex-row items-center justify-between py-10 lg:py-20">
+                <div className=" mb-5 lg:mb-0 lg:order-1">
+                  <Image
+                    src={banner1}
+                    width={920}
+                    height={507}
+                    className=" rounded-[15px]"
+                    alt="Banner Image"
+                  />
                 </div>
-                <div className="flex justify-center items-center">
-                  <div className="flex flex-col sm:flex-row  justify-center sm:justify-between sm:w-[550px] 2xl:mt-[70px] xl:mt-[40px] mt-[25px] md:gap-[100px]">
-                    <div className="2xl:w-[317px] xl:w-[240px] w-[180px] mb-5 sm:mb-0 ">
-                      <Image
-                        src={boss}
-                        width={94}
-                        height={94}
-                        className="2xl:w-[94px] 2xl:h-[94px] xl:w-[60px] xl:h-[60px] w-[45px] h-[45px] mb-1 mbecomeimgg"
-                      />
-                      <h2 className="alata font-[400] 2xl:text-[25px] 2xl:leading-[35px] xl:text-[16px] xl:leading-[28px] lg:text-[12px] lg:leading-[20px]">
-                        Be your own boss
-                      </h2>
-                      <p className="alata font-[400] 2xl:text-[25px] 2xl:leading-[28px] xl:text-[13px] xl:leading-[20px] text-[10px] leading-[14px]">
-                        Grow your own food business with little to no start-up
-                        costs
-                      </p>
-                    </div>
-                    <div className="2xl:w-[465px] xl:w-[380px] w-[260px] mb-5 sm:mb-0">
-                      <Image
-                        src={dishmenu}
-                        width={72}
-                        height={94}
-                        className="2xl:w-[94px] 2xl:h-[94px] xl:w-[60px] xl:h-[60px] w-[45px] h-[45px] mb-1 mbecomeimgg"
-                      />
-                      <h2 className="alata font-[400] 2xl:text-[25px] 2xl:leading-[35px] xl:text-[16px] xl:leading-[28px] lg:text-[12px] lg:leading-[20px]">
-                        Create a menu of high quality dishes
-                      </h2>
-                      <p className="alata font-[400] 2xl:text-[18px] 2xl:leading-[28px] xl:text-[13px] xl:leading-[20px] text-[10px] leading-[14px]">
-                        Embrace tradition, cultural value and authenticity in
-                        your creations
-                      </p>
-                    </div>
-                    <div className="2xl:w-[564px] xl:w-[360px] w-[280px]">
-                      <Image
-                        src={cook}
-                        width={94}
-                        height={94}
-                        className="2xl:w-[94px] 2xl:h-[94px] xl:w-[60px] xl:h-[60px] w-[45px] h-[45px] mb-1 mbecomeimg"
-                      />
-                      <h2 className="alata font-[400] 2xl:text-[25px] 2xl:leading-[35px] xl:text-[16px] xl:leading-[28px] lg:text-[12px] lg:leading-[20px]">
-                        Cook when you want and how often
-                      </h2>
-                      <p className="alata font-[400] 2xl:text-[18px] 2xl:leading-[28px] xl:text-[13px] xl:leading-[20px] text-[10px] leading-[14px]">
-                        You make the dishes available, we pick up and deliver
-                        them nationwide, safely to your customers
-                      </p>
-                    </div>
-                  </div>
+                <div className="w-full lg:w-1/3 lg:order-2 lg:ml-12 flex flex-col justify-center font-Alata alata ml-7">
+                  <p className="text-[25px] lg:text-[25px] mb-4">
+                    We believe that every chef has a story worth sharing and a
+                    talent worth celebrating.
+                  </p>
+                  <p className="text-[25px] lg:text-[25px] mb-4 font-Alata">
+                    By joining authentichef, you not only gain a platform to
+                    showcase your unique culinary creations, but also become
+                    part of a growing and vibrant community of like-minded
+                    individuals passionate about food and culture.
+                  </p>
+                  <p className="text-[25px] lg:text-[25px] mb-4 font-Alata">
+                    With our dedicated support, you can turn your love for
+                    cooking into a growing food business, all while sharing your
+                    delicious dishes with people across the UK.
+                  </p>
+                </div>
+              </div>
+              <div className="flex flex-col sm:flex-row justify-start ml-[120px]  gap-6 mt-10 mb-5">
+                <div className="">
+                  <Image
+                    src={boss}
+                    width={94}
+                    height={94}
+                    className=" mb-2 w-[45px] h-[45px] lg:w-[94px] lg:h-[94px]"
+                    alt="Boss Image"
+                  />
+                  <h2 className="text-lg lg:text-xl mb-2 font-Alata alata">
+                    Be your own boss
+                  </h2>
+                  <p className="text-sm lg:text-base font-Alata alata">
+                    Grow your own food business with little to no start-up costs
+                  </p>
+                </div>
+                <div className="">
+                  <Image
+                    src={dishmenu}
+                    width={73}
+                    height={94}
+                    className=" mb-2 w-[45px] h-[45px] lg:w-[94px] lg:h-[94px]"
+                    alt="Dish Menu Image"
+                  />
+                  <h2 className="text-lg lg:text-xl mb-2 font-Alata alata">
+                    Create a menu of high quality dishes
+                  </h2>
+                  <p className="text-sm lg:text-base alata">
+                    Embrace tradition, cultural value and authenticity in your
+                    creations
+                  </p>
+                </div>
+                <div className="mb-8">
+                  <Image
+                    src={cook}
+                    width={94}
+                    height={94}
+                    className="mb-2 w-[45px] h-[45px] lg:w-[94px] lg:h-[94px] "
+                    alt="Cook Image"
+                  />
+                  <h2 className="text-lg lg:text-xl mb-2 font-Alata alata">
+                    Cook when you want and how often
+                  </h2>
+                  <p className="text-sm lg:text-base font-Alata alata">
+                    You make the dishes available, we pick up and deliver them
+                    nationwide, safely to your customers
+                  </p>
                 </div>
               </div>
             </div>
@@ -238,7 +237,7 @@ const BecomeChef = () => {
             <div className="2xl:w-[686px] sm:w-full">
               <Image
                 src={banner3}
-                className="rounded-[15px] w-full h-auto mb-[20px] sm:mb-0 sm:rounded-[15px] sm:max-w-[686px] sm:h-[628px] xl:w-[465px] md:w-[380px] mbox3"
+                className="rounded-[15px] mb-[20px] sm:mb-0 sm:rounded-[15px] sm:max-w-[686px] sm:h-[628px] xl:w-[465px] md:w-[380px] mbox3"
               />
             </div>
             <div className="2xl:w-[720px] xl:w-[485px] w-[350px] mbox3 sm:w-full">

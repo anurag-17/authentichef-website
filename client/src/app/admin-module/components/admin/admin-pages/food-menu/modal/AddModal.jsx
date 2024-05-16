@@ -12,6 +12,7 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
   const router = useRouter();
   const { token } = useSelector((state) => state?.auth);
   const [isRefresh, setRefresh] = useState(false);
+  const [cuisines, setCuisines] = useState([]);
   const [menuItem, setMenuItem] = useState({
     name: "",
     description: "",
@@ -27,6 +28,7 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
     chef_id: "",
     ProfileImage: [],
     popular_dish: "",
+    Cuisines_id: "",
   });
 
   const refreshData = () => {
@@ -66,9 +68,9 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
       // Append dropdown values
       formData.append("Dishtype_id", menuItem.Dishtype_id);
       formData.append("Dietary_id", menuItem.Dietary_id);
-      formData.append("spice_level_id", menuItem.spice_level_id); 
+      formData.append("spice_level_id", menuItem.spice_level_id);
       formData.append("chef_id", menuItem.chef_id);
-
+      formData.append("Cuisines_id", menuItem.Cuisines_id);
       // Append popular_dish
       formData.append("popular_dish", menuItem.popular_dish);
       // Append ProfileImage
@@ -100,6 +102,33 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
       toast.error("An error occurred while adding the Dish.");
     }
   };
+
+  useEffect(() => {
+    async function fetchCuisines() {
+      try {
+        const response = await axios.get(
+          "http://13.43.174.21:4000/api/cuisines/getAllCuisines"
+        );
+        const { cuisines } = response.data; // Extract the cuisines array from the response
+        if (Array.isArray(cuisines)) {
+          setCuisines(cuisines); // Update state with fetched cuisines
+          // Assuming you want to pre-select the first cuisine in the list
+          if (cuisines.length > 0) {
+            setMenuItem((prevState) => ({
+              ...prevState,
+              Cuisines_id: cuisines[0].Cuisines_id,
+            }));
+          }
+        } else {
+          console.error("Invalid data format for cuisines:", cuisines);
+        }
+      } catch (error) {
+        console.error("Error fetching cuisines:", error);
+      }
+    }
+
+    fetchCuisines();
+  }, []);
 
   const [dishTypes, setDishTypes] = useState([]);
 
@@ -378,6 +407,29 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
             ))}
           </select>
         </div>
+        {cuisines.length > 0 && (
+          <div className="mb-4">
+            <label className="block mb-1" htmlFor="cuisine_id">
+              Cuisine:
+            </label>
+            <select
+              id="cuisine_id"
+              name="Cuisines_id" // Change name to "Cuisines_id" to match the state property name
+              value={menuItem.Cuisines_id}
+              onChange={handleChange}
+              className="w-full px-3 py-2 border rounded"
+              required
+            >
+              <option value="">Select Cuisine</option>
+              {cuisines.map((cuisine) => (
+                <option key={cuisine._id} value={cuisine._id}>
+                  {cuisine.title}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
+
         <div className="mb-4">
           <label className="block mb-1" htmlFor="heatingInstructions">
             Heating Instructions:
@@ -393,7 +445,7 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
         </div>
         <div className="mb-4">
           <label className="block mb-1" htmlFor="ingredientsList">
-            List of Ingredients:
+            List of Allergens:
           </label>
           <textarea
             id="ingredientsList"
@@ -408,7 +460,7 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
 
       {/* Image Upload */}
       <div className="w-full px-4">
-        <label htmlFor="ProfileImages">Profile Images:</label>
+        <label htmlFor="ProfileImages">Profile Images: </label>
         <input
           type="file"
           id="ProfileImages"
@@ -417,6 +469,7 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
           accept="image/*"
           multiple // Allow multiple file selection
           required
+          className="mx-2"
         />
         <p className="text-sm text-red-500 mt-1">
           Image size should be width 345px and height 278px pixels.
@@ -425,10 +478,7 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
 
       {/* Submit button */}
       <div className="w-full px-4 mt-4">
-        <button
-          type="submit"
-          className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
-        >
+        <button type="submit" className=" px-4 py-2 rounded primary_btn">
           Submit
         </button>
       </div>

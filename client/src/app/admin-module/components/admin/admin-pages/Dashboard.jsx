@@ -1,17 +1,50 @@
+'use client'
 import React, { Fragment } from "react";
 import Link from "next/link";
 import { Menu, Transition } from "@headlessui/react";
-// import { useSelector } from "react-redux";
-
+import { useRouter } from "next/navigation";
 import PasswordIcon from "./Svg/PasswordIcon";
 import ProfileIcon from "./Svg/ProfileIcon";
 import SignOutIcon from "./Svg/SignOutIcon";
 import UsersIcon from "./Svg/UsersIcon";
 import protectedRoute from "@/app/admin-module/config/protectedRoute";
+import { useDispatch, useSelector } from "react-redux";
+import { rem_AdDetails, removeToken } from "@/app/redux/slice";
+
 
 const Dashboard = () => {
   // const { userDetails } = useSelector((state) => state?.auth);
   // console.log(userDetails);
+
+  const router = useRouter();
+  const dispatch = useDispatch();
+
+  const handleSignout = async () => {
+    try {
+      const res = await axios.get("http://localhost:4000/api/auth/logout", {
+        headers: {
+          Authorization: token,
+          "Content-Type": "application/json",
+        },
+      });
+      if (res?.data?.success) {
+        toast.success("Logout successfully !");
+        dispatch(removeToken());
+        // dispatch(rem_AdDetails());
+        router.push("/admin-module/admin/sign-in");
+      } else {
+        dispatch(removeToken());
+        // dispatch(rem_AdDetails());
+        router.push("/admin-module/admin/sign-in");
+      }
+    } catch (error) {
+      dispatch(removeToken());
+      // dispatch(rem_AdDetails());
+      router.push("/admin-module/admin/sign-in");
+      console.error("Error occurred:", error);
+    }
+  };
+
   return (
     <>
       <section className>
@@ -57,13 +90,13 @@ const Dashboard = () => {
                         </Link>
                       </Menu.Item>
                       <Menu.Item>
-                        <Link
-                          href="/login"
+                        <div
+                          onClick={handleSignout}
                           className="flex gap-x-3 hover:underline text-gray-700 rounded  text-sm group transition-colors items-center"
                         >
                           <SignOutIcon />
                           Sign out
-                        </Link>
+                        </div>
                       </Menu.Item>
                     </div>
                   </Menu.Items>
