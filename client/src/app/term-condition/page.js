@@ -73,7 +73,7 @@ const TermCondition = () => {
             </h3>
             <p className="privacyText mb-7 2xl:mb-10">
               By using the Authentichef Website, the Customers agree that they
-              will – • pay for their food order online in advance and ensure
+              will  • pay for their food order online in advance and ensure
               that their preferred payment method is valid and accepted by the
               Website; • ensure that their food order details, including but not
               limited to the name of item, number of portions, delivery address,
@@ -95,7 +95,7 @@ const TermCondition = () => {
               that a valid card number and billing address is provided for us to
               successfully process your payment. If your card is issued in a
               foreign currency other than £GBP, pricing will depend on
-              applicable foreign exchange rates as per your bank’s rules and
+              applicable foreign exchange rates as per your bank rules and
               regulations. In case you have any question about the pricing or
               method of payment, feel free to reach out to our customer support
               before making the payment. We do not store any financial
@@ -120,7 +120,7 @@ const TermCondition = () => {
               intermediary and are not directly involved in the sourcing,
               cooking, or packaging process of the cooked food, we explicitly
               exclude all liability, to the fullest extent permitted by law, for
-              any damage, loss, or injury arising from a Chef’s alleged or
+              any damage, loss, or injury arising from a Chef alleged or
               actual non-compliance with the expected standards of food safety
               and hygiene. Notwithstanding the above, we agree to cooperate
               fully with the regulatory authorities and law enforcement agencies
@@ -158,7 +158,7 @@ const TermCondition = () => {
               When you choose to register yourself at the Authentichef Website
               as a Customer or a Chef, or otherwise communicate with us via the
               “Contact Us” option or Join the Chef Waiting List (latter for
-              Chef’s only) in the Website, you will be asked to provide certain
+              Chef only) in the Website, you will be asked to provide certain
               personal data about yourself to facilitate communication and user
               experience. Please go through our Privacy Policy to know more
               about how and why Authentichef, collects, stores and processes
