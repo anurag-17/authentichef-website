@@ -21,7 +21,7 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
     portion_Size: "",
     Ingredients: "",
     Heating_Instruction: "",
-    List_of_Ingredients: "",
+    List_of_Allergens: "",
     Dishtype_id: "",
     Dietary_id: "",
     spice_level_id: "",
@@ -63,7 +63,7 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
       formData.append("portion_Size", menuItem.portion_Size);
       formData.append("Ingredients", menuItem.Ingredients);
       formData.append("Heating_Instruction", menuItem.Heating_Instruction);
-      formData.append("List_of_Ingredients", menuItem.List_of_Ingredients);
+      formData.append("List_of_Allergens", menuItem.List_of_Allergens);
 
       // Append dropdown values
       formData.append("Dishtype_id", menuItem.Dishtype_id);
@@ -449,8 +449,8 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
           </label>
           <textarea
             id="ingredientsList"
-            name="List_of_Ingredients"
-            value={menuItem.List_of_Ingredients}
+            name="List_of_Allergens"
+            value={menuItem.List_of_Allergens}
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded"
             required

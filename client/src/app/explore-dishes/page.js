@@ -44,6 +44,7 @@ import {
   addItemToCart,
   handleClearCart,
   removeItemFromCart,
+  clearCart,
 } from "../redux/dishSlice";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -430,10 +431,10 @@ const ExploreDishes = () => {
                 <h1 className="third_head mb-4">Select Cuisine </h1>
               </div>
 
-              <div className="flex justify-between 2xl:gap-10 xl:gap-5 lg:gap-4   items-center md:gap-4 sm:gap-6">
-                <div className="flex 2xl:gap-3 xs:w-full xs:gap4 xl:gap-3 lg:gap-2 sm:gap-2  md:gap-2">
+              <div className=" hidden lg:block flex justify-between 2xl:gap-10 xl:gap-5 lg:gap-4   items-center md:gap-4 sm:gap-6">
+                <div className=" flex 2xl:gap-3 xs:w-full xs:gap4 xl:gap-3 lg:gap-2 sm:gap-2  md:gap-2">
                   {/* Open the modal using document.getElementById('ID').showModal() method */}
-                  <button 
+                  <button
                     className="2xl:w-[153px] third_select flex justify-center items-center gap-3 md:text-[12px] sm:text-[12px] md:pl-2 sm:pl-2 xs:text-[6px]"
                     onClick={() =>
                       document.getElementById("my_modal_3").showModal()
@@ -888,7 +889,7 @@ const ExploreDishes = () => {
                   />
                   <h1 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
                     Southeast Asian
-                  </h1> 
+                  </h1>
                 </div>
               </div>
             </div>
@@ -1111,7 +1112,7 @@ const ExploreDishes = () => {
               </div>
             </div>
           </div>
-        </div>  
+        </div>
 
         <div className="flex justify-center lg:my-14 xl:my-28 my-10">
           <div className="mnavbar 2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px]">
@@ -1647,8 +1648,6 @@ const ExploreDishes = () => {
         </div>
       </dialog>
 
-      {/* ===============Right drawer=============== */}
-
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={() => {}}>
           <Transition.Child
@@ -1674,14 +1673,27 @@ const ExploreDishes = () => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="2xl:w-[1000px]  xl:w-[720px] w-[600px]  mx-auto rounded-[10px]  my-auto 2xl:px-[40px] 2xl:py-[45px] xl:px-[25px] xl:py-[30px] px-[15px] py-[20px] transform overflow-hidden  bg-white text-left align-middle shadow-xl transition-all ">
+                <Dialog.Panel className="2xl:w-[1000px] z-50 xl:w-[720px] w-[600px]  mx-auto rounded-[10px]  my-auto 2xl:px-[40px] 2xl:py-[45px] xl:px-[25px] xl:py-[30px] px-[15px] py-[20px] transform overflow-hidden  bg-white text-left align-middle shadow-xl transition-all ">
                   <Dialog.Title
                     as="h3"
                     onClick={closeModal}
-                    className="custom_heading_text font-semibold leading-6 text-gray-900 mt lg:mt-0 absolute right-5 text-[30px]"
+                    className="cursor-pointer custom_heading_text font-semibold leading-6 text-gray-900 mt lg:mt-0 absolute right-5 text-[30px]"
                   >
                     {" "}
-                    X
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="w-8 h-8"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M6 18 18 6M6 6l12 12"
+                      />
+                    </svg>
                   </Dialog.Title>
                   <DishDetails dishID={dishID} closeModal={closeModal} />
                 </Dialog.Panel>
