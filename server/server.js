@@ -25,6 +25,10 @@ server.use(session({
   secret: 'mySecretKey123', // Replace 'mySecretKey123' with your actual secret key
   resave: false,
   saveUninitialized: false,
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24 * 30 // 30 days in milliseconds
+}
+
   
 }));
 
