@@ -433,7 +433,7 @@ const ExploreDishes = () => {
               <div className="flex justify-between 2xl:gap-10 xl:gap-5 lg:gap-4   items-center md:gap-4 sm:gap-6">
                 <div className="flex 2xl:gap-3 xs:w-full xs:gap4 xl:gap-3 lg:gap-2 sm:gap-2  md:gap-2">
                   {/* Open the modal using document.getElementById('ID').showModal() method */}
-                  <button
+                  <button 
                     className="2xl:w-[153px] third_select flex justify-center items-center gap-3 md:text-[12px] sm:text-[12px] md:pl-2 sm:pl-2 xs:text-[6px]"
                     onClick={() =>
                       document.getElementById("my_modal_3").showModal()

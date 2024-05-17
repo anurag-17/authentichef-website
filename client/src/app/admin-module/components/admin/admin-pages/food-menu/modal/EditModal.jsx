@@ -391,7 +391,7 @@ const EditModal = ({
 
               <div class="py-2">
                 <span class="login-input-label capitalize">
-                  List of Ingredients :
+                  List of Allergens :
                 </span>
                 <textarea
                   name="List_of_Ingredients"
