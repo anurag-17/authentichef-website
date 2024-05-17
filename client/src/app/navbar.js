@@ -381,12 +381,12 @@ const Navbar = () => {
               </div>
             </div>
 
-            <div className="w-1/2 flex justify-center ">
+            <div className="w-1/3 flex justify-center ">
               <a href="/">
                 <Image alt="logo" src={logo} className="nav_logo" />
               </a>
             </div>
-            <div className="w-1/3 md:w-1/2 flex justify-end ">
+            <div className="w-1/3  flex justify-end ">
               <div className="flex justify-end md:gap-0 gap-2 md:ml-6">
                 {isLoggedIn === success ? (
                   <div className="flex justify-end md:gap-7 gap-2 w-1/3">
