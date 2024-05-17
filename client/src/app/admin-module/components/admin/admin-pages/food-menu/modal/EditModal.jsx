@@ -20,7 +20,7 @@ const EditModal = ({
     portion_Size: "",
     Ingredients: "",
     Heating_Instruction: "",
-    List_of_Ingredients: "",
+    List_of_Allergens: "",
     Dishtype_id: "",
     Dietary_id: "",
     spice_level_id: "",
@@ -35,7 +35,6 @@ const EditModal = ({
   const [chefs, setChefs] = useState([]);
   const [editModalOpen, setEditModalOpen] = useState(false);
 
-
   useEffect(() => {
     if (editData) {
       setFormData({
@@ -46,10 +45,12 @@ const EditModal = ({
         portion_Size: editData.portion_Size || "",
         Ingredients: editData.Ingredients || "",
         Heating_Instruction: editData.Heating_Instruction || "",
-        List_of_Ingredients: editData.List_of_Ingredients || "",
+        List_of_Allergens: editData.List_of_Allergens || "",
         Dishtype_id: editData.Dishtype_id ? editData.Dishtype_id._id : "",
         Dietary_id: editData.Dietary_id ? editData.Dietary_id._id : "",
-        spice_level_id: editData.spice_level_id ? editData.spice_level_id._id : "",
+        spice_level_id: editData.spice_level_id
+          ? editData.spice_level_id._id
+          : "",
         chef_id: editData.chef_id ? editData.chef_id._id : "",
         ProfileImage: editData.ProfileImage || null,
       });
@@ -150,12 +151,11 @@ const EditModal = ({
       setFormData({ ...formData, [name]: value });
     }
   };
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-  
+
     try {
       const formDataToSend = new FormData();
       Object.entries(formData).forEach(([key, value]) => {
@@ -165,7 +165,7 @@ const EditModal = ({
           formDataToSend.append(key, value);
         }
       });
-  
+
       const response = await axios.put(
         `http://13.43.174.21:4000/api/menu/menuItems/${updateId}`,
         formDataToSend,
@@ -176,13 +176,12 @@ const EditModal = ({
           },
         }
       );
-  
+
       if (response.status === 200) {
         toast.success("Item updated successfully");
         // Perform any additional actions needed after successful update
         refreshData();
         closeEditPopup();
-
       } else {
         toast.error("Failed to update item");
       }
@@ -193,7 +192,6 @@ const EditModal = ({
       setLoading(false);
     }
   };
-  
 
   useEffect(() => {
     async function fetchDishTypes() {
@@ -394,10 +392,10 @@ const EditModal = ({
                   List of Allergens :
                 </span>
                 <textarea
-                  name="List_of_Ingredients"
+                  name="List_of_Allergens"
                   placeholder="Enter list of ingredients"
                   class="login-input w-full mt-1"
-                  value={formData.List_of_Ingredients}
+                  value={formData.List_of_Allergens}
                   onChange={handleChange}
                   required
                 ></textarea>

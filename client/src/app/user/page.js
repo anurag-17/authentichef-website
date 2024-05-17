@@ -49,14 +49,42 @@ import axios from "axios";
 import addCart from "../../../public/images/addCart.svg";
 import DishDetails from "../explore-dishes/dish-details/page";
 import { Dialog, Transition } from "@headlessui/react";
+import {
+  addItemToCart,
+  clearCart,
+  handleClearCart,
+  handleRemoveItem,
+} from "../redux/dishSlice";
+import { useDispatch, useSelector } from "react-redux";
+import config from "@/config";
 
 const LandingPage = () => {
   const [getAllDish, setGetAllDish] = useState({});
   console.log(getAllDish, "dis");
   const [isOpen, setOpen] = useState(false);
+  const [getADish, setGetADish] = useState("");
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const [dishID, setDishID] = useState("");
   const closeModal = () => setOpen(false);
+  const dispatch = useDispatch();
+
+  const { cart } = useSelector((state) => state?.userCart);
+  cart.forEach((item, index) => {
+    const { data } = item;
+    console.log(data, `data from item ${index + 1}`);
+  });
+
+  const handleDrawerOpen = () => {
+    setIsDrawerOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setIsDrawerOpen(false);
+  };
+  const handleClearCart = () => {
+    dispatch(clearCart());
+  };
 
   function openModal(id) {
     setDishID(id);
@@ -69,7 +97,7 @@ const LandingPage = () => {
   const defaultDish = () => {
     const option = {
       method: "GET",
-      url: "http://13.43.174.21:4000/api/menu/menuItems/popular",
+      url: `${config.baseURL}/api/menu/menuItems/popular`,
       // params: {
       //   Cuisines_id: cuisinesFilter,
       //   Dietary_id: dietaryFilter,
@@ -87,6 +115,26 @@ const LandingPage = () => {
         console.log(error, "Error");
       });
   };
+
+  const defaultADish = (_id) => {
+    const option = {
+      method: "GET",
+      url: `${config.baseURL}/api/menu/menuItems/${_id}`,
+    };
+    axios
+      .request(option)
+      .then((response) => {
+        setGetADish(response?.data);
+        dispatch(addItemToCart(response));
+        handleDrawerOpen();
+
+        // console.log(response?.data, "haryy");
+      })
+      .catch((error) => {
+        console.log(error, "Error");
+      });
+  };
+
   return (
     <>
       <section className="">
@@ -239,8 +287,7 @@ const LandingPage = () => {
                         </p>
                         <button
                           onClick={() => {
-                            // addToCart(item);
-                            handleAddToCart(item?._id);
+                            defaultADish(item?._id);
                           }}
                         >
                           <div className="drawer-content">
@@ -731,6 +778,157 @@ const LandingPage = () => {
         {/* ===================Footer================== */}
         <Footer />
       </section>
+
+      {/* ===============Right drawer=============== */}
+      <div className="z-50 drawer drawer-end">
+        <input
+          id="my-drawer-4"
+          type="checkbox"
+          className="drawer-toggle"
+          checked={isDrawerOpen}
+          onChange={() => {}}
+        />
+
+        <div className="drawer-side">
+          <label
+            htmlFor="my-drawer-4"
+            aria-label="close sidebar"
+            className="drawer-overlay"
+            onClick={handleDrawerClose}
+          ></label>
+          <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content 2xl:w-[505px] xl:w-[350px] lg:w-[290px] bg-white 2xl:mt-[116px] xl:mt-[80px] lg:mt-[50px] sm:mt-[45px] mt-12">
+            <div className="bg-white hidden lg:block rounded-s-[15px]">
+              <div>
+                <div className="">
+                  <button
+                    onClick={handleDrawerClose}
+                    className="border rounded-md"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="w-10 h-10"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"
+                      />
+                    </svg>
+                  </button>
+                  <h1 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[22px] text-[22px] 2xl:leading-[32px] xl:text-[18px] xl:leading-[24px] lg:text-[14px] lg:leading-[20px]">
+                    My Basket
+                  </h1>
+                </div>
+
+                {cart.length === 0 ? (
+                  <div>
+                    <div className="2xl:mt-40">
+                      {/* <Image
+                        src={emptyCart}
+                        className="2xl:w-[268.25px] 2xl:h-[265px] mx-auto"
+                        alt="Empty cart"
+                      /> */}
+                    </div>
+                    <h1 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[25px] 2xl:leading-[35px] xl:text-[20px] xl:leading-[28px] lg:text-[16px] lg:leading-[24px] text-center 2xl:mt-24">
+                      Explore a World of Deliciousness
+                    </h1>
+                    <p className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[16px] 2xl:leading-[26px] xl:text-[14px] xl:leading-[20px] lg:text-[12px] lg:leading-[18px] text-center">
+                      Add dishes to your cart now.
+                    </p>
+                    <div className="flex 2xl:mt-12 xl:mt-6 lg:mt-5 mt-4">
+                      <button
+                        className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[221px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1"
+                        onClick={handleDrawerClose}
+                      >
+                        Explore Dishes
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="">
+                    <div className="flex justify-end mt-10 md:mr-5">
+                      <button
+                        className="alata font-[400] rounded-[5px] p-2 text-[20px] bg-[#DB5353] text-white 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px]"
+                        onClick={handleClearCart}
+                      >
+                        All Clear
+                      </button>
+                    </div>
+                    <div className="">
+                      {cart.map((item, index) => {
+                        const { data } = item;
+                        return (
+                          <div
+                            key={index}
+                            className="my-5  flex w-full border rounded-md"
+                          >
+                            <div className="flex  items-center gap-2 w-full">
+                              <div>
+                                <img
+                                  src={data.ProfileImage}
+                                  alt={item.name}
+                                  className="w-[90px] h-auto rounded-[5.8px]"
+                                />
+                              </div>
+                              <div className="text-center">
+                                <h1 className="alata font-[400] text-[#111] my-0 text-[18px] leading-[28px]">
+                                  {data.name}
+                                </h1>
+                                <h1 className="alata font-[400] text-[#111] my-0 text-[18px] leading-[28px]">
+                                  {data.price}
+                                </h1>
+                                <h1 className="alata font-[400] text-[#111] my-0 text-[18px] leading-[28px]">
+                                  Quantity:1
+                                </h1>
+                              </div>
+                            </div>
+                            <button
+                              className="px-4 text-[13px] border rounded h-[25px] text-red hover:bg-[#efb3b38a] "
+                              onClick={() => handleRemoveItem(data._id)}
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="currentColor"
+                                class="w-6 h-6"
+                              >
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  d="M6 18 18 6M6 6l12 12"
+                                />
+                              </svg>
+                            </button>
+                          </div>
+                        );
+                      })}
+
+                      <div className="flex justify-between items-center mt-20">
+                        <div>
+                          <h1 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
+                            {/* {subtotalPrice} */}
+                          </h1>
+                        </div>
+                        <div>
+                          <button className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1">
+                            Checkout
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </ul>
+        </div>
+      </div>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={() => {}}>
           <Transition.Child
@@ -765,10 +963,7 @@ const LandingPage = () => {
                     {" "}
                     X
                   </Dialog.Title>
-                  <DishDetails
-                    dishID={dishID}
-                    closeModal={closeModal}
-                  />
+                  <DishDetails dishID={dishID} closeModal={closeModal} />
                 </Dialog.Panel>
               </Transition.Child>
             </div>

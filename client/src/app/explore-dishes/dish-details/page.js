@@ -139,12 +139,12 @@ const DishDetails = ({ dishID }) => {
             </div>
           </div>
           <div className="2xl:my-[20px] xl:my-[12px] my-[10px]">
-            <div className="flex justify-between">
+            <div className="">
               <div>
                 <p className="fourth_p text-[#555555]">Ingredients</p>{" "}
                 <p className="fourth_p "> {getADish?.Ingredients}</p>
               </div>
-              <div className="2xl:w-[578px] xl:w-[430px] w-[360px]">
+              <div className="2xl:my-[20px] xl:my-[12px] my-[10px]">
                 <p className="fourth_p text-[#555555]">Heating instructions</p>{" "}
                 <p className="fourth_p ">{getADish?.Heating_Instruction}</p>
               </div>
