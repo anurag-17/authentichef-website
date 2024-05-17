@@ -57,7 +57,7 @@ const DishDetails = ({ dishID }) => {
               <div className="flex justify-between pop-detail">
                 <h3>Price: {getADish?.price}</h3>
                 <h3>Weight: {getADish?.weight}</h3>
-                <h3>Portion Size: Serves 1</h3>
+                <h3>Portion Size: Serves {getADish?.portion_Size}</h3>
               </div>
               <div className="flex flex-wrap 2xl:gap-[10px] xl:gap-[8px] gap-[6px]  2xl:my-[15px] xl:my-[12px] my-[8px]">
                 <div className="pop">
