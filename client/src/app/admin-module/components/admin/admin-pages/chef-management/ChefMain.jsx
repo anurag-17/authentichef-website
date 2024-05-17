@@ -12,7 +12,7 @@ import protectedRoute from "@/app/admin-module/config/protectedRoute";
 export const headItems = [
   "S. No.",
   "Name",
-  "Specialty",
+  "Nationality",
   "Bio",
   "Images",
   "Action",
