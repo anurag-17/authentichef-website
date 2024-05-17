@@ -8,6 +8,7 @@ import AddModal from "./modal/AddModal";
 import EditModal from "./modal/EditModal";
 import DeleteUser from "./modal/DeleteModal";
 import protectedRoute from "@/app/admin-module/config/protectedRoute";
+import { ToastContainer , toast } from "react-toastify";
 
 export const headItems = [
   "S. No.",
@@ -172,12 +173,14 @@ const ChefMain = () => {
 
   useEffect(() => {
     const screenHeight = window.innerHeight;
-    const calculatedMaxHeight = screenHeight * 0.8; 
+    const calculatedMaxHeight = screenHeight * 0.8;
     setMaxHeight(`${calculatedMaxHeight}px`);
   }, []);
 
   return (
     <>
+      <ToastContainer autoClose={1000} />
+
       {isLoader && <Loader />}
       <section className="w-full">
         <div className="mx-auto">
@@ -217,7 +220,10 @@ const ChefMain = () => {
               </button>
             </div>
           </div>
-          <div className="table-container overflow-auto" style={{ maxHeight: maxHeight, marginTop: "4px" }}>
+          <div
+            className="table-container overflow-auto"
+            style={{ maxHeight: maxHeight, marginTop: "4px" }}
+          >
             <div className="outer_table">
               <table className="w-full min-w-[640px] table-auto">
                 <thead className="">

@@ -5,24 +5,20 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../../loader/Index";
 
-const AddModal = ({ closeModal }) => {
+const AddModal = ({ closeModal ,refreshData }) => {
   const token = JSON.parse(localStorage.getItem("admin_token"));
 
   const [chefData, setChefData] = useState({
     name: "",
     specialty: "",
     bio: "",
-    images: null,
+    images: [],
     bannerImage: [],
     Instagram_Link: "",
     Facebook_Link: "",
   });
   const [isLoading, setLoading] = useState(false);
-  const [isRefresh, setRefresh] = useState(false);
 
-  const refreshData = () => {
-    setRefresh(!isRefresh);
-  };
 
   const inputHandler = (e) => {
     const { name, value, files } = e.target;
@@ -95,7 +91,6 @@ const AddModal = ({ closeModal }) => {
 
   return (
     <>
-      <ToastContainer autoClose={1000} />
       <div className="">
         <form action="" className="" onSubmit={handleSubmit}>
           <div className="flex flex-col justify-center px-4 lg:px-8 py-4 ">
