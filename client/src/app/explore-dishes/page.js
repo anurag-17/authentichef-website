@@ -47,6 +47,7 @@ import {
   clearCart,
 } from "../redux/dishSlice";
 import { useDispatch, useSelector } from "react-redux";
+import "./styles.css";
 
 const ExploreDishes = () => {
   const [count, setCount] = useState(0);
@@ -424,18 +425,85 @@ const ExploreDishes = () => {
       <ToastContainer autoClose={1000} />
       <section>
         <Navbar />
-        <div class="2xl:pt-[130px] xl:pt-[90px] pt-[60px]">
-          <div class="flex justify-center 2xl:py-20 xl:py-14 lg:py-8 md:gap-2 xs:hidden  md:lg:block mnavbar 2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] mx-auto  grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 xs:gap-3 justify-items-center my-10  sm:my-6 xs:">
-            <div class="mnavbar 2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] sm:w-[642px]   xs:w-[300px]  flex justify-between mx-auto gap-4 sm:gap-3  xs:grid-cols-2 md:grid-cols-4 lg:grid-cols-7 ">
-              <div class="flex justify-center xs:flex-col xs:items-center xs:py-10">
-                <h1 className="third_head mb-4">Select Cuisine </h1>
+        <div class="2xl:pt-[130px] xl:pt-[90px] pt-[60px] ">
+          <div class="main_section 2xl:w-[1700px] xl:w-[1100px] md:w-[700px]  m-auto mt-auto">
+            <div class="flex flex-col sm:flex-row justify-center my-10 mx-6 sm:my-6 sm:{}">
+              <div class="mr-6 2xl:w-[1900px] xl:w-[1300px] lg:w-[1100px] md:w-[900px]  sm:mb-0 mb-4 ">
+                <h1 className="third_head mb-4 md:text-left text-center">
+                  Select Cuisine
+                </h1>
               </div>
 
-              <div className=" hidden lg:block flex justify-between 2xl:gap-10 xl:gap-5 lg:gap-4   items-center md:gap-4 sm:gap-6">
-                <div className=" flex 2xl:gap-3 xs:w-full xs:gap4 xl:gap-3 lg:gap-2 sm:gap-2  md:gap-2">
-                  {/* Open the modal using document.getElementById('ID').showModal() method */}
+              <div className="mnavbar 2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px]  2xl:py-[60px] xl:py-[10px] py-[40px] xs:py-[10px] mx-auto">
+                <div className="filter_div_second">
+                  <div className="select-divs flex gap-5">
+                    <div className="select-1">
+                      <select
+                        id="dietary"
+                        className="2xl:w-[126px] third_select"
+                        onChange={(e) => {
+                          handleSearchDietary(e);
+                        }}
+                      >
+                        <option value=""> All Cuisines</option>
+                        {Array.isArray(getAllCuisines) &&
+                          getAllCuisines.map((item) => (
+                            <option
+                              key={item._id}
+                              value={item._id}
+                              className="custom_dropdown_text  capitalize"
+                            >
+                              {item.title}
+                            </option>
+                          ))}
+                      </select>
+                    </div>
+                    <div className="select-1">
+                      <select
+                        id="dietary"
+                        className="2xl:w-[126px] third_select"
+                        onChange={(e) => {
+                          handleSearchDietary(e);
+                        }}
+                      >
+                        <option value=""> All Dietary</option>
+                        {Array.isArray(getAllDietary) &&
+                          getAllDietary.map((item) => (
+                            <option
+                              key={item._id}
+                              value={item._id}
+                              className="custom_dropdown_text  capitalize"
+                            >
+                              {item.title}
+                            </option>
+                          ))}
+                      </select>
+                    </div>
+                    <div className="select-1  ">
+                      <select
+                        id="moreFilters"
+                        className="2xl:w-[143px] third_select"
+                        onChange={(e) => {
+                          handleSearchMoreFilter(e);
+                        }}
+                      >
+                        <option value="">More filters</option>
+                        {Array.isArray(getAllDishtype) &&
+                          getAllDishtype.map((item) => (
+                            <option
+                              key={item._id}
+                              value={item._id}
+                              className="custom_dropdown_text  capitalize"
+                            >
+                              {item.title}
+                            </option>
+                          ))}
+                      </select>
+                    </div>
+                  </div>
+
                   <button
-                    className="2xl:w-[153px] third_select flex justify-center items-center gap-3 md:text-[12px] sm:text-[12px] md:pl-2 sm:pl-2 xs:text-[6px]"
+                    className="bt-1  2xl:w-[153px] third_select flex justify-center items-center gap-3 md:text-[12px] sm:text-[12px] md:pl-2 sm:pl-2"
                     onClick={() =>
                       document.getElementById("my_modal_3").showModal()
                     }
@@ -458,7 +526,7 @@ const ExploreDishes = () => {
                   </button>
                   <dialog
                     id="my_modal_3"
-                    className="modal relative bg-base-100 flex justify-center items-center xl:mt-52 2xl:mt-72 2xl:w-[1660px] xl:w-[1100px] lg:w-[850px] 2xl:h-[520px] xl:h-[350px] 2xl:px-[0px] 2xl:py-[75px] xl:px-[30px] xl:py-[40px] "
+                    className="modal relative bg-base-100  justify-center items-center xl:mt-52 2xl:mt-72 2xl:w-[1660px] xl:w-[1100px] lg:w-[850px] 2xl:h-[520px] xl:h-[350px] 2xl:px-[0px] 2xl:py-[75px] xl:px-[30px] xl:py-[40px] "
                   >
                     <form method="dialog" className="modal-backdrop ">
                       <button
@@ -486,10 +554,10 @@ const ExploreDishes = () => {
                     <div className=" flex flex-wrap gap-[20px]  2xl:w-[1602px] xl:w-[1200px] h-auto mx-[0px]">
                       {/* ================= Cuisines =========== */}
                       <button>
-                        <div className="dropbox">
+                        <div className="dropbox all_cuisines">
                           <Image
                             src={allCuisines}
-                            className="rounded-[5px] 2xl:w-[74px] 2xl:h-[74px] h-auto xl:w-[50px] lg:w-[] sm:w-[] w-[]"
+                            className="bt-1 rounded-[5px] 2xl:w-[74px] 2xl:h-[74px] h-auto xl:w-[50px] lg:w-[] sm:w-[] w-[]"
                           />
                           <h1>All Cuisines</h1>
                         </div>
@@ -518,7 +586,7 @@ const ExploreDishes = () => {
 
                   {/* =================Dietary========================== */}
                   <button
-                    className="2xl:w-[153px] third_select flex justify-center items-center gap-2 md:text-[12px] sm:text-[12px] md:pl-2 sm:pl-2 xs:text-[6px]"
+                    className="bt-1 2xl:w-[153px] third_select flex justify-center items-center gap-2 md:text-[12px] sm:text-[12px] md:pl-2 sm:pl-2"
                     onClick={() =>
                       document.getElementById("my_modal_4").showModal()
                     }
@@ -597,62 +665,12 @@ const ExploreDishes = () => {
                           </button>
                         ))}
                       {/* ================= Dish Type =========== */}
-
-                      {/* <div className="flex justify-between 2xl:w-[1602px] h-auto mx-auto">
-                        <div>
-                          <h1 className="alata font-[400] 2xl:text-[20px] xl:text-[14px] lg:text-[10px] sm:text-[] text-[] my-1 ">
-                            Dish Type
-                          </h1>
-                          <div className=" flex flex-wrap gap-[20px]  ">
-                            {Array.isArray(getAllDishtype) &&
-                              getAllDishtype.map((item) => (
-                                <div key={item._id} className="dropbox3">
-                                  <h1>{item.title}</h1>
-                                </div>
-                              ))}
-                          </div>
-                        </div>
-                        <div>
-                          <h1 className="alata font-[400] 2xl:text-[20px] xl:text-[14px] lg:text-[10px] sm:text-[] text-[] my-1 ">
-                            Spice Level
-                          </h1>
-                          <div className=" flex flex-wrap gap-[20px] ">
-                            {Array.isArray(getAllSpiceL) &&
-                              getAllSpiceL.map((item) => (
-                                <div key={item._id} className="dropbox3">
-                                  <h1>{item.title}</h1>
-                                </div>
-                              ))}
-                          </div>
-                        </div>
-                      </div> */}
                     </div>
                   </dialog>
-                  {/* <div className="">
-                    <select
-                      id="dietary"
-                      className="2xl:w-[126px] third_select"
-                      onChange={(e) => {
-                        handleSearchDietary(e);
-                      }}
-                    >
-                      <option value=""> All Dietary</option>
-                      {Array.isArray(getAllDietary) &&
-                        getAllDietary.map((item) => (
-                          <option
-                            key={item._id}
-                            value={item._id}
-                            className="custom_dropdown_text  capitalize"
-                          >
-                            {item.title}
-                          </option>
-                        ))}
-                    </select>
-                  </div> */}
 
                   {/* =================More Filter========================== */}
                   <button
-                    className="2xl:w-[153px] third_select flex justify-center items-center gap-2 md:text-[12px] sm:text-[12px] md:pl-2 sm:pl-2"
+                    className="bt-1 2xl:w-[153px] third_select flex justify-center items-center gap-2 md:text-[12px] sm:text-[12px] md:pl-2 sm:pl-2"
                     onClick={() =>
                       document.getElementById("my_modal_5").showModal()
                     }
@@ -769,34 +787,13 @@ const ExploreDishes = () => {
                       </div>
                     </div>
                   </dialog>
-                  {/* <div className="">
-                    <select
-                      id="moreFilters"
-                      className="2xl:w-[143px] third_select"
-                      onChange={(e) => {
-                        handleSearchMoreFilter(e);
-                      }}
-                    >
-                      <option value="">More filters</option>
-                      {Array.isArray(getAllDishtype) &&
-                        getAllDishtype.map((item) => (
-                          <option
-                            key={item._id}
-                            value={item._id}
-                            className="custom_dropdown_text  capitalize"
-                          >
-                            {item.title}
-                          </option>
-                        ))}
-                    </select>
-                  </div> */}
 
-                  <div className="relative">
-                    <svg
+                  <div className="more_filter bt-1">
+                    {/* <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
-                      strokeWidth={1.5}
+                      strokeWidth={1.5} 
                       stroke="currentColor"
                       className="w-[13px] h-[13px] absolute 2xl:right-3 2xl:top-[16px] xl:right-3 xl:top-[10px] lg:right-3 lg:top-[5px] lg:text-[8px] md:mt-1.5 sm:mt-1.5 "
                     >
@@ -805,7 +802,7 @@ const ExploreDishes = () => {
                         strokeLinejoin="round"
                         d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
                       />
-                    </svg>
+                    </svg> */}
 
                     <input
                       type="search"
@@ -819,8 +816,8 @@ const ExploreDishes = () => {
               </div>
             </div>
 
-            <div class="flex flex-col sm:flex-row justify-center my-10 mx-6 sm:my-6 sm:{}">
-              <div class="carousel gap-4 sm:gap-6 grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7">
+            <div class="flex flex-col sm:flex-row justify-center my-10 mx-6 sm:my-6 sm:{} xs:hidden">
+              <div class="carousel gap-4 sm:gap-6 xs:gap-4  grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-7">
                 <div class="">
                   <Image
                     className="rounded-[5px] w-[100%]  h-auto mcusinimg"
@@ -993,7 +990,7 @@ const ExploreDishes = () => {
           <div className="2xl:my-[20px] xl:my-[20px] my-[50px] bg-[#F9F2F2]">
             <div className="mnavbar 2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px]  2xl:py-[60px] xl:py-[60px] py-[40px] mx-auto">
               <div className="flex justify-center">
-                <div class="px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 mt-3">
+                <div class="px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 mt-3 xs:text-center">
                   <h1 class="third_head text-center text-3xl sm:text-4xl md:text-55px">
                     Explore Dishes
                   </h1>
@@ -1040,7 +1037,9 @@ const ExploreDishes = () => {
                               <h1 className="fourth_name ">
                                 {item?.chef_id?.name}
                               </h1>
-                              <p className="fourth_p text-[#6765EB]">Indian</p>
+                              <p className="fourth_p text-[#6765EB]">
+                                {item?.Cuisines_id?.title}
+                              </p>
                             </div>
                           </div>
                         </Link>
