@@ -415,14 +415,14 @@ const Navbar = () => {
                       Welcome <p>{userDetails?.firstname}</p>
                     </div>
                     <button>
-                      <Image
+                      <Image  
                         src={beg}
                         className="2xl:w-[28px] xl:w-[20px] w-[16px]"
                       />
                     </button>
                   </div>
                 ) : (
-                  <div className="flex justify-end md:gap-7 gap-2">
+                  <div className="flex justify-end md:gap-7 gap-2 xs:hidden">
                     <button onClick={handleLoginClick} className="nav_login1">
                       Log In
                     </button>

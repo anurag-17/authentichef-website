@@ -1,0 +1,97 @@
+/* styles.css */
+
+/* General Styles */
+
+.filter_div_second {
+    display: flex;
+    justify-content: end;
+}
+
+.heading {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px;
+  }
+  
+
+
+.filter_div_second .bt-1 {
+    margin-right: 11px;
+}
+
+.select-divs.flex.gap-5 {
+    display: none;
+}
+
+@media only screen and (max-width: 768px) {
+
+
+.filter_div_second {
+
+    justify-content: center;
+}
+
+.filter_div_second button.bt-1 {
+    display: none;
+}
+
+.select-divs.flex.gap-5 {
+    display: flex !important;
+}
+.more_filter.bt-1 {
+    margin-left: 10px;
+}
+
+.select-1 select {
+    padding: 4px 7px;
+    font-size: 12px;
+    width: 100%;
+}
+
+
+
+}
+
+
+
+@media only screen and (max-width: 667px) {
+    .filter_div_second {
+        flex-wrap: wrap;
+        flex-direction: column-reverse;
+    }
+
+    .more_filter.bt-1 input {
+        padding: 3px 14px;
+        width: 100%;
+    }
+
+    .more_filter.bt-1 {
+        margin-left: 0;
+        margin-bottom: 20px;
+        margin-right: 0;
+    }
+    .filter_div_second {
+        max-width: 95%;
+        margin: 0 auto;
+    }
+
+    .select-1 {
+        width: 100%;
+    }
+
+    .select-divs.flex.gap-5 {
+        gap: 0.6rem;
+    }
+
+    .select-1 select {
+        padding: 4px 7px;
+        font-size: 12px;
+    }
+
+
+
+
+}
+
+
