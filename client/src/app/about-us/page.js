@@ -21,7 +21,7 @@ const AboutUs = () => {
             <div className="2xl:w-[905px] xl:w-[500px] lg:w-[330px] w-full  text-center mx-auto">
               <h1 className="faqhead text-white 2xl:pt-[165px] xs:px-[20px] sm:px-[30px] xs:text-[18px] xl:pt-[110px] lg:pt-[80px] md:pt-[60px] sm:pt-[40px] xs:pt-[30px] pb-[80px] aboutusmaintext">
                 At authentichef, we see homemade meals as more than just food;
-                they're <span className="text-[#F38181]">journeys</span>
+                they <span className="text-[#F38181]">journeys</span>
               </h1>
               <div className="2xl:w-[635px] xl:w-[380px] xs:px-[10px] w-full xs:pb-[300px] sm:px-[30px] text-center mx-auto 2xl:mt-[30px] xl:mt-[15px] mt-[10px] xl:pt-[20px] pt-[10px]">
                 <p className="pop-head text-white pb-[200px]">
