@@ -41,22 +41,22 @@ const ChefDetails = ({ params }) => {
       url: `http://13.43.174.21:4000/api/chef/chefs/${params.slug}`,
     };
 
-    axios 
+    axios
       .request(option)
       .then((response) => {
         console.log(response.data); // Log the response to inspect its structure
         console.log(response?.data?.chef_id?.bannerImage, "bannerImage");
-        setGetAChef(response?.data?.chef);
+        setGetAChef(response?.data);
         setChefItems(response?.data?.menuItems);
         // Add the banner image URL to the state
-        setBannerImage(response?.data?.chef_id?.bannerImage);
+        setBannerImage(response?.data?.bannerImage);
       })
       .catch((error) => {
         console.log(error, "Error");
       });
   };
 
-  console.log(params.slug,"jasjdkasj")
+  console.log(params.slug, "jasjdkasj");
 
   return (
     <>
@@ -74,19 +74,13 @@ const ChefDetails = ({ params }) => {
                     <img src={getAChef?.images} className="w-full" />
                   </div>
                   <div className="flex justify-center 2xl:gap-5 xl:gap-2 gap-1 2xl:my-[20px] xl:my-[10px] my-[5px]">
-                    <Link
-                      href="https://www.facebook.com/profile.php?id=61553576243338"
-                      target="_blank"
-                    >
+                    <a href={getAChef?.Facebook_Link} target="_blank">
                       <Image src={fb} className="xl:w-[22px] w-[15px]" />
-                    </Link>
+                    </a>
 
-                    <Link
-                      href="https://www.instagram.com/authentichef"
-                      target="_blank"
-                    >
+                    <a href={getAChef?.Instagram_Link} target="_blank">
                       <Image src={insta} className="xl:w-[22px] w-[15px]" />
-                    </Link>
+                    </a>
                   </div>
                 </div>
                 <div>
@@ -94,7 +88,7 @@ const ChefDetails = ({ params }) => {
                     Chef {getAChef?.name} Menu
                   </h1>
                   <p className="fourth_p text-[#555555]">
-                    Punjabi · North Indian · South Indian · Indian · Vegetarian
+                    {/* Punjabi · North Indian · South Indian · Indian · Vegetarian */}
                   </p>
                   <div className="flex gap-3 2xl:my-[20px] xl:my-[15px] my-[10px]">
                     {/* <div className="2xl:w-[197px] 2xl:h-[37px] xl:w-[140px] xl:h-[30px] w-[130px]  h-[25px] bg-[#F3F3F3] flex justify-around items-center">
@@ -111,8 +105,14 @@ const ChefDetails = ({ params }) => {
                     </div>
                   </div>
 
-                  {/* <div className="flex gap-[50px] 2xl:my-[30px] xl:my-[20px] my-[10px]">
-                    <div className="2xl:w-[404px] xl:w-[280px] w-[204px] ">
+                  <div className="flex gap-[50px] 2xl:my-[30px] xl:my-[20px] my-[10px]">
+                    <div className=" ">
+                      <h2 className="fourth_p text-[#555555]">
+                        {getAChef?.bio}
+                      </h2>
+                      <p className="fourth_day 2xl:my-[12px] xl:my-[8px] my-[6px]"></p>
+                    </div>
+                    {/* <div className="2xl:w-[404px] xl:w-[280px] w-[204px] ">
                       <h2 className="fourth_p text-[#555555]">
                         Lorem Ipsum is simply dummy
                       </h2>
@@ -123,20 +123,8 @@ const ChefDetails = ({ params }) => {
                         unknown printer took a galley of type and scrambled it
                         to make a type specimen book.
                       </p>
-                    </div>
-                    <div className="2xl:w-[404px] xl:w-[280px] w-[204px] ">
-                      <h2 className="fourth_p text-[#555555]">
-                        Lorem Ipsum is simply dummy
-                      </h2>
-                      <p className="fourth_day 2xl:my-[12px] xl:my-[8px] my-[6px]">
-                        Lorem Ipsum is simply dummy text of the printing and
-                        typesetting industry. Lorem Ipsum has been the industrys
-                        standard dummy text ever since the 1500s, when an
-                        unknown printer took a galley of type and scrambled it
-                        to make a type specimen book.
-                      </p>
-                    </div>
-                  </div> */}
+                    </div> */}
+                  </div>
                   {/* <div className="2xl:my-[30px] ">
                     <h2 className="fourth_p text-[#555555]">
                       Lorem Ipsum is simply dummy
