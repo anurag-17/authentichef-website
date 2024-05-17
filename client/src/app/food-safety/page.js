@@ -87,7 +87,7 @@ const FoodSefty = () => {
                 </h1>
                 <p class="xs:text-[10px] sm:text-[10px] md:text-[10px] lg:text-[10px] font-[500] xl:text-[14px] 2xl:text-[16px] 2xl:w-[315px] xl:w-[210px] w-full mt-[5px]">
                   We believe that the foundation of a great dish lies in the
-                  quality of its ingredients. That's why our chefs select the
+                  quality of its ingredients. Thats why our chefs select the
                   finest specialty ingredients available, locking in flavor
                 </p>
               </div>
