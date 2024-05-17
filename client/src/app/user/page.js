@@ -2,13 +2,6 @@
 import dynamic from "next/dynamic";
 import React, { Fragment, useEffect, useState } from "react";
 import Image from "next/image";
-import logo from "../assets/logo.png";
-import food1 from "../assets/cuisine-india.png";
-import food2 from "../assets/cuisine-american.png";
-import food3 from "../assets/cuisine-mexican.png";
-import food4 from "../assets/cuisine-mediterranean.png";
-import food5 from "../assets/cuisine-italian.png";
-import food6 from "../assets/cuisine-middleEastern.png";
 import maggie from "../assets/maggie.png";
 import calen from "../assets/calender.png";
 import microweb from "../assets/microweb.png";
@@ -25,20 +18,6 @@ import plate4 from "../assets/ourcommitment-4rt.png";
 import review1 from "../assets/testimonials-chef-mayank.png";
 import review2 from "../assets/testimonials-chef-rohit.png";
 import review3 from "../assets/testimonials-chef-shubham.png";
-import Rectangle1 from "../assets/populardishes-spaghetti.png";
-import Rectangle2 from "../assets/populardishes-cheesesandwich.png";
-import Rectangle3 from "../assets/populardishes-chickenkabab.png";
-import Rectangle4 from "../assets/populardishes-paneerbuttermasala.png";
-import Rectangle5 from "../assets/populardishes-indianthali.png";
-import Rectangle6 from "../assets/populardishes-omelettesandwich.png";
-import Rectangle7 from "../assets/populardishes-chickenkabab2nd.png";
-import Rectangle8 from "../assets/populardishes-fish.png";
-import p1 from "../assets/ellipse119.png";
-import p2 from "../assets/ellipse220.png";
-import p3 from "../assets/ellipse321.png";
-import p4 from "../assets/ellipse422.png";
-import day from "../../../public/images/day.svg";
-import sidemanu from "../../../public/images/side-menu.svg";
 import "@splidejs/react-splide/css/core";
 import Link from "next/link";
 import Navbar from "../navbar";
@@ -52,7 +31,6 @@ import { Dialog, Transition } from "@headlessui/react";
 import {
   addItemToCart,
   clearCart,
-  handleClearCart,
   handleRemoveItem,
 } from "../redux/dishSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -64,11 +42,9 @@ const LandingPage = () => {
   const [isOpen, setOpen] = useState(false);
   const [getADish, setGetADish] = useState("");
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-
   const [dishID, setDishID] = useState("");
   const closeModal = () => setOpen(false);
   const dispatch = useDispatch();
-
   const { cart } = useSelector((state) => state?.userCart);
   cart.forEach((item, index) => {
     const { data } = item;
@@ -239,7 +215,9 @@ const LandingPage = () => {
                             <h1 className="fourth_name ">
                               {item?.chef_id?.name}
                             </h1>
-                            <p className="fourth_p text-[#6765EB]">Indian</p>
+                            <p className="fourth_p text-[#6765EB]">
+                              {item?.Cuisines_id?.title}
+                            </p>
                           </div>
                         </div>
                       </Link>
@@ -256,7 +234,7 @@ const LandingPage = () => {
                           </p>
                         </button>
                         {/* <button className="four_btn">
-                          <Image
+                          <img
                             alt="image"
                             src={vegan}
                             className="2xl:w-[13px] 2xl:h-[13px] lg:w-[10px] lg:h-[10px] w-[10px] h-auto"

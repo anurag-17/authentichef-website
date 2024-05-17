@@ -67,33 +67,13 @@ const DishDetails = ({ dishID }) => {
                   />
                   <h3>{getADish?.Dietary_id?.title}</h3>
                 </div>
+
                 <div className="pop">
-                  {/* <Image
-                      src={glutenfree}
-                      className="2xl:[18px] xl:w-[14px] w-[12px]"
-                    /> */}
-                  <h3>Gulten Free</h3>
-                </div>{" "}
-                <div className="pop">
-                  {/* <Image
-                      src={organic}
-                      className="2xl:[18px] xl:w-[14px] w-[12px]"
-                    /> */}
-                  <h3>Organic</h3>
-                </div>{" "}
-                <div className="pop">
-                  {/* <Image
-                      src={dairyfree}
-                      className="2xl:[18px] xl:w-[14px] w-[12px]"
-                    /> */}
-                  <h3>Dairy Free</h3>
-                </div>{" "}
-                <div className="pop">
-                  {/* <Image
-                      src={spicemedium}
-                      className="2xl:[18px] xl:w-[14px] w-[12px]"
-                    /> */}
-                  <h3>Medium</h3>
+                  <img
+                    src={getADish?.spice_level_id?.ProfileImage}
+                    className="2xl:[18px] xl:w-[14px] w-[12px]"
+                  />
+                  <h3>{getADish?.spice_level_id?.title}</h3>
                 </div>
               </div>
               <div className="flex justify-center 2xl:w-[103px] 2xl:h-[39px] xl:w-[60px] xl:h-[22px] lg:w-[50px] lg:h-[20px] border rounded-[5px] 2xl:mt-[25px] xl:mt-[20px] mt-[15px]">
