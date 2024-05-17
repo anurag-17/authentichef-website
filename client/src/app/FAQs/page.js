@@ -148,7 +148,7 @@ const FAQs = () => {
   // Function to toggle the accordion item
   const toggleAccordion = (index) => {
     setOpenIndex(index === openIndex ? null : index);
-  };
+  };    
   return (
     <>
       <section>
@@ -160,16 +160,16 @@ const FAQs = () => {
               About Authentichef
             </h2>
           </div>
-          <div className="bg-[#F38181] text-white mx-auto 2xl:w-[1129px] xl:w-[700px] lg:w-[550px] sm:w-[] w-[] 2xl:h-[210px] flex items-center 2xl:px-[30px] xl:px-[20px] lg:px-[15px] sm:px-[10px] px-[] 2xl:mt-[30px] xl:mt-[20px] lg:mt-[10px] sm:mt-[10px] mt-[] py-[12px] xl:py-[15px] 2xl:py-0">
+          <div className="bg-[#F38181] text-white mx-auto 2xl:w-[1129px] xl:w-[700px]  lg:w-[550px] sm:w-[] w-[] 2xl:h-[210px] flex items-center 2xl:px-[30px] xl:px-[20px] lg:px-[15px] sm:px-[10px] px-[] 2xl:mt-[30px] xl:mt-[20px] lg:mt-[10px] sm:mt-[10px] mt-[] py-[12px] xl:py-[15px] 2xl:py-0">
             <div className="">
-              <h1 className="nine_p xs:text-[15px] xs:center xs:mx-4 2xl:text-[20px] xl:text-[20px] md:text-[18px] sm:text-[15px]">
+              <h1 className="nine_p xs:text-[15px] xs:center xs:mx-5 2xl:text-[20px] xl:text-[20px] md:text-[18px] sm:text-[15px]">
                 What makes authentichef different from other food delivery
                 companies?
               </h1>
-              <h2 className="seven_p2 xs:text-[15px] sm:text-[15px]  2xl:text-[18px] xl:text-[18px] xs:center xs:mx-4 xs:my-2 md:my-2 md:text-[18px]">
+              <h2 className="seven_p2 xs:text-[15px] sm:text-[15px]  2xl:text-[18px] xl:text-[18px] xs:center xs:mx-5 xs:my-2 md:my-2 md:text-[18px]">
                 We believe food is not just a need; they’re journeys.
               </h2>
-              <p className="2xl:w-[981px] xl:w-[] lg:w-[] sm:w-[] w-[] seven_p2 xs:text-[15px] 2xl:text-[18px] xl:text-[18px] xs:center xs:mx-4 xs:my-2 md:my-2 md:text-[18px] xl:leading-5 2xl:leading-5 md:leading-5 sm:text-[15px]">
+              <p className="2xl:w-[981px] xl:w-[] lg:w-[]  sm:w-[] w-[] seven_p2 xs:text-[15px] 2xl:text-[18px] xl:text-[18px] xs:center xs:mx-5 xs:my-2 md:my-2 md:text-[18px] xl:leading-5 2xl:leading-5 md:leading-5 sm:text-[15px]">
                 We connect you with delicious, authentic dishes from around the
                 world, handcrafted by passionate independent chefs in the UK.
                 Each dish is a culinary adventure, inspired by traditional
@@ -183,7 +183,7 @@ const FAQs = () => {
             <h2 className="pop-head 2xl:mt-[60px] xl:mt-[40px] lg:mt-[25px] sm:mt-[20px] mt-[] my-3">
               Chef Community
             </h2>
-            <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] mx-auto mnavbar ">
+            <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px]  p-[8] mnavbar">
               <div className="2xl:w-[1129px] xl:w-[700px] lg:w-[550px] sm:w-[] w-[] mx-auto">
                 <div className="join join-vertical w-full text-start">
                   {/* Mapping through accordion items */}
