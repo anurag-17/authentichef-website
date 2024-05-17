@@ -171,8 +171,29 @@ const AboutUs = () => {
               </div>
             </div>
           </div>
-
-
+          <div className="bg-[#FFE8E8] 2xl:h-[937px] flex justify-center  2xl:py-[115px] xl:py-[60px] sm:mt-12 py-[50px] xs:mt-12 md:mt-12">
+            <div className="text-center 2xl:w-[1293px] xl:w-[870px] lg:w-[600px] sm:w-[] w-[]  mx-auto xs:mx-[10px]">
+              <h1 className="aboutHead font-[400] text-[45px]">Diversity, Equity and Inclusion</h1>
+              <p className="aboutPara 2xl:mt-[50px] xl:mt-[30px] mt-[15px]">
+                As a community-first company, we support chefs from diverse
+                communities across the UK, by connecting their dishes and
+                passion for food with customers looking to experience homemade
+                dishes.
+              </p>
+              <p className="aboutPara 2xl:mt-[30px]  xl:mt-[15px] mt-[8px] 2xl:w-[1063px] xl:w-[670px] lg:w-[520px] sm:w-[] w-[] mx-auto">
+                Diversity, Equity and Inclusion is at the heart of everything we
+                do from onboarding and supporting our chefs, working with local
+                community businesses and associations across the UK through to
+                working with partners and suppliers who uphold similar values.
+              </p>
+              <p className="aboutPara 2xl:mt-[50px] xl:mt-[30px] mt-[15px]">
+              Learn more about joining us…  
+              </p>
+              <button className="2xl:w-[240px] 2xl:h-[60px] bg-[#DB5353] text-[20px] text-white rounded-[5px]">
+                Our Chef Community
+              </button>
+            </div>
+          </div>
         </div>
         <Footer />
       </section>

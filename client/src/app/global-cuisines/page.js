@@ -103,7 +103,7 @@ const GlobalCusines = () => {
                     <div className="text-center border-e-[2px] 2xl:w-[400px] xl:px-[0px] px-[0px] ">
                       <h1 className="global_h"> Top Healthy Dishes</h1>
                       <p className="globaltext 2xl:mt-[30px] xl:mt-[20px] mt-[10px]">
-                        Lentil Shepard's Pie
+                        Lentil Shepards Pie
                       </p>
                       <p className="globaltext"> Vegan Bolognese</p>
                       <p className="globaltext"> HK Chicken Salad</p>
