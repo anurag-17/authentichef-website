@@ -233,7 +233,7 @@ const Navbar = () => {
                     <Image
                       alt="image"
                       src={sidemanu}
-                      className="2xl:w-[38.67px] 2xl:h-[32px] xl:w-[30px] h-auto w-[22px]  menu-btn md:ml-6"
+                      className="2xl:w-[38.67px] 2xl:h-[32px] xl:w-[30px] h-auto w-[22px]  menu-btn md:ml-6 lg:ml-0"
                     />
                   </label>
                 </div>
@@ -253,6 +253,13 @@ const Navbar = () => {
                     {/* Sidebar content here */}
                     <div>
                       <div className="flex justify-between items-center">
+                        <Link href="/">
+                          <Image
+                            src={sidelogo}
+                            className=" 2xl:w-[169px] 2xl:h-[43px] h-auto xl:w-[130px] lg:w-[90px] sm:w-[] w-[] "
+                          />
+                        </Link>
+
                         <label
                           htmlFor="my-drawer"
                           aria-label="close sidebar"
@@ -262,24 +269,17 @@ const Navbar = () => {
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
                             viewBox="0 0 24 24"
-                            strokeWidth={1.5}
+                            stroke-width="1.5"
                             stroke="currentColor"
-                            aria-label="close sidebar"
                             className="2xl:w-8 2xl:h-8 w-6 h-6"
                           >
                             <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M6 18 18 6M6 6l12 12"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18"
                             />
-                          </svg>{" "}
+                          </svg>
                         </label>
-                        <Link href="/">
-                          <Image
-                            src={sidelogo}
-                            className=" 2xl:w-[169px] 2xl:h-[43px] h-auto xl:w-[130px] lg:w-[90px] sm:w-[] w-[] "
-                          />
-                        </Link>
                       </div>
                     </div>
 
