@@ -412,8 +412,6 @@ const ExploreDishes = () => {
         setGetADish(response?.data);
         dispatch(addItemToCart(response));
         handleDrawerOpen();
-
-        // console.log(response?.data, "haryy");
       })
       .catch((error) => {
         console.log(error, "Error");
@@ -426,15 +424,13 @@ const ExploreDishes = () => {
       <section>
         <Navbar />
         <div class="2xl:pt-[130px] xl:pt-[90px] pt-[60px] ">
-          <div class="main_section 2xl:w-[1700px] xl:w-[1100px] md:w-[700px]  m-auto mt-auto">
-            <div class="flex flex-col sm:flex-row justify-center my-10 mx-6 sm:my-6 sm:{}">
-              <div class="mr-6 2xl:w-[1900px] xl:w-[1300px] lg:w-[1100px] md:w-[900px]  sm:mb-0 mb-4 ">
-                <h1 className="third_head mb-4 md:text-left text-center">
-                  Select Cuisine
-                </h1>
+          <div class="main_section 2xl:w-[1700px] xl:w-[1100px] md:w-[811px]  m-auto mt-auto">
+            <div class="flex flex-col md:flex-row justify-center my-10 mx-6 lg:my-6">
+              <div class="mr-6 lg:mb-0 mb-4 lg lg:w-[30%] 2xl:w-[45%] xl:w-[33%] lg:text-[2.25rem] lg:ml-[-45px] md:w-[30%] xs:text-[1.875rem] sm:text-[2.25rem] md:text-[29px]">
+                <h1 className="third_head mb-4 lg:text-left 2xl:ml-[105px] xl:ml-[19px] text-center">Select Cuisine</h1>
               </div>
 
-              <div className="mnavbar 2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px]  2xl:py-[60px] xl:py-[10px] py-[40px] xs:py-[10px] mx-auto">
+              <div className="mnavbar 2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] sm:pt-[12px] sm:pb-[4px] 2xl:pt-[21px] md:pt-[9px] md:w-[700px]  2xl:py-[60px] xl:py-[10px] lg:pt-[7px] lg:pb-[40px]  py-[40px] xs:py-[10px] mx-auto">
                 <div className="filter_div_second">
                   <div className="select-divs flex gap-5">
                     <div className="select-1">
@@ -636,7 +632,7 @@ const ExploreDishes = () => {
                     </form>
                     <div className=" flex flex-wrap gap-[20px]  2xl:w-[1602px] xl:w-[1200px] h-auto mx-[0px]">
                       {/* ================= Dietary=========== */}
-                      {/* 
+                      {/*
                       <div className=" flex flex-wrap gap-[20px]  2xl:w-[1602px] h-auto mx-auto">
                         {Array.isArray(getAllDietary) &&
                           getAllDietary.map((item) => (
@@ -793,7 +789,7 @@ const ExploreDishes = () => {
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
-                      strokeWidth={1.5} 
+                      strokeWidth={1.5}
                       stroke="currentColor"
                       className="w-[13px] h-[13px] absolute 2xl:right-3 2xl:top-[16px] xl:right-3 xl:top-[10px] lg:right-3 lg:top-[5px] lg:text-[8px] md:mt-1.5 sm:mt-1.5 "
                     >
@@ -816,8 +812,8 @@ const ExploreDishes = () => {
               </div>
             </div>
 
-            <div class="flex flex-col sm:flex-row justify-center my-10 mx-6 sm:my-6 sm:{} xs:hidden">
-              <div class="carousel gap-4 sm:gap-6 xs:gap-4  grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-7">
+            <div class="flex flex-col sm:flex-row justify-center my-10 mx-6 sm:my-6 sm:{} ">
+              <div class="carousel gap-4 sm:gap-6 xs:gap-4  grid sm:grid-cols-4  xs:grid-cols-4  md:grid-cols-4 lg:grid-cols-7">
                 <div class="">
                   <Image
                     className="rounded-[5px] w-[100%]  h-auto mcusinimg"
@@ -897,7 +893,7 @@ const ExploreDishes = () => {
                   <div className="carousel-item">
                     <div className="text-center">
                       {" "}
-                      
+                     
                       <Image
                         className="rounded-[5px] w-[195px] h-[195px] mcusinimg"
                         src={cuisineindia}
@@ -984,6 +980,7 @@ const ExploreDishes = () => {
               </div>
             </div> */}
           </div>
+
         </div>
 
         <div className="sm:col-2">
@@ -1007,7 +1004,7 @@ const ExploreDishes = () => {
                   getAllDish.map((item) => (
                     <div
                       key={item.id}
-                      className="  my-5 2xl:w-[345px] 2xl:h-[560px] lg:w-[23%]  md:w-[31%] w-[100%]  relative  rounded-[9.8px] mexploreD "
+                      className="  my-5 2xl:w-[345px] 2xl:h-[560px] lg:w-[23%] sm:w-[48%]   md:w-[48%] w-[100%]  relative  rounded-[9.8px] mexploreD "
                     >
                       <button className="" onClick={() => openModal(item._id)}>
                         <img
@@ -1318,7 +1315,7 @@ const ExploreDishes = () => {
           type="checkbox"
           className="drawer-toggle"
           checked={isDrawerOpen}
-          onChange={() => {}}
+          onChange={() => { }}
         />
 
         <div className="drawer-side">
@@ -1574,9 +1571,9 @@ const ExploreDishes = () => {
               <div className="">
                 <p className="fourth_p text-[#555555]">Description</p>{" "}
                 <p className="fourth_p 2xl:w-[890px] xl:w-[660px] w-[550px]">
-                  Lorem Ipsum is simply dummy text of the printing and
+                  Lorem Ipsum is simply dummy text of the printing and
                   typesetting industry. Lorem Ipsum has been the industrys
-                  standard dummy text ever since the 1500s, when an unknown
+                  standard dummy text ever since the 1500s, when an unknown
                   printer took a galley of type and scrambled it to make a type
                   specimen book.
                 </p>
@@ -1604,7 +1601,7 @@ const ExploreDishes = () => {
               <div className="flex justify-between">
                 <div>
                   <p className="fourth_p text-[#555555]">List of Allergens</p>{" "}
-                  <p className="fourth_p ">Dish contains i.e Celery,  Egg</p>
+                  <p className="fourth_p ">Dish contains i.e Celery,  Egg</p>
                 </div>
                 <div className="2xl:w-[578px] xl:w-[430px] w-[360px]">
                   <p className="fourth_p text-[#555555]">
@@ -1648,7 +1645,7 @@ const ExploreDishes = () => {
       </dialog>
 
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={() => {}}>
+        <Dialog as="div" className="relative z-10" onClose={() => { }}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
