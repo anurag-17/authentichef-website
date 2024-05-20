@@ -427,7 +427,9 @@ const ExploreDishes = () => {
           <div class="main_section 2xl:w-[1700px] xl:w-[1100px] md:w-[811px]  m-auto mt-auto">
             <div class="flex flex-col md:flex-row justify-center my-10 mx-6 lg:my-6">
               <div class="mr-6 lg:mb-0 mb-4 lg lg:w-[30%] 2xl:w-[45%] xl:w-[33%] lg:text-[2.25rem] lg:ml-[-45px] md:w-[30%] xs:text-[1.875rem] sm:text-[2.25rem] md:text-[29px]">
-                <h1 className="third_head mb-4 lg:text-left 2xl:ml-[105px] xl:ml-[19px] text-center">Select Cuisine</h1>
+                <h1 className="third_head mb-4 lg:text-left 2xl:ml-[105px] xl:ml-[19px] text-center">
+                  Select Cuisine
+                </h1>
               </div>
 
               <div className="mnavbar 2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] sm:pt-[12px] sm:pb-[4px] 2xl:pt-[21px] md:pt-[9px] md:w-[700px]  2xl:py-[60px] xl:py-[10px] lg:pt-[7px] lg:pb-[40px]  py-[40px] xs:py-[10px] mx-auto">
@@ -980,7 +982,6 @@ const ExploreDishes = () => {
               </div>
             </div> */}
           </div>
-
         </div>
 
         <div className="sm:col-2">
@@ -1004,7 +1005,7 @@ const ExploreDishes = () => {
                   getAllDish.map((item) => (
                     <div
                       key={item.id}
-                      className="  my-5 2xl:w-[345px] 2xl:h-[560px] lg:w-[23%] sm:w-[48%]   md:w-[48%] w-[100%]  relative  rounded-[9.8px] mexploreD "
+                      className="  my-5 2xl:w-[345px] 2xl:h-[560px] lg:w-[23%] sm:w-[48%] md:w-[48%] w-[100%]  relative  rounded-[9.8px] mexploreD "
                     >
                       <button className="" onClick={() => openModal(item._id)}>
                         <img
@@ -1012,7 +1013,7 @@ const ExploreDishes = () => {
                           alt={item.title}
                           width={345}
                           height={278}
-                          className="w-full h-auto 2xl:w-[365.5px] 2xl:h-[278px] rounded-[10px] mexplorimg"
+                          className="w-full 2xl:w-[365.5px] 2xl:h-[278px] xl:w-[280px] xl:h-[200px] lg:w-[220px] lg:h-[160px] rounded-[10px] mexplorimg"
                         />
                       </button>
                       <div className="">
@@ -1077,9 +1078,9 @@ const ExploreDishes = () => {
 
                         <div className=" w-full bottom-0 flex justify-between items-center  2xl:my-[22px] xl:my-[18px] my-[15px]">
                           <p className="alata font-[400] text-[#000] 2xl:text-[20px] 2xl:leading-[24px] xl:text-[14px] xl:leading-[18px] lg:text-[12px] lg:leading-[16px] text-[12px] leading-[16px] ">
-                            Serves 1 ({item?.weight}gm){" "}
+                            Serves 1 ({item?.weight}g){" "}
                             <span className="text-[#DB5353]">
-                              Rs.{item?.price}
+                              £{item?.price}
                             </span>
                           </p>
                           <button
@@ -1315,7 +1316,7 @@ const ExploreDishes = () => {
           type="checkbox"
           className="drawer-toggle"
           checked={isDrawerOpen}
-          onChange={() => { }}
+          onChange={() => {}}
         />
 
         <div className="drawer-side">
@@ -1403,14 +1404,14 @@ const ExploreDishes = () => {
                                   className="w-[90px] h-auto rounded-[5.8px]"
                                 />
                               </div>
-                              <div className="text-center">
+                              <div className="">
                                 <h1 className="alata font-[400] text-[#111] my-0 text-[18px] leading-[28px]">
                                   {data.name}
                                 </h1>
-                                <h1 className="alata font-[400] text-[#111] my-0 text-[18px] leading-[28px]">
-                                  {data.price}
+                                <h1 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
+                                  Price:£{data.price}
                                 </h1>
-                                <h1 className="alata font-[400] text-[#111] my-0 text-[18px] leading-[28px]">
+                                <h1 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
                                   Quantity:1
                                 </h1>
                               </div>
@@ -1601,7 +1602,7 @@ const ExploreDishes = () => {
               <div className="flex justify-between">
                 <div>
                   <p className="fourth_p text-[#555555]">List of Allergens</p>{" "}
-                  <p className="fourth_p ">Dish contains i.e Celery,  Egg</p>
+                  <p className="fourth_p ">Dish contains i.e Celery, Egg</p>
                 </div>
                 <div className="2xl:w-[578px] xl:w-[430px] w-[360px]">
                   <p className="fourth_p text-[#555555]">
@@ -1645,7 +1646,7 @@ const ExploreDishes = () => {
       </dialog>
 
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={() => { }}>
+        <Dialog as="div" className="relative z-10" onClose={() => {}}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"

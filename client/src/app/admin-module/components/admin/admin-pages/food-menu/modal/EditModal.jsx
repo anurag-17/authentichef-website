@@ -414,7 +414,6 @@ const EditModal = ({
                       name="ProfileImage"
                       onChange={handleChange}
                       accept="image/*"
-                      required
                     />
                     <p className="text-sm text-red-500 mt-1">
                       Image size should be width 345px and height 278px pixels.

@@ -55,8 +55,8 @@ const DishDetails = ({ dishID }) => {
                 <p className="pop-chef">by Chef {getADish?.chef_id?.name}</p>
               </div>
               <div className="flex justify-between pop-detail">
-                <h3>Price: {getADish?.price}</h3>
-                <h3>Weight: {getADish?.weight}</h3>
+                <h3>Price: £{getADish?.price}</h3>
+                <h3>Weight: {getADish?.weight}g</h3>
                 <h3>Portion Size: Serves {getADish?.portion_Size}</h3>
               </div>
               <div className="flex flex-wrap 2xl:gap-[10px] xl:gap-[8px] gap-[6px]  2xl:my-[15px] xl:my-[12px] my-[8px]">
@@ -125,33 +125,12 @@ const DishDetails = ({ dishID }) => {
                 <p className="fourth_p "> {getADish?.Ingredients}</p>
               </div>
               <div className="2xl:my-[20px] xl:my-[12px] my-[10px]">
-                <p className="fourth_p text-[#555555]">Heating instructions</p>{" "}
-                <p className="fourth_p ">{getADish?.Heating_Instruction}</p>
-              </div>
-            </div>
-          </div>
-          <div className="2xl:my-[20px] xl:my-[12px] my-[10px]">
-            <div className="flex justify-between">
-              <div>
-                <p className="fourth_p text-[#555555]">List of Allergens</p>{" "}
+                <p className="fourth_p text-[#555555] ">List of Allergens</p>{" "}
                 <p className="fourth_p ">{getADish?.List_of_Allergens}</p>
               </div>
-              <div className="2xl:w-[578px] xl:w-[430px] w-[360px]">
-                <p className="fourth_p text-[#555555]"></p>{" "}
-                <p className="fourth_p "></p>
-              </div>
-            </div>
-          </div>
-          <div className="2xl:my-[20px] xl:my-[12px] my-[10px]">
-            <div className="flex justify-between">
-              <div>
-                <p className="fourth_p text-[#555555]"></p>{" "}
-                <p className="fourth_p 2xl:w-[270px] xl:w-[200px] w-[160px]"></p>
-                <p className="fourth_p "></p>
-                <p className="fourth_p 2xl:w-[270px] xl:w-[200px] w-[180px]"></p>
-              </div>
-              <div className="">
-                <p className="fourth_p "></p>
+              <div className="2xl:my-[20px] xl:my-[12px] my-[10px]">
+                <p className="fourth_p text-[#555555]">Heating instructions</p>{" "}
+                <p className="fourth_p ">{getADish?.Heating_Instruction}</p>
               </div>
             </div>
           </div>

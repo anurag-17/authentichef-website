@@ -415,7 +415,7 @@ const Navbar = () => {
                       Welcome <p>{userDetails?.firstname}</p>
                     </div>
                     <button>
-                      <Image  
+                      <Image
                         src={beg}
                         className="2xl:w-[28px] xl:w-[20px] w-[16px]"
                       />
@@ -536,14 +536,14 @@ const Navbar = () => {
                                   className="w-[90px] h-auto rounded-[5.8px]"
                                 />
                               </div>
-                              <div className="text-center">
+                              <div className="">
                                 <h1 className="alata font-[400] text-[#111] my-0 text-[18px] leading-[28px]">
                                   {data.name}
                                 </h1>
-                                <h1 className="alata font-[400] text-[#111] my-0 text-[18px] leading-[28px]">
-                                  {data.price}
+                                <h1 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
+                                  Price:£{data.price}
                                 </h1>
-                                <h1 className="alata font-[400] text-[#111] my-0 text-[18px] leading-[28px]">
+                                <h1 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
                                   Quantity:1
                                 </h1>
                               </div>
