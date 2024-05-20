@@ -147,7 +147,7 @@ const BecomeChef = () => {
                             Registration Assistance
                           </h1>
                           <p className="become-para mt-[5px] xl:mt-[10px] 2xl:mt-[15px]">
-                            We'll expertly guide you through the registration
+                            We expertly guide you through the registration
                             process with your local council, ensuring a smooth
                             start for your food business.
                           </p>
