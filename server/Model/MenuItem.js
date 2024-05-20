@@ -64,11 +64,10 @@ const menuItemSchema = new mongoose.Schema(
 
     // Add Nutrition Id and send a Multiple //
     
-    Nutrition_id: [{
+    Nutrition_id:{
       type: mongoose.Schema.Types.ObjectId,
       ref: "Nutritional",
-    }
-    ],
+    },
 
 
 

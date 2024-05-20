@@ -179,7 +179,7 @@ exports.updateMenuItemById = async (req, res, next) => {
       }
 
          // Ensure fields that should be arrays are treated as arrays
-         const arrayFields = [ 'Dietary_id', 'Nutrition_id'];
+         const arrayFields = [ 'Dietary_id'];
          arrayFields.forEach(field => {
              if (req.body[field] && !Array.isArray(req.body[field])) {
                  req.body[field] = [req.body[field]];
@@ -276,7 +276,7 @@ exports.getMenuItemByParams = async (req, res, next) => {
     if (Dishtype_id) query.Dishtype_id = Dishtype_id;
     if (Dietary_id) query.Dietary_id = { $in: Array.isArray(Dietary_id) ? Dietary_id : [Dietary_id] };
     if (spice_level_id) query.spice_level_id = spice_level_id;
-    if (Nutrition_id) query.Nutrition_id = { $in: Array.isArray(Nutrition_id) ? Nutrition_id : [Nutrition_id] };
+    if(Nutrition_id) query.Nutrition_id = Nutrition_id
 
     // Find documents matching the query
     const menuItem = await MenuItem.find(query)
