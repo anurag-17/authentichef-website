@@ -280,9 +280,7 @@ const ChefDetails = ({ params }) => {
                       <div className=" w-full bottom-0 flex justify-between items-center  2xl:my-[22px] xl:my-[18px] my-[15px]">
                         <p className="alata font-[400] text-[#000] 2xl:text-[20px] 2xl:leading-[24px] xl:text-[14px] xl:leading-[18px] lg:text-[12px] lg:leading-[16px] text-[12px] leading-[16px] ">
                           Serves {item?.portion_Size} || {item?.weight}g{" "}
-                          <span className="text-[#DB5353]">
-                          £{item?.price}
-                          </span>
+                          <span className="text-[#DB5353]">£{item?.price}</span>
                         </p>
                         <button
                           onClick={() => {
@@ -486,7 +484,7 @@ const ChefDetails = ({ params }) => {
                     onClick={closeModal}
                     className="cursor-pointer custom_heading_text font-semibold leading-6 text-gray-900 mt lg:mt-0 absolute right-5 text-[30px]"
                   >
-                     <svg
+                    <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"

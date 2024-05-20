@@ -1044,23 +1044,29 @@ const ExploreDishes = () => {
 
                         <div className="flex gap-5 2xl:my-[20px] xl:my-[15px] my-[12px]">
                           <button className="four_btn">
-                            <Image
-                              alt="image"
-                              src={vegetarian}
-                              className="2xl:w-[13px] 2xl:h-[13px] lg:w-[10px] lg:h-[10px] w-[10px] h-auto"
+                            <img
+                              src={item?.Dietary_id[0]?.ProfileImage}
+                              className="2xl:[18px] xl:w-[14px] w-[12px]"
                             />
                             <p className="fourth_day">
-                              {item?.Dietary_id?.title}
+                              {item?.Dietary_id[0]?.title}
                             </p>
                           </button>
-                          <button className="four_btn">
+                          {/* <button className="four_btn">
                             <Image
                               alt="image"
                               src={vegan}
                               className="2xl:w-[13px] 2xl:h-[13px] lg:w-[10px] lg:h-[10px] w-[10px] h-auto"
                             />
                             <p className="fourth_day">Vegan</p>
-                          </button>
+                          </button> */}
+                          <div className="pop">
+                            {/* <img
+                    src={getADish?.spice_level_id?.ProfileImage}
+                    className="2xl:[18px] xl:w-[14px] w-[12px]"
+                  /> */}
+                            <h3>{item?.Nutrition_id?.Nutritional}</h3>
+                          </div>
                         </div>
                         <div className="flex items-center gap-5  2xl:my-[20px] xl:my-[15px] my-[12px]">
                           <h1 className="fourth_p">Spice level</h1>
@@ -1080,7 +1086,7 @@ const ExploreDishes = () => {
                           <p className="alata font-[400] text-[#000] 2xl:text-[20px] 2xl:leading-[24px] xl:text-[14px] xl:leading-[18px] lg:text-[12px] lg:leading-[16px] text-[12px] leading-[16px] ">
                             Serves 1 ({item?.weight}g){" "}
                             <span className="text-[#DB5353]">
-                            £{item?.price}
+                              £{item?.price}
                             </span>
                           </p>
                           <button
@@ -1442,7 +1448,7 @@ const ExploreDishes = () => {
                       <div className="flex justify-between items-center mt-20">
                         <div>
                           <h1 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
-                            {/ {subtotalPrice} /}
+                            {/* {subtotalPrice} */}
                           </h1>
                         </div>
                         <div>

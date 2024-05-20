@@ -11,6 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import config from "@/config";
 
 const Footer = () => {
   const router = useRouter();
@@ -48,7 +49,7 @@ const Footer = () => {
     // setLoader(true);
     try {
       const res = await axios.post(
-        "http://13.43.174.21:4000/api/auth/login",
+        `${config.baseURL}/api/auth/login`,
         loginDetails,
         {
           headers: {
@@ -83,7 +84,7 @@ const Footer = () => {
 
   const handleLogout = async () => {
     try {
-      const res = await axios.get("http://13.43.174.21:4000/api/auth/logout", {
+      const res = await axios.get(`${config.baseURL}/api/auth/logout`, {
         headers: {
           Authorization: token,
         },
