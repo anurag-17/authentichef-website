@@ -48,10 +48,10 @@ const menuItemSchema = new mongoose.Schema(
       ref: "DishType"
     },
 
-    Dietary_id:{
+    Dietary_id:[{
       type:mongoose.Schema.Types.ObjectId,
       ref:'Dietary'
-    },
+    }],
     spice_level_id:{
       type:mongoose.Schema.Types.ObjectId,
       ref:'SpiceLevel'
@@ -61,6 +61,16 @@ const menuItemSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Chef",
     },
+
+    // Add Nutrition Id and send a Multiple //
+    
+    Nutrition_id: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Nutritional",
+    }
+    ],
+
+
 
 
     ProfileImage: {

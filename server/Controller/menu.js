@@ -47,7 +47,7 @@ exports.upload = upload;
 exports.createMenuItem = async (req, res) => {
   try {
 
-    const { name, description, price, weight, portion_Size, Ingredients, Heating_Instruction, List_of_Allergens, Cuisines_id, Dishtype_id, Dietary_id, spice_level_id, chef_id, popular_dish } = req.body;
+    const { name, description, price, weight, portion_Size, Ingredients, Heating_Instruction, List_of_Allergens, Cuisines_id, Dishtype_id, Dietary_id, spice_level_id, chef_id, popular_dish , Nutrition_id} = req.body;
 
     // Access the uploaded files from req.files
     const profileImages = req.files['ProfileImage'];
@@ -91,6 +91,7 @@ exports.createMenuItem = async (req, res) => {
       Dietary_id,
       spice_level_id,
       chef_id,
+      Nutrition_id,
       popular_dish: popular_dish || 'No',
       ProfileImage: imageUrls
     });
@@ -114,7 +115,10 @@ exports.getAllMenuItems = async (req, res, next) => {
     const currentPage = parseInt(page, 10);
     const itemsPerPage = parseInt(limit, 10);
 
-    let menuItemQuery = MenuItem.find().populate("chef_id").populate("Cuisines_id").populate("Dishtype_id").populate("Dietary_id").populate("spice_level_id");
+    let menuItemQuery = MenuItem.find().populate("chef_id").populate("Cuisines_id")
+                      .populate("Dishtype_id").populate("Dietary_id")
+                      .populate("spice_level_id")
+                      .populate("Nutrition_id")
 
     if (search) {
       menuItemQuery = menuItemQuery.or([
@@ -150,7 +154,10 @@ exports.getMenuItemById = async (req, res, next) => {
   const { id } = req.params;
 
   try {
-    const menuItem = await MenuItem.findById(id).populate("chef_id").populate("Cuisines_id").populate("Dishtype_id").populate("Dietary_id").populate("spice_level_id");
+    const menuItem = await MenuItem.findById(id).populate("chef_id")
+                    .populate("Cuisines_id").populate("Dishtype_id")
+                    .populate("Dietary_id").populate("spice_level_id")
+                    .populate("Nutrition_id");
     if (!menuItem) {
       return res.status(404).json({ error: 'Menu item not found' });
     }
@@ -170,6 +177,14 @@ exports.updateMenuItemById = async (req, res, next) => {
       if (!menuItem) {
           return res.status(404).json({ error: 'Menu item not found' });
       }
+
+         // Ensure fields that should be arrays are treated as arrays
+         const arrayFields = [ 'Dietary_id', 'Nutrition_id'];
+         arrayFields.forEach(field => {
+             if (req.body[field] && !Array.isArray(req.body[field])) {
+                 req.body[field] = [req.body[field]];
+             }
+         });
 
       // Update menu item details
       const updatedMenuItem = await MenuItem.findByIdAndUpdate(id, req.body, { new: true });
@@ -252,15 +267,16 @@ exports.deleteMenuItemById = async (req, res, next) => {
 
 
 exports.getMenuItemByParams = async (req, res, next) => {
-  const { Cuisines_id, Dishtype_id, Dietary_id, spice_level_id } = req.query;
+  const { Cuisines_id, Dishtype_id, Dietary_id, spice_level_id ,Nutrition_id } = req.query;
 
   try {
     // Construct query object based on provided parameters
     const query = {};
     if (Cuisines_id) query.Cuisines_id = Cuisines_id;
     if (Dishtype_id) query.Dishtype_id = Dishtype_id;
-    if (Dietary_id) query.Dietary_id = Dietary_id;
+    if (Dietary_id) query.Dietary_id = { $in: Array.isArray(Dietary_id) ? Dietary_id : [Dietary_id] };
     if (spice_level_id) query.spice_level_id = spice_level_id;
+    if (Nutrition_id) query.Nutrition_id = { $in: Array.isArray(Nutrition_id) ? Nutrition_id : [Nutrition_id] };
 
     // Find documents matching the query
     const menuItem = await MenuItem.find(query)
@@ -269,6 +285,7 @@ exports.getMenuItemByParams = async (req, res, next) => {
       .populate('Dietary_id')
       .populate('spice_level_id')
       .populate('chef_id')
+      .populate('Nutrition_id')
       .exec();
 
     // Count the number of documents matching the query
@@ -287,7 +304,7 @@ exports.getMenuItemsByChefId = async (req, res, next) => {
   
 
   try {
-    const menuItems = await MenuItem.find({ chef_id }).populate('Cuisines_id Dishtype_id Dietary_id spice_level_id chef_id').exec();
+    const menuItems = await MenuItem.find({ chef_id }).populate('Cuisines_id Dishtype_id Dietary_id spice_level_id chef_id Nutrition_id ').exec();
 
     if (!menuItems || menuItems.length === 0) {
       return res.status(404).json({ error: 'Menu items not found' });
@@ -306,7 +323,9 @@ exports.getPopularDish = async (req, res) => {
 
   try {
     const popularDish = await MenuItem.find({  popular_dish: 'Yes' })
-    .populate("chef_id").populate("Cuisines_id").populate("Dishtype_id").populate("Dietary_id").populate("spice_level_id");
+    .populate("chef_id").populate("Cuisines_id")
+    .populate("Dishtype_id").populate("Dietary_id")
+    .populate("spice_level_id").populate("Nutrition_id");
 
     if (!popularDish || popularDish.length === 0) {
       return res.status(404).json({ error: 'Popular dish not found' });
