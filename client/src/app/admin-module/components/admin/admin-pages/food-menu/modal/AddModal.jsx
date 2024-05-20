@@ -25,7 +25,7 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
     Heating_Instruction: "",
     List_of_Allergens: "",
     Dishtype_id: "",
-    Dietary_id: "",
+    Dietary_id: [],
     Nutrition_id: "",
     spice_level_id: "",
     chef_id: "",
@@ -33,14 +33,23 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
     popular_dish: "",
     Cuisines_id: "",
   });
+  console.log(menuItem);
 
   const refreshData = () => {
     setRefresh(!isRefresh);
   };
 
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setMenuItem({ ...menuItem, [name]: value });
+  // };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setMenuItem({ ...menuItem, [name]: value });
+    setMenuItem((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
   const handleImageChange = (e) => {
@@ -56,7 +65,6 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const formData = new FormData();
       formData.append("name", menuItem.name);
@@ -69,21 +77,23 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
       formData.append("List_of_Allergens", menuItem.List_of_Allergens);
 
       // Append dropdown values
-      formData.append("Dishtype_id", menuItem.Dishtype_id);
-      formData.append("Dietary_id", menuItem.Dietary_id);
+          menuItem.Dietary_id.forEach((id) => {
+            formData.append("Dietary_id[]", id);
+          })
       formData.append("spice_level_id", menuItem.spice_level_id);
       formData.append("chef_id", menuItem.chef_id);
       formData.append("Cuisines_id", menuItem.Cuisines_id);
+
       // Append popular_dish
       formData.append("popular_dish", menuItem.popular_dish);
-      // Append ProfileImage
+
       // Append ProfileImage
       for (let i = 0; i < menuItem.ProfileImage.length; i++) {
         formData.append("ProfileImage", menuItem.ProfileImage[i]);
       }
 
       const response = await axios.post(
-        `${config.baseURL}/api/menu/menuItems`,
+        "http://localhost:4000/api/menu/menuItems",
         formData,
         {
           headers: {
@@ -171,7 +181,7 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
     fetchDishTypes();
   }, []);
 
-  const [dietaries, setDietaries] = useState([]);
+  const [dietaries, setDietaries] = useState();
 
   useEffect(() => {
     async function fetchDietaries() {
@@ -210,9 +220,7 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
   useEffect(() => {
     async function fetchChefs() {
       try {
-        const response = await axios.get(
-          `${config.baseURL}/api/chef/chefs`
-        );
+        const response = await axios.get(`${config.baseURL}/api/chef/chefs`);
         setChefs(response.data.chefs);
       } catch (error) {
         console.error("Error fetching chefs:", error);
@@ -226,6 +234,26 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
     const { checked } = e.target;
     const newValue = checked ? "Yes" : "No"; // Set value to "No" when unchecked
     setMenuItem({ ...menuItem, popular_dish: newValue });
+  };
+
+  const handleDietaryChange = (e) => {
+    const value = e.target.value;
+    if (value && !menuItem.Dietary_id.includes(value)) {
+      setMenuItem((prevState) => ({
+        ...prevState,
+        Dietary_id: [...prevState.Dietary_id, value],
+      }));
+    }
+  };
+
+  const removeDietary = (index) => {
+    const updatedDietary = [...menuItem.Dietary_id];
+    updatedDietary.splice(index, 1);
+
+    setMenuItem({
+      ...menuItem,
+      Dietary_id: updatedDietary,
+    });
   };
 
   return (
@@ -367,29 +395,86 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
               ))}
           </select>
         </div>
-        <div className="mb-4">
-          <label className="block mb-1" htmlFor="dietary">
-            Dietary:
-          </label>
-          <select
-            id="dietary"
-            name="Dietary_id"
-            value={menuItem.Dietary_id}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border rounded mt-[10px]"
-            required
-          >
-            <option value="">Select Dietary</option>
-            {Array.isArray(dietaries) &&
-              dietaries.map((dietary) => (
-                <option key={dietary._id} value={dietary._id}>
-                  {dietary.title}
-                </option>
-              ))}
-          </select>
+
+        {/* <div>
+          <div className="mb-4">
+            <label className="block mb-1" htmlFor="dietary">
+              Dietary:
+            </label>
+            <select
+              id="dietary"
+              name="Dietary_id"
+              value={menuItem.Dietary_id}
+              onChange={handleChange}
+              className="w-full px-3 py-2 border rounded mt-[10px]"
+              required
+            >
+              <option value="">Select Dietary</option>
+              {Array.isArray(dietaries) &&
+                dietaries.map((dietary, inx) => (
+                  <option key={inx} value={dietary._id}>
+                    {dietary.title}
+                  </option>
+                ))}
+            </select>
+            <div className="grid md:grid-cols-2 flex-col gap-3 justify-between w-full px-2 py-2">
+              {Array.isArray(menuItem) &&
+                menuItem?.Dietary_id?.length > 0 &&
+                menuItem?.Dietary_id?.map((item, inx) => (
+                  <p className="flex gap-x-2 text-[14px]" key={inx}>
+                    <span className="max-w-[150px] text-ellipsis overflow-hidden flex whitespace-nowrap capitalize">
+                      <b className="mr-2">{inx + 1}.</b> {item}
+                    </span>
+                    <span
+                      className="cursor-pointer font-medium"
+                      onClick={() => removeDietary(inx)}
+                    >
+                      x
+                    </span>
+                  </p>
+                ))}
+            </div>
+          </div>
+        </div> */}
+        <div>
+          <div className="mb-4">
+            <label className="block mb-1" htmlFor="dietary">
+              Dietary:
+            </label>
+            <select
+              id="dietary"
+              name="Dietary_id"
+              value=""
+              onChange={handleDietaryChange}
+              className="w-full px-3 py-2 border rounded mt-[10px]"
+            >
+              <option value="">Select Dietary</option>
+              {Array.isArray(dietaries) &&
+                dietaries.map((dietary, index) => (
+                  <option key={index} value={dietary._id}>
+                    {dietary.title}
+                  </option>
+                ))}
+            </select>
+            <div className="grid md:grid-cols-2 flex-col gap-3 justify-between w-full px-2 py-2">
+              {Array.isArray(menuItem.Dietary_id) &&
+                menuItem.Dietary_id.length > 0 &&
+                menuItem.Dietary_id.map((item, index) => (
+                  <p className="flex gap-x-2 text-[14px]" key={index}>
+                    <span className="max-w-[150px] text-ellipsis overflow-hidden flex whitespace-nowrap capitalize">
+                      <b className="mr-2">{index + 1}.</b> {item}
+                    </span>
+                    <span
+                      className="cursor-pointer font-medium"
+                      onClick={() => removeDietary(index)}
+                    >
+                      x
+                    </span>
+                  </p>
+                ))}
+            </div>
+          </div>
         </div>
-
-
 
         <div className="mb-4">
           <label className="block mb-1" htmlFor="dietary">
@@ -412,7 +497,6 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
               ))}
           </select>
         </div>
-
 
         <div className="mb-4">
           <label className="block mb-1" htmlFor="spiceLevel">
