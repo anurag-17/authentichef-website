@@ -171,6 +171,7 @@ const PrivacyPolicy = () => {
               basis that we rely on to process such information.
             </p>
             <div className="2xl:my-10 m">
+            <div className="overflow-x-auto">
               <table className="table border text-[#000000]">
                 {/* head */}
                 <thead className="text-[#000000] 2xl:text-[25px] ">
@@ -309,6 +310,7 @@ const PrivacyPolicy = () => {
                   </tr>
                 </tbody>
               </table>
+              </div>
             </div>
 
             <h3 className="font-semibold mb-2 privacyText">

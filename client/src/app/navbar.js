@@ -219,7 +219,6 @@ const Navbar = () => {
           <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[800px] w-full px-10 md:px-0  flex justify-between items-center mnavbar">
             <div className="w-1/3">
               {/* =======Side Drawer======= */}
-
               <div className="drawer">
                 <input
                   id="my-drawer"
@@ -229,7 +228,6 @@ const Navbar = () => {
                 <div className="drawer-content bg-transparent">
                   {/* Page content here */}
                   <label htmlFor="my-drawer">
-                    {" "}
                     <Image
                       alt="image"
                       src={sidemanu}
@@ -243,23 +241,16 @@ const Navbar = () => {
                     aria-label="close sidebar"
                     className="drawer-overlay"
                   ></label>
-                  <ul
-                    className="menu 
-                    2xl:p-[12px] xl:p-[8] lg:p-[2] sm:p-[5] p-[3]
-                    2xl:px-[20px] xl:px-[20] lg:px-[15] sm:px-[5] px-[3]
-                    2xl:w-[410px] xl:w-[320px] lg:w-[240px] sm:w-[] min-h-full bg-base-200
-                    sidebar"
-                  >
+                  <ul className="menu p-[3px] 2xl:px-[20px] xl:px-[20px] lg:px-[15px] sm:px-[5px] px-[3px] 2xl:w-[410px] xl:w-[320px] lg:w-[240px] sm:w-[200px] w-[180px] min-h-full bg-base-200 sidebar">
                     {/* Sidebar content here */}
                     <div>
                       <div className="flex justify-between items-center">
                         <Link href="/">
                           <Image
                             src={sidelogo}
-                            className=" 2xl:w-[169px] 2xl:h-[43px] h-auto xl:w-[130px] lg:w-[90px] sm:w-[] w-[] "
+                            className="2xl:w-[169px] 2xl:h-[43px] xl:w-[160px] lg:w-[150px] xs:w-[103px] md:w-[130px] sm:w-[70px] w-[60px]"
                           />
                         </Link>
-
                         <label
                           htmlFor="my-drawer"
                           aria-label="close sidebar"
@@ -269,13 +260,13 @@ const Navbar = () => {
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
                             viewBox="0 0 24 24"
-                            stroke-width="1.5"
+                            strokeWidth="1.5"
                             stroke="currentColor"
                             className="2xl:w-8 2xl:h-8 w-6 h-6"
                           >
                             <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
                               d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18"
                             />
                           </svg>
@@ -283,65 +274,64 @@ const Navbar = () => {
                       </div>
                     </div>
 
-                    <li className="2xl:mt-[90px] xl:mt-[50px] lg:mt-[40px] sm:mt-[30px] mt-[]">
+                    <li className="2xl:mt-[90px] xl:mt-[50px] lg:mt-[40px] sm:mt-[30px] mt-[20px]">
                       <Link href="/setting">
                         <Image
                           src={profile}
-                          className="2xl:w-[20px] 2xl:h-[20px] h-auto xl:w-[16px] lg:w-[12px]"
+                          className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[10px] w-[8px]"
                         />
                         Profile
                       </Link>
                     </li>
-                    <li className=" 2xl:mt-[5px] xl:mt-[2px] lg:mt-[0px] sm:mt-[8px] mt-[]">
+                    <li className="2xl:mt-[5px] xl:mt-[2px] lg:mt-[0px] sm:mt-[8px] mt-[5px]">
                       <Link href="about-us">
                         <Image
                           src={aboutauthentichef}
-                          className="2xl:w-[20px] 2xl:h-[20px] h-auto xl:w-[16px] lg:w-[12px]"
+                          className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[10px] w-[8px]"
                         />
                         About Authentichef
                       </Link>
                     </li>
-                    <li className=" 2xl:mt-[5px] xl:mt-[2px] lg:mt-[0px] sm:mt-[8px] mt-[] ">
+                    <li className="2xl:mt-[5px] xl:mt-[2px] lg:mt-[0px] sm:mt-[8px] mt-[5px]">
                       <Link href="/explore-dishes">
                         <Image
                           src={exploredish}
-                          className="2xl:w-[20px] 2xl:h-[20px] h-auto xl:w-[16px] lg:w-[12px]"
+                          className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[10px] w-[8px]"
                         />
                         Explore Dishes
                       </Link>
                     </li>
-                    <li className=" 2xl:mt-[5px] xl:mt-[2px] lg:mt-[0px] sm:mt-[8px] mt-[]">
+                    <li className="2xl:mt-[5px] xl:mt-[2px] lg:mt-[0px] sm:mt-[8px] mt-[5px]">
                       <Link href="/become-chef">
                         <Image
                           src={beacomechef}
-                          className="2xl:w-[20px] 2xl:h-[20px] h-auto xl:w-[16px] lg:w-[12px]"
+                          className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[10px] w-[8px]"
                         />
                         Become a Chef
                       </Link>
                     </li>
-
-                    <li className=" 2xl:mt-[5px] xl:mt-[2px] lg:mt-[0px] sm:mt-[8px] mt-[]">
+                    <li className="2xl:mt-[5px] xl:mt-[2px] lg:mt-[0px] sm:mt-[8px] mt-[5px]">
                       <a href="/FAQs">
                         <Image
                           src={faq}
-                          className="2xl:w-[20px] 2xl:h-[20px] h-auto xl:w-[16px] lg:w-[12px]"
+                          className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[10px] w-[8px]"
                         />
                         FAQs
                       </a>
                     </li>
 
-                    <hr className=" mx-auto 2xl:w-[345px] xl:w-[260px] lg:w-[180px] sm:w-[] w-[] 2xl:mt-[75px] xl:mt-[40px] lg:mt-[20px] sm:mt-[] mt-[]" />
-                    <div className="text-center 2xl:mt-[35px] xl:mt-[15px] lg:mt-[10px] sm:mt-[8px] mt-[]">
-                      <div className="flex justify-center md:gap-11 gap-2 md:ml-6">
+                    <hr className="mx-auto 2xl:w-[345px] xl:w-[260px] lg:w-[180px] sm:w-[140px] w-[120px] 2xl:mt-[75px] xl:mt-[40px] lg:mt-[20px] sm:mt-[15px] mt-[10px]" />
+                    <div className="text-center 2xl:mt-[35px] xl:mt-[15px] lg:mt-[10px] sm:mt-[8px] mt-[5px]">
+                      <div className="flex justify-center md:gap-11 gap-2 md:ml-6 lg:ml-0">
                         {isLoggedIn === success ? (
                           <div>
-                            <p className="text-[#555555] alata font-[400] 2xl:text-[14px] xl:text-[10px] lg:text-[9px] sm:text-[10px] text-[] 2xl:leading-[26px] xl:leading-[22px] lg:leading-[16px] sm:leading-[16px] leading-[]">
+                            <p className="text-[#555555] font-alata font-[400] 2xl:text-[14px] xl:text-[10px] lg:text-[9px] sm:text-[10px] text-[8px] 2xl:leading-[26px] xl:leading-[22px] lg:leading-[16px] sm:leading-[16px] leading-[14px]">
                               Welcome {userDetails?.firstname}
                             </p>
                             <div className="flex justify-center items-center gap-1">
                               <Image
                                 src={logout}
-                                className="2xl:w-[17px] 2xl:h-[17px] h-auto xl:w-[12px] lg:w-[10px] sm:w-[] w-[] "
+                                className="2xl:w-[17px] 2xl:h-[17px] xl:w-[12px] lg:w-[10px] sm:w-[8px] w-[6px]"
                               />
                               <button
                                 onClick={handleLogout}
@@ -352,8 +342,8 @@ const Navbar = () => {
                             </div>
                           </div>
                         ) : (
-                          <div className=" md:gap-7 gap-2">
-                            <p className="text-[#555555] alata font-[400] 2xl:text-[14px] xl:text-[10px] lg:text-[9px] sm:text-[10px] text-[] 2xl:leading-[26px] xl:leading-[22px] lg:leading-[16px] sm:leading-[16px] leading-[]">
+                          <div className="md:gap-7 gap-2">
+                            <p className="text-[#555555] font-alata font-[400] 2xl:text-[14px] xl:text-[10px] lg:text-[9px] sm:text-[10px] text-[8px] 2xl:leading-[26px] xl:leading-[22px] lg:leading-[16px] sm:leading-[16px] leading-[14px]">
                               Welcome
                             </p>
                             <button
@@ -368,9 +358,6 @@ const Navbar = () => {
                               className="fourth_p text-[#DB5353]"
                             >
                               Sign Up
-                            </button>
-                            <button>
-                              {/* Add your Image component here */}
                             </button>
                           </div>
                         )}
