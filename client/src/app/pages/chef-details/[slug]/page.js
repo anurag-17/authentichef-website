@@ -203,7 +203,7 @@ const ChefDetails = ({ params }) => {
           <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px] mx-auto mnavbar">
             <div className="">
               <div>
-                <h1 className="third_head">Popular Dishes</h1>
+                <h1 className="third_head">Chef Dishes</h1>
               </div>
             </div>
             <div className=" flex flex-wrap gap-[20px] xl:gap-[25px] 2xl:gap-[70px] w-full px-10 md:px-0 mx-auto">
@@ -219,7 +219,7 @@ const ChefDetails = ({ params }) => {
                         alt={item.title}
                         width={345}
                         height={278}
-                        className="w-full h-auto 2xl:w-[365.5px] 2xl:h-[278px] rounded-[10px]"
+                        className="w-full 2xl:w-[365.5px] 2xl:h-[278px] xl:w-[280px] xl:h-[200px] lg:w-[220px] lg:h-[160px] rounded-[10px]"
                       />
                     </button>
                     <div className="">
@@ -279,9 +279,9 @@ const ChefDetails = ({ params }) => {
 
                       <div className=" w-full bottom-0 flex justify-between items-center  2xl:my-[22px] xl:my-[18px] my-[15px]">
                         <p className="alata font-[400] text-[#000] 2xl:text-[20px] 2xl:leading-[24px] xl:text-[14px] xl:leading-[18px] lg:text-[12px] lg:leading-[16px] text-[12px] leading-[16px] ">
-                          Serves {item?.portion_Size} || {item?.weight}gm{" "}
+                          Serves {item?.portion_Size} || {item?.weight}g{" "}
                           <span className="text-[#DB5353]">
-                            Rs.{item?.price}
+                          £{item?.price}
                           </span>
                         </p>
                         <button
@@ -400,14 +400,14 @@ const ChefDetails = ({ params }) => {
                                   className="w-[90px] h-auto rounded-[5.8px]"
                                 />
                               </div>
-                              <div className="text-center">
+                              <div className="">
                                 <h1 className="alata font-[400] text-[#111] my-0 text-[18px] leading-[28px]">
                                   {data.name}
                                 </h1>
-                                <h1 className="alata font-[400] text-[#111] my-0 text-[18px] leading-[28px]">
-                                  {data.price}
+                                <h1 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
+                                  Price:£{data.price}
                                 </h1>
-                                <h1 className="alata font-[400] text-[#111] my-0 text-[18px] leading-[28px]">
+                                <h1 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
                                   Quantity:1
                                 </h1>
                               </div>

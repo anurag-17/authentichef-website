@@ -28,11 +28,7 @@ import axios from "axios";
 import addCart from "../../../public/images/addCart.svg";
 import DishDetails from "../explore-dishes/dish-details/page";
 import { Dialog, Transition } from "@headlessui/react";
-import {
-  addItemToCart,
-  clearCart,
-  handleRemoveItem,
-} from "../redux/dishSlice";
+import { addItemToCart, clearCart, handleRemoveItem } from "../redux/dishSlice";
 import { useDispatch, useSelector } from "react-redux";
 import config from "@/config";
 
@@ -194,7 +190,7 @@ const LandingPage = () => {
                         <img
                           alt="spaghetti"
                           src={item?.ProfileImage[0]}
-                          className="four_img "
+                          className="four_img 2xl:w-[365.5px] 2xl:h-[278px] xl:w-[280px] xl:h-[200px] lg:w-[220px] lg:h-[160px]"
                         />
                       </button>
                     </div>
@@ -233,14 +229,6 @@ const LandingPage = () => {
                             {item?.Dietary_id?.title}
                           </p>
                         </button>
-                        {/* <button className="four_btn">
-                          <img
-                            alt="image"
-                            src={vegan}
-                            className="2xl:w-[13px] 2xl:h-[13px] lg:w-[10px] lg:h-[10px] w-[10px] h-auto"
-                          />
-                          <p className="fourth_day">Vegan</p>
-                        </button> */}
                       </div>
                       <div className="flex items-center gap-5  2xl:my-[20px] xl:my-[15px] my-[12px]">
                         <h1 className="fourth_p">Spice level</h1>
@@ -258,10 +246,8 @@ const LandingPage = () => {
 
                       <div className=" w-full bottom-0 flex justify-between items-center  2xl:my-[22px] xl:my-[18px] my-[15px]">
                         <p className="alata font-[400] text-[#000] 2xl:text-[20px] 2xl:leading-[24px] xl:text-[14px] xl:leading-[18px] lg:text-[12px] lg:leading-[16px] text-[12px] leading-[16px] ">
-                          Serves 1 ({item?.weight}gm){" "}
-                          <span className="text-[#DB5353]">
-                            Rs.{item?.price}
-                          </span>
+                          Serves 1 ({item?.weight}g){" "}
+                          <span className="text-[#DB5353]">£{item?.price}</span>
                         </p>
                         <button
                           onClick={() => {
@@ -852,14 +838,14 @@ const LandingPage = () => {
                                   className="w-[90px] h-auto rounded-[5.8px]"
                                 />
                               </div>
-                              <div className="text-center">
+                              <div className="">
                                 <h1 className="alata font-[400] text-[#111] my-0 text-[18px] leading-[28px]">
                                   {data.name}
                                 </h1>
-                                <h1 className="alata font-[400] text-[#111] my-0 text-[18px] leading-[28px]">
-                                  {data.price}
+                                <h1 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
+                                  Price:£{data.price}
                                 </h1>
-                                <h1 className="alata font-[400] text-[#111] my-0 text-[18px] leading-[28px]">
+                                <h1 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
                                   Quantity:1
                                 </h1>
                               </div>
