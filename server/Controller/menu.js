@@ -304,7 +304,7 @@ exports.getMenuItemsByChefId = async (req, res, next) => {
   
 
   try {
-    const menuItems = await MenuItem.find({ chef_id }).populate('Cuisines_id Dishtype_id Dietary_id spice_level_id chef_id Nutrition_id ').exec();
+    const menuItems = await MenuItem.find({ chef_id }).populate('Cuisines_id Dishtype_id Dietary_id spice_level_id chef_id Nutrition_id').exec();
 
     if (!menuItems || menuItems.length === 0) {
       return res.status(404).json({ error: 'Menu items not found' });
