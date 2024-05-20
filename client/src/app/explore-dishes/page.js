@@ -1080,7 +1080,7 @@ const ExploreDishes = () => {
                           <p className="alata font-[400] text-[#000] 2xl:text-[20px] 2xl:leading-[24px] xl:text-[14px] xl:leading-[18px] lg:text-[12px] lg:leading-[16px] text-[12px] leading-[16px] ">
                             Serves 1 ({item?.weight}g){" "}
                             <span className="text-[#DB5353]">
-                              £{item?.price}
+                            £{item?.price}
                             </span>
                           </p>
                           <button
@@ -1442,7 +1442,7 @@ const ExploreDishes = () => {
                       <div className="flex justify-between items-center mt-20">
                         <div>
                           <h1 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
-                            {/* {subtotalPrice} */}
+                            {/ {subtotalPrice} /}
                           </h1>
                         </div>
                         <div>
