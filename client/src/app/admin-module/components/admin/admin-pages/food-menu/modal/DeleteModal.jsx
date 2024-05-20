@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import config from "@/config";
 
 const DeleteModal = ({  deleteId, closeModal, refreshData }) => {
  const { token } = useSelector((state) => state?.auth);
@@ -14,7 +15,7 @@ const DeleteModal = ({  deleteId, closeModal, refreshData }) => {
 
     const options = {
       method: "DELETE",
-      url: `http://13.43.174.21:4000/api/menu/menuItems/${deleteId}`,
+      url: `${config.baseURL}/api/menu/menuItems/${deleteId}`,
       headers: {
         Authorization: token,
         "Content-Type": "application/json",

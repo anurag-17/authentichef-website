@@ -222,11 +222,21 @@ const LandingPage = () => {
                         <button className="four_btn">
                           <img
                             alt="image"
-                            src={item?.Dietary_id?.ProfileImage}
+                            src={item?.Dietary_id[0]?.ProfileImage}
                             className="2xl:w-[13px] 2xl:h-[13px] lg:w-[10px] lg:h-[10px] w-[10px] h-auto"
                           />
                           <p className="fourth_day">
-                            {item?.Dietary_id?.title}
+                            {item?.Dietary_id[0]?.title}
+                          </p>
+                        </button>
+                        <button className="four_btn">
+                          {/* <img
+                            alt="image"
+                            src={item?.Dietary_id?.ProfileImage}
+                            className="2xl:w-[13px] 2xl:h-[13px] lg:w-[10px] lg:h-[10px] w-[10px] h-auto"
+                          /> */}
+                          <p className="fourth_day">
+                            {item?.Nutrition_id?.Nutritional}
                           </p>
                         </button>
                       </div>
@@ -504,8 +514,10 @@ const LandingPage = () => {
                 <h4 className="seven_h2">Plant-Based, Vegan</h4>
               </div>
             </div>
-            <div className="flex ">
-              <button className=" seven_btn">Join the Chef Community</button>
+            <div className="flex justify-center">
+              <Link href="/contact-us">
+                <button className=" seven_btn">Join the Chef Community</button>
+              </Link>
             </div>
           </div>
         </div>

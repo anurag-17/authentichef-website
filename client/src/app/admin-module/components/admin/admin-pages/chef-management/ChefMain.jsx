@@ -9,6 +9,7 @@ import EditModal from "./modal/EditModal";
 import DeleteUser from "./modal/DeleteModal";
 import protectedRoute from "@/app/admin-module/config/protectedRoute";
 import { ToastContainer , toast } from "react-toastify";
+import config from "@/config";
 
 export const headItems = [
   "S. No.",
@@ -142,7 +143,7 @@ const ChefMain = () => {
     setIsLoader(true);
     const options = {
       method: "GET",
-      url: "http://13.43.174.21:4000/api/chef/chefs",
+      url: `${config.baseURL}/api/chef/chefs`,
       headers: {
         Authorization: token,
         "Content-Type": "application/json",

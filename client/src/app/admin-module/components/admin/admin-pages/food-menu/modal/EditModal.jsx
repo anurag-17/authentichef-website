@@ -23,10 +23,13 @@ const EditModal = ({
     List_of_Allergens: "",
     Dishtype_id: "",
     Dietary_id: "",
+    Nutrition_id: "",
     spice_level_id: "",
     chef_id: "",
     ProfileImage: "",
   });
+
+  console.log(formData);
 
   const [isLoading, setLoading] = useState(false);
   const [dishTypes, setDishTypes] = useState([]);
@@ -48,6 +51,8 @@ const EditModal = ({
         List_of_Allergens: editData.List_of_Allergens || "",
         Dishtype_id: editData.Dishtype_id ? editData.Dishtype_id._id : "",
         Dietary_id: editData.Dietary_id ? editData.Dietary_id._id : "",
+        Nutrition_id: editData.Nutrition_id ? editData.Nutrition_id._id : "",
+
         spice_level_id: editData.spice_level_id
           ? editData.spice_level_id._id
           : "",
@@ -210,6 +215,25 @@ const EditModal = ({
     fetchDishTypes();
   }, []);
 
+  const [nutrition, setNutrition] = useState({});
+  useEffect(() => {
+    defaultNutrition();
+  }, []);
+  const defaultNutrition = () => {
+    const option = {
+      mrthod: "GET",
+      url: "http://13.43.174.21:4000/api/Nutritional/nutritional",
+    };
+    axios
+      .request(option)
+      .then((response) => {
+        setNutrition(response?.data?.nutritional);
+      })
+      .catch((error) => {
+        console.log(error, "Error");
+      });
+  };
+
   return (
     <>
       <ToastContainer autoClose={1000} />
@@ -332,6 +356,25 @@ const EditModal = ({
                     dietaries.map((dietary) => (
                       <option key={dietary._id} value={dietary._id}>
                         {dietary.title}
+                      </option>
+                    ))}
+                </select>
+              </div>
+
+              <div class="py-2">
+                <span class="login-input-label capitalize"> Nutrition :</span>
+                <select
+                  name="Nutrition_id"
+                  value={formData.Nutrition_id}
+                  onChange={handleChange}
+                  class="login-input w-full mt-1"
+                  required
+                >
+                  <option value="">Select Nutrition</option>
+                  {Array.isArray(nutrition) &&
+                    nutrition.map((item) => (
+                      <option key={item._id} value={item._id}>
+                        {item?.Nutritional}
                       </option>
                     ))}
                 </select>

@@ -7,12 +7,14 @@ import { useSelector } from "react-redux";
 import { defaultHead } from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import config from "@/config";
 
 const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
   const router = useRouter();
   const { token } = useSelector((state) => state?.auth);
   const [isRefresh, setRefresh] = useState(false);
   const [cuisines, setCuisines] = useState([]);
+
   const [menuItem, setMenuItem] = useState({
     name: "",
     description: "",
@@ -24,6 +26,7 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
     List_of_Allergens: "",
     Dishtype_id: "",
     Dietary_id: "",
+    Nutrition_id: "",
     spice_level_id: "",
     chef_id: "",
     ProfileImage: [],
@@ -80,7 +83,7 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
       }
 
       const response = await axios.post(
-        "http://13.43.174.21:4000/api/menu/menuItems",
+        `${config.baseURL}/api/menu/menuItems`,
         formData,
         {
           headers: {
@@ -107,7 +110,7 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
     async function fetchCuisines() {
       try {
         const response = await axios.get(
-          "http://13.43.174.21:4000/api/cuisines/getAllCuisines"
+          `${config.baseURL}/api/cuisines/getAllCuisines`
         );
         const { cuisines } = response.data; // Extract the cuisines array from the response
         if (Array.isArray(cuisines)) {
@@ -130,13 +133,32 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
     fetchCuisines();
   }, []);
 
+  const [nutrition, setNutrition] = useState({});
+  useEffect(() => {
+    defaultNutrition();
+  }, []);
+  const defaultNutrition = () => {
+    const option = {
+      mrthod: "GET",
+      url: `${config.baseURL}/api/Nutritional/nutritional`,
+    };
+    axios
+      .request(option)
+      .then((response) => {
+        setNutrition(response?.data?.nutritional);
+      })
+      .catch((error) => {
+        console.log(error, "Error");
+      });
+  };
+
   const [dishTypes, setDishTypes] = useState([]);
 
   useEffect(() => {
     async function fetchDishTypes() {
       try {
         const response = await axios.get(
-          "http://13.43.174.21:4000/api/DishType/dishTypes"
+          `${config.baseURL}/api/DishType/dishTypes`
         );
         setDishTypes(response.data.dishTypes);
       } catch (error) {
@@ -155,7 +177,7 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
     async function fetchDietaries() {
       try {
         const response = await axios.get(
-          "http://13.43.174.21:4000/api/dietary/dietaries"
+          `${config.baseURL}/api/dietary/dietaries`
         );
         setDietaries(response.data.dietaries);
       } catch (error) {
@@ -165,7 +187,6 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
 
     fetchDietaries();
   }, []);
-  console.log(dietaries);
 
   const [spiceLevels, setSpiceLevels] = useState([]);
 
@@ -173,7 +194,7 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
     async function fetchSpiceLevels() {
       try {
         const response = await axios.get(
-          "http://13.43.174.21:4000/api/SpiceLevel/spiceLevels"
+          `${config.baseURL}/api/SpiceLevel/spiceLevels`
         );
         setSpiceLevels(response.data.spiceLevels); // Update state with response data
       } catch (error) {
@@ -190,7 +211,7 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
     async function fetchChefs() {
       try {
         const response = await axios.get(
-          "http://13.43.174.21:4000/api/chef/chefs"
+          `${config.baseURL}/api/chef/chefs`
         );
         setChefs(response.data.chefs);
       } catch (error) {
@@ -367,6 +388,32 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
               ))}
           </select>
         </div>
+
+
+
+        <div className="mb-4">
+          <label className="block mb-1" htmlFor="dietary">
+            Nutrition:
+          </label>
+          <select
+            id="Nutrition"
+            name="Nutrition_id"
+            value={menuItem.Nutrition_id}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border rounded mt-[10px]"
+            required
+          >
+            <option value="">Select Nutrition</option>
+            {Array.isArray(nutrition) &&
+              nutrition.map((item) => (
+                <option key={item._id} value={item._id}>
+                  {item.Nutritional}
+                </option>
+              ))}
+          </select>
+        </div>
+
+
         <div className="mb-4">
           <label className="block mb-1" htmlFor="spiceLevel">
             Spice Level:
