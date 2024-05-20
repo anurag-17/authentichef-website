@@ -124,7 +124,7 @@ const BecomeChef = () => {
             </div>
           </div>
 
-          <div className="sm:text-[20px] sm:w-[300px] xs:w-[400px] md:w-[900px] xl:w-[900px]">
+          <div className="sm:text-[20px] sm:w-[300px] xs:w-[400px] md:w-[900px] xl:w-[900px] xl:ml-[110px]">
             <div className="sm:w-[360px] 2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] flex justify-between items-center mx-auto 2xl:mt-[90px] xl:mb-[80px] xl:mt-[80px] mt-[50px] mb-[50px] mnavbar">
               <div className="2xl:w-[842px] xl:w-[600px] w-[550px]">
                 <h1 className="alata font-[400] 2xl:text-[55px] 2xl:leading-[75px] xl:text-[37px] xl:leading-[45px] lg:text-[29px] lg:leading-[35px] mcosider">
