@@ -28,7 +28,11 @@ import axios from "axios";
 import addCart from "../../../public/images/addCart.svg";
 import DishDetails from "../explore-dishes/dish-details/page";
 import { Dialog, Transition } from "@headlessui/react";
-import { addItemToCart, clearCart, handleRemoveItem } from "../redux/dishSlice";
+import {
+  addItemToCart,
+  clearCart,
+  removeItemFromCart,
+} from "../redux/dishSlice";
 import { useDispatch, useSelector } from "react-redux";
 import config from "@/config";
 
@@ -49,6 +53,11 @@ const LandingPage = () => {
 
   const handleDrawerOpen = () => {
     setIsDrawerOpen(true);
+  };
+
+  const handleRemoveItem = (itemId) => {
+    console.log("itemId is ", itemId);
+    dispatch(removeItemFromCart({ _id: itemId }));
   };
 
   const handleDrawerClose = () => {
@@ -837,6 +846,9 @@ const LandingPage = () => {
                     <div className="">
                       {cart.map((item, index) => {
                         const { data } = item;
+                        if (!data) {
+                          return null; // Skip rendering if data is removed
+                        }
                         return (
                           <div
                             key={index}
@@ -870,13 +882,13 @@ const LandingPage = () => {
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24"
-                                stroke-width="1.5"
+                                strokeWidth="1.5"
                                 stroke="currentColor"
-                                class="w-6 h-6"
+                                className="w-6 h-6"
                               >
                                 <path
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
                                   d="M6 18 18 6M6 6l12 12"
                                 />
                               </svg>
