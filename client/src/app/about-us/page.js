@@ -35,7 +35,7 @@ const AboutUs = () => {
 
           <div className="bg-[#FFE8E8] 2xl:h-[937px] flex justify-center  2xl:py-[115px] xl:py-[60px]  py-[50px] sm:px-[30px] ">
             <div className="text-center 2xl:w-[1293px] xl:w-[870px] lg:w-[600px] sm:w-[] w-[]  mx-auto xs:mx-[10px]">
-              <h1 className="aboutHead">The Ever-Growing Problem</h1>
+              <h4 className="aboutHead">The Ever-Growing Problem</h4>
               <p className="aboutPara 2xl:mt-[50px] xl:mt-[30px] mt-[15px]">
                 We get it. Daily life can be hectic, making it tough to cook
                 healthy and tasty homemade meals and catering to individual food
@@ -47,9 +47,9 @@ const AboutUs = () => {
                 kitchen isn’t the only option.
               </p>
 
-              <h1 className="aboutHead 2xl:mt-[90px] xl:mt-[45px] mt-[25px]">
+              <h4 className="aboutHead 2xl:mt-[90px] xl:mt-[45px] mt-[25px]">
                 Our Purpose
-              </h1>
+              </h4>
 
               <p className="aboutPara 2xl:mt-[50px] xl:mt-[30px] mt-[15px] 2xl:w-[1103px] xl:w-[680px] lg:w-[550px] sm:w-[] w-[] mx-auto">
                 Our journey began with a simple yet profound vision – to bring
@@ -176,11 +176,11 @@ const AboutUs = () => {
 
           <div className="bg-[#FFE8E8] 2xl:h-[750px] xl:h-[560px] lg:h-[400px] flex justify-center 2xl:py-[115px] xl:py-[60px] sm:px-[30px] sm:mt-12 py-[50px] xs:mt-12 md:mt-12">
             <div className="text-center 2xl:w-[1293px] xl:w-[870px] lg:w-[600px] w-full mx-auto xs:mx-[10px]">
-              <h1 className="aboutHead font-[400] text-[45px]">
+              <h4 className="aboutHead font-[400] text-[45px]">
                 <span>
                   Diversity, Equity and Inclusion
                 </span>
-              </h1>
+              </h4>
               <p className="aboutPara 2xl:mt-[50px] xl:mt-[30px] mt-[15px]">
                 As a community-first company, we support chefs from diverse
                 communities across the UK, by connecting their dishes and

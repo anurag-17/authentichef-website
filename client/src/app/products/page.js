@@ -174,9 +174,9 @@ const Products = ({ item }) => {
                     /> */}
                   </div>
                   <div className="">
-                    <h1 className=" alata font-[400] 2xl:text-[35px] 2xl:leading-[45px] 2xl:my-1 xl:text-[20px] xl:leading-[30px] xl:my-0 xl:mt-5 lg:text-[16px] lg:leading-[25px] lg:mt-6 mt-4 sm:text-[18px] sm:leading-[30px] my-1 text-[14px] leading-[30px]">
+                    <h4 className=" alata font-[400] 2xl:text-[35px] 2xl:leading-[45px] 2xl:my-1 xl:text-[20px] xl:leading-[30px] xl:my-0 xl:mt-5 lg:text-[16px] lg:leading-[25px] lg:mt-6 mt-4 sm:text-[18px] sm:leading-[30px] my-1 text-[14px] leading-[30px]">
                       Shef Radha’s Menu
-                    </h1>
+                    </h4>
                     <p className="alata font-[400] text-[#555555] 2xl:text-[16px] 2xl:leading-[24px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[16px] text-[10px]">
                       Punjabi · North Indian · South Indian · Indian ·
                       Vegetarian
@@ -221,9 +221,9 @@ const Products = ({ item }) => {
 
             {/* ===================Third================== */}
             <div className="2xl:ml-[160px] xl:ml-[130px] lg:ml-[95px] my-10">
-              <h1 className="alata font-[400] text-[#000] 2xl:text-[14px] 2xl:leading-[24px] xl:text-[10px] xl:leading-[20px] lg:text-[8px] lg:leading-[16px] text-[8px]">
+              <h4 className="alata font-[400] text-[#000] 2xl:text-[14px] 2xl:leading-[24px] xl:text-[10px] xl:leading-[20px] lg:text-[8px] lg:leading-[16px] text-[8px]">
                 Browse By Meal Type
-              </h1>
+              </h4>
               <div className="flex gap-5 2xl:my-5">
                 <div className=" bg-[#F3F3F3] rounded-[6px] 2xl:w-[166px] 2xl:h-[97px] xl:w-[100px] xl:h-[55px]  lg:w-[90px] lg:h-[50px] w-[90px] h-[50px] flex justify-center items-center">
                   <div>
@@ -231,9 +231,9 @@ const Products = ({ item }) => {
                       src={img4}
                       className="2xl:w-[18px] 2xl:h-[17.18px] xl:w-[14px] xl:h-[13.18px] mx-auto"
                     /> */}
-                    <h1 className="2xl:mt-3 alata font-[400] text-[#000] 2xl:text-[16px] 2xl:leading-[24px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[16px] text-[10px]">
+                    <h4 className="2xl:mt-3 alata font-[400] text-[#000] 2xl:text-[16px] 2xl:leading-[24px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[16px] text-[10px]">
                       Popular
-                    </h1>
+                    </h4>
                   </div>
                 </div>
                 <div className=" bg-[#F3F3F3] rounded-[6px] 2xl:w-[166px] 2xl:h-[97px] xl:w-[100px] xl:h-[55px]  lg:w-[90px] lg:h-[50px] w-[90px] h-[50px] flex justify-center items-center">
@@ -242,18 +242,18 @@ const Products = ({ item }) => {
                       src={img3}
                       className="2xl:w-[18px] 2xl:h-[17.18px] xl:w-[14px] xl:h-[13.18px] mx-auto"
                     />
-                    <h1 className="2xl:mt-3 alata font-[400] text-[#000] 2xl:text-[16px] 2xl:leading-[24px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[16px] text-[10px]">
+                    <h4 className="2xl:mt-3 alata font-[400] text-[#000] 2xl:text-[16px] 2xl:leading-[24px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[16px] text-[10px]">
                       Mains
-                    </h1>
+                    </h4>
                   </div>
                 </div>
               </div>
             </div>
             {/* ===================Fourth================== */}
             <div className="2xl:ml-[160px] xl:ml-[130px] lg:ml-[95px] 2xl:my-20 xl:my-12 my-8">
-              <h1 className="alata font-[400] text-[#111] 2xl:my-10 xl:my-5 my-4 2xl:text-[45px] 2xl:leading-[55px] xl:text-[28px] xl:leading-[40px] lg:text-[22px] text-[22px] lg:leading-[30px]">
+              <h4 className="alata font-[400] text-[#111] 2xl:my-10 xl:my-5 my-4 2xl:text-[45px] 2xl:leading-[55px] xl:text-[28px] xl:leading-[40px] lg:text-[22px] text-[22px] lg:leading-[30px]">
                 Popular Dishes
-              </h1>
+              </h4>
               <div className="flex flex-wrap justify-between 2xl:w-[1170px] xl:w-[800px] lg:w-[600px] md:w-[700px] w-full px-10 md:px-0 mx-auto">
                 {data.map((item) => (
                   <div
@@ -266,9 +266,9 @@ const Products = ({ item }) => {
                       className="rounded-[5px]"
                     />
                     <div className="p-2">
-                      <h1 className="alata font-[400] text-[#000000] xl:my-1 2xl:text-[16px] 2xl:leading-[20px] xl:text-[12px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[10px]">
+                      <h4 className="alata font-[400] text-[#000000] xl:my-1 2xl:text-[16px] 2xl:leading-[20px] xl:text-[12px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[10px]">
                         {item.title}
-                      </h1>
+                      </h4>
                       <div className="flex justify-center 2xl:my-3 bg-[#FFE7E7] rounded-[4px] gap-1 items-center 2xl:w-[89px] 2xl:h-[26px] xl:w-[60px] xl:h-[22px] w-[60%] my-2 h-[20px]">
                         <Image
                           src={thumsUp}
@@ -303,9 +303,9 @@ const Products = ({ item }) => {
             {/* ===================Five================== */}
 
             <div className="2xl:ml-[160px] xl:ml-[130px] lg:ml-[95px] lg:my-20 my-8">
-              <h1 className="alata font-[400] text-[#111] 2xl:my-5 2xl:text-[45px] 2xl:leading-[55px]  xl:text-[28px] xl:leading-[40px] lg:text-[20px] lg:leading-[30px]">
+              <h4 className="alata font-[400] text-[#111] 2xl:my-5 2xl:text-[45px] 2xl:leading-[55px]  xl:text-[28px] xl:leading-[40px] lg:text-[20px] lg:leading-[30px]">
                 Wednesday’s Main Items
-              </h1>
+              </h4>
               <div className="bg-[#EFEFEF] flex flex-wrap justify-between 2xl:w-[1170px]  xl:w-[800px] lg:w-[600px] md:w-[700px] w-full px-10 md:px-0 mx-auto">
                 {data2.map((item) => (
                   <div
@@ -318,9 +318,9 @@ const Products = ({ item }) => {
                       className="2xl:w-[365.5px] 2xl:h-[293.97px] rounded-[10px]"
                     />
                     <div className="p-4">
-                      <h1 className="alata font-[400] text-[#000000] xl:my-1 2xl:text-[20px] 2xl:leading-[20px]  xl:text-[14px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[10px]">
+                      <h4 className="alata font-[400] text-[#000000] xl:my-1 2xl:text-[20px] 2xl:leading-[20px]  xl:text-[14px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[10px]">
                         {item.title}
-                      </h1>
+                      </h4>
                       <div className="flex justify-center 2xl:my-3 bg-[#FFE7E7] rounded-[4px] gap-1 items-center 2xl:w-[105px] 2xl:h-[34px] xl:w-[80px] xl:h-[25px] w-[40%]  my-2">
                         <Image
                           src={thumsUp}
@@ -357,9 +357,9 @@ const Products = ({ item }) => {
 
           <div className="bg-white hidden lg:block 2xl:w-[505px] xl:w-[350px] lg:w-[290px]  rounded-s-[15px]">
             <div className="p-5">
-              <h1 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[22px] text-[22px] 2xl:leading-[32px]  xl:text-[18px] xl:leading-[24px] lg:text-[14px] lg:leading-[20px]">
+              <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[22px] text-[22px] 2xl:leading-[32px]  xl:text-[18px] xl:leading-[24px] lg:text-[14px] lg:leading-[20px]">
                 My cart
-              </h1>
+              </h4>
               {cart.length === 0 ? (
                 <div>
                   <div className="2xl:mt-40">
@@ -368,9 +368,9 @@ const Products = ({ item }) => {
                       className="2xl:w-[268.25px] 2xl:h-[265px] mx-auto"
                     />
                   </div>
-                  <h1 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[25px] 2xl:leading-[35px]  xl:text-[20px] xl:leading-[28px] lg:text-[16px] lg:leading-[24px] text-center 2xl:mt-24">
+                  <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[25px] 2xl:leading-[35px]  xl:text-[20px] xl:leading-[28px] lg:text-[16px] lg:leading-[24px] text-center 2xl:mt-24">
                     Explore a World of Deliciousness
-                  </h1>
+                  </h4>
                   <p className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[16px] 2xl:leading-[26px]  xl:text-[14px] xl:leading-[20px] lg:text-[12px] lg:leading-[18px] text-center">
                     add dishes to your cart now.
                   </p>
@@ -392,12 +392,12 @@ const Products = ({ item }) => {
                             className="2xl:w-[70px] 2xl:h-[70px] xl:w-[50px] xl:h-[50px] lg:w-[40px] lg:h-[40px] rounded-[5.8px]"
                           />
                           <div>
-                            <h1 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px]  xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
+                            <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px]  xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
                               {item?.title}
-                            </h1>
-                            <h1 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px]  xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
+                            </h4>
+                            <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px]  xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
                               £{item?.price}
-                            </h1>
+                            </h4>
                           </div>
                         </div>
                         <div className="flex justify-center 2xl:w-[103px] 2xl:h-[39px] xl:w-[60px] xl:h-[22px] lg:w-[50px] lg:h-[20px] border rounded-[5px] ">
@@ -433,9 +433,9 @@ const Products = ({ item }) => {
                   ))}
                   <div className="flex justify-between items-center mt-20">
                     <div>
-                      <h1 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
+                      <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
                         {subtotalPrice}
-                      </h1>
+                      </h4>
                     </div>
                     <div>
                       <button className=" alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1 ">
@@ -455,7 +455,7 @@ const Products = ({ item }) => {
             <div className="flex justify-between">
               <div className="">
                 <div>
-                  <h1 className="footer_heading">Quick Links</h1>
+                  <h4 className="footer_heading">Quick Links</h4>
                   <p className="footer_text">Our Story</p>
                   <p className="footer_text">Food Safety</p>
                   <p className="footer_text">Help Center</p>
@@ -464,7 +464,7 @@ const Products = ({ item }) => {
               </div>
               <div className="">
                 <div>
-                  <h1 className="footer_heading">Resources</h1>
+                  <h4 className="footer_heading">Resources</h4>
                   <p className="footer_text">
                     Become a chef
                     <p className="footer_text">Browse more chef</p>
@@ -474,7 +474,7 @@ const Products = ({ item }) => {
               </div>
               <div className="">
                 <div>
-                  <h1 className="footer_heading">Other Links</h1>
+                  <h4 className="footer_heading">Other Links</h4>
                   <p className="footer_text">Log In</p>
                   <p className="footer_text">Sign Up</p>
                   <p className="footer_text">Privacy Policy</p>
@@ -483,7 +483,7 @@ const Products = ({ item }) => {
               </div>
               <div className="">
                 <div>
-                  <h1 className="footer_heading">Connect with us</h1>
+                  <h4 className="footer_heading">Connect with us</h4>
                   <div className="flex gap-2 justify-center lg:justify-start">
                     <div>
                       <Link
@@ -529,9 +529,9 @@ const Products = ({ item }) => {
             <hr className="2xl:mt-[56px] xl:mt-[25px] lg:mt-[15px] mt-2" />
             <div>
               <div className="flex justify-center 2xl:my-5 xl:my-3 lg:my-2">
-                <h1 className="footer_text_b">
+                <h4 className="footer_text_b">
                   © 2024 Authentichef | All Rights Reserved
-                </h1>
+                </h4>
               </div>
             </div>
           </div>

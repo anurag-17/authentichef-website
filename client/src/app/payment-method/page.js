@@ -20,9 +20,9 @@ const PaymentMethod = () => {
             </h2>
             <div className="flex justify-between 2xl:mt-[40px] xl:mt-[25px] mt-[15px]">
               <div>
-                <h1 className=" alata font-[400] 2xl:text-[20px] 2xl:leading-[30px] xl:text-[14px] xl:leading-[24px] text-[12px] leading-[18px] ">
+                <h4 className=" alata font-[400] 2xl:text-[20px] 2xl:leading-[30px] xl:text-[14px] xl:leading-[24px] text-[12px] leading-[18px] ">
                   Add A Card
-                </h1>
+                </h4>
               </div>
               <div className="flex gap-2">
                 <Image

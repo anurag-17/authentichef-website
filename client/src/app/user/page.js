@@ -128,12 +128,12 @@ const LandingPage = () => {
                 </Link>
               </div>
               {/* <div className="flex 2xl:mt-14 xl:mt-8 lg:mt-5 mt-4">
-                <h1
+                <h4
                   className="alata font-[400] mx-auto text-white 2xl:text-[40px] 2xl:leading-[20px] xl:text-[25px] xl:leading-[20px]
               lg:text-[20px] lg:leading-[20px]  "
                 >
                   Save 30% on your first order
-                </h1>
+                </h4>
               </div> */}
             </div>
           </div>
@@ -141,9 +141,9 @@ const LandingPage = () => {
         <div className="md:hidden block">
           <div className=" poster-bg-m  h-screen flex justify-center ">
             <div className="">
-              <h1 className="alata font-[400] text-white  pt-[130%] mx-auto">
+              <h4 className="alata font-[400] text-white  pt-[130%] mx-auto">
                 Where’s your next food destination?
-              </h1>
+              </h4>
               <div className="flex mt-4">
                 <Link href="/explore-dishes">
                   <button className=" alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] px-3 py-1 ">
@@ -152,9 +152,9 @@ const LandingPage = () => {
                 </Link>
               </div>
               {/* <div className="flex mt-4">
-                <h1 className="alata font-[400] mx-auto text-white">
+                <h4 className="alata font-[400] mx-auto text-white">
                   Save 30% on your first order
-                </h1>
+                </h4>
               </div> */}
             </div>
           </div>
@@ -195,9 +195,9 @@ const LandingPage = () => {
                       </button>
                     </div>
                     <div className="">
-                      <h1 className="alata capitalize font-[400] text-[#DB5353] 2xl:my-4 xl:my-3 my-2 2xl:text-[20px] 2xl:leading-[20px]  xl:text-[14px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[10px]">
+                      <h4 className="alata capitalize font-[400] text-[#DB5353] 2xl:my-4 xl:my-3 my-2 2xl:text-[20px] 2xl:leading-[20px]  xl:text-[14px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[10px]">
                         {item.name}
-                      </h1>
+                      </h4>
 
                       {/* ===============Chef ============= */}
                       <Link href={`/pages/chef-details/${item?.chef_id?._id}`}>
@@ -208,9 +208,9 @@ const LandingPage = () => {
                             className="four_img2 "
                           />
                           <div>
-                            <h1 className="fourth_name ">
+                            <h4 className="fourth_name ">
                               {item?.chef_id?.name}
-                            </h1>
+                            </h4>
                             <p className="fourth_p text-[#6765EB]">
                               {item?.Cuisines_id?.title}
                             </p>
@@ -241,7 +241,7 @@ const LandingPage = () => {
                         </button>
                       </div>
                       <div className="flex items-center gap-5  2xl:my-[20px] xl:my-[15px] my-[12px]">
-                        <h1 className="fourth_p">Spice level</h1>
+                        <h4 className="fourth_p">Spice level</h4>
                         <button className="four_btn">
                           <img
                             alt="image"
@@ -795,9 +795,9 @@ const LandingPage = () => {
                       />
                     </svg>
                   </button>
-                  <h1 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[22px] text-[22px] 2xl:leading-[32px] xl:text-[18px] xl:leading-[24px] lg:text-[14px] lg:leading-[20px]">
+                  <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[22px] text-[22px] 2xl:leading-[32px] xl:text-[18px] xl:leading-[24px] lg:text-[14px] lg:leading-[20px]">
                     My Basket
-                  </h1>
+                  </h4>
                 </div>
 
                 {cart.length === 0 ? (
@@ -809,9 +809,9 @@ const LandingPage = () => {
                         alt="Empty cart"
                       /> */}
                     </div>
-                    <h1 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[25px] 2xl:leading-[35px] xl:text-[20px] xl:leading-[28px] lg:text-[16px] lg:leading-[24px] text-center 2xl:mt-24">
+                    <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[25px] 2xl:leading-[35px] xl:text-[20px] xl:leading-[28px] lg:text-[16px] lg:leading-[24px] text-center 2xl:mt-24">
                       Explore a World of Deliciousness
-                    </h1>
+                    </h4>
                     <p className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[16px] 2xl:leading-[26px] xl:text-[14px] xl:leading-[20px] lg:text-[12px] lg:leading-[18px] text-center">
                       Add dishes to your cart now.
                     </p>
@@ -851,15 +851,15 @@ const LandingPage = () => {
                                 />
                               </div>
                               <div className="">
-                                <h1 className="alata font-[400] text-[#111] my-0 text-[18px] leading-[28px]">
+                                <h4 className="alata font-[400] text-[#111] my-0 text-[18px] leading-[28px]">
                                   {data.name}
-                                </h1>
-                                <h1 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
+                                </h4>
+                                <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
                                   Price:£{data.price}
-                                </h1>
-                                <h1 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
+                                </h4>
+                                <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
                                   Quantity:1
-                                </h1>
+                                </h4>
                               </div>
                             </div>
                             <button
@@ -887,9 +887,9 @@ const LandingPage = () => {
 
                       <div className="flex justify-between items-center mt-20">
                         <div>
-                          <h1 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
+                          <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
                             {/* {subtotalPrice} */}
-                          </h1>
+                          </h4>
                         </div>
                         <div>
                           <button className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1">
@@ -969,7 +969,7 @@ export default dynamic(() => Promise.resolve(LandingPage), { ssr: false });
           <div className="">
             <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px] flex justify-between mx-auto">
               <div className="">
-                <h1 className="third_head">Select your cuisine</h1>
+                <h4 className="third_head">Select your cuisine</h4>
               </div>
               <div className="flex justify-between 2xl:gap-10 xl:gap-5 lg:gap-4 items-center">
                 <div className="flex 2xl:gap-5 xl:gap-3 lg:gap-2">
@@ -1048,12 +1048,12 @@ export default dynamic(() => Promise.resolve(LandingPage), { ssr: false });
                     src={food1}
                     alt="cuisine-india"
                   />
-                  <h1
+                  <h4
                     className="alata font-[400] 2xl:text-[20px] 2xl:leading-[20px] 2xl:my-4 xl:text-[14px] xl:leading-[20px] xl:my-4
                   lg:text-[12px] lg:leading-[18px] lg:my-3  mx-auto text-center"
                   >
                     Indian
-                  </h1>
+                  </h4>
                 </div>
                 <div className="">
                   <Image
@@ -1061,12 +1061,12 @@ export default dynamic(() => Promise.resolve(LandingPage), { ssr: false });
                     className="rounded-[5px] 2xl:w-[216px] 2xl:h-[216px] xl:w-[160px] xl:h-[160px] lg:w-[125px] lg:h-[125px]"
                     src={food2}
                   />
-                  <h1
+                  <h4
                     className="alata font-[400] 2xl:text-[20px] 2xl:leading-[20px] 2xl:my-4 xl:text-[14px] xl:leading-[20px] xl:my-4
                   lg:text-[12px] lg:leading-[18px] lg:my-3  mx-auto text-center"
                   >
                     American
-                  </h1>
+                  </h4>
                 </div>
                 <div className="">
                   <Image
@@ -1074,12 +1074,12 @@ export default dynamic(() => Promise.resolve(LandingPage), { ssr: false });
                     className="rounded-[5px] 2xl:w-[216px] 2xl:h-[216px] xl:w-[160px] xl:h-[160px] lg:w-[125px] lg:h-[125px]"
                     src={food3}
                   />
-                  <h1
+                  <h4
                     className="alata font-[400] 2xl:text-[20px] 2xl:leading-[20px] 2xl:my-4 xl:text-[14px] xl:leading-[20px] xl:my-4
                   lg:text-[12px] lg:leading-[18px] lg:my-3  mx-auto text-center"
                   >
                     Mexican
-                  </h1>
+                  </h4>
                 </div>
                 <div className="">
                   <Image
@@ -1087,12 +1087,12 @@ export default dynamic(() => Promise.resolve(LandingPage), { ssr: false });
                     className="rounded-[5px] 2xl:w-[216px] 2xl:h-[216px] xl:w-[160px] xl:h-[160px] lg:w-[125px] lg:h-[125px]"
                     src={food4}
                   />
-                  <h1
+                  <h4
                     className="alata font-[400] 2xl:text-[20px] 2xl:leading-[20px] 2xl:my-4 xl:text-[14px] xl:leading-[20px] xl:my-4
                   lg:text-[12px] lg:leading-[18px] lg:my-3  mx-auto text-center"
                   >
                     Mediterranean
-                  </h1>
+                  </h4>
                 </div>
                 <div className="">
                   <Image
@@ -1100,12 +1100,12 @@ export default dynamic(() => Promise.resolve(LandingPage), { ssr: false });
                     className="rounded-[5px] 2xl:w-[216px] 2xl:h-[216px] xl:w-[160px] xl:h-[160px] lg:w-[125px] lg:h-[125px]"
                     src={food5}
                   />
-                  <h1
+                  <h4
                     className="alata font-[400] 2xl:text-[20px] 2xl:leading-[20px] 2xl:my-4 xl:text-[14px] xl:leading-[20px] xl:my-4
                   lg:text-[12px] lg:leading-[18px] lg:my-3  mx-auto text-center"
                   >
                     Italian
-                  </h1>
+                  </h4>
                 </div>
                 <div className="">
                   <Image
@@ -1113,12 +1113,12 @@ export default dynamic(() => Promise.resolve(LandingPage), { ssr: false });
                     className="rounded-[5px] 2xl:w-[216px] 2xl:h-[216px] xl:w-[160px] xl:h-[160px] lg:w-[125px] lg:h-[125px]"
                     src={food6}
                   />
-                  <h1
+                  <h4
                     className="alata font-[400] 2xl:text-[20px] 2xl:leading-[20px] 2xl:my-4 xl:text-[14px] xl:leading-[20px] xl:my-4
                   lg:text-[12px] lg:leading-[18px] lg:my-3  mx-auto text-center"
                   >
                     Middle Eastern
-                  </h1>
+                  </h4>
                 </div>
               </div>
             </div>

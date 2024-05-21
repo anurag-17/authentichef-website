@@ -282,7 +282,7 @@ const Footer = () => {
                   />
                 </svg>
               </div>
-              <h1 className="fourth_p">Sign up</h1>
+              <h4 className="fourth_p">Sign up</h4>
             </div>
             <div className=" my-3 px-[40px]">
               <div className="flex flex-wrap justify-between 2xl:w-[775px] xl:w-[480px] mx-auto ">
@@ -449,9 +449,9 @@ const Footer = () => {
                     }
                     className="nav_login1"
                   >
-                    <h1 className="text-[#DB5353] alata font-[400] text-[14px] leading-[26px] text-center mx-auto">
+                    <h4 className="text-[#DB5353] alata font-[400] text-[14px] leading-[26px] text-center mx-auto">
                       Sign Up
-                    </h1>
+                    </h4>
                   </button>
                 </div>
               </div>

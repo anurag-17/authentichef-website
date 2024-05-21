@@ -165,7 +165,7 @@ const ChefDishes = () => {
           <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px]  2xl:pt-[120px] xl:pt-[60px] pt-[40px] mx-auto mnavbar">
             <div className="">
               <div>
-                <h1 className="third_head">Starter</h1>
+                <h4 className="third_head">Starter</h4>
               </div>
             </div>
             <div className=" flex flex-wrap justify-between  w-full px-10 md:px-0 mx-auto">
@@ -182,9 +182,9 @@ const ChefDishes = () => {
                     className="w-full h-auto 2xl:w-[365.5px] 2xl:h-[278px] rounded-[10px]"
                   />
                   <div className="">
-                    <h1 className="alata font-[400] text-[#DB5353] 2xl:my-4 xl:my-3 my-2 2xl:text-[20px] 2xl:leading-[20px]  xl:text-[14px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[10px]">
+                    <h4 className="alata font-[400] text-[#DB5353] 2xl:my-4 xl:my-3 my-2 2xl:text-[20px] 2xl:leading-[20px]  xl:text-[14px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[10px]">
                       {item.title}
-                    </h1>
+                    </h4>
                     <div className="flex items-center 2xl:gap-3 xl:gap-2 lg:gap-2  gap-2 xl:my-3 lg:my-2 my-2">
                       <Image
                         alt="image"
@@ -192,7 +192,7 @@ const ChefDishes = () => {
                         className="four_img2 "
                       />
                       <div>
-                        <h1 className="fourth_name ">Chef Radha</h1>
+                        <h4 className="fourth_name ">Chef Radha</h4>
                         <p className="fourth_p text-[#6765EB]">Indian</p>
                       </div>
                     </div>
@@ -216,7 +216,7 @@ const ChefDishes = () => {
                       </button>
                     </div>
                     <div className="flex items-center gap-5  2xl:my-[20px] xl:my-[15px] my-[12px]">
-                      <h1 className="fourth_p">Spice level</h1>
+                      <h4 className="fourth_p">Spice level</h4>
                       <button className="four_btn">
                         <Image
                           alt="image"
@@ -255,7 +255,7 @@ const ChefDishes = () => {
           <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px]  2xl:pt-[85px] xl:pt-[30px] pt-[15px] mx-auto mnavbar">
             <div className="">
               <div>
-                <h1 className="third_head">Mains</h1>
+                <h4 className="third_head">Mains</h4>
               </div>
             </div>
             <div className=" flex flex-wrap justify-between  w-full px-10 md:px-0 mx-auto">
@@ -272,9 +272,9 @@ const ChefDishes = () => {
                     className="w-full h-auto 2xl:w-[365.5px] 2xl:h-[278px] rounded-[10px]"
                   />
                   <div className="">
-                    <h1 className="alata font-[400] text-[#DB5353] 2xl:my-4 xl:my-3 my-2 2xl:text-[20px] 2xl:leading-[20px]  xl:text-[14px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[10px]">
+                    <h4 className="alata font-[400] text-[#DB5353] 2xl:my-4 xl:my-3 my-2 2xl:text-[20px] 2xl:leading-[20px]  xl:text-[14px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[10px]">
                       {item.title}
-                    </h1>
+                    </h4>
                     <div className="flex items-center 2xl:gap-3 xl:gap-2 lg:gap-2  gap-2 xl:my-3 lg:my-2 my-2">
                       <Image
                         alt="image"
@@ -282,7 +282,7 @@ const ChefDishes = () => {
                         className="four_img2 "
                       />
                       <div>
-                        <h1 className="fourth_name ">Chef Radha</h1>
+                        <h4 className="fourth_name ">Chef Radha</h4>
                         <p className="fourth_p text-[#6765EB]">Indian</p>
                       </div>
                     </div>
@@ -306,7 +306,7 @@ const ChefDishes = () => {
                       </button>
                     </div>
                     <div className="flex items-center gap-5  2xl:my-[20px] xl:my-[15px] my-[12px]">
-                      <h1 className="fourth_p">Spice level</h1>
+                      <h4 className="fourth_p">Spice level</h4>
                       <button className="four_btn">
                         <Image
                           alt="image"
@@ -346,7 +346,7 @@ const ChefDishes = () => {
           <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px]  2xl:pt-[85px] xl:pt-[30px] pt-[15px] mx-auto mnavbar">
             <div className="">
               <div>
-                <h1 className="third_head">Sides</h1>
+                <h4 className="third_head">Sides</h4>
               </div>
             </div>
             <div className=" flex flex-wrap justify-between  w-full px-10 md:px-0 mx-auto">
@@ -363,9 +363,9 @@ const ChefDishes = () => {
                     className="w-full h-auto 2xl:w-[365.5px] 2xl:h-[278px] rounded-[10px]"
                   />
                   <div className="">
-                    <h1 className="alata font-[400] text-[#DB5353] 2xl:my-4 xl:my-3 my-2 2xl:text-[20px] 2xl:leading-[20px]  xl:text-[14px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[10px]">
+                    <h4 className="alata font-[400] text-[#DB5353] 2xl:my-4 xl:my-3 my-2 2xl:text-[20px] 2xl:leading-[20px]  xl:text-[14px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[10px]">
                       {item.title}
-                    </h1>
+                    </h4>
                     <div className="flex items-center 2xl:gap-3 xl:gap-2 lg:gap-2  gap-2 xl:my-3 lg:my-2 my-2">
                       <Image
                         alt="image"
@@ -373,7 +373,7 @@ const ChefDishes = () => {
                         className="four_img2 "
                       />
                       <div>
-                        <h1 className="fourth_name ">Chef Radha</h1>
+                        <h4 className="fourth_name ">Chef Radha</h4>
                         <p className="fourth_p text-[#6765EB]">Indian</p>
                       </div>
                     </div>
@@ -397,7 +397,7 @@ const ChefDishes = () => {
                       </button>
                     </div>
                     <div className="flex items-center gap-5  2xl:my-[20px] xl:my-[15px] my-[12px]">
-                      <h1 className="fourth_p">Spice level</h1>
+                      <h4 className="fourth_p">Spice level</h4>
                       <button className="four_btn">
                         <Image
                           alt="image"

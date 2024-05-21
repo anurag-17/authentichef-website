@@ -53,9 +53,9 @@ const Checkout = () => {
 
         <div>
           <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px] w-full  md:px-0 items-center 2xl:px-[75px] xl:px-[50px] lg:px-[50px] mx-auto">
-            <h1 className="pop-head 2xl:my-[30px] xl:my-[20px] my-[15px]">
+            <h4 className="pop-head 2xl:my-[30px] xl:my-[20px] my-[15px]">
               Delivery information
-            </h1>
+            </h4>
             <div className="flex justify-between 2xl:gap-[55px] xl:gap-[40px] gap-[25px] 2xl:mb-[110px] xl:mb-[70px]">
               <form className="2xl:w-[795px] xl:w-[595px] w-[400px]">
                 <div>
@@ -166,7 +166,7 @@ const Checkout = () => {
                 </div>
                 <hr className="2xl:my-[50px] xl:my-[35px] my-[25px]" />
                 <div>
-                  <h1 className="pop-head 2xl:my-[5px]">Payment Details</h1>
+                  <h4 className="pop-head 2xl:my-[5px]">Payment Details</h4>
                   <p className="checkoutlable text-[#929292]">
                     Shop securely and conveniently. All transactions are
                     encrypted
@@ -249,15 +249,15 @@ const Checkout = () => {
                             className="2xl:w-[83px] 2xl:h-[83px] xl:w-[65px] lg:w-[50px] rounded-[10px]"
                           />
                           <div>
-                            <h1 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[24px] 2xl:leading-[34px]  xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
+                            <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[24px] 2xl:leading-[34px]  xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
                               {/* {item?.title}
                                */}
                               Bhindi Sabjhi
-                            </h1>
-                            <h1 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[20px] 2xl:leading-[28px]  xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
+                            </h4>
+                            <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[20px] 2xl:leading-[28px]  xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
                               {/* £{item?.price} */}
                               £8.50
-                            </h1>
+                            </h4>
                           </div>
                         </div>
                         <div className="flex justify-center 2xl:w-[103px] 2xl:h-[39px] xl:w-[60px] xl:h-[22px] lg:w-[50px] lg:h-[20px] border rounded-[5px] ">
@@ -292,20 +292,20 @@ const Checkout = () => {
                     </div>
                     {/* ))} */}
                     <div className="flex justify-between">
-                      <h1 className="alata font-[400] text-[#555555] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px]  xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
+                      <h4 className="alata font-[400] text-[#555555] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px]  xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
                         Subtotal
-                      </h1>
+                      </h4>
 
-                      <h1 className="alata font-[400] text-[#555555] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px]  xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
+                      <h4 className="alata font-[400] text-[#555555] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px]  xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
                         {/* £{item?.price} */}
                         £8.50
-                      </h1>
+                      </h4>
                     </div>
                     <div className="flex justify-between items-center mt-20">
                       <div>
-                        <h1 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
+                        <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
                           {/* {subtotalPrice} */}
-                        </h1>
+                        </h4>
                       </div>
                       <div>
                         {/* <button className=" alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1 ">
