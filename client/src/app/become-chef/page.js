@@ -42,8 +42,8 @@ const BecomeChef = () => {
             </div>
           </div>
 
-          <div className="bg-[#f7bda6] w-full 2xl:mt-[9rem] xl:mt-[6rem]  lg:mt-[4rem] md:mt-[4rem]">
-            <div className="max-w-[1630px] xs:w-[467px]  2xl:w-[1600px] xl:w-[1150px] lg:w-[1000px] md:w-[693px] sm:w-[646px] mx-auto bg-[#f7bda6]   px-4">
+          <div className="bg-[#f7bda6] w-full 2xl:mt-[9rem] xl:mt-[6rem] xs:mt-[30px] sm:mt-[30px] lg:mt-[4rem] md:mt-[4rem]">
+            <div className="max-w-[1630px] xs:w-[467px]  2xl:w-[1600px] xl:w-[1150px] lg:w-[886px] md:w-[693px] sm:w-[646px] mx-auto bg-[#f7bda6]   px-4">
               <div className="flex flex-col lg:flex-row items-center justify-between py-10 lg:py-20">
                 <div className=" mb-5 lg:mb-0 lg:order-1">
                   <Image
@@ -54,7 +54,7 @@ const BecomeChef = () => {
                     alt="Banner Image"
                   />
                 </div>
-                <div className="w-full lg:w-[39%] xl:w-[32%] 2xl:w-[33%] lg:order-2 lg:ml-12 flex flex-col justify-center  font-Alata alata ml-7">
+                <div className="w-full lg:w-[57%] xl:w-[32%] 2xl:w-[33%] lg:order-2 lg:ml-12 flex flex-col justify-center  font-Alata alata ml-7">
                   <p className="2xl:text-[25px] alata text-[#111111] xl:text-[18px] md:text-[14px] alata lg:text-[14px] mb-4">
                     We believe that every chef has a story worth sharing and a
                     talent worth celebrating.
@@ -72,7 +72,7 @@ const BecomeChef = () => {
                   </p>
                 </div>
               </div>
-              <div className="flex flex-col  sm:w-[618px] sm:ml-[0px]  md:ml-[-42px] xs:ml-[17px] md:w-[766px]  sm:flex-row 2xl:w-[1515px] lg:ml-[10px] xl:w-[1198px] lg:w-[1000px] xl:ml-[14px] justify-start ml-[120px] md:pb-[3.5rem]   md:mt-[0.5rem]  gap-6 mt-10 mb-5">
+              <div className="flex flex-col lg:ml-auto xs:mt-[0.5rem]   md:ml-auto sm:ml-auto sm:w-[618px] xs:ml-auto   md:w-[766px] md:flex-col lg:flex-row  sm:flex-col 2xl:flex-row xl:flex-row  2xl:w-[1515px]  xl:w-[1198px] lg:w-[912px] xl:ml-[14px] justify-start ml-[120px] md:pb-[3.5rem]   md:mt-[0.5rem]  gap-6 mt-10 mb-5">
                 <div className="">
                   <Image
                     src={boss}
@@ -81,10 +81,10 @@ const BecomeChef = () => {
                     className=" mb-2 w-[45px] h-[45px] lg:w-[80px] lg:h-[80px] "
                     alt="Boss Image"
                   />
-                  <h2 className="text-lg 2xl:text-[25px] text-[#111111] lg:text-xl mb-2 mt-[20px] font-Alata alata">
+                  <h2 className="text-lg 2xl:text-[25px] text-[#111111] lg:text-xl mb-2 mt-[20px] md:mt-[8px] sm:mt-[8px] font-Alata alata">
                     Be your own boss
                   </h2>
-                  <p className="text-sm lg:text-[14px] text-[#111111] 2xl:text-[18px] mt-[20px] font-Alata alata">
+                  <p className="text-sm lg:text-[14px] text-[#111111] 2xl:text-[18px] mt-[20px] md:mt-[8px] sm:mt-[8px] font-Alata alata">
                     Grow your own food business with little to no start-up costs
                   </p>
                 </div>
@@ -96,10 +96,10 @@ const BecomeChef = () => {
                     className=" mb-2 w-[45px] h-[45px]  lg:w-[80px] lg:h-[80px]"
                     alt="Dish Menu Image"
                   />
-                  <h2 className="text-lg lg:text-xl text-[#111111] 2xl:text-[25px] mb-2 mt-[20px] font-Alata alata">
+                  <h2 className="text-lg lg:text-xl text-[#111111] 2xl:text-[25px] mb-2 mt-[20px] md:mt-[8px] sm:mt-[8px] font-Alata alata">
                     Create a menu of high quality dishes
                   </h2>
-                  <p className="text-sm lg:text-[14px] 2xl:text-[18px] text-[#111111] mt-[20px] alata">
+                  <p className="text-sm lg:text-[14px] 2xl:text-[18px] text-[#111111] mt-[20px] md:mt-[8px] sm:mt-[8px] alata">
                     Embrace tradition, cultural value and authenticity in your
                     creations
                   </p>
@@ -112,10 +112,10 @@ const BecomeChef = () => {
                     className="mb-2 w-[45px] h-[45px] lg:w-[80px] lg:h-[80px] "
                     alt="Cook Image"
                   />
-                  <h2 className="text-lg lg:text-xl 2xl:text-[25px] text-[#111111] mb-2 mt-[20px] font-Alata alata">
+                  <h2 className="text-lg lg:text-xl 2xl:text-[25px] text-[#111111] mb-2 mt-[20px] md:mt-[8px] sm:mt-[8px] font-Alata alata">
                     Cook when you want and how often
                   </h2>
-                  <p className="text-sm lg:text-[14px] 2xl:text-[18px] mt-[20px] text-[#111111] font-Alata alata">
+                  <p className="text-sm lg:text-[14px] 2xl:text-[18px] mt-[20px] text-[#111111] md:mt-[8px] sm:mt-[8px] font-Alata alata">
                     You make the dishes available, we pick up and deliver them
                     nationwide, safely to your customers
                   </p>
@@ -125,19 +125,19 @@ const BecomeChef = () => {
           </div>
 
           <div className="container mx-auto px-4">
-            <div className="sm:text-[20px] sm:w-[300px]  xs:w-[400px] xs:ml-[20px] 2xl:ml-[-50px] xl:ml-[68px] lg:w-[990px] md:w-[640 px] xl:w-[900px] ">
+            <div className="sm:text-[20px] sm:w-[300px]  xs:w-[400px] xs:ml-[20px] 2xl:ml-[-50px] xl:ml-[68px] lg:w-[990px] md:w-[640 px] xl:w-[900px] xs:w-auto ">
               <div className="flex flex-col md:flex-row justify-between items-center mx-auto sm:w-[360px] 2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] mt-[50px] mb-[50px] xl:mt-[80px] xl:mb-[80px] 2xl:mt-[90px]">
-                <div className="2xl:w-[842px] lg:mr-[16px] xl:w-[600px] w-full md:w-[550px]">
-                  <h2 className="font-alata font-[400] text-[#111111] 2xl:text-[54px] 2xl:leading-[75px] xl:text-[35px]   xl:leading-[45px] lg:text-[29px] lg:leading-[35px] text-[24px] leading-[30px] mcosider">
+                <div className="2xl:w-[842px] md:w-[60%] lg:mr-[16px] xl:w-[600px] w-full  sm:md-auto">
+                  <h2 className="font-alata font-[400] text-[#111111] 2xl:text-[54px] 2xl:leading-[75px] md:text-[16px] xl:text-[35px] md:leading-[18px]  xl:leading-[45px] lg:text-[29px] lg:leading-[35px] text-[24px] leading-[30px] mcosider">
                     Are you considering starting your own food business from
                     home?
                   </h2>
-                  <p className="font-alata font-[400] text-[#111111] 2xl:text-[36px] 2xl:leading-[55px] xl:text-[23px] xl:leading-[35px] text-[19px] leading-[24px] 2xl:mt-[55px] xl:mt-[5px] mt-[15px] mservice">
-                    Our Services to get you started and growing!
+                  <p className="font-alata font-[400] text-[#111111] md:text-[14px] 2xl:text-[36px] 2xl:leading-[55px] xl:text-[23px] xl:leading-[35px] text-[19px] leading-[24px] 2xl:mt-[55px] xl:mt-[5px] md:mt-[0px] mt-[15px] mservice">
+                    Our Services to get you started and growing!  
                   </p>
 
-                  <div className="mt-[15px] 2xl:mt-[25px] xl:mt-[15px]">
-                    <div className="bg-[#FFE8E8] 2xl:w-[761px] xl:w-[510px] w-full px-[20px] 2xl:py-[30px] xl:py-[20px] py-[17px] mb-[15px]">
+                  <div className="mt-[15px] 2xl:mt-[25px] xl:mt-[15px] md:mt-[5px] ">
+                    <div className="bg-[#FFE8E8] 2xl:w-[761px] xl:w-[510px] w-full px-[20px] 2xl:py-[30px] xl:py-[20px] md:py-[5px] py-[17px] mb-[15px]">
                       <div className="flex gap-[10px] xl:gap-[15px] 2xl:gap-[25px]">
                         <div>
                           <h2 className="become-no">01</h2>
@@ -259,7 +259,7 @@ const BecomeChef = () => {
                 className="rounded-[15px] 2xl:w-[686px] 2xl:h-[628px]  sm:w-[259px] xl:h-[428px] sm:h-[233px]  mb-[20px] sm:mb-0 sm:rounded-[15px] md:h-[300px]  sm:max-w-[686px]  lg:h-[313px]    xl:w-[465px] md:w-[380px] mbox3"
               />
             </div>
-            <div className="2xl:w-[720px] 2xl:h-[460px] xl:w-[485px] lg:w-[420px] sm:w-[355px]  md:w-[350px] mbox3">
+            <div className="2xl:w-[720px] 2xl:h-[460px] xl:w-[485px] lg:w-[420px] sm:w-auto xs:w-[100%]  md:w-auto mbox3">
               <h3 className="third_head text-[#111111]">Join the Chef Waiting List</h3>
               <div className="flex flex-col sm:flex-row sm:gap-[15px] gap-[10px]">
                 <div className="w-full mt-[15px] sm:mt-[10px]">
