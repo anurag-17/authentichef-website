@@ -252,16 +252,16 @@ const ChefDetails = ({ params }) => {
                           />
                           <p className="fourth_day">Vegetarian</p>
                         </button> */}
-                        <button className="four_btn">
-                          <img
-                            alt="image"
-                            src={item?.Dietary_id?.ProfileImage}
-                            className="2xl:w-[13px] 2xl:h-[13px] lg:w-[10px] lg:h-[10px] w-[10px] h-auto"
-                          />
-                          <p className="fourth_day">
-                            {item?.Dietary_id?.title}
-                          </p>
-                        </button>
+                        {item?.Dietary_id.map((dietary) => (
+                          <button className="four_btn" key={dietary._id}>
+                            <img
+                              src={dietary.ProfileImage}
+                              className="2xl:[18px] xl:w-[14px] w-[12px]"
+                              alt={dietary.title}
+                            />
+                            <p className="fourth_day">{dietary.title}</p>
+                          </button>
+                        ))}
                       </div>
                       <div className="flex items-center gap-5  2xl:my-[20px] xl:my-[15px] my-[12px]">
                         <h4 className="fourth_p">Spice Level</h4>
