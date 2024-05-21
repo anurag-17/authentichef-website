@@ -250,17 +250,15 @@ const Products = ({ item }) => {
               </div>
             </div>
             {/* ===================Fourth================== */}
-
             <div className="2xl:ml-[160px] xl:ml-[130px] lg:ml-[95px] 2xl:my-20 xl:my-12 my-8">
-              <h1 className="alata font-[400] text-[#111] 2xl:my-10 xl:my-5 my-4 2xl:text-[45px] 2xl:leading-[55px]  xl:text-[28px] xl:leading-[40px] lg:text-[22px] text-[22px] lg:leading-[30px]">
+              <h1 className="alata font-[400] text-[#111] 2xl:my-10 xl:my-5 my-4 2xl:text-[45px] 2xl:leading-[55px] xl:text-[28px] xl:leading-[40px] lg:text-[22px] text-[22px] lg:leading-[30px]">
                 Popular Dishes
               </h1>
-
-              <div className="flex justify-between 2xl:w-[1170px]  xl:w-[800px] lg:w-[600px] md:w-[700px] w-full px-10 md:px-0 mx-auto">
+              <div className="flex flex-wrap justify-between 2xl:w-[1170px] xl:w-[800px] lg:w-[600px] md:w-[700px] w-full px-10 md:px-0 mx-auto">
                 {data.map((item) => (
                   <div
                     key={item.id}
-                    className="bg-white 2xl:w-[216px] 2xl:h-[341px] xl:h-[250px] w-[18%] lg:h-[200px] h-[240px] relative  rounded-[5.8px] "
+                    className="bg-white 2xl:w-[216px] 2xl:h-[341px] xl:w-[180px] xl:h-[250px] lg:w-[140px] lg:h-[200px] md:w-[180px] md:h-[240px] sm:w-[45%] xs:w-[45%] h-[240px] relative rounded-[5.8px] mb-4 sm:mb-6 md:mb-8"
                   >
                     <Image
                       src={item.image}
@@ -268,10 +266,10 @@ const Products = ({ item }) => {
                       className="rounded-[5px]"
                     />
                     <div className="p-2">
-                      <h1 className="alata font-[400] text-[#000000] xl:my-1 2xl:text-[16px] 2xl:leading-[20px]  xl:text-[12px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[10px]">
+                      <h1 className="alata font-[400] text-[#000000] xl:my-1 2xl:text-[16px] 2xl:leading-[20px] xl:text-[12px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[10px]">
                         {item.title}
                       </h1>
-                      <div className="flex justify-center 2xl:my-3 bg-[#FFE7E7] rounded-[4px] gap-1 items-center 2xl:w-[89px] 2xl:h-[26px] xl:w-[60px] xl:h-[22px] w-[60%] my-2 h-[20px] ">
+                      <div className="flex justify-center 2xl:my-3 bg-[#FFE7E7] rounded-[4px] gap-1 items-center 2xl:w-[89px] 2xl:h-[26px] xl:w-[60px] xl:h-[22px] w-[60%] my-2 h-[20px]">
                         <Image
                           src={thumsUp}
                           className="2xl:w-[14px] 2xl:h-[14px] xl:w-[10px] xl:h-[10px] w-[10px] h-[10px]"
@@ -280,7 +278,7 @@ const Products = ({ item }) => {
                           {item.percentage}
                         </p>
                       </div>
-                      <div className="absolute w-full bottom-0 flex justify-between items-center mb-2 ">
+                      <div className="absolute w-full bottom-0 flex justify-between items-center mb-2">
                         <p className="alata font-[400] text-[#000] 2xl:text-[16px] 2xl:leading-[24px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[16px] text-[10px]">
                           £{item.price}
                         </p>
@@ -293,7 +291,7 @@ const Products = ({ item }) => {
                           <Image
                             src={item.image2}
                             alt={item.title}
-                            className="mr-4  2xl:w-[30px] 2xl:h-[30px] xl:w-[22px] xl:h-[22px] lg:w-[18px] lg:h-[18px] w-[18px] h-[18px]"
+                            className="mr-4 2xl:w-[30px] 2xl:h-[30px] xl:w-[22px] xl:h-[22px] lg:w-[18px] lg:h-[18px] w-[18px] h-[18px]"
                           />
                         </button>
                       </div>
@@ -302,7 +300,6 @@ const Products = ({ item }) => {
                 ))}
               </div>
             </div>
-
             {/* ===================Five================== */}
 
             <div className="2xl:ml-[160px] xl:ml-[130px] lg:ml-[95px] lg:my-20 my-8">
