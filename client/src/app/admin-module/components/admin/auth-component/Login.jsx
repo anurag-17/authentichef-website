@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import Link from "next/link";
 import { setToken, removeToken } from "@/app/redux/slice";
 import RightSection from "./RightSection";
+import config from "@/config";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ const Login = () => {
     setLoading(true);
     try {
       const res = await axios.post(
-        "http://13.43.174.21:4000/api/auth/adminLogin",
+        `${config.baseURL}/api/auth/adminLogin`,
         loginDetails,
         {
           headers: {

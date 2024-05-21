@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import popimg from "../assets/pop-img.png";
 import Image from "next/image";
 import axios from "axios";
+import config from "@/config";
 
 const DishDetails = ({ dishID }) => {
   const [count, setCount] = useState(1);
@@ -16,7 +17,7 @@ const DishDetails = ({ dishID }) => {
   const defaultDish = () => {
     const option = {
       method: "GET",
-      url: `http://13.43.174.21:4000/api/menu/menuItems/${dishID}`,
+      url: `${config.baseURL}/api/menu/menuItems/${dishID}`,
     };
     axios
       .request(option)

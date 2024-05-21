@@ -20,7 +20,6 @@ const Footer = () => {
   const [isLoggedIn, setIsLoggedIn] = useState("success");
   const { success } = useSelector((state) => state?.auth);
 
-
   const handleToggle = () => {
     setShowPassword(!showPassword);
   };

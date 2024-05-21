@@ -4,6 +4,7 @@ import axios from "axios";
 
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../../loader/Index";
+import config from "@/config";
 
 const AddModal = ({ closeModal ,refreshData }) => {
   const token = JSON.parse(localStorage.getItem("admin_token"));
@@ -63,7 +64,7 @@ const AddModal = ({ closeModal ,refreshData }) => {
       formData.append("Facebook_Link", chefData.Facebook_Link);
 
       const response = await axios.post(
-        "http://13.43.174.21:4000/api/chef/chefs",
+        `${config.baseURL}/api/chef/chefs`,
         formData,
         {
           headers: {

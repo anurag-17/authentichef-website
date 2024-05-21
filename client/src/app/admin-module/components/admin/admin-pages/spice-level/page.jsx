@@ -8,6 +8,7 @@ import UpdateSpice from "./modal/update-spice";
 import AddSpice from "./modal/add-spice";
 import { useSelector } from "react-redux";
 import protectedRoute from "@/app/admin-module/config/protectedRoute";
+import config from "@/config";
 
 export const headItems = [
   "S. No.",
@@ -81,7 +82,7 @@ const SpiceLevel = () => {
     setLoader(true);
     const options = {
       method: "GET",
-      url: "http://13.43.174.21:4000/api/SpiceLevel/spiceLevels",
+      url: `${config.baseURL}/api/SpiceLevel/spiceLevels`,
       headers: {
         Authorization: token,
         "Content-Type": "application/json",
@@ -113,7 +114,7 @@ const SpiceLevel = () => {
     try {
       const options = {
         method: "GET",
-        url: `http://13.43.174.21:4000/api/SpiceLevel/spiceLevels/${_id}`,
+        url: `${config.baseURL}/api/SpiceLevel/spiceLevels/${_id}`,
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",

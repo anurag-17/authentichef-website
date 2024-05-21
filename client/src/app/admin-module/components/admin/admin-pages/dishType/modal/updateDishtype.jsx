@@ -4,6 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 import Loader from "../../../loader/Index";
 import { useSelector } from "react-redux";
+import config from "@/config";
 
 const UpdateDishtype = ({
   closeDrawerO,
@@ -35,7 +36,7 @@ const UpdateDishtype = ({
         formDataWithImage.append("ProfileImage", profileImage); // Append profile image to FormData if selected
       }
       const res = await axios.put(
-        `http://13.43.174.21:4000/api/DishType/dishTypes/${dietaryEdit}`,
+        `${config.baseURL}/api/DishType/dishTypes/${dietaryEdit}`,
         formDataWithImage,
         {
           headers: {

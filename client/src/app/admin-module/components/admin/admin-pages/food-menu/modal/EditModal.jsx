@@ -4,6 +4,7 @@ import { toast, ToastContainer } from "react-toastify";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import Loader from "@/app/admin-module/components/admin/loader/Index";
+import config from "@/config";
 
 const EditModal = ({
   closeEditPopup,
@@ -66,7 +67,7 @@ const EditModal = ({
     async function fetchDishTypes() {
       try {
         const response = await axios.get(
-          "http://13.43.174.21:4000/api/dishTypes",
+          `${config.baseURL}/api/dishTypes`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -87,7 +88,7 @@ const EditModal = ({
     async function fetchDietaries() {
       try {
         const response = await axios.get(
-          "http://13.43.174.21:4000/api/dietary/dietaries",
+          `${config.baseURL}/api/dietary/dietaries`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -108,7 +109,7 @@ const EditModal = ({
     async function fetchSpiceLevels() {
       try {
         const response = await axios.get(
-          "http://13.43.174.21:4000/api/SpiceLevel/spiceLevels",
+          `${config.baseURL}/api/SpiceLevel/spiceLevels`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -129,7 +130,7 @@ const EditModal = ({
     async function fetchChefs() {
       try {
         const response = await axios.get(
-          "http://13.43.174.21:4000/api/chef/chefs",
+          `${config.baseURL}/api/chef/chefs`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -172,7 +173,7 @@ const EditModal = ({
       });
 
       const response = await axios.put(
-        `http://13.43.174.21:4000/api/menu/menuItems/${updateId}`,
+        `${config.baseURL}/api/menu/menuItems/${updateId}`,
         formDataToSend,
         {
           headers: {
@@ -202,7 +203,7 @@ const EditModal = ({
     async function fetchDishTypes() {
       try {
         const response = await axios.get(
-          "http://13.43.174.21:4000/api/DishType/dishTypes"
+          `${config.baseURL}/api/DishType/dishTypes`
         );
         setDishTypes(response.data.dishTypes);
       } catch (error) {
@@ -222,7 +223,7 @@ const EditModal = ({
   const defaultNutrition = () => {
     const option = {
       mrthod: "GET",
-      url: "http://13.43.174.21:4000/api/Nutritional/nutritional",
+      url: `${config.baseURL}/api/Nutritional/nutritional`,
     };
     axios
       .request(option)

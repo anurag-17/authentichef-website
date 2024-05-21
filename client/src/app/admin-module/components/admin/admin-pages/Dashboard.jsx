@@ -10,6 +10,7 @@ import UsersIcon from "./Svg/UsersIcon";
 import protectedRoute from "@/app/admin-module/config/protectedRoute";
 import { useDispatch, useSelector } from "react-redux";
 import { rem_AdDetails, removeToken } from "@/app/redux/slice";
+import config from "@/config";
 
 
 const Dashboard = () => {
@@ -21,7 +22,7 @@ const Dashboard = () => {
 
   const handleSignout = async () => {
     try {
-      const res = await axios.get("http://localhost:4000/api/auth/logout", {
+      const res = await axios.get(`${config.baseURL}/api/auth/logout`, {
         headers: {
           Authorization: token,
           "Content-Type": "application/json",

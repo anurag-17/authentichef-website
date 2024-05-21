@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { defaultHead } from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import config from "@/config";
 
 const MenuItemForm = () => {
   const router = useRouter();
@@ -68,7 +69,7 @@ const MenuItemForm = () => {
       formData.append("ProfileImage", menuItem.ProfileImage);
 
       const response = await axios.post(
-        "http://13.43.174.21:4000/api/menu/menuItems",
+        `${config.baseURL}/api/menu/menuItems`,
         formData,
         {
           headers: {
@@ -97,7 +98,7 @@ const MenuItemForm = () => {
     async function fetchDishTypes() {
       try {
         const response = await axios.get(
-          "http://13.43.174.21:4000/api/DishType/dishTypes"
+          `${config.baseURL}/api/DishType/dishTypes`
         );
         setDishTypes(response.data.dishTypes);
       } catch (error) {
@@ -116,7 +117,7 @@ const MenuItemForm = () => {
     async function fetchDietaries() {
       try {
         const response = await axios.get(
-          "http://13.43.174.21:4000/api/dietary/dietaries"
+          `${config.baseURL}/api/dietary/dietaries`
         );
         setDietaries(response.data.dietaries);
       } catch (error) {
@@ -134,7 +135,7 @@ const MenuItemForm = () => {
     async function fetchSpiceLevels() {
       try {
         const response = await axios.get(
-          "http://13.43.174.21:4000/api/SpiceLevel/spiceLevels"
+          `${config.baseURL}/api/SpiceLevel/spiceLevels`
         );
         setSpiceLevels(response.data.spiceLevels); // Update state with response data
       } catch (error) {
@@ -151,7 +152,7 @@ const MenuItemForm = () => {
     async function fetchChefs() {
       try {
         const response = await axios.get(
-          "http://13.43.174.21:4000/api/chef/chefs"
+          `${config.baseURL}/api/chef/chefs`
         );
         setChefs(response.data.chefs);
       } catch (error) {

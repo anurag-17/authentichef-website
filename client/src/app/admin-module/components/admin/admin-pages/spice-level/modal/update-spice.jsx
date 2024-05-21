@@ -4,6 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 import Loader from "../../../loader/Index";
 import { useSelector } from "react-redux";
+import config from "@/config";
 
 const UpdateSpice = ({ closeDrawerO, refreshData, editData, dietaryEdit }) => {
  const { token } = useSelector((state) => state?.auth);
@@ -19,7 +20,7 @@ const UpdateSpice = ({ closeDrawerO, refreshData, editData, dietaryEdit }) => {
     try {
       setLoader(true);
       const res = await axios.put(
-        `http://13.43.174.21:4000/api/SpiceLevel/spiceLevels/${dietaryEdit}`,
+        `${config.baseURL}/api/SpiceLevel/spiceLevels/${dietaryEdit}`,
         formData,
         {
           headers: {

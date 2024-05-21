@@ -93,7 +93,7 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
       }
 
       const response = await axios.post(
-        "http://localhost:4000/api/menu/menuItems",
+        `${config.baseURL}/api/menu/menuItems`,
         formData,
         {
           headers: {

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import config from "@/config";
 
 const DeleteDishtype = ({ deleteId, closeModal, refreshData }) => {
   const [isLoading, setLoading] = useState(false);
@@ -15,7 +16,7 @@ const DeleteDishtype = ({ deleteId, closeModal, refreshData }) => {
 
     const options = {
       method: "DELETE",
-      url: `http://13.43.174.21:4000/api/DishType/dishTypes/${deleteId}`,
+      url: `${config.baseURL}/api/DishType/dishTypes/${deleteId}`,
       headers: {
         Authorization: token,
         "Content-Type": "application/json",

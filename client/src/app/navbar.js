@@ -30,6 +30,7 @@ import { useDispatch, useSelector } from "react-redux";
 import plus from "../../public/images/plus.svg";
 import minus from "../../public/images/minus.svg";
 import { removeItemFromCart, clearCart } from "./redux/dishSlice";
+import config from "@/config";
 
 const Navbar = () => {
   const [userDetail, setUserDetail] = useState({
@@ -95,7 +96,7 @@ const Navbar = () => {
     try {
       // setLoader(true);
       const response = await axios.post(
-        "http://13.43.174.21:4000/api/auth/register",
+        `${config.baseURL}/api/auth/register`,
         userDetail
       );
       if (response.status === 201) {
@@ -128,7 +129,7 @@ const Navbar = () => {
     setLoading(true);
     try {
       const res = await axios.post(
-        "http://13.43.174.21:4000/api/auth/login",
+        `${config.baseURL}/api/auth/login`,
         loginDetails,
         {
           headers: {
@@ -157,7 +158,7 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      const res = await axios.get("http://13.43.174.21:4000/api/auth/logout", {
+      const res = await axios.get(`${config.baseURL}/api/auth/logout`, {
         headers: {
           Authorization: token,
         },

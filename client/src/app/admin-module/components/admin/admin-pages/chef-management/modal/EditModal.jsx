@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 import Loader from "../../../loader/Index";
+import config from "@/config";
 
 const EditModal = ({ closeModal, editData, updateId, token, refreshData }) => {
   const [formData, setFormData] = useState({
@@ -72,7 +73,7 @@ const EditModal = ({ closeModal, editData, updateId, token, refreshData }) => {
       formDataToSend.append("Facebook_Link", formData.Facebook_Link);
   
       const response = await axios.put(
-        `http://13.43.174.21:4000/api/chef/chefs/${updateId}`,
+        `${config.baseURL}/api/chef/chefs/${updateId}`,
         formDataToSend
       );
   

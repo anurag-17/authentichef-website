@@ -4,6 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import config from "@/config";
 
 const AddDietary = ({ closeDrawer, refreshData }) => {
  const { token } = useSelector((state) => state?.auth);
@@ -25,7 +26,7 @@ const AddDietary = ({ closeDrawer, refreshData }) => {
       formData.append("ProfileImage", dietaryDetail.ProfileImage); // Append image to FormData
 
       const response = await axios.post(
-        "http://13.43.174.21:4000/api/dietary/dietaries",
+        `${config.baseURL}/api/dietary/dietaries`,
         formData,
         {
           headers: {
