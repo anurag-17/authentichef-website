@@ -5,6 +5,7 @@ const fs = require("fs");
 const path = require("path");
 const mongoose = require("mongoose");
 const multer = require('multer');
+const generateQRCode = require('../Utils/Qrcode')
 const dotenv = require('dotenv')
 dotenv.config()
 
@@ -95,6 +96,10 @@ exports.createMenuItem = async (req, res) => {
       popular_dish: popular_dish || 'No',
       ProfileImage: imageUrls
     });
+
+    // Generate a QR code for the menu item
+    const qrCodeData = await generateQRCode(chef_id);
+    menuItem.qrCode = qrCodeData;
 
     // Save the menu item to the database
     const newMenuItem = await menuItem.save();

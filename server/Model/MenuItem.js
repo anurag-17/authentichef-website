@@ -70,6 +70,10 @@ const menuItemSchema = new mongoose.Schema(
     },
 
 
+    // for the QR code
+    qrCode: {
+      type: String, // Store the QR code as a data URI string
+    },
 
 
     ProfileImage: {
