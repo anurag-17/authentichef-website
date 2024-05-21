@@ -1062,9 +1062,9 @@ const ExploreDishes = () => {
                         <div className="flex items-center gap-5  2xl:my-[20px] xl:my-[15px] my-[12px]">
                           <h4 className="fourth_p">Spice level</h4>
                           <button className="four_btn">
-                            <Image
+                            <img
                               alt="image"
-                              src={spicemedium}
+                              src={item.spice_level_id.ProfileImage}
                               className="2xl:w-[13px] 2xl:h-[13px] lg:w-[10px] lg:h-[10px] w-[10px] h-auto"
                             />
                             <p className="fourth_day">
