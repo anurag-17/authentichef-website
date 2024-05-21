@@ -9,6 +9,7 @@ import DeleteUser from "./modal/DeleteModal";
 import { useSelector } from "react-redux";
 import Link from "next/link";
 import protectedRoute from "@/app/admin-module/config/protectedRoute";
+import config from "@/config";
 
 export const headItems = [
   "S. No.",
@@ -71,7 +72,7 @@ const FoodMenu = () => {
       setIsLoader(true);
       const options = {
         method: "GET",
-        url: `http://13.43.174.21:4000/api/menu/menuItems/${id}`,
+        url: `${config.baseURL}/api/menu/menuItems/${id}`,
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -125,7 +126,7 @@ const FoodMenu = () => {
   const searchDataFunc = (search_cate) => {
     const options = {
       method: "GET",
-      url: `/api/menu/menuItems?search=${search_cate}`,
+      url: `${config.baseURL}/api/menu/menuItems?search=${search_cate}`,
       headers: {
         Authorization: token,
         "Content-Type": "multipart/form-data",
@@ -151,7 +152,7 @@ const FoodMenu = () => {
     setIsLoader(true);
     const options = {
       method: "GET",
-      url: `http://13.43.174.21:4000/api/menu/menuItems`,
+      url: `${config.baseURL}/api/menu/menuItems`,
       headers: {
         Authorization: token,
         "Content-Type": "application/json",

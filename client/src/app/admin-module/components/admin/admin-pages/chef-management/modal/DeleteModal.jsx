@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
+import config from "@/config";
 
 const DeleteModal = ({ token, deleteId, closeModal, refreshData }) => {
   const [isLoading, setLoading] = useState(false);
@@ -12,7 +13,7 @@ const DeleteModal = ({ token, deleteId, closeModal, refreshData }) => {
 
     const options = {
       method: "DELETE",
-      url: `http://13.43.174.21:4000/api/chef/chefs/${deleteId}`,
+      url: `${config.baseURL}/api/chef/chefs/${deleteId}`,
       headers: {
         Authorization: token,
         "Content-Type": "application/json",

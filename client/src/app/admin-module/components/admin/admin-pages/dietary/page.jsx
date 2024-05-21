@@ -9,6 +9,7 @@ import UpdateDietary from "./modal/update";
 import AddDietary from "./modal/addDietary";
 import { useSelector } from "react-redux";
 import protectedRoute from "@/app/admin-module/config/protectedRoute";
+import config from "@/config";
 
 export const headItems = [
   "S. No.",
@@ -82,7 +83,7 @@ const Dietary = () => {
     setLoader(true);
     const options = {
       method: "GET",
-      url: "http://13.43.174.21:4000/api/dietary/dietaries",
+      url: `${config.baseURL}/api/dietary/dietaries`,
       headers: {
         Authorization: token,
         "Content-Type": "application/json",
@@ -114,7 +115,7 @@ const Dietary = () => {
     try {
       const options = {
         method: "GET",
-        url: `http://13.43.174.21:4000/api/dietary/dietaries/${_id}`,
+        url: `${config.baseURL}/api/dietary/dietaries/${_id}`,
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",

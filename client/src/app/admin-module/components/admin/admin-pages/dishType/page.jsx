@@ -8,6 +8,7 @@ import UpdateDishtype from "./modal/updateDishtype";
 import AddDishtype from "./modal/addDishtype";
 import { useSelector } from "react-redux";
 import protectedRoute from "@/app/admin-module/config/protectedRoute";
+import config from "@/config";
 
 export const headItems = [
   "S. No.",
@@ -82,7 +83,7 @@ const DishType = () => {
     setLoader(true);
     const options = {
       method: "GET",
-      url: "http://13.43.174.21:4000/api/DishType/dishTypes",
+      url: `${config.baseURL}/api/DishType/dishTypes`,
       headers: {
         Authorization: token,
         "Content-Type": "application/json",
@@ -114,7 +115,7 @@ const DishType = () => {
     try {
       const options = {
         method: "GET",
-        url: `http://13.43.174.21:4000/api/DishType/dishTypes/${_id}`,
+        url: `${config.baseURL}/api/DishType/dishTypes/${_id}`,
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",

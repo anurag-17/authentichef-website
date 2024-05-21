@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import config from "@/config";
 
 const DeleteDietary = ({ deleteId, closeModal, refreshData }) => {
   const [isLoading, setLoading] = useState(false);
@@ -15,7 +16,7 @@ const DeleteDietary = ({ deleteId, closeModal, refreshData }) => {
 
     const options = {
       method: "DELETE",
-      url: `http://13.43.174.21:4000/api/dietary/dietaries/${deleteId}`,
+      url: `${config.baseURL}/api/dietary/dietaries/${deleteId}`,
       headers: {
         Authorization: token,
         "Content-Type": "application/json",

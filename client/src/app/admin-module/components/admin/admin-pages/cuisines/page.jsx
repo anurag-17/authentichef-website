@@ -8,6 +8,7 @@ import UpdateCuisines from "./modal/updateCuisines";
 import AddCuisines from "./modal/addCuisines";
 import { useSelector } from "react-redux";
 import protectedRoute from "@/app/admin-module/config/protectedRoute";
+import config from "@/config";
 
 export const headItems = [
   "S. No.",
@@ -80,7 +81,7 @@ const Cuisines = () => {
     setLoader(true);
     const options = {
       method: "GET",
-      url: "http://13.43.174.21:4000/api/cuisines/getAllCuisines ",
+      url: `${config.baseURL}/api/cuisines/getAllCuisines `,
       headers: {
         Authorization: token,
         "Content-Type": "application/json",
@@ -112,7 +113,7 @@ const Cuisines = () => {
     try {
       const options = {
         method: "GET",
-        url: `http://13.43.174.21:4000/api/cuisines/getCuisinesById/${_id}`,
+        url: `${config.baseURL}/api/cuisines/getCuisinesById/${_id}`,
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",

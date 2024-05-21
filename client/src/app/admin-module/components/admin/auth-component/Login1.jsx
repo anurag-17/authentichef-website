@@ -7,6 +7,7 @@ import axios from "axios";
 import { setToken, removeToken,adDetails } from "@/redux/adminSlice/authSlice";
 import RightSection from "./RightSection";
 import Link from "next/link";
+import config from "@/config";
 
 const Login = () => {
   //const dispatch = useDispatch();
@@ -27,7 +28,7 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await axios.post("/api/auth/adminLogin", loginDetails, {
+      const res = await axios.post(`${config.baseURL}/api/auth/adminLogin`, loginDetails, {
         headers: {
           "Content-Type": "application/json",
         },

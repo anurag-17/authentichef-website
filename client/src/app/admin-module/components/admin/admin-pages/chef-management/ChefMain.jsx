@@ -63,7 +63,7 @@ const ChefMain = () => {
       setIsLoader(true);
       const options = {
         method: "GET",
-        url: `http://13.43.174.21:4000/api/chef/chefs/${id}`,
+        url: `${config.baseURL}/api/chef/chefs/${id}`,
         headers: {
           Authorization: token,
           "Content-Type": "application/json",
@@ -117,7 +117,7 @@ const ChefMain = () => {
   const searchDataFunc = (search_cate) => {
     const options = {
       method: "GET",
-      url: `http://13.43.174.21:4000/api/chef/chefs?search=${search_cate}`,
+      url: `${config.baseURL}/api/chef/chefs?search=${search_cate}`,
       headers: {
         Authorization: token,
         "Content-Type": "multipart/form-data",

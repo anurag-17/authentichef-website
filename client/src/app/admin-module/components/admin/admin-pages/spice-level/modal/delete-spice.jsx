@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import config from "@/config";
 
 const DeleteSpice = ({ deleteId, closeModal, refreshData }) => {
   const [isLoading, setLoading] = useState(false);
@@ -16,7 +17,7 @@ const DeleteSpice = ({ deleteId, closeModal, refreshData }) => {
 
     const options = {
       method: "DELETE",
-      url: `http://13.43.174.21:4000/api/SpiceLevel/spiceLevels/${deleteId}`,
+      url: `${config.baseURL}/api/SpiceLevel/spiceLevels/${deleteId}`,
       headers: {
         Authorization: token,
         "Content-Type": "application/json",

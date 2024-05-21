@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import Loader from "../components/admin/loader/Index";
 import { removeToken } from "../../redux/slice";
+import config from "@/config";
 
 const protectedRoute = (WrappedComponent) => {
   const Wrapper = (props) => {
@@ -16,7 +17,7 @@ const protectedRoute = (WrappedComponent) => {
     useEffect(() => {
       const checkAuth = async () => {
         if (!userAuthToken) {
-          router.push("/admin-module/admin/sign-in");
+          router.push(`${config.baseURL}/admin-module/admin/sign-in`);
           return;
         }
         verify();
@@ -29,7 +30,7 @@ const protectedRoute = (WrappedComponent) => {
       setIsAuth(false);
       try {
         const res = await axios.get(
-          `http://13.43.174.21:4000/api/auth/verifyUserToken/${userAuthToken}`
+          `${config.baseURL}/api/auth/verifyUserToken/${userAuthToken}`
         );
         if (res.status === 200) {
           setIsAuth(true);

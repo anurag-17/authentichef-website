@@ -4,6 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import config from "@/config";
 
 const AddCuisines = ({ closeDrawer, refreshData }) => {
  const { token } = useSelector((state) => state?.auth);
@@ -22,7 +23,7 @@ const AddCuisines = ({ closeDrawer, refreshData }) => {
       formData.append("ProfileImage", dietaryDetail.ProfileImage); // Append image to FormData
 
       const response = await axios.post(
-        "http://13.43.174.21:4000/api/cuisines/Createcuisines",
+        `${config.baseURL}/api/cuisines/Createcuisines`,
         formData,
         {
           headers: {
