@@ -557,7 +557,7 @@ const ExploreDishes = () => {
                             src={allCuisines}
                             className="bt-1 rounded-[5px] 2xl:w-[74px] 2xl:h-[74px] h-auto xl:w-[50px] lg:w-[] sm:w-[] w-[]"
                           />
-                          <h1>All Cuisines</h1>
+                          <h4>All Cuisines</h4>
                         </div>
                       </button>
 
@@ -643,7 +643,7 @@ const ExploreDishes = () => {
                                 src={item.ProfileImage}
                                 className="rounded-[5px] 2xl:w-[35px] 2xl:h-[35px] h-auto xl:w-[50px] lg:w-[] sm:w-[] w-[]  "
                               />
-                              <h1>{item.title}</h1>
+                              <h4>{item.title}</h4>
                             </div>
                           ))}
                       </div> */}
@@ -721,14 +721,14 @@ const ExploreDishes = () => {
 
                       <div className="flex justify-between 2xl:w-[1602px] h-auto mx-auto">
                         <div>
-                          <h1 className="alata font-[400] 2xl:text-[20px] xl:text-[14px] lg:text-[10px] sm:text-[] text-[] my-1 ">
+                          <h4 className="alata font-[400] 2xl:text-[20px] xl:text-[14px] lg:text-[10px] sm:text-[] text-[] my-1 ">
                             Dish Type
-                          </h1>
+                          </h4>
                           <div className=" flex flex-wrap gap-[20px]  ">
                             {/* {Array.isArray(getAllDishtype) &&
                               getAllDishtype.map((item) => (
                                 <div key={item._id} className="dropbox3">
-                                  <h1>{item.title}</h1>
+                                  <h4>{item.title}</h4>
                                 </div>
                               ))} */}
 
@@ -752,14 +752,14 @@ const ExploreDishes = () => {
                           </div>
                         </div>
                         <div>
-                          <h1 className="alata font-[400] 2xl:text-[20px] xl:text-[14px] lg:text-[10px] sm:text-[] text-[] my-1 ">
+                          <h4 className="alata font-[400] 2xl:text-[20px] xl:text-[14px] lg:text-[10px] sm:text-[] text-[] my-1 ">
                             Spice Level
-                          </h1>
+                          </h4>
                           <div className=" flex flex-wrap gap-[20px] ">
                             {/* {Array.isArray(getAllSpiceL) &&
                               getAllSpiceL.map((item) => (
                                 <div key={item._id} className="dropbox3">
-                                  <h1>{item.title}</h1>
+                                  <h4>{item.title}</h4>
                                 </div>
                               ))} */}
 
@@ -822,9 +822,9 @@ const ExploreDishes = () => {
                     src={cuisineindia}
                     alt="cuisine-india"
                   />
-                  <h1 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
+                  <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
                     Indian
-                  </h1>
+                  </h4>
                 </div>
                 <div class="">
                   <Image
@@ -832,9 +832,9 @@ const ExploreDishes = () => {
                     className="rounded-[5px] w-[100%] h-auto mcusinimg"
                     src={cuisineamerican}
                   />
-                  <h1 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
+                  <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
                     American
-                  </h1>
+                  </h4>
                 </div>
                 <div class="">
                   <Image
@@ -842,9 +842,9 @@ const ExploreDishes = () => {
                     className="rounded-[5px] w-[100%] h-auto mcusinimg"
                     src={cuisinemexican}
                   />
-                  <h1 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
+                  <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
                     Mexican
-                  </h1>
+                  </h4>
                 </div>
                 <div class="">
                   <Image
@@ -852,9 +852,9 @@ const ExploreDishes = () => {
                     className="rounded-[5px] w-[100%]   h-auto mcusinimg"
                     src={cuisinemediterranean}
                   />
-                  <h1 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
+                  <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
                     Mediterranean
-                  </h1>
+                  </h4>
                 </div>
                 <div class="">
                   <Image
@@ -862,9 +862,9 @@ const ExploreDishes = () => {
                     className="rounded-[5px] w-[100%] h-auto mcusinimg"
                     src={cuisineitalian}
                   />
-                  <h1 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
+                  <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
                     Italian
-                  </h1>
+                  </h4>
                 </div>
                 <div class="">
                   <Image
@@ -872,9 +872,9 @@ const ExploreDishes = () => {
                     className="rounded-[5px] w-[100%] h-auto mcusinimg"
                     src={cuisinemiddleEastern}
                   />
-                  <h1 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
+                  <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
                     Middle Eastern
-                  </h1>
+                  </h4>
                 </div>
                 <div class="">
                   <Image
@@ -882,9 +882,9 @@ const ExploreDishes = () => {
                     className="rounded-[5px] w-[100%] h-auto mcusinimg"
                     src={cuisinesoutheast}
                   />
-                  <h1 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
+                  <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
                     Southeast Asian
-                  </h1>
+                  </h4>
                 </div>
               </div>
             </div>
@@ -901,9 +901,9 @@ const ExploreDishes = () => {
                         src={cuisineindia}
                         alt="cuisine-india"
                       />
-                      <h1 className="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
+                      <h4 className="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
                         Indian
-                      </h1>
+                      </h4>
                     </div>
                   </div>
                   <div className="carousel-item">
@@ -913,9 +913,9 @@ const ExploreDishes = () => {
                         className="rounded-[5px] w-[195px] h-[195px] mcusinimg"
                         src={cuisineamerican}
                       />
-                      <h1 className="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
+                      <h4 className="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
                         American
-                      </h1>
+                      </h4>
                     </div>
                   </div>
                   <div className="carousel-item">
@@ -925,9 +925,9 @@ const ExploreDishes = () => {
                         className="rounded-[5px] w-[195px] h-[195px] mcusinimg"
                         src={cuisinemexican}
                       />
-                      <h1 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
+                      <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
                         Mexican
-                      </h1>
+                      </h4>
                     </div>
                   </div>
                   <div class="carousel-item">
@@ -937,9 +937,9 @@ const ExploreDishes = () => {
                         className="rounded-[5px] w-[195px] h-[195px] mcusinimg"
                         src={cuisinemediterranean}
                       />
-                      <h1 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
+                      <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
                         Mediterranean
-                      </h1>
+                      </h4>
                     </div>
                   </div>
                   <div class="carousel-item">
@@ -949,9 +949,9 @@ const ExploreDishes = () => {
                         className="rounded-[5px] w-[195px] h-[195px]  mcusinimg"
                         src={cuisineitalian}
                       />
-                      <h1 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
+                      <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
                         Italian
-                      </h1>
+                      </h4>
                     </div>
                   </div>
                   <div class="carousel-item">
@@ -961,9 +961,9 @@ const ExploreDishes = () => {
                         className="rounded-[5px] w-[195px] h-[195px] mcusinimg"
                         src={cuisinemiddleEastern}
                       />
-                      <h1 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
+                      <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
                         Middle Eastern
-                      </h1>
+                      </h4>
                     </div>
                   </div>
                   <div class="carousel-item">
@@ -973,9 +973,9 @@ const ExploreDishes = () => {
                         className="rounded-[5px] w-[195px] h-[195px]  mcusinimg"
                         src={cuisinesoutheast}
                       />
-                      <h1 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
+                      <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
                         Southeast Asian
-                      </h1>
+                      </h4>
                     </div>
                   </div>
                 </Carousel>
@@ -989,9 +989,9 @@ const ExploreDishes = () => {
             <div className="mnavbar 2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px]  2xl:py-[60px] xl:py-[60px] py-[40px] mx-auto">
               <div className="flex justify-center">
                 <div class="px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 mt-3 xs:text-center">
-                  <h1 class="third_head text-center text-3xl sm:text-4xl md:text-55px">
+                  <h4 class="third_head text-center text-3xl sm:text-4xl md:text-55px">
                     Explore Dishes
-                  </h1>
+                  </h4>
                   <p class="seven_p mt-4 text-base sm:text-lg md:text-xl lg:text-lg xl:text-xl 2xl:text-lg">
                     Browse the world of authentic homemade dishes by our
                     independent chef community. More chefs and dishes added
@@ -1017,9 +1017,9 @@ const ExploreDishes = () => {
                         />
                       </button>
                       <div className="">
-                        <h1 className="alata capitalize font-[400] text-[#DB5353] 2xl:my-4 xl:my-3 my-2 2xl:text-[20px] 2xl:leading-[20px]  xl:text-[14px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[10px]">
+                        <h4 className="alata capitalize font-[400] text-[#DB5353] 2xl:my-4 xl:my-3 my-2 2xl:text-[20px] 2xl:leading-[20px]  xl:text-[14px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[10px]">
                           {item.name}
-                        </h1>
+                        </h4>
 
                         {/* ===============Chef ============= */}
                         <Link
@@ -1032,9 +1032,9 @@ const ExploreDishes = () => {
                               className="four_img2 "
                             />
                             <div>
-                              <h1 className="fourth_name ">
+                              <h4 className="fourth_name ">
                                 {item?.chef_id?.name}
-                              </h1>
+                              </h4>
                               <p className="fourth_p text-[#6765EB]">
                                 {item?.Cuisines_id?.title}
                               </p>
@@ -1060,7 +1060,7 @@ const ExploreDishes = () => {
                           </button>
                         </div>
                         <div className="flex items-center gap-5  2xl:my-[20px] xl:my-[15px] my-[12px]">
-                          <h1 className="fourth_p">Spice level</h1>
+                          <h4 className="fourth_p">Spice level</h4>
                           <button className="four_btn">
                             <Image
                               alt="image"
@@ -1110,7 +1110,7 @@ const ExploreDishes = () => {
 
         <div className="flex justify-center lg:my-14 xl:my-28 my-10">
           <div className="mnavbar 2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px]">
-            <h1 className="nine_head">Testimonials</h1>
+            <h4 className="nine_head">Testimonials</h4>
             <p className="nine_p text-center">
               All our chefs have fans raving about their food
             </p>
@@ -1346,9 +1346,9 @@ const ExploreDishes = () => {
                       />
                     </svg>
                   </button>
-                  <h1 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[22px] text-[22px] 2xl:leading-[32px] xl:text-[18px] xl:leading-[24px] lg:text-[14px] lg:leading-[20px]">
+                  <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[22px] text-[22px] 2xl:leading-[32px] xl:text-[18px] xl:leading-[24px] lg:text-[14px] lg:leading-[20px]">
                     My Basket
-                  </h1>
+                  </h4>
                 </div>
 
                 {cart.length === 0 ? (
@@ -1360,9 +1360,9 @@ const ExploreDishes = () => {
                         alt="Empty cart"
                       /> */}
                     </div>
-                    <h1 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[25px] 2xl:leading-[35px] xl:text-[20px] xl:leading-[28px] lg:text-[16px] lg:leading-[24px] text-center 2xl:mt-24">
+                    <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[25px] 2xl:leading-[35px] xl:text-[20px] xl:leading-[28px] lg:text-[16px] lg:leading-[24px] text-center 2xl:mt-24">
                       Explore a World of Deliciousness
-                    </h1>
+                    </h4>
                     <p className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[16px] 2xl:leading-[26px] xl:text-[14px] xl:leading-[20px] lg:text-[12px] lg:leading-[18px] text-center">
                       Add dishes to your cart now.
                     </p>
@@ -1402,15 +1402,15 @@ const ExploreDishes = () => {
                                 />
                               </div>
                               <div className="">
-                                <h1 className="alata font-[400] text-[#111] my-0 text-[18px] leading-[28px]">
+                                <h4 className="alata font-[400] text-[#111] my-0 text-[18px] leading-[28px]">
                                   {data.name}
-                                </h1>
-                                <h1 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
+                                </h4>
+                                <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
                                   Price:£{data.price}
-                                </h1>
-                                <h1 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
+                                </h4>
+                                <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
                                   Quantity:1
-                                </h1>
+                                </h4>
                               </div>
                             </div>
                             <button
@@ -1438,9 +1438,9 @@ const ExploreDishes = () => {
 
                       <div className="flex justify-between items-center mt-20">
                         <div>
-                          <h1 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
+                          <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
                             {/* {subtotalPrice} */}
-                          </h1>
+                          </h4>
                         </div>
                         <div>
                           <button className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1">
@@ -1488,7 +1488,7 @@ const ExploreDishes = () => {
               </div>
               <div className="2xl:w-[400px] xl:w-[359px] w-[300px]">
                 <div>
-                  <h1 className="pop-head">Chicken kabab</h1>
+                  <h4 className="pop-head">Chicken kabab</h4>
                   <p className="pop-chef">by Chef Radha</p>
                 </div>
                 <div className="flex justify-between pop-detail">

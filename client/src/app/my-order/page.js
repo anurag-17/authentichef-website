@@ -22,9 +22,9 @@ const MyOrder = () => {
                 alt="order-img"
                 className="rounded-[5.8px] 2xl:w-[95px] 2xl:h-[95px] xl:w-[70px] w-[50px] h-auto"
               />
-              <h1 className="alata font-[400] 2xl:text-[24px] 2xl:leading-[34px] xl:text-[14px] xl:leading-[24px] lg:text-[14px] lg:leading-[20px]">
+              <h4 className="alata font-[400] 2xl:text-[24px] 2xl:leading-[34px] xl:text-[14px] xl:leading-[24px] lg:text-[14px] lg:leading-[20px]">
                 Paneer butter masala
-              </h1>
+              </h4>
             </div>
             <div className="">
               <button className=" alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[257px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] text-[10px] xl:w-[150px] xl:py-[10px] lg:px-3 lg:py-[6px] px-3 py-1 hover:bg-[#7e2727]  ">
@@ -46,9 +46,9 @@ const MyOrder = () => {
                 alt="order-img"
                 className="rounded-[5.8px] 2xl:w-[95px] 2xl:h-[95px] xl:w-[70px] w-[50px] h-auto"
               />
-              <h1 className="alata font-[400] 2xl:text-[24px] 2xl:leading-[34px] xl:text-[14px] xl:leading-[24px] lg:text-[14px] lg:leading-[20px]">
+              <h4 className="alata font-[400] 2xl:text-[24px] 2xl:leading-[34px] xl:text-[14px] xl:leading-[24px] lg:text-[14px] lg:leading-[20px]">
                 Alloo Sabhji
-              </h1>
+              </h4>
             </div>
             <div className="">
               <button className=" alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[257px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] text-[10px] xl:w-[150px] xl:py-[10px] lg:px-3 lg:py-[6px] px-3 py-1 hover:bg-[#7e2727]  ">

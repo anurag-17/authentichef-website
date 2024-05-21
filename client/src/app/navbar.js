@@ -468,9 +468,9 @@ const Navbar = () => {
                       />
                     </svg>
                   </button>
-                  <h1 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[22px] text-[22px] 2xl:leading-[32px] xl:text-[18px] xl:leading-[24px] lg:text-[14px] lg:leading-[20px]">
+                  <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[22px] text-[22px] 2xl:leading-[32px] xl:text-[18px] xl:leading-[24px] lg:text-[14px] lg:leading-[20px]">
                     My Basket
-                  </h1>
+                  </h4>
                 </div>
 
                 {cart.length === 0 ? (
@@ -482,9 +482,9 @@ const Navbar = () => {
                         alt="Empty cart"
                       /> */}
                     </div>
-                    <h1 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[25px] 2xl:leading-[35px] xl:text-[20px] xl:leading-[28px] lg:text-[16px] lg:leading-[24px] text-center 2xl:mt-24">
+                    <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[25px] 2xl:leading-[35px] xl:text-[20px] xl:leading-[28px] lg:text-[16px] lg:leading-[24px] text-center 2xl:mt-24">
                       Explore a World of Deliciousness
-                    </h1>
+                    </h4>
                     <p className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[16px] 2xl:leading-[26px] xl:text-[14px] xl:leading-[20px] lg:text-[12px] lg:leading-[18px] text-center">
                       Add dishes to your cart now.
                     </p>
@@ -524,15 +524,15 @@ const Navbar = () => {
                                 />
                               </div>
                               <div className="">
-                                <h1 className="alata font-[400] text-[#111] my-0 text-[18px] leading-[28px]">
+                                <h4 className="alata font-[400] text-[#111] my-0 text-[18px] leading-[28px]">
                                   {data.name}
-                                </h1>
-                                <h1 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
+                                </h4>
+                                <p className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
                                   Price:£{data.price}
-                                </h1>
-                                <h1 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
+                                </p>
+                                <p className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
                                   Quantity:1
-                                </h1>
+                                </p>
                               </div>
                               {/* <div className="flex items-center gap-2">
                                 <button
@@ -574,9 +574,9 @@ const Navbar = () => {
 
                       <div className="flex justify-between items-center mt-20">
                         <div>
-                          <h1 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
+                          <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
                             {/* {subtotalPrice} */}
-                          </h1>
+                          </h4>
                         </div>
                         <div>
                           <button className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1">
@@ -623,7 +623,7 @@ const Navbar = () => {
                   />
                 </svg>
               </div>
-              <h1 className="fourth_p">Sign up</h1>
+              <h4 className="fourth_p">Sign up</h4>
             </div>
             <div className=" my-3 px-[40px]">
               <div className="flex flex-wrap justify-between 2xl:w-[775px] xl:w-[480px] mx-auto ">
@@ -747,7 +747,7 @@ const Navbar = () => {
                     />
                   </svg>
                 </div>
-                <h1 className="fourth_p">Login</h1>
+                <h4 className="fourth_p">Login</h4>
               </div>
               <div className="2xl:w-[368px]  xl:w-[280px] lg:w-[220px] sm:w-[] w-[]">
                 <div className="2xl:mt-[35px] mt-[25px]">

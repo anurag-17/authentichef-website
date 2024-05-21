@@ -140,9 +140,9 @@ const ChefDetails = ({ params }) => {
                   </div>
                 </div>
                 <div>
-                  <h1 className="alata font-[400] 2xl:text-[35px] 2xl:leading-[45px] xl:text-[20px] xl:leading-[35px] lg:text-[16px] lg:leading-[24px]">
+                  <h4 className="alata font-[400] 2xl:text-[35px] 2xl:leading-[45px] xl:text-[20px] xl:leading-[35px] lg:text-[16px] lg:leading-[24px]">
                     Chef {getAChef?.name} Menu
-                  </h1>
+                  </h4>
                   <p className="fourth_p text-[#555555]">
                     {/* Punjabi · North Indian · South Indian · Indian · Vegetarian */}
                   </p>
@@ -203,7 +203,7 @@ const ChefDetails = ({ params }) => {
           <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px] mx-auto mnavbar">
             <div className="">
               <div>
-                <h1 className="third_head">Chef Dishes</h1>
+                <h4 className="third_head">Chef Dishes</h4>
               </div>
             </div>
             <div className=" flex flex-wrap gap-[20px] xl:gap-[25px] 2xl:gap-[70px] w-full px-10 md:px-0 mx-auto">
@@ -223,9 +223,9 @@ const ChefDetails = ({ params }) => {
                       />
                     </button>
                     <div className="">
-                      <h1 className="alata font-[400] text-[#DB5353] 2xl:my-4 xl:my-3 my-2 2xl:text-[20px] 2xl:leading-[20px]  xl:text-[14px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[10px]">
+                      <h4 className="alata font-[400] text-[#DB5353] 2xl:my-4 xl:my-3 my-2 2xl:text-[20px] 2xl:leading-[20px]  xl:text-[14px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[10px]">
                         {item?.name}
-                      </h1>
+                      </h4>
                       <div className="flex items-center 2xl:gap-3 xl:gap-2 lg:gap-2  gap-2 xl:my-3 lg:my-2 my-2">
                         <img
                           alt="image"
@@ -233,10 +233,10 @@ const ChefDetails = ({ params }) => {
                           className="four_img2 "
                         />
                         <div>
-                          <h1 className="fourth_name ">
+                          <h4 className="fourth_name ">
                             {" "}
                             {item?.chef_id?.name}
-                          </h1>
+                          </h4>
                           <p className="fourth_p text-[#6765EB]">
                             {item?.Cuisines_id?.title}
                           </p>
@@ -264,7 +264,7 @@ const ChefDetails = ({ params }) => {
                         </button>
                       </div>
                       <div className="flex items-center gap-5  2xl:my-[20px] xl:my-[15px] my-[12px]">
-                        <h1 className="fourth_p">Spice Level</h1>
+                        <h4 className="fourth_p">Spice Level</h4>
                         <button className="four_btn">
                           <img
                             alt="image"
@@ -343,9 +343,9 @@ const ChefDetails = ({ params }) => {
                       />
                     </svg>
                   </button>
-                  <h1 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[22px] text-[22px] 2xl:leading-[32px] xl:text-[18px] xl:leading-[24px] lg:text-[14px] lg:leading-[20px]">
+                  <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[22px] text-[22px] 2xl:leading-[32px] xl:text-[18px] xl:leading-[24px] lg:text-[14px] lg:leading-[20px]">
                     My Basket
-                  </h1>
+                  </h4>
                 </div>
 
                 {cart.length === 0 ? (
@@ -357,9 +357,9 @@ const ChefDetails = ({ params }) => {
                         alt="Empty cart"
                       /> */}
                     </div>
-                    <h1 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[25px] 2xl:leading-[35px] xl:text-[20px] xl:leading-[28px] lg:text-[16px] lg:leading-[24px] text-center 2xl:mt-24">
+                    <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[25px] 2xl:leading-[35px] xl:text-[20px] xl:leading-[28px] lg:text-[16px] lg:leading-[24px] text-center 2xl:mt-24">
                       Explore a World of Deliciousness
-                    </h1>
+                    </h4>
                     <p className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[16px] 2xl:leading-[26px] xl:text-[14px] xl:leading-[20px] lg:text-[12px] lg:leading-[18px] text-center">
                       Add dishes to your cart now.
                     </p>
@@ -399,15 +399,15 @@ const ChefDetails = ({ params }) => {
                                 />
                               </div>
                               <div className="">
-                                <h1 className="alata font-[400] text-[#111] my-0 text-[18px] leading-[28px]">
+                                <h4 className="alata font-[400] text-[#111] my-0 text-[18px] leading-[28px]">
                                   {data.name}
-                                </h1>
-                                <h1 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
+                                </h4>
+                                <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
                                   Price:£{data.price}
-                                </h1>
-                                <h1 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
+                                </h4>
+                                <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
                                   Quantity:1
-                                </h1>
+                                </h4>
                               </div>
                             </div>
                             <button
@@ -435,9 +435,9 @@ const ChefDetails = ({ params }) => {
 
                       <div className="flex justify-between items-center mt-20">
                         <div>
-                          <h1 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
+                          <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
                             {/* {subtotalPrice} */}
-                          </h1>
+                          </h4>
                         </div>
                         <div>
                           <button className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1">
