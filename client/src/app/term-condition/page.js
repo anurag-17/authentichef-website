@@ -8,7 +8,7 @@ const TermCondition = () => {
     <>
       <section>
         <Navbar />
-        <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px]  mx-auto 2xl:py-[150px] xl:py-[120px] py-[70px] mnavbar">
+        <div className="mx-auto 2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] xs:w-[90%] md:w-[700px] sm:w-[90%] py-[150px] 2xl:py-[120px] lg:py-[70px] md:py-[70px] sm:py-[70px] xs:py-[70px] mnavbar">
           <div>
             <h1 className="third_head mb-7 2xl:mb-10 ">TERMS AND CONDITIONS</h1>
             <p className="privacyText mb-7 2xl:mb-10">

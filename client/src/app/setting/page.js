@@ -53,7 +53,7 @@ const Setting = () => {
         <Navbar />
 
         <div className="2xl:pt-[100px] xl:pt-[80px] pt-[50px]">
-          <div className=" mnavbar 2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] flex justify-between mx-auto 2xl:pt-[70px] xl:pt-[40px] pt-[30px]">
+          <div className=" mnavbar 2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] xs:w-[82%] md:w-[700px] flex justify-between mx-auto 2xl:pt-[70px] xl:pt-[40px] pt-[30px]">
             <div
               className={` flex flex-col justify-between   
             2xl:w-[278px] xl:w-[200px] w-[170px]  drawer
