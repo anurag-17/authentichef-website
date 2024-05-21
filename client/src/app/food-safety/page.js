@@ -18,10 +18,10 @@ const FoodSefty = () => {
         <div className="flex justify-center xl:py-28 lg:py-14 md:py-8 py-5 border-b-[1px] border-[#B1B1B1]">
           <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] w-full flex items-center flex-col-reverse lg:flex-row mnavbar 2xl:pt-[135px] xl:pt-[60px] pt-[40px]">
             <div className="mx-4 sm:w-1/2 sm:mx-auto lg:mx-0">
-              <h2 className="alata font-[400] 2xl:text-[45px] 2xl:leading-[55px] 2xl:w-[695px] xl:text-[30px] xl:leading-[35px] xl:w-[450px] lg:text-[22px] lg:leading-[30px] lg:w-[340px] text-[16px] leading-[24px]">
+              <h1 className="alata font-[400] 2xl:text-[45px] 2xl:leading-[55px] 2xl:w-[695px] xl:text-[30px] xl:leading-[35px] xl:w-[450px] lg:text-[22px] lg:leading-[30px] lg:w-[340px] text-[16px] leading-[24px]">
                 The safety and well-being of our chef community and customers
                 are our top priority
-              </h2>
+              </h1>
               <p className="alata font-[400] 2xl:text-[25px] 2xl:leading-[37px] 2xl:w-[695px] xl:text-[16px] xl:leading-[28px] xl:w-[450px] lg:text-[12px] lg:leading-[18px] lg:w-[340px] text-[14px] leading-[22px] 2xl:mt-[25px] xl:mt-[15px] mt-[10px]">
                 We understand the importance of maintaining the highest
                 standards of food safety and hygiene, and our chef community are
@@ -42,10 +42,10 @@ const FoodSefty = () => {
         <div className="bg-[#F5C7C7] 2xl:py-[115px] xl:py-[80px] py-[50px]">
           <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] w-full mx-auto mnavbar">
             <div>
-              <h4 className="alata font-[400] mx-auto 2xl:text-[25px] 2xl:leading-[45px] xl:text-[16px] xl:leading-[30px] text-[16px] leading-[24px] 2xl:w-[831px] xl:w-[550px] w-full text-center">
+              <h2 className="alata font-[400] mx-auto 2xl:text-[25px] 2xl:leading-[45px] xl:text-[16px] xl:leading-[30px] text-[16px] leading-[24px] 2xl:w-[831px] xl:w-[550px] w-full text-center">
                 Each of our community chefs meet our thorough onboarding
                 criteria in order to sell their dishes on authentichef.
-              </h4>
+              </h2>
             </div>
             <div className="2xl:mt-[60px] xl:mt-[40px] mt-[20px] flex flex-col sm:flex-row justify-between">
               {/* First item */}
