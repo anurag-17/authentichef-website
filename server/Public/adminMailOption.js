@@ -105,7 +105,7 @@ const adminMailOptions=(req, savedOrder, deliveryDate, deliveryInfo, payment_met
                         <div>
                             <p><strong>${item.menuItem.name}</strong></p>
                             <p>Quantity: ${item.quantity}</p>
-                            <p>Price: $${(item.menuItem.price * item.quantity).toFixed(2)}</p>
+                            <p>Price Per Item$${(item.menuItem.price).toFixed(2)}</p>
                         </div>
                     </div>
                 `).join('')}

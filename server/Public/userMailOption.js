@@ -120,7 +120,7 @@ const userMailOptions = (req, savedOrder, deliveryDate, deliveryInfo, totalAmoun
                             <div class="menu-item-details">
                                 <span><strong>${item.menuItem.name}</strong></span>
                                 <span>Quantity: ${item.quantity}</span>
-                                <span>Price: $${(item.menuItem.price * item.quantity).toFixed(2)}</span>
+                                <span>Price Per Item: $${(item.menuItem.price ).toFixed(2)}</span>
                             </div>
                         </div>`).join('')}
                 </div>
