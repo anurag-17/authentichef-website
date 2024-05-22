@@ -6,29 +6,29 @@ const deliveryInfoSchema = new mongoose.Schema({
   },
   houseNo: {
       type: String,
-      required: true // Assuming a house number is required for delivery
+     
   },
   buildingName: String, // Assuming a building name might not always be required
   streetName: {
       type: String,
-      required: true // Assuming a street name is required for delivery
+      
   },
   City: {
       type: String,
-      required: true // Assuming a town or city name is required for delivery
+      
   },
   country: {
       type: String,
-      required: true // Assuming a country name is required for delivery
+      
   },
 FirstName:{
   type:String,
-  required:true
+
 
 },
 LastName:{
   type:String,
-  required:true
+
 },
 Type_of_Address:{
  type:String,
@@ -43,29 +43,28 @@ const BillingInfoSchema = new mongoose.Schema({
     },
     houseNo: {
         type: String,
-        required: true // Assuming a house number is required for delivery
+       
     },
     buildingName: String, // Assuming a building name might not always be required
     streetName: {
         type: String,
-        required: true // Assuming a street name is required for delivery
+       
     },
     City: {
         type: String,
-        required: true // Assuming a town or city name is required for delivery
+       
     },
     country: {
         type: String,
-        required: true // Assuming a country name is required for delivery
+        
     },
   FirstName:{
     type:String,
-    required:true
+
   
   },
   LastName:{
     type:String,
-    required:true
   },
   Type_of_Address:{
    type:String,
@@ -81,12 +80,11 @@ const orderSchema = new mongoose.Schema({
         {
             menuItem: {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: "MenuItem",
-                required: true,
+                ref: "MenuItem"
             },
             quantity: {
                 type: Number,
-                required: true,
+              
             },
             customization: String,
             price: {
