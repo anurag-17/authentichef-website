@@ -1,3 +1,4 @@
+// "nav"
 "use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
@@ -31,7 +32,6 @@ import plus from "../../public/images/plus.svg";
 import minus from "../../public/images/minus.svg";
 import { removeItemFromCart, clearCart } from "./redux/dishSlice";
 import config from "@/config";
-
 const Navbar = () => {
   const [userDetail, setUserDetail] = useState({
     firstname: "",
@@ -40,7 +40,6 @@ const Navbar = () => {
     password: "",
     role: "",
   });
-
   const router = useRouter();
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state?.auth);
@@ -53,20 +52,16 @@ const Navbar = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState("success");
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-
   const handleRemoveItem = (_id) => {
     console.log(_id, "iggg");
     dispatch(removeItemFromCart({ _id }));
   };
-
   const handleClearCart = () => {
     dispatch(clearCart());
   };
-
   const handleDrawerOpen = () => {
     setIsDrawerOpen(true);
   };
-
   const handleDrawerClose = () => {
     setIsDrawerOpen(false);
   };
@@ -84,7 +79,6 @@ const Navbar = () => {
       [name]: value,
     }));
   };
-
   useEffect(() => {
     if (success !== undefined) {
       setIsLoggedIn(success);
@@ -114,16 +108,13 @@ const Navbar = () => {
       // setLoader(false);
     }
   };
-
   const InputHandler = (e) => {
     setLoginDetails({ ...loginDetails, [e.target.name]: e.target.value });
   };
-
   const refreshData = () => {
     setRefresh(!isRefresh);
   };
   // ==========Handle login==========
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -155,7 +146,6 @@ const Navbar = () => {
     }
   };
   // ==========Handle logout==========
-
   const handleLogout = async () => {
     try {
       const res = await axios.get(`${config.baseURL}/api/auth/logout`, {
@@ -179,9 +169,7 @@ const Navbar = () => {
       toast.error("Logout failed");
     }
   };
-
   // ======handle localStorage and popup=====
-
   const handleClose = () => {
     const modal = document.getElementById("my_modal_2");
     modal.close();
@@ -190,34 +178,92 @@ const Navbar = () => {
     const modal = document.getElementById("my_modal_1");
     modal.close();
   };
-
   // useEffect(() => {
-  //   // Check if user token exists in local storage
-
-  //   setIsLoggedIn(!!); // Set isLoggedIn to true if user token exists
+  // // Check if user token exists in local storage
+  // setIsLoggedIn(!!); // Set isLoggedIn to true if user token exists
   // }, [!isRefresh]);
-
   const handleLoginClick = () => {
     document.getElementById("my_modal_2").showModal();
   };
-
   const handleSignUpClick = () => {
     document.getElementById("my_modal_1").showModal();
   };
-
   const { cart } = useSelector((state) => state?.userCart);
   // const data = dish?.data;
-
   cart.forEach((item, index) => {
     const { data } = item;
     console.log(data, `data from item ${index + 1}`);
   });
+  const [getCartItems, setGetCartItems] = useState({});
+  useEffect(() => {
+    if (token) {
+      defaultCartItems();
+    }
+  }, [token, isRefresh]);
+  const defaultCartItems = () => {
+    const option = {
+      method: "GET",
+      url: `${config.baseURL}/api/Orders/getCartItem`,
+      headers: {
+        Authorization: token,
+      },
+    };
+    axios
+      .request(option)
+      .then((response) => {
+        setGetCartItems(response?.data?.userCart?.items);
+        console.log(response?.data?.userCart?.items, "data");
+      })
+      .catch((error) => {
+        console.log(error, "Error");
+      });
+  };
+  const handleItemRemove = async (id) => {
+    try {
+      const response = await axios.delete(
+        `${config.baseURL}/api/Orders/deleteCartItem/${id}`,
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      if (response.status >= 200 && response.status < 300) {
+        toast.success("Item Remove From Cart");
+        refreshData();
+      } else {
+        alert("failed");
+      }
+    } catch (error) {
+      alert(error?.response?.data?.message || "server error");
+    }
+  };
+  const handleCartClear = async () => {
+    try {
+      const response = await axios.delete(
+        `${config.baseURL}/api/Orders/deleteAllCartItem`,
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      if (response.status >= 200 && response.status < 300) {
+        toast.success("All Items Are Removed");
+        refreshData();
+      } else {
+        alert("failed");
+      }
+    } catch (error) {
+      alert(error?.response?.data?.message || "server error");
+    }
+  };
   return (
     <>
       {/* <ToastContainer className="mt-24" autoClose={1000} /> */}
       <section>
         <nav className="z-50 flex justify-center bg-[#F38181] 2xl:h-[116px] xl:h-[80px] lg:h-[50px] sm:h-[45px] h-12 w-full mnavbar-h fixed">
-          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[800px] w-full px-10 md:px-0  flex justify-between items-center mnavbar">
+          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[800px] w-full px-10 md:px-0 flex justify-between items-center mnavbar">
             <div className="w-1/3">
               {/* =======Side Drawer======= */}
               <div className="drawer">
@@ -232,7 +278,7 @@ const Navbar = () => {
                     <Image
                       alt="image"
                       src={sidemanu}
-                      className="2xl:w-[38.67px] 2xl:h-[32px] xl:w-[30px] h-auto w-[22px]  menu-btn md:ml-6 lg:ml-0"
+                      className="2xl:w-[38.67px] 2xl:h-[32px] xl:w-[30px] h-auto w-[22px] menu-btn md:ml-6 lg:ml-0"
                     />
                   </label>
                 </div>
@@ -274,7 +320,6 @@ const Navbar = () => {
                         </label>
                       </div>
                     </div>
-
                     <li className="2xl:mt-[90px] xl:mt-[50px] lg:mt-[40px] sm:mt-[30px] mt-[20px]">
                       <Link href="/setting">
                         <Image
@@ -320,7 +365,6 @@ const Navbar = () => {
                         FAQs
                       </a>
                     </li>
-
                     <hr className="mx-auto 2xl:w-[345px] xl:w-[260px] lg:w-[180px] sm:w-[140px] w-[120px] 2xl:mt-[75px] xl:mt-[40px] lg:mt-[20px] sm:mt-[15px] mt-[10px]" />
                     <div className="text-center 2xl:mt-[35px] xl:mt-[15px] lg:mt-[10px] sm:mt-[8px] mt-[5px]">
                       <div className="flex justify-center md:gap-11 gap-2 md:ml-6 lg:ml-0">
@@ -368,13 +412,12 @@ const Navbar = () => {
                 </div>
               </div>
             </div>
-
             <div className="w-1/3 flex justify-center ">
               <a href="/">
                 <Image alt="logo" src={logo} className="nav_logo" />
               </a>
             </div>
-            <div className="w-1/3  flex justify-end ">
+            <div className="w-1/3 flex justify-end ">
               <div className="flex justify-end md:gap-0 gap-2 md:ml-6">
                 {isLoggedIn === success ? (
                   <div className="flex justify-end md:gap-7 gap-2 w-1/3">
@@ -420,7 +463,6 @@ const Navbar = () => {
                     <button>{/* Add your Image component here */}</button>
                   </div>
                 )}
-
                 <button onClick={handleDrawerOpen}>
                   <Image src={beg} className="2xl:w-10 2xl:h-10" />
                 </button>
@@ -438,7 +480,6 @@ const Navbar = () => {
           checked={isDrawerOpen}
           onChange={() => {}}
         />
-
         <div className="drawer-side">
           <label
             htmlFor="my-drawer-4"
@@ -473,131 +514,214 @@ const Navbar = () => {
                     My Basket
                   </h4>
                 </div>
+                {/*
+{cart.length === 0 ? (
+<div>
+<div className="2xl:mt-40">
 
-                {cart.length === 0 ? (
-                  <div>
-                    <div className="2xl:mt-40">
-                      {/* <Image
-                        src={emptyCart}
-                        className="2xl:w-[268.25px] 2xl:h-[265px] mx-auto"
-                        alt="Empty cart"
-                      /> */}
-                    </div>
-                    <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[25px] 2xl:leading-[35px] xl:text-[20px] xl:leading-[28px] lg:text-[16px] lg:leading-[24px] text-center 2xl:mt-24">
-                      Explore a World of Deliciousness
-                    </h4>
-                    <p className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[16px] 2xl:leading-[26px] xl:text-[14px] xl:leading-[20px] lg:text-[12px] lg:leading-[18px] text-center">
-                      Add dishes to your cart now.
-                    </p>
-                    <div className="flex 2xl:mt-12 xl:mt-6 lg:mt-5 mt-4">
-                      <button
-                        className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[221px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1"
-                        onClick={handleDrawerClose}
-                      >
-                        Explore Dishes
-                      </button>
-                    </div>
-                  </div>
-                ) : (
+</div>
+<h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[25px] 2xl:leading-[35px] xl:text-[20px] xl:leading-[28px] lg:text-[16px] lg:leading-[24px] text-center 2xl:mt-24">
+Explore a World of Deliciousness
+</h4>
+<p className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[16px] 2xl:leading-[26px] xl:text-[14px] xl:leading-[20px] lg:text-[12px] lg:leading-[18px] text-center">
+Add dishes to your cart now.
+</p>
+<div className="flex 2xl:mt-12 xl:mt-6 lg:mt-5 mt-4">
+<button
+className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[221px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1"
+onClick={handleDrawerClose}
+>
+Explore Dishes
+</button>
+</div>
+</div>
+) : (
+<div className="">
+<div className="flex justify-end mt-10 md:mr-5">
+<button
+className="alata font-[400] rounded-[5px] p-2 text-[20px] bg-[#DB5353] text-white 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px]"
+onClick={handleClearCart}
+>
+All Clear
+</button>
+</div>
+<div className="">
+{cart.map((item, index) => {
+const { data } = item;
+return (
+<div
+key={index}
+className="my-5 flex w-full border rounded-md"
+>
+<div className="flex items-center gap-2 w-full">
+<div>
+<img
+src={data.ProfileImage}
+alt={item.name}
+className="w-[90px] h-auto rounded-[5.8px]"
+/>
+</div>
+<div className="">
+<h4 className="alata font-[400] text-[#111] my-0 text-[18px] leading-[28px]">
+{data.name}
+</h4>
+<h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
+Price:£{data.price}
+</h4>
+<h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
+Quantity:1
+</h4>
+</div>
+</div>
+<button
+className="px-4 text-[13px] border rounded h-[25px] text-red hover:bg-[#efb3b38a] "
+onClick={() => handleRemoveItem(data._id)}
+>
+<svg
+xmlns="http://www.w3.org/2000/svg"
+fill="none"
+viewBox="0 0 24 24"
+stroke-width="1.5"
+stroke="currentColor"
+class="w-6 h-6"
+>
+<path
+stroke-linecap="round"
+stroke-linejoin="round"
+d="M6 18 18 6M6 6l12 12"
+/>
+</svg>
+</button>
+</div>
+);
+})}
+<div className="flex justify-between items-center mt-20">
+<div>
+<h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
+
+</h4>
+</div>
+<div>
+<Link href="/checkout">
+<button className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1">
+Checkout
+</button>
+</Link>
+</div>
+</div>
+</div>
+</div>
+)} */}
+                {/* {getCartItems.length === 0 ? (
+<div>
+<div className="2xl:mt-40"></div>
+<h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[25px] 2xl:leading-[35px] xl:text-[20px] xl:leading-[28px] lg:text-[16px] lg:leading-[24px] text-center 2xl:mt-24">
+Explore a World of Deliciousness
+</h4>
+<p className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[16px] 2xl:leading-[26px] xl:text-[14px] xl:leading-[20px] lg:text-[12px] lg:leading-[18px] text-center">
+Add dishes to your cart now.
+</p>
+<div className="flex 2xl:mt-12 xl:mt-6 lg:mt-5 mt-4">
+<button
+className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[221px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1"
+onClick={handleDrawerClose}
+>
+Explore Dishes
+</button>
+</div>
+</div>
+) : ( */}
+                <>
                   <div className="">
                     <div className="flex justify-end mt-10 md:mr-5">
                       <button
                         className="alata font-[400] rounded-[5px] p-2 text-[20px] bg-[#DB5353] text-white 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px]"
-                        onClick={handleClearCart}
+                        onClick={handleCartClear}
                       >
                         All Clear
                       </button>
                     </div>
                     <div className="">
-                      {cart.map((item, index) => {
-                        const { data } = item;
-                        return (
+                      {Array.isArray(getCartItems) &&
+                        getCartItems.map((item, index) => (
                           <div
                             key={index}
-                            className="my-5  flex w-full border rounded-md"
+                            className="my-5 flex w-full border rounded-md"
                           >
-                            <div className="flex  items-center gap-2 w-full">
+                            <div className="flex items-center gap-2 w-full">
                               <div>
                                 <img
-                                  src={data.ProfileImage}
-                                  alt={item.name}
+                                  src={item.menuItem.ProfileImage}
+                                  alt={item.menuItem.name}
                                   className="w-[90px] h-auto rounded-[5.8px]"
                                 />
                               </div>
-                              <div className="">
+                              <div>
                                 <h4 className="alata font-[400] text-[#111] my-0 text-[18px] leading-[28px]">
-                                  {data.name}
+                                  {item.menuItem.name}
                                 </h4>
-                                <p className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
-                                  Price:£{data.price}
-                                </p>
-                                <p className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
-                                  Quantity:1
-                                </p>
+                                <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
+                                  Price: £{item.menuItem.price}
+                                </h4>
+                                <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
+                                  Quantity: {item.quantity}
+                                </h4>
                               </div>
-                              {/* <div className="flex items-center gap-2">
-                                <button
-                                  className="text-[#DB5353] rounded-l"
-                                  onClick={() => {
-                                    handleDecrement(item?.id);
-                                    removeFromCart(item.id);
-                                    alert("Removed from cart");
-                                  }}
-                                >
-                                  <Image
-                                    src={minus}
-                                    className="w-[15px] h-[15px]"
-                                  />
-                                </button>
-                                <p className="text-[10px] leading-[28px]">
-                                  {count}
-                                </p>
-                                <button
-                                  className="text-[#DB5353] rounded-r"
-                                  onClick={() => handleIncrement(item?.id)}
-                                >
-                                  <Image
-                                    src={plus}
-                                    className="w-[15px] h-[15px]"
-                                  />
-                                </button>
-                              </div> */}
                             </div>
                             <button
-                              className="px-4 text-[13px] border rounded h-[25px] text-red hover:bg-[#efb3b38a] "
-                              onClick={() => handleRemoveItem(data._id)}
+                              className="px-4 text-[13px] border rounded h-[25px] text-red hover:bg-[#efb3b38a]"
+                              onClick={() =>
+                                handleItemRemove(item.menuItem._id)
+                              }
                             >
-                              X
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth="1.5"
+                                stroke="currentColor"
+                                className="w-6 h-6"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M6 18 18 6M6 6l12 12"
+                                />
+                              </svg>
                             </button>
                           </div>
-                        );
-                      })}
-
+                        ))}
                       <div className="flex justify-between items-center mt-20">
                         <div>
-                          <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
-                            {/* {subtotalPrice} */}
-                          </h4>
+                          <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]"></h4>
                         </div>
                         <div>
-                        <Link href="/checkout">
-                          <button className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1">
-                            Checkout
-                          </button>
-                          </Link>
+                          {token ? (
+                            <Link href="/checkout">
+                              <button className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1">
+                                Checkout
+                              </button>
+                            </Link>
+                          ) : (
+                            <button
+                              onClick={handleLoginClick}
+                              className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1"
+                            >
+                              Checkout
+                            </button>
+                          )}
                         </div>
                       </div>
                     </div>
                   </div>
-                )}
+                </>
+                {/* )} */}
               </div>
             </div>
           </ul>
         </div>
       </div>
-
       {/* =======Signup popup======= */}
-
       <div className="">
         <dialog
           id="my_modal_1"
@@ -635,7 +759,7 @@ const Navbar = () => {
                     type="text"
                     name="firstname"
                     placeholder="First Name"
-                    className="alata font-[400] login-inputad  w-full"
+                    className="alata font-[400] login-inputad w-full"
                     pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     title="enter valid email ex. abc@gmail.com"
                     onChange={inputHandlers}
@@ -647,7 +771,7 @@ const Navbar = () => {
                     type="text"
                     name="lastname"
                     placeholder="Last Name"
-                    className="alata font-[400] login-inputad  w-full"
+                    className="alata font-[400] login-inputad w-full"
                     pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     title="enter valid email ex. abc@gmail.com"
                     onChange={inputHandlers}
@@ -659,7 +783,7 @@ const Navbar = () => {
                     type="email"
                     name="email"
                     placeholder="Email Address"
-                    className="alata font-[400] login-inputad  w-full"
+                    className="alata font-[400] login-inputad w-full"
                     pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     title="enter valid email ex. abc@gmail.com"
                     onChange={inputHandlers}
@@ -671,7 +795,7 @@ const Navbar = () => {
                     type="password"
                     name="password"
                     placeholder="Password"
-                    className="alata font-[400] login-inputad  w-full"
+                    className="alata font-[400] login-inputad w-full"
                     pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     title="enter valid email ex. abc@gmail.com"
                     onChange={inputHandlers}
@@ -690,7 +814,7 @@ const Navbar = () => {
                 </p>
               </div>
               <div className="flex 2xl:mt-[20px]">
-                <div className="mx-auto  2xl:w-[368px] xl:w-[230px]">
+                <div className="mx-auto 2xl:w-[368px] xl:w-[230px]">
                   <Link
                     href="https://accounts.google.com/v3/signin/identifier?authuser=0&continue=https%3A%2F%2Fmyaccount.google.com%2F%3Futm_source%3Dmy-activity%26utm_medium%3Dhome%26utm_campaign%26hl%3Den_GB%26pli%3D1&ec=GAlAwAE&hl=en_GB&service=accountsettings&flowName=GlifWebSignIn&flowEntry=AddSession&dsh=S-1476156200%3A1712751508637500&theme=mn&ddm=0"
                     target="_blank"
@@ -723,9 +847,7 @@ const Navbar = () => {
           </form>
         </dialog>
       </div>
-
       {/* =======Login======= */}
-
       <div className="">
         <dialog
           id="my_modal_2"
@@ -752,14 +874,14 @@ const Navbar = () => {
                 </div>
                 <h4 className="fourth_p">Login</h4>
               </div>
-              <div className="2xl:w-[368px]  xl:w-[280px] lg:w-[220px] sm:w-[] w-[]">
+              <div className="2xl:w-[368px] xl:w-[280px] lg:w-[220px] sm:w-[] w-[]">
                 <div className="2xl:mt-[35px] mt-[25px]">
                   <input
                     type="email"
                     name="email"
                     onChange={InputHandler}
                     placeholder="Enter your mail id"
-                    className="alata font-[400] login-inputad  w-full"
+                    className="alata font-[400] login-inputad w-full"
                     pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     title="enter valid email ex. abc@gmail.com"
                   />
@@ -770,7 +892,7 @@ const Navbar = () => {
                     name="password"
                     onChange={InputHandler}
                     placeholder="Enter your Password"
-                    className="alata font-[400] login-inputad  w-full"
+                    className="alata font-[400] login-inputad w-full"
                     pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     title="enter valid email ex. abc@gmail.com"
                   />
@@ -788,7 +910,6 @@ const Navbar = () => {
                     or
                   </p>
                 </div>
-
                 <div className="my-[30px] flex justify-center">
                   <button
                     onClick={() =>
@@ -809,5 +930,4 @@ const Navbar = () => {
     </>
   );
 };
-
 export default Navbar;

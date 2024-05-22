@@ -21,8 +21,11 @@ import {
   handleRemoveItem,
 } from "@/app/redux/dishSlice";
 import { useDispatch, useSelector } from "react-redux";
-
+import { ToastContainer, toast } from "react-toastify";
 const ChefDetails = ({ params }) => {
+  const { token } = useSelector((state) => state?.auth);
+  const [isRefresh, setRefresh] = useState(false);
+  const [itemId, setItemId] = useState("");
   const [getAChef, setGetAChef] = useState({});
   const [chefItems, setChefItems] = useState("");
   const [isOpen, setOpen] = useState(false);
@@ -36,11 +39,12 @@ const ChefDetails = ({ params }) => {
     const { data } = item;
     console.log(data, `data from item ${index + 1}`);
   });
-
+  const refreshData = () => {
+    setRefresh(!isRefresh);
+  };
   const handleDrawerOpen = () => {
     setIsDrawerOpen(true);
   };
-
   const handleDrawerClose = () => {
     setIsDrawerOpen(false);
   };
@@ -51,21 +55,16 @@ const ChefDetails = ({ params }) => {
     setDishID(id);
     setOpen(true);
   }
-
   useEffect(() => {
     defaultChef();
   }, []);
-
   console.log(chefItems, "abc");
-
   const [bannerImage, setBannerImage] = useState("");
-
   const defaultChef = () => {
     const option = {
       method: "GET",
       url: `${config.baseURL}/api/chef/chefs/${params.slug}`,
     };
-
     axios
       .request(option)
       .then((response) => {
@@ -79,13 +78,11 @@ const ChefDetails = ({ params }) => {
   useEffect(() => {
     defaultChefMenu();
   }, []);
-
   const defaultChefMenu = () => {
     const option = {
       method: "GET",
       url: `${config.baseURL}/api/menu/menuItems/chef/${params.slug}`,
     };
-
     axios
       .request(option)
       .then((response) => {
@@ -106,25 +103,115 @@ const ChefDetails = ({ params }) => {
         setGetADish(response?.data);
         dispatch(addItemToCart(response));
         handleDrawerOpen();
-
         // console.log(response?.data, "haryy");
       })
       .catch((error) => {
         console.log(error, "Error");
       });
   };
-
+  const handleAddCart = async (itemId) => {
+    try {
+      const response = await axios.post(
+        `${config.baseURL}/api/Orders/AddtoCart`,
+        { menuItem: itemId },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      if (response.status >= 200 && response.status < 300) {
+        toast.success("Item Added to Cart");
+        handleDrawerOpen();
+        refreshData();
+      } else {
+        toast.error(
+          error.response.data.message ||
+            "Failed to add item to cart. Please try again."
+        );
+        console.log("Unexpected response status:", response.status);
+      }
+    } catch (error) {
+      toast.error("An error occurred while adding the item to the cart.");
+      console.log("Error:", error);
+    }
+  };
+  const [getCartItems, setGetCartItems] = useState({});
+  useEffect(() => {
+    if (token) {
+      defaultCartItems();
+    }
+  }, [token, isRefresh]);
+  const defaultCartItems = () => {
+    const option = {
+      method: "GET",
+      url: `${config.baseURL}/api/Orders/getCartItem`,
+      headers: {
+        Authorization: token,
+      },
+    };
+    axios
+      .request(option)
+      .then((response) => {
+        setGetCartItems(response?.data?.userCart?.items);
+        console.log(response?.data?.userCart?.items, "data");
+      })
+      .catch((error) => {
+        console.log(error, "Error");
+      });
+  };
+  const handleItemRemove = async (id) => {
+    try {
+      const response = await axios.delete(
+        `${config.baseURL}/api/Orders/deleteCartItem/${id}`,
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      if (response.status >= 200 && response.status < 300) {
+        toast.success("Item Remove From Cart");
+        refreshData();
+      } else {
+        alert("failed");
+      }
+    } catch (error) {
+      alert(error?.response?.data?.message || "server error");
+    }
+  };
+  const handleCartClear = async () => {
+    try {
+      const response = await axios.delete(
+        `${config.baseURL}/api/Orders/deleteAllCartItem`,
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      if (response.status >= 200 && response.status < 300) {
+        toast.success("All Items Are Removed");
+        refreshData();
+      } else {
+        alert("failed");
+      }
+    } catch (error) {
+      alert(error?.response?.data?.message || "server error");
+    }
+  };
   return (
     <>
+      <ToastContainer autoClose={1000} />
       <section>
         <Navbar />
         <div className=" ">
-          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px] 2xl:pt-[220px] xl:pt-[140px] pt-[100px] 2xl:py-[100px] xl:py-[50px] py-[40px] mx-auto mnavbar">
+          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] 2xl:pt-[220px] xl:pt-[140px] pt-[100px] 2xl:py-[100px] xl:py-[50px] py-[40px] mx-auto mnavbar">
             <div
               className="chefDishes-bg rounded-[15px] relative 2xl:h-[529px] xl:h-[360px] h-[280px] 2xl:pt-[295px] xl:pt-[200px] pt-[155px]"
               style={{ backgroundImage: `url(${bannerImage})` }}
             >
-              <div className=" border flex gap-5 2xl:w-[1414px] xl:w-[970px] w-[750px]  rounded-[15px] bg-white mx-auto 2xl:p-[50px] xl:p-[20px] p-[15px] chefdishWB">
+              <div className=" border flex gap-5 2xl:w-[1414px] xl:w-[970px] w-[750px] rounded-[15px] bg-white mx-auto 2xl:p-[50px] xl:p-[20px] p-[15px] chefdishWB">
                 <div className="2xl:w-[154px] xl:w-[80px] w-[60px]">
                   <div>
                     <img src={getAChef?.images} className="w-full" />
@@ -133,7 +220,6 @@ const ChefDetails = ({ params }) => {
                     <a href={getAChef?.Facebook_Link} target="_blank">
                       <Image src={fb} className="xl:w-[22px] w-[15px]" />
                     </a>
-
                     <a href={getAChef?.Instagram_Link} target="_blank">
                       <Image src={insta} className="xl:w-[22px] w-[15px]" />
                     </a>
@@ -147,20 +233,19 @@ const ChefDetails = ({ params }) => {
                     {/* Punjabi · North Indian · South Indian · Indian · Vegetarian */}
                   </p>
                   <div className="flex gap-3 2xl:my-[20px] xl:my-[15px] my-[10px]">
-                    {/* <div className="2xl:w-[197px] 2xl:h-[37px] xl:w-[140px] xl:h-[30px] w-[130px]  h-[25px] bg-[#F3F3F3] flex justify-around items-center">
-                      <Image src={cook} className="w-[17px]" />
-                      <p className="fourth_day">1.1k+</p>
-                      <p className=" fourth_day text-[#838383]">
-                        Meals prepared
-                      </p>
-                    </div> */}
-                    <div className="2xl:w-[197px] 2xl:h-[37px] xl:w-[140px] xl:h-[30px] w-[130px]  h-[25px bg-[#F3F3F3] flex justify-around items-center">
+                    {/* <div className="2xl:w-[197px] 2xl:h-[37px] xl:w-[140px] xl:h-[30px] w-[130px] h-[25px] bg-[#F3F3F3] flex justify-around items-center">
+<Image src={cook} className="w-[17px]" />
+<p className="fourth_day">1.1k+</p>
+<p className=" fourth_day text-[#838383]">
+Meals prepared
+</p>
+</div> */}
+                    <div className="2xl:w-[197px] 2xl:h-[37px] xl:w-[140px] xl:h-[30px] w-[130px] h-[25px bg-[#F3F3F3] flex justify-around items-center">
                       <Image src={cook2} className="w-[17px]" />
                       <p className="fourth_day">Certified</p>
                       <p className="fourth_day text-[#838383]">Food safety</p>
                     </div>
                   </div>
-
                   <div className="flex gap-[50px] 2xl:my-[30px] xl:my-[20px] my-[10px]">
                     <div className=" ">
                       <h2 className="fourth_p text-[#555555]">
@@ -169,38 +254,37 @@ const ChefDetails = ({ params }) => {
                       <p className="fourth_day 2xl:my-[12px] xl:my-[8px] my-[6px]"></p>
                     </div>
                     {/* <div className="2xl:w-[404px] xl:w-[280px] w-[204px] ">
-                      <h2 className="fourth_p text-[#555555]">
-                        Lorem Ipsum is simply dummy
-                      </h2>
-                      <p className="fourth_day 2xl:my-[12px] xl:my-[8px] my-[6px]">
-                        Lorem Ipsum is simply dummy text of the printing and
-                        typesetting industry. Lorem Ipsum has been the industrys
-                        standard dummy text ever since the 1500s, when an
-                        unknown printer took a galley of type and scrambled it
-                        to make a type specimen book.
-                      </p>
-                    </div> */}
+<h2 className="fourth_p text-[#555555]">
+Lorem Ipsum is simply dummy
+</h2>
+<p className="fourth_day 2xl:my-[12px] xl:my-[8px] my-[6px]">
+Lorem Ipsum is simply dummy text of the printing and
+typesetting industry. Lorem Ipsum has been the industrys
+standard dummy text ever since the 1500s, when an
+unknown printer took a galley of type and scrambled it
+to make a type specimen book.
+</p>
+</div> */}
                   </div>
                   {/* <div className="2xl:my-[30px] ">
-                    <h2 className="fourth_p text-[#555555]">
-                      Lorem Ipsum is simply dummy
-                    </h2>
-                    <p className="fourth_day 2xl:my-[12px] xl:my-[8px] my-[6px] 2xl:w-[869px] xl:w-[600px] w-[540px]">
-                      Lorem Ipsum is simply dummy text of the printing and
-                      typesetting industry. Lorem Ipsum has been the industrys
-                      standard dummy text ever since the 1500s, when an unknown
-                      printer took a galley of type and scrambled it to make a
-                      type specimen book.
-                    </p>
-                  </div> */}
+<h2 className="fourth_p text-[#555555]">
+Lorem Ipsum is simply dummy
+</h2>
+<p className="fourth_day 2xl:my-[12px] xl:my-[8px] my-[6px] 2xl:w-[869px] xl:w-[600px] w-[540px]">
+Lorem Ipsum is simply dummy text of the printing and
+typesetting industry. Lorem Ipsum has been the industrys
+standard dummy text ever since the 1500s, when an unknown
+printer took a galley of type and scrambled it to make a
+type specimen book.
+</p>
+</div> */}
                 </div>
               </div>
             </div>
           </div>
         </div>
-
         <div className="2xl:my-[50px] xl:my-[30px] my-[20px] ">
-          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px] mx-auto mnavbar">
+          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] mx-auto mnavbar">
             <div className="">
               <div>
                 <h4 className="third_head">Chef Dishes</h4>
@@ -211,7 +295,7 @@ const ChefDetails = ({ params }) => {
                 chefItems.map((item) => (
                   <div
                     key={item.id}
-                    className="  my-5 2xl:w-[345px] 2xl:h-[560px] lg:w-[23%]  md:w-[31%] w-[45%]  relative  rounded-[9.8px] "
+                    className=" my-5 2xl:w-[345px] 2xl:h-[560px] lg:w-[23%] md:w-[31%] w-[45%] relative rounded-[9.8px] "
                   >
                     <button className="" onClick={() => openModal(item._id)}>
                       <img
@@ -223,10 +307,10 @@ const ChefDetails = ({ params }) => {
                       />
                     </button>
                     <div className="">
-                      <h4 className="alata font-[400] text-[#DB5353] 2xl:my-4 xl:my-3 my-2 2xl:text-[20px] 2xl:leading-[20px]  xl:text-[14px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[10px]">
+                      <h4 className="alata font-[400] text-[#DB5353] 2xl:my-4 xl:my-3 my-2 2xl:text-[20px] 2xl:leading-[20px] xl:text-[14px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[10px]">
                         {item?.name}
                       </h4>
-                      <div className="flex items-center 2xl:gap-3 xl:gap-2 lg:gap-2  gap-2 xl:my-3 lg:my-2 my-2">
+                      <div className="flex items-center 2xl:gap-3 xl:gap-2 lg:gap-2 gap-2 xl:my-3 lg:my-2 my-2">
                         <img
                           alt="image"
                           src={item?.chef_id?.images}
@@ -242,16 +326,15 @@ const ChefDetails = ({ params }) => {
                           </p>
                         </div>
                       </div>
-
                       <div className="flex gap-5 2xl:my-[20px] xl:my-[15px] my-[12px]">
                         {/* <button className="four_btn">
-                          <img
-                            alt="image"
-                            src={vegetarian}
-                            className="2xl:w-[13px] 2xl:h-[13px] lg:w-[10px] lg:h-[10px] w-[10px] h-auto"
-                          />
-                          <p className="fourth_day">Vegetarian</p>
-                        </button> */}
+<img
+alt="image"
+src={vegetarian}
+className="2xl:w-[13px] 2xl:h-[13px] lg:w-[10px] lg:h-[10px] w-[10px] h-auto"
+/>
+<p className="fourth_day">Vegetarian</p>
+</button> */}
                         {item?.Dietary_id.map((dietary) => (
                           <button className="four_btn" key={dietary._id}>
                             <img
@@ -263,7 +346,7 @@ const ChefDetails = ({ params }) => {
                           </button>
                         ))}
                       </div>
-                      <div className="flex items-center gap-5  2xl:my-[20px] xl:my-[15px] my-[12px]">
+                      <div className="flex items-center gap-5 2xl:my-[20px] xl:my-[15px] my-[12px]">
                         <h4 className="fourth_p">Spice Level</h4>
                         <button className="four_btn">
                           <img
@@ -276,23 +359,51 @@ const ChefDetails = ({ params }) => {
                           </p>
                         </button>
                       </div>
-
-                      <div className=" w-full bottom-0 flex justify-between items-center  2xl:my-[22px] xl:my-[18px] my-[15px]">
+                      <div className=" w-full bottom-0 flex justify-between items-center 2xl:my-[22px] xl:my-[18px] my-[15px]">
                         <p className="alata font-[400] text-[#000] 2xl:text-[20px] 2xl:leading-[24px] xl:text-[14px] xl:leading-[18px] lg:text-[12px] lg:leading-[16px] text-[12px] leading-[16px] ">
                           Serves {item?.portion_Size} || {item?.weight}g{" "}
                           <span className="text-[#DB5353]">£{item?.price}</span>
                         </p>
-                        <button
-                          onClick={() => {
-                            defaultADish(item?._id);
-                          }}
-                        >
-                          <Image
-                            src={addCart}
-                            alt={item.title}
-                            className=" mr-8 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
-                          />
-                        </button>
+                        {token ? (
+                          <button
+                            onClick={() => {
+                              setItemId(item?._id);
+                              handleAddCart(item?._id);
+                            }}
+                          >
+                            <div className="drawer-content">
+                              <label
+                                htmlFor="my-drawer-4"
+                                className="drawer-button"
+                              >
+                                <Image
+                                  src={addCart}
+                                  alt={item.title}
+                                  className="2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
+                                />
+                              </label>
+                            </div>
+                          </button>
+                        ) : (
+                          <button
+                            onClick={() => {
+                              defaultADish(item?._id);
+                            }}
+                          >
+                            <div className="drawer-content">
+                              <label
+                                htmlFor="my-drawer-4"
+                                className="drawer-button"
+                              >
+                                <Image
+                                  src={addCart}
+                                  alt={item.title}
+                                  className=" 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
+                                />
+                              </label>
+                            </div>
+                          </button>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -300,7 +411,6 @@ const ChefDetails = ({ params }) => {
             </div>
           </div>
         </div>
-
         <Footer />
       </section>
       {/* ===============Right drawer=============== */}
@@ -312,7 +422,6 @@ const ChefDetails = ({ params }) => {
           checked={isDrawerOpen}
           onChange={() => {}}
         />
-
         <div className="drawer-side">
           <label
             htmlFor="my-drawer-4"
@@ -347,109 +456,208 @@ const ChefDetails = ({ params }) => {
                     My Basket
                   </h4>
                 </div>
+                {/*
+{cart.length === 0 ? (
+<div>
+<div className="2xl:mt-40">
 
-                {cart.length === 0 ? (
-                  <div>
-                    <div className="2xl:mt-40">
-                      {/* <Image
-                        src={emptyCart}
-                        className="2xl:w-[268.25px] 2xl:h-[265px] mx-auto"
-                        alt="Empty cart"
-                      /> */}
-                    </div>
-                    <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[25px] 2xl:leading-[35px] xl:text-[20px] xl:leading-[28px] lg:text-[16px] lg:leading-[24px] text-center 2xl:mt-24">
-                      Explore a World of Deliciousness
-                    </h4>
-                    <p className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[16px] 2xl:leading-[26px] xl:text-[14px] xl:leading-[20px] lg:text-[12px] lg:leading-[18px] text-center">
-                      Add dishes to your cart now.
-                    </p>
-                    <div className="flex 2xl:mt-12 xl:mt-6 lg:mt-5 mt-4">
-                      <button
-                        className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[221px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1"
-                        onClick={handleDrawerClose}
-                      >
-                        Explore Dishes
-                      </button>
-                    </div>
-                  </div>
-                ) : (
+</div>
+<h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[25px] 2xl:leading-[35px] xl:text-[20px] xl:leading-[28px] lg:text-[16px] lg:leading-[24px] text-center 2xl:mt-24">
+Explore a World of Deliciousness
+</h4>
+<p className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[16px] 2xl:leading-[26px] xl:text-[14px] xl:leading-[20px] lg:text-[12px] lg:leading-[18px] text-center">
+Add dishes to your cart now.
+</p>
+<div className="flex 2xl:mt-12 xl:mt-6 lg:mt-5 mt-4">
+<button
+className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[221px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1"
+onClick={handleDrawerClose}
+>
+Explore Dishes
+</button>
+</div>
+</div>
+) : (
+<div className="">
+<div className="flex justify-end mt-10 md:mr-5">
+<button
+className="alata font-[400] rounded-[5px] p-2 text-[20px] bg-[#DB5353] text-white 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px]"
+onClick={handleClearCart}
+>
+All Clear
+</button>
+</div>
+<div className="">
+{cart.map((item, index) => {
+const { data } = item;
+return (
+<div
+key={index}
+className="my-5 flex w-full border rounded-md"
+>
+<div className="flex items-center gap-2 w-full">
+<div>
+<img
+src={data.ProfileImage}
+alt={item.name}
+className="w-[90px] h-auto rounded-[5.8px]"
+/>
+</div>
+<div className="">
+<h4 className="alata font-[400] text-[#111] my-0 text-[18px] leading-[28px]">
+{data.name}
+</h4>
+<h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
+Price:£{data.price}
+</h4>
+<h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
+Quantity:1
+</h4>
+</div>
+</div>
+<button
+className="px-4 text-[13px] border rounded h-[25px] text-red hover:bg-[#efb3b38a] "
+onClick={() => handleRemoveItem(data._id)}
+>
+<svg
+xmlns="http://www.w3.org/2000/svg"
+fill="none"
+viewBox="0 0 24 24"
+stroke-width="1.5"
+stroke="currentColor"
+class="w-6 h-6"
+>
+<path
+stroke-linecap="round"
+stroke-linejoin="round"
+d="M6 18 18 6M6 6l12 12"
+/>
+</svg>
+</button>
+</div>
+);
+})}
+<div className="flex justify-between items-center mt-20">
+<div>
+<h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
+
+</h4>
+</div>
+<div>
+<Link href="/checkout">
+<button className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1">
+Checkout
+</button>
+</Link>
+</div>
+</div>
+</div>
+</div>
+)} */}
+                {/* {getCartItems.length === 0 ? (
+<div>
+<div className="2xl:mt-40"></div>
+<h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[25px] 2xl:leading-[35px] xl:text-[20px] xl:leading-[28px] lg:text-[16px] lg:leading-[24px] text-center 2xl:mt-24">
+Explore a World of Deliciousness
+</h4>
+<p className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[16px] 2xl:leading-[26px] xl:text-[14px] xl:leading-[20px] lg:text-[12px] lg:leading-[18px] text-center">
+Add dishes to your cart now.
+</p>
+<div className="flex 2xl:mt-12 xl:mt-6 lg:mt-5 mt-4">
+<button
+className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[221px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1"
+onClick={handleDrawerClose}
+>
+Explore Dishes
+</button>
+</div>
+</div>
+) : ( */}
+                <>
                   <div className="">
                     <div className="flex justify-end mt-10 md:mr-5">
                       <button
                         className="alata font-[400] rounded-[5px] p-2 text-[20px] bg-[#DB5353] text-white 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px]"
-                        onClick={handleClearCart}
+                        onClick={handleCartClear}
                       >
                         All Clear
                       </button>
                     </div>
                     <div className="">
-                      {cart.map((item, index) => {
-                        const { data } = item;
-                        return (
+                      {Array.isArray(getCartItems) &&
+                        getCartItems.map((item, index) => (
                           <div
                             key={index}
-                            className="my-5  flex w-full border rounded-md"
+                            className="my-5 flex w-full border rounded-md"
                           >
-                            <div className="flex  items-center gap-2 w-full">
+                            <div className="flex items-center gap-2 w-full">
                               <div>
                                 <img
-                                  src={data.ProfileImage}
-                                  alt={item.name}
+                                  src={item.menuItem.ProfileImage}
+                                  alt={item.menuItem.name}
                                   className="w-[90px] h-auto rounded-[5.8px]"
                                 />
                               </div>
-                              <div className="">
+                              <div>
                                 <h4 className="alata font-[400] text-[#111] my-0 text-[18px] leading-[28px]">
-                                  {data.name}
+                                  {item.menuItem.name}
                                 </h4>
                                 <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
-                                  Price:£{data.price}
+                                  Price: £{item.menuItem.price}
                                 </h4>
                                 <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
-                                  Quantity:1
+                                  Quantity: {item.quantity}
                                 </h4>
                               </div>
                             </div>
                             <button
-                              className="px-4 text-[13px] border rounded h-[25px] text-red hover:bg-[#efb3b38a] "
-                              onClick={() => handleRemoveItem(data._id)}
+                              className="px-4 text-[13px] border rounded h-[25px] text-red hover:bg-[#efb3b38a]"
+                              onClick={() =>
+                                handleItemRemove(item.menuItem._id)
+                              }
                             >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24"
-                                stroke-width="1.5"
+                                strokeWidth="1.5"
                                 stroke="currentColor"
-                                class="w-6 h-6"
+                                className="w-6 h-6"
                               >
                                 <path
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
                                   d="M6 18 18 6M6 6l12 12"
                                 />
                               </svg>
                             </button>
                           </div>
-                        );
-                      })}
-
+                        ))}
                       <div className="flex justify-between items-center mt-20">
                         <div>
-                          <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
-                            {/* {subtotalPrice} */}
-                          </h4>
+                          <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]"></h4>
                         </div>
                         <div>
-                        <Link href="/checkout">
-                          <button className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1">
-                            Checkout
-                          </button>
-                          </Link>
+                          {token ? (
+                            <Link href="/checkout">
+                              <button className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1">
+                                Checkout
+                              </button>
+                            </Link>
+                          ) : (
+                            <button
+                              onClick={handleLoginClick}
+                              className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1"
+                            >
+                              Checkout
+                            </button>
+                          )}
                         </div>
                       </div>
                     </div>
                   </div>
-                )}
+                </>
+                {/* )} */}
               </div>
             </div>
           </ul>
@@ -468,7 +676,6 @@ const ChefDetails = ({ params }) => {
           >
             <div className="fixed inset-0 bg-black bg-opacity-25" />
           </Transition.Child>
-
           <div className="fixed inset-0 overflow-y-auto">
             <div className="flex items-center justify-center p-4 text-center h-screen">
               <Transition.Child
@@ -480,7 +687,7 @@ const ChefDetails = ({ params }) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="2xl:w-[1000px]  xl:w-[720px] w-[600px]  mx-auto rounded-[10px]  my-auto 2xl:px-[40px] 2xl:py-[45px] xl:px-[25px] xl:py-[30px] px-[15px] py-[20px] transform overflow-hidden  bg-white text-left align-middle shadow-xl transition-all 2xl:mt-[125px] xl:mt-[85px] lg:mt-[55px] sm:mt-[50px] mt-14 ">
+                <Dialog.Panel className="2xl:w-[1000px] xl:w-[720px] w-[600px] mx-auto rounded-[10px] my-auto 2xl:px-[40px] 2xl:py-[45px] xl:px-[25px] xl:py-[30px] px-[15px] py-[20px] transform overflow-hidden bg-white text-left align-middle shadow-xl transition-all 2xl:mt-[125px] xl:mt-[85px] lg:mt-[55px] sm:mt-[50px] mt-14 ">
                   <Dialog.Title
                     as="h3"
                     onClick={closeModal}
@@ -511,5 +718,4 @@ const ChefDetails = ({ params }) => {
     </>
   );
 };
-
 export default ChefDetails;
