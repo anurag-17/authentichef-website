@@ -449,12 +449,12 @@ const ExploreDishes = () => {
     }
   };
 
-  const [getCartItems, setGetCartItems] = useState("");
+  const [getCartItems, setGetCartItems] = useState({});
   useEffect(() => {
     if (token) {
       defaultCartItems();
     }
-  }, [token]);
+  }, [token, isRefresh]);
 
   const defaultCartItems = () => {
     const option = {
@@ -469,13 +469,53 @@ const ExploreDishes = () => {
       .request(option)
       .then((response) => {
         setGetCartItems(response?.data?.userCart?.items);
-        // console.log(response?.data?.userCart?.items, "data");
+        console.log(response?.data?.userCart?.items, "data");
       })
       .catch((error) => {
         console.log(error, "Error");
       });
   };
 
+  const handleItemRemove = async (id) => {
+    try {
+      const response = await axios.delete(
+        `${config.baseURL}/api/Orders/deleteCartItem/${id}`,
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      if (response.status >= 200 && response.status < 300) {
+        toast.success("Item Remove From Cart");
+        refreshData();
+      } else {
+        alert("failed");
+      }
+    } catch (error) {
+      alert(error?.response?.data?.message || "server error");
+    }
+  };
+  const handleCartClear = async () => {
+    try {
+      const response = await axios.delete(
+        `${config.baseURL}/api/Orders/deleteAllCartItem`,
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      if (response.status >= 200 && response.status < 300) {
+        toast.success("All Items Are Removed");
+        refreshData();
+      } else {
+        alert("failed");
+      }
+    } catch (error) {
+      alert(error?.response?.data?.message || "server error");
+    }
+  };
   return (
     <>
       <ToastContainer className="mt-24" autoClose={1000} />
@@ -1356,15 +1396,11 @@ const ExploreDishes = () => {
                     My Basket
                   </h4>
                 </div>
-
+                {/* 
                 {cart.length === 0 ? (
                   <div>
                     <div className="2xl:mt-40">
-                      {/* <Image
-                        src={emptyCart}
-                        className="2xl:w-[268.25px] 2xl:h-[265px] mx-auto"
-                        alt="Empty cart"
-                      /> */}
+                  
                     </div>
                     <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[25px] 2xl:leading-[35px] xl:text-[20px] xl:leading-[28px] lg:text-[16px] lg:leading-[24px] text-center 2xl:mt-24">
                       Explore a World of Deliciousness
@@ -1445,18 +1481,116 @@ const ExploreDishes = () => {
                       <div className="flex justify-between items-center mt-20">
                         <div>
                           <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
-                            {/* {subtotalPrice} */}
+                          
                           </h4>
                         </div>
                         <div>
-                          <button className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1">
-                            Checkout
-                          </button>
+                          <Link href="/checkout">
+                            <button className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1">
+                              Checkout
+                            </button>
+                          </Link>
                         </div>
                       </div>
                     </div>
                   </div>
-                )}
+                )} */}
+
+                {/* {getCartItems.length === 0 ? (
+                  <div>
+                    <div className="2xl:mt-40"></div>
+                    <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[25px] 2xl:leading-[35px] xl:text-[20px] xl:leading-[28px] lg:text-[16px] lg:leading-[24px] text-center 2xl:mt-24">
+                      Explore a World of Deliciousness
+                    </h4>
+                    <p className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[16px] 2xl:leading-[26px] xl:text-[14px] xl:leading-[20px] lg:text-[12px] lg:leading-[18px] text-center">
+                      Add dishes to your cart now.
+                    </p>
+                    <div className="flex 2xl:mt-12 xl:mt-6 lg:mt-5 mt-4">
+                      <button
+                        className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[221px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1"
+                        onClick={handleDrawerClose}
+                      >
+                        Explore Dishes
+                      </button>
+                    </div>
+                  </div>
+                ) : ( */}
+                <>
+                  <div className="">
+                    <div className="flex justify-end mt-10 md:mr-5">
+                      <button
+                        className="alata font-[400] rounded-[5px] p-2 text-[20px] bg-[#DB5353] text-white 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px]"
+                        onClick={handleCartClear}
+                      >
+                        All Clear
+                      </button>
+                    </div>
+                    <div className="">
+                      {Array.isArray(getCartItems) &&
+                        getCartItems.map((item, index) => (
+                          <div
+                            key={index}
+                            className="my-5 flex w-full border rounded-md"
+                          >
+                            <div className="flex items-center gap-2 w-full">
+                              <div>
+                                <img
+                                  src={item.menuItem.ProfileImage}
+                                  alt={item.menuItem.name}
+                                  className="w-[90px] h-auto rounded-[5.8px]"
+                                />
+                              </div>
+                              <div>
+                                <h4 className="alata font-[400] text-[#111] my-0 text-[18px] leading-[28px]">
+                                  {item.menuItem.name}
+                                </h4>
+                                <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
+                                  Price: £{item.menuItem.price}
+                                </h4>
+                                <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
+                                  Quantity: {item.quantity}
+                                </h4>
+                              </div>
+                            </div>
+                            <button
+                              className="px-4 text-[13px] border rounded h-[25px] text-red hover:bg-[#efb3b38a]"
+                              onClick={() =>
+                                handleItemRemove(item.menuItem._id)
+                              }
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth="1.5"
+                                stroke="currentColor"
+                                className="w-6 h-6"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M6 18 18 6M6 6l12 12"
+                                />
+                              </svg>
+                            </button>
+                          </div>
+                        ))}
+                      <div className="flex justify-between items-center mt-20">
+                        <div>
+                          <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]"></h4>
+                        </div>
+                        <div>
+                          <Link href="/checkout">
+                            <button className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1">
+                              Checkout
+                            </button>
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </>
+                {/* )} */}
               </div>
             </div>
           </ul>
