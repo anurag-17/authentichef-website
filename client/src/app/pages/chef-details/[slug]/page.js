@@ -440,9 +440,11 @@ const ChefDetails = ({ params }) => {
                           </h4>
                         </div>
                         <div>
+                        <Link href="/checkout">
                           <button className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1">
                             Checkout
                           </button>
+                          </Link>
                         </div>
                       </div>
                     </div>
