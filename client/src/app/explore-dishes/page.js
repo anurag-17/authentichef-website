@@ -58,7 +58,7 @@ const ExploreDishes = () => {
   const [getADish, setGetADish] = useState("");
   const dispatch = useDispatch();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-
+  const { token } = useSelector((state) => state?.auth);
   const { cart } = useSelector((state) => state?.userCart);
   // const data = dish?.data;
 
@@ -418,9 +418,67 @@ const ExploreDishes = () => {
       });
   };
 
+  const [itemId, setItemId] = useState("");
+  const handleAddCart = async (itemId) => {
+    try {
+      const response = await axios.post(
+        `${config.baseURL}/api/Orders/AddtoCart`,
+
+        { menuItem: itemId },
+
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      if (response.status >= 200 && response.status < 300) {
+        toast.success("Item Added to Cart");
+        handleDrawerOpen();
+        refreshData();
+      } else {
+        toast.error(
+          error.response.data.message ||
+            "Failed to add item to cart. Please try again."
+        );
+        console.log("Unexpected response status:", response.status);
+      }
+    } catch (error) {
+      toast.error("An error occurred while adding the item to the cart.");
+      console.log("Error:", error);
+    }
+  };
+
+  const [getCartItems, setGetCartItems] = useState("");
+  useEffect(() => {
+    if (token) {
+      defaultCartItems();
+    }
+  }, [token]);
+
+  const defaultCartItems = () => {
+    const option = {
+      method: "GET",
+      url: `${config.baseURL}/api/Orders/getCartItem`,
+
+      headers: {
+        Authorization: token,
+      },
+    };
+    axios
+      .request(option)
+      .then((response) => {
+        setGetCartItems(response?.data?.userCart?.items);
+        // console.log(response?.data?.userCart?.items, "data");
+      })
+      .catch((error) => {
+        console.log(error, "Error");
+      });
+  };
+
   return (
     <>
-      <ToastContainer autoClose={1000} />
+      <ToastContainer className="mt-24" autoClose={1000} />
       <section>
         <Navbar />
         <div class="2xl:pt-[130px] xl:pt-[90px] pt-[60px] ">
@@ -888,101 +946,10 @@ const ExploreDishes = () => {
                 </div>
               </div>
             </div>
-
-            {/* <div className=" sm:flex-row justify-center my-10  sm:my-6 sm:{}">
-              <div className="carousel-container ">
-                <Carousel breakPoints={breakPoints} className="gap-2">
-                  <div className="carousel-item">
-                    <div className="text-center">
-                      {" "}
-                     
-                      <Image
-                        className="rounded-[5px] w-[195px] h-[195px] mcusinimg"
-                        src={cuisineindia}
-                        alt="cuisine-india"
-                      />
-                      <h4 className="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
-                        Indian
-                      </h4>
-                    </div>
-                  </div>
-                  <div className="carousel-item">
-                    <div className="text-center">
-                      <Image
-                        alt="cuisine-american"
-                        className="rounded-[5px] w-[195px] h-[195px] mcusinimg"
-                        src={cuisineamerican}
-                      />
-                      <h4 className="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
-                        American
-                      </h4>
-                    </div>
-                  </div>
-                  <div className="carousel-item">
-                    <div className="text-center">
-                      <Image
-                        alt="cuisine-mexican"
-                        className="rounded-[5px] w-[195px] h-[195px] mcusinimg"
-                        src={cuisinemexican}
-                      />
-                      <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
-                        Mexican
-                      </h4>
-                    </div>
-                  </div>
-                  <div class="carousel-item">
-                    <div className="text-center">
-                      <Image
-                        alt="cuisine-mediterranean"
-                        className="rounded-[5px] w-[195px] h-[195px] mcusinimg"
-                        src={cuisinemediterranean}
-                      />
-                      <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
-                        Mediterranean
-                      </h4>
-                    </div>
-                  </div>
-                  <div class="carousel-item">
-                    <div className="text-center">
-                      <Image
-                        alt="cuisine-italian"
-                        className="rounded-[5px] w-[195px] h-[195px]  mcusinimg"
-                        src={cuisineitalian}
-                      />
-                      <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
-                        Italian
-                      </h4>
-                    </div>
-                  </div>
-                  <div class="carousel-item">
-                    <div className="text-center">
-                      <Image
-                        alt="cuisine-middleEastern"
-                        className="rounded-[5px] w-[195px] h-[195px] mcusinimg"
-                        src={cuisinemiddleEastern}
-                      />
-                      <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
-                        Middle Eastern
-                      </h4>
-                    </div>
-                  </div>
-                  <div class="carousel-item">
-                    <div className="text-center">
-                      <Image
-                        alt="cuisine-middleEastern"
-                        className="rounded-[5px] w-[195px] h-[195px]  mcusinimg"
-                        src={cuisinesoutheast}
-                      />
-                      <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
-                        Southeast Asian
-                      </h4>
-                    </div>
-                  </div>
-                </Carousel>
-              </div>
-            </div> */}
           </div>
         </div>
+
+        {/* All Dishes */}
 
         <div className="sm:col-2">
           <div className="2xl:my-[20px] xl:my-[20px] my-[50px] bg-[#F9F2F2]">
@@ -1080,13 +1047,12 @@ const ExploreDishes = () => {
                               £{item?.price}
                             </span>
                           </p>
-                          <button
+                          {/* <button
                             onClick={() => {
                               defaultADish(item?._id);
                             }}
                           >
                             <div className="drawer-content">
-                              {/* Page content here */}
                               <label
                                 htmlFor="my-drawer-4"
                                 className="drawer-button"
@@ -1098,7 +1064,47 @@ const ExploreDishes = () => {
                                 />
                               </label>
                             </div>
-                          </button>
+                          </button> */}
+                          {token ? (
+                            <button
+                              onClick={() => {
+                                setItemId(item?._id);
+                                handleAddCart(item?._id);
+                              }}
+                            >
+                              <div className="drawer-content">
+                                <label
+                                  htmlFor="my-drawer-4"
+                                  className="drawer-button"
+                                >
+                                  <Image
+                                    src={addCart}
+                                    alt={item.title}
+                                    className="2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
+                                  />
+                                </label>
+                              </div>
+                            </button>
+                          ) : (
+                            <button
+                              onClick={() => {
+                                defaultADish(item?._id);
+                              }}
+                            >
+                              <div className="drawer-content">
+                                <label
+                                  htmlFor="my-drawer-4"
+                                  className="drawer-button"
+                                >
+                                  <Image
+                                    src={addCart}
+                                    alt={item.title}
+                                    className=" 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
+                                  />
+                                </label>
+                              </div>
+                            </button>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -1709,3 +1715,98 @@ const App = () => {
   );
 };
 export default dynamic(() => Promise.resolve(App), { ssr: false });
+
+{
+  /* <div className=" sm:flex-row justify-center my-10  sm:my-6 sm:{}">
+              <div className="carousel-container ">
+                <Carousel breakPoints={breakPoints} className="gap-2">
+                  <div className="carousel-item">
+                    <div className="text-center">
+                      {" "}
+                     
+                      <Image
+                        className="rounded-[5px] w-[195px] h-[195px] mcusinimg"
+                        src={cuisineindia}
+                        alt="cuisine-india"
+                      />
+                      <h4 className="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
+                        Indian
+                      </h4>
+                    </div>
+                  </div>
+                  <div className="carousel-item">
+                    <div className="text-center">
+                      <Image
+                        alt="cuisine-american"
+                        className="rounded-[5px] w-[195px] h-[195px] mcusinimg"
+                        src={cuisineamerican}
+                      />
+                      <h4 className="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
+                        American
+                      </h4>
+                    </div>
+                  </div>
+                  <div className="carousel-item">
+                    <div className="text-center">
+                      <Image
+                        alt="cuisine-mexican"
+                        className="rounded-[5px] w-[195px] h-[195px] mcusinimg"
+                        src={cuisinemexican}
+                      />
+                      <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
+                        Mexican
+                      </h4>
+                    </div>
+                  </div>
+                  <div class="carousel-item">
+                    <div className="text-center">
+                      <Image
+                        alt="cuisine-mediterranean"
+                        className="rounded-[5px] w-[195px] h-[195px] mcusinimg"
+                        src={cuisinemediterranean}
+                      />
+                      <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
+                        Mediterranean
+                      </h4>
+                    </div>
+                  </div>
+                  <div class="carousel-item">
+                    <div className="text-center">
+                      <Image
+                        alt="cuisine-italian"
+                        className="rounded-[5px] w-[195px] h-[195px]  mcusinimg"
+                        src={cuisineitalian}
+                      />
+                      <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
+                        Italian
+                      </h4>
+                    </div>
+                  </div>
+                  <div class="carousel-item">
+                    <div className="text-center">
+                      <Image
+                        alt="cuisine-middleEastern"
+                        className="rounded-[5px] w-[195px] h-[195px] mcusinimg"
+                        src={cuisinemiddleEastern}
+                      />
+                      <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
+                        Middle Eastern
+                      </h4>
+                    </div>
+                  </div>
+                  <div class="carousel-item">
+                    <div className="text-center">
+                      <Image
+                        alt="cuisine-middleEastern"
+                        className="rounded-[5px] w-[195px] h-[195px]  mcusinimg"
+                        src={cuisinesoutheast}
+                      />
+                      <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
+                        Southeast Asian
+                      </h4>
+                    </div>
+                  </div>
+                </Carousel>
+              </div>
+            </div> */
+}
