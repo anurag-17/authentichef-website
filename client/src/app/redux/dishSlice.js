@@ -36,11 +36,16 @@ export const dishSlice = createSlice({
       state.cart.push(action.payload);
     },
     removeItemFromCart: (state, action) => {
+      // console.log("actions>>>>>>", action)
+      const itemIdToRemove = action.payload._id;
+      // console.log("Item IDs to remove:", itemIdToRemove);
       state.cart = state.cart.filter(
-        (item) => item._id === action?.payload._id
+        (item) => !itemIdToRemove.includes(item.data._id)
       );
-      console.log(action?.payload, "action");
+
+      // console.log("state_cart------>>>>>>>...", state.cart )
     },
+
     clearCart: (state) => {
       state.cart = [];
     },
