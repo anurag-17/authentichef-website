@@ -29,6 +29,11 @@ FirstName:{
 LastName:{
   type:String,
   required:true
+},
+Type_of_Address:{
+ type:String,
+ enum:["Shipping Address","Billing address"],
+ default:"Shipping Address"
 }
 });
 

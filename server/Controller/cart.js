@@ -63,7 +63,6 @@ exports.addToCart = async (req, res, next) => {
         quantity,
         customization,
       };
-  
       const menuItems = await MenuItem.findOne({ _id: cartData.menuItem }).select("name price");
 
       return res.status(200).json({ message: "Menu item added to cart", menuItem: menuItems, cartData });
@@ -116,11 +115,7 @@ exports.getCartItems = async (req, res) => {
   try {
     const userId = req.user._id;
     console.log(userId)
-    const userCart = await Cart.findOne({ user: userId}).populate({
-        path: "items.menuItem",
-        select: "name price"
-    })
-    console.log("userCart is", userCart)
+    const userCart = await Cart.findOne({ user: userId}).populate('items.menuItem')
     if (!userCart) {
         return res.status(404).json({ message: "Cart is empty" });
     }
