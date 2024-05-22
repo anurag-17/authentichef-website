@@ -5,6 +5,22 @@ const validateMongoDbId = require("../Utils/validateMongodbId");
 const stripe = require('../config/payment');
 const Payment = require('../Model/payment');
 const Chef = require("../Model/Chef");
+const nodemailer = require('nodemailer'); // Import nodemailer
+const userMailOptions = require("../Public/userMailOption")
+const adminMailOptions = require("../Public/adminMailOption")
+require('dotenv').config(); // Import dotenv to use environment variables
+
+// Nodemailer Connection //
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.CLIENT_EMAIL,
+        pass: process.env.CLIENT_EMAIL_PASSWORD
+    },
+    tls: {
+        rejectUnauthorized: false // Disable SSL verification
+    },
+});
 
 
 
@@ -107,13 +123,13 @@ const Chef = require("../Model/Chef");
 
 exports.PlaceOrder = async (req, res, next) => {
     try {
-        const { deliveryDate, deliveryInfo, status, paymentMethodToken,   payment_method_types = 'COD', Type_of_Address } = req.body;
+        const { deliveryDate, deliveryInfo, BillingInfo , status, paymentMethodToken, payment_method_types = 'COD', Type_of_Address } = req.body;
 
         // Get the cart items
-        const cartItems = await Cart.findOne({ user: req.user._id }).populate({
-            path: "items.menuItem",
-            select: "price"
-        });
+        const cartItems = await Cart.findOne({ user: req.user._id }).populate('items.menuItem');
+        
+
+        console.log(cartItems)
 
         if (!cartItems || cartItems.items.length === 0) {
             return res.status(404).json({ message: "Cart is empty" });
@@ -148,7 +164,7 @@ exports.PlaceOrder = async (req, res, next) => {
                 amount: totalAmount * 100, // Amount in cents
                 currency: 'usd',
                 payment_method: paymentMethodToken,
-                payment_method_types:[payment_method_types],
+                payment_method_types: [payment_method_types],
                 confirm: true,
                 customer: req.user.stripeCustomerId,
                 metadata: {
@@ -191,6 +207,7 @@ exports.PlaceOrder = async (req, res, next) => {
             user: req.user._id,
             deliveryDate,
             deliveryInfo,
+            BillingInfo,
             totalAmount,
             Type_of_Address: Type_of_Address || 'Shipping Address',
             status,
@@ -218,6 +235,29 @@ exports.PlaceOrder = async (req, res, next) => {
 
         // Delete the cart after placing the order
         await Cart.deleteOne({ _id: cartItems._id });
+
+        // Send confirmation email to the user
+       // Send confirmation email to the user
+       const emailOptions = userMailOptions(req, savedOrder, deliveryDate, deliveryInfo, totalAmount, cartItems, payment_method_types);
+        transporter.sendMail(emailOptions, (error, info) => {
+            if (error) {
+                console.error('Error sending email to user:', error);
+            } else {
+                console.log('Email sent to user:', info.response);
+            }
+        });
+
+        // Send notification email to the admin
+        // Send notification email to the admin
+        const adminoptions = adminMailOptions(req, savedOrder, deliveryDate, deliveryInfo, payment_method_types, totalAmount ,cartItems)
+        transporter.sendMail(adminoptions, (error, info) => {
+            if (error) {
+                console.error('Error sending email to admin:', error);
+            } else {
+                console.log('Email sent to admin:', info.response);
+            }
+        });
+
 
         res.status(201).json({ message: 'Order created successfully', order: savedOrder });
     } catch (error) {
