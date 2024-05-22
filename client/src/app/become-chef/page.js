@@ -253,19 +253,19 @@ const BecomeChef = () => {
           </div>
 
           <div className="2xl:w-[1400px] xl:w-[1000px] lg:w-[850px] md:w-[800px] w-full mx-auto flex flex-col sm:flex-row justify-between items-center mt-12 xl:mt-20 2xl:mt-28 mb-12 xl:mb-20 2xl:mb-28 px-4 sm:px-0">
-            <div className="2xl:w-[45%] xl:w-[45%] lg:w-[50%] sm:w-auto mb-8 sm:mb-0">
+            <div className="2xl:w-[45%] xl:w-[42%] md:w-[50%] sm:w-[50%] lg:w-[50%]  mb-8 sm:mb-0">
               <Image
                 src={banner3}
                 className="rounded-[15px] w-full max-w-[686px] h-auto sm:max-w-[465px] lg:max-w-[313px] xl:max-w-[428px] 2xl:max-w-[686px]"
                 alt="Chef Banner"
               />
             </div>
-            <div className="w-full sm:w-[44%] lg:w-[57%] xl:w-[] 2xl:w-[46%] max-w-[720px] md:ml-[20px]">
+            <div className="w-full sm:w-[44%] lg:w-[57%] xl:w-[50%] 2xl:w-[46%] max-w-[720px] md:ml-[20px]">
               <h3 className="font-alata text-[#111111] text-2xl sm:text-[24px] leading-8 text-center sm:text-left sm:text-3xl sm:leading-9 md:text-4xl md:leading-10 xl:text-5xl xl:leading-[45px] 2xl:text-[55px] 2xl:leading-[75px] mb-6">
                 Join the Chef Waiting List
               </h3>
               <div className="flex flex-col gap-4 md:gap-[5px] xs:gap-[5px] ">
-                <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex flex-col sm:flex-row gap-4 xs:gap-[5px]">
                   <input
                     placeholder="First Name"
                     className="profile_input w-full sm:w-1/2"
