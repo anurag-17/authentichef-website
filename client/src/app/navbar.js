@@ -214,7 +214,7 @@ const Navbar = () => {
   });
   return (
     <>
-      <ToastContainer className="mt-24" autoClose={1000} />
+      {/* <ToastContainer className="mt-24" autoClose={1000} /> */}
       <section>
         <nav className="z-50 flex justify-center bg-[#F38181] 2xl:h-[116px] xl:h-[80px] lg:h-[50px] sm:h-[45px] h-12 w-full mnavbar-h fixed">
           <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[800px] w-full px-10 md:px-0  flex justify-between items-center mnavbar">
