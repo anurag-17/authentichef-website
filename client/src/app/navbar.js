@@ -382,7 +382,7 @@ const Navbar = () => {
                       <input
                         type="text"
                         placeholder="Search dishes, chefs, cuisine "
-                        className="2xl:w-[258px] xl:w-[170px] 2xl:h-[44px] xl:h-[30px] w-[130px] h-[20px] bg-[#FF9C9C] text-[#AE6363] 2xl:px-[40px] xl:px-[30px] px-[20px] outline-none placeholder:text-[#AE6363] 2xl:text-[16px] xl:text-[12px] text-[9px]"
+                        className="2xl:w-[258px] xl:w-[170px] 2xl:h-[44px] xl:h-[30px] w-[130px] h-[20px] bg-[#FF9C9C] text-[#AE6363] 2xl:px-[40px] xl:px-[30px] px-[20px] outline-none placeholder:text-[#AE6363] 2xl:text-[14px] xl:text-[12px] text-[9px]"
                       />
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
