@@ -1,5 +1,5 @@
 const express = require('express');
-const Order =require("../Model/order")
+const Order = require("../Model/order")
 const Cart = require("../Model/cart");
 const validateMongoDbId = require("../Utils/validateMongodbId");
 const stripe = require('../config/payment');
@@ -8,106 +8,10 @@ const Chef = require("../Model/Chef");
 
 
 
-exports.PlaceOrder = async (req, res, next) => {
-    try {
-        const { deliveryDate, deliveryInfo, status, paymentMethodToken , payment_method_types ,Type_of_Address } = req.body;
-
-        
-        // Get the cart items
-        const cartItems = await Cart.findOne({ user: req.user._id }).populate({
-            path: "items.menuItem",
-            select: "price"
-        });
-
-        if (!cartItems || cartItems.items.length === 0) {
-            return res.status(404).json({ message: "Cart is empty" });
-        }
-
-        // Calculate total amount from updated cart items
-        const totalAmount = cartItems.items.reduce((total, item) => {
-            return total + (item.menuItem.price * item.quantity);
-        }, 0);
-        // Payment with stripe
-        const paymentIntent = await stripe.paymentIntents.create({
-            Name: req.user.name,
-            amount: totalAmount * 100,
-            currency: 'usd',
-            payment_method: paymentMethodToken, // Replace with a valid payment method token
-            payment_method_types: payment_method_types, // paymentmethod and payment_method_types are the same 
-            confirm: true,
-            customer: req.user.stripeCustomerId,
-            metadata: {
-                UserName: req.user.firstname + ' ' + req.user.lastname,
-                UserEmail: req.user.email
-            }
-        });
-        
-        if (!paymentIntent) {
-            return res.status(400).json({ message: 'Payment failed' });
-        }
-
-
-        // Create a payment record
-        const payment = new Payment({
-            amount: totalAmount,
-            paymentMethod:payment_method_types,
-            status: "completed",
-            transactionId: paymentIntent.id
-        });
-
-        // Save the payment
-        const savedPayment = await payment.save();
-
-        if(!savedPayment){
-            return res.status(400).json({ message: 'Payment Details is not saved' });
-        }
-
-        // Extract menu items from cart
-        const items = cartItems.items.map(item => ({
-            menuItem: item.menuItem._id,
-            quantity: item.quantity,
-            customization: item.customization
-        }));
-
-        // Create an order with delivery information
-        const newOrder = new Order({
-            items: items,
-            user: req.user._id,
-            deliveryDate: deliveryDate,
-            deliveryInfo: deliveryInfo,
-            totalAmount: totalAmount,
-            Type_of_Address: Type_of_Address || "Shipping Address",
-            status: status,
-            payment: savedPayment._id ,// Assign the _id of the saved payment to the order's payment field,
-            TransactionId:paymentIntent.id
-        });
-        // Save the order
-        const savedOrder = await newOrder.save();
-
-        if (!savedOrder) {
-            return res.status(400).json({ message: 'Order creation failed' });
-        }
-        // Update the payment with the order ID
-        savedPayment.order = savedOrder._id;
-        paymentIntent.metadata.orderId = savedOrder._id.toString();
-        await savedPayment.save();
-
-        // Delete the cart after placing the order
-        await Cart.deleteOne({ _id: cartItems._id });
-
-        res.status(201).json({ message: 'Order created successfully', order: savedOrder });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Internal server error' });
-    }
-};
-
-
-// Check the Order List //
-
 // exports.PlaceOrder = async (req, res, next) => {
 //     try {
 //         const { deliveryDate, deliveryInfo, status, paymentMethodToken, payment_method_types, Type_of_Address } = req.body;
+
 
 //         // Get the cart items
 //         const cartItems = await Cart.findOne({ user: req.user._id }).populate({
@@ -123,63 +27,39 @@ exports.PlaceOrder = async (req, res, next) => {
 //         const totalAmount = cartItems.items.reduce((total, item) => {
 //             return total + (item.menuItem.price * item.quantity);
 //         }, 0);
-
-//         let payment, transactionId;
-
-//         if (payment_method_types === 'COD') {
-//             // Handle Cash on Delivery
-//             transactionId = 'COD-' + new Date().getTime(); // Generate a unique transaction ID for COD
-
-//             payment = new Payment({
-//                 amount: totalAmount,
-//                 paymentMethod: 'COD',
-//                 status: 'pending',
-//                 transactionId: transactionId
-//             });
-
-//             const savedPayment = await payment.save();
-
-//             if (!savedPayment) {
-//                 return res.status(400).json({ message: 'Payment details could not be saved' });
+//         // Payment with stripe
+//         const paymentIntent = await stripe.paymentIntents.create({
+//             Name: req.user.name,
+//             amount: totalAmount * 100,
+//             currency: 'usd',
+//             payment_method: paymentMethodToken, // Replace with a valid payment method token
+//             payment_method_types: payment_method_types, // paymentmethod and payment_method_types are the same 
+//             confirm: true,
+//             customer: req.user.stripeCustomerId,
+//             metadata: {
+//                 UserName: req.user.firstname + ' ' + req.user.lastname,
+//                 UserEmail: req.user.email
 //             }
-//         } else {
-//             // Payment with Stripe
-//             const paymentIntent = await stripe.paymentIntents.create({
-//                 amount: totalAmount * 100, // Amount in cents
-//                 currency: 'usd',
-//                 payment_method: paymentMethodToken,
-//                 payment_method_types: payment_method_types,
-//                 confirm: true,
-//                 customer: req.user.stripeCustomerId,
-//                 metadata: {
-//                     UserName: `${req.user.firstname} ${req.user.lastname}`,
-//                     UserEmail: req.user.email
-//                 },
-//                 automatic_payment_methods: {
-//                     enabled: true,
-//                     allow_redirects: 'never' // This ensures no redirect-based methods are used
-//                 },
-//                 return_url: 'http://www.authentichef.com/' // Add your actual return URL here
-//             });
+//         });
 
-//             if (!paymentIntent) {
-//                 return res.status(400).json({ message: 'Payment failed' });
-//             }
+//         if (!paymentIntent) {
+//             return res.status(400).json({ message: 'Payment failed' });
+//         }
 
-//             transactionId = paymentIntent.id;
 
-//             payment = new Payment({
-//                 amount: totalAmount,
-//                 paymentMethod: payment_method_types,
-//                 status: 'completed',
-//                 transactionId: transactionId
-//             });
+//         // Create a payment record
+//         const payment = new Payment({
+//             amount: totalAmount,
+//             paymentMethod: payment_method_types,
+//             status: "completed",
+//             transactionId: paymentIntent.id
+//         });
 
-//             const savedPayment = await payment.save();
+//         // Save the payment
+//         const savedPayment = await payment.save();
 
-//             if (!savedPayment) {
-//                 return res.status(400).json({ message: 'Payment details could not be saved' });
-//             }
+//         if (!savedPayment) {
+//             return res.status(400).json({ message: 'Payment Details is not saved' });
 //         }
 
 //         // Extract menu items from cart
@@ -191,34 +71,26 @@ exports.PlaceOrder = async (req, res, next) => {
 
 //         // Create an order with delivery information
 //         const newOrder = new Order({
-//             items,
+//             items: items,
 //             user: req.user._id,
-//             deliveryDate,
-//             deliveryInfo,
-//             totalAmount,
-//             Type_of_Address: Type_of_Address || 'Shipping Address',
-//             status,
-//             payment: payment._id,
-//             transactionId: transactionId // Include the transaction ID in the order
+//             deliveryDate: deliveryDate,
+//             deliveryInfo: deliveryInfo,
+//             totalAmount: totalAmount,
+//             Type_of_Address: Type_of_Address || "Shipping Address",
+//             status: status,
+//             payment: savedPayment._id,// Assign the _id of the saved payment to the order's payment field,
+//             TransactionId: paymentIntent.id
 //         });
-
+//         // Save the order
 //         const savedOrder = await newOrder.save();
 
 //         if (!savedOrder) {
 //             return res.status(400).json({ message: 'Order creation failed' });
 //         }
-
 //         // Update the payment with the order ID
-//         payment.order = savedOrder._id;
-
-//         if (payment_method_types !== 'COD' && paymentIntent) {
-//             paymentIntent.metadata.orderId = savedOrder._id.toString();
-//             await stripe.paymentIntents.update(paymentIntent.id, {
-//                 metadata: { orderId: savedOrder._id.toString() }
-//             });
-//         }
-
-//         await payment.save();
+//         savedPayment.order = savedOrder._id;
+//         paymentIntent.metadata.orderId = savedOrder._id.toString();
+//         await savedPayment.save();
 
 //         // Delete the cart after placing the order
 //         await Cart.deleteOne({ _id: cartItems._id });
@@ -229,6 +101,130 @@ exports.PlaceOrder = async (req, res, next) => {
 //         res.status(500).json({ message: 'Internal server error' });
 //     }
 // };
+
+
+// Check the Order List //
+
+exports.PlaceOrder = async (req, res, next) => {
+    try {
+        const { deliveryDate, deliveryInfo, status, paymentMethodToken,   payment_method_types = 'COD', Type_of_Address } = req.body;
+
+        // Get the cart items
+        const cartItems = await Cart.findOne({ user: req.user._id }).populate({
+            path: "items.menuItem",
+            select: "price"
+        });
+
+        if (!cartItems || cartItems.items.length === 0) {
+            return res.status(404).json({ message: "Cart is empty" });
+        }
+
+        // Calculate total amount from updated cart items
+        const totalAmount = cartItems.items.reduce((total, item) => {
+            return total + (item.menuItem.price * item.quantity);
+        }, 0);
+
+        let payment, transactionId, paymentIntent;
+
+        if (payment_method_types === 'COD') {
+            // Handle Cash on Delivery
+            transactionId = 'COD-' + new Date().getTime(); // Generate a unique transaction ID for COD
+
+            payment = new Payment({
+                amount: totalAmount,
+                paymentMethod: 'COD',
+                status: 'pending',
+                transactionId: transactionId
+            });
+
+            const savedPayment = await payment.save();
+
+            if (!savedPayment) {
+                return res.status(400).json({ message: 'Payment details could not be saved' });
+            }
+        } else {
+            // Payment with Stripe
+            paymentIntent = await stripe.paymentIntents.create({
+                amount: totalAmount * 100, // Amount in cents
+                currency: 'usd',
+                payment_method: paymentMethodToken,
+                payment_method_types:[payment_method_types],
+                confirm: true,
+                customer: req.user.stripeCustomerId,
+                metadata: {
+                    UserName: `${req.user.firstname} ${req.user.lastname}`,
+                    UserEmail: req.user.email
+                },
+                return_url: 'http://www.authentichef.com/' // Add your actual return URL here
+            });
+
+            if (!paymentIntent) {
+                return res.status(400).json({ message: 'Payment failed' });
+            }
+
+            transactionId = paymentIntent.id;
+
+            payment = new Payment({
+                amount: totalAmount,
+                paymentMethod: payment_method_types,
+                status: 'completed',
+                transactionId: transactionId
+            });
+
+            const savedPayment = await payment.save();
+
+            if (!savedPayment) {
+                return res.status(400).json({ message: 'Payment details could not be saved' });
+            }
+        }
+
+        // Extract menu items from cart
+        const items = cartItems.items.map(item => ({
+            menuItem: item.menuItem._id,
+            quantity: item.quantity,
+            customization: item.customization
+        }));
+
+        // Create an order with delivery information
+        const newOrder = new Order({
+            items,
+            user: req.user._id,
+            deliveryDate,
+            deliveryInfo,
+            totalAmount,
+            Type_of_Address: Type_of_Address || 'Shipping Address',
+            status,
+            payment: payment._id,
+            TransactionId: transactionId // Include the transaction ID in the order
+        });
+
+        const savedOrder = await newOrder.save();
+
+        if (!savedOrder) {
+            return res.status(400).json({ message: 'Order creation failed' });
+        }
+
+        // Update the payment with the order ID
+        payment.order = savedOrder._id;
+
+        if (payment_method_types !== 'COD' && paymentIntent) {
+            paymentIntent.metadata.orderId = savedOrder._id.toString();
+            await stripe.paymentIntents.update(paymentIntent.id, {
+                metadata: { orderId: savedOrder._id.toString() }
+            });
+        }
+
+        await payment.save();
+
+        // Delete the cart after placing the order
+        await Cart.deleteOne({ _id: cartItems._id });
+
+        res.status(201).json({ message: 'Order created successfully', order: savedOrder });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
 
 
 exports.OrderList = async (req, res, next) => {
@@ -307,25 +303,25 @@ exports.UpdateOrder = async (req, res, next) => {
 
 // DeleteOrder 
 
-exports.DeleteOrder = async(req,res,next)=>{
-    const{id}=req.params;
+exports.DeleteOrder = async (req, res, next) => {
+    const { id } = req.params;
     validateMongoDbId(id)
-    try{
+    try {
 
-        const foundOrder =  await  Order.findById(id)
-        if(!foundOrder){
-            res.status(404).json({error: 'Order not found'})
+        const foundOrder = await Order.findById(id)
+        if (!foundOrder) {
+            res.status(404).json({ error: 'Order not found' })
         }
 
         // Check of order status is not pendding so order will not cancel
-        if(foundOrder.status!=='pending'){
+        if (foundOrder.status !== 'pending') {
             return res.status(400).json({ error: 'Order cannot be cancelled because it is already being prepared or delivered' });
         }
 
         res.status(200).json({ message: 'Order cancelled successfully', order: foundOrder });
 
-    }catch(error){
-       next(error)
+    } catch (error) {
+        next(error)
     }
 
 }

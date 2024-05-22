@@ -117,8 +117,8 @@ exports.getCartItems = async (req, res) => {
     console.log(userId)
     const userCart = await Cart.findOne({ user: userId}).populate('items.menuItem')
     if (!userCart) {
-        return res.status(404).json({ message: "Cart is empty" });
-    }
+      return res.status(200).json({ message: "Cart is empty", length: 0 });
+  }
 
     const TotalPricePerQuntity = userCart.items.map(item => item.menuItem.price * item.quantity).reduce((a, b) => a + b, 0);
 
@@ -126,15 +126,9 @@ exports.getCartItems = async (req, res) => {
     const userCartCount =userCart.items.length;
 
     if (!userCart) {
-      return res.status(404).json({ message: "Cart is empty" });
+      return res.status(200).json({ message: "Cart is empty" });
     }
-    // Check if deliveryDate is null
-    // if (userCart.deliveryDate === null) {
-    //   return res.status(200).json({ cart: userCart, TotalPrice: TotalPricePerQuntity, userCartCount: userCartCount });
-    // } 
-    // else{
-    //   res.status(200).json({message: "Cart is empty" })
-    // }
+   
 
     res.status(200).json({message:'Cart',userCart,userCartCount,TotalPricePerQuntity})
   } catch (error) {
