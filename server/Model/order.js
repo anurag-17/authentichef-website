@@ -89,6 +89,18 @@ const orderSchema = new mongoose.Schema({
                 required: true,
             },
             customization: String,
+            price: {
+                type: Number,
+                
+            },
+            ProfileImage:{
+            type:mongoose.Schema.Types.Mixed,
+                
+            },
+            name:{
+                type:String,
+                
+            }
         },
     ],
     user: {

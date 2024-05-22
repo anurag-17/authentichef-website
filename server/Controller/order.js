@@ -127,9 +127,7 @@ exports.PlaceOrder = async (req, res, next) => {
 
         // Get the cart items
         const cartItems = await Cart.findOne({ user: req.user._id }).populate('items.menuItem');
-        
 
-        console.log(cartItems)
 
         if (!cartItems || cartItems.items.length === 0) {
             return res.status(404).json({ message: "Cart is empty" });
@@ -198,7 +196,10 @@ exports.PlaceOrder = async (req, res, next) => {
         const items = cartItems.items.map(item => ({
             menuItem: item.menuItem._id,
             quantity: item.quantity,
-            customization: item.customization
+            customization: item.customization,
+            price: item.menuItem.price,
+            ProfileImage: item.menuItem.ProfileImage,
+            name: item.menuItem.name
         }));
 
         // Create an order with delivery information
