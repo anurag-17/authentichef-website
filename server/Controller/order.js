@@ -274,7 +274,8 @@ exports.OrderList = async (req, res, next) => {
         const currentPage = parseInt(page, 10);
         const itemsPerPage = parseInt(limit, 10);
 
-        let orderQuery = Order.find({ user: req.user._id }).populate('payment'); // Filter by user_id
+        let orderQuery = Order.find({ user: req.user._id })
+                        .populate('payment'); // Filter by user_id
 
         if (search) {
             orderQuery = orderQuery.where('items.menuItem').regex(new RegExp(search, 'i'));
@@ -303,6 +304,45 @@ exports.OrderList = async (req, res, next) => {
     }
 };
 
+
+// Show All Order List //
+
+exports.AllOrderList = async (req, res, next) => {
+    try {
+        const { page = 1, limit = 10, search } = req.query;
+        const currentPage = parseInt(page, 10);
+        const itemsPerPage = parseInt(limit, 10);
+
+        let orderQuery = Order.find()
+                        .populate('payment'); // Filter by user_id
+
+        if (search) {
+            orderQuery = orderQuery.where('items.menuItem').regex(new RegExp(search, 'i'));
+        }
+
+        // Count total number of documents
+        const totalOrders = await Order.countDocuments(orderQuery);
+
+        // Calculate total number of pages
+        const totalPages = Math.ceil(totalOrders / itemsPerPage);
+
+        // Calculate how many documents to skip based on pagination
+        const skip = (currentPage - 1) * itemsPerPage;
+
+        // Execute the query
+        const orders = await orderQuery.skip(skip).limit(itemsPerPage).populate('items.menuItem').exec();
+
+        res.status(200).json({
+            totalOrders,
+            totalPages,
+            currentPage,
+            orders
+        });
+    } catch (error) {
+        next(error);
+    }
+
+}
 
 
 // Get Order By Id
