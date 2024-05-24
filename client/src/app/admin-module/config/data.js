@@ -4,6 +4,7 @@ import Cuisines from "../components/admin/admin-pages/cuisines/page";
 import Dietary from "../components/admin/admin-pages/dietary/page";
 import DishType from "../components/admin/admin-pages/dishType/page";
 import FoodMenu from "../components/admin/admin-pages/food-menu/FoodMenu";
+import OrderList from "../components/admin/admin-pages/order-management/page";
 import SpiceLevel from "../components/admin/admin-pages/spice-level/page";
 import User from "../components/admin/admin-pages/user/User";
 
@@ -20,6 +21,7 @@ export const sideMenus = [
     label: "Chef managment",
     component : <ChefMain />,
   },
+
   {
     id: 2,
     label: "User management",
@@ -27,6 +29,11 @@ export const sideMenus = [
   },
   {
     id: 3,
+    label: "Order managment",
+    component : <OrderList />,
+  },
+  {
+    id: 4,
     label: " Menu Items",
     component : <FoodMenu />,
   },
@@ -36,22 +43,22 @@ export const sideMenus = [
   //   // component : <Property />,
   // },
   {
-    id: 4,
+    id: 5,
     label: "Cuisines",
     component : <Cuisines />,
   },
   {
-    id: 5,
+    id: 6,
     label: "Dietary",
     component : <Dietary />,
   },
   {
-    id: 6,
+    id: 7,
     label: "Dish Type",
     component : <DishType />,
   },
   {
-    id: 7,
+    id: 8,
     label: "Spice Level",
     component : <SpiceLevel />,
   },

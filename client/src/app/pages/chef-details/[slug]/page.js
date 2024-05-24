@@ -35,6 +35,10 @@ const ChefDetails = ({ params }) => {
   const dispatch = useDispatch();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const { cart } = useSelector((state) => state?.userCart);
+  const [loginDetails, setLoginDetails] = useState({
+    email: "",
+    password: "",
+  });
   cart.forEach((item, index) => {
     const { data } = item;
     console.log(data, `data from item ${index + 1}`);
@@ -203,6 +207,44 @@ const ChefDetails = ({ params }) => {
 
   const handleLoginClick = () => {
     document.getElementById("my_modal_2").showModal();
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const res = await axios.post(
+        `${config.baseURL}/api/auth/login`,
+        loginDetails,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (res?.data?.success) {
+        toast.success("Login successfully!");
+        dispatch(setToken(res?.data?.token));
+        dispatch(setUser(res?.data?.user));
+        dispatch(setSuccess(res?.data?.success));
+        handleClose();
+        setLoader(false);
+        setIsLoggedIn(true);
+      } else {
+        toast.error("Login failed please try later!");
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      setLoading(false);
+    }
+  };
+  const handleClose = () => {
+    const modal = document.getElementById("my_modal_2");
+    modal.close();
+  };
+  const InputHandler = (e) => {
+    setLoginDetails({ ...loginDetails, [e.target.name]: e.target.value });
   };
   return (
     <>
@@ -719,6 +761,86 @@ Explore Dishes
           </div>
         </Dialog>
       </Transition>
+      {/* =======Login======= */}
+      <div className="">
+        <dialog
+          id="my_modal_2"
+          className="modal rounded-[10px] 2xl:w-[1000px] 2xl:h-[501px] xl:w-[620px] xl:h-[350px] lg:w-[480px] h-[350px] 2xl:mt-40 xl:mt-24 mt-14 p-0"
+        >
+          <form method="dialog" className=" mt-0" onSubmit={handleSubmit}>
+            <div className=" ">
+              <div className="flex justify-center items-center w-full ">
+                <div className="absolute right-3" onClick={handleClose}>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="2xl:w-7 2xl:h-7 w-6 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6 18 18 6M6 6l12 12"
+                    />
+                  </svg>
+                </div>
+                <h4 className="fourth_p">Login</h4>
+              </div>
+              <div className="2xl:w-[368px] xl:w-[280px] lg:w-[220px] sm:w-[] w-[]">
+                <div className="2xl:mt-[35px] mt-[25px]">
+                  <input
+                    type="email"
+                    name="email"
+                    onChange={InputHandler}
+                    placeholder="Enter your mail id"
+                    className="alata font-[400] login-inputad w-full"
+                    pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                    title="enter valid email ex. abc@gmail.com"
+                  />
+                </div>
+                <div className="2xl:mt-[35px] mt-[20px]">
+                  <input
+                    type="password"
+                    name="password"
+                    onChange={InputHandler}
+                    placeholder="Enter your Password"
+                    className="alata font-[400] login-inputad w-full"
+                    pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                    title="enter valid email ex. abc@gmail.com"
+                  />
+                </div>
+                <div className="flex">
+                  <button
+                    type="submit"
+                    className="w-full mx-auto alata text-white 2xl:text-[20px] 2xl:w-[368px] xl:w-[280px] lg:w-[220px] xl:text-[16px] text-[12px] rounded-[5px] 2xl:mt-[40px] xl:mt-[25px] mt-[20px] 2xl:h-[60px] xl:h-[40px] lg:h-[32px] text-center bg-[#DB5353]"
+                  >
+                    Login
+                  </button>
+                </div>
+                <div>
+                  <p className="alata font-[400] 2xl:my-[20px] xl:my-[10px] text-[14px] leading-[26px] text-center">
+                    or
+                  </p>
+                </div>
+                <div className="my-[30px] flex justify-center">
+                  <button
+                    onClick={() =>
+                      document.getElementById("my_modal_1").showModal()
+                    }
+                    className="nav_login1"
+                  >
+                    <h4 className="text-[#DB5353] alata font-[400] text-[14px] leading-[26px] text-center mx-auto">
+                      Sign Up
+                    </h4>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </dialog>
+      </div>
     </>
   );
 };
