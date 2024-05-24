@@ -200,6 +200,10 @@ const ChefDetails = ({ params }) => {
       alert(error?.response?.data?.message || "server error");
     }
   };
+
+  const handleLoginClick = () => {
+    document.getElementById("my_modal_2").showModal();
+  };
   return (
     <>
       <ToastContainer autoClose={1000} />
