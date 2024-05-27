@@ -10,18 +10,19 @@ const userMailOptions = require("../Public/userMailOption")
 const adminMailOptions = require("../Public/adminMailOption")
 require('dotenv').config(); // Import dotenv to use environment variables
 
-// Nodemailer Connection //
-const transporter = nodemailer.createTransport({
-    service: 'gmail',
+// Define your email credentials and configuration
+const emailConfig = {
+    host: 'smtpout.secureserver.net',
+    port: 465,
+    secure: true, // Use SSL
     auth: {
         user: process.env.CLIENT_EMAIL,
-        pass: process.env.CLIENT_EMAIL_PASSWORD
+        pass: process.env.CLIENT_EMAIL_PASSWORD,
     },
-    tls: {
-        rejectUnauthorized: false // Disable SSL verification
-    },
-});
+};
 
+// Create a transporter object using the default SMTP transport
+const transporter = nodemailer.createTransport(emailConfig);
 
 
 // exports.PlaceOrder = async (req, res, next) => {
@@ -123,7 +124,7 @@ const transporter = nodemailer.createTransport({
 
 exports.PlaceOrder = async (req, res, next) => {
     try {
-        const { deliveryDate, deliveryInfo, BillingInfo , status, paymentMethodToken, payment_method_types = 'COD', Type_of_Address } = req.body;
+        const { deliveryDate, deliveryInfo, BillingInfo , status, paymentMethodToken, payment_method_types = 'COD', Type_of_Address , Delivery_instruction , Promo_code } = req.body;
 
         // Get the cart items
         const cartItems = await Cart.findOne({ user: req.user._id }).populate('items.menuItem');
@@ -207,6 +208,8 @@ exports.PlaceOrder = async (req, res, next) => {
             items,
             user: req.user._id,
             deliveryDate,
+            Delivery_instruction,
+            Promo_code,
             deliveryInfo,
             BillingInfo,
             totalAmount,
@@ -292,17 +295,34 @@ exports.OrderList = async (req, res, next) => {
 
         // Execute the query
         const orders = await orderQuery.skip(skip).limit(itemsPerPage).populate('items.menuItem').exec();
+        
+        // Prepare response data
+        const formattedOrders = orders.map(order => ({
+            _id: order._id,
+            items: order.items.map(item => ({
+                ...item.toObject(), // Convert Mongoose document to plain JavaScript object
+                OrderId: order._id
+            })),
+            user: order.user,
+            status: order.status,
+            deliveryInfo: order.deliveryInfo,
+            billingInfo: order.BillingInfo,
+            deliveryDate: order.deliveryDate,
+            totalAmount: order.totalAmount
+        }));
 
+        // Send response
         res.status(200).json({
             totalOrders,
             totalPages,
             currentPage,
-            orders
+            orders: formattedOrders
         });
     } catch (error) {
         next(error);
     }
 };
+
 
 
 // Show All Order List //
@@ -330,13 +350,33 @@ exports.AllOrderList = async (req, res, next) => {
         const skip = (currentPage - 1) * itemsPerPage;
 
         // Execute the query
-        const orders = await orderQuery.skip(skip).limit(itemsPerPage).populate('items.menuItem').exec();
+        const orders = await orderQuery.skip(skip).limit(itemsPerPage)
+        .populate({
+            path: 'items.menuItem',
+            select: '-qrCode'
+        
+        }).exec();
+
+             // Prepare response data
+             const formattedOrders = orders.map(order => ({
+                _id: order._id,
+                items: order.items.map(item => ({
+                    ...item.toObject(), // Convert Mongoose document to plain JavaScript object
+                    OrderId: order._id
+                })),
+                user: order.user,
+                status: order.status,
+                deliveryInfo: order.deliveryInfo,
+                billingInfo: order.BillingInfo,
+                deliveryDate: order.deliveryDate,
+                totalAmount: order.totalAmount
+            }));
 
         res.status(200).json({
             totalOrders,
             totalPages,
             currentPage,
-            orders
+            orders:formattedOrders
         });
     } catch (error) {
         next(error);
@@ -352,6 +392,7 @@ exports.getOrderById = async (req, res, next) => {
 
     try {
         const order = await Order.findById(id);
+        console.log(("order is" ,  order))
         if (!order) {
             return res.status(404).json({ error: 'Order not found' });
         }

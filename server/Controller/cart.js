@@ -114,7 +114,6 @@ const existingItemIndex = userCart.items.findIndex(item => {
 exports.getCartItems = async (req, res) => {
   try {
     const userId = req.user._id;
-    console.log(userId)
     const userCart = await Cart.findOne({ user: userId}).populate('items.menuItem')
     if (!userCart) {
       return res.status(200).json({ message: "Cart is empty", length: 0 });
@@ -324,7 +323,6 @@ const calculateTotalAmount = async (items, userId) => {
       path: "items.menuItem",
       select: "price"
     });
-    console.log("Order Items are", orderItems);
     const totalAmount = items.reduce((total, item) => {
       // Access the price property of menuItem
       const itemPrice = item.menuItem.price;

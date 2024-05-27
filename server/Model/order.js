@@ -120,9 +120,21 @@ const orderSchema = new mongoose.Schema({
     deliveryDate:{
       type:Date,
     },
+
     totalAmount: {
         type: Number,
     },
+
+    Delivery_instruction:{
+        type:String,
+        required:false
+    },
+
+    Promo_code:{
+        type:String,
+        required:false
+    },
+
     payment: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Payment",

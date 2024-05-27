@@ -4,7 +4,7 @@ const moment = require('moment');
 const userMailOptions = (req, savedOrder, deliveryDate, deliveryInfo, totalAmount, cartItems , payment_method_types) => {
     const formattedDeliveryDate = moment(deliveryDate).format('YYYY-MM-DD')
     return {
-        from: 'harshal.brilliance@gmail.com',
+        from: process.env.CLIENT_EMAIL,
         to: req.user.email,
         subject: 'Your Order Confirmation',
         html: `

@@ -2,8 +2,8 @@ const moment = require('moment');
 const adminMailOptions=(req, savedOrder, deliveryDate, deliveryInfo, payment_method_types, totalAmount ,cartItems)=>{
     const formattedDeliveryDate = moment(deliveryDate).format('YYYY-MM-DD');
     return {
-        from: 'harshal.brilliance@gmail.com', // Your email address
-        to: 'harshal.brilliance@gmail.com', // Admin email address
+        from: process.env.CLIENT_EMAIL, // Your email address
+        to: process.env.CLIENT_EMAIL, // Admin email address
         subject: 'New Order Received ',
         html: `<html>
         <head>
@@ -105,7 +105,7 @@ const adminMailOptions=(req, savedOrder, deliveryDate, deliveryInfo, payment_met
                         <div>
                             <p><strong>${item.menuItem.name}</strong></p>
                             <p>Quantity: ${item.quantity}</p>
-                            <p>Price Per Item$${(item.menuItem.price).toFixed(2)}</p>
+                            <p>Price Per Item: $${(item.menuItem.price).toFixed(2)}</p>
                         </div>
                     </div>
                 `).join('')}
