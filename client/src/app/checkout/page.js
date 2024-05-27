@@ -20,12 +20,6 @@ const Checkout = () => {
   const { token } = useSelector((state) => state?.auth);
   const { cart } = useSelector((state) => state?.userCart);
 
-  const router = useRouter();
-
-const Checkout = () => {
-  const { token } = useSelector((state) => state?.auth);
-  const { cart } = useSelector((state) => state?.userCart);
-
   const [deliveryInfo, setDeliveryInfo] = useState([
     {
       phone: "",
@@ -646,4 +640,5 @@ Checkout
     </>
   );
 };
+
 export default Checkout;
