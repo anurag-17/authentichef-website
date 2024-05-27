@@ -564,7 +564,7 @@ const ExploreDishes = () => {
           <div class="main_section 2xl:w-[1700px] xl:w-[1100px] md:w-[811px]  m-auto mt-auto">
             <div class="flex flex-col md:flex-row justify-center my-10 mx-6 lg:my-6">
               <div class="mr-6 lg:mb-0 mb-4 lg lg:w-[30%] 2xl:w-[45%] xl:w-[33%] lg:text-[2.25rem] lg:ml-[-45px] md:w-[30%] xs:text-[1.875rem] sm:text-[2.25rem] md:text-[29px]">
-                <h1 className="third_head mb-4 lg:text-left 2xl:ml-[105px] xl:ml-[19px] text-center">
+              <h1 className="third_head mb-4 alata font-[400] 2xl:text-[55px] lg:text-left 2xl:ml-[105px] xl:ml-[19px] text-center">
                   Select Cuisine
                 </h1>
               </div>
@@ -572,7 +572,7 @@ const ExploreDishes = () => {
               <div className="mnavbar 2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] sm:pt-[12px] sm:pb-[4px] 2xl:pt-[21px] md:pt-[9px] md:w-[700px]  2xl:py-[60px] xl:py-[10px] lg:pt-[7px] lg:pb-[40px]  py-[40px] xs:py-[10px] mx-auto">
                 <div className="filter_div_second">
                   <div className="select-divs flex gap-5">
-                    <div className="select-1">
+                  <div className="select-1 alata">
                       <select
                         id="dietary"
                         className="2xl:w-[126px] third_select"
@@ -638,7 +638,7 @@ const ExploreDishes = () => {
                   </div>
 
                   <button
-                    className="bt-1  2xl:w-[153px] third_select flex justify-center items-center gap-3 md:text-[12px] sm:text-[12px] md:pl-2 sm:pl-2"
+                    className="bt-1 alata font-[400] 2xl:text-[16px] 2xl:w-[153px] third_select flex justify-center items-center gap-3 md:text-[12px] sm:text-[12px] md:pl-2 sm:pl-2"
                     onClick={() =>
                       document.getElementById("my_modal_3").showModal()
                     }
@@ -721,7 +721,7 @@ const ExploreDishes = () => {
 
                   {/* =================Dietary========================== */}
                   <button
-                    className="bt-1 2xl:w-[153px] third_select flex justify-center items-center gap-2 md:text-[12px] sm:text-[12px] md:pl-2 sm:pl-2"
+                    className="bt-1 2xl:w-[153px] alata font-[400] 2xl:text-[16px] third_select flex justify-center items-center gap-2 md:text-[12px] sm:text-[12px] md:pl-2 sm:pl-2"
                     onClick={() =>
                       document.getElementById("my_modal_4").showModal()
                     }
@@ -805,7 +805,7 @@ const ExploreDishes = () => {
 
                   {/* =================More Filter========================== */}
                   <button
-                    className="bt-1 2xl:w-[153px] third_select flex justify-center items-center gap-2 md:text-[12px] sm:text-[12px] md:pl-2 sm:pl-2"
+                    className="bt-1 2xl:w-[153px] third_select alata font-[400] 2xl:text-[16px] flex justify-center items-center gap-2 md:text-[12px] sm:text-[12px] md:pl-2 sm:pl-2"
                     onClick={() =>
                       document.getElementById("my_modal_5").showModal()
                     }
