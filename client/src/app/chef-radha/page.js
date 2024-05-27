@@ -66,10 +66,10 @@ const ChefDishes = () => {
       <section>
         <Navbar />
         <div className=" ">
-          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px] 2xl:pt-[220px] xl:pt-[140px] pt-[100px] 2xl:py-[100px] xl:py-[50px] py-[40px] mx-auto mnavbar">
+          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[85%] sm:w-[90%]  2xl:pt-[220px] xl:pt-[140px] pt-[100px] 2xl:py-[100px] xl:py-[50px] py-[40px] mx-auto mnavbar">
             <div className="chefDishes-bg rounded-[15px] relative 2xl:h-[529px] xl:h-[360px] h-[280px] 2xl:pt-[295px] xl:pt-[200px] pt-[155px]">
-              <div className=" flex gap-5 2xl:w-[1414px] xl:w-[970px] w-[750px]  rounded-[15px] bg-white mx-auto 2xl:p-[50px] xl:p-[20px] p-[15px] chefdishWB">
-                <div className="2xl:w-[154px] xl:w-[80px] w-[60px]">
+              <div className=" flex gap-5 2xl:w-[1414px] xl:w-[970px] lg:w-[750px] md:w-[85%] sm:w-[90%] rounded-[15px] bg-white mx-auto 2xl:p-[50px] xl:p-[20px] p-[15px] chefdishWB">
+                <div className="2xl:w-[154px] xl:w-[80px] lg:w-[60px]">
                   <div>
                     <Image src={chef} className="w-full" />
                   </div>
@@ -110,7 +110,7 @@ const ChefDishes = () => {
                       <p className="fourth_day text-[#838383]">Food safety</p>
                     </div>
                   </div>
-                  <p className="fourth_day 2xl:w-[869px] xl:w-[600px] w-[540px]">
+                  <p className="fourth_day 2xl:w-[869px] xl:w-[600px] md:w-[90%] sm:w-[90%]">
                     Lorem Ipsum is simply dummy text of the printing and
                     typesetting industry. Lorem Ipsum has been the industrys
                     standard dummy text ever since the 1500s, when an unknown
@@ -118,7 +118,7 @@ const ChefDishes = () => {
                     type specimen book.
                   </p>
                   <div className="flex gap-[50px] 2xl:my-[30px] xl:my-[20px] my-[10px]">
-                    <div className="2xl:w-[404px] xl:w-[280px] w-[204px] ">
+                    <div className="2xl:w-[404px] xl:w-[280px] lg:w-[204px] sm:w-[40%]  ">
                       <h2 className="fourth_p text-[#555555]">
                         Lorem Ipsum is simply dummy
                       </h2>
@@ -130,7 +130,7 @@ const ChefDishes = () => {
                         to make a type specimen book.
                       </p>
                     </div>
-                    <div className="2xl:w-[404px] xl:w-[280px] w-[204px] ">
+                    <div className="2xl:w-[404px] xl:w-[280px] lg:w-[204px] sm:w-[40%]  ">
                       <h2 className="fourth_p text-[#555555]">
                         Lorem Ipsum is simply dummy
                       </h2>
@@ -147,7 +147,7 @@ const ChefDishes = () => {
                     <h2 className="fourth_p text-[#555555]">
                       Lorem Ipsum is simply dummy
                     </h2>
-                    <p className="fourth_day 2xl:my-[12px] xl:my-[8px] my-[6px] 2xl:w-[869px] xl:w-[600px] w-[540px]">
+                    <p className="fourth_day 2xl:my-[12px] xl:my-[8px] my-[6px] 2xl:w-[869px] xl:w-[600px] lg:w-[540px] md:w-[90%] sm:w-[90%]">
                       Lorem Ipsum is simply dummy text of the printing and
                       typesetting industry. Lorem Ipsum has been the industrys
                       standard dummy text ever since the 1500s, when an unknown
@@ -162,13 +162,13 @@ const ChefDishes = () => {
         </div>
 
         <div className="2xl:mt-[250px] xl:mt-[200px] mt-[180px] ">
-          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px]  2xl:pt-[120px] xl:pt-[60px] pt-[40px] mx-auto mnavbar">
+          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[85%] sm:w-[90%]  2xl:pt-[120px] xl:pt-[60px] pt-[40px] mx-auto mnavbar">
             <div className="">
               <div>
                 <h4 className="third_head">Starter</h4>
               </div>
             </div>
-            <div className=" flex flex-wrap justify-between  w-full px-10 md:px-0 mx-auto">
+            <div className=" flex flex-wrap justify-between  w-full px-10 sm:px-0 mx-auto">
               {data2.map((item) => (
                 <div
                   key={item.id}
@@ -252,13 +252,13 @@ const ChefDishes = () => {
           </div>
         </div>
         <div className="2xl:mt-[0px] xl:mt-[0px] mt-[0px] ">
-          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px]  2xl:pt-[85px] xl:pt-[30px] pt-[15px] mx-auto mnavbar">
+          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[85%] sm:w-[90%]  2xl:pt-[85px] xl:pt-[30px] pt-[15px] mx-auto mnavbar">
             <div className="">
               <div>
                 <h4 className="third_head">Mains</h4>
               </div>
             </div>
-            <div className=" flex flex-wrap justify-between  w-full px-10 md:px-0 mx-auto">
+            <div className=" flex flex-wrap justify-between  w-full px-10 sm:px-0 mx-auto">
               {data2.map((item) => (
                 <div
                   key={item.id}
@@ -343,13 +343,13 @@ const ChefDishes = () => {
         </div>
 
         <div className="2xl:mt-[0px] xl:mt-[0px] mt-[0px] ">
-          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px]  2xl:pt-[85px] xl:pt-[30px] pt-[15px] mx-auto mnavbar">
+          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[85%] sm:w-[90%]  2xl:pt-[85px] xl:pt-[30px] pt-[15px] mx-auto mnavbar">
             <div className="">
               <div>
                 <h4 className="third_head">Sides</h4>
               </div>
             </div>
-            <div className=" flex flex-wrap justify-between  w-full px-10 md:px-0 mx-auto">
+            <div className=" flex flex-wrap justify-between  w-full px-10 sm:px-0 mx-auto">
               {data2.map((item) => (
                 <div
                   key={item.id}
