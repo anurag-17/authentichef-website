@@ -516,6 +516,36 @@ const ExploreDishes = () => {
       alert(error?.response?.data?.message || "server error");
     }
   };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const res = await axios.post(
+        `${config.baseURL}/api/auth/login`,
+        loginDetails,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (res?.data?.success) {
+        toast.success("Login successfully!");
+        dispatch(setToken(res?.data?.token));
+        dispatch(setUser(res?.data?.user));
+        dispatch(setSuccess(res?.data?.success));
+        handleClose();
+        setLoader(false);
+        setIsLoggedIn(true);
+      } else {
+        toast.error("Login failed please try later!");
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      setLoading(false);
+    }
+  };
   return (
     <>
       <ToastContainer className="mt-24" autoClose={1000} />

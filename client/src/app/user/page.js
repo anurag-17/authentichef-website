@@ -1,3 +1,4 @@
+
 "use client";
 import dynamic from "next/dynamic";
 import React, { Fragment, useEffect, useState } from "react";
@@ -37,6 +38,10 @@ import { useDispatch, useSelector } from "react-redux";
 import config from "@/config";
 
 const LandingPage = () => {
+  const { token } = useSelector((state) => state?.auth);
+  const [isRefresh, setRefresh] = useState(false);
+  const [itemId, setItemId] = useState("");
+
   const [getAllDish, setGetAllDish] = useState({});
   console.log(getAllDish, "dis");
   const [isOpen, setOpen] = useState(false);
@@ -50,6 +55,9 @@ const LandingPage = () => {
     const { data } = item;
     console.log(data, `data from item ${index + 1}`);
   });
+  const refreshData = () => {
+    setRefresh(!isRefresh);
+  };
 
   const handleDrawerOpen = () => {
     setIsDrawerOpen(true);
@@ -114,6 +122,102 @@ const LandingPage = () => {
       .catch((error) => {
         console.log(error, "Error");
       });
+  };
+  const handleAddCart = async (itemId) => {
+    try {
+      const response = await axios.post(
+        `${config.baseURL}/api/Orders/AddtoCart`,
+
+        { menuItem: itemId },
+
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      if (response.status >= 200 && response.status < 300) {
+        toast.success("Item Added to Cart");
+        handleDrawerOpen();
+        refreshData();
+      } else {
+        toast.error(
+          error.response.data.message ||
+            "Failed to add item to cart. Please try again."
+        );
+        console.log("Unexpected response status:", response.status);
+      }
+    } catch (error) {
+      toast.error("An error occurred while adding the item to the cart.");
+      console.log("Error:", error);
+    }
+  };
+  const [getCartItems, setGetCartItems] = useState({});
+  useEffect(() => {
+    if (token) {
+      defaultCartItems();
+    }
+  }, [token, isRefresh]);
+
+  const defaultCartItems = () => {
+    const option = {
+      method: "GET",
+      url: `${config.baseURL}/api/Orders/getCartItem`,
+
+      headers: {
+        Authorization: token,
+      },
+    };
+    axios
+      .request(option)
+      .then((response) => {
+        setGetCartItems(response?.data?.userCart?.items);
+        console.log(response?.data?.userCart?.items, "data");
+      })
+      .catch((error) => {
+        console.log(error, "Error");
+      });
+  };
+
+  const handleItemRemove = async (id) => {
+    try {
+      const response = await axios.delete(
+        `${config.baseURL}/api/Orders/deleteCartItem/${id}`,
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      if (response.status >= 200 && response.status < 300) {
+        toast.success("Item Remove From Cart");
+        refreshData();
+      } else {
+        alert("failed");
+      }
+    } catch (error) {
+      alert(error?.response?.data?.message || "server error");
+    }
+  };
+  const handleCartClear = async () => {
+    try {
+      const response = await axios.delete(
+        `${config.baseURL}/api/Orders/deleteAllCartItem`,
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      if (response.status >= 200 && response.status < 300) {
+        toast.success("All Items Are Removed");
+        refreshData();
+      } else {
+        alert("failed");
+      }
+    } catch (error) {
+      alert(error?.response?.data?.message || "server error");
+    }
   };
 
   return (
@@ -268,25 +372,46 @@ const LandingPage = () => {
                           Serves 1 ({item?.weight}g){" "}
                           <span className="text-[#DB5353]">£{item?.price}</span>
                         </p>
-                        <button
-                          onClick={() => {
-                            defaultADish(item?._id);
-                          }}
-                        >
-                          <div className="drawer-content">
-                            {/* Page content here */}
-                            <label
-                              htmlFor="my-drawer-4"
-                              className="drawer-button"
-                            >
-                              <Image
-                                src={addCart}
-                                alt={item.title}
-                                className=" 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
-                              />
-                            </label>
-                          </div>
-                        </button>
+                        {token ? (
+                          <button
+                            onClick={() => {
+                              setItemId(item?._id);
+                              handleAddCart(item?._id);
+                            }}
+                          >
+                            <div className="drawer-content">
+                              <label
+                                htmlFor="my-drawer-4"
+                                className="drawer-button"
+                              >
+                                <Image
+                                  src={addCart}
+                                  alt={item.title}
+                                  className="2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
+                                />
+                              </label>
+                            </div>
+                          </button>
+                        ) : (
+                          <button
+                            onClick={() => {
+                              defaultADish(item?._id);
+                            }}
+                          >
+                            <div className="drawer-content">
+                              <label
+                                htmlFor="my-drawer-4"
+                                className="drawer-button"
+                              >
+                                <Image
+                                  src={addCart}
+                                  alt={item.title}
+                                  className=" 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
+                                />
+                              </label>
+                            </div>
+                          </button>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -808,15 +933,11 @@ const LandingPage = () => {
                     My Basket
                   </h4>
                 </div>
-
+                {/* 
                 {cart.length === 0 ? (
                   <div>
                     <div className="2xl:mt-40">
-                      {/* <Image
-                        src={emptyCart}
-                        className="2xl:w-[268.25px] 2xl:h-[265px] mx-auto"
-                        alt="Empty cart"
-                      /> */}
+                  
                     </div>
                     <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[25px] 2xl:leading-[35px] xl:text-[20px] xl:leading-[28px] lg:text-[16px] lg:leading-[24px] text-center 2xl:mt-24">
                       Explore a World of Deliciousness
@@ -846,9 +967,6 @@ const LandingPage = () => {
                     <div className="">
                       {cart.map((item, index) => {
                         const { data } = item;
-                        if (!data) {
-                          return null; // Skip rendering if data is removed
-                        }
                         return (
                           <div
                             key={index}
@@ -882,13 +1000,13 @@ const LandingPage = () => {
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24"
-                                strokeWidth="1.5"
+                                stroke-width="1.5"
                                 stroke="currentColor"
-                                className="w-6 h-6"
+                                class="w-6 h-6"
                               >
                                 <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
                                   d="M6 18 18 6M6 6l12 12"
                                 />
                               </svg>
@@ -896,12 +1014,11 @@ const LandingPage = () => {
                           </div>
                         );
                       })}
-                      
 
                       <div className="flex justify-between items-center mt-20">
                         <div>
                           <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
-                            {/* {subtotalPrice} */}
+                          
                           </h4>
                         </div>
                         <div>
@@ -914,7 +1031,112 @@ const LandingPage = () => {
                       </div>
                     </div>
                   </div>
-                )}
+                )} */}
+
+                {/* {getCartItems.length === 0 ? (
+                  <div>
+                    <div className="2xl:mt-40"></div>
+                    <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[25px] 2xl:leading-[35px] xl:text-[20px] xl:leading-[28px] lg:text-[16px] lg:leading-[24px] text-center 2xl:mt-24">
+                      Explore a World of Deliciousness
+                    </h4>
+                    <p className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[16px] 2xl:leading-[26px] xl:text-[14px] xl:leading-[20px] lg:text-[12px] lg:leading-[18px] text-center">
+                      Add dishes to your cart now.
+                    </p>
+                    <div className="flex 2xl:mt-12 xl:mt-6 lg:mt-5 mt-4">
+                      <button
+                        className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[221px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1"
+                        onClick={handleDrawerClose}
+                      >
+                        Explore Dishes
+                      </button>
+                    </div>
+                  </div>
+                ) : ( */}
+                <>
+                  <div className="">
+                    <div className="flex justify-end mt-10 md:mr-5">
+                      <button
+                        className="alata font-[400] rounded-[5px] p-2 text-[20px] bg-[#DB5353] text-white 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px]"
+                        onClick={handleCartClear}
+                      >
+                        All Clear
+                      </button>
+                    </div>
+                    <div className="">
+                      {Array.isArray(getCartItems) &&
+                        getCartItems.map((item, index) => (
+                          <div
+                            key={index}
+                            className="my-5 flex w-full border rounded-md"
+                          >
+                            <div className="flex items-center gap-2 w-full">
+                              <div>
+                                <img
+                                  src={item.menuItem.ProfileImage}
+                                  alt={item.menuItem.name}
+                                  className="w-[90px] h-auto rounded-[5.8px]"
+                                />
+                              </div>
+                              <div>
+                                <h4 className="alata font-[400] text-[#111] my-0 text-[18px] leading-[28px]">
+                                  {item.menuItem.name}
+                                </h4>
+                                <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
+                                  Price: £{item.menuItem.price}
+                                </h4>
+                                <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
+                                  Quantity: {item.quantity}
+                                </h4>
+                              </div>
+                            </div>
+                            <button
+                              className="px-4 text-[13px] border rounded h-[25px] text-red hover:bg-[#efb3b38a]"
+                              onClick={() =>
+                                handleItemRemove(item.menuItem._id)
+                              }
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth="1.5"
+                                stroke="currentColor"
+                                className="w-6 h-6"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M6 18 18 6M6 6l12 12"
+                                />
+                              </svg>
+                            </button>
+                          </div>
+                        ))}
+                      <div className="flex justify-between items-center mt-20">
+                        <div>
+                          <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]"></h4>
+                        </div>
+                        <div>
+                          {token ? (
+                            <Link href="/checkout">
+                              <button className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1">
+                                Checkout
+                              </button>
+                            </Link>
+                          ) : (
+                            <button
+                              onClick={handleLoginClick}
+                              className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1"
+                            >
+                              Checkout
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </>
+                {/* )} */}
               </div>
             </div>
           </ul>
