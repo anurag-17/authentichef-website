@@ -12,19 +12,20 @@ import order from "./assets/order.svg";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import config from "@/config";
-<<<<<<< Updated upstream
-=======
+
 import { useRouter } from "next/navigation";
->>>>>>> Stashed changes
+
 
 const Checkout = () => {
   const { token } = useSelector((state) => state?.auth);
   const { cart } = useSelector((state) => state?.userCart);
-<<<<<<< Updated upstream
 
-=======
   const router = useRouter();
->>>>>>> Stashed changes
+
+const Checkout = () => {
+  const { token } = useSelector((state) => state?.auth);
+  const { cart } = useSelector((state) => state?.userCart);
+
   const [deliveryInfo, setDeliveryInfo] = useState([
     {
       phone: "",
@@ -50,7 +51,6 @@ const Checkout = () => {
     },
   ]);
   console.log(deliveryInfo, "deliveryInfo");
-
   const handleInputChange = (e, setInfo) => {
     const { name, value } = e.target;
     setInfo((prevState) => [
@@ -60,10 +60,8 @@ const Checkout = () => {
       },
     ]);
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const response = await axios.post(
         `${config.baseURL}/api/order/createOrder`,
@@ -88,27 +86,27 @@ const Checkout = () => {
   };
   // const [count, setCount] = useState(0);
   // const handleIncrement = () => {
-  //   setCount(count + 1);
+  // setCount(count + 1);
   // };
-
   // const handleDecrement = () => {
-  //   if (count > 0) {
-  //     setCount(count - 1);
-  //   }
+  // if (count > 0) {
+  // setCount(count - 1);
+  // }
   // };
-
   const [getCartItems, setGetCartItems] = useState({});
   const [subtotalPrice, setSubtotalPrice] = useState("");
-
+  const [isRefresh, setRefresh] = useState(false);
+  const refreshData = () => {
+    setRefresh(!isRefresh);
+  };
   useEffect(() => {
     defaultCartItems();
-  }, []);
+  }, [isRefresh]);
 
   const defaultCartItems = () => {
     const option = {
       method: "GET",
       url: `${config.baseURL}/api/Orders/getCartItem`,
-
       headers: {
         Authorization: token,
       },
@@ -124,7 +122,6 @@ const Checkout = () => {
         console.log(error, "Error");
       });
   };
-
   return (
     <>
       <ToastContainer autoClose={1000} />
@@ -132,7 +129,7 @@ const Checkout = () => {
         <Navbar />
         <div className=" 2xl:pt-[116px] xl:pt-[80px] pt-[50px]">
           <div className="flex justify-center bg-[#F5F5F5] 2xl:h-[90px] xl:h-[60px] lg:h-[50px] sm:h-[45px] h-12">
-            <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px] w-full px-10 md:px-0  flex 2xl:gap-[15px] xl:gap-[10px] gap-[5px] items-center">
+            <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] w-full px-10 md:px-0 flex 2xl:gap-[15px] xl:gap-[10px] gap-[5px] items-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -155,9 +152,8 @@ const Checkout = () => {
             </div>
           </div>
         </div>
-
         <div>
-          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px] w-full  md:px-0 items-center 2xl:px-[75px] xl:px-[50px] lg:px-[50px] mx-auto">
+          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] w-full md:px-0 items-center 2xl:px-[75px] xl:px-[50px] lg:px-[50px] mx-auto">
             <h4 className="pop-head 2xl:my-[30px] xl:my-[20px] my-[15px]">
               Delivery information
             </h4>
@@ -192,7 +188,7 @@ const Checkout = () => {
                           className="checkbox checkbox-info rounded-none w-[18px] h-[18px]"
                         />
                       </label>
-                      <span className="label-text alata font-[400]  2xl:text-[16px] 2xl:leading-[26px] xl:text-[12px] xl:leading-[18px] text-[10px] leading-[16px]">
+                      <span className="label-text alata font-[400] 2xl:text-[16px] 2xl:leading-[26px] xl:text-[12px] xl:leading-[18px] text-[10px] leading-[16px]">
                         Add a new address
                       </span>
                     </div>
@@ -323,7 +319,7 @@ const Checkout = () => {
                         className="checkbox checkbox-info rounded-none w-[18px] h-[18px]"
                       />
                     </label>
-                    <span className="label-text alata font-[400]  2xl:text-[16px] 2xl:leading-[26px] xl:text-[12px] xl:leading-[18px] text-[10px] leading-[16px]">
+                    <span className="label-text alata font-[400] 2xl:text-[16px] 2xl:leading-[26px] xl:text-[12px] xl:leading-[18px] text-[10px] leading-[16px]">
                       Same as shipping address
                     </span>
                   </div>
@@ -335,11 +331,10 @@ const Checkout = () => {
                         className="checkbox checkbox-info rounded-none w-[18px] h-[18px]"
                       />
                     </label>
-                    <span className="label-text alata font-[400]  2xl:text-[16px] 2xl:leading-[26px] xl:text-[12px] xl:leading-[18px] text-[10px] leading-[16px]">
+                    <span className="label-text alata font-[400] 2xl:text-[16px] 2xl:leading-[26px] xl:text-[12px] xl:leading-[18px] text-[10px] leading-[16px]">
                       Use a different billing address
                     </span>
                   </div>
-
                   <div>
                     <div className="my-[20px]">
                       <label className="checkoutlable ">
@@ -355,7 +350,7 @@ const Checkout = () => {
                           className="checkbox checkbox-info rounded-none w-[18px] h-[18px]"
                         />
                       </label>
-                      <span className="label-text alata font-[400]  2xl:text-[16px] 2xl:leading-[26px] xl:text-[12px] xl:leading-[18px] text-[10px] leading-[16px]">
+                      <span className="label-text alata font-[400] 2xl:text-[16px] 2xl:leading-[26px] xl:text-[12px] xl:leading-[18px] text-[10px] leading-[16px]">
                         Add a new address
                       </span>
                     </div>
@@ -467,16 +462,14 @@ const Checkout = () => {
                     </div>
                   </div>
                 </div>
-
                 {/* =========Right ============ */}
-
                 <div>
                   <div className="2xl:w-[597px] xl:w-[395px] w-[295px] p-5 border 2xl:mt-[35px] ">
                     <div className="">
                       <div className="max-h-[250px] overflow-y-scroll">
                         {Array.isArray(getCartItems) &&
                           getCartItems.map((item) => (
-                            <div>
+                            <div key={item.id}>
                               <div className="flex justify-between items-center 2xl:my-6 my-2">
                                 <div className="flex items-center gap-2 2xl:gap-4 xl:h-[70px]">
                                   <img
@@ -485,10 +478,10 @@ const Checkout = () => {
                                     className="2xl:w-[83px] 2xl:h-[83px] xl:w-[65px] lg:w-[50px] rounded-[10px]"
                                   />
                                   <div>
-                                    <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[24px] 2xl:leading-[34px]  xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
+                                    <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[24px] 2xl:leading-[34px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
                                       {item?.menuItem?.name}
                                     </h4>
-                                    <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[20px] 2xl:leading-[28px]  xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
+                                    <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[20px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
                                       £{item?.menuItem?.price}
                                     </h4>
                                   </div>
@@ -496,11 +489,11 @@ const Checkout = () => {
                                 <div className="flex justify-center 2xl:w-[103px] 2xl:h-[39px] xl:w-[60px] xl:h-[22px] lg:w-[50px] lg:h-[20px] border rounded-[5px] ">
                                   {" "}
                                   <button
-                                    className="   text-[#DB5353] rounded-l w-1/3"
+                                    className=" text-[#DB5353] rounded-l w-1/3"
                                     // onClick={() => {
-                                    //   handleDecrement();
-                                    //   removeFromCart(item.id);
-                                    //   alert("Removed from cart");
+                                    // handleDecrement();
+                                    // removeFromCart(item.id);
+                                    // alert("Removed from cart");
                                     // }}
                                   >
                                     <Image
@@ -508,11 +501,11 @@ const Checkout = () => {
                                       className="2xl:w-[15px] 2xl:h-[15px] xl:w-[10px] xl:h-[10px] lg:w-[8px] lg:h-[8px] mx-auto "
                                     />
                                   </button>
-                                  <p className=" flex mx-auto items-center text-[10px] xl:text-[12px] 2xl:text-[18px]  2xl:leading-[28px] ">
+                                  <p className=" flex mx-auto items-center text-[10px] xl:text-[12px] 2xl:text-[18px] 2xl:leading-[28px] ">
                                     {/* {count} */}1
                                   </p>
                                   <button
-                                    className="    text-[#DB5353] rounded-r w-1/3"
+                                    className=" text-[#DB5353] rounded-r w-1/3"
                                     // onClick={() => handleIncrement()}
                                   >
                                     <Image
@@ -526,32 +519,30 @@ const Checkout = () => {
                           ))}
                       </div>
                       <div className="flex justify-between">
-                        <h4 className="alata font-[400] text-[#555555] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px]  xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
+                        <h4 className="alata font-[400] text-[#555555] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
                           Subtotal
                         </h4>
-
-                        <h4 className="alata font-[400] text-[#555555] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px]  xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
+                        <h4 className="alata font-[400] text-[#555555] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
                           £{subtotalPrice?.TotalPricePerQuntity}
                           {/* £8.50 */}
                         </h4>
                       </div>
                       <div className="flex justify-between 2xl:my-[25px] xl:my-[15px] my-[10px]">
                         <div>
-                          <h4 className="alata font-[400] text-[#555555] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px]  xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
+                          <h4 className="alata font-[400] text-[#555555] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
                             Shipping
                           </h4>
                           <p>Spend over £55 for FREE delivery</p>
                         </div>
-                        <h4 className="alata font-[400] text-[#555555] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px]  xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
+                        <h4 className="alata font-[400] text-[#555555] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
                           {/* £{item?.price} */}0
                         </h4>
                       </div>
                       <div className="flex justify-between">
-                        <h4 className="alata font-[400]  2xl:my-0 2xl:text-[18px] 2xl:leading-[28px]  xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
+                        <h4 className="alata font-[400] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
                           Total
                         </h4>
-
-                        <h4 className="alata font-[400]  2xl:my-0 2xl:text-[18px] 2xl:leading-[28px]  xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
+                        <h4 className="alata font-[400] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
                           £{subtotalPrice?.TotalPricePerQuntity}
                         </h4>
                       </div>
@@ -624,7 +615,6 @@ const Checkout = () => {
                           </span>
                         </span>
                       </div>
-
                       <button
                         onClick={handleSubmit}
                         className=" flex justify-center 2xl:gap-3 xl:gap-2 gap-1 items-center w-full alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] text-[20px] leading-[27.6px] px-3 py-1 2xl:h-[45px] xl:h-[30px] lg:h-[20px] 2xl:mt-[60px] xl:mt-[40px] mt-[30px] "
@@ -632,7 +622,6 @@ const Checkout = () => {
                         <Image src={order} className="" />
                         Place Order
                       </button>
-
                       <div className="flex justify-between items-center mt-20">
                         <div>
                           <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
@@ -641,8 +630,8 @@ const Checkout = () => {
                         </div>
                         <div>
                           {/* <button className=" alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1 ">
-                        Checkout
-                      </button> */}
+Checkout
+</button> */}
                         </div>
                       </div>
                     </div>
@@ -652,11 +641,9 @@ const Checkout = () => {
             </div>
           </div>
         </div>
-
         <Footer />
       </section>
     </>
   );
 };
-
 export default Checkout;

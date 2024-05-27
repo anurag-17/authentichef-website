@@ -26,7 +26,7 @@ server.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    maxAge: 1000 * 60 * 60 * 24 * 30 // 30 days in milliseconds
+    maxAge: 1000 * 60 * 60 * 24
 }
 
   
@@ -67,7 +67,7 @@ server.use('/Google_OAuth', require('./Route/googleRouter'));
 server.use('/facebook_OAuth', require('./Route/facebookRouter'));
 server.use('/api/Nutritional', require('./Route/nutritionalRouter'));
 
-// Serve static assets in production
+// Serve static assets in productionm
 if (process.env.NODE_ENV === 'production') {
   // Set static folder
   server.use(express.static(path.join(__dirname, 'client', 'build')));

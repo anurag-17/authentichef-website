@@ -10,6 +10,7 @@ const crypto = require("crypto");
 
 exports.uploadImage = async (req, res, next) => {
   try {
+
     if (!req.file) {
       return res.status(400).json({ error: "Invalid request" });
     }
@@ -81,7 +82,6 @@ exports.login = async (req, res, next) => {
 
   try {
     const findUser = await User.findOne({ email }).select("+password");
-    console.log("Find User");
 
     // If user exists and is authenticated via a third-party provider
     if (findUser && !findUser.password) {
@@ -338,13 +338,11 @@ exports.forgotPassword = async (req, res, next) => {
 
     // Console the User Email
 
-    console.log("Email is " , user.email) 
     if (!user) {
       return res.status(401).json(`${email} this email is not registered`);
     }
     const resetToken = user.getResetPasswordToken();
 
-    console.log("Reset Token", resetToken);
     
   
 
@@ -409,7 +407,7 @@ exports.forgotPassword = async (req, res, next) => {
         </div>
         <div class="footer">
             <h3>Thank you,</h3>
-            <h3>Event Team </h3>
+            <h3> Authentichef Team </h3>
         </div>
     </div>
 </body>
@@ -455,7 +453,7 @@ exports.resetPassword = async (req, res, next) => {
       passwordResetExpires: { $gt: Date.now() },
     });
 
-    console.log("User", user);
+   
 
     // If user not found or token expired, return error
     if (!user) {
@@ -520,13 +518,15 @@ exports.updatedUser = async (req, res) => {
       },
       {
         new: true,
-      }
+      } 
     );
     res.json(updatedUser);
   } catch (error) {
     throw new Error(error);
   }
 };
+
+
 
 exports.getallUser = async (req, res) => {
   try {

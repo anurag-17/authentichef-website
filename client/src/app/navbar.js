@@ -1,3 +1,4 @@
+// "nav"
 "use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
@@ -31,7 +32,6 @@ import plus from "../../public/images/plus.svg";
 import minus from "../../public/images/minus.svg";
 import { removeItemFromCart, clearCart } from "./redux/dishSlice";
 import config from "@/config";
-
 const Navbar = () => {
   const [userDetail, setUserDetail] = useState({
     firstname: "",
@@ -40,7 +40,6 @@ const Navbar = () => {
     password: "",
     role: "",
   });
-
   const router = useRouter();
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state?.auth);
@@ -53,19 +52,15 @@ const Navbar = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState("success");
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-
   const handleRemoveItem = (_id) => {
     dispatch(removeItemFromCart({ _id }));
   };
-
   const handleClearCart = () => {
     dispatch(clearCart());
   };
-
   const handleDrawerOpen = () => {
     setIsDrawerOpen(true);
   };
-
   const handleDrawerClose = () => {
     setIsDrawerOpen(false);
   };
@@ -83,7 +78,6 @@ const Navbar = () => {
       [name]: value,
     }));
   };
-
   useEffect(() => {
     if (success !== undefined) {
       setIsLoggedIn(success);
@@ -113,16 +107,13 @@ const Navbar = () => {
       // setLoader(false);
     }
   };
-
   const InputHandler = (e) => {
     setLoginDetails({ ...loginDetails, [e.target.name]: e.target.value });
   };
-
   const refreshData = () => {
     setRefresh(!isRefresh);
   };
   // ==========Handle login==========
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -154,7 +145,6 @@ const Navbar = () => {
     }
   };
   // ==========Handle logout==========
-
   const handleLogout = async () => {
     try {
       const res = await axios.get(`${config.baseURL}/api/auth/logout`, {
@@ -178,9 +168,7 @@ const Navbar = () => {
       toast.error("Logout failed");
     }
   };
-
   // ======handle localStorage and popup=====
-
   const handleClose = () => {
     const modal = document.getElementById("my_modal_2");
     modal.close();
@@ -189,25 +177,19 @@ const Navbar = () => {
     const modal = document.getElementById("my_modal_1");
     modal.close();
   };
-
   // useEffect(() => {
-  //   // Check if user token exists in local storage
-
-  //   setIsLoggedIn(!!); // Set isLoggedIn to true if user token exists
+  // // Check if user token exists in local storage
+  // setIsLoggedIn(!!); // Set isLoggedIn to true if user token exists
   // }, [!isRefresh]);
-
   const handleLoginClick = () => {
     document.getElementById("my_modal_2").showModal();
   };
-
   const handleSignUpClick = () => {
     document.getElementById("my_modal_1").showModal();
   };
-
   const { cart } = useSelector((state) => state?.userCart);
 
   // const data = dish?.data;
-
   cart.forEach((item, index) => {
     const { data } = item;
   });
@@ -280,7 +262,7 @@ const Navbar = () => {
       {/* <ToastContainer className="mt-24" autoClose={1000} /> */}
       <section>
         <nav className="z-50 flex justify-center bg-[#F38181] 2xl:h-[116px] xl:h-[80px] lg:h-[50px] sm:h-[45px] h-12 w-full mnavbar-h fixed">
-          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[800px] w-full px-10 md:px-0  flex justify-between items-center mnavbar">
+          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[800px] w-full px-10 md:px-0 flex justify-between items-center mnavbar">
             <div className="w-1/3">
               {/* =======Side Drawer======= */}
               <div className="drawer">
@@ -295,7 +277,7 @@ const Navbar = () => {
                     <Image
                       alt="image"
                       src={sidemanu}
-                      className="2xl:w-[38.67px] 2xl:h-[32px] xl:w-[30px] h-auto w-[22px]  menu-btn md:ml-6 lg:ml-0"
+                      className="2xl:w-[38.67px] 2xl:h-[32px] xl:w-[30px] h-auto w-[22px] menu-btn md:ml-6 lg:ml-0"
                     />
                   </label>
                 </div>
@@ -337,7 +319,6 @@ const Navbar = () => {
                         </label>
                       </div>
                     </div>
-
                     <li className="2xl:mt-[90px] xl:mt-[50px] lg:mt-[40px] sm:mt-[30px] mt-[20px]">
                       <Link href="/setting">
                         <Image
@@ -383,7 +364,6 @@ const Navbar = () => {
                         FAQs
                       </a>
                     </li>
-
                     <hr className="mx-auto 2xl:w-[345px] xl:w-[260px] lg:w-[180px] sm:w-[140px] w-[120px] 2xl:mt-[75px] xl:mt-[40px] lg:mt-[20px] sm:mt-[15px] mt-[10px]" />
                     <div className="text-center 2xl:mt-[35px] xl:mt-[15px] lg:mt-[10px] sm:mt-[8px] mt-[5px]">
                       <div className="flex justify-center md:gap-11 gap-2 md:ml-6 lg:ml-0">
@@ -431,13 +411,12 @@ const Navbar = () => {
                 </div>
               </div>
             </div>
-
             <div className="w-1/3 flex justify-center ">
               <a href="/">
                 <Image alt="logo" src={logo} className="nav_logo" />
               </a>
             </div>
-            <div className="w-1/3  flex justify-end ">
+            <div className="w-1/3 flex justify-end ">
               <div className="flex justify-end md:gap-0 gap-2 md:ml-6">
                 {isLoggedIn === success ? (
                   <div className="flex justify-end md:gap-7 gap-2 w-1/3">
@@ -483,7 +462,6 @@ const Navbar = () => {
                     <button>{/* Add your Image component here */}</button>
                   </div>
                 )}
-
                 <button onClick={handleDrawerOpen}>
                   <Image src={beg} className="2xl:w-10 2xl:h-10" />
                 </button>
@@ -501,7 +479,6 @@ const Navbar = () => {
           checked={isDrawerOpen}
           onChange={() => {}}
         />
-
         <div className="drawer-side">
           <label
             htmlFor="my-drawer-4"
@@ -736,15 +713,14 @@ Explore Dishes
                       </div>
                     </div>
                   </div>
-                )}
+                </>
+                {/* )} */}
               </div>
             </div>
           </ul>
         </div>
       </div>
-
       {/* =======Signup popup======= */}
-
       <div className="">
         <dialog
           id="my_modal_1"
@@ -782,7 +758,7 @@ Explore Dishes
                     type="text"
                     name="firstname"
                     placeholder="First Name"
-                    className="alata font-[400] login-inputad  w-full"
+                    className="alata font-[400] login-inputad w-full"
                     pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     title="enter valid email ex. abc@gmail.com"
                     onChange={inputHandlers}
@@ -794,7 +770,7 @@ Explore Dishes
                     type="text"
                     name="lastname"
                     placeholder="Last Name"
-                    className="alata font-[400] login-inputad  w-full"
+                    className="alata font-[400] login-inputad w-full"
                     pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     title="enter valid email ex. abc@gmail.com"
                     onChange={inputHandlers}
@@ -806,7 +782,7 @@ Explore Dishes
                     type="email"
                     name="email"
                     placeholder="Email Address"
-                    className="alata font-[400] login-inputad  w-full"
+                    className="alata font-[400] login-inputad w-full"
                     pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     title="enter valid email ex. abc@gmail.com"
                     onChange={inputHandlers}
@@ -818,7 +794,7 @@ Explore Dishes
                     type="password"
                     name="password"
                     placeholder="Password"
-                    className="alata font-[400] login-inputad  w-full"
+                    className="alata font-[400] login-inputad w-full"
                     pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     title="enter valid email ex. abc@gmail.com"
                     onChange={inputHandlers}
@@ -837,7 +813,7 @@ Explore Dishes
                 </p>
               </div>
               <div className="flex 2xl:mt-[20px]">
-                <div className="mx-auto  2xl:w-[368px] xl:w-[230px]">
+                <div className="mx-auto 2xl:w-[368px] xl:w-[230px]">
                   <Link
                     href="https://accounts.google.com/v3/signin/identifier?authuser=0&continue=https%3A%2F%2Fmyaccount.google.com%2F%3Futm_source%3Dmy-activity%26utm_medium%3Dhome%26utm_campaign%26hl%3Den_GB%26pli%3D1&ec=GAlAwAE&hl=en_GB&service=accountsettings&flowName=GlifWebSignIn&flowEntry=AddSession&dsh=S-1476156200%3A1712751508637500&theme=mn&ddm=0"
                     target="_blank"
@@ -870,9 +846,7 @@ Explore Dishes
           </form>
         </dialog>
       </div>
-
       {/* =======Login======= */}
-
       <div className="">
         <dialog
           id="my_modal_2"
@@ -899,14 +873,14 @@ Explore Dishes
                 </div>
                 <h4 className="fourth_p">Login</h4>
               </div>
-              <div className="2xl:w-[368px]  xl:w-[280px] lg:w-[220px] sm:w-[] w-[]">
+              <div className="2xl:w-[368px] xl:w-[280px] lg:w-[220px] sm:w-[] w-[]">
                 <div className="2xl:mt-[35px] mt-[25px]">
                   <input
                     type="email"
                     name="email"
                     onChange={InputHandler}
                     placeholder="Enter your mail id"
-                    className="alata font-[400] login-inputad  w-full"
+                    className="alata font-[400] login-inputad w-full"
                     pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     title="enter valid email ex. abc@gmail.com"
                   />
@@ -917,7 +891,7 @@ Explore Dishes
                     name="password"
                     onChange={InputHandler}
                     placeholder="Enter your Password"
-                    className="alata font-[400] login-inputad  w-full"
+                    className="alata font-[400] login-inputad w-full"
                     pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     title="enter valid email ex. abc@gmail.com"
                   />
@@ -935,7 +909,6 @@ Explore Dishes
                     or
                   </p>
                 </div>
-
                 <div className="my-[30px] flex justify-center">
                   <button
                     onClick={() =>
@@ -956,5 +929,4 @@ Explore Dishes
     </>
   );
 };
-
 export default Navbar;

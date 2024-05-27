@@ -18,22 +18,22 @@ const BecomeChef = () => {
 
           <div className="text-center sm:text-[20px] 2xl:mt-[76px]">
             <div className="max-w-[1600px] xl:max-w-[1100px] lg:max-w-[850px] md:max-w-[800px] mx-auto px-4 xl:pt-[140px] pt-[90px]">
-              <h1 className="font-alata font-medium text-[#111111] text-4xl md:text-5xl lg:text-[2.7rem] lg:text-6xl xl:text-[45px] 2xl:text-[75px] leading-[1.3] md:leading-[1.2] xl:leading-[55px] 2xl:leading-[85px] mb-[10px]">
+              <h1 className="font-alata alata  text-[#111111] text-4xl font-[400] md:text-5xl lg:text-[2.7rem] lg:text-6xl xl:text-[45px] 2xl:text-[75px] leading-[1.3] md:leading-[1.2] xl:leading-[55px] 2xl:leading-[85px] mb-[10px]">
                 Our Chef Community
               </h1>
-              <div className="2xl:max-w-[1098px] xl:max-w-[700px] lg:max-w-[600px] mx-auto text-[#111111] mb-[25px] ">
-                <p className="font-alata font-medium text-base md:text-lg 2xl:mt-[16px] lg:text-xl xl:text-[16px] xl:text-[1.5rem] 2xl:text-[25px] leading-[1.5] md:leading-[1.4] xl:leading-[30px] 2xl:leading-[50px] mb-[3px]">
+              <div className="2xl:max-w-[1098px] alata xl:max-w-[700px] lg:max-w-[600px] mx-auto text-[#111111] mb-[25px] ">
+                <p className="font-alata  text-base md:text-lg 2xl:mt-[16px] lg:text-xl font-[400] xl:text-[16px]  2xl:text-[25px] leading-[1.5] md:leading-[1.4] xl:leading-[30px] 2xl:leading-[50px] mb-[3px]">
                   Our diverse chef community is at the heart of the food we
                   serve.
                 </p>
-                <p className="font-alata font-medium text-base md:text-lg lg:text-xl 2xl:mt-[12px] xl:text-[16px] 2xl:text-[25px] leading-[1.5] md:leading-[1.4] xl:leading-[22px] 2xl:leading-[35px]">
+                <p className="font-alata alata  text-base md:text-lg lg:text-xl 2xl:mt-[12px] font-[400] xl:text-[16px] 2xl:text-[25px] leading-[1.5] md:leading-[1.4] xl:leading-[22px] 2xl:leading-[35px]">
                   We help new and established chefs start and grow their food
                   business and showcase their passion for creating culinary
                   experiences.
                 </p>
               </div>
               <div className="flex justify-center">
-                <button className="font-alata w-auto font-medium bg-[#DB5353] text-white rounded-[5px] w-[130px] xl:w-[230px] 2xl:w-[240px] py-1 xl:py-[12px] lg:py-[10px] px-3 lg:px-4 xs:w-[80%] mt-[20px] xs:py-[12px] xs:mx-auto">
+                <button className="font-alata w-auto xs:w-[50%] font-medium bg-[#DB5353] text-white rounded-[5px] w-[130px] xl:w-[230px] 2xl:w-[240px] py-1 xl:py-[12px] lg:py-[10px] px-3 lg:px-4  mt-[20px] xs:py-[12px] xs:mx-auto">
                   Join the Waiting List
                 </button>
               </div>
@@ -53,17 +53,17 @@ const BecomeChef = () => {
                   />
                 </div>
                 <div className="w-full lg:w-[57%] sm:px-[30px] md:px-[30px] xl:w-[52%] 2xl:w-[47%] xl:pl-[80px] lg:pl-[60px] xl:mr-[20px] flex flex-col justify-center text-center lg:text-left lg:mx-0 mx-auto">
-                  <p className="text-[#111111] alata mb-4 text-sm sm:text-base 2xl:leading-[2.2rem]  xl:text-[15px] lg:text-[12px] 2xl:text-[25px] font-[400] xl:mb-[4px] 2xl:mb-[40px] lg:mb-[4px]">
+                  <p className="text-[#111111] alata mb-4 text-sm sm:text-base 2xl:leading-[2.2rem]  xl:text-[16px] lg:text-[15px] 2xl:text-[25px] font-[400] xl:mb-[4px] 2xl:mb-[25px] lg:mb-[4px]">
                     We believe that every chef has a story worth sharing and a
                     talent worth celebrating.
                   </p>
-                  <p className="text-[#111111] mb-4 alata text-sm sm:text-base  2xl:leading-[2.2rem] xl:text-[15px] lg:text-[12px] 2xl:text-[25px] font-[400] xl:mb-[4px] 2xl:mb-[40px] lg:mb-[4px]">
+                  <p className="text-[#111111] mb-4 alata text-sm sm:text-base  2xl:leading-[2.2rem] xl:text-[16px] xl:py-[10px] xl:leading-[26px] lg:text-[15px] 2xl:text-[25px] font-[400] xl:mb-[4px] 2xl:mb-[25px] lg:mb-[4px]">
                     By joining authentichef, you not only gain a platform to
                     showcase your unique culinary creations, but also become
                     part of a growing and vibrant community of like-minded
                     individuals passionate about food and culture.
                   </p>
-                  <p className="text-[#111111] mb-4 alata text-sm sm:text-base 2xl:leading-[2.2rem] xl:text-[15px] lg:text-[12px] 2xl:text-[25px] font-[400] xl:mb-[4px] 2xl:mb-[40px] lg:mb-[4px]">
+                  <p className="text-[#111111] mb-4 alata text-sm sm:text-base 2xl:leading-[2.2rem] xl:text-[16px] lg:text-[15px] 2xl:text-[25px] font-[400] xl:mb-[4px] 2xl:mb-[25px] lg:mb-[4px]">
                     With our dedicated support, you can turn your love for
                     cooking into a growing food business, all while sharing your
                     delicious dishes with people across the UK.
@@ -71,7 +71,7 @@ const BecomeChef = () => {
                 </div>
               </div>
               <div className="flex flex-col xs:px-[20px] lg:flex-row gap-6 mt-10 md:mt-[-0.5rem] sm:mt-[-0.5rem] xs:mt-[-0.5rem] mb-5">
-                <div className="flex-1 2xl:flex-[2.0] lg:flex-[2] xl:flex-[1.3] text-center lg:text-left">
+                <div className="flex-1 2xl:flex-[2.0] lg:flex-[2.6] xl:flex-[1.4] text-center lg:text-left">
                   <Image
                     src={boss}
                     width={94}
@@ -79,23 +79,16 @@ const BecomeChef = () => {
                     className="mx-auto lg:mx-0 mb-2 w-[45px] h-[45px] lg:w-[80px] lg:h-[80px]"
                     alt="Boss Image"
                   />
-                  <h2 className="text-lg alata lg:text-xl 2xl:text-2xl lg:text-[17px] xl:text-[20px] text-[#111111] mb-2 mt-4">
+                  <h2 className="text-lg alata  2xl:text-2xl lg:text-[17px] xl:text-[20px] text-[#111111] mb-2 mt-4">
                     Be your own boss
                   </h2>
-                  <p className="text-sm lg:text-base alata xl:text-[17px] lg:text-[15px] 2xl:text-lg text-[#111111] mt-2">
+                  <p className="text-sm lg:text-base alata xl:text-[17px] lg:text-[14px] 2xl:text-lg text-[#111111] mt-2 2xl:max-w-[84%]">
                     Grow your own food business with little
-                    {typeof window !== "undefined" &&
-                      window.innerWidth >= 1280 && (
-                        <>
-                          <br />{" "}
-                          {/* Only render <br> tag on XL and 2XL screens */}
-                        </>
-                      )}
-                    to no start-up costs.
+                    to no start-up costs
                   </p>
                 </div>
 
-                <div className="flex-1 2xl:flex-[2.5] lg:flex-[3] xl:flex-[1.5] text-center lg:text-left">
+                <div className="flex-1 2xl:flex-[2.5] lg:flex-[3.6] xl:flex-[2.3] text-center lg:text-left">
                   <Image
                     src={dishmenu}
                     width={73}
@@ -103,15 +96,15 @@ const BecomeChef = () => {
                     className="mx-auto lg:mx-0 mb-2 w-[45px] h-[45px] lg:w-[80px] lg:h-[80px]"
                     alt="Dish Menu Image"
                   />
-                  <h2 className="text-lg lg:text-xl alata 2xl:text-2xl lg:text-[17px] xl:text-[20px] text-[#111111] mb-2 mt-4">
-                    Create a menu of high-quality dishes
+                  <h2 className="text-lg  alata 2xl:text-2xl lg:text-[17px] xl:text-[20px] text-[#111111] mb-2 mt-4">
+                    Create a menu of high quality dishes
                   </h2>
-                  <p className="text-sm lg:text-base alata xl:text-[17px] lg:text-[15px] 2xl:text-lg text-[#111111] mt-2">
+                  <p className="text-sm lg:text-base alata xl:text-[17px] lg:text-[14px] 2xl:text-lg text-[#111111] mt-2">
                     Embrace tradition, cultural value, and authenticity in your
-                    creations.
+                    creations
                   </p>
                 </div>
-                <div className="flex-1 2xl:flex-[3] sm:px-[30px] lg:flex-[3.1] xl:flex-[1.8] text-center lg:text-left">
+                <div className="flex-1 2xl:flex-[3] sm:px-[30px] lg:flex-[3.1] xl:flex-[2] text-center lg:text-left">
                   <Image
                     src={cook}
                     width={94}
@@ -119,12 +112,12 @@ const BecomeChef = () => {
                     className="mx-auto lg:mx-0 mb-2 w-[45px] h-[45px] lg:w-[80px] lg:h-[80px]"
                     alt="Cook Image"
                   />
-                  <h2 className="text-lg lg:text-xl alata 2xl:text-2xl lg:text-[17px] xl:text-[20px] text-[#111111] mb-2 mt-4">
+                  <h2 className="text-lg  alata 2xl:text-2xl lg:text-[17px] xl:text-[20px] text-[#111111] mb-2 mt-4 lg:w-[120%] ">
                     Cook when you want and how often
                   </h2>
-                  <p className="text-sm lg:text-base alata 2xl:text-lg xl:text-[17px] lg:text-[15px] text-[#111111] mt-2">
+                  <p className="text-sm lg:text-base alata 2xl:text-lg xl:text-[17px] lg:text-[14px] text-[#111111] mt-2 xl:w-[125%] 2xl:w-[92%] lg:w-[131%]">
                     You make the dishes available, we pick up and deliver them{" "}
-                    nationwide, safely to your customers.
+                    nationwide, safely to your customers
                   </p>
                 </div>
               </div>
@@ -135,11 +128,11 @@ const BecomeChef = () => {
             <div className="2xl:max-w-[1600px] xl:max-w-[1100px] lg:max-w-[850px] md:max-w-[800px] mx-auto mt-12 xl:mt-20 2xl:mt-24">
               <div className="flex flex-col md:flex-row justify-between items-stretch mx-auto xs:px-[20px]">
                 <div className="w-full md:w-3/5 lg:mr-4 xl:w-[47%] 2xl:w-[52%] flex flex-col justify-between">
-                  <h2 className="font-alata text-[#111111] text-2xl xl:text-[2rem] sm:mt-[30px] leading-8 lg:text-3xl xs:mt-[20px] lg:leading-10 xl:text-4xl xl:leading-[45px] 2xl:text-[54px] 2xl:leading-[75px]">
-                    Are you considering starting your own food business from
+                  <h2 className="font-alata alata text-[#111111] text-2xl xl:text-[2rem] sm:mt-[30px] 2xl:mt-[0px] font-[400] leading-8 lg:text-3xl xs:mt-[20px] lg:leading-10 xl:text-4xl xl:leading-[45px] 2xl:text-[54px] 2xl:leading-[75px]">
+                    Are you considering starting your own food business from  
                     home?
                   </h2>
-                  <p className="font-alata text-[#111111] mt-4 text-lg leading-6 lg:text-xl lg:leading-8 xl:text-2xl xl:leading-[35px] 2xl:text-[36px] 2xl:leading-[55px]">
+                  <p className="font-alata alata text-[#111111] mt-4 text-lg font-[400] leading-6 lg:text-xl lg:leading-8 xl:text-2xl xl:leading-[35px] 2xl:text-[36px] 2xl:leading-[55px]">
                     Our Services to get you started and growing!
                   </p>
 
@@ -147,13 +140,13 @@ const BecomeChef = () => {
                     <div className="bg-[#FFE8E8] px-5 py-4 xl:px-5 xl:py-4 2xl:px-6 2xl:py-6">
                       <div className="flex gap-4 xl:gap-6 2xl:gap-8">
                         <div>
-                          <h2 className="become-no">01</h2>
+                          <h2 className="become-no alata pt-1">01</h2>
                         </div>
                         <div>
-                          <h2 className="become-head text-[#111111]">
+                          <h2 className="become-head alata text-[#111111]">
                             Registration Assistance
                           </h2>
-                          <p className="become-para mt-2 xl:mt-2 2xl:mt-3 text-[#111111]">
+                          <p className="become-para mt-2 alata xl:mt-2 2xl:mt-3 text-[#111111]">
                             We expertly guide you through the registration
                             process with your local council, ensuring a smooth
                             start for your food business.
@@ -165,7 +158,7 @@ const BecomeChef = () => {
                     <div className="bg-[#FFE8E8] px-5 py-4 xl:px-5 xl:py-4 2xl:px-6 2xl:py-6">
                       <div className="flex gap-4 xl:gap-6 2xl:gap-8">
                         <div>
-                          <h2 className="become-no">02</h2>
+                          <h2 className="become-no alata pt-1">02</h2>
                         </div>
                         <div>
                           <h2 className="become-head text-[#111111]">
@@ -184,7 +177,7 @@ const BecomeChef = () => {
                     <div className="bg-[#FFE8E8] px-5 py-4 xl:px-5 xl:py-4 2xl:px-6 2xl:py-6">
                       <div className="flex gap-4 xl:gap-6 2xl:gap-8">
                         <div>
-                          <h2 className="become-no">03</h2>
+                          <h2 className="become-no alata pt-1 ">03</h2>
                         </div>
                         <div>
                           <h2 className="become-head text-[#111111]">
@@ -201,7 +194,7 @@ const BecomeChef = () => {
                     <div className="bg-[#FFE8E8] px-5 py-4 xl:px-5 xl:py-4 2xl:px-6 2xl:py-6">
                       <div className="flex gap-4 xl:gap-6 2xl:gap-8">
                         <div>
-                          <h2 className="become-no">04</h2>
+                          <h2 className="become-no alata pt-1 ">04</h2>
                         </div>
                         <div>
                           <h2 className="become-head text-[#111111]">
@@ -218,13 +211,13 @@ const BecomeChef = () => {
                     <div className="bg-[#FFE8E8] px-5 py-4 xl:px-5 xl:py-4 2xl:px-6 2xl:py-6">
                       <div className="flex gap-4 xl:gap-6 2xl:gap-8">
                         <div>
-                          <h2 className="become-no">05</h2>
+                          <h2 className="become-no alata pt-1 ">05</h2>
                         </div>
                         <div>
-                          <h2 className="become-head text-[#111111]">
+                          <h2 className="become-head alata text-[#111111]">
                             Ongoing Support
                           </h2>
-                          <p className="become-para mt-2 xl:mt-2 2xl:mt-3 text-[#111111]">
+                          <p className="become-para mt-2 alata xl:mt-2 2xl:mt-3 text-[#111111]">
                             Our commitment doesn’t end with delivery. We provide
                             continuous sales and marketing promotion to fuel the
                             long-term growth of your business.
@@ -247,7 +240,7 @@ const BecomeChef = () => {
           </div>
 
           <div className="flex items-center w-full">
-            <div className="bg-[#FFE2E2] py-24 lg:py-16 xl:py-20 w-full 2xl:mt-[100px] xl:mt-[80px] lg:mt-[60px] md:mt-[40px] xs:mt-[40px] sm:mt-[40px]">
+            <div className="bg-[#FFE2E2] py-24 lg:py-16 xl:py-20 xs:py-[2rem] w-full 2xl:mt-[100px] xl:mt-[80px] md:py-[4rem] lg:mt-[60px] md:mt-[40px] xs:mt-[40px] sm:mt-[40px]">
               <div className="2xl:max-w-[1600px] xl:max-w-[1100px] lg:max-w-[850px] md:max-w-[800px] mx-auto text-center">
                 <h2 className="font-alata font-medium text-[#111111] text-2xl leading-8 sm:text-3xl sm:leading-9 md:text-4xl md:leading-10 xl:text-5xl xl:leading-[45px] 2xl:text-[55px] 2xl:leading-[75px]">
                   Ready to Get Started?
@@ -269,10 +262,10 @@ const BecomeChef = () => {
               />
             </div>
             <div className="w-full sm:w-[44%] lg:w-[57%] xl:w-[50%] 2xl:w-[46%] max-w-[720px] md:ml-[20px]">
-              <h3 className="font-alata text-[#111111] xl:text-[2.5rem] text-2xl sm:text-[22px] md:text-[30px] leading-8 text-center sm:text-left sm:text-3xl sm:leading-9 md:text-4xl md:leading-10 xl:text-5xl xl:leading-[45px] 2xl:text-[55px] 2xl:leading-[75px] mb-6">
+              <h3 className="font-alata text-[#111111] font-[400] alata xl:text-[2.5rem] text-2xl sm:text-[22px] md:text-[30px] leading-8 text-center sm:text-left sm:text-3xl sm:leading-9 md:text-4xl md:leading-10 xl:text-5xl xl:leading-[45px] 2xl:text-[55px] 2xl:leading-[75px] mb-6">
                 Join the Chef Waiting List
               </h3>
-              <div className="flex flex-col gap-4 md:gap-[5px] xs:gap-[5px]">
+              <div className="flex flex-col alata gap-4 md:gap-[5px] xs:gap-[5px]">
                 <div className="flex flex-col sm:flex-row gap-4 xs:gap-[5px]">
                   <input
                     placeholder="First Name"
@@ -283,13 +276,13 @@ const BecomeChef = () => {
                     className="profile_input w-full sm:w-1/2"
                   />
                 </div>
-                <input placeholder="Phone" className="profile_input w-full" />
-                <input placeholder="Email" className="profile_input w-full" />
+                <input placeholder="Phone" type="number" className="profile_input w-full" />
+                <input placeholder="Email" type="email" className="profile_input w-full" />
                 <input
                   placeholder="Post Code"
                   className="profile_input w-full"
                 />
-                <button className="font-alata font-medium bg-[#DB5353] text-white rounded-[5px] py-2 mt-4 hover:bg-[#7e2727] w-auto h-auto lg:w-[120px] lg:h-[56px] xl:w-[120px] xl:h-[56px] 2xl:w-[120px] 2xl:h-[56px]">
+                <button className="font-alata alata font-medium bg-[#DB5353] text-white rounded-[5px] py-2 mt-4 hover:bg-[#7e2727] w-auto h-auto lg:w-[120px] lg:h-[56px] xl:w-[120px] xl:h-[56px] 2xl:w-[120px] 2xl:h-[56px]">
                   Submit
                 </button>
               </div>
