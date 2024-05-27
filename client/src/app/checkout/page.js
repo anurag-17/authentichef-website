@@ -12,11 +12,19 @@ import order from "./assets/order.svg";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import config from "@/config";
+<<<<<<< Updated upstream
+=======
+import { useRouter } from "next/navigation";
+>>>>>>> Stashed changes
 
 const Checkout = () => {
   const { token } = useSelector((state) => state?.auth);
   const { cart } = useSelector((state) => state?.userCart);
+<<<<<<< Updated upstream
 
+=======
+  const router = useRouter();
+>>>>>>> Stashed changes
   const [deliveryInfo, setDeliveryInfo] = useState([
     {
       phone: "",
@@ -68,6 +76,7 @@ const Checkout = () => {
       );
       if (response.status >= 200 && response.status < 300) {
         toast.success("Order Placed");
+        router.push("/explore-dishes");
       } else {
         toast.error(response.data.message || "Order Failed");
         console.log("Unexpected response status:", response.status);
