@@ -440,7 +440,8 @@ exports.DeleteOrder = async (req, res, next) => {
             return res.status(400).json({ error: 'Order cannot be cancelled because it is already being prepared or delivered' });
         }
 
-        res.status(200).json({ message: 'Order cancelled successfully', order: foundOrder });
+        await Order.findByIdAndDelete(id);
+        res.status(200).json({ message: 'Order deleted successfully' });1
 
     } catch (error) {
         next(error)

@@ -2,6 +2,7 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require("../Model/User");
 const{generateToken}=require("../config/jwtToken")
+const nodemailer = require('nodemailer');
 const dotenv = require('dotenv');
 dotenv.config();
 
