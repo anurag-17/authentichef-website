@@ -53,7 +53,6 @@ const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState("success");
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const handleRemoveItem = (_id) => {
-    console.log(_id, "iggg");
     dispatch(removeItemFromCart({ _id }));
   };
   const handleClearCart = () => {
@@ -189,10 +188,10 @@ const Navbar = () => {
     document.getElementById("my_modal_1").showModal();
   };
   const { cart } = useSelector((state) => state?.userCart);
+
   // const data = dish?.data;
   cart.forEach((item, index) => {
     const { data } = item;
-    console.log(data, `data from item ${index + 1}`);
   });
   const [getCartItems, setGetCartItems] = useState({});
   useEffect(() => {
@@ -501,7 +500,7 @@ const Navbar = () => {
                       viewBox="0 0 24 24"
                       stroke-width="1.5"
                       stroke="currentColor"
-                      class="w-10 h-10"
+                      className="w-10 h-10"
                     >
                       <path
                         stroke-linecap="round"
