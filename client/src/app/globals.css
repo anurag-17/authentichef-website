@@ -198,7 +198,7 @@ td {
 
 /* ===================Third================== */
 .third_head {
-  @apply alata font-[400] 2xl:text-[55px] 2xl:leading-[75px] xl:text-[30px] xl:leading-[45px] lg:text-[20px] lg:leading-[30px];
+  @apply alata font-[400] 2xl:text-[55px] 2xl:leading-[75px] xl:text-[30px] xl:leading-[45px] lg:text-[20px] lg:leading-[30px] md:text-[20px] md:leading-[30px] text-[20px] leading-[30px];
 }
 
 .third_img {
