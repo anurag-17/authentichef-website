@@ -8,6 +8,7 @@ const Chef = require("../Model/Chef");
 const nodemailer = require('nodemailer'); // Import nodemailer
 const userMailOptions = require("../Public/userMailOption")
 const adminMailOptions = require("../Public/adminMailOption")
+const sendEmail = require('../Utils/SendEmail');
 require('dotenv').config(); // Import dotenv to use environment variables
 
 // Define your email credentials and configuration
@@ -405,9 +406,9 @@ exports.getOrderById = async (req, res, next) => {
 
 // Update Order By Id
 
-
 exports.UpdateOrder = async (req, res, next) => {
     const { id } = req.params;
+    const companyLogoUrl='https://authimages.s3.eu-west-2.amazonaws.com/banner-images/Color+logo+with+background+(2)+1.png'
 
     try {
         const foundOrder = await Order.findById(id);
@@ -416,6 +417,312 @@ exports.UpdateOrder = async (req, res, next) => {
         }
 
         const updatedOrder = await Order.findByIdAndUpdate(id, req.body, { new: true });
+
+        // Email templates based on order status
+        let emailOptions;
+
+        switch (updatedOrder.status) {
+            case 'preparing':
+                emailOptions = {
+                    to: req.user.email,
+                    subject: 'Order Preparing',
+                    text: `
+                    <!DOCTYPE html>
+                    <html lang="en">
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <style>
+                            body {
+                                font-family: Arial, sans-serif;
+                                background-color: #f4f4f4;
+                                margin: 0;
+                                padding: 0;
+                                color: #333;
+                            }
+                            .container {
+                                width: 100%;
+                                max-width: 600px;
+                                margin: 0 auto;
+                                background-color: #ffffff;
+                                border-radius: 8px;
+                                overflow: hidden;
+                                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                            }
+                            .header {
+                                background-color: #FFD700;
+                                color: #ffffff;
+                                padding: 20px;
+                                text-align: center;
+                            }
+                            .header h1 {
+                                margin: 0;
+                                font-size: 24px;
+                            }
+                            .content {
+                                padding: 20px;
+                            }
+                            .content p {
+                                font-size: 16px;
+                                line-height: 1.6;
+                            }
+                            .footer {
+                                background-color: #f4f4f4;
+                                color: #777;
+                                text-align: center;
+                                padding: 10px;
+                                font-size: 12px;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="container">
+                            <div class="header">
+                                <h1>Your Order is Being Prepared</h1>
+                            </div>
+                            <div class="content">
+                                <p>Hi ${req.user.firstname},</p>
+                                <p>Your order is being prepared and will be delivered soon.</p>
+                            </div>
+                            <div class="footer">
+                                <p>Thank you for choosing our service.</p>
+                                <p>If you have any questions or concerns, feel free to <a href="mailto:support@authentichef.com">contact us</a> at support@authentichef.com.</p>
+                            </div>
+                        </div>
+                    </body>
+                    </html>
+                    `
+                };
+                break;
+
+            case 'ready':
+                emailOptions = {
+                    to: req.user.email,
+                    subject: 'Order Ready',
+                    text: `
+                    <!DOCTYPE html>
+                    <html lang="en">
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <style>
+                            body {
+                                font-family: Arial, sans-serif;
+                                background-color: #f4f4f4;
+                                margin: 0;
+                                padding: 0;
+                                color: #333;
+                            }
+                            .container {
+                                width: 100%;
+                                max-width: 600px;
+                                margin: 0 auto;
+                                background-color: #ffffff;
+                                border-radius: 8px;
+                                overflow: hidden;
+                                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                            }
+                            .header {
+                                background-color: #4CAF50;
+                                color: #ffffff;
+                                padding: 20px;
+                                text-align: center;
+                            }
+                            .header h1 {
+                                margin: 0;
+                                font-size: 24px;
+                            }
+                            .content {
+                                padding: 20px;
+                            }
+                            .content p {
+                                font-size: 16px;
+                                line-height: 1.6;
+                            }
+                            .footer {
+                                background-color: #f4f4f4;
+                                color: #777;
+                                text-align: center;
+                                padding: 10px;
+                                font-size: 12px;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="container">
+                            <div class="header">
+                                <h1>Your Order is Ready</h1>
+                            </div>
+                            <div class="content">
+                                <p>Hi ${req.user.firstname},</p>
+                                <p>Your order is ready and will be delivered soon.</p>
+                            </div>
+                            <div class="footer">
+                                <p>Thank you for choosing our service.</p>
+                                <p>If you have any questions or concerns, feel free to <a href="mailto:support@authentichef.com">contact us</a> at support@authentichef.com.</p>
+                            </div>
+                        </div>
+                    </body>
+                    </html>
+                    `
+                };
+                break;
+
+            case 'delivered':
+                emailOptions = {
+                    to: req.user.email,
+                    subject: 'Order Delivered',
+                    text: `
+                    <!DOCTYPE html>
+                    <html lang="en">
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <style>
+                            body {
+                                font-family: Arial, sans-serif;
+                                background-color: #f4f4f4;
+                                margin: 0;
+                                padding: 0;
+                                color: #333;
+                            }
+                            .container {
+                                width: 100%;
+                                max-width: 600px;
+                                margin: 0 auto;
+                                background-color: #ffffff;
+                                border-radius: 8px;
+                                overflow: hidden;
+                                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                            }
+                            .header {
+                                background-color: #4CAF50;
+                                color: #ffffff;
+                                padding: 20px;
+                                text-align: center;
+                            }
+                            .header h1 {
+                                margin: 0;
+                                font-size: 24px;
+                            }
+                            .content {
+                                padding: 20px;
+                            }
+                            .content p {
+                                font-size: 16px;
+                                line-height: 1.6;
+                            }
+                            .footer {
+                                background-color: #f4f4f4;
+                                color: #777;
+                                text-align: center;
+                                padding: 10px;
+                                font-size: 12px;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="container">
+                            <div class="header">
+                                <h1>Your Order has been Delivered</h1>
+                            </div>
+                            <div class="content">
+                                <p>Hi ${req.user.firstname},</p>
+                                <p>Your order has been delivered successfully.</p>
+                            </div>
+                            <div class="footer">
+                                <p>Thank you for choosing our service.</p>
+                                <p>If you have any questions or concerns, feel free to <a href="mailto:support@authentichef.com">contact us</a> at support@authentichef.com.</p>
+                            </div>
+                        </div>
+                    </body>
+                    </html>
+                    `
+                };
+                break;
+
+            case 'cancelled':
+                emailOptions = {
+                    to: req.user.email,
+                    subject: 'Order Cancelled',
+                    text: `
+                    <!DOCTYPE html>
+                    <html lang="en">
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <style>
+                            body {
+                                font-family: Arial, sans-serif;
+                                background-color: #f4f4f4;
+                                margin: 0;
+                                padding: 0;
+                                color: #333;
+                            }
+                            .container {
+                                width: 100%;
+                                max-width: 600px;
+                                margin: 0 auto;
+                                background-color: #ffffff;
+                                border-radius: 8px;
+                                overflow: hidden;
+                                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                            }
+                            .header {
+                                background-color: #FF0000;
+                                color: #ffffff;
+                                padding: 20px;
+                                text-align: center;
+                            }
+                            .header h1 {
+                                margin: 0;
+                                font-size: 24px;
+                            }
+                            .content {
+                                padding: 20px;
+                            }
+                            .content p {
+                                font-size: 16px;
+                                line-height: 1.6;
+                            }
+                            .footer {
+                                background-color: #f4f4f4;
+                                color: #777;
+                                text-align: center;
+                                padding: 10px;
+                                font-size: 12px;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="container">
+                            <div class="header">
+                                <h1>Your Order has been Cancelled</h1>
+                            </div>
+                            <div class="content">
+                                <p>Hi ${req.user.firstname},</p>
+                                <p>Your order has been cancelled.</p>
+                            </div>
+                            <div class="footer">
+                                <p>Thank you for choosing our service.</p>
+                                <p>If you have any questions or concerns, feel free to <a href="mailto:support@authentichef.com">contact us</a> at support@authentichef.com.</p>
+                            </div>
+                        </div>
+                    </body>
+                    </html>
+                    `
+                };
+                break;
+
+            default:
+                break;
+        }
+
+        // Send email if there is an emailOptions object
+        if (emailOptions) {
+            await sendEmail(emailOptions);
+        }
+
         res.status(200).json({ message: 'Order updated successfully', order: updatedOrder });
     } catch (error) {
         next(error);

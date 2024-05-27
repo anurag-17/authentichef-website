@@ -478,6 +478,8 @@ exports.resetPassword = async (req, res, next) => {
     return next(error);
   }
 };
+
+
 exports.verifyUser = async (req, res) => {
   const {token } = req.params;
 
