@@ -48,10 +48,11 @@ import {
 } from "../redux/dishSlice";
 import { useDispatch, useSelector } from "react-redux";
 import "./styles.css";
+import { useRouter } from "next/navigation";
 
 const ExploreDishes = () => {
   const [count, setCount] = useState(0);
-  let subtotalPrice = 0;
+  const router = useRouter();
   const [isOpen, setOpen] = useState(false);
   const [dishID, setDishID] = useState("");
   const closeModal = () => setOpen(false);
@@ -60,6 +61,8 @@ const ExploreDishes = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const { token } = useSelector((state) => state?.auth);
   const { cart } = useSelector((state) => state?.userCart);
+  console.log(cart, "cart");
+
   // const data = dish?.data;
 
   cart.forEach((item, index) => {
@@ -418,7 +421,13 @@ const ExploreDishes = () => {
       });
   };
 
-  const [itemId, setItemId] = useState("");
+  useEffect(() => {
+    const ids = cart.map((item) => item?.data?._id);
+    // console.log(cart, "item");
+    setItemId(ids);
+    console.log(ids, "ids");
+  }, []);
+  const [itemId, setItemId] = useState([]);
   const handleAddCart = async (itemId) => {
     try {
       const response = await axios.post(
@@ -555,7 +564,7 @@ const ExploreDishes = () => {
           <div class="main_section 2xl:w-[1700px] xl:w-[1100px] md:w-[811px]  m-auto mt-auto">
             <div class="flex flex-col md:flex-row justify-center my-10 mx-6 lg:my-6">
               <div class="mr-6 lg:mb-0 mb-4 lg lg:w-[30%] 2xl:w-[45%] xl:w-[33%] lg:text-[2.25rem] lg:ml-[-45px] md:w-[30%] xs:text-[1.875rem] sm:text-[2.25rem] md:text-[29px]">
-                <h1 className="third_head mb-4 lg:text-left 2xl:ml-[105px] xl:ml-[19px] text-center">
+              <h1 className="third_head mb-4 alata font-[400] 2xl:text-[55px] lg:text-left 2xl:ml-[105px] xl:ml-[19px] text-center">
                   Select Cuisine
                 </h1>
               </div>
@@ -563,7 +572,7 @@ const ExploreDishes = () => {
               <div className="mnavbar 2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] sm:pt-[12px] sm:pb-[4px] 2xl:pt-[21px] md:pt-[9px] md:w-[700px]  2xl:py-[60px] xl:py-[10px] lg:pt-[7px] lg:pb-[40px]  py-[40px] xs:py-[10px] mx-auto">
                 <div className="filter_div_second">
                   <div className="select-divs flex gap-5">
-                    <div className="select-1">
+                  <div className="select-1 alata">
                       <select
                         id="dietary"
                         className="2xl:w-[126px] third_select"
@@ -629,7 +638,7 @@ const ExploreDishes = () => {
                   </div>
 
                   <button
-                    className="bt-1  2xl:w-[153px] third_select flex justify-center items-center gap-3 md:text-[12px] sm:text-[12px] md:pl-2 sm:pl-2"
+                    className="bt-1 alata font-[400] 2xl:text-[16px] 2xl:w-[153px] third_select flex justify-center items-center gap-3 md:text-[12px] sm:text-[12px] md:pl-2 sm:pl-2"
                     onClick={() =>
                       document.getElementById("my_modal_3").showModal()
                     }
@@ -712,7 +721,7 @@ const ExploreDishes = () => {
 
                   {/* =================Dietary========================== */}
                   <button
-                    className="bt-1 2xl:w-[153px] third_select flex justify-center items-center gap-2 md:text-[12px] sm:text-[12px] md:pl-2 sm:pl-2"
+                    className="bt-1 2xl:w-[153px] alata font-[400] 2xl:text-[16px] third_select flex justify-center items-center gap-2 md:text-[12px] sm:text-[12px] md:pl-2 sm:pl-2"
                     onClick={() =>
                       document.getElementById("my_modal_4").showModal()
                     }
@@ -796,7 +805,7 @@ const ExploreDishes = () => {
 
                   {/* =================More Filter========================== */}
                   <button
-                    className="bt-1 2xl:w-[153px] third_select flex justify-center items-center gap-2 md:text-[12px] sm:text-[12px] md:pl-2 sm:pl-2"
+                    className="bt-1 2xl:w-[153px] third_select alata font-[400] 2xl:text-[16px] flex justify-center items-center gap-2 md:text-[12px] sm:text-[12px] md:pl-2 sm:pl-2"
                     onClick={() =>
                       document.getElementById("my_modal_5").showModal()
                     }
@@ -1413,7 +1422,7 @@ const ExploreDishes = () => {
                       viewBox="0 0 24 24"
                       stroke-width="1.5"
                       stroke="currentColor"
-                      class="w-10 h-10"
+                      className="w-10 h-10"
                     >
                       <path
                         stroke-linecap="round"
@@ -1426,107 +1435,8 @@ const ExploreDishes = () => {
                     My Basket
                   </h4>
                 </div>
-                {/* 
-                {cart.length === 0 ? (
-                  <div>
-                    <div className="2xl:mt-40">
-                  
-                    </div>
-                    <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[25px] 2xl:leading-[35px] xl:text-[20px] xl:leading-[28px] lg:text-[16px] lg:leading-[24px] text-center 2xl:mt-24">
-                      Explore a World of Deliciousness
-                    </h4>
-                    <p className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[16px] 2xl:leading-[26px] xl:text-[14px] xl:leading-[20px] lg:text-[12px] lg:leading-[18px] text-center">
-                      Add dishes to your cart now.
-                    </p>
-                    <div className="flex 2xl:mt-12 xl:mt-6 lg:mt-5 mt-4">
-                      <button
-                        className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[221px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1"
-                        onClick={handleDrawerClose}
-                      >
-                        Explore Dishes
-                      </button>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="">
-                    <div className="flex justify-end mt-10 md:mr-5">
-                      <button
-                        className="alata font-[400] rounded-[5px] p-2 text-[20px] bg-[#DB5353] text-white 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px]"
-                        onClick={handleClearCart}
-                      >
-                        All Clear
-                      </button>
-                    </div>
-                    <div className="">
-                      {cart.map((item, index) => {
-                        const { data } = item;
-                        return (
-                          <div
-                            key={index}
-                            className="my-5  flex w-full border rounded-md"
-                          >
-                            <div className="flex  items-center gap-2 w-full">
-                              <div>
-                                <img
-                                  src={data.ProfileImage}
-                                  alt={item.name}
-                                  className="w-[90px] h-auto rounded-[5.8px]"
-                                />
-                              </div>
-                              <div className="">
-                                <h4 className="alata font-[400] text-[#111] my-0 text-[18px] leading-[28px]">
-                                  {data.name}
-                                </h4>
-                                <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
-                                  Price:£{data.price}
-                                </h4>
-                                <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
-                                  Quantity:1
-                                </h4>
-                              </div>
-                            </div>
-                            <button
-                              className="px-4 text-[13px] border rounded h-[25px] text-red hover:bg-[#efb3b38a] "
-                              onClick={() => handleRemoveItem(data._id)}
-                            >
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke-width="1.5"
-                                stroke="currentColor"
-                                class="w-6 h-6"
-                              >
-                                <path
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  d="M6 18 18 6M6 6l12 12"
-                                />
-                              </svg>
-                            </button>
-                          </div>
-                        );
-                      })}
 
-                      <div className="flex justify-between items-center mt-20">
-                        <div>
-                          <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
-                          
-                          </h4>
-                        </div>
-                        <div>
-                          <Link href="/checkout">
-                            <button className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1">
-                              Checkout
-                            </button>
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )} */}
-
-                {/* {getCartItems.length === 0 ? (
+                {cart?.length === 0 && getCartItems?.length === 0 ? (
                   <div>
                     <div className="2xl:mt-40"></div>
                     <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[25px] 2xl:leading-[35px] xl:text-[20px] xl:leading-[28px] lg:text-[16px] lg:leading-[24px] text-center 2xl:mt-24">
@@ -1544,18 +1454,70 @@ const ExploreDishes = () => {
                       </button>
                     </div>
                   </div>
-                ) : ( */}
-                <>
-                  <div className="">
+                ) : (
+                  <div>
                     <div className="flex justify-end mt-10 md:mr-5">
                       <button
                         className="alata font-[400] rounded-[5px] p-2 text-[20px] bg-[#DB5353] text-white 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px]"
-                        onClick={handleCartClear}
+                        onClick={() => {
+                          handleClearCart();
+                          handleCartClear();
+                        }}
                       >
                         All Clear
                       </button>
                     </div>
-                    <div className="">
+                    <div>
+                      {cart?.map((item, index) => {
+                        const { data } = item;
+                        return (
+                          <div
+                            key={index}
+                            className="my-5 flex w-full border rounded-md"
+                          >
+                            <div className="flex items-center gap-2 w-full">
+                              <div>
+                                <img
+                                  src={data.ProfileImage}
+                                  alt={item.name}
+                                  className="w-[90px] h-auto rounded-[5.8px]"
+                                />
+                              </div>
+                              <div>
+                                <h4 className="alata font-[400] text-[#111] my-0 text-[18px] leading-[28px]">
+                                  {data.name}
+                                </h4>
+                                <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
+                                  Price:£{data.price}
+                                </h4>
+                                <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
+                                  Quantity:1
+                                </h4>
+                              </div>
+                            </div>
+                            <button
+                              className="px-4 text-[13px] border rounded h-[25px] text-red hover:bg-[#efb3b38a]"
+                              onClick={() => handleRemoveItem(data._id)}
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="currentColor"
+                                className="w-6 h-6"
+                              >
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  d="M6 18 18 6M6 6l12 12"
+                                />
+                              </svg>
+                            </button>
+                          </div>
+                        );
+                      })}
+
                       {Array.isArray(getCartItems) &&
                         getCartItems.map((item, index) => (
                           <div
@@ -1605,22 +1567,27 @@ const ExploreDishes = () => {
                             </button>
                           </div>
                         ))}
+
                       <div className="flex justify-between items-center mt-20">
                         <div>
                           <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]"></h4>
                         </div>
                         <div>
-                          <Link href="/checkout">
-                            <button className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1">
-                              Checkout
-                            </button>
+                        <Link href="/checkout">
+                          <button
+                            onClick={() => {
+                              handleAddCart();
+                            }}
+                            className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1"
+                          >
+                            Checkout
+                          </button>
                           </Link>
                         </div>
                       </div>
                     </div>
                   </div>
-                </>
-                {/* )} */}
+                )}
               </div>
             </div>
           </ul>
@@ -1879,98 +1846,3 @@ const App = () => {
   );
 };
 export default dynamic(() => Promise.resolve(App), { ssr: false });
-
-{
-  /* <div className=" sm:flex-row justify-center my-10  sm:my-6 sm:{}">
-              <div className="carousel-container ">
-                <Carousel breakPoints={breakPoints} className="gap-2">
-                  <div className="carousel-item">
-                    <div className="text-center">
-                      {" "}
-                     
-                      <Image
-                        className="rounded-[5px] w-[195px] h-[195px] mcusinimg"
-                        src={cuisineindia}
-                        alt="cuisine-india"
-                      />
-                      <h4 className="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
-                        Indian
-                      </h4>
-                    </div>
-                  </div>
-                  <div className="carousel-item">
-                    <div className="text-center">
-                      <Image
-                        alt="cuisine-american"
-                        className="rounded-[5px] w-[195px] h-[195px] mcusinimg"
-                        src={cuisineamerican}
-                      />
-                      <h4 className="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
-                        American
-                      </h4>
-                    </div>
-                  </div>
-                  <div className="carousel-item">
-                    <div className="text-center">
-                      <Image
-                        alt="cuisine-mexican"
-                        className="rounded-[5px] w-[195px] h-[195px] mcusinimg"
-                        src={cuisinemexican}
-                      />
-                      <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
-                        Mexican
-                      </h4>
-                    </div>
-                  </div>
-                  <div class="carousel-item">
-                    <div className="text-center">
-                      <Image
-                        alt="cuisine-mediterranean"
-                        className="rounded-[5px] w-[195px] h-[195px] mcusinimg"
-                        src={cuisinemediterranean}
-                      />
-                      <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
-                        Mediterranean
-                      </h4>
-                    </div>
-                  </div>
-                  <div class="carousel-item">
-                    <div className="text-center">
-                      <Image
-                        alt="cuisine-italian"
-                        className="rounded-[5px] w-[195px] h-[195px]  mcusinimg"
-                        src={cuisineitalian}
-                      />
-                      <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
-                        Italian
-                      </h4>
-                    </div>
-                  </div>
-                  <div class="carousel-item">
-                    <div className="text-center">
-                      <Image
-                        alt="cuisine-middleEastern"
-                        className="rounded-[5px] w-[195px] h-[195px] mcusinimg"
-                        src={cuisinemiddleEastern}
-                      />
-                      <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
-                        Middle Eastern
-                      </h4>
-                    </div>
-                  </div>
-                  <div class="carousel-item">
-                    <div className="text-center">
-                      <Image
-                        alt="cuisine-middleEastern"
-                        className="rounded-[5px] w-[195px] h-[195px]  mcusinimg"
-                        src={cuisinesoutheast}
-                      />
-                      <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm mt-3">
-                        Southeast Asian
-                      </h4>
-                    </div>
-                  </div>
-                </Carousel>
-              </div>
-            </div> */
-}

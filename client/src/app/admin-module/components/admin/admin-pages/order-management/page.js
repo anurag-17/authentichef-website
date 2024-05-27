@@ -59,8 +59,7 @@ const OrderList = () => {
                 <button
                   className="clear_search_btn"
                   // onClick={handleClearSearch}
-                >
-                </button>
+                ></button>
               )}
               <button
                 className="search_btn"
@@ -126,7 +125,9 @@ const OrderList = () => {
                           <td className="table_data">£{item.price}</td>
                           <td className="table_data">
                             <div className="table_btn_div">
-                              <Link href={`/pages/order-details/${item?._id}`}>
+                              <Link
+                                href={`/pages/order-details/${item?.OrderId}`}
+                              >
                                 <button
                                   className="secondary_btn py-1"
                                   // onClick={() => openDrawerO(order._id)}
