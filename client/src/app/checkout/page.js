@@ -15,7 +15,6 @@ import config from "@/config";
 
 import { useRouter } from "next/navigation";
 
-
 const Checkout = () => {
   const { token } = useSelector((state) => state?.auth);
   const { cart } = useSelector((state) => state?.userCart);
@@ -54,12 +53,13 @@ const Checkout = () => {
       },
     ]);
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(
         `${config.baseURL}/api/order/createOrder`,
-        { deliveryInfo, billingInfo },
+        { deliveryInfo, billingInfo, deliveryDate }, 
         {
           headers: {
             authorization: token,
@@ -78,6 +78,7 @@ const Checkout = () => {
       console.log("Error:", error);
     }
   };
+
   // const [count, setCount] = useState(0);
   // const handleIncrement = () => {
   // setCount(count + 1);
@@ -96,6 +97,7 @@ const Checkout = () => {
   useEffect(() => {
     defaultCartItems();
   }, [isRefresh]);
+  
 
   const defaultCartItems = () => {
     const option = {
@@ -116,6 +118,19 @@ const Checkout = () => {
         console.log(error, "Error");
       });
   };
+  
+  const [deliveryDate, setDeliveryDate] = useState('');
+
+  // Define today's date in the format YYYY-MM-DD
+  const today = new Date().toISOString().split('T')[0];
+
+  const handleDateChange = (e) => {
+    const inputDate = new Date(e.target.value);
+    if (inputDate > new Date(today)) {
+      setDeliveryDate(e.target.value);
+    }
+  };
+
   return (
     <>
       <ToastContainer autoClose={1000} />
@@ -553,16 +568,23 @@ const Checkout = () => {
                       </div>
                       <div className="flex justify-between 2xl:gap-[20px] xl:gap-[15px] gap-[10px] xl:my-[10px] my-[8px] 2xl:my-[15px]">
                         <div className="2xl:w-[388px] w-full">
-                          <label className="checkoutlable">
-                            Delivery date*
-                            <span className="text-[#DB1414]">*</span>
-                          </label>
-                          <input
-                            type="date"
-                            name="deliveryDate"
-                            placeholder="Enter"
-                            className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
-                          />
+                          <form onSubmit={handleSubmit}>
+                            <label className="checkoutlable">
+                              Delivery date*
+                              <span className="text-[#DB1414]">*</span>
+                            </label>
+                            <input
+                              type="date"
+                              name="deliveryDate"
+                              placeholder="Enter"
+                              className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
+                              min={today}
+                              value={deliveryDate}
+                              onChange={handleDateChange}
+                              required
+                            />
+                            
+                          </form>
                         </div>
                         <div className="pop-chef flex items-end">
                           Order will arrive on day selected between 8am and 6pm
