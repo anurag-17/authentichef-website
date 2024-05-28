@@ -183,8 +183,8 @@ const FAQs = () => {
           <h2 className="pop-head 2xl:mt-[60px] text-[#000000] alata font-[400]  xl:mt-[40px] lg:mt-[25px] sm:mt-[20px] mt-[] my-3">
               Chef Community
             </h2>
-            <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] font-[400] p-[8] mnavbar">
-            <div className="2xl:w-[1129px] xl:w-[700px] lg:w-[550px]  sm:w-[] w-[] mx-auto">
+            <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] mx-auto mnavbar">
+              <div className="2xl:w-[1129px] xl:w-[700px] lg:w-[550px] sm:w-[] w-[] mx-auto">
                 <div className="join join-vertical w-full text-start">
                   {/* Mapping through accordion items */}
                   {data.map((item, index) => (

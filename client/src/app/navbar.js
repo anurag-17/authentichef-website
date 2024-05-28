@@ -43,8 +43,8 @@ const Navbar = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state?.auth);
-  const { user } = useSelector((state) => state?.auth);
   const { success } = useSelector((state) => state?.auth);
+  const { user } = useSelector((state) => state?.auth);
   const userDetails = user;
   // console.log(success, "success");
   const [isLoading, setLoading] = useState(false);
@@ -408,6 +408,9 @@ const Navbar = () => {
                             <p className="text-[#555555] font-alata font-[400] 2xl:text-[14px] xl:text-[10px] lg:text-[9px] sm:text-[10px] text-[8px] 2xl:leading-[26px] xl:leading-[22px] lg:leading-[16px] sm:leading-[16px] leading-[14px]">
                               Welcome {userDetails?.firstname}
                             </p>
+                            <p className="text-[#555555] font-alata font-[400] 2xl:text-[14px] xl:text-[10px] lg:text-[9px] sm:text-[10px] text-[8px] 2xl:leading-[26px] xl:leading-[22px] lg:leading-[16px] sm:leading-[16px] leading-[14px]">
+                              {userDetails?.email}
+                            </p>
                             <div className="flex justify-center items-center gap-1">
                               <Image
                                 src={logout}
@@ -460,7 +463,7 @@ const Navbar = () => {
                       <input
                         type="text"
                         placeholder="Search dishes, chefs, cuisine "
-                        className="2xl:w-[258px] xl:w-[170px] 2xl:h-[44px] xl:h-[30px] w-[130px] h-[20px] bg-[#FF9C9C] text-[#AE6363] 2xl:px-[40px] xl:px-[30px] px-[20px] outline-none placeholder:text-[#AE6363] 2xl:text-[14px] xl:text-[12px] text-[9px]"
+                        className=" hidden lg:block 2xl:w-[258px] xl:w-[170px] 2xl:h-[44px] xl:h-[30px] w-[130px] h-[20px] bg-[#FF9C9C] text-[#AE6363] 2xl:px-[40px] xl:px-[30px] px-[20px] outline-none placeholder:text-[#AE6363] 2xl:text-[14px] xl:text-[12px] text-[9px]"
                       />
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -468,7 +471,7 @@ const Navbar = () => {
                         viewBox="0 0 24 24"
                         strokeWidth="1.5"
                         stroke="currentColor"
-                        className="absolute text-[#AE6363] 2xl:top-[10px] 2xl:left-[10px] xl:top-[8px] xl:left-[10px] top-[10px] left-[5px] 2xl:w-5 2xl:h-5 xl:w-4 xl:h-4 w-3 h-3"
+                        className=" hidden lg:block absolute text-[#AE6363] 2xl:top-[10px] 2xl:left-[10px] xl:top-[8px] xl:left-[10px] top-[10px] left-[5px] 2xl:w-5 2xl:h-5 xl:w-4 xl:h-4 w-3 h-3"
                       >
                         <path
                           strokeLinecap="round"
@@ -824,11 +827,11 @@ const Navbar = () => {
                   </Link>
                 </div>
               </div>
-              <div className="my-[30px]">
+              {/* <div className="my-[30px]">
                 <h4 className="text-[#555555] alata font-[400] text-[14px] leading-[26px] text-center">
                   Browse as Guest
                 </h4>
-              </div>
+              </div> */}
             </div>
           </form>
         </dialog>

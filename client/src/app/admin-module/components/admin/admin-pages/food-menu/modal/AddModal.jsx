@@ -9,12 +9,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import config from "@/config";
 
-const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
+const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
   const router = useRouter();
   const { token } = useSelector((state) => state?.auth);
-  const [isRefresh, setRefresh] = useState(false);
   const [cuisines, setCuisines] = useState([]);
-
   const [menuItem, setMenuItem] = useState({
     name: "",
     description: "",
@@ -34,10 +32,6 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
     Cuisines_id: "",
   });
   console.log(menuItem);
-
-  const refreshData = () => {
-    setRefresh(!isRefresh);
-  };
 
   // const handleChange = (e) => {
   //   const { name, value } = e.target;
@@ -77,9 +71,9 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
       formData.append("List_of_Allergens", menuItem.List_of_Allergens);
 
       // Append dropdown values
-          menuItem.Dietary_id.forEach((id) => {
-            formData.append("Dietary_id[]", id);
-          })
+      menuItem.Dietary_id.forEach((id) => {
+        formData.append("Dietary_id[]", id);
+      });
       formData.append("spice_level_id", menuItem.spice_level_id);
       formData.append("chef_id", menuItem.chef_id);
       formData.append("Cuisines_id", menuItem.Cuisines_id);
@@ -106,6 +100,7 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
       if (response.status === 201) {
         toast.success("Dish Added Successfully!");
         refreshData();
+        closeAddPopup();
         router.push("/admin-module/admin");
       } else {
         toast.error(response.data.message);
@@ -261,7 +256,6 @@ const MenuItemForm = ({ closeEditPopup, editData, updateId }) => {
       onSubmit={handleSubmit}
       className="max-w-10xl mx-auto border border-gray-500 rounded-xl p-6 mt-4 mb-4 flex flex-wrap"
     >
-      <ToastContainer autoClose={1000} />
       <div className="w-full flex justify-center text-[30px] my-4">
         <div className="font-bold">Add new Dish</div>
       </div>

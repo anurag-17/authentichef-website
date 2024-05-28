@@ -1,4 +1,3 @@
-
 "use client";
 import dynamic from "next/dynamic";
 import React, { Fragment, useEffect, useState } from "react";
@@ -374,6 +373,7 @@ const LandingPage = () => {
                         </p>
                         {token ? (
                           <button
+                            className="cursor-pointer"
                             onClick={() => {
                               setItemId(item?._id);
                               handleAddCart(item?._id);
@@ -387,13 +387,14 @@ const LandingPage = () => {
                                 <Image
                                   src={addCart}
                                   alt={item.title}
-                                  className="2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
+                                  className="cursor-pointerflex justify-center 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
                                 />
                               </label>
                             </div>
                           </button>
                         ) : (
                           <button
+                            className="cursor-pointer"
                             onClick={() => {
                               defaultADish(item?._id);
                             }}
@@ -406,7 +407,7 @@ const LandingPage = () => {
                                 <Image
                                   src={addCart}
                                   alt={item.title}
-                                  className=" 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
+                                  className=" cursor-pointerflex justify-center 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
                                 />
                               </label>
                             </div>
@@ -1117,20 +1118,20 @@ const LandingPage = () => {
                           <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]"></h4>
                         </div>
                         <div>
-                          {token ? (
-                            <Link href="/checkout">
-                              <button className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1">
-                                Checkout
-                              </button>
-                            </Link>
-                          ) : (
+                          {/* {token ? ( */}
+                          <Link href="/checkout">
+                            <button className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1">
+                              Checkout
+                            </button>
+                          </Link>
+                          {/* ) : (
                             <button
                               onClick={handleLoginClick}
                               className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1"
                             >
                               Checkout
                             </button>
-                          )}
+                          )} */}
                         </div>
                       </div>
                     </div>

@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import Link from "next/link";
 import protectedRoute from "@/app/admin-module/config/protectedRoute";
 import config from "@/config";
+import { ToastContainer } from "react-toastify";
 
 export const headItems = [
   "S. No.",
@@ -190,6 +191,7 @@ const FoodMenu = () => {
 
   return (
     <>
+    <ToastContainer autoClose={1000}/>
       {isLoader && <Loader />}
       <section className="w-full">
         <div className="mx-auto">

@@ -252,12 +252,12 @@ const ChefDetails = ({ params }) => {
       <section>
         <Navbar />
         <div className=" ">
-          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] 2xl:pt-[220px] xl:pt-[140px] pt-[100px] 2xl:py-[100px] xl:py-[50px] py-[40px] mx-auto mnavbar">
+          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] px-5 sm:px-5 sm:px-10 mnavbar  md:w-[700px] 2xl:pt-[220px] xl:pt-[140px] pt-[100px] 2xl:py-[100px] xl:py-[50px] py-[40px] mx-auto ">
             <div
-              className="chefDishes-bg rounded-[15px] relative 2xl:h-[529px] xl:h-[360px] h-[280px] 2xl:pt-[295px] xl:pt-[200px] pt-[155px]"
+              className="chefDishes-bg rounded-[15px] relative 2xl:h-[529px] xl:h-[360px] h-[280px] 2xl:pt-[295px] xl:pt-[200px] lg:pt-[155px] pt-[120px]"
               style={{ backgroundImage: `url(${bannerImage})` }}
             >
-              <div className=" border flex gap-5 2xl:w-[1414px] xl:w-[970px] w-[750px] rounded-[15px] bg-white mx-auto 2xl:p-[50px] xl:p-[20px] p-[15px] chefdishWB">
+              <div className=" border flex gap-5 2xl:w-[1414px] xl:w-[970px] lg:w-[750px] w-[90%]  rounded-[15px] bg-white mx-auto 2xl:p-[50px] xl:p-[20px] p-[15px] chefdishWB">
                 <div className="2xl:w-[154px] xl:w-[80px] w-[60px]">
                   <div>
                     <img src={getAChef?.images} className="w-full" />
@@ -333,15 +333,15 @@ type specimen book.
           <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] mx-auto mnavbar">
             <div className="">
               <div>
-                <h4 className="third_head">Chef Dishes</h4>
+                <h4 className="third_head px-5 sm:px-10">Chef Dishes</h4>
               </div>
             </div>
-            <div className=" flex flex-wrap gap-[20px] xl:gap-[25px] 2xl:gap-[70px] w-full px-10 md:px-0 mx-auto">
+            <div className=" flex flex-wrap gap-[20px] xl:gap-[25px] 2xl:gap-[70px] w-full px-5 sm:px-10 md:px-0 mx-auto">
               {Array.isArray(chefItems) &&
                 chefItems.map((item) => (
                   <div
                     key={item.id}
-                    className=" my-5 2xl:w-[345px] 2xl:h-[560px] lg:w-[23%] md:w-[31%] w-[45%] relative rounded-[9.8px] "
+                    className=" my-5 2xl:w-[345px] 2xl:h-[560px] lg:w-[23%] md:w-[31%] sm:w-[45%] mx-auto relative rounded-[9.8px] w-[80%]"
                   >
                     <button className="" onClick={() => openModal(item._id)}>
                       <img
@@ -372,7 +372,7 @@ type specimen book.
                           </p>
                         </div>
                       </div>
-                      <div className="flex gap-5 2xl:my-[20px] xl:my-[15px] my-[12px]">
+                      <div className="flex flex-wrap gap-5 2xl:my-[20px] xl:my-[15px] my-[12px]">
                         {/* <button className="four_btn">
 <img
 alt="image"
@@ -425,7 +425,7 @@ className="2xl:w-[13px] 2xl:h-[13px] lg:w-[10px] lg:h-[10px] w-[10px] h-auto"
                                 <Image
                                   src={addCart}
                                   alt={item.title}
-                                  className="2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
+                                  className="cursor-pointer 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
                                 />
                               </label>
                             </div>
@@ -444,7 +444,7 @@ className="2xl:w-[13px] 2xl:h-[13px] lg:w-[10px] lg:h-[10px] w-[10px] h-auto"
                                 <Image
                                   src={addCart}
                                   alt={item.title}
-                                  className=" 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
+                                  className="cursor-pointer 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
                                 />
                               </label>
                             </div>
