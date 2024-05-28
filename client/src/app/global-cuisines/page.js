@@ -77,7 +77,7 @@ const GlobalCusines = () => {
                 </div>
               </div>
               <div className="text-center mt-[120px] xl:mt-[80px] lg:mt-[80px] md:mt-[80px] sm:mt-[50px]">
-                <h4 className="globalhead">Popular Cuisines</h4>
+                <h4 className="globalhead">Popular Dishes</h4>
                 <div className="flex justify-center mt-[60px] xl:mt-[80px] lg:mt-[50px] md:mt-[40px] sm:mt-[30px]  xs:flex-col xs:items-center">
                   <div className="lg:w-[320px] md:w-[230px] 2xl:w-[500px] sm:w-[20%] xs:w-full my-3 md:my-0">
                     <div className="text-center border-e-[2px] 2xl:w-[400px] xl:pr-[0px] pr-[0px]">

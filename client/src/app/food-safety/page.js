@@ -38,8 +38,8 @@ const FoodSefty = () => {
             </div>
           </div>
         </div>
-    
-        <div className="bg-[#F5C7C7] 2xl:py-[115px] xl:py-[80px] py-[50px]">
+
+        <div className="bg-[#F7BFA5] 2xl:py-[115px] xl:py-[80px] py-[50px]">
           <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] w-full mx-auto mnavbar">
             <div>
               <h2 className="alata font-[400] mx-auto 2xl:text-[25px] 2xl:leading-[45px] xl:text-[16px] xl:leading-[30px] text-[16px] leading-[24px] 2xl:w-[831px] xl:w-[550px] w-full text-center">
@@ -104,7 +104,7 @@ const FoodSefty = () => {
                   While we embrace innovation and creativity in our dishes, our
                   chefs hold true to their traditional cooking techniques to
                   provide an authentic experience
-                </p>        
+                </p>
               </div>
             </div>
           </div>
@@ -113,7 +113,14 @@ const FoodSefty = () => {
         <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] w-full flex items-center mx-auto flex-col-reverse lg:flex-row mnavbar 2xl:py-[115px] xl:py-[80px] py-[50px]">
           <h4 className="alata font-[400] mx-auto 2xl:text-[25px] 2xl:leading-[45px] xl:text-[16px] xl:leading-[30px] text-[14px] leading-[22px] 2xl:w-[831px] xl:w-[550px] w-full text-center">
             We value your feedback and would love to hear about your experience.
-            Please reach out to us support@authentichef.com
+            Please reach out to us{" "}
+            <a
+              className="underline"
+              href="mailto:support@authentichef.com"
+              target="_blank"
+            >
+              support@authentichef.com
+            </a>
           </h4>
         </div>
 

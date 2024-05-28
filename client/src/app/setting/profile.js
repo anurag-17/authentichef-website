@@ -1,7 +1,10 @@
 import React from "react";
 import EditProfile from "./edit-profile";
+import { useSelector } from "react-redux";
 
 const Profile = () => {
+  const { user } = useSelector((state) => state?.auth);
+  const userDetails = user;
   return (
     <>
       <section>
@@ -10,14 +13,14 @@ const Profile = () => {
             <div className="2xl:w-[375px] xl:w-[280px] w-[200px]">
               <input
                 placeholder="First Name"
-                value="Ajay"
+                value={userDetails?.firstname}
                 className="profile_input"
               />
             </div>
             <div className="2xl:w-[375px] xl:w-[280px] w-[200px]">
               <input
                 placeholder="Last Name"
-                value="Hardiya"
+                value={userDetails?.lastname}
                 className="profile_input"
               />
             </div>
@@ -25,21 +28,21 @@ const Profile = () => {
           <div className="2xl:w-[375px] xl:w-[280px] w-[200px] 2xl:mt-[15px] xl:mt-[10px] mt-[8px]">
             <input
               placeholder="Email"
-              value="ajay4897hardiya@mail.com"
+              value={userDetails?.email}
               className="profile_input"
             />
           </div>
           <div className="2xl:w-[770px] xl:w-[575px] w-[407px] 2xl:mt-[15px] xl:mt-[10px] mt-[8px]">
             <input
               placeholder="Billing Address"
-              value="50 A Paramhans nagar, Bhopal, Madhya Pradesh 895005"
+              value=""
               className="profile_input"
             />
           </div>
           <div className="2xl:w-[770px] xl:w-[575px] w-[407px] 2xl:mt-[15px] xl:mt-[10px] mt-[8px]">
             <input
               placeholder="Shipping Address"
-              value=" 50 A Paramhans nagar, Bhopal, Madhya Pradesh 895005"
+              value=" "
               className="profile_input"
             />
           </div>

@@ -11,7 +11,7 @@ const TermCondition = () => {
         <div className="mx-auto 2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] xs:w-[90%] md:w-[700px] sm:w-[90%] py-[150px] 2xl:py-[120px] lg:py-[70px] md:py-[70px] sm:py-[70px] xs:py-[70px] mnavbar">
           <div>
             <h1 className="third_head mb-7 2xl:mb-10 ">TERMS AND CONDITIONS</h1>
-            <p className="privacyText mb-7 2xl:mb-10">
+            <p className="footer_text mb-7 2xl:mb-10">
               The Website www.authentichef.com and/or any other URL which
               facilitates access to the Website (together, Authentichef, the
               Website, we or us) is owned and operated by AUTHENTICHEF LTD,
@@ -19,7 +19,7 @@ const TermCondition = () => {
               Wales with Company Number 15236453 and registered office at 85
               Corncrake Way, Bicester, England, OX26 6UF.
             </p>
-            <p className="privacyText mb-7 2xl:mb-10">
+            <p className="footer_text mb-7 2xl:mb-10">
               PLEASE READ THIS DOCUMENT CAREFULLY BEFORE ACCESSING OR USING THE
               AUTHENTICHEF WEBSITE. BY USING, ACCESSING, UPLOADING OR
               DOWNLOADING ANY INFORMATION TO OR FROM THE WEBSITE, YOU, THE USER
@@ -29,7 +29,7 @@ const TermCondition = () => {
               LONGER.
             </p>
             <h3 className=" mb-2 privacyHead ">1. ABOUT AUTHENTICHEF</h3>
-            <p className="privacyText mb-7 2xl:mb-10">
+            <p className="footer_text mb-7 2xl:mb-10">
               Authentichef is an online platform which connects independent
               chefs (hereinafter referred to as Chefs) with consumers
               (hereinafter referred to as Customers) seeking authentic
@@ -47,7 +47,7 @@ const TermCondition = () => {
             <h3 className=" mb-2 privacyHead ">
               2. REGISTRATION OF USER ACCOUNT
             </h3>
-            <p className="privacyText mb-7 2xl:mb-10">
+            <p className="footer_text mb-7 2xl:mb-10">
               In order to successfully use Authentichef as a Customer, you must
               be at least 18 years of age and must complete the registration
               process by setting up a user account with a username and password
@@ -70,7 +70,7 @@ const TermCondition = () => {
             <h3 className=" mb-2 privacyHead ">
               3. DUTIES AND OBLIGATIONS OF CUSTOMERS
             </h3>
-            <p className="privacyText mb-7 2xl:mb-10">
+            <p className="footer_text mb-7 2xl:mb-10">
               By using the Authentichef Website, the Customers agree that they
               will • pay for their food order online in advance and ensure that
               their preferred payment method is valid and accepted by the
@@ -83,7 +83,7 @@ const TermCondition = () => {
               {" "}
               • 4. PAYMENT AND SUBSCRIPTION OPTIONS
             </h3>
-            <p className="privacyText mb-7 2xl:mb-10">
+            <p className="footer_text mb-7 2xl:mb-10">
               Authentichef adheres to strict industry security standards for
               payment processing and accepts online payment from Customers
               through all international credit cards, debit cards, digital
@@ -105,7 +105,7 @@ const TermCondition = () => {
             <h3 className=" mb-2 privacyHead ">
               5. FOOD SAFETY AND HYGIENE POLICY
             </h3>
-            <p className="privacyText mb-7 2xl:mb-10">
+            <p className="footer_text mb-7 2xl:mb-10">
               At Authentichef, we are committed to upholding the highest
               standards of food safety and hygiene to ensure the health and
               well-being of our Customers. We strongly encourage all Chefs to
@@ -126,7 +126,7 @@ const TermCondition = () => {
               the event of any food safety incidents or investigation.
             </p>
             <h3 className=" mb-2 privacyHead ">6. FOOD DELIVERY POLICY</h3>
-            <p className="privacyText mb-7 2xl:mb-10">
+            <p className="footer_text mb-7 2xl:mb-10">
               Authentichef is committed to ensuring that your order is safely
               delivered to you in a timely manner. We operate on a dynamic
               delivery fee system, calculated on the basis of location of
@@ -144,12 +144,12 @@ const TermCondition = () => {
             <h3 className=" mb-2 privacyHead ">
               7. CANCELLATION AND REFUND POLICY
             </h3>
-            <p className="privacyText mb-7 2xl:mb-10">
+            <p className="footer_text mb-7 2xl:mb-10">
               Please go through our Refund Policy to know more about
               cancellation and refunds.
             </p>
             <h3 className=" mb-2 privacyHead ">8. PERSONAL DATA POLICY</h3>
-            <p className="privacyText mb-7 2xl:mb-10">
+            <p className="footer_text mb-7 2xl:mb-10">
               When you choose to register yourself at the Authentichef Website
               as a Customer or a Chef, or otherwise communicate with us via the
               Contact Us option or Join the Chef Waiting List (latter for Chef
@@ -161,7 +161,7 @@ const TermCondition = () => {
               same.
             </p>{" "}
             <h3 className=" mb-2 privacyHead ">9. CONTENT POLICY</h3>
-            <p className="privacyText mb-7 2xl:mb-10">
+            <p className="footer_text mb-7 2xl:mb-10">
               Certain features of the Authentichef Website allow Customers to
               post, link, share, make available certain alphanumerical and
               textual reviews and feedback in or through the Website. By
@@ -186,7 +186,7 @@ const TermCondition = () => {
             <h3 className=" mb-2 privacyHead ">
               10. ACCEPTABLE USE OF WEBSITE{" "}
             </h3>
-            <p className="privacyText mb-7 2xl:mb-10">
+            <p className="footer_text mb-7 2xl:mb-10">
               In order to maximise your user experience in using the Website,
               and avoid, eliminate or minimise disruptive activities, we kindly
               ask you to maintain the following: • do not use the Website in any
@@ -217,7 +217,7 @@ const TermCondition = () => {
               proceedings against you.
             </p>
             <h3 className=" mb-2 privacyHead ">11. INTELLECTUAL PROPERTY</h3>
-            <p className="privacyText mb-7 2xl:mb-10">
+            <p className="footer_text mb-7 2xl:mb-10">
               All information and content displayed in the Website including
               text, graphics, designs, photographs, videos, audio, typefaces,
               look and feel, format, underlying code and software and the like
@@ -238,7 +238,7 @@ const TermCondition = () => {
               material.
             </p>
             <h3 className=" mb-2 privacyHead ">12. NO ENDORSEMENT </h3>
-            <p className="privacyText mb-7 2xl:mb-10">
+            <p className="footer_text mb-7 2xl:mb-10">
               Authentichef does not endorse any Chefs listed in the Website and
               nothing herein shall be considered as an explicit or implicit
               endorsement, referral, recommendation, verification, support,
@@ -254,7 +254,7 @@ const TermCondition = () => {
               Website you hereby acknowledge and agree with all of the above.{" "}
             </p>{" "}
             <h3 className=" mb-2 privacyHead ">13. DISCLAIMER OF WARRANTIES</h3>
-            <p className="privacyText mb-7 2xl:mb-10">
+            <p className="footer_text mb-7 2xl:mb-10">
               To the maximum extent permitted by applicable law, Authentichef is
               provided on an as is and as available basis without warranties
               of any kind, either expressed or implied, including, but not
@@ -270,7 +270,7 @@ const TermCondition = () => {
               this purpose.
             </p>
             <h3 className=" mb-2 privacyHead ">14. LIMITATION OF LIABILITY</h3>
-            <p className="privacyText mb-7 2xl:mb-10">
+            <p className="footer_text mb-7 2xl:mb-10">
               Under no circumstances will Authentichef any of its directors,
               shareholders, employees and agents be liable for any incidental,
               consequential, or indirect damages including, but not limited to,
@@ -287,7 +287,7 @@ const TermCondition = () => {
               excluded under applicable law.
             </p>
             <h3 className=" mb-2 privacyHead ">15. INDEMNIFICATION</h3>
-            <p className="privacyText mb-7 2xl:mb-10">
+            <p className="footer_text mb-7 2xl:mb-10">
               You agree to indemnify, defend and hold harmless Authentichef, its
               officers, directors, employees, agents, licensors, consultants,
               representatives and agents from and against all losses, damages,
@@ -305,7 +305,7 @@ const TermCondition = () => {
             <h3 className=" mb-2 privacyHead ">
               16. THIRD PARTY LINKS AND ADVERTISEMENTS{" "}
             </h3>
-            <p className="privacyText mb-7 2xl:mb-10">
+            <p className="footer_text mb-7 2xl:mb-10">
               Authentichef may occasionally provide external links and
               advertisements submitted by or directed towards third party
               websites and services, including but not limited to social media
@@ -323,7 +323,7 @@ const TermCondition = () => {
               applicable.{" "}
             </p>
             <h3 className=" mb-2 privacyHead ">17. SUSPENSION OF SERVICE</h3>
-            <p className="privacyText mb-7 2xl:mb-10">
+            <p className="footer_text mb-7 2xl:mb-10">
               Authentichef reserves the right to suspend, discontinue or
               otherwise cease providing their service through the Website,
               temporarily or permanently, at any time, with or without notice,
@@ -337,7 +337,7 @@ const TermCondition = () => {
             <h3 className=" mb-2 privacyHead ">
               18. ELECTRONIC COMMUNICATIONS
             </h3>
-            <p className="privacyText mb-7 2xl:mb-10">
+            <p className="footer_text mb-7 2xl:mb-10">
               The communications between you and Authentichef use electronic
               means. For contractual purposes, you (a) consent to receive
               communications from Authentichef in an electronic form and (b)
@@ -353,7 +353,7 @@ const TermCondition = () => {
               Protection Act 2018.
             </p>
             <h3 className=" mb-2 privacyHead ">19. GENERAL INFORMATION</h3>
-            <p className="privacyText mb-7 2xl:mb-10">
+            <p className="footer_text mb-7 2xl:mb-10">
               These Terms and Conditions shall be governed by and construed in
               accordance with the laws of England and Wales. If any provision of
               these Terms and Conditions is found by a court of competent
@@ -368,7 +368,7 @@ const TermCondition = () => {
               the right, but is under no obligation, to act as an intermediary
               during any such negotiation.{" "}
             </p>
-            <p className="privacyText mb-7 2xl:mb-10">
+            <p className="footer_text mb-7 2xl:mb-10">
               Authentichef reserves the right, at their sole discretion, to
               modify these Terms and Conditions at any time, and such
               modifications shall be effective immediately upon posting of the
