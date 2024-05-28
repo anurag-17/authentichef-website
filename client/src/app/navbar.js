@@ -32,6 +32,7 @@ import plus from "../../public/images/plus.svg";
 import minus from "../../public/images/minus.svg";
 import { removeItemFromCart, clearCart } from "./redux/dishSlice";
 import config from "@/config";
+
 const Navbar = () => {
   const [userDetail, setUserDetail] = useState({
     firstname: "",
@@ -41,10 +42,9 @@ const Navbar = () => {
     role: "",
   });
   const router = useRouter();
-  const dispatch = useDispatch();
   const { token } = useSelector((state) => state?.auth);
-  const { success } = useSelector((state) => state?.auth);
   const { user } = useSelector((state) => state?.auth);
+  const { success } = useSelector((state) => state?.auth);
   const userDetails = user;
   // console.log(success, "success");
   const [isLoading, setLoading] = useState(false);
@@ -144,6 +144,7 @@ const Navbar = () => {
       setLoading(false);
     }
   };
+
   // ==========Handle logout==========
   const handleLogout = async () => {
     try {
@@ -168,6 +169,7 @@ const Navbar = () => {
       toast.error("Logout failed");
     }
   };
+
   // ======handle localStorage and popup=====
   const handleClose = () => {
     const modal = document.getElementById("my_modal_2");
@@ -257,42 +259,121 @@ const Navbar = () => {
       alert(error?.response?.data?.message || "server error");
     }
   };
+
   useEffect(() => {
-    const ids = cart.map((item) => item?.data?._id);
-    // console.log(cart, "item");
+    const ids = cart.map((item) => ({
+      menuItem: item.data._id,
+      quantity: 1, // Set the default quantity to 1
+      // Add any other properties required by the server
+    }));
+
     setItemId(ids);
     console.log(ids, "ids");
-  }, []);
+  }, [cart]);
+
+  const itemIds = useSelector((state) =>
+    state.userCart.cart.map((item) => ({
+      menuItem: item.data._id,
+      quantity: 1, // Set the default quantity to 1
+      // Add any other properties required by the server
+    }))
+  );
+
+  useEffect(() => {
+    console.log(itemIds, "itemIds");
+  }, [itemIds]);
+
   const [itemId, setItemId] = useState([]);
-  const handleAddCart = async (itemId) => {
+
+  const handleAddCart = async () => {
     try {
+      console.log("Sending POST request to add items to cart...");
+
+      const menuItem = itemId; // Assuming itemId is an array of item IDs
+
+      const payload = {
+        menuItem,
+        quantity: 1, // Set the quantity to 1
+      };
+
+      console.log("Payload:", payload);
+
+      if (!token) {
+        console.error(
+          "No token found. Cannot proceed with adding items to cart."
+        );
+        toast.error("You need to be logged in to add items to the cart.");
+        return;
+      }
+
       const response = await axios.post(
         `${config.baseURL}/api/Orders/AddtoCart`,
-
-        { menuItem: itemId },
-
+        payload,
         {
           headers: {
             Authorization: token,
           },
         }
       );
+
+      console.log("Response received:", response);
+
       if (response.status >= 200 && response.status < 300) {
-        toast.success("Item Added to Cart");
-        handleDrawerOpen();
-        refreshData();
+        console.log("Response status is in the success range");
+        if (response.data.message === "Item added to cart") {
+          console.log("Items added to cart successfully");
+          toast.success("Items added to cart successfully");
+          handleDrawerOpen();
+          refreshData();
+        } else {
+          console.log("Failed to add items to cart");
+          console.log("Server response message:", response.data.message);
+          toast.error(
+            response.data.message ||
+              "Failed to add items to cart. Please try again."
+          );
+        }
       } else {
-        toast.error(
-          error.response.data.message ||
-            "Failed to add item to cart. Please try again."
-        );
         console.log("Unexpected response status:", response.status);
+        toast.error("Failed to add items to cart. Please try again.");
       }
     } catch (error) {
-      toast.error("An error occurred while adding the item to the cart.");
-      console.log("Error:", error);
+      // Error handling code...
     }
   };
+
+  const getItemIdsFromCart = () => {
+    // Assuming `cart` is available and contains the items
+    const itemIds = cart.map((item) => item.data._id);
+    setItemId(itemIds);
+  };
+
+  // Call this function whenever the cart is updated or when the component mounts
+  useEffect(() => {
+    getItemIdsFromCart();
+  }, [cart]);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // Get the item IDs from local storage
+    const itemIdsFromStorage = localStorage.getItem("itemIds");
+    console.log();
+    if (itemIdsFromStorage) {
+      // If item IDs exist in local storage, dispatch them to the Redux store
+      dispatch(setItemId(JSON.parse(itemIdsFromStorage)));
+    }
+  }, [dispatch]);
+
+  const handleAddCartWrapper = () => {
+    if (itemIds.length === 0) {
+      console.log("No items to add to cart.");
+      toast.error("No items to add to cart.");
+      return;
+    }
+    handleAddCart();
+  };
+
   return (
     <>
       {/* <ToastContainer className="mt-24" autoClose={1000} /> */}
@@ -408,9 +489,6 @@ const Navbar = () => {
                             <p className="text-[#555555] font-alata font-[400] 2xl:text-[14px] xl:text-[10px] lg:text-[9px] sm:text-[10px] text-[8px] 2xl:leading-[26px] xl:leading-[22px] lg:leading-[16px] sm:leading-[16px] leading-[14px]">
                               Welcome {userDetails?.firstname}
                             </p>
-                            <p className="text-[#555555] font-alata font-[400] 2xl:text-[14px] xl:text-[10px] lg:text-[9px] sm:text-[10px] text-[8px] 2xl:leading-[26px] xl:leading-[22px] lg:leading-[16px] sm:leading-[16px] leading-[14px]">
-                              {userDetails?.email}
-                            </p>
                             <div className="flex justify-center items-center gap-1">
                               <Image
                                 src={logout}
@@ -463,7 +541,7 @@ const Navbar = () => {
                       <input
                         type="text"
                         placeholder="Search dishes, chefs, cuisine "
-                        className=" hidden lg:block 2xl:w-[258px] xl:w-[170px] 2xl:h-[44px] xl:h-[30px] w-[130px] h-[20px] bg-[#FF9C9C] text-[#AE6363] 2xl:px-[40px] xl:px-[30px] px-[20px] outline-none placeholder:text-[#AE6363] 2xl:text-[14px] xl:text-[12px] text-[9px]"
+                        className="2xl:w-[258px] xl:w-[170px] 2xl:h-[44px] xl:h-[30px] w-[130px] h-[20px] bg-[#FF9C9C] text-[#AE6363] 2xl:px-[40px] xl:px-[30px] px-[20px] outline-none placeholder:text-[#AE6363] 2xl:text-[14px] xl:text-[12px] text-[9px]"
                       />
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -471,7 +549,7 @@ const Navbar = () => {
                         viewBox="0 0 24 24"
                         strokeWidth="1.5"
                         stroke="currentColor"
-                        className=" hidden lg:block absolute text-[#AE6363] 2xl:top-[10px] 2xl:left-[10px] xl:top-[8px] xl:left-[10px] top-[10px] left-[5px] 2xl:w-5 2xl:h-5 xl:w-4 xl:h-4 w-3 h-3"
+                        className="absolute text-[#AE6363] 2xl:top-[10px] 2xl:left-[10px] xl:top-[8px] xl:left-[10px] top-[10px] left-[5px] 2xl:w-5 2xl:h-5 xl:w-4 xl:h-4 w-3 h-3"
                       >
                         <path
                           strokeLinecap="round"
@@ -827,11 +905,11 @@ const Navbar = () => {
                   </Link>
                 </div>
               </div>
-              {/* <div className="my-[30px]">
+              <div className="my-[30px]">
                 <h4 className="text-[#555555] alata font-[400] text-[14px] leading-[26px] text-center">
                   Browse as Guest
                 </h4>
-              </div> */}
+              </div>
             </div>
           </form>
         </dialog>
