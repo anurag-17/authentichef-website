@@ -53,19 +53,36 @@ const User = require("../Model/User");
 // }
 exports.addToCart = async (req, res, next) => {
   try {
-    const { menuItem, quantity, customization } = req.body;
-    
+    const { items } = req.body;
+
+
     const userId = req.user ? req.user._id : null;
 
-    if (!userId) {
-      const cartData = {
-        menuItem,
-        quantity,
-        customization,
-      };
-      const menuItems = await MenuItem.findOne({ _id: cartData.menuItem }).select("name price");
+    if (!items || !Array.isArray(items) || items.length === 0) {
+      return res.status(400).json({ message: "Items are required and should be an array" });
+    }
 
-      return res.status(200).json({ message: "Menu item added to cart", menuItem: menuItems, cartData });
+    for (const item of items) {
+      if (!item.menuItem || !item.quantity ) {
+        return res.status(400).json({ message: "Each item must include a menuItem and a quantity" });
+      }
+
+      // Check if the menu item exists
+      const menuItemExists = await MenuItem.findById(item.menuItem).select("name price");
+      if (!menuItemExists) {
+        return res.status(404).json({ message: `Menu item not found: ${item.menuItem}` });
+      }
+    }
+
+    if (!userId) {
+      // For guest users
+      const cartData = items.map(item => ({
+        menuItem: item.menuItem,
+        quantity: item.quantity,
+        customization: item.customization,
+      }));
+
+      return res.status(200).json({ message: "Items added to cart", cartData });
     }
 
     let userCart = await Cart.findOne({ user: userId });
@@ -75,20 +92,16 @@ exports.addToCart = async (req, res, next) => {
         items: []
       });
     }
-    
 
-const existingItemIndex = userCart.items.findIndex(item => {
-  const itemMenuItemString = item.menuItem.toString(); // Convert ObjectId to string
-  return itemMenuItemString === menuItem[0]; // Compare with the first element of the menuItem array
-});
+    for (const item of items) {
+      const existingItemIndex = userCart.items.findIndex(cartItem => cartItem.menuItem.toString() === item.menuItem);
 
-
-    // If existing item found, update its quantity
-    if (existingItemIndex !== -1) {
-      // Update quantity of existing item
-      userCart.items[existingItemIndex].quantity += quantity;
-    } else {
-      userCart.items.push({ menuItem, quantity, customization });
+      if (existingItemIndex !== -1) {
+        // Update quantity of existing item
+        userCart.items[existingItemIndex].quantity += item.quantity;
+      } else {
+        userCart.items.push({ menuItem: item.menuItem, quantity: item.quantity, customization: item.customization });
+      }
     }
 
     await userCart.save();
@@ -99,7 +112,7 @@ const existingItemIndex = userCart.items.findIndex(item => {
       select: "name price"
     });
 
-    res.status(201).json({ message: "Item added to cart", updatedCart });
+    res.status(201).json({ message: "Items added to cart", updatedCart });
   } catch (error) {
     next(error);
   }
