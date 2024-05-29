@@ -190,17 +190,16 @@ const Navbar = () => {
     document.getElementById("my_modal_1").showModal();
   };
   const { cart } = useSelector((state) => state?.userCart);
-
-  // const data = dish?.data;
   cart.forEach((item, index) => {
     const { data } = item;
   });
   const [getCartItems, setGetCartItems] = useState({});
   useEffect(() => {
     if (token) {
-      defaultCartItems();
+      defaultCartItems(isRefresh);
     }
-  }, [token, isRefresh]);
+  }, [isRefresh, token]);
+
   const defaultCartItems = () => {
     const option = {
       method: "GET",
@@ -213,12 +212,12 @@ const Navbar = () => {
       .request(option)
       .then((response) => {
         setGetCartItems(response?.data?.userCart?.items);
-        console.log(response?.data?.userCart?.items, "data");
       })
       .catch((error) => {
         console.log(error, "Error");
       });
   };
+
   const handleItemRemove = async (id) => {
     try {
       const response = await axios.delete(
@@ -382,7 +381,7 @@ const Navbar = () => {
                     <Image
                       alt="image"
                       src={sidemanu}
-                      className="2xl:w-[38.67px] 2xl:h-[32px] xl:w-[30px] h-auto w-[22px] menu-btn md:ml-6 lg:ml-0"
+                      className=" cursor-pointer 2xl:w-[38.67px] 2xl:h-[32px] xl:w-[30px] h-auto w-[22px] menu-btn md:ml-6 lg:ml-0"
                     />
                   </label>
                 </div>
@@ -472,7 +471,7 @@ const Navbar = () => {
                     <hr className="mx-auto 2xl:w-[345px] xl:w-[260px] lg:w-[180px] sm:w-[140px] w-[120px] 2xl:mt-[75px] xl:mt-[40px] lg:mt-[20px] sm:mt-[15px] mt-[10px]" />
                     <div className="text-center 2xl:mt-[35px] xl:mt-[15px] lg:mt-[10px] sm:mt-[8px] mt-[5px]">
                       <div className="flex justify-center md:gap-11 gap-2 md:ml-6 lg:ml-0">
-                      {isLoggedIn === success ? (
+                        {isLoggedIn === success ? (
                           <div>
                             <p className="text-[#555555] font-alata font-[400] 2xl:text-[14px] xl:text-[10px] lg:text-[9px] sm:text-[10px] text-[8px] 2xl:leading-[26px] xl:leading-[22px] lg:leading-[16px] sm:leading-[16px] leading-[14px]">
                               {userDetails?.firstname} {userDetails?.lastname}
@@ -529,11 +528,11 @@ const Navbar = () => {
                 {isLoggedIn === success ? (
                   <div className="flex justify-end md:gap-7 gap-2 w-1/3">
                     <div className="relative flex items-center">
-                      <input
+                      {/* <input
                         type="text"
                         placeholder="Search dishes, chefs, cuisine "
                         className="2xl:w-[258px] xl:w-[170px] 2xl:h-[44px] xl:h-[30px] w-[130px] h-[20px] bg-[#FF9C9C] text-[#AE6363] 2xl:px-[40px] xl:px-[30px] px-[20px] outline-none placeholder:text-[#AE6363] 2xl:text-[14px] xl:text-[12px] text-[9px]"
-                      />
+                      /> */}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -781,7 +780,7 @@ const Navbar = () => {
       </div>
       {/* =======Signup popup======= */}
       <div className="">
-      <dialog
+        <dialog
           id="my_modal_1"
           className="modal rounded-[10px] 2xl:w-[1000px] 2xl:h-[665px] xl:w-[620px] xl:h-[480px] lg:w-[480px] h-[400px] 2xl:mt-40 xl:mt-24 mt-14 p-0 signup"
         >
