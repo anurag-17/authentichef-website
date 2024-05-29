@@ -12,7 +12,7 @@ import Navbar from "../navbar";
 const BecomeChef = () => {
   return (
     <>
-      <Navbar  />
+      <Navbar />
       <div className="w-full">
         <div className="flex justify-center">
           <div className="flex justify-center text-center sm:text-[20px] 2xl:mt-[76px] mx-auto">
@@ -41,7 +41,7 @@ const BecomeChef = () => {
         </div>
 
         <div className="bg-[#f7bda6] w-full mt-8 lg:mt-16 xl:mt-24 2xl:mt-36 my-10">
-          <div className="2xl:max-w-[1600px] xl:max-w-[1100px] lg:max-w-[850px] md:max-w-[800px] mx-auto  pb-10 lg:pb-20 2xl:pb-[55px]">
+          <div className="2xl:max-w-[1600px] xl:max-w-[1100px] lg:max-w-[850px] md:max-w-[800px] mx-auto  pb-10 lg:pb-20 2xl:pb-[55px] mnavbar">
             <div className="flex flex-col xs:px-[20px]  lg:flex-row items-center justify-between py-10 lg:py-20">
               <div className="xl:w-[70%]    lg:w-[70%] mb-5 2xl:w-[76%] lg:mb-0">
                 <Image
@@ -111,7 +111,7 @@ const BecomeChef = () => {
                   className="mx-auto lg:mx-0 mb-2 w-[45px] h-[45px] lg:w-[80px] lg:h-[80px]"
                   alt="Cook Image"
                 />
-                <h2 className="text-lg  alata 2xl:text-2xl lg:text-[17px] xl:text-[20px] text-[#111111] mb-2 mt-4 lg:w-[120%] ">
+                <h2 className="text-lg  alata 2xl:text-2xl lg:text-[17px] xl:text-[20px] text-[#111111] mb-2 mt-4 lg:w-[120%] xl:w-[100%] 2xl:w-[100%]">
                   Cook when you want and how often
                 </h2>
                 <p className="text-sm lg:text-base alata 2xl:text-lg xl:text-[17px] lg:text-[14px] text-[#111111] mt-2 xl:w-[125%] 2xl:w-[92%] lg:w-[131%]">
@@ -124,7 +124,7 @@ const BecomeChef = () => {
         </div>
 
         <div className="container 2xl:max-w-[1600px] mx-auto">
-          <div className="2xl:max-w-[1600px] xl:max-w-[1100px] lg:max-w-[850px] md:max-w-[800px] mx-auto mt-12 xl:mt-20 2xl:mt-24">
+          <div className="2xl:max-w-[1600px] xl:max-w-[1100px] lg:max-w-[850px] md:max-w-[800px] mx-auto mt-12 xl:mt-20 2xl:mt-24 mnavbar ">
             <div className="flex flex-col md:flex-row justify-between items-stretch mx-auto xs:px-[20px]">
               <div className="w-full md:w-3/5 lg:mr-4 xl:w-[47%] 2xl:w-[52%] flex flex-col justify-between">
                 <h2 className="font-alata alata text-[#111111] text-2xl xl:text-[2rem] sm:mt-[30px] 2xl:mt-[0px] font-[400] leading-8 lg:text-3xl xs:mt-[20px] lg:mt-[0px] lg:leading-10 xl:text-4xl xl:leading-[45px] 2xl:text-[54px] 2xl:leading-[75px]">
@@ -225,7 +225,7 @@ const BecomeChef = () => {
                 </div>
               </div>
 
-              <div className="w-full md:w-2/5 xl:w-[470px] 2xl:w-[712px] flex items-stretch mt-12 md:mt-0 md:ml-6 order-first md:order-last">
+              <div className="w-full md:w-2/5 xl:w-[470px] 2xl:w-[712px] flex items-stretch mt-12 xs:mt md:mt-0 md:ml-6 order-first md:order-last">
                 <Image
                   src={banner2}
                   className="rounded-[15px] w-full object-cover"
@@ -236,9 +236,9 @@ const BecomeChef = () => {
           </div>
         </div>
 
-        <div className="flex items-center w-full">
+        <div className="flex items-center w-full ">
           <div className="bg-[#FFE2E2] py-24 lg:py-16 xl:py-20 xs:py-[2rem] w-full xs:px-[20px] 2xl:mt-[100px] xl:mt-[80px] md:py-[4rem] lg:mt-[60px] md:mt-[40px] xs:mt-[40px] sm:mt-[40px]">
-            <div className="2xl:max-w-[1600px] xl:max-w-[1100px] lg:max-w-[850px] md:max-w-[800px] mx-auto text-center">
+            <div className="2xl:max-w-[1600px] xl:max-w-[1100px] lg:max-w-[850px] md:max-w-[800px] mx-auto text-center mnavbar">
               <h2 className="font-alata font-medium text-[#111111] text-2xl leading-8 sm:text-3xl sm:leading-9 md:text-4xl md:leading-10 xl:text-5xl xl:leading-[45px] 2xl:text-[55px] 2xl:leading-[75px]">
                 Ready to Get Started?
               </h2>
@@ -250,16 +250,16 @@ const BecomeChef = () => {
           </div>
         </div>
 
-        <div className="2xl:w-[1600px] xs:px-[20px] sm:px-[20px] xl:w-[1100px] lg:w-[850px] md:w-[700px]  w-full mx-auto flex flex-col sm:flex-row justify-between items-center mt-12 xl:mt-20 2xl:mt-28 mb-12 xl:mb-20 2xl:mb-28 px-4 ">
-          <div className="2xl:w-[45%] xl:w-[42%] md:w-[50%] sm:w-[50%] lg:w-[50%] mb-8 sm:mb-0">
+        <div className="2xl:w-[1600px] mnavbar xs:px-[20px] md:px-[0px] sm:px-[20px] lg:w-[850px] md:w-[745px] w-full mx-auto flex flex-col sm:flex-row justify-between items-center mt-12 xl:mt-20 2xl:mt-28 mb-12 xl:mb-20 2xl:mb-28 px-4 xl:w-[77%] h-full">
+          <div className="2xl:w-[45%] xl:w-[42%] md:w-[50%] sm:w-[50%] mb-8 sm:mb-0 h-full">
             <Image
               src={banner3}
-              className="rounded-[15px] w-full max-w-[686px] h-auto sm:max-w-[465px] lg:max-w-[313px] xl:max-w-[428px] 2xl:max-w-[686px]"
+              className="rounded-[15px] w-full h-full object-cover max-w-[686px] sm:max-w-[465px] lg:max-w-[313px] xl:max-w-[428px] 2xl:max-w-[686px]"
               alt="Chef Banner"
             />
           </div>
-          <div className="w-full sm:w-[44%] lg:w-[57%] xl:w-[50%] 2xl:w-[46%] max-w-[720px] md:ml-[20px]">
-            <h3 className="font-alata text-[#111111] font-[400] alata xl:text-[2.5rem] text-2xl sm:text-[22px] md:text-[30px] leading-8 text-center sm:text-left sm:text-3xl sm:leading-9 md:text-4xl md:leading-10 xl:text-5xl xl:leading-[45px] 2xl:text-[55px] 2xl:leading-[75px] mb-6">
+          <div className="w-full sm:w-[44%] lg:w-[57%] xl:w-[50%] 2xl:w-[46%] max-w-[720px] md:ml-[20px] h-full flex flex-col justify-center">
+            <h3 className="font-alata text-[#111111] font-[400] xl:text-[2.5rem] text-2xl sm:text-[22px] md:text-[30px] leading-8 text-center sm:text-left sm:text-3xl sm:leading-9 md:text-4xl md:leading-10 xl:text-5xl xl:leading-[45px] 2xl:text-[55px] 2xl:leading-[75px] mb-6">
               Join the Chef Waiting List
             </h3>
             <div className="flex flex-col alata gap-4 md:gap-[5px] xs:gap-[5px]">
