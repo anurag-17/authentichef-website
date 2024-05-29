@@ -149,12 +149,12 @@ const FAQs = () => {
   const toggleAccordion = (index) => {
     setOpenIndex(index === openIndex ? null : index);
   };
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
 
-  const handleClick = () => {
-    toggleAccordion(index);
-    setIsOpen(!isOpen);
-  };
+  // const toggleAccordion = () => {
+  //   toggleAccordion(index);
+  //   setOpenIndex(!openIndex);
+  // };
   return (
     <>
       <section>
@@ -362,41 +362,49 @@ const FAQs = () => {
                       />
                       <div
                         className="collapse-title text-xl font-medium flex justify-between items-center nine_p xs:text-[12px]"
-                        onClick={handleClick}
+                        onClick={() => toggleAccordion(index)}
                       >
                         {item.question}
                         <div
                           className={`rounded-full bg-[#F38181] 2xl:w-[32px] 2xl:h-[32px] xl:w-[25px] xl:h-[25px] lg:w-[16px] sm:w-[16px] w-[] flex items-center justify-center xs:text-[12px]`}
                         >
-                          {isOpen ? (
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              viewBox="0 0 24 24"
-                              strokeWidth="1.5"
-                              stroke="currentColor"
-                              className="text-white 2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] xl:h-[18px] w-[12px] h-[12px]"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M5 12h14"
-                              />
-                            </svg>
-                          ) : (
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              viewBox="0 0 24 24"
-                              strokeWidth="1.5"
-                              stroke="currentColor"
-                              className="text-white 2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] xl:h-[18px] w-[12px] h-[12px]"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M12 4.5v15m7.5-7.5h-15"
-                              />
-                            </svg>
-                          )}
+                          <div key={index}>
+                            <div>
+                              {openIndex === index ? (
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  viewBox="0 0 24 24"
+                                  strokeWidth="1.5"
+                                  stroke="currentColor"
+                                  className="text-white 2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] xl:h-[18px] w-[12px] h-[12px]"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M5 12h14"
+                                  />
+                                </svg>
+                              ) : (
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  viewBox="0 0 24 24"
+                                  strokeWidth="1.5"
+                                  stroke="currentColor"
+                                  className="text-white 2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] xl:h-[18px] w-[12px] h-[12px]"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M12 4.5v15m7.5-7.5h-15"
+                                  />
+                                </svg>
+                              )}
+                            </div>
+                            {openIndex === index && (
+                              <div>{/* Your accordion content here */}</div>
+                            )}
+                          </div>
+                          
                         </div>
                       </div>
                       <div className="collapse-content">

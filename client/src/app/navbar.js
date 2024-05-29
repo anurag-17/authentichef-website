@@ -385,7 +385,7 @@ const Navbar = () => {
                     <Image
                       alt="image"
                       src={sidemanu}
-                      className=" cursor-pointer 2xl:w-[38.67px] 2xl:h-[32px] xl:w-[30px] h-auto w-[22px] menu-btn md:ml-6 lg:ml-0"
+                      className=" cursor-pointer 2xl:w-[38.67px] 2xl:h-[32px] xl:w-[25px] h-auto w-[22px] menu-btn md:ml-6 lg:ml-0"
                     />
                   </label>
                 </div>
@@ -398,17 +398,11 @@ const Navbar = () => {
                   <ul className="menu p-[3px] 2xl:px-[20px] xl:px-[20px] lg:px-[15px] sm:px-[5px] px-[3px] 2xl:w-[410px] xl:w-[320px] lg:w-[240px] sm:w-[200px] w-[180px] min-h-full bg-base-200 sidebar">
                     {/* Sidebar content here */}
                     <div>
-                      <div className="flex justify-between items-center">
-                        <Link href="/">
-                          <Image
-                            src={sidelogo}
-                            className="2xl:w-[169px] 2xl:h-[43px] xl:w-[160px] lg:w-[150px] xs:w-[103px] md:w-[130px] sm:w-[70px] w-[60px]"
-                          />
-                        </Link>
-                        <label
+                      <div className="flex justify-between items-center 2xl:my-[10px] my-[5px]">
+                      <label
                           htmlFor="my-drawer"
                           aria-label="close sidebar"
-                          className="drawer-overlay"
+                          className="drawer-overlay cursor-pointer"
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -425,6 +419,13 @@ const Navbar = () => {
                             />
                           </svg>
                         </label>
+                        <Link href="/">
+                          <Image
+                            src={sidelogo}
+                            className="2xl:w-[169px] 2xl:h-[43px] xl:w-[160px] lg:w-[150px] xs:w-[103px] md:w-[130px] sm:w-[70px] w-[60px]"
+                          />
+                        </Link>
+                      
                       </div>
                     </div>
                     <li className="2xl:mt-[90px] xl:mt-[50px] lg:mt-[40px] sm:mt-[30px] mt-[20px]">
@@ -543,7 +544,7 @@ const Navbar = () => {
                         viewBox="0 0 24 24"
                         strokeWidth="1.5"
                         stroke="currentColor"
-                        className="absolute text-[#AE6363] 2xl:top-[10px] 2xl:left-[10px] xl:top-[8px] xl:left-[10px] top-[10px] left-[5px] 2xl:w-5 2xl:h-5 xl:w-4 xl:h-4 w-3 h-3"
+                        className="absolute hidden text-[#AE6363] 2xl:top-[10px] 2xl:left-[10px] xl:top-[8px] xl:left-[10px] top-[10px] left-[5px] 2xl:w-5 2xl:h-5 xl:w-4 xl:h-4 w-3 h-3"
                       >
                         <path
                           strokeLinecap="round"
@@ -553,7 +554,7 @@ const Navbar = () => {
                       </svg>
                     </div>
                     <div className="nav_login1 flex gap-2">
-                      Welcome <p>{userDetails?.firstname}</p>
+                      Welcome <p>{userDetails?.firstname}!</p>
                     </div>
                     <button>
                       <Image
@@ -785,7 +786,7 @@ const Navbar = () => {
       <div className="">
         <dialog
           id="my_modal_1"
-          className="modal rounded-[10px] 2xl:w-[1000px] 2xl:h-[665px] xl:w-[620px] xl:h-[480px] lg:w-[480px] h-[400px] 2xl:mt-40 xl:mt-24 mt-14 p-0 signup"
+          className="modal rounded-[10px] 2xl:w-[1000px] 2xl:h-[605px] xl:w-[620px] xl:h-[410px] lg:w-[480px] h-[400px] 2xl:mt-40 xl:mt-24 mt-14 p-0 signup"
         >
           <form
             method="dialog"
@@ -794,7 +795,7 @@ const Navbar = () => {
           >
             {/* if there is a button in form, it will close the modal */}
             <div className="flex justify-center items-center border w-full 2xl:h-[80px] xl:h-[55px] h-[40px]">
-              <div className="absolute right-3" onClick={handleClosee}>
+              <div className="absolute right-3 cursor-pointer" onClick={handleClosee}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -810,7 +811,7 @@ const Navbar = () => {
                   />
                 </svg>
               </div>
-              <h4 className="fourth_p">Sign up</h4>
+              <h4 className="fourth_p">Sign Up</h4>
             </div>
             <div className=" my-3 px-[40px]">
               <div className="flex flex-wrap justify-between 2xl:w-[775px] xl:w-[480px] mx-auto ">
@@ -819,7 +820,7 @@ const Navbar = () => {
                     type="text"
                     name="firstname"
                     placeholder="First Name"
-                    className="alata font-[400] login-inputad w-full"
+                    className="alata font-[400] login-inputad text-[#929292] w-full "
                     pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     title="enter valid email ex. abc@gmail.com"
                     onChange={inputHandlers}
@@ -831,7 +832,7 @@ const Navbar = () => {
                     type="text"
                     name="lastname"
                     placeholder="Last Name"
-                    className="alata font-[400] login-inputad w-full"
+                    className="alata font-[400] login-inputad text-[#929292] w-full"
                     pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     title="enter valid email ex. abc@gmail.com"
                     onChange={inputHandlers}
@@ -843,7 +844,7 @@ const Navbar = () => {
                     type="email"
                     name="email"
                     placeholder="Email Address"
-                    className="alata font-[400] login-inputad w-full"
+                    className="alata font-[400] login-inputad text-[#929292] w-full"
                     pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     title="enter valid email ex. abc@gmail.com"
                     onChange={inputHandlers}
@@ -855,7 +856,7 @@ const Navbar = () => {
                     type="password"
                     name="password"
                     placeholder="Password"
-                    className="alata font-[400] login-inputad w-full"
+                    className="alata font-[400] login-inputad text-[#929292] w-full"
                     pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     title="enter valid email ex. abc@gmail.com"
                     onChange={inputHandlers}
@@ -864,7 +865,7 @@ const Navbar = () => {
                 </div>
               </div>
               <div className="flex">
-                <button className="w-full mx-auto alata text-white 2xl:text-[20px] 2xl:w-[368px] xl:w-[230px] lg:w-[190px] xl:text-[14px] text-[12px] rounded-[5px] 2xl:mt-[20px] xl:mt-[15px] mt-[10px] 2xl:h-[60px] xl:h-[40px] lg:h-[32px] text-center bg-[#DB5353]">
+                <button className="w-full mx-auto alata text-white 2xl:text-[20px] 2xl:w-[368px] xl:w-[230px] lg:w-[190px] xl:text-[14px] text-[12px] rounded-[5px] 2xl:mt-[20px] xl:mt-[15px] mt-[10px] 2xl:h-[60px] xl:h-[40px] lg:h-[32px] text-center bg-[#DB5353] sign-button">
                   Create Account
                 </button>
               </div>
@@ -890,7 +891,7 @@ const Navbar = () => {
                           src={google}
                           alt="Google"
                         />
-                        <h3 className="checkoutlable">Continue with Google</h3>
+                        <h3 className="checkoutlable text-[#929292]">Continue with Google</h3>
                       </div>
                     </div>
                   {/* </a> */}
@@ -907,11 +908,11 @@ const Navbar = () => {
                   </Link>
                 </div>
               </div>
-              <div className="my-[30px]">
+              {/* <div className="my-[30px]">
                 <h4 className="text-[#555555] alata font-[400] text-[14px] leading-[26px] text-center">
                   Browse as Guest
                 </h4>
-              </div>
+              </div> */}
             </div>
           </form>
         </dialog>
@@ -920,12 +921,12 @@ const Navbar = () => {
       <div className="">
         <dialog
           id="my_modal_2"
-          className="modal rounded-[10px] 2xl:w-[1000px] 2xl:h-[501px] xl:w-[620px] xl:h-[350px] lg:w-[480px] h-[350px] 2xl:mt-40 xl:mt-24 mt-14 p-0"
+          className="modal rounded-[10px] 2xl:w-[1000px] 2xl:h-[551px] xl:w-[620px] xl:h-[400px] lg:w-[480px] h-[350px] 2xl:mt-40 xl:mt-24 mt-14 p-0 loginpop"
         >
           <form method="dialog" className=" mt-0" onSubmit={handleSubmit}>
             <div className=" ">
               <div className="flex justify-center items-center w-full ">
-                <div className="absolute right-3" onClick={handleClose}>
+                <div className="absolute right-3 cursor-pointer" onClick={handleClose}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -954,6 +955,9 @@ const Navbar = () => {
                     pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     title="enter valid email ex. abc@gmail.com"
                   />
+                  <label className="checkoutlable text-[#929292] cursor-pointer">
+                    Forgot Email?
+                  </label>
                 </div>
                 <div className="2xl:mt-[35px] mt-[20px]">
                   <input
@@ -965,11 +969,14 @@ const Navbar = () => {
                     pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     title="enter valid email ex. abc@gmail.com"
                   />
+                   <label className="checkoutlable text-[#929292] cursor-pointer">
+                    Forgot Password?
+                  </label>
                 </div>
                 <div className="flex">
                   <button
                     type="submit"
-                    className="w-full mx-auto alata text-white 2xl:text-[20px] 2xl:w-[368px] xl:w-[280px] lg:w-[220px] xl:text-[16px] text-[12px] rounded-[5px] 2xl:mt-[40px] xl:mt-[25px] mt-[20px] 2xl:h-[60px] xl:h-[40px] lg:h-[32px] text-center bg-[#DB5353]"
+                    className="w-full mx-auto alata text-white 2xl:text-[20px] 2xl:w-[368px] xl:w-[280px] lg:w-[220px] xl:text-[16px] text-[12px] rounded-[5px] 2xl:mt-[40px] xl:mt-[25px] mt-[20px] 2xl:h-[60px] xl:h-[40px] lg:h-[32px] text-center bg-[#DB5353] login-button"
                   >
                     Login
                   </button>
