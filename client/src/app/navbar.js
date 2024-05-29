@@ -361,6 +361,10 @@ const Navbar = () => {
     handleAddCart();
   };
 
+  const handleGoogleOAuth = () => {
+    window.location.href = 'https://server-backend-gamma.vercel.app/Google_OAuth/google';
+  };
+
   return (
     <>
       {/* <ToastContainer className="mt-24" autoClose={1000} /> */}
@@ -871,17 +875,26 @@ const Navbar = () => {
               </div>
               <div className="flex 2xl:mt-[20px]">
                 <div className="mx-auto 2xl:w-[368px] xl:w-[230px]">
-                  <Link
-                    href="https://accounts.google.com/v3/signin/identifier?authuser=0&continue=https%3A%2F%2Fmyaccount.google.com%2F%3Futm_source%3Dmy-activity%26utm_medium%3Dhome%26utm_campaign%26hl%3Den_GB%26pli%3D1&ec=GAlAwAE&hl=en_GB&service=accountsettings&flowName=GlifWebSignIn&flowEntry=AddSession&dsh=S-1476156200%3A1712751508637500&theme=mn&ddm=0"
+                  {/* <a
+                    href="https://server-backend-gamma.vercel.app/Google_OAuth/google"
                     target="_blank"
-                  >
-                    <div className=" social_div ">
-                      <div className="flex social_btn ">
-                        <Image className=" social_img " src={google} />
+                    rel="noopener noreferrer"
+                  > */}
+                    <div className="social_div">
+                      <div
+                        className="flex social_btn"
+                        onClick={handleGoogleOAuth}
+                      >
+                        <Image
+                          className="social_img"
+                          src={google}
+                          alt="Google"
+                        />
                         <h3 className="checkoutlable">Continue with Google</h3>
                       </div>
                     </div>
-                  </Link>
+                  {/* </a> */}
+
                   <Link href="https://www.facebook.com/login/" target="_blank">
                     <div className="my-[12px] social_div">
                       <div className="social_btn">
