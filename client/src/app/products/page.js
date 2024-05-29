@@ -24,8 +24,6 @@ import Rectangle8 from "../assets/main-item-palakpaneer.png";
 import Rectangle9 from "../assets/main-items-paneer-butter-masala.png";
 import Rectangle10 from "../assets/main-items-alloosabhji2nd.png";
 import emptyCart from "../../../public/images/emptyCart.svg";
-import { useCart } from "../create-context/cart-context";
-import { CartProvider } from "../create-context/cart-context";
 import plus from "../../../public/images/plus.svg";
 import minus from "../../../public/images/minus.svg";
 import Navbar from "../navbar";
@@ -541,14 +539,6 @@ const Products = ({ item }) => {
   );
 };
 
-const App = () => {
-  return (
-    <CartProvider>
-      {" "}
-      {/* Wrapping the component tree with CartProvider */}
-      <Products />
-    </CartProvider>
-  );
-};
 
-export default dynamic(() => Promise.resolve(App), { ssr: false });
+
+export default Products;
