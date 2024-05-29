@@ -12,32 +12,32 @@ import Navbar from "../navbar";
 const BecomeChef = () => {
   return (
     <>
-        <Navbar className="" />
-      <section className="w-full"> 
-
+      <Navbar  />
+      <div className="w-full">
         <div className="flex justify-center">
-        <div className="flex justify-center text-center sm:text-[20px] 2xl:mt-[76px] mx-auto">
-          <div className="max-w-[1600px] xl:max-w-[1100px] lg:max-w-[850px] md:max-w-[800px] mx-auto px-4 xl:pt-[140px] pt-[90px]">
-            <h1 className="font-alata alata  text-[#111111] text-4xl font-[400] md:text-5xl lg:text-[2.7rem] lg:text-6xl xl:text-[45px] 2xl:text-[75px] leading-[1.3] md:leading-[1.2] xl:leading-[55px] 2xl:leading-[85px] mb-[10px]">
-              Our Chef Community
-            </h1>
-            <div className="2xl:max-w-[1098px] alata xl:max-w-[700px] lg:max-w-[600px] mx-auto text-[#111111] mb-[25px] ">
-              <p className="font-alata  text-base md:text-lg 2xl:mt-[16px] lg:text-xl font-[400] xl:text-[16px]  2xl:text-[25px] leading-[1.5] md:leading-[1.4] xl:leading-[30px] 2xl:leading-[50px] mb-[3px]">
-                Our diverse chef community is at the heart of the food we serve.
-              </p>
-              <p className="font-alata alata  text-base md:text-lg lg:text-xl 2xl:mt-[12px] font-[400] xl:text-[16px] 2xl:text-[25px] leading-[1.5] md:leading-[1.4] xl:leading-[22px] 2xl:leading-[35px]">
-                We help new and established chefs start and grow their food
-                business and showcase their passion for creating culinary
-                experiences.
-              </p>
-            </div>
-            <div className="flex justify-center">
-              <button className="font-alata  xs:w-[50%] font-medium bg-[#DB5353] text-white rounded-[5px] w-[130px] xl:w-[160px] 2xl:w-[240px] py-1 xl:py-[12px] lg:py-[10px] px-3 lg:px-2 xl:px-2 2xl:px-4  mt-[20px] xs:py-[12px] xs:mx-auto text-[10px] lg:text-[10px] xl:text-[14px] 2xl:text-[20px]">
-                Join the Waiting List
-              </button>
+          <div className="flex justify-center text-center sm:text-[20px] 2xl:mt-[76px] mx-auto">
+            <div className="max-w-[1600px] xl:max-w-[1100px] lg:max-w-[850px] md:max-w-[800px] mx-auto px-4 xl:pt-[140px] pt-[90px]">
+              <h1 className="font-alata alata  text-[#111111] text-4xl font-[400] md:text-5xl lg:text-[2.7rem] lg:text-6xl xl:text-[45px] 2xl:text-[75px] leading-[1.3] md:leading-[1.2] xl:leading-[55px] 2xl:leading-[85px] mb-[10px]">
+                Our Chef Community
+              </h1>
+              <div className="2xl:max-w-[1098px] alata xl:max-w-[700px] lg:max-w-[600px] mx-auto text-[#111111] mb-[25px] ">
+                <p className="font-alata  text-base md:text-lg 2xl:mt-[16px] lg:text-xl font-[400] xl:text-[16px]  2xl:text-[25px] leading-[1.5] md:leading-[1.4] xl:leading-[30px] 2xl:leading-[50px] mb-[3px]">
+                  Our diverse chef community is at the heart of the food we
+                  serve.
+                </p>
+                <p className="font-alata alata  text-base md:text-lg lg:text-xl 2xl:mt-[12px] font-[400] xl:text-[16px] 2xl:text-[25px] leading-[1.5] md:leading-[1.4] xl:leading-[22px] 2xl:leading-[35px]">
+                  We help new and established chefs start and grow their food
+                  business and showcase their passion for creating culinary
+                  experiences.
+                </p>
+              </div>
+              <div className="flex justify-center">
+                <button className="font-alata  xs:w-[50%] font-medium bg-[#DB5353] text-white rounded-[5px] w-[130px] xl:w-[160px] 2xl:w-[240px] py-1 xl:py-[12px] lg:py-[10px] px-3 lg:px-2 xl:px-2 2xl:px-4  mt-[20px] xs:py-[12px] xs:mx-auto text-[10px] lg:text-[10px] xl:text-[14px] 2xl:text-[20px]">
+                  Join the Waiting List
+                </button>
+              </div>
             </div>
           </div>
-        </div>
         </div>
 
         <div className="bg-[#f7bda6] w-full mt-8 lg:mt-16 xl:mt-24 2xl:mt-36 my-10">
@@ -292,7 +292,7 @@ const BecomeChef = () => {
         </div>
 
         <Footer />
-      </section>
+      </div>
     </>
   );
 };

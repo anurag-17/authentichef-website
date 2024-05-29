@@ -645,6 +645,35 @@ td {
     height: auto !important;
   }
 }
+@media (min-width: 1536px) and (max-width: 1800px) {
+  .signup {
+    height: 70% !important;
+  }
+  .filtermodale{
+    width: 80% !important;
+    margin-top: 140px !important;
+    height: 450px !important;
+  }
+  .dropbox{
+    height: 80px !important;
+    width: 240px  !important;
+    font-size: 16px !important;
+  }
+  .dropbox3{
+    height: 80px !important;
+    width: 180px  !important;
+    font-size: 16px !important;
+  }
+  .optionDiv{
+    width: 95% !important;
+  }
+  .optionimg{
+    width: 55px !important;
+    height: auto !important;
+    margin:  0px !important;
+  }
+  
+}
 
 .sidebar {
   @apply alata font-[400] text-[#161616] 2xl:text-[16px] xl:text-[12px] lg:text-[10px] sm:text-[10px] text-[] 2xl:leading-[26px] xl:leading-[22px] lg:leading-[16px] sm:leading-[16px] leading-[]
