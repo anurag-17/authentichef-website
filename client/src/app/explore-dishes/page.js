@@ -689,7 +689,7 @@ const ExploreDishes = () => {
                   </button>
                   <dialog
                     id="my_modal_3"
-                    className="filtermodale modal relative bg-base-100  justify-center items-center xl:mt-52 2xl:mt-72 2xl:w-[1660px] xl:w-[1100px] lg:w-[850px] 2xl:h-[520px] xl:h-[350px] 2xl:px-[0px] 2xl:py-[75px] xl:px-[30px] xl:py-[40px] "
+                    className="filtermodale modal relative bg-base-100  justify-center items-center xl:mt-52 2xl:mt-72 2xl:w-[1660px] xl:w-[1200px] lg:w-[850px] 2xl:h-[520px] xl:h-[350px] 2xl:px-[0px] 2xl:py-[75px] xl:px-[30px] xl:py-[40px] "
                   >
                     <form method="dialog" className="modal-backdrop ">
                       <button
@@ -714,7 +714,7 @@ const ExploreDishes = () => {
                         </svg>
                       </button>
                     </form>
-                    <div className=" flex flex-wrap gap-[20px]  2xl:w-[1602px] xl:w-[1200px] h-auto mx-[0px] optionDiv">
+                    <div className=" flex flex-wrap gap-[20px]  2xl:w-[1602px] xl:w-[1050px] h-auto mx-[0px] optionDiv">
                       {/* ================= Cuisines =========== */}
                       <button>
                         <div className="dropbox all_cuisines">
@@ -731,6 +731,7 @@ const ExploreDishes = () => {
                           <button
                             key={item._id}
                             onClick={() => handleSearchCuisines(item._id)}
+                            className=""
                           >
                             <div className="dropbox">
                               <img
@@ -771,7 +772,7 @@ const ExploreDishes = () => {
                   </button>
                   <dialog
                     id="my_modal_4"
-                    className="filtermodale modal relative bg-base-100 flex justify-center items-center xl:mt-52 2xl:mt-72 2xl:w-[1660px] xl:w-[1100px] lg:w-[850px] 2xl:h-[520px] xl:h-[350px] 2xl:px-[0px] 2xl:py-[75px] xl:px-[30px] xl:py-[40px] "
+                    className="filtermodal2 modal relative bg-base-100 flex justify-center items-center xl:mt-52 2xl:mt-72 2xl:w-[1660px] xl:w-[1200px] lg:w-[850px] 2xl:h-[420px] xl:h-[350px] 2xl:px-[0px] 2xl:py-[75px] xl:px-[30px] xl:py-[40px] "
                   >
                     <form method="dialog" className="modal-backdrop ">
                       <button
@@ -796,7 +797,7 @@ const ExploreDishes = () => {
                         </svg>
                       </button>
                     </form>
-                    <div className=" flex flex-wrap gap-[20px]  2xl:w-[1602px] xl:w-[1200px] h-auto mx-[0px] optionDiv">
+                    <div className=" flex flex-wrap gap-[20px]  2xl:w-[1602px] xl:w-[1050px] h-auto mx-[0px] optionDiv">
                       {/* ================= Dietary=========== */}
                       {/*
                       <div className=" flex flex-wrap gap-[20px]  2xl:w-[1602px] h-auto mx-auto">
@@ -818,10 +819,12 @@ const ExploreDishes = () => {
                             onClick={() => handleSearchDietary(item._id)}
                           >
                             <div className="dropbox">
-                              <img
-                                src={item.ProfileImage}
-                                className="optionimg rounded-[5px] 2xl:w-[35px] 2xl:h-[35px] h-auto xl:w-[50px] lg:w-[] sm:w-[] w-[]  "
-                              />
+                              <div className="flex items-center optionimgs border bg-[#EEEEEE] rounded-[5px] 2xl:w-[56px] 2xl:h-[56px]  xl:w-[40px] xl:h-[40px] lg:w-[] sm:w-[]">
+                                <img
+                                  src={item.ProfileImage}
+                                  className=" mx-auto "
+                                />
+                              </div>
                               <h4 className="capitalize">{item.title}</h4>
                             </div>
                           </button>
@@ -855,7 +858,7 @@ const ExploreDishes = () => {
                   </button>
                   <dialog
                     id="my_modal_5"
-                    className="filtermodale modal relative bg-base-100 flex justify-center items-center xl:mt-52 2xl:mt-72 2xl:w-[1660px] xl:w-[1100px] lg:w-[850px] 2xl:h-[520px] xl:h-[350px] 2xl:px-[0px] 2xl:py-[75px] xl:px-[30px] xl:py-[40px] "
+                    className="filtermodal3 modal relative bg-base-100 flex justify-center items-center xl:mt-52 2xl:mt-72 2xl:w-[1660px] xl:w-[1200px] lg:w-[850px] 2xl:h-[300px] xl:h-[350px] 2xl:px-[0px] 2xl:py-[75px] xl:px-[30px] xl:py-[40px] "
                   >
                     <form method="dialog" className="modal-backdrop ">
                       <button
@@ -880,10 +883,10 @@ const ExploreDishes = () => {
                         </svg>
                       </button>
                     </form>
-                    <div className=" flex flex-wrap gap-[20px]  2xl:w-[1602px] xl:w-[1200px] h-auto mx-[0px] optionDiv">
+                    <div className=" flex flex-wrap gap-[20px]  2xl:w-[1602px] xl:w-[1050px] h-auto mx-[0px] optionDiv">
                       {/* ================= Dish Type =========== */}
 
-                      <div className="flex justify-between 2xl:w-[1602px] h-auto mx-auto">
+                      <div className="flex justify-around 2xl:w-[1602px] w-full h-auto mx-auto">
                         <div>
                           <h4 className="alata font-[400] 2xl:text-[20px] xl:text-[14px] lg:text-[10px] sm:text-[] text-[] my-1 ">
                             Dish Type
@@ -905,10 +908,12 @@ const ExploreDishes = () => {
                                   }
                                 >
                                   <div className="dropbox3 gap-3">
-                                    <img
-                                      src={item.ProfileImage}
-                                      className="rounded-[5px] 2xl:w-[25px] 2xl:h-[25px] h-auto xl:w-[50px] lg:w-[] sm:w-[] w-[]  "
-                                    />
+                                    <div className="flex items-center optionimgs border bg-[#EEEEEE] rounded-[5px] 2xl:w-[56px] 2xl:h-[56px]  xl:w-[40px] xl:h-[40px] lg:w-[] sm:w-[]">
+                                      <img
+                                        src={item.ProfileImage}
+                                        className=" mx-auto"
+                                      />
+                                    </div>
                                     <h4 className="capitalize">{item.title}</h4>
                                   </div>
                                 </button>
@@ -936,10 +941,12 @@ const ExploreDishes = () => {
                                   }
                                 >
                                   <div className="dropbox3 gap-3">
-                                    <img
-                                      src={item.ProfileImage}
-                                      className="rounded-[5px] 2xl:w-[25px] 2xl:h-[25px] h-auto xl:w-[50px] lg:w-[] sm:w-[] w-[]  "
-                                    />
+                                    <div className="flex items-center optionimgs border bg-[#EEEEEE] rounded-[5px] 2xl:w-[56px] 2xl:h-[56px]  xl:w-[40px] xl:h-[40px] lg:w-[] sm:w-[]">
+                                      <img
+                                        src={item.ProfileImage}
+                                        className="mx-auto  "
+                                      />
+                                    </div>
                                     <h4 className="capitalize">{item.title}</h4>
                                   </div>
                                 </button>
@@ -1205,7 +1212,7 @@ const ExploreDishes = () => {
                                   <Image
                                     src={addCart}
                                     alt={item.title}
-                                    className=" 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
+                                    className="cursor-pointer 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
                                   />
                                 </label>
                               </div>
