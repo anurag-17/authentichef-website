@@ -442,12 +442,10 @@ const ExploreDishes = () => {
           quantity: 1, // Default quantity is set to 1
         })),
       };
-
       if (!token) {
         toast.error("You need to be logged in to add items to the cart.");
         return;
       }
-
       const response = await axios.post(
         `${config.baseURL}/api/Orders/AddtoCart`,
         payload,
@@ -457,7 +455,6 @@ const ExploreDishes = () => {
           },
         }
       );
-
       if (response.status >= 200 && response.status < 300) {
         toast.success("Items added to cart successfully");
         handleDrawerOpen();
@@ -1121,24 +1118,24 @@ const ExploreDishes = () => {
 
                         <div className="flex flex-wrap gap-5 2xl:my-[20px] xl:my-[15px] my-[12px]">
                           {item?.Dietary_id.map((dietary) => (
-                            <button className="four_btn" key={dietary._id}>
+                            <div className="four_btn" key={dietary._id}>
                               <img
                                 src={dietary.ProfileImage}
                                 className="2xl:[18px] xl:w-[14px] w-[12px]"
                                 alt={dietary.title}
                               />
                               <p className="fourth_day">{dietary.title}</p>
-                            </button>
+                            </div>
                           ))}
-                          <button className="four_btn">
+                          <div className="four_btn">
                             <p className="fourth_day">
                               {item?.Nutrition_id?.Nutritional}
                             </p>
-                          </button>
+                          </div>
                         </div>
                         <div className="flex items-center gap-5  2xl:my-[20px] xl:my-[15px] my-[12px]">
                           <h4 className="fourth_p">Spice level</h4>
-                          <button className="four_btn">
+                          <div className="four_btn">
                             <img
                               alt="image"
                               src={item.spice_level_id.ProfileImage}
@@ -1147,7 +1144,7 @@ const ExploreDishes = () => {
                             <p className="fourth_day">
                               {item.spice_level_id.title}
                             </p>
-                          </button>
+                          </div>
                         </div>
 
                         <div className=" w-full bottom-0 flex justify-between items-center  2xl:my-[22px] xl:my-[18px] my-[15px]">
@@ -1190,7 +1187,7 @@ const ExploreDishes = () => {
                                   <Image
                                     src={addCart}
                                     alt={item.title}
-                                    className="2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
+                                    className="cursor-pointer 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
                                   />
                                 </label>
                               </div>
