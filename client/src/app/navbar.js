@@ -361,9 +361,85 @@ const Navbar = () => {
     handleAddCart();
   };
 
+  // const handleGoogleOAuth = () => {
+  //   window.location.href =
+  //     "https://server-backend-gamma.vercel.app/Google_OAuth/google";
+  // };
+
+  // const handleOAuthCallback = async (code) => {
+  //   try {
+  //     const response = await axios.get(
+  //       `https://server-backend-gamma.vercel.app/Google_OAuth/google/callback`,
+  //       {
+  //         params: {
+  //           code: code,
+  //           scope:
+  //             "email profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile openid",
+  //           authuser: 0,
+  //           prompt: "none",
+  //         },
+  //       }
+  //     );
+
+  //     const data = response.data;
+
+  //     if (data.success) {
+  //       dispatch(setToken(data.token));
+  //       dispatch(setUser(data.user));
+  //       dispatch(setSuccess(data.success));
+  //       router.push("/"); // Redirect to home or desired page
+  //     } else {
+  //       console.error("Authentication failed");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error handling callback:", error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   const code = new URLSearchParams(window.location.search).get("code");
+  //   if (code) {
+  //     handleOAuthCallback(code);
+  //   }
+  // }, []);
+
   const handleGoogleOAuth = () => {
-    window.location.href = 'https://server-backend-gamma.vercel.app/Google_OAuth/google';
+    window.location.href = `https://server-backend-gamma.vercel.app/Google_OAuth/google`;
   };
+
+  const handleOAuthCallback = async (code) => {
+    try {
+      const response = await axios.get(`https://server-backend-gamma.vercel.app/Google_OAuth/google/callback`, {
+        params: {
+          code: code,
+          scope: "email profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile openid",
+          authuser: 0,
+          prompt: "none",
+        },
+      });
+
+      const data = response.data;
+
+      if (data.success) {
+        dispatch(setToken(data.token));
+        dispatch(setUser(data.user));
+        dispatch(setSuccess(data.success));
+        router.push('/'); // Redirect to home or desired page
+      } else {
+        console.error("Authentication failed");
+      }
+    } catch (error) {
+      console.error("Error handling callback:", error);
+    }
+  };
+
+  useEffect(() => {
+    const code = new URLSearchParams(window.location.search).get('code');
+    if (code) {
+      handleOAuthCallback(code);
+    }
+  }, []);
+
 
   return (
     <>
@@ -399,7 +475,7 @@ const Navbar = () => {
                     {/* Sidebar content here */}
                     <div>
                       <div className="flex justify-between items-center 2xl:my-[10px] my-[5px]">
-                      <label
+                        <label
                           htmlFor="my-drawer"
                           aria-label="close sidebar"
                           className="drawer-overlay cursor-pointer"
@@ -425,7 +501,6 @@ const Navbar = () => {
                             className="2xl:w-[169px] 2xl:h-[43px] xl:w-[160px] lg:w-[150px] xs:w-[103px] md:w-[130px] sm:w-[70px] w-[60px]"
                           />
                         </Link>
-                      
                       </div>
                     </div>
                     <li className="2xl:mt-[90px] xl:mt-[50px] lg:mt-[40px] sm:mt-[30px] mt-[20px]">
@@ -795,7 +870,10 @@ const Navbar = () => {
           >
             {/* if there is a button in form, it will close the modal */}
             <div className="flex justify-center items-center border w-full 2xl:h-[80px] xl:h-[55px] h-[40px]">
-              <div className="absolute right-3 cursor-pointer" onClick={handleClosee}>
+              <div
+                className="absolute right-3 cursor-pointer"
+                onClick={handleClosee}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -881,19 +959,35 @@ const Navbar = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                   > */}
-                    <div className="social_div">
-                      <div
-                        className="flex social_btn"
-                        onClick={handleGoogleOAuth}
-                      >
-                        <Image
-                          className="social_img"
-                          src={google}
-                          alt="Google"
-                        />
-                        <h3 className="checkoutlable text-[#929292]">Continue with Google</h3>
-                      </div>
-                    </div>
+                  <div className="menu">
+                    {isLoggedIn && user ? (
+                      <>
+                        <span>Welcome, {user.firstname}</span>
+                        <Image src={user.img || profile} alt="Profile" />
+                        <button onClick={handleLogout}>
+                          <Image src={logout} alt="Logout" />
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <div className="social_div">
+                          <div
+                            className="flex social_btn"
+                            onClick={handleGoogleOAuth}
+                          >
+                            <Image
+                              className="social_img"
+                              src={google}
+                              alt="Google"
+                            />
+                            <h3 className="checkoutlable text-[#929292]">
+                              Continue with Google
+                            </h3>
+                          </div>
+                        </div>
+                      </>
+                    )}
+                  </div>
                   {/* </a> */}
 
                   <Link href="https://www.facebook.com/login/" target="_blank">
@@ -926,7 +1020,10 @@ const Navbar = () => {
           <form method="dialog" className=" mt-0" onSubmit={handleSubmit}>
             <div className=" ">
               <div className="flex justify-center items-center w-full ">
-                <div className="absolute right-3 cursor-pointer" onClick={handleClose}>
+                <div
+                  className="absolute right-3 cursor-pointer"
+                  onClick={handleClose}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -969,7 +1066,7 @@ const Navbar = () => {
                     pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     title="enter valid email ex. abc@gmail.com"
                   />
-                   <label className="checkoutlable text-[#929292] cursor-pointer">
+                  <label className="checkoutlable text-[#929292] cursor-pointer">
                     Forgot Password?
                   </label>
                 </div>
