@@ -10,16 +10,16 @@ const PrivacyPolicy = () => {
         <Navbar />
         <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[600px] xs:w-[90%] sm:w-[90%]    mx-auto 2xl:py-[150px] xl:py-[120px] py-[70px] mnavbar">
           <div>
-            <h1 className="third_head mb-7 2xl:mb-10">Privacy Policy</h1>
+            <h1 className="third_head mb-7 2xl:mb-10 xs:items-center xs:justify-center">Privacy Policy</h1>
 
             <p className="footer_text mb-7 2xl:mb-10">
-              Authentic chef is committed to protecting your privacy. This Privacy
-              Policy explains how we collect, use, disclose, and safeguard your
-              personal data when you use the Authentic chef Website. We will only
-              use the data that we collect about you in accordance with the
-              applicable privacy laws including but not limited to the EU
-              General Data Protection Regulation 2016/679 (GDPR) and UK Data
-              Protection Act 2018.
+              Authentic chef is committed to protecting your privacy. This
+              Privacy Policy explains how we collect, use, disclose, and
+              safeguard your personal data when you use the Authentic chef
+              Website. We will only use the data that we collect about you in
+              accordance with the applicable privacy laws including but not
+              limited to the EU General Data Protection Regulation 2016/679
+              (GDPR) and UK Data Protection Act 2018.
             </p>
 
             {/* <h2>Log Files</h2> */}
@@ -48,15 +48,15 @@ const PrivacyPolicy = () => {
             </h3>
 
             <p className="footer_text mb-7 2xl:mb-10">
-              While it is perfectly possible to visit and browse the
-              Authentic chef Website without disclosing any personal information,
-              if you choose to actively engage with us by registering an
-              account, you will be asked to provide certain personally
-              identifiable information, commonly known as personal data.
-              Personal data is basically any information about an individual
-              from which that individual can be identified whether directly or
-              indirectly. It does not include data where the identity has been
-              removed (anonymous data).
+              While it is perfectly possible to visit and browse the Authentic
+              chef Website without disclosing any personal information, if you
+              choose to actively engage with us by registering an account, you
+              will be asked to provide certain personally identifiable
+              information, commonly known as personal data. Personal data is
+              basically any information about an individual from which that
+              individual can be identified whether directly or indirectly. It
+              does not include data where the identity has been removed
+              (anonymous data).
             </p>
             <p className="footer_text mb-7 2xl:mb-10">
               The personal data we collect from you depends on precisely what
@@ -171,145 +171,148 @@ const PrivacyPolicy = () => {
               basis that we rely on to process such information.
             </p>
             <div className="2xl:my-10 m">
-            <div className="overflow-x-auto">
-              <table className="table border text-[#000000]">
-                {/* head */}
-                <thead className="text-[#000000] 2xl:text-[25px] ">
-                  <tr className="footer_text">
-                    <th className="font-semibold py-5">Purpose</th>
-                    <th className="font-semibold py-5">Details </th>
-                    <th className="font-semibold py-5">Legal Basis</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {/* row 1 */}
-                  <tr className="footer_text">
-                    <td className="py-5 w-3/12">Providing our services</td>
-                    <td className="py-5 w-6/12">
-                      We will need your personal data to administer our services
-                      effectively and carry out our obligations arising from any
-                      contracts entered into between you and us. This may
-                      include passing your data to third parties such as our
-                      business partners, contractors, agents or advisors (e.g.
-                      legal, financial, business or other advisors).
-                    </td>
-                    <td>
-                      Contract performance, Legitimate interests (to enable us
-                      to perform our obligations and provide our services to
-                      you)
-                    </td>
-                  </tr>
+              <div className="overflow-x-auto">
+                <table className="table border text-[#000000]">
+                  {/* head */}
+                  <thead className="text-[#000000] 2xl:text-[25px] ">
+                    <tr className="footer_text">
+                      <th className="font-semibold py-5">Purpose</th>
+                      <th className="font-semibold py-5">Details </th>
+                      <th className="font-semibold py-5">Legal Basis</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {/* row 1 */}
+                    <tr className="footer_text">
+                      <td className="py-5 w-3/12">Providing our services</td>
+                      <td className="py-5 w-6/12">
+                        We will need your personal data to administer our
+                        services effectively and carry out our obligations
+                        arising from any contracts entered into between you and
+                        us. This may include passing your data to third parties
+                        such as our business partners, contractors, agents or
+                        advisors (e.g. legal, financial, business or other
+                        advisors).
+                      </td>
+                      <td>
+                        Contract performance, Legitimate interests (to enable us
+                        to perform our obligations and provide our services to
+                        you)
+                      </td>
+                    </tr>
 
-                  <tr className="footer_text">
-                    <td className="py-5 w-3/12">Improving our services</td>
-                    <td className="py-5 w-6/12">
-                      We may collect your personal data for improving our
-                      services for purposes of internal training, quality
-                      control, research and development. We may also aggregate
-                      and/or anonymize your personal data for such purposes.
-                    </td>
-                    <td className="py-5 w-3/12">
-                      Legitimate interests (to allow us to improve our services)
-                    </td>
-                  </tr>
+                    <tr className="footer_text">
+                      <td className="py-5 w-3/12">Improving our services</td>
+                      <td className="py-5 w-6/12">
+                        We may collect your personal data for improving our
+                        services for purposes of internal training, quality
+                        control, research and development. We may also aggregate
+                        and/or anonymize your personal data for such purposes.
+                      </td>
+                      <td className="py-5 w-3/12">
+                        Legitimate interests (to allow us to improve our
+                        services)
+                      </td>
+                    </tr>
 
-                  <tr className="footer_text">
-                    <td className="py-5 w-3/12">Obtaining feedback</td>
-                    <td className="py-5 w-6/12">
-                      We may occasionally contact you to request feedback on our
-                      products and services, as a part of our continuous
-                      research and development practices.
-                    </td>
-                    <td className="py-5 w-3/12">
-                      Legitimate interests (to enable us to gather feedback and
-                      improve products and services)
-                    </td>
-                  </tr>
-                  <tr className="footer_text">
-                    <td className="py-5 w-3/12">Ensuring relevance</td>
-                    <td className="py-5 w-6/12">
-                      We may use your personal data to analysis how you use our
-                      Website, and to ensure that the products and services that
-                      we offer are tailored to your needs and interests. We may
-                      also aggregate and/or anonymize your personal data for
-                      such purposes.
-                    </td>
-                    <td className="py-5 w-3/12">
-                      Legitimate interests (to allow us to provide you with the
-                      content and services on the Website)
-                    </td>
-                  </tr>
-                  <tr className="footer_text">
-                    <td className="py-5 w-3/12">Marketing</td>
-                    <td className="py-5 w-6/12">
-                      We may contact you to provide the latest updates and
-                      offers on our products and services, where you have
-                      opted-in for such communication. Where required by law, we
-                      will ask for your consent at the time we collect your data
-                      to conduct any of these types of marketing. We will
-                      provide an option to unsubscribe or opt-out of further
-                      communication on any electronic marketing communication
-                      sent to you or you may opt out by contacting us.
-                    </td>
-                    <td className="py-5 w-3/12">
-                      Consent, Legitimate interest (to keep you updated with
-                      news in relation to our products and services)
-                    </td>
-                  </tr>
-                  <tr className="footer_text">
-                    <td className="py-5 w-3/12">Informing you of changes</td>
-                    <td className="py-5 w-6/12">
-                      We may use your personal data to notify you about changes
-                      to our services and products.
-                    </td>
-                    <td className="py-5 w-3/12">
-                      Legitimate interests (to notify you about changes to our
-                      service); Contract performance
-                    </td>
-                  </tr>
-                  <tr className="footer_text">
-                    <td className="py-5 w-3/12">Reorganize our business</td>
-                    <td className="py-5 w-6/12">
-                      In the event that we are (i) subject to negotiations for
-                      the sale of our business or part thereof to a third party,
-                      (ii) is sold to a third party or (iii) undergo a
-                      re-organization, we may need to transfer some or all of
-                      your personal data to the relevant third party (or its
-                      advisors) as part of any due diligence process for the
-                      purpose of analysis any proposed sale or re-organization.
-                      We may also need to transfer your personal data to that
-                      re-organized entity or third party after the sale or
-                      reorganization for them to use for the same purposes as
-                      set out in this Privacy Policy.
-                    </td>
-                    <td className="py-5 w-3/12">
-                      Legitimate interests (in order to allow us to change our
-                      business)
-                    </td>
-                  </tr>
-                  <tr className="footer_text">
-                    <td className="py-5 w-3/12">
-                      Ensuring legal or regulatory compliance
-                    </td>
-                    <td className="py-5 w-6/12">
-                      We may process your personal data to comply with our
-                      regulatory requirements or dialogue with its regulators as
-                      applicable which may include disclosing your personal data
-                      to third parties, the court service and/or regulators or
-                      law enforcement agencies in connection with enquiries,
-                      proceedings or investigations by such parties anywhere in
-                      the world or where compelled to do so. Where permitted, we
-                      will direct any such request to you or notify you before
-                      responding unless to do so would prejudice the prevention
-                      or detection of a crime.
-                    </td>
-                    <td className="py-5 w-3/12">
-                      Legal obligations, Legal claims, Legitimate interests (to
-                      cooperate with law enforcement and regulatory authorities)
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+                    <tr className="footer_text">
+                      <td className="py-5 w-3/12">Obtaining feedback</td>
+                      <td className="py-5 w-6/12">
+                        We may occasionally contact you to request feedback on
+                        our products and services, as a part of our continuous
+                        research and development practices.
+                      </td>
+                      <td className="py-5 w-3/12">
+                        Legitimate interests (to enable us to gather feedback
+                        and improve products and services)
+                      </td>
+                    </tr>
+                    <tr className="footer_text">
+                      <td className="py-5 w-3/12">Ensuring relevance</td>
+                      <td className="py-5 w-6/12">
+                        We may use your personal data to analysis how you use
+                        our Website, and to ensure that the products and
+                        services that we offer are tailored to your needs and
+                        interests. We may also aggregate and/or anonymize your
+                        personal data for such purposes.
+                      </td>
+                      <td className="py-5 w-3/12">
+                        Legitimate interests (to allow us to provide you with
+                        the content and services on the Website)
+                      </td>
+                    </tr>
+                    <tr className="footer_text">
+                      <td className="py-5 w-3/12">Marketing</td>
+                      <td className="py-5 w-6/12">
+                        We may contact you to provide the latest updates and
+                        offers on our products and services, where you have
+                        opted-in for such communication. Where required by law,
+                        we will ask for your consent at the time we collect your
+                        data to conduct any of these types of marketing. We will
+                        provide an option to unsubscribe or opt-out of further
+                        communication on any electronic marketing communication
+                        sent to you or you may opt out by contacting us.
+                      </td>
+                      <td className="py-5 w-3/12">
+                        Consent, Legitimate interest (to keep you updated with
+                        news in relation to our products and services)
+                      </td>
+                    </tr>
+                    <tr className="footer_text">
+                      <td className="py-5 w-3/12">Informing you of changes</td>
+                      <td className="py-5 w-6/12">
+                        We may use your personal data to notify you about
+                        changes to our services and products.
+                      </td>
+                      <td className="py-5 w-3/12">
+                        Legitimate interests (to notify you about changes to our
+                        service); Contract performance
+                      </td>
+                    </tr>
+                    <tr className="footer_text">
+                      <td className="py-5 w-3/12">Reorganize our business</td>
+                      <td className="py-5 w-6/12">
+                        In the event that we are (i) subject to negotiations for
+                        the sale of our business or part thereof to a third
+                        party, (ii) is sold to a third party or (iii) undergo a
+                        re-organization, we may need to transfer some or all of
+                        your personal data to the relevant third party (or its
+                        advisors) as part of any due diligence process for the
+                        purpose of analysis any proposed sale or
+                        re-organization. We may also need to transfer your
+                        personal data to that re-organized entity or third party
+                        after the sale or reorganization for them to use for the
+                        same purposes as set out in this Privacy Policy.
+                      </td>
+                      <td className="py-5 w-3/12">
+                        Legitimate interests (in order to allow us to change our
+                        business)
+                      </td>
+                    </tr>
+                    <tr className="footer_text">
+                      <td className="py-5 w-3/12">
+                        Ensuring legal or regulatory compliance
+                      </td>
+                      <td className="py-5 w-6/12">
+                        We may process your personal data to comply with our
+                        regulatory requirements or dialogue with its regulators
+                        as applicable which may include disclosing your personal
+                        data to third parties, the court service and/or
+                        regulators or law enforcement agencies in connection
+                        with enquiries, proceedings or investigations by such
+                        parties anywhere in the world or where compelled to do
+                        so. Where permitted, we will direct any such request to
+                        you or notify you before responding unless to do so
+                        would prejudice the prevention or detection of a crime.
+                      </td>
+                      <td className="py-5 w-3/12">
+                        Legal obligations, Legal claims, Legitimate interests
+                        (to cooperate with law enforcement and regulatory
+                        authorities)
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
 
@@ -410,15 +413,14 @@ const PrivacyPolicy = () => {
               legal or business purposes. When we no longer have a purpose for
               retaining your personal data, we will destroy it and take
               commercially reasonable measures to make sure that the information
-              is irrecoverable. All third parties are
-              carefully screened before transfer of any personal data, so we can
-              ensure that there are adequate controls in place and, where
-              relevant, that such third parties are fully compliant with the
-              applicable laws. In case any of any international transfer of
-              personal data, Authentic chef takes all reasonable steps to ensure
-              that your personal data continues to receive a standard of
-              protection that is at least comparable to that provided under the
-              applicable laws.
+              is irrecoverable. All third parties are carefully screened before
+              transfer of any personal data, so we can ensure that there are
+              adequate controls in place and, where relevant, that such third
+              parties are fully compliant with the applicable laws. In case any
+              of any international transfer of personal data, Authentic chef
+              takes all reasonable steps to ensure that your personal data
+              continues to receive a standard of protection that is at least
+              comparable to that provided under the applicable laws.
             </p>
             <h3 className="font-semibold mb-2 footer_text">YOUR RIGHTS</h3>
             <p className="footer_text mb-7 2xl:mb-10">
@@ -537,10 +539,10 @@ const PrivacyPolicy = () => {
               similar technologies on their Website to collect certain
               information about you. This document explains what these
               technologies are and why we use them, as well as your rights to
-              control our use of them. Authentic chef reserves the right to update
-              and modify this Cookies Policy at any time and for any reason. You
-              are encouraged to periodically review this document to stay
-              informed of updates.
+              control our use of them. Authentic chef reserves the right to
+              update and modify this Cookies Policy at any time and for any
+              reason. You are encouraged to periodically review this document to
+              stay informed of updates.
             </p>
 
             <h3 className="font-semibold mb-2 footer_text">
@@ -566,8 +568,8 @@ const PrivacyPolicy = () => {
             </p>
 
             <p className="footer_text mb-7 2xl:mb-10">
-              Authentic chef uses cookies and other tracking technologies for the
-              following purposes:
+              Authentic chef uses cookies and other tracking technologies for
+              the following purposes:
             </p>
 
             <p className="footer_text mb-7 2xl:mb-10">
@@ -646,11 +648,11 @@ const PrivacyPolicy = () => {
             <p className="footer_text mb-7 2xl:mb-10">
               In addition to the different types of cookies mentioned above, we
               may use other similar technologies from time to time, like web
-              beacons (sometimes called tracking pixels or clear gifs).
-              These are tiny graphics files that contain a unique identifier
-              that enable us to recognize when someone has visited our Website
-              or opened an e-mail including them. This allows us, for example,
-              to monitor the traffic patterns of users from one page within the
+              beacons (sometimes called tracking pixels or clear gifs). These
+              are tiny graphics files that contain a unique identifier that
+              enable us to recognize when someone has visited our Website or
+              opened an e-mail including them. This allows us, for example, to
+              monitor the traffic patterns of users from one page within the
               Website to another, to deliver or communicate with cookies, to
               understand whether you have come to the Website from an online
               advertisement displayed on a third-party website, to improve
@@ -685,26 +687,27 @@ const PrivacyPolicy = () => {
 
             <p className="footer_text mb-7 2xl:mb-10">
               This Cookies Policy does not cover third party websites. Please
-              note that this Cookies Policy does not apply to, and Authentic chef
-              is not responsible for, the privacy practices of third party
+              note that this Cookies Policy does not apply to, and Authentic
+              chef is not responsible for, the privacy practices of third party
               websites which may be linked to or accessible through our Website.
             </p>
             <p className="footer_text mb-7 2xl:mb-10">
               If you have any further questions, comments or requests regarding
-              this Cookies Policy, please email us at support@authentic chef.com.
+              this Cookies Policy, please email us at support@authentic
+              chef.com.
             </p>
 
             <h3 className="footer_text font-semibold mb-2 footer_text">
               APPENDIX 1 - FULL LIST OF AUTHENTIc CHEF WEBSITE COOKIES
             </h3>
 
-            <div className="2xl:my-10 my-5">
+            <div className="2xl:my-10 my-5 overflow-x-auto">
               <table className="table border text-[#000000]">
                 {/* head */}
-                <thead className="text-[#000000] 2xl:text-[25px] ">
+                <thead className="text-[#000000] 2xl:text-[25px]">
                   <tr className="footer_text">
                     <th className="font-semibold py-5">Cookie Name</th>
-                    <th className="font-semibold py-5">Category </th>
+                    <th className="font-semibold py-5">Category</th>
                     <th className="font-semibold py-5">
                       Description and Purpose
                     </th>
@@ -719,14 +722,14 @@ const PrivacyPolicy = () => {
                       Functional cookie
                     </td>
                     <td className="py-5 w-5/12">
-                      [insert brief description - such as This cookie is used
-                      to track landing pages.]
+                      [insert brief description - such as This cookie is used to
+                      track landing pages.]
                     </td>
                     <td className="py-5 w-2/12">
-                      [insert the expiry period of the cookie - such as 7
-                      Days]
+                      [insert the expiry period of the cookie - such as 7 Days]
                     </td>
                   </tr>
+                  {/* Add more rows as needed */}
                 </tbody>
               </table>
             </div>
