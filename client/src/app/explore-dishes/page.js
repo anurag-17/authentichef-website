@@ -27,8 +27,6 @@ import nonveg from "./assets/non-vag.svg";
 import glutenfree from "./assets/gluten-free.svg";
 import organic from "./assets/organic.svg";
 import dairyfree from "./assets/dairy-free.svg";
-import { useCart } from "../create-context/cart-context";
-import { CartProvider } from "../create-context/cart-context";
 import Navbar from "../navbar";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
@@ -428,33 +426,50 @@ const ExploreDishes = () => {
     console.log(ids, "ids");
   }, []);
   const [itemId, setItemId] = useState([]);
-  const handleAddCart = async (itemId) => {
+  const saveCartToLocalStorage = (cart) => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  };
+
+  const handleAddCart = async (id) => {
     try {
+      // Ensure id is an array
+      let ids = Array.isArray(id) ? id : [id];
+
+      // Create the payload with menuItems and default quantity
+      let payload = {
+        items: ids.map((id) => ({
+          menuItem: id,
+          quantity: 1, // Default quantity is set to 1
+        })),
+      };
+
+      if (!token) {
+        toast.error("You need to be logged in to add items to the cart.");
+        return;
+      }
+
       const response = await axios.post(
         `${config.baseURL}/api/Orders/AddtoCart`,
-
-        { menuItem: itemId },
-
+        payload,
         {
           headers: {
             Authorization: token,
           },
         }
       );
+
       if (response.status >= 200 && response.status < 300) {
-        toast.success("Item Added to Cart");
+        toast.success("Items added to cart successfully");
         handleDrawerOpen();
         refreshData();
       } else {
-        toast.error(
-          error.response.data.message ||
-            "Failed to add item to cart. Please try again."
-        );
-        console.log("Unexpected response status:", response.status);
+        toast.error("Failed to add items to cart. Please try again.");
       }
     } catch (error) {
-      toast.error("An error occurred while adding the item to the cart.");
-      console.log("Error:", error);
+      console.error("Error adding items to cart:", error);
+      toast.error(
+        "An error occurred while adding items to cart. Please try again."
+      );
     }
   };
 
@@ -464,26 +479,6 @@ const ExploreDishes = () => {
       defaultCartItems();
     }
   }, [token, isRefresh]);
-
-  const defaultCartItems = () => {
-    const option = {
-      method: "GET",
-      url: `${config.baseURL}/api/Orders/getCartItem`,
-
-      headers: {
-        Authorization: token,
-      },
-    };
-    axios
-      .request(option)
-      .then((response) => {
-        setGetCartItems(response?.data?.userCart?.items);
-        console.log(response?.data?.userCart?.items, "data");
-      })
-      .catch((error) => {
-        console.log(error, "Error");
-      });
-  };
 
   const handleItemRemove = async (id) => {
     try {
@@ -555,6 +550,42 @@ const ExploreDishes = () => {
       setLoading(false);
     }
   };
+
+  // useEffect(() => {
+  //   const loadCartFromLocalStorage = () => {
+  //     const savedCart = localStorage.getItem('cart');
+  //     if (savedCart) {
+  //       setGetCartItems(JSON.parse(savedCart));
+  //     }
+  //   };
+
+  //   if (token) {
+  //     defaultCartItems();
+  //   } else {
+  //     loadCartFromLocalStorage();
+  //   }
+  // }, [token, isRefresh]);
+
+  const defaultCartItems = () => {
+    const option = {
+      method: "GET",
+      url: `${config.baseURL}/api/Orders/getCartItem`,
+      headers: {
+        Authorization: token,
+      },
+    };
+    axios
+      .request(option)
+      .then((response) => {
+        setGetCartItems(response?.data?.userCart?.items);
+        // Save fetched cart to local storage
+        saveCartToLocalStorage(response?.data?.userCart?.items);
+      })
+      .catch((error) => {
+        console.log(error, "Error");
+      });
+  };
+
   return (
     <>
       <ToastContainer className="mt-24" autoClose={1000} />
@@ -564,7 +595,7 @@ const ExploreDishes = () => {
           <div class="main_section 2xl:w-[1700px] xl:w-[1100px] md:w-[811px]  m-auto mt-auto">
             <div class="flex flex-col md:flex-row justify-center my-10 mx-6 lg:my-6">
               <div class="mr-6 lg:mb-0 mb-4 lg lg:w-[30%] 2xl:w-[45%] xl:w-[33%] lg:text-[2.25rem] lg:ml-[-45px] md:w-[30%] xs:text-[1.875rem] sm:text-[2.25rem] md:text-[29px]">
-              <h1 className="third_head mb-4 alata font-[400] 2xl:text-[55px] lg:text-left 2xl:ml-[105px] xl:ml-[19px] text-center">
+                <h1 className="third_head mb-4 alata font-[400] 2xl:text-[55px] lg:text-left 2xl:ml-[105px] xl:ml-[19px] text-center">
                   Select Cuisine
                 </h1>
               </div>
@@ -572,7 +603,7 @@ const ExploreDishes = () => {
               <div className="mnavbar 2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] sm:pt-[12px] sm:pb-[4px] 2xl:pt-[21px] md:pt-[9px] md:w-[700px]  2xl:py-[60px] xl:py-[10px] lg:pt-[7px] lg:pb-[40px]  py-[40px] xs:py-[10px] mx-auto">
                 <div className="filter_div_second">
                   <div className="select-divs flex gap-5">
-                  <div className="select-1 alata">
+                    <div className="select-1 alata">
                       <select
                         id="dietary"
                         className="2xl:w-[126px] third_select"
@@ -1573,15 +1604,15 @@ const ExploreDishes = () => {
                           <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]"></h4>
                         </div>
                         <div>
-                        <Link href="/checkout">
-                          <button
-                            onClick={() => {
-                              handleAddCart();
-                            }}
-                            className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1"
-                          >
-                            Checkout
-                          </button>
+                          <Link href="/checkout">
+                            <button
+                              onClick={() => {
+                                handleAddCart();
+                              }}
+                              className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1"
+                            >
+                              Checkout
+                            </button>
                           </Link>
                         </div>
                       </div>
@@ -1836,13 +1867,5 @@ const ExploreDishes = () => {
     </>
   );
 };
-const App = () => {
-  return (
-    <CartProvider>
-      {" "}
-      {/* Wrapping the component tree with CartProvider */}
-      <ExploreDishes />
-    </CartProvider>
-  );
-};
-export default dynamic(() => Promise.resolve(App), { ssr: false });
+
+export default ExploreDishes;

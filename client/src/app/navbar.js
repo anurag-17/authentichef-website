@@ -287,21 +287,20 @@ const Navbar = () => {
 
   const handleAddCart = async () => {
     try {
-      console.log("Sending POST request to add items to cart...");
+      // Ensure itemId is defined and has elements
+      if (!itemId || itemId.length === 0) {
+        toast.error("No items to add to the cart.");
+        return;
+      }
 
-      const menuItem = itemId; // Assuming itemId is an array of item IDs
+      const items = itemId.map((id) => ({
+        menuItem: id,
+        quantity: 1, // Set the default quantity to 1 for each item
+      }));
 
-      const payload = {
-        menuItem,
-        quantity: 1, // Set the quantity to 1
-      };
-
-      console.log("Payload:", payload);
+      const payload = { items };
 
       if (!token) {
-        console.error(
-          "No token found. Cannot proceed with adding items to cart."
-        );
         toast.error("You need to be logged in to add items to the cart.");
         return;
       }
@@ -316,29 +315,18 @@ const Navbar = () => {
         }
       );
 
-      console.log("Response received:", response);
-
       if (response.status >= 200 && response.status < 300) {
-        console.log("Response status is in the success range");
-        if (response.data.message === "Item added to cart") {
-          console.log("Items added to cart successfully");
-          toast.success("Items added to cart successfully");
-          handleDrawerOpen();
-          refreshData();
-        } else {
-          console.log("Failed to add items to cart");
-          console.log("Server response message:", response.data.message);
-          toast.error(
-            response.data.message ||
-              "Failed to add items to cart. Please try again."
-          );
-        }
+        toast.success("Items added to cart successfully");
+        handleDrawerOpen();
+        refreshData();
       } else {
-        console.log("Unexpected response status:", response.status);
         toast.error("Failed to add items to cart. Please try again.");
       }
     } catch (error) {
-      // Error handling code...
+      console.error("Error adding items to cart:", error);
+      toast.error(
+        "An error occurred while adding items to cart. Please try again."
+      );
     }
   };
 
