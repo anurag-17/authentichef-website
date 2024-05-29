@@ -472,10 +472,13 @@ const Navbar = () => {
                     <hr className="mx-auto 2xl:w-[345px] xl:w-[260px] lg:w-[180px] sm:w-[140px] w-[120px] 2xl:mt-[75px] xl:mt-[40px] lg:mt-[20px] sm:mt-[15px] mt-[10px]" />
                     <div className="text-center 2xl:mt-[35px] xl:mt-[15px] lg:mt-[10px] sm:mt-[8px] mt-[5px]">
                       <div className="flex justify-center md:gap-11 gap-2 md:ml-6 lg:ml-0">
-                        {isLoggedIn === success ? (
+                      {isLoggedIn === success ? (
                           <div>
                             <p className="text-[#555555] font-alata font-[400] 2xl:text-[14px] xl:text-[10px] lg:text-[9px] sm:text-[10px] text-[8px] 2xl:leading-[26px] xl:leading-[22px] lg:leading-[16px] sm:leading-[16px] leading-[14px]">
-                              Welcome {userDetails?.firstname}
+                              {userDetails?.firstname} {userDetails?.lastname}
+                            </p>
+                            <p className="text-[#555555] font-alata font-[400] 2xl:text-[14px] xl:text-[10px] lg:text-[9px] sm:text-[10px] text-[8px] 2xl:leading-[26px] xl:leading-[22px] lg:leading-[16px] sm:leading-[16px] leading-[14px]">
+                              {userDetails?.email}
                             </p>
                             <div className="flex justify-center items-center gap-1">
                               <Image
@@ -778,9 +781,9 @@ const Navbar = () => {
       </div>
       {/* =======Signup popup======= */}
       <div className="">
-        <dialog
+      <dialog
           id="my_modal_1"
-          className="modal rounded-[10px] 2xl:w-[1000px] 2xl:h-[665px] xl:w-[620px] xl:h-[480px] lg:w-[480px] h-[400px] 2xl:mt-40 xl:mt-24 mt-14 p-0"
+          className="modal rounded-[10px] 2xl:w-[1000px] 2xl:h-[665px] xl:w-[620px] xl:h-[480px] lg:w-[480px] h-[400px] 2xl:mt-40 xl:mt-24 mt-14 p-0 signup"
         >
           <form
             method="dialog"
