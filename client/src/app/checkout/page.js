@@ -184,12 +184,12 @@ const Checkout = () => {
           </div>
         </div>
         <div>
-          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] w-full md:px-0 items-center 2xl:px-[75px] xl:px-[50px] lg:px-[50px] mx-auto">
-            <h4 className="pop-head 2xl:my-[30px] xl:my-[20px] my-[15px]">
+          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] w-full md:px-0 items-center 2xl:px-[75px] xl:px-[50px] lg:px-[0px] mx-auto ">
+            <h4 className="pop-head 2xl:my-[30px] xl:my-[20px] my-[15px] text-center lg:text-start">
               Delivery information
             </h4>
             <div className=" 2xl:mb-[110px] xl:mb-[70px]">
-              <div className="2xl:w-[795px] xl:w-[595px] w-[400px] flex justify-between 2xl:gap-[55px] xl:gap-[40px] gap-[25px]">
+              <div className="lg:mx-0 mx-auto 2xl:w-[795px] xl:w-[595px] lg:w-[450px] w-[90%] md:w-full lg:flex lg:justify-between 2xl:gap-[55px] xl:gap-[40px] gap-[25px]">
                 <div>
                   <div>
                     <label className="checkoutlable">
@@ -495,7 +495,7 @@ const Checkout = () => {
                 </div>
                 {/* =========Right ============ */}
                 <div>
-                  <div className="2xl:w-[597px] xl:w-[395px] w-[295px] p-5 border 2xl:mt-[35px] ">
+                  <div className="mx-auto 2xl:w-[597px] xl:w-[395px] lg:w-[350px] md:w-full w-[100%] p-5 border 2xl:mt-[35px] mt-10 lg:mt-0">
                     <div className="">
                       <div className="max-h-[250px] overflow-y-scroll">
                         {Array.isArray(getCartItems) &&
@@ -659,9 +659,10 @@ const Checkout = () => {
                       </div>
                       <button
                         onClick={handleSubmit}
-                        className=" flex justify-center 2xl:gap-3 xl:gap-2 gap-1 items-center w-full alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] text-[20px] leading-[27.6px] px-3 py-1 2xl:h-[45px] xl:h-[30px] lg:h-[20px] 2xl:mt-[60px] xl:mt-[40px] mt-[30px] "
+                        className=" flex justify-center 2xl:gap-3 xl:gap-2 gap-1 items-center w-full alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:text-[20px] xl:text-[14px] text-[10px] leading-[27.6px] px-3 py-1 2xl:h-[45px] xl:h-[30px] lg:h-[25px] 2xl:mt-[60px] xl:mt-[40px] mt-[30px] "
                       >
-                        <Image src={order} className="" />
+  
+                        <Image src={order} className="2xl:w-[30px] xl:w-[22px] lg:w-[18px] sm:w-[] w-[] " />
                         Place Order
                       </button>
                       <div className="flex justify-between items-center mt-20">
