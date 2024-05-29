@@ -148,21 +148,29 @@ const FAQs = () => {
   // Function to toggle the accordion item
   const toggleAccordion = (index) => {
     setOpenIndex(index === openIndex ? null : index);
-  };    
+  };
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleClick = () => {
+    toggleAccordion(index);
+    setIsOpen(!isOpen);
+  };
   return (
     <>
       <section>
         <Navbar />
         <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px]  mx-auto 2xl:py-[150px] xl:py-[120px] py-[70px] mnavbar">
           <div className=" mx-auto text-center ">
-          <h1 className="faqhead text-[#000000] alata font-[400] 2xl:text-[75px] xl:text-[60px] lg:text-[50px] md:text-[30px] xs:text-[25px]">Your Questions Answered</h1>
-          <h2 className="pop-head 2xl:mt-[60px] 2xl:text-[30px] xl:text-[20px] xl:mt-[40px] text-[#000000] alata font-[400] lg:mt-[25px] sm:mt-[20px]  mt-[] my-3">
+            <h1 className="faqhead text-[#000000] alata font-[400] 2xl:text-[75px] xl:text-[60px] lg:text-[50px] md:text-[30px] xs:text-[25px]">
+              Your Questions Answered
+            </h1>
+            <h2 className="pop-head 2xl:mt-[60px] 2xl:text-[30px] xl:text-[20px] xl:mt-[40px] text-[#000000] alata font-[400] lg:mt-[25px] sm:mt-[20px]  mt-[] my-3">
               About Authentichef
             </h2>
           </div>
           <div className="bg-[#F38181] text-white mx-auto 2xl:w-[1129px] xl:w-[700px]  lg:w-[550px] sm:w-[] w-[] 2xl:h-[210px] flex items-center 2xl:px-[30px] xl:px-[20px] lg:px-[15px] sm:px-[10px] px-[] 2xl:mt-[30px] xl:mt-[20px] lg:mt-[10px] sm:mt-[10px] mt-[] py-[12px] xl:py-[15px] 2xl:py-0">
             <div className="">
-            <h4 className="nine_p xs:text-[15px] alata font-[400] xs:center xs:mx-5 2xl:text-[20px] xl:text-[20px] md:text-[18px] sm:text-[15px]">
+              <h4 className="nine_p xs:text-[15px] alata font-[400] xs:center xs:mx-5 2xl:text-[20px] xl:text-[20px] md:text-[18px] sm:text-[15px]">
                 What makes authentichef different from other food delivery
                 companies?
               </h4>
@@ -180,7 +188,7 @@ const FAQs = () => {
           </div>
 
           <div className="2xl:mt-[60px] xl:mt-[40px] lg:mt-[20px] sm:mt-[10px] mt-[] text-center">
-          <h2 className="pop-head 2xl:mt-[60px] text-[#000000] alata font-[400]  xl:mt-[40px] lg:mt-[25px] sm:mt-[20px] mt-[] my-3">
+            <h2 className="pop-head 2xl:mt-[60px] text-[#000000] alata font-[400]  xl:mt-[40px] lg:mt-[25px] sm:mt-[20px] mt-[] my-3">
               Chef Community
             </h2>
             <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] mx-auto mnavbar">
@@ -203,7 +211,7 @@ const FAQs = () => {
                       >
                         {item.question}
                         <div
-                          className={`rounded-full bg-[#F38181] 2xl:w-[32px] 2xl:h-[32px] o xl:w-[25px] lg:w-[16px] sm:w-[16px] w-[] flex items-center justify-center xs:text-[12px]`}
+                          className={`rounded-full bg-[#F38181] 2xl:w-[32px] 2xl:h-[32px]  xl:w-[25px] xl:h-[25px] lg:w-[16px] sm:w-[16px] w-[] flex items-center justify-center xs:text-[12px]`}
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -231,7 +239,7 @@ const FAQs = () => {
           </div>
 
           <div className="2xl:mt-[60px] xl:mt-[40px] lg:mt-[20px] sm:mt-[10px] mt-[] text-center my-3">
-          <h2 className="pop-head 2xl:mt-[60px] text-[#000000] alata font-[400] xl:mt-[40px] lg:mt-[25px] sm:mt-[20px] mt-[]">
+            <h2 className="pop-head 2xl:mt-[60px] text-[#000000] alata font-[400] xl:mt-[40px] lg:mt-[25px] sm:mt-[20px] mt-[]">
               Ordering
             </h2>
 
@@ -255,7 +263,7 @@ const FAQs = () => {
                       >
                         {item.question}
                         <div
-                          className={`rounded-full bg-[#F38181] 2xl:w-[32px] 2xl:h-[32px] o xl:w-[25px] lg:w-[16px] sm:w-[16px] w-[] flex items-center justify-center xs:text-[12px]`}
+                          className={`rounded-full bg-[#F38181] 2xl:w-[32px] 2xl:h-[32px]  xl:w-[25px] xl:h-[25px] lg:w-[16px] sm:w-[16px] w-[] flex items-center justify-center xs:text-[12px]`}
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -283,7 +291,7 @@ const FAQs = () => {
           </div>
 
           <div className="2xl:mt-[60px] xl:mt-[40px] lg:mt-[20px] sm:mt-[10px] mt-[] text-center my-4">
-          <h2 className="pop-head 2xl:mt-[60px] text-[#000000] alata font-[400] xl:mt-[40px] lg:mt-[25px] sm:mt-[20px] mt-[]">
+            <h2 className="pop-head 2xl:mt-[60px] text-[#000000] alata font-[400] xl:mt-[40px] lg:mt-[25px] sm:mt-[20px] mt-[]">
               Dish
             </h2>
             <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] mx-auto mnavbar">
@@ -306,7 +314,7 @@ const FAQs = () => {
                       >
                         {item.question}
                         <div
-                          className={`rounded-full bg-[#F38181] 2xl:w-[32px] 2xl:h-[32px] o xl:w-[25px] lg:w-[16px] sm:w-[16px] w-[] flex items-center justify-center xs:text-[12px]`}
+                          className={`rounded-full bg-[#F38181] 2xl:w-[32px] 2xl:h-[32px]  xl:w-[25px] xl:h-[25px] lg:w-[16px] sm:w-[16px] w-[] flex items-center justify-center xs:text-[12px]`}
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -334,7 +342,7 @@ const FAQs = () => {
           </div>
 
           <div className="2xl:mt-[60px] xl:mt-[40px] lg:mt-[20px] sm:mt-[10px] mt-[] text-center my-4">
-          <h2 className="pop-head 2xl:mt-[60px] xl:mt-[40px] text-[#000000] alata font-[400] lg:mt-[25px] sm:mt-[20px] mt-[]">
+            <h2 className="pop-head 2xl:mt-[60px] xl:mt-[40px] text-[#000000] alata font-[400] lg:mt-[25px] sm:mt-[20px] mt-[]">
               Delivery
             </h2>
 
@@ -354,25 +362,41 @@ const FAQs = () => {
                       />
                       <div
                         className="collapse-title text-xl font-medium flex justify-between items-center nine_p xs:text-[12px]"
-                        onClick={() => toggleAccordion(index)}
+                        onClick={handleClick}
                       >
                         {item.question}
                         <div
-                          className={`rounded-full bg-[#F38181] 2xl:w-[32px] 2xl:h-[32px] o xl:w-[25px] lg:w-[16px] sm:w-[16px] w-[] flex items-center justify-center xs:text-[12px]`}
+                          className={`rounded-full bg-[#F38181] 2xl:w-[32px] 2xl:h-[32px] xl:w-[25px] xl:h-[25px] lg:w-[16px] sm:w-[16px] w-[] flex items-center justify-center xs:text-[12px]`}
                         >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            className="text-white 2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] xl:h-[18px] w-[12px] h-[12px]"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M12 4.5v15m7.5-7.5h-15"
-                            />
-                          </svg>
+                          {isOpen ? (
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              strokeWidth="1.5"
+                              stroke="currentColor"
+                              className="text-white 2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] xl:h-[18px] w-[12px] h-[12px]"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M5 12h14"
+                              />
+                            </svg>
+                          ) : (
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              strokeWidth="1.5"
+                              stroke="currentColor"
+                              className="text-white 2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] xl:h-[18px] w-[12px] h-[12px]"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M12 4.5v15m7.5-7.5h-15"
+                              />
+                            </svg>
+                          )}
                         </div>
                       </div>
                       <div className="collapse-content">
@@ -386,7 +410,7 @@ const FAQs = () => {
           </div>
 
           <div className="2xl:mt-[60px] xl:mt-[40px] lg:mt-[20px] sm:mt-[10px] mt-[] text-center my-4">
-          <h2 className="pop-head 2xl:mt-[60px] xl:mt-[40px] text-[#000000] alata font-[400] lg:mt-[25px] sm:mt-[20px] mt-[]">
+            <h2 className="pop-head 2xl:mt-[60px] xl:mt-[40px] text-[#000000] alata font-[400] lg:mt-[25px] sm:mt-[20px] mt-[]">
               Packaging and Sustainability
             </h2>
 
@@ -410,7 +434,7 @@ const FAQs = () => {
                       >
                         {item.question}
                         <div
-                          className={`rounded-full bg-[#F38181] 2xl:w-[32px] 2xl:h-[32px] o xl:w-[25px] lg:w-[16px] sm:w-[16px] w-[] flex items-center justify-center xs:text-[12px]`}
+                          className={`rounded-full bg-[#F38181] 2xl:w-[32px] 2xl:h-[32px]  xl:w-[25px] xl:h-[25px] lg:w-[16px] sm:w-[16px] w-[] flex items-center justify-center xs:text-[12px]`}
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"

@@ -664,7 +664,7 @@ const ExploreDishes = () => {
                       </select>
                     </div>
                   </div>
-
+                  {/* =================Cuisines========================== */}
                   <button
                     className="bt-1 alata font-[400] 2xl:text-[16px] 2xl:w-[153px] third_select flex justify-center items-center gap-3 md:text-[12px] sm:text-[12px] md:pl-2 sm:pl-2"
                     onClick={() =>
@@ -689,7 +689,7 @@ const ExploreDishes = () => {
                   </button>
                   <dialog
                     id="my_modal_3"
-                    className="modal relative bg-base-100  justify-center items-center xl:mt-52 2xl:mt-72 2xl:w-[1660px] xl:w-[1100px] lg:w-[850px] 2xl:h-[520px] xl:h-[350px] 2xl:px-[0px] 2xl:py-[75px] xl:px-[30px] xl:py-[40px] "
+                    className="filtermodale modal relative bg-base-100  justify-center items-center xl:mt-52 2xl:mt-72 2xl:w-[1660px] xl:w-[1100px] lg:w-[850px] 2xl:h-[520px] xl:h-[350px] 2xl:px-[0px] 2xl:py-[75px] xl:px-[30px] xl:py-[40px] "
                   >
                     <form method="dialog" className="modal-backdrop ">
                       <button
@@ -714,13 +714,13 @@ const ExploreDishes = () => {
                         </svg>
                       </button>
                     </form>
-                    <div className=" flex flex-wrap gap-[20px]  2xl:w-[1602px] xl:w-[1200px] h-auto mx-[0px]">
+                    <div className=" flex flex-wrap gap-[20px]  2xl:w-[1602px] xl:w-[1200px] h-auto mx-[0px] optionDiv">
                       {/* ================= Cuisines =========== */}
                       <button>
                         <div className="dropbox all_cuisines">
                           <Image
                             src={allCuisines}
-                            className="bt-1 rounded-[5px] 2xl:w-[74px] 2xl:h-[74px] h-auto xl:w-[50px] lg:w-[] sm:w-[] w-[]"
+                            className="optionimg bt-1 rounded-[5px] 2xl:w-[74px] 2xl:h-[74px] h-auto xl:w-[50px] lg:w-[] sm:w-[] w-[]"
                           />
                           <h4>All Cuisines</h4>
                         </div>
@@ -735,7 +735,7 @@ const ExploreDishes = () => {
                             <div className="dropbox">
                               <img
                                 src={item.ProfileImage}
-                                className="rounded-[5px] 2xl:w-[74px] 2xl:h-[74px] h-auto xl:w-[50px] lg:w-[] sm:w-[] w-[]  "
+                                className="optionimg rounded-[5px] 2xl:w-[74px] 2xl:h-[74px] h-auto xl:w-[50px] lg:w-[] sm:w-[] w-[]  "
                               />
                               <h4 className="capitalize">{item.title}</h4>
                             </div>
@@ -745,7 +745,6 @@ const ExploreDishes = () => {
                       {/* ================= Dietary=========== */}
                     </div>
                   </dialog>
-                  {/* =================Cuisines========================== */}
 
                   {/* =================Dietary========================== */}
                   <button
@@ -772,7 +771,7 @@ const ExploreDishes = () => {
                   </button>
                   <dialog
                     id="my_modal_4"
-                    className="modal relative bg-base-100 flex justify-center items-center xl:mt-52 2xl:mt-72 2xl:w-[1660px] xl:w-[1100px] lg:w-[850px] 2xl:h-[520px] xl:h-[350px] 2xl:px-[0px] 2xl:py-[75px] xl:px-[30px] xl:py-[40px] "
+                    className="filtermodale modal relative bg-base-100 flex justify-center items-center xl:mt-52 2xl:mt-72 2xl:w-[1660px] xl:w-[1100px] lg:w-[850px] 2xl:h-[520px] xl:h-[350px] 2xl:px-[0px] 2xl:py-[75px] xl:px-[30px] xl:py-[40px] "
                   >
                     <form method="dialog" className="modal-backdrop ">
                       <button
@@ -797,7 +796,7 @@ const ExploreDishes = () => {
                         </svg>
                       </button>
                     </form>
-                    <div className=" flex flex-wrap gap-[20px]  2xl:w-[1602px] xl:w-[1200px] h-auto mx-[0px]">
+                    <div className=" flex flex-wrap gap-[20px]  2xl:w-[1602px] xl:w-[1200px] h-auto mx-[0px] optionDiv">
                       {/* ================= Dietary=========== */}
                       {/*
                       <div className=" flex flex-wrap gap-[20px]  2xl:w-[1602px] h-auto mx-auto">
@@ -821,7 +820,7 @@ const ExploreDishes = () => {
                             <div className="dropbox">
                               <img
                                 src={item.ProfileImage}
-                                className="rounded-[5px] 2xl:w-[35px] 2xl:h-[35px] h-auto xl:w-[50px] lg:w-[] sm:w-[] w-[]  "
+                                className="optionimg rounded-[5px] 2xl:w-[35px] 2xl:h-[35px] h-auto xl:w-[50px] lg:w-[] sm:w-[] w-[]  "
                               />
                               <h4 className="capitalize">{item.title}</h4>
                             </div>
@@ -856,7 +855,7 @@ const ExploreDishes = () => {
                   </button>
                   <dialog
                     id="my_modal_5"
-                    className="modal relative bg-base-100 flex justify-center items-center xl:mt-52 2xl:mt-72 2xl:w-[1660px] xl:w-[1100px] lg:w-[850px] 2xl:h-[520px] xl:h-[350px] 2xl:px-[0px] 2xl:py-[75px] xl:px-[30px] xl:py-[40px] "
+                    className="filtermodale modal relative bg-base-100 flex justify-center items-center xl:mt-52 2xl:mt-72 2xl:w-[1660px] xl:w-[1100px] lg:w-[850px] 2xl:h-[520px] xl:h-[350px] 2xl:px-[0px] 2xl:py-[75px] xl:px-[30px] xl:py-[40px] "
                   >
                     <form method="dialog" className="modal-backdrop ">
                       <button
@@ -881,7 +880,7 @@ const ExploreDishes = () => {
                         </svg>
                       </button>
                     </form>
-                    <div className=" flex flex-wrap gap-[20px]  2xl:w-[1602px] xl:w-[1200px] h-auto mx-[0px]">
+                    <div className=" flex flex-wrap gap-[20px]  2xl:w-[1602px] xl:w-[1200px] h-auto mx-[0px] optionDiv">
                       {/* ================= Dish Type =========== */}
 
                       <div className="flex justify-between 2xl:w-[1602px] h-auto mx-auto">

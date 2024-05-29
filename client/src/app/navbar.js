@@ -631,12 +631,11 @@ const Navbar = () => {
                       Add dishes to your cart now.
                     </p>
                     <div className="flex 2xl:mt-12 xl:mt-6 lg:mt-5 mt-4">
-                      <button
-                        className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[221px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1"
-                        onClick={handleDrawerClose}
-                      >
-                        Explore Dishes
-                      </button>
+                      <Link href="/explore-dishes">
+                        <button className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[221px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1">
+                          Explore Dishes
+                        </button>
+                      </Link>
                     </div>
                   </div>
                 ) : (
@@ -664,7 +663,7 @@ const Navbar = () => {
                               <div>
                                 <img
                                   src={data.ProfileImage}
-                                  alt={item.name}
+                                  alt={data.name}
                                   className="w-[90px] h-auto rounded-[5.8px]"
                                 />
                               </div>
@@ -673,10 +672,10 @@ const Navbar = () => {
                                   {data.name}
                                 </h4>
                                 <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
-                                  Price:£{data.price}
+                                  Price: £{data.price}
                                 </h4>
                                 <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
-                                  Quantity:1
+                                  Quantity: 1
                                 </h4>
                               </div>
                             </div>
@@ -688,14 +687,14 @@ const Navbar = () => {
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24"
-                                stroke-width="1.5"
+                                strokeWidth="1.5"
                                 stroke="currentColor"
                                 className="w-6 h-6"
                               >
                                 <path
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  d="M6 18 18 6M6 6l12 12"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M6 18L18 6M6 6l12 12"
                                 />
                               </svg>
                             </button>
@@ -746,7 +745,7 @@ const Navbar = () => {
                                 <path
                                   strokeLinecap="round"
                                   strokeLinejoin="round"
-                                  d="M6 18 18 6M6 6l12 12"
+                                  d="M6 18L18 6M6 6l12 12"
                                 />
                               </svg>
                             </button>
