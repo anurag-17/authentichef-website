@@ -18,7 +18,8 @@ import { useRouter } from "next/navigation";
 const Checkout = () => {
   const { token } = useSelector((state) => state?.auth);
   const { cart } = useSelector((state) => state?.userCart);
-
+  const router = useRouter();
+  const [Promo_code, setPromoCode] = useState("");
   const [deliveryInfo, setDeliveryInfo] = useState([
     {
       phone: "",
@@ -56,10 +57,22 @@ const Checkout = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!deliveryDate) {
+      toast.error("Delivery date is required.");
+      return;
+    }
+
     try {
       const response = await axios.post(
         `${config.baseURL}/api/order/createOrder`,
-        { deliveryInfo, billingInfo, deliveryDate }, 
+        {
+          deliveryInfo,
+          billingInfo,
+          deliveryDate,
+          Promo_code,
+          Delivery_instruction,
+        },
         {
           headers: {
             authorization: token,
@@ -97,7 +110,6 @@ const Checkout = () => {
   useEffect(() => {
     defaultCartItems();
   }, [isRefresh]);
-  
 
   const defaultCartItems = () => {
     const option = {
@@ -118,17 +130,27 @@ const Checkout = () => {
         console.log(error, "Error");
       });
   };
-  
-  const [deliveryDate, setDeliveryDate] = useState('');
+
+  const [deliveryDate, setDeliveryDate] = useState("");
 
   // Define today's date in the format YYYY-MM-DD
-  const today = new Date().toISOString().split('T')[0];
+  const today = new Date().toISOString().split("T")[0];
 
   const handleDateChange = (e) => {
     const inputDate = new Date(e.target.value);
     if (inputDate > new Date(today)) {
       setDeliveryDate(e.target.value);
     }
+  };
+
+  const handlePromoCodeChange = (e) => {
+    setPromoCode(e.target.value);
+  };
+
+  const [Delivery_instruction, setDeliveryInstruction] = useState("");
+
+  const handleDeliveryInstructionChange = (e) => {
+    setDeliveryInstruction(e.target.value);
   };
 
   return (
@@ -563,7 +585,10 @@ const Checkout = () => {
                           type="text"
                           name="promoCode"
                           placeholder="Promo Code"
+                          maxLength="15" // Enforce maximum length
                           className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
+                          value={Promo_code}
+                          onChange={handlePromoCodeChange}
                         />
                       </div>
                       <div className="flex justify-between 2xl:gap-[20px] xl:gap-[15px] gap-[10px] xl:my-[10px] my-[8px] 2xl:my-[15px]">
@@ -583,7 +608,6 @@ const Checkout = () => {
                               onChange={handleDateChange}
                               required
                             />
-                            
                           </form>
                         </div>
                         <div className="pop-chef flex items-end">
@@ -599,6 +623,8 @@ const Checkout = () => {
                           name="deliveryInstruction"
                           placeholder="Enter"
                           className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
+                          value={Delivery_instruction}
+                          onChange={handleDeliveryInstructionChange}
                         />
                       </div>
                       <div className="2xl:my-[30px] xl:my-[20px] my-[15px]">
