@@ -109,7 +109,9 @@ const userMailOptions = (req, savedOrder, deliveryDate, deliveryInfo, totalAmoun
                 </tbody>
             </table>
             
-                <p><strong>Total Amount:</strong> $${totalAmount.toFixed(2)}</p>
+                <p><strong>Amount:</strong> $${totalAmount.toFixed(2)}</p>
+                <p><strong>Discount:</strong>${savedOrder.DiscountPercentage}%</p>
+                <p><strong>Total Amount:</strong> $${(totalAmount - (totalAmount * (savedOrder.DiscountPercentage / 100))).toFixed(2)}</p>
                 <p>We will notify you once your order has been processed and shipped.</p>
                 <p>If you have any questions or concerns, feel free to <a href="mailto:support@authentichef.com">contact us</a> at support@authentichef.com.</p>
                 <div class="menu-items">

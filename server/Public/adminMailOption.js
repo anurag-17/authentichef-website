@@ -94,9 +94,19 @@ const adminMailOptions=(req, savedOrder, deliveryDate, deliveryInfo, payment_met
                         <td>${payment_method_types}</td>
                     </tr>
                     <tr>
+                        <th>Amount</th>
+                        <td>$${savedOrder.totalAmountBeforeDiscount}</td>
+                    </tr>
+                    <tr>
+                        <th>Discount</th>
+                        <td>$${savedOrder.discountApplied}%</td>
+                    </tr>
+
+                    <tr>
                         <th>Total Amount</th>
                         <td>$${totalAmount.toFixed(2)}</td>
                     </tr>
+
                 </table>
                 <h3>Menu Items:</h3>
                 ${cartItems.items.map(item => `
