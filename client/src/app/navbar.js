@@ -424,7 +424,7 @@ const Navbar = () => {
     }
   };
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);  
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
 
   const handleOAuthCallback = async (code) => {
@@ -530,13 +530,23 @@ const Navbar = () => {
                       </div>
                     </div>
                     <li className="2xl:mt-[90px] xl:mt-[50px] lg:mt-[40px] sm:mt-[30px] mt-[20px]">
-                      <Link href="/setting">
-                        <Image
-                          src={profile}
-                          className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[10px] w-[8px]"
-                        />
-                        Profile
-                      </Link>
+                      {token ? (
+                        <Link href="/setting">
+                          <Image
+                            src={profile}
+                            className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[10px] w-[8px]"
+                          />
+                          Profile
+                        </Link>
+                      ) : (
+                        <button onClick={handleLoginClick}>
+                          <Image
+                            src={profile}
+                            className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[10px] w-[8px]"
+                          />
+                          Profile
+                        </button>
+                      )}
                     </li>
                     <li className="2xl:mt-[5px] xl:mt-[2px] lg:mt-[0px] sm:mt-[8px] mt-[5px]">
                       <Link href="about-us">
@@ -863,16 +873,25 @@ const Navbar = () => {
                           <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]"></h4>
                         </div>
                         <div>
-                          <Link href="/checkout">
+                          {token ? (
+                            <Link href="/checkout">
+                              <button
+                                onClick={() => {
+                                  handleAddCart();
+                                }}
+                                className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1"
+                              >
+                                Checkout
+                              </button>
+                            </Link>
+                          ) : (
                             <button
-                              onClick={() => {
-                                handleAddCart();
-                              }}
+                              onClick={handleLoginClick}
                               className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1"
                             >
                               Checkout
                             </button>
-                          </Link>
+                          )}
                         </div>
                       </div>
                     </div>

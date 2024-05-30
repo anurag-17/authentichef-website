@@ -55,6 +55,13 @@ body {
   height: 100vh;
 }
 
+.global-bg{
+  background-image: url("../../public/images/global-banner.png");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
+
 .offer-bg {
   background-image: url("../../public/images/offer-bg");
   background-size: cover;
