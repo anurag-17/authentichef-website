@@ -1860,7 +1860,7 @@ const ExploreDishes = () => {
                       />
                     </svg>
                   </Dialog.Title>
-                  <DishDetails dishID={dishID} closeModal={closeModal} />
+                  <DishDetails defaultADish={defaultADish} setItemId={setItemId} handleAddCart={handleAddCart} dishID={dishID} closeModal={closeModal} />
                 </Dialog.Panel>
               </Transition.Child>
             </div>

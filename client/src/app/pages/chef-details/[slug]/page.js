@@ -19,6 +19,7 @@ import {
   clearCart,
   handleClearCart,
   handleRemoveItem,
+  removeItemFromCart,
 } from "@/app/redux/dishSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
@@ -43,6 +44,7 @@ const ChefDetails = ({ params }) => {
     const { data } = item;
     console.log(data, `data from item ${index + 1}`);
   });
+
   const refreshData = () => {
     setRefresh(!isRefresh);
   };
@@ -59,6 +61,10 @@ const ChefDetails = ({ params }) => {
     setDishID(id);
     setOpen(true);
   }
+  const handleRemoveItem = (_id) => {
+    console.log(_id, "iggg");
+    dispatch(removeItemFromCart({ _id }));
+  };
   useEffect(() => {
     defaultChef();
   }, []);
@@ -113,11 +119,25 @@ const ChefDetails = ({ params }) => {
         console.log(error, "Error");
       });
   };
-  const handleAddCart = async (itemId) => {
+  const handleAddCart = async (id) => {
     try {
+      // Ensure id is an array
+      let ids = Array.isArray(id) ? id : [id];
+
+      // Create the payload with menuItems and default quantity
+      let payload = {
+        items: ids.map((id) => ({
+          menuItem: id,
+          quantity: 1, // Default quantity is set to 1
+        })),
+      };
+      if (!token) {
+        toast.error("You need to be logged in to add items to the cart.");
+        return;
+      }
       const response = await axios.post(
         `${config.baseURL}/api/Orders/AddtoCart`,
-        { menuItem: itemId },
+        payload,
         {
           headers: {
             Authorization: token,
@@ -125,19 +145,17 @@ const ChefDetails = ({ params }) => {
         }
       );
       if (response.status >= 200 && response.status < 300) {
-        toast.success("Item Added to Cart");
+        toast.success("Items added to cart successfully");
         handleDrawerOpen();
         refreshData();
       } else {
-        toast.error(
-          error.response.data.message ||
-            "Failed to add item to cart. Please try again."
-        );
-        console.log("Unexpected response status:", response.status);
+        toast.error("Failed to add items to cart. Please try again.");
       }
     } catch (error) {
-      toast.error("An error occurred while adding the item to the cart.");
-      console.log("Error:", error);
+      console.error("Error adding items to cart:", error);
+      toast.error(
+        "An error occurred while adding items to cart. Please try again."
+      );
     }
   };
   const [getCartItems, setGetCartItems] = useState({});
@@ -468,6 +486,7 @@ className="2xl:w-[13px] 2xl:h-[13px] lg:w-[10px] lg:h-[10px] w-[10px] h-auto"
           checked={isDrawerOpen}
           onChange={() => {}}
         />
+
         <div className="drawer-side">
           <label
             htmlFor="my-drawer-4"
@@ -489,7 +508,7 @@ className="2xl:w-[13px] 2xl:h-[13px] lg:w-[10px] lg:h-[10px] w-[10px] h-auto"
                       viewBox="0 0 24 24"
                       stroke-width="1.5"
                       stroke="currentColor"
-                      class="w-10 h-10"
+                      className="w-10 h-10"
                     >
                       <path
                         stroke-linecap="round"
@@ -502,134 +521,89 @@ className="2xl:w-[13px] 2xl:h-[13px] lg:w-[10px] lg:h-[10px] w-[10px] h-auto"
                     My Basket
                   </h4>
                 </div>
-                {/*
-{cart.length === 0 ? (
-<div>
-<div className="2xl:mt-40">
 
-</div>
-<h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[25px] 2xl:leading-[35px] xl:text-[20px] xl:leading-[28px] lg:text-[16px] lg:leading-[24px] text-center 2xl:mt-24">
-Explore a World of Deliciousness
-</h4>
-<p className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[16px] 2xl:leading-[26px] xl:text-[14px] xl:leading-[20px] lg:text-[12px] lg:leading-[18px] text-center">
-Add dishes to your cart now.
-</p>
-<div className="flex 2xl:mt-12 xl:mt-6 lg:mt-5 mt-4">
-<button
-className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[221px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1"
-onClick={handleDrawerClose}
->
-Explore Dishes
-</button>
-</div>
-</div>
-) : (
-<div className="">
-<div className="flex justify-end mt-10 md:mr-5">
-<button
-className="alata font-[400] rounded-[5px] p-2 text-[20px] bg-[#DB5353] text-white 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px]"
-onClick={handleClearCart}
->
-All Clear
-</button>
-</div>
-<div className="">
-{cart.map((item, index) => {
-const { data } = item;
-return (
-<div
-key={index}
-className="my-5 flex w-full border rounded-md"
->
-<div className="flex items-center gap-2 w-full">
-<div>
-<img
-src={data.ProfileImage}
-alt={item.name}
-className="w-[90px] h-auto rounded-[5.8px]"
-/>
-</div>
-<div className="">
-<h4 className="alata font-[400] text-[#111] my-0 text-[18px] leading-[28px]">
-{data.name}
-</h4>
-<h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
-Price:£{data.price}
-</h4>
-<h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
-Quantity:1
-</h4>
-</div>
-</div>
-<button
-className="px-4 text-[13px] border rounded h-[25px] text-red hover:bg-[#efb3b38a] "
-onClick={() => handleRemoveItem(data._id)}
->
-<svg
-xmlns="http://www.w3.org/2000/svg"
-fill="none"
-viewBox="0 0 24 24"
-stroke-width="1.5"
-stroke="currentColor"
-class="w-6 h-6"
->
-<path
-stroke-linecap="round"
-stroke-linejoin="round"
-d="M6 18 18 6M6 6l12 12"
-/>
-</svg>
-</button>
-</div>
-);
-})}
-<div className="flex justify-between items-center mt-20">
-<div>
-<h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
-
-</h4>
-</div>
-<div>
-<Link href="/checkout">
-<button className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1">
-Checkout
-</button>
-</Link>
-</div>
-</div>
-</div>
-</div>
-)} */}
-                {/* {getCartItems.length === 0 ? (
-<div>
-<div className="2xl:mt-40"></div>
-<h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[25px] 2xl:leading-[35px] xl:text-[20px] xl:leading-[28px] lg:text-[16px] lg:leading-[24px] text-center 2xl:mt-24">
-Explore a World of Deliciousness
-</h4>
-<p className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[16px] 2xl:leading-[26px] xl:text-[14px] xl:leading-[20px] lg:text-[12px] lg:leading-[18px] text-center">
-Add dishes to your cart now.
-</p>
-<div className="flex 2xl:mt-12 xl:mt-6 lg:mt-5 mt-4">
-<button
-className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[221px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1"
-onClick={handleDrawerClose}
->
-Explore Dishes
-</button>
-</div>
-</div>
-) : ( */}
-                <>
-                  <div className="">
+                {cart?.length === 0 && getCartItems?.length === 0 ? (
+                  <div>
+                    <div className="2xl:mt-40"></div>
+                    <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[25px] 2xl:leading-[35px] xl:text-[20px] xl:leading-[28px] lg:text-[16px] lg:leading-[24px] text-center 2xl:mt-24">
+                      Explore a World of Deliciousness
+                    </h4>
+                    <p className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[16px] 2xl:leading-[26px] xl:text-[14px] xl:leading-[20px] lg:text-[12px] lg:leading-[18px] text-center">
+                      Add dishes to your cart now.
+                    </p>
+                    <div className="flex 2xl:mt-12 xl:mt-6 lg:mt-5 mt-4">
+                      <button
+                        className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[221px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1"
+                        onClick={handleDrawerClose}
+                      >
+                        Explore Dishes
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div>
                     <div className="flex justify-end mt-10 md:mr-5">
                       <button
                         className="alata font-[400] rounded-[5px] p-2 text-[20px] bg-[#DB5353] text-white 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px]"
-                        onClick={handleCartClear}
+                        onClick={() => {
+                          handleClearCart();
+                          handleCartClear();
+                        }}
                       >
                         All Clear
                       </button>
                     </div>
-                    <div className="">
+                    <div>
+                      {cart?.map((item, index) => {
+                        const { data } = item;
+                        return (
+                          <div
+                            key={index}
+                            className="my-5 flex w-full border rounded-md"
+                          >
+                            <div className="flex items-center gap-2 w-full">
+                              <div>
+                                <img
+                                  src={data.ProfileImage}
+                                  alt={item.name}
+                                  className="w-[90px] h-auto rounded-[5.8px]"
+                                />
+                              </div>
+                              <div>
+                                <h4 className="alata font-[400] text-[#111] my-0 text-[18px] leading-[28px]">
+                                  {data.name}
+                                </h4>
+                                <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
+                                  Price:£{data.price}
+                                </h4>
+                                <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
+                                  Quantity:1
+                                </h4>
+                              </div>
+                            </div>
+                            <button
+                              className="px-4 text-[13px] border rounded h-[25px] text-red hover:bg-[#efb3b38a]"
+                              onClick={() => handleRemoveItem(data._id)}
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="currentColor"
+                                className="w-6 h-6"
+                              >
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  d="M6 18 18 6M6 6l12 12"
+                                />
+                              </svg>
+                            </button>
+                          </div>
+                        );
+                      })}
+
                       {Array.isArray(getCartItems) &&
                         getCartItems.map((item, index) => (
                           <div
@@ -679,36 +653,33 @@ Explore Dishes
                             </button>
                           </div>
                         ))}
+
                       <div className="flex justify-between items-center mt-20">
                         <div>
                           <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]"></h4>
                         </div>
                         <div>
-                          {token ? (
-                            <Link href="/checkout">
-                              <button className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1">
-                                Checkout
-                              </button>
-                            </Link>
-                          ) : (
+                          <Link href="/checkout">
                             <button
-                              onClick={handleLoginClick}
+                              onClick={() => {
+                                handleAddCart();
+                              }}
                               className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1"
                             >
                               Checkout
                             </button>
-                          )}
+                          </Link>
                         </div>
                       </div>
                     </div>
                   </div>
-                </>
-                {/* )} */}
+                )}
               </div>
             </div>
           </ul>
         </div>
       </div>
+
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={() => {}}>
           <Transition.Child
@@ -754,7 +725,15 @@ Explore Dishes
                       />
                     </svg>
                   </Dialog.Title>
-                  <DishDetails dishID={dishID} closeModal={closeModal} />
+
+                  <DishDetails
+                    defaultADish={defaultADish}
+                    dishID={dishID}
+                    closeModal={closeModal}
+                    setItemId={setItemId}
+                    handleAddCart={handleAddCart}
+                    // dishID={dishID}
+                  />
                 </Dialog.Panel>
               </Transition.Child>
             </div>

@@ -3,6 +3,7 @@ import Footer from "../footer";
 import Image from "next/image";
 import poster from "./assets/global-banner.png";
 import Navbar from "../navbar";
+import couma from "./assets/couma.svg";
 
 const GlobalCusines = () => {
   return (
@@ -13,18 +14,28 @@ const GlobalCusines = () => {
         <div className="2xl:pt-[116px] xl:pt pt-[50px]">
           <div className="2xl:w-[859px]  xl:text-[50px] lg:text-[60px] lg:w-[] sm:w-[] w-[] text-center mx-auto 2xl:pt-[90px] xl:pt pt-[70px]">
             <h1 className="globalhead lg:text-[30px] 2xl:text-[55px] xl:text-[40px]">
-              Homemade. Authentic Flavours, 
+              Homemade. Authentic Flavours,
               <br></br>
               Expertly Delivered.
             </h1>
           </div>
-          <div className="2xl:mt-[40px] xl:mt-[25px] mt-[10px]">
+          <div className=" 2xl:mt-[40px] xl:mt-[25px] mt-[10px]">
             <Image
               src={poster}
               className="2xl:w-[1219px] 2xl:h-[604px] h-auto xl:w-[800px] lg:w-[700px] md:w-[600px] sm:w-[600px] xs:w-[90%] w-[] mx-auto rounded-[15px]"
             />
           </div>
-
+          <div className="2xl:w-[1057px] 2xl:h-[244px] bg-white flex justify-center border mx-auto rounded-[15px]">
+            <div className="flex ">
+              <Image src={couma}  className="align-top"/>
+              <p className="seven_p2 2xl:w-[734px] text-center">
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industries standard dummy
+                text ever since the 1500s, when an unknown printer took a galley
+                of type and scrambled it to make a type specimen book.
+              </p>
+            </div>
+          </div>
           <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] sm:w-full xs:w-full flex justify-between mx-auto 2xl:mb-[230px] xl:mb-[140px] mb-[90px] mnavbar">
             <div className="w-full">
               <div className="text-center mt-[120px] xl:mt-[80px] lg:mt-[80px] md:mt-[80px] sm:mt-[50px]">
