@@ -95,16 +95,16 @@ const adminMailOptions=(req, savedOrder, deliveryDate, deliveryInfo, payment_met
                     </tr>
                     <tr>
                         <th>Amount</th>
-                        <td>$${savedOrder.totalAmountBeforeDiscount}</td>
+                        <td>$${savedOrder.totalAmountBeforeDiscount.toFixed(2)}</td>
                     </tr>
                     <tr>
                         <th>Discount</th>
-                        <td>$${savedOrder.discountApplied}%</td>
+                        <td>$${savedOrder.DiscountPercentage}%</td>
                     </tr>
 
                     <tr>
                         <th>Total Amount</th>
-                        <td>$${totalAmount.toFixed(2)}</td>
+                        <td>$${savedOrder.totalAmount.toFixed(2)}</td>
                     </tr>
 
                 </table>

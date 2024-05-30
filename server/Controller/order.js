@@ -195,6 +195,8 @@ exports.PlaceOrder = async (req, res, next) => {
             return total + (item.menuItem.price * item.quantity);
         }, 0);
 
+
+
         let discountApplied = 0;
         let DiscountPercentage = 0;
 
@@ -222,6 +224,7 @@ exports.PlaceOrder = async (req, res, next) => {
 
         // Calculate total amount after applying discount
         const totalAmountBeforeDiscount = totalAmount
+        console.log("TotalAmountBeforeDisCount" ,totalAmountBeforeDiscount )
         totalAmount -= discountApplied;
 
         let payment, transactionId, paymentIntent;
