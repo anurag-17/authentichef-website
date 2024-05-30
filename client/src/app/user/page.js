@@ -624,7 +624,7 @@ const LandingPage = () => {
           <div className="flex justify-between">
           {Array.isArray(getAllChef) &&
               getAllChef.map((item, index) => (
-                <div className="flex justify-between md:mt-5 lg:mt-10">
+                <div key={index} className="flex justify-between md:mt-5 lg:mt-10">
                   <div className="w-[160px] 2xl:w-[286px]  xl:w-[200px]">
                     <img alt="person1" src={item?.images} className=" rounded-full" />
                     <h2 className="seven_name ">Chef {item?.name}</h2>

@@ -72,6 +72,9 @@ const ExploreDishes = () => {
     console.log(_id, "iggg");
     dispatch(removeItemFromCart({ _id }));
   };
+  const handleLoginClick = () => {
+    document.getElementById("my_modal_2").showModal();
+  };
 
   const handleClearCart = () => {
     dispatch(clearCart());
