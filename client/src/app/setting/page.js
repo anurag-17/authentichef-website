@@ -1,5 +1,5 @@
 "use client";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Profile from "./profile";
@@ -15,6 +15,7 @@ import axios from "axios";
 import config from "@/config";
 import { ToastContainer, toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
 
 const Setting = () => {
   const menulist = [
@@ -41,7 +42,7 @@ const Setting = () => {
   const [isRefresh, setRefresh] = useState(false);
   const { token } = useSelector((state) => state?.auth);
   const dispatch = useDispatch();
-
+const router = useRouter();
   const [showDrawer, setShowDrawer] = useState(false);
   const [ComponentId, setComponentId] = useState(1);
 
@@ -66,6 +67,7 @@ const Setting = () => {
         dispatch(removeToken());
         dispatch(removeUser());
         dispatch(removeSuccess());
+        router.push("/explore-dishes")
         refreshData();
       } else {
         console.log("Logout failed");
@@ -122,8 +124,8 @@ const Setting = () => {
               </div>
               <div className="">
                 {token ? (
-                  <div className="py-3 rounded text-center cursor-pointer my-3 flex justify-between items-center transition-colors dash-menu gap-x-3 hover:bg-menu_secondary hover:rounded-md hover:text-black text-[#A3A3A3] alata font-[400] 2xl:text-[25px] xl:text-[14px] lg:text-[14px] md:text-[14px] sm:text-[12px] text-[11px] dashboard_box_t">
-                    <button onClick={handleLogout} className="text-inherit">
+                  <div onClick={handleLogout} className="py-3 rounded text-center cursor-pointer my-3 flex justify-between items-center transition-colors dash-menu gap-x-3 hover:bg-menu_secondary hover:rounded-md hover:text-black text-[#A3A3A3] alata font-[400] 2xl:text-[25px] xl:text-[14px] lg:text-[14px] md:text-[14px] sm:text-[12px] text-[11px] dashboard_box_t">
+                    <button  className="text-inherit">
                       Log out
                     </button>
                     <Image

@@ -1,7 +1,6 @@
 import React from "react";
 import Footer from "../footer";
 import Image from "next/image";
-import poster from "./assets/global-banner.png";
 import Navbar from "../navbar";
 import couma from "./assets/couma.svg";
 
@@ -19,23 +18,21 @@ const GlobalCusines = () => {
               Expertly Delivered.
             </h1>
           </div>
-          <div className=" 2xl:mt-[40px] xl:mt-[25px] mt-[10px]">
-            <Image
-              src={poster}
-              className="2xl:w-[1219px] 2xl:h-[604px] h-auto xl:w-[800px] lg:w-[700px] md:w-[600px] sm:w-[600px] xs:w-[90%] w-[] mx-auto rounded-[15px]"
-            />
-          </div>
-          <div className="2xl:w-[1057px] 2xl:h-[244px] bg-white flex justify-center border mx-auto rounded-[15px]">
-            <div className="flex ">
-              <Image src={couma}  className="align-top"/>
-              <p className="seven_p2 2xl:w-[734px] text-center">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industries standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book.
-              </p>
+          <div className=" flex justify-center 2xl:mt-[40px] xl:mt-[25px] mt-[10px] global-bg 2xl:w-[1219px] 2xl:h-[604px] h-auto xl:w-[800px] lg:w-[700px] md:w-[600px] sm:w-[600px] xs:w-[90%] w-[] mx-auto rounded-[15px] relative">
+            <div className="absolute bottom-0 2xl:w-[1057px] 2xl:h-[244px] bg-white flex justify-center border mx-auto rounded-[15px] 2http://localhost:4000/api/auth/edit-user">
+              <div className="flex ">
+                <Image src={couma} className="align-top" />
+                <p className="seven_p2 2xl:w-[734px] text-center">
+                  Lorem Ipsum is simply dummy text of the printing and
+                  typesetting industry. Lorem Ipsum has been the industries
+                  standard dummy text ever since the 1500s, when an unknown
+                  printer took a galley of type and scrambled it to make a type
+                  specimen book.
+                </p>
+              </div>
             </div>
           </div>
+
           <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] sm:w-full xs:w-full flex justify-between mx-auto 2xl:mb-[230px] xl:mb-[140px] mb-[90px] mnavbar">
             <div className="w-full">
               <div className="text-center mt-[120px] xl:mt-[80px] lg:mt-[80px] md:mt-[80px] sm:mt-[50px]">

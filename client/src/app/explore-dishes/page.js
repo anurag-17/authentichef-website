@@ -1079,8 +1079,9 @@ const ExploreDishes = () => {
                   </p>
                 </div>
               </div>
-
-              <div className=" flex flex-wrap gap-[20px] xl:gap-[25px] 2xl:gap-[70px] w-full px-10 md:px-0 mx-auto ">
+              {/* 
+              <div className=" flex flex-wrap gap-[20px] xl:gap-[25px] 2xl:gap-[70px] w-full px-10 md:px-0 mx-auto "> */}
+              <div className="flex flex-col md:flex-row  flex-wrap gap-[20px] xl:gap-[25px] 2xl:gap-[70px] md:my-5 lg:my-0">
                 {Array.isArray(getAllDish) &&
                   getAllDish.map((item) => (
                     <div
@@ -1607,16 +1608,25 @@ const ExploreDishes = () => {
                           <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]"></h4>
                         </div>
                         <div>
-                          <Link href="/checkout">
+                          {token ? (
+                            <Link href="/checkout">
+                              <button
+                                onClick={() => {
+                                  handleAddCart();
+                                }}
+                                className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1"
+                              >
+                                Checkout
+                              </button>
+                            </Link>
+                          ) : (
                             <button
-                              onClick={() => {
-                                handleAddCart();
-                              }}
+                              onClick={handleLoginClick}
                               className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1"
                             >
                               Checkout
                             </button>
-                          </Link>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -1860,7 +1870,13 @@ const ExploreDishes = () => {
                       />
                     </svg>
                   </Dialog.Title>
-                  <DishDetails defaultADish={defaultADish} setItemId={setItemId} handleAddCart={handleAddCart} dishID={dishID} closeModal={closeModal} />
+                  <DishDetails
+                    defaultADish={defaultADish}
+                    setItemId={setItemId}
+                    handleAddCart={handleAddCart}
+                    dishID={dishID}
+                    closeModal={closeModal}
+                  />
                 </Dialog.Panel>
               </Transition.Child>
             </div>
