@@ -54,8 +54,9 @@ const AboutUs = () => {
               <p className="aboutPara 2xl:mt-[50px] xl:mt-[30px] mt-[15px] 2xl:w-[1103px] xl:w-[680px] lg:w-[550px] sm:w-[] w-[] mx-auto">
                 Our journey began with a simple yet profound vision – to bring
                 authentic, homemade dishes inspired by flavours from around the
-                world -  <span style={{ color: "#F38181" }}>
-                delivered straight to your home.
+                world -{" "}
+                <span style={{ color: "#F38181" }}>
+                  delivered straight to your home.
                 </span>
               </p>
               <p className="aboutPara 2xl:mt-[30px]  xl:mt-[15px] mt-[8px] 2xl:w-[1259px] xl:w-[800px] lg:w-[600px] sm:w-[] w-[] mx-auto">
@@ -71,79 +72,82 @@ const AboutUs = () => {
             </div>
           </div>
 
-          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] 2xl:py-[140px] xl:py-[80px] py-[40px] md:w-[700px] xs:mx-[10px] xs:w-auto sm:w-[500px]  flex justify-between mx-auto mnavbar relative">
+          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] 2xl:py-[140px] xl:py-[80px] py-[40px] md:w-[700px] xs:mx-[10px] xs:w-auto sm:w-[500px]  flex justify-between mx-auto mnavbar relative  items-center">
             {/* Ensure the container is set to flex and justify-between */}
             <div>
               <div className="2xl:w-[1031px] xl:w-[680px] lg:w-[520px]">
                 <Image
                   src={aboutCheff}
-                  className="2xl:h-[617px] h-auto rounded-[15px]"
+                  className="2xl:w-[1031px] 2xl:h-[617px] xl:w-[100%] h-auto rounded-[15px]"
                 />
               </div>
             </div>
             {/* Overlay Div */}
-            {/* <div className="shadow-[0px_0px_110px_0px_rgba(0,0,0,0.08)] right-0 rounded-[15px] bg-[#FFFFFF]  2xl:m-[60px_160px_229px_800px] xl:m-[40px_140px_210px_600px] flex flex-col p-[61px_56px_61px_45px] 2xl:w-[800px] xl:w-[600px] xl:h-[50%] box-sizing-border absolute">
-                <div className="m-[0_0_30px_0] flex flex-row justify-between self-start w-[552.6px] box-sizing-border">
-                  <div className="flex flex-row box-sizing-border">
-                    <div className="rounded-[30px] bg-[#FFE8E8] relative m-[0_27px_0_0] flex p-[15px_15px_15px_15px] w-[60px] h-[60px] box-sizing-border">
-                      <div className="flex w-[30px] h-[30px] box-sizing-border">
-                        <Image src={dummy} className="w-[30px] h-[30px]" />
-                      </div>
-                    </div>
-                    <div className="m-[10px_0_10px_0] inline-block break-words font-['Alata'] font-normal text-[30px] leading-[1.333] text-[#000000]">
-                      No Hassle
-                    </div>
-                  </div>
-                  <div className="m-[13px_0_13px_0] inline-block break-words font-['Alata'] font-normal text-[24px] leading-[1.417] text-[#000000]">
-                    no need to cook!
-                  </div>
-                </div>
-                <div className="m-[0_0_36px_0] flex flex-row justify-between self-start w-[666.7px] box-sizing-border">
-                  <div className="flex flex-row box-sizing-border">
-                    <div className="rounded-[30px] bg-[#FFE8E8] relative m-[0_27px_0_0] flex p-[15px_15px_15px_15px] w-[60px] h-[60px] box-sizing-border">
-                      <div className="flex w-[30px] h-[30px] box-sizing-border">
-                        <Image src={profile} className="w-[30px] h-[30px]" />
-                      </div>
-                    </div>
-                    <div className="m-[12px_0_8px_0] inline-block break-words font-['Alata'] font-normal text-[30px] leading-[1.333] text-[#000000]">
-                      Personalisation
+            <div className="overDive ">
+              <div className="2xl:mb-[30px] xl:mb-[15px] 2xl:gap-[] flex  self-start box-sizing-border">
+                <div className="flex items-center flex-row box-sizing-border ">
+                  <div className="overImgDiv">
+                    <div className="flex justify-center items-center w-full box-sizing-border">
+                      <Image
+                        src={dummy}
+                        className="overImg"
+                      />
                     </div>
                   </div>
-                  <div className="m-[15px_0_11px_0] inline-block break-words font-['Alata'] font-normal text-[24px] leading-[1.417] text-[#000000]">
-                    mix and match your dishes
+                  <div className="overHead">
+                    No Hassle
                   </div>
                 </div>
-                <div className="m-[0_0_30px_0] flex flex-row justify-between w-[699px] box-sizing-border">
-                  <div className="flex flex-row box-sizing-border">
-                    <div className="rounded-[30px] bg-[#FFE8E8] relative m-[0_27px_0_0] flex p-[15.5px_15.5px_15.5px_15.5px] w-[60px] h-[60px] box-sizing-border">
-                      <div className="flex w-[29.1px] h-[29.1px] box-sizing-border">
-                        <Image src={hand2} className="w-[29.1px] h-[29.1px]" />
-                      </div>
-                    </div>
-                    <div className="m-[8px_0_12px_0] inline-block break-words font-['Alata'] font-normal text-[30px] leading-[1.333] text-[#000000]">
-                      Convenient
+                <div className=" overTitle">
+                  no need to cook!
+                </div>
+              </div>
+              <div className="2xl:mb-[36px] xl:mb-[15px] 2xl:gap-[] flex  self-start box-sizing-border">
+                <div className="flex items-center flex-row box-sizing-border">
+                  <div className="overImgDiv">
+                    <div className="flex justify-center items-center w-full box-sizing-border">
+                      <Image src={profile} className="overImg" />
                     </div>
                   </div>
-                  <div className="m-[11px_0_15px_0] inline-block break-words font-['Alata'] font-normal text-[24px] leading-[1.417] text-[#000000]">
-                    delivered directly to your door
+                  <div className="overHead">
+                    Personalisation
                   </div>
                 </div>
-                <div className="m-[0_19px_0_0] flex flex-row justify-between w-[680px] box-sizing-border">
-                  <div className="m-[0_0_21px_0] flex flex-row box-sizing-border">
-                    <div className="rounded-[30px] bg-[#FFE8E8] relative m-[0_27px_0_0] flex p-[15px_15px_15px_15px] w-[60px] h-[60px] box-sizing-border">
-                      <div className="flex w-[30px] h-[30px] box-sizing-border">
-                        <Image src={timer} className="w-[30px] h-[30px]" />
-                      </div>
-                    </div>
-                    <div className="m-[10px_0_10px_0] inline-block break-words font-['Alata'] font-normal text-[30px] leading-[1.333] text-[#000000]">
-                      Time Saving
+                <div className="overTitle">
+                  mix and match your dishes
+                </div>
+              </div>
+              <div className="2xl:mb-[30px] xl:mb-[15px] 2xl:gap-[] flex   box-sizing-border">
+                <div className="flex items-center flex-row box-sizing-border">
+                  <div className="overImgDiv">
+                    <div className="flex items-center justify-center w-full box-sizing-border">
+                      <Image src={hand2} className="overImg" />
                     </div>
                   </div>
-                  <div className="m-[13px_0_0_0] inline-block break-words font-['Alata'] font-normal text-[24px] leading-[1.417] text-[#000000]">
-                    heat your homemade meals <br></br> within 20 minutes
+                  <div className="overHead">
+                    Convenient
                   </div>
                 </div>
-              </div> */}
+                <div className="overTitle">
+                  delivered directly to your door
+                </div>
+              </div>
+              <div className="2xl:mb-[19px] xl:mb-[15px] 2xl:gap-[] flex   box-sizing-border">
+                <div className="2xl:m-[0_0_21px_0] flex items-center flex-row box-sizing-border">
+                  <div className="overImgDiv">
+                    <div className="flex justify-center items-center w-full box-sizing-border">
+                      <Image src={timer} className="overImg" />
+                    </div>
+                  </div>
+                  <div className="overHead">
+                    Time Saving
+                  </div>
+                </div>
+                <div className="overTitle">
+                  heat your homemade meals <br></br> within 20 minutes
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] sm:w-[500px] w-full flex justify-between mx-auto mnavbar">
@@ -177,9 +181,7 @@ const AboutUs = () => {
           <div className="bg-[#FFE8E8] 2xl:h-[750px] xl:h-[560px] lg:h-[400px] flex justify-center 2xl:py-[115px] xl:py-[60px] sm:px-[30px] sm:mt-12 py-[50px] xs:mt-12 md:mt-12">
             <div className="text-center 2xl:w-[1293px] xl:w-[870px] lg:w-[600px] w-full mx-auto xs:mx-[10px]">
               <h4 className="aboutHead font-[400] text-[45px]">
-                <span>
-                  Diversity, Equity and Inclusion
-                </span>
+                <span>Diversity, Equity and Inclusion</span>
               </h4>
               <p className="aboutPara 2xl:mt-[50px] xl:mt-[30px] mt-[15px]">
                 As a community-first company, we support chefs from diverse

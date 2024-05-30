@@ -4,8 +4,11 @@ import popimg from "../assets/pop-img.png";
 import Image from "next/image";
 import axios from "axios";
 import config from "@/config";
+import { useSelector } from "react-redux";
 
-const DishDetails = ({ dishID }) => {
+const DishDetails = ({ dishID, defaultADish, handleAddCart, setItemId }) => {
+  const { token } = useSelector((state) => state?.auth);
+
   const [count, setCount] = useState(1);
   // console.log(dishID, "dishID");
   const [getADish, setGetADish] = useState("");
@@ -114,7 +117,44 @@ const DishDetails = ({ dishID }) => {
                 </button>
               </div>
               <div>
-                <button className="pop-btn">Add to basket</button>
+                {token ? (
+                  <button
+                    onClick={() => {
+                      setItemId(getADish?._id);
+                      handleAddCart(getADish?._id);
+                    }}
+                    className="pop-btn"
+                  >
+                    <div className="drawer-content">
+                      <label htmlFor="my-drawer-4" className="drawer-button">
+                        {/* <Image
+                          src={addCart}
+                          alt={item.title}
+                          className="cursor-pointer 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
+                        /> */}
+                        Add to basket
+                      </label>
+                    </div>
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => {
+                      defaultADish(getADish?._id);
+                    }}
+                    className="pop-btn"
+                  >
+                    <div className="drawer-content">
+                      <label htmlFor="my-drawer-4" className="drawer-button">
+                        {/* <Image
+                          src={addCart}
+                          alt={item.title}
+                          className="cursor-pointer 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
+                        /> */}
+                        Add to basket
+                      </label>
+                    </div>
+                  </button>
+                )}
               </div>
             </div>
           </div>
