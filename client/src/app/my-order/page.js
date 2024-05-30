@@ -46,8 +46,8 @@ const MyOrder = () => {
             getAllOrders.map((order, orderIndex) => (
               <div key={orderIndex}>
                 {order.items.map((item, itemIndex) => (
-                  <div className=" flex justify-between items-center 2xl:mt-[20px] xl:mt-[10px] mt-[8px] border rounded-[10px] 2xl:p-[30px] xl:p-[20px] p-[15px] ">
-                    <div className="flex items-center 2xl:gap-[15px] xl:gap-[10px] gap-[8px]">
+                  <div key={itemIndex} className=" flex justify-between items-center 2xl:mt-[20px] xl:mt-[10px] mt-[8px] border rounded-[10px] 2xl:p-[30px] xl:p-[20px] p-[15px] ">
+                    <div key={itemIndex} className="flex items-center 2xl:gap-[15px] xl:gap-[10px] gap-[8px]">
                       <img
                         src={item.menuItem.ProfileImage[0]}
                         className="rounded-[5.8px] 2xl:w-[95px] 2xl:h-[95px] xl:w-[70px] w-[50px] h-auto"

@@ -12,7 +12,6 @@ import order from "./assets/order.svg";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import config from "@/config";
-
 import { useRouter } from "next/navigation";
 
 const Checkout = () => {
@@ -20,6 +19,7 @@ const Checkout = () => {
   const { cart } = useSelector((state) => state?.userCart);
   const router = useRouter();
   const [Promo_code, setPromoCode] = useState("");
+  const [isSameAsShippingAddress, setIsSameAsShippingAddress] = useState(true);
   const [deliveryInfo, setDeliveryInfo] = useState([
     {
       phone: "",
@@ -44,16 +44,37 @@ const Checkout = () => {
       LastName: "",
     },
   ]);
-  console.log(deliveryInfo, "deliveryInfo");
+
+  const [deliveryDate, setDeliveryDate] = useState("");
+  const [Delivery_instruction, setDeliveryInstruction] = useState("");
+  const [getCartItems, setGetCartItems] = useState([]);
+  const [subtotalPrice, setSubtotalPrice] = useState(0);
+  const [isRefresh, setRefresh] = useState(false);
+
+  // Define today's date in the format YYYY-MM-DD
+  const today = new Date().toISOString().split("T")[0];
+
+  // const handleInputChange = (e, setInfo) => {
+  //   const { name, value } = e.target;
+  //   setInfo((prevState) => (
+  //     {
+  //       ...prevState[0],
+  //       [name]: value,
+  //     }
+  //   ));
+  // };
+  
   const handleInputChange = (e, setInfo) => {
     const { name, value } = e.target;
-    setInfo((prevState) => [
-      {
-        ...prevState[0],
-        [name]: value,
-      },
-    ]);
+    setInfo((prevState) => [{
+      ...prevState[0],
+      [name]: value,
+    }
+  ]);
   };
+  
+  
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -92,25 +113,6 @@ const Checkout = () => {
     }
   };
 
-  // const [count, setCount] = useState(0);
-  // const handleIncrement = () => {
-  // setCount(count + 1);
-  // };
-  // const handleDecrement = () => {
-  // if (count > 0) {
-  // setCount(count - 1);
-  // }
-  // };
-  const [getCartItems, setGetCartItems] = useState({});
-  const [subtotalPrice, setSubtotalPrice] = useState("");
-  const [isRefresh, setRefresh] = useState(false);
-  const refreshData = () => {
-    setRefresh(!isRefresh);
-  };
-  useEffect(() => {
-    defaultCartItems();
-  }, [isRefresh]);
-
   const defaultCartItems = () => {
     const option = {
       method: "GET",
@@ -122,19 +124,20 @@ const Checkout = () => {
     axios
       .request(option)
       .then((response) => {
-        setGetCartItems(response?.data?.userCart?.items);
-        setSubtotalPrice(response?.data);
+        const cartItems = response?.data?.userCart?.items.map((item) => ({
+          ...item,
+          totalPrice: item.menuItem.price * item.quantity,
+        }));
+        setGetCartItems(cartItems);
+        setSubtotalPrice(
+          cartItems.reduce((sum, item) => sum + item.totalPrice, 0)
+        );
         console.log(response?.data, "data");
       })
       .catch((error) => {
         console.log(error, "Error");
       });
   };
-
-  const [deliveryDate, setDeliveryDate] = useState("");
-
-  // Define today's date in the format YYYY-MM-DD
-  const today = new Date().toISOString().split("T")[0];
 
   const handleDateChange = (e) => {
     const inputDate = new Date(e.target.value);
@@ -147,10 +150,60 @@ const Checkout = () => {
     setPromoCode(e.target.value);
   };
 
-  const [Delivery_instruction, setDeliveryInstruction] = useState("");
-
   const handleDeliveryInstructionChange = (e) => {
     setDeliveryInstruction(e.target.value);
+  };
+
+  useEffect(() => {
+    if (isSameAsShippingAddress) {
+      setBillingInfo({ ...deliveryInfo });
+    }
+  }, [isSameAsShippingAddress, deliveryInfo]);
+
+  useEffect(() => {
+    defaultCartItems();
+  }, [isRefresh]);
+
+  useEffect(() => {
+    if (getCartItems) {
+      const newSubtotal = getCartItems.reduce(
+        (sum, item) => sum + item.totalPrice,
+        0
+      );
+      setSubtotalPrice(newSubtotal);
+    }
+  }, [getCartItems]);
+
+  const refreshData = () => {
+    setRefresh(!isRefresh);
+  };
+
+  const handleIncrement = (itemId) => {
+    setGetCartItems((prevCartItems) =>
+      prevCartItems.map((item) =>
+        item._id === itemId
+          ? {
+              ...item,
+              quantity: item.quantity + 1,
+              totalPrice: item.menuItem.price * (item.quantity + 1),
+            }
+          : item
+      )
+    );
+  };
+
+  const handleDecrement = (itemId) => {
+    setGetCartItems((prevCartItems) =>
+      prevCartItems.map((item) =>
+        item._id === itemId && item.quantity > 1
+          ? {
+              ...item,
+              quantity: item.quantity - 1,
+              totalPrice: item.menuItem.price * (item.quantity - 1),
+            }
+          : item
+      )
+    );
   };
 
   return (
@@ -300,7 +353,7 @@ const Checkout = () => {
                         type="number"
                         name="Postcode"
                         placeholder="Enter"
-                        value={deliveryInfo.number}
+                        value={deliveryInfo.Postcode}
                         onChange={(e) => handleInputChange(e, setDeliveryInfo)}
                         className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
                       />
@@ -346,7 +399,10 @@ const Checkout = () => {
                     <label className="label cursor-pointer w-[15px] h-[15px]">
                       <input
                         type="checkbox"
-                        defaultChecked
+                        checked={isSameAsShippingAddress}
+                        onChange={() =>
+                          setIsSameAsShippingAddress(!isSameAsShippingAddress)
+                        }
                         className="checkbox checkbox-info rounded-none w-[18px] h-[18px]"
                       />
                     </label>
@@ -360,6 +416,7 @@ const Checkout = () => {
                         type="checkbox"
                         defaultChecked
                         className="checkbox checkbox-info rounded-none w-[18px] h-[18px]"
+                        disabled={isSameAsShippingAddress}
                       />
                     </label>
                     <span className="label-text alata font-[400] 2xl:text-[16px] 2xl:leading-[26px] xl:text-[12px] xl:leading-[18px] text-[10px] leading-[16px]">
@@ -398,6 +455,7 @@ const Checkout = () => {
                         value={billingInfo.houseNo}
                         onChange={(e) => handleInputChange(e, setBillingInfo)}
                         className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
+                        disabled={isSameAsShippingAddress}
                       />
                     </div>
                     <div className="2xl:w-[388px] w-full">
@@ -411,6 +469,7 @@ const Checkout = () => {
                         value={billingInfo.buildingName}
                         onChange={(e) => handleInputChange(e, setBillingInfo)}
                         className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
+                        disabled={isSameAsShippingAddress}
                       />
                     </div>
                   </div>
@@ -425,6 +484,7 @@ const Checkout = () => {
                       value={billingInfo.streetName}
                       onChange={(e) => handleInputChange(e, setBillingInfo)}
                       className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
+                      disabled={isSameAsShippingAddress}
                     />
                   </div>
                   <div className="flex justify-between 2xl:gap-[20px] xl:gap-[15px] gap-[10px] xl:my-[10px] my-[8px] 2xl:my-[15px]">
@@ -439,6 +499,7 @@ const Checkout = () => {
                         value={billingInfo.City}
                         onChange={(e) => handleInputChange(e, setBillingInfo)}
                         className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
+                        disabled={isSameAsShippingAddress}
                       />
                     </div>
                     <div className="2xl:w-[251px] xl:w-[180px] w-[140px]">
@@ -452,6 +513,7 @@ const Checkout = () => {
                         value={billingInfo.country}
                         onChange={(e) => handleInputChange(e, setBillingInfo)}
                         className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
+                        disabled={isSameAsShippingAddress}
                       />
                     </div>
                     <div className="2xl:w-[251px] xl:w-[180px] w-[140px]">
@@ -462,9 +524,10 @@ const Checkout = () => {
                         type="number"
                         name="Postcode"
                         placeholder="Enter"
-                        value={billingInfo.number}
+                        value={billingInfo.Postcode}
                         onChange={(e) => handleInputChange(e, setBillingInfo)}
                         className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
+                        disabled={isSameAsShippingAddress}
                       />
                     </div>
                   </div>
@@ -478,6 +541,9 @@ const Checkout = () => {
                         name="FirstName"
                         placeholder="Enter"
                         className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
+                        disabled={isSameAsShippingAddress}
+                        onChange={(e) => handleInputChange(e, setBillingInfo)}
+                        value={billingInfo.FirstName}
                       />
                     </div>
                     <div className="2xl:w-[388px] w-full">
@@ -489,6 +555,9 @@ const Checkout = () => {
                         type="text"
                         placeholder="Enter"
                         className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
+                        disabled={isSameAsShippingAddress}
+                        onChange={(e) => handleInputChange(e, setBillingInfo)}
+                        value={billingInfo.LastName}
                       />
                     </div>
                   </div>
@@ -500,7 +569,7 @@ const Checkout = () => {
                       <div className="max-h-[250px] overflow-y-scroll">
                         {Array.isArray(getCartItems) &&
                           getCartItems.map((item) => (
-                            <div key={item.id}>
+                            <div key={item._id}>
                               <div className="flex justify-between items-center 2xl:my-6 my-2">
                                 <div className="flex items-center gap-2 2xl:gap-4 xl:h-[70px]">
                                   <img
@@ -517,31 +586,28 @@ const Checkout = () => {
                                     </h4>
                                   </div>
                                 </div>
-                                <div className="flex justify-center 2xl:w-[103px] 2xl:h-[39px] xl:w-[60px] xl:h-[22px] lg:w-[50px] lg:h-[20px] border rounded-[5px] ">
-                                  {" "}
+                                <div className="flex justify-center 2xl:w-[103px] 2xl:h-[39px] xl:w-[60px] xl:h-[22px] lg:w-[50px] lg:h-[20px] border rounded-[5px]">
                                   <button
-                                    className=" text-[#DB5353] rounded-l w-1/3"
-                                    // onClick={() => {
-                                    // handleDecrement();
-                                    // removeFromCart(item.id);
-                                    // alert("Removed from cart");
-                                    // }}
+                                    className="text-[#DB5353] rounded-l w-1/3"
+                                    onClick={() => handleDecrement(item._id)}
                                   >
                                     <Image
                                       src={minus}
-                                      className="2xl:w-[15px] 2xl:h-[15px] xl:w-[10px] xl:h-[10px] lg:w-[8px] lg:h-[8px] mx-auto "
+                                      className="2xl:w-[15px] 2xl:h-[15px] xl:w-[10px] xl:h-[10px] lg:w-[8px] lg:h-[8px] mx-auto"
+                                      alt="decrement"
                                     />
                                   </button>
-                                  <p className=" flex mx-auto items-center text-[10px] xl:text-[12px] 2xl:text-[18px] 2xl:leading-[28px] ">
-                                    {/* {count} */}1
+                                  <p className="flex mx-auto items-center text-[10px] xl:text-[12px] 2xl:text-[18px] 2xl:leading-[28px]">
+                                    {item.quantity}
                                   </p>
                                   <button
-                                    className=" text-[#DB5353] rounded-r w-1/3"
-                                    // onClick={() => handleIncrement()}
+                                    className="text-[#DB5353] rounded-r w-1/3"
+                                    onClick={() => handleIncrement(item._id)}
                                   >
                                     <Image
                                       src={plus}
-                                      className="2xl:w-[15px] 2xl:h-[15px] xl:w-[10px] xl:h-[10px] lg:w-[8px] lg:h-[8px] mx-auto "
+                                      className="2xl:w-[15px] 2xl:h-[15px] xl:w/[10px] xl:h/[10px] lg:w/[8px] lg:h/[8px] mx-auto"
+                                      alt="increment"
                                     />
                                   </button>
                                 </div>
@@ -549,13 +615,13 @@ const Checkout = () => {
                             </div>
                           ))}
                       </div>
+
                       <div className="flex justify-between">
                         <h4 className="alata font-[400] text-[#555555] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
                           Subtotal
                         </h4>
                         <h4 className="alata font-[400] text-[#555555] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
-                          £{subtotalPrice?.TotalPricePerQuntity}
-                          {/* £8.50 */}
+                          £{subtotalPrice.toFixed(2)}
                         </h4>
                       </div>
                       <div className="flex justify-between 2xl:my-[25px] xl:my-[15px] my-[10px]">
@@ -566,7 +632,7 @@ const Checkout = () => {
                           <p>Spend over £55 for FREE delivery</p>
                         </div>
                         <h4 className="alata font-[400] text-[#555555] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
-                          {/* £{item?.price} */}0
+                          0
                         </h4>
                       </div>
                       <div className="flex justify-between">
@@ -574,9 +640,10 @@ const Checkout = () => {
                           Total
                         </h4>
                         <h4 className="alata font-[400] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
-                          £{subtotalPrice?.TotalPricePerQuntity}
+                          £{subtotalPrice.toFixed(2)}
                         </h4>
                       </div>
+
                       <div className="2xl:my-[30px] xl:my-[20px] my-[15px]">
                         <label className="seven_p2 text-[#555555]">
                           Promo code or Gift card
@@ -661,8 +728,10 @@ const Checkout = () => {
                         onClick={handleSubmit}
                         className=" flex justify-center 2xl:gap-3 xl:gap-2 gap-1 items-center w-full alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:text-[20px] xl:text-[14px] text-[10px] leading-[27.6px] px-3 py-1 2xl:h-[45px] xl:h-[30px] lg:h-[25px] 2xl:mt-[60px] xl:mt-[40px] mt-[30px] "
                       >
-  
-                        <Image src={order} className="2xl:w-[30px] xl:w-[22px] lg:w-[18px] sm:w-[] w-[] " />
+                        <Image
+                          src={order}
+                          className="2xl:w-[30px] xl:w-[22px] lg:w-[18px] sm:w-[] w-[] "
+                        />
                         Place Order
                       </button>
                       <div className="flex justify-between items-center mt-20">
