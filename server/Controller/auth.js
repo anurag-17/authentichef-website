@@ -1,7 +1,7 @@
 const User = require("../Model/User");
 const sendEmail = require("../Utils/SendEmail");
 const validateMongoDbId = require("../Utils/validateMongodbId");
-const { generateToken , verifyToken} = require("../config/jwtToken");
+const { generateToken, verifyToken } = require("../config/jwtToken");
 const sendToken = require("../Utils/jwtToken");
 const jwt = require("jsonwebtoken");
 const uploadOnS3 = require("../Utils/uploadImage");
@@ -10,7 +10,6 @@ const crypto = require("crypto");
 
 exports.uploadImage = async (req, res, next) => {
   try {
-
     if (!req.file) {
       return res.status(400).json({ error: "Invalid request" });
     }
@@ -26,8 +25,6 @@ exports.uploadImage = async (req, res, next) => {
   }
 };
 
-
-
 exports.register = async (req, res, next) => {
   const { email, password } = req.body;
 
@@ -36,7 +33,9 @@ exports.register = async (req, res, next) => {
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
-      return res.status(203).json({ error: "User with this email already exists." });
+      return res
+        .status(203)
+        .json({ error: "User with this email already exists." });
     }
 
     // Generate reset password token and set expiry
@@ -51,7 +50,7 @@ exports.register = async (req, res, next) => {
       provider: req.body.provider,
       role: req.body.role,
       passwordResetToken: resetToken,
-      passwordResetExpires: passwordResetExpires
+      passwordResetExpires: passwordResetExpires,
     };
 
     if (password) {
@@ -71,7 +70,6 @@ exports.register = async (req, res, next) => {
 const generateResetPasswordToken = () => {
   return crypto.randomBytes(20).toString("hex");
 };
-
 
 exports.login = async (req, res, next) => {
   const { email, password } = req.body;
@@ -101,7 +99,7 @@ exports.login = async (req, res, next) => {
           lastname: findUser.lastname,
           email: findUser.email,
           passwordChangedAt: findUser.passwordChangedAt,
-        //   provider: findUser.provider,
+          //   provider: findUser.provider,
         },
         token: token,
       };
@@ -126,7 +124,7 @@ exports.login = async (req, res, next) => {
           firstname: findUser.firstname,
           lastname: findUser.lastname,
           email: findUser.email,
-        //   provider: findUser.provider,
+          //   provider: findUser.provider,
         },
         token: token,
       };
@@ -145,10 +143,10 @@ exports.login = async (req, res, next) => {
 
 exports.adminLogin = async (req, res, next) => {
   const { email, password } = req.body;
-  
+
   try {
     const findAdmin = await User.findOne({ email }).select("+password");
-    
+
     if (!findAdmin) {
       throw new Error("Admin not found");
     }
@@ -189,16 +187,15 @@ exports.adminLogin = async (req, res, next) => {
 
 exports.chefLogin = async (req, res, next) => {
   const { email, password } = req.body;
-  
+
   try {
     const findAdmin = await Chef.findOne({ email }).select("+password");
-    
+
     if (!findAdmin) {
       throw new Error("Chef not found");
     }
 
     if (await findAdmin.matchPasswords(password)) {
-      
       const token = generateToken({ id: findAdmin._id });
       await Chef.findByIdAndUpdate(
         { _id: findAdmin._id?.toString() },
@@ -214,7 +211,7 @@ exports.chefLogin = async (req, res, next) => {
           mobile: findAdmin.mobile,
           specialty: findAdmin.specialty,
           bio: findAdmin.bio,
-          experience: findAdmin.experience
+          experience: findAdmin.experience,
         },
         token: token,
       };
@@ -230,8 +227,6 @@ exports.chefLogin = async (req, res, next) => {
     });
   }
 };
-
-
 
 exports.chefLogout = async (req, res) => {
   try {
@@ -268,7 +263,9 @@ exports.chefLogout = async (req, res) => {
     if (error.name === "JsonWebTokenError") {
       return res.status(401).json({ message: "Invalid token" });
     } else if (error.name === "TokenExpiredError") {
-      return res.status(401).json({ message: "Token expired, please login again" });
+      return res
+        .status(401)
+        .json({ message: "Token expired, please login again" });
     } else {
       // Handle other errors
       console.error("Error:", error);
@@ -284,7 +281,7 @@ exports.logout = async (req, res) => {
     if (authHeader) {
       token = authHeader;
     }
-    
+
     if (!token) {
       return res
         .status(401)
@@ -293,7 +290,7 @@ exports.logout = async (req, res) => {
 
     const decodedData = jwt.verify(token, process.env.JWT_SECRET);
 
-    const userData = await User.findOne({_id:decodedData?.id});
+    const userData = await User.findOne({ _id: decodedData?.id });
 
     if (userData.activeToken && userData.activeToken === token) {
       const user = await User.findOneAndUpdate(
@@ -329,12 +326,11 @@ exports.logout = async (req, res) => {
 };
 
 exports.forgotPassword = async (req, res, next) => {
-
-  console.log("Forget Pass")
+  console.log("Forget Pass");
   const { email } = req.body;
 
   try {
-    const user = await User.findOne({ email:email });
+    const user = await User.findOne({ email: email });
 
     // Console the User Email
 
@@ -342,9 +338,6 @@ exports.forgotPassword = async (req, res, next) => {
       return res.status(401).json(`${email} this email is not registered`);
     }
     const resetToken = user.getResetPasswordToken();
-
-    
-  
 
     await user.save();
 
@@ -440,7 +433,6 @@ exports.forgotPassword = async (req, res, next) => {
   }
 };
 
-
 exports.resetPassword = async (req, res, next) => {
   try {
     const { resetToken } = req.params;
@@ -453,11 +445,9 @@ exports.resetPassword = async (req, res, next) => {
       passwordResetExpires: { $gt: Date.now() },
     });
 
-   
-
     // If user not found or token expired, return error
     if (!user) {
-      return res.status(400).json({ error: 'Invalid or expired reset token' });
+      return res.status(400).json({ error: "Invalid or expired reset token" });
     }
 
     // Update user's password and reset token fields
@@ -471,7 +461,7 @@ exports.resetPassword = async (req, res, next) => {
     // Send success response
     return res.status(201).json({
       success: true,
-      message: 'Password reset successfully',
+      message: "Password reset successfully",
     });
   } catch (error) {
     // Pass error to the error handling middleware
@@ -479,9 +469,8 @@ exports.resetPassword = async (req, res, next) => {
   }
 };
 
-
 exports.verifyUser = async (req, res) => {
-  const {token } = req.params;
+  const { token } = req.params;
 
   try {
     const decodedData = verifyToken(token);
@@ -492,13 +481,18 @@ exports.verifyUser = async (req, res) => {
 
     const { id } = decodedData;
 
-    const LoggedUser = await User.findOne({ _id: id, activeToken: token }).select("-password -activeToken");
+    const LoggedUser = await User.findOne({
+      _id: id,
+      activeToken: token,
+    }).select("-password -activeToken");
 
     if (!LoggedUser) {
       return res.status(401).json({ message: "Unauthorized Access" });
     }
 
-    return res.status(200).json({ data: LoggedUser, message: "Verification Successful" });
+    return res
+      .status(200)
+      .json({ data: LoggedUser, message: "Verification Successful" });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ error: error.message });
@@ -520,7 +514,7 @@ exports.updatedUser = async (req, res) => {
       },
       {
         new: true,
-      } 
+      }
     );
     res.json(updatedUser);
   } catch (error) {
@@ -528,13 +522,11 @@ exports.updatedUser = async (req, res) => {
   }
 };
 
-
-
 exports.getallUser = async (req, res) => {
   try {
-    const { page = 1, limit = 10} = req.query;
+    const { page = 1, limit = 10 } = req.query;
     const searchQuery = req.query.search;
-    
+
     const currentPage = parseInt(page, 10);
     const itemsPerPage = parseInt(limit, 10);
 
@@ -556,7 +548,11 @@ exports.getallUser = async (req, res) => {
     const totalPages = Math.ceil(totalItems / itemsPerPage);
 
     const skip = (currentPage - 1) * itemsPerPage;
-    const users = await userQuery.sort({ firstname: 1 }).skip(skip).limit(itemsPerPage).exec();
+    const users = await userQuery
+      .sort({ firstname: 1 })
+      .skip(skip)
+      .limit(itemsPerPage)
+      .exec();
 
     res.json({
       totalItems,
@@ -570,16 +566,14 @@ exports.getallUser = async (req, res) => {
   }
 };
 
-
-
 exports.getaUser = async (req, res) => {
   const { _id } = req.user;
   validateMongoDbId(_id);
 
   try {
-    const getaUser = await User.findById(_id)
+    const getaUser = await User.findById(_id);
     res.json({
-      getaUser
+      getaUser,
     });
   } catch (error) {
     throw new Error(error);

@@ -230,6 +230,27 @@ const LandingPage = () => {
     }
   };
 
+  const [getAllChef, setGetAllChef] = useState("");
+  useEffect(() => {
+    defaultChef();
+  }, []);
+  const defaultChef = () => {
+    const option = {
+      method: "GET",
+      url: `${config.baseURL}/api/chef/chefs`,
+
+      headers: {
+        authorization: token,
+      },
+    };
+    axios.request(option).then((response) => {
+      setGetAllChef(response?.data?.chefs);
+      // console.log(response?.data?.chefs, "chef");
+    });
+  };
+  const handleLoginClick = () => {
+    document.getElementById("my_modal_2").showModal();
+  };
   return (
     <>
       <ToastContainer autoClose={1000} />
@@ -302,12 +323,12 @@ const LandingPage = () => {
             <div className="flex">
               <h2 className="four_head">Popular Dishes</h2>
             </div>
-            <div className="flex flex-col md:flex-row  flex-wrap gap-[20px] xl:gap-[25px] 2xl:gap-[35px] md:my-5 lg:my-0">
+            <div className="flex flex-col md:flex-row  flex-wrap gap-[20px] xl:gap-[25px] 2xl:gap-[70px] md:my-5 lg:my-0">
               {Array.isArray(getAllDish) &&
                 getAllDish.map((item, index) => (
                   <div
-                    key={index}
-                    className="2xl:w-[373px] xl:w-[260px] lg:w-[190px] md:w-1/2 mx-10 sm:mx-0 my-5  2xl:my-5 lg:my-4 mfbox "
+                    key={item.id}
+                    className="  my-5 2xl:w-[345px] 2xl:h-[560px] lg:w-[23%] sm:w-[48%] md:w-[48%] w-[100%]  relative  rounded-[9.8px] mexploreD "
                   >
                     <div>
                       <button className="" onClick={() => openModal(item._id)}>
@@ -599,70 +620,31 @@ const LandingPage = () => {
               wholesome homemade meals. Made with love and care to give you a
               global culinary experience, wherever you are
             </p>
-            <div className="flex justify-between md:mt-5 lg:mt-10">
-              <div className="w-[160px] 2xl:w-[286px]  xl:w-[200px]">
-                <Image alt="person1" src={person1} className="seven_img" />
-                <h2 className="seven_name ">Chef Roger Hendrics</h2>
-                <p className="seven_p2 ">
-                  Lorem ipsum dolor sit amet. Non quos sunt et provident
-                  <span className="text-[#DB5353]">...more</span>
-                </p>
-                <h3 className="seven_h2 text-[#DB5353] 2xl:mt-[20px] xl:mt-[10px] lg:mt-[8px]">
-                  Thai
-                </h3>
-                <h4 className="seven_h2">Vegetarian, Dairy Free</h4>
-              </div>
-              <div className="w-[160px] 2xl:w-[286px]  xl:w-[200px]">
-                <Image alt="person2" src={person2} className="seven_img" />
-                <h3 className="seven_name">Chef Jason Bosh</h3>
-                <p className="seven_p2 ">
-                  Lorem ipsum dolor sit amet. Non quos sunt et provident
-                  <span className="text-[#DB5353]">...more</span>
-                </p>
-                <h4 className="seven_h2 text-[#DB5353] 2xl:mt-[20px] xl:mt-[10px] lg:mt-[8px]">
-                  Indian
-                </h4>
-                <h4 className="seven_h2">Plant-Based, Vegan</h4>
-              </div>
-              <div className="w-[160px] 2xl:w-[286px]  xl:w-[200px]">
-                <Image alt="person3" src={person3} className="seven_img" />
-                <h3 className="seven_name">Chef Mathew Kaymer</h3>
-                <p className="seven_p2 ">
-                  Lorem ipsum dolor sit amet. Non quos sunt et provident
-                  <span className="text-[#DB5353]">...more</span>
-                </p>
-                <h4 className="seven_4 text-[#DB5353] 2xl:mt-[20px] xl:mt-[10px] lg:mt-[8px]">
-                  Hong-Kong
-                </h4>
-                <h4 className="seven_h2">Meat, Gluten-Free</h4>
-              </div>
-              <div className="w-[160px] 2xl:w-[286px]  xl:w-[200px]">
-                <Image alt="person4" src={person4} className="seven_img" />
-                <h3 className="seven_name">Chef Scarlet Carter</h3>
-                <p className="seven_p2 ">
-                  Lorem ipsum dolor sit amet. Non quos sunt et provident
-                  <span className="text-[#DB5353]">...more</span>
-                </p>
-                <h4 className="seven_h2 text-[#DB5353] 2xl:mt-[20px] xl:mt-[10px] lg:mt-[8px]">
-                  Indian
-                </h4>
-                <h4 className="seven_h2">Vegetarian, Dairy Free</h4>
-              </div>
-              <div className="w-[160px] 2xl:w-[286px]  xl:w-[200px]">
-                <Image alt="person5" src={person5} className="seven_img" />
-                <h3 className="seven_name">Chef Karan Malhotra</h3>
-                <p className="seven_p2 ">
-                  Lorem ipsum dolor sit amet. Non quos sunt et provident
-                  <span className="text-[#DB5353]">...more</span>
-                </p>
-                <h4 className="seven_h2 text-[#DB5353] 2xl:mt-[20px] xl:mt-[10px] lg:mt-[8px]">
-                  Thai
-                </h4>
-                <h4 className="seven_h2">Plant-Based, Vegan</h4>
-              </div>
-            </div>
+
+          <div className="flex justify-between">
+          {Array.isArray(getAllChef) &&
+              getAllChef.map((item, index) => (
+                <div key={index} className="flex justify-between md:mt-5 lg:mt-10">
+                  <div className="w-[160px] 2xl:w-[286px]  xl:w-[200px]">
+                    <img alt="person1" src={item?.images} className=" rounded-full" />
+                    <h2 className="seven_name ">Chef {item?.name}</h2>
+                    <p className="seven_p2 ">
+                      Lorem ipsum dolor sit amet. Non quos sunt et provident
+                      <Link href={`/pages/chef-details/${item?._id}`}>
+                     <span className="text-[#DB5353]">...more</span>
+                     </Link>
+                    </p>
+                    <h3 className="seven_h2 text-[#DB5353] 2xl:mt-[20px] xl:mt-[10px] lg:mt-[8px]">
+                      Thai
+                    </h3>
+                    <h4 className="seven_h2">Vegetarian, Dairy Free</h4>
+                  </div>
+                </div>
+              ))}
+          </div>
+
             <div className="flex justify-center">
-              <Link href="/contact-us">
+              <Link href="/become-chef">
                 <button className=" seven_btn">Join the Chef Community</button>
               </Link>
             </div>
@@ -1084,16 +1066,25 @@ const LandingPage = () => {
                           <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]"></h4>
                         </div>
                         <div>
-                          <Link href="/checkout">
+                          {token ? (
+                            <Link href="/checkout">
+                              <button
+                                onClick={() => {
+                                  handleAddCart();
+                                }}
+                                className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1"
+                              >
+                                Checkout
+                              </button>
+                            </Link>
+                          ) : (
                             <button
-                              onClick={() => {
-                                handleAddCart();
-                              }}
+                              onClick={handleLoginClick}
                               className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1"
                             >
                               Checkout
                             </button>
-                          </Link>
+                          )}
                         </div>
                       </div>
                     </div>
