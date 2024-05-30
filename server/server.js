@@ -66,6 +66,7 @@ server.use('/api/order', require('./Route/OrderRouter'));
 server.use('/Google_OAuth', require('./Route/googleRouter'));
 server.use('/facebook_OAuth', require('./Route/facebookRouter'));
 server.use('/api/Nutritional', require('./Route/nutritionalRouter'));
+server.use('/api/Coupon', require('./Route/couponRouter'));
 
 // Serve static assets in productionm
 if (process.env.NODE_ENV === 'production') {

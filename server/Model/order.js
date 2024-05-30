@@ -134,7 +134,15 @@ const orderSchema = new mongoose.Schema({
         type:String,
         required:false
     },
+    discountApplied: { type: Number, default: 0 }, 
+    // Add discountApplied field
+    DiscountPercentage:{
+        type:Number,
+        default:0
+    },
 
+    totalAmountBeforeDiscount: { type: Number, default: 0 },
+     // Add totalAmountBeforeDiscount field
     payment: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Payment",

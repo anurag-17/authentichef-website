@@ -9,6 +9,7 @@ const nodemailer = require('nodemailer'); // Import nodemailer
 const userMailOptions = require("../Public/userMailOption")
 const adminMailOptions = require("../Public/adminMailOption")
 const sendEmail = require('../Utils/SendEmail');
+const Coupon = require("../Model/Coupon");
 require('dotenv').config(); // Import dotenv to use environment variables
 
 // Define your email credentials and configuration
@@ -26,16 +27,15 @@ const emailConfig = {
 const transporter = nodemailer.createTransport(emailConfig);
 
 
+// Check the Order List //
+
 // exports.PlaceOrder = async (req, res, next) => {
 //     try {
-//         const { deliveryDate, deliveryInfo, status, paymentMethodToken, payment_method_types, Type_of_Address } = req.body;
-
+//         const { deliveryDate, deliveryInfo, BillingInfo , status, paymentMethodToken, payment_method_types = 'COD', Type_of_Address , Delivery_instruction , Promo_code } = req.body;
 
 //         // Get the cart items
-//         const cartItems = await Cart.findOne({ user: req.user._id }).populate({
-//             path: "items.menuItem",
-//             select: "price"
-//         });
+//         const cartItems = await Cart.findOne({ user: req.user._id }).populate('items.menuItem');
+
 
 //         if (!cartItems || cartItems.items.length === 0) {
 //             return res.status(404).json({ message: "Cart is empty" });
@@ -45,73 +45,130 @@ const transporter = nodemailer.createTransport(emailConfig);
 //         const totalAmount = cartItems.items.reduce((total, item) => {
 //             return total + (item.menuItem.price * item.quantity);
 //         }, 0);
-//         // Payment with stripe
-//         const paymentIntent = await stripe.paymentIntents.create({
-//             Name: req.user.name,
-//             amount: totalAmount * 100,
-//             currency: 'usd',
-//             payment_method: paymentMethodToken, // Replace with a valid payment method token
-//             payment_method_types: payment_method_types, // paymentmethod and payment_method_types are the same 
-//             confirm: true,
-//             customer: req.user.stripeCustomerId,
-//             metadata: {
-//                 UserName: req.user.firstname + ' ' + req.user.lastname,
-//                 UserEmail: req.user.email
+
+//         let payment, transactionId, paymentIntent;
+
+//         if (payment_method_types === 'COD') {
+//             // Handle Cash on Delivery
+//             transactionId = 'COD-' + new Date().getTime(); // Generate a unique transaction ID for COD
+
+//             payment = new Payment({
+//                 amount: totalAmount,
+//                 paymentMethod: 'COD',
+//                 status: 'pending',
+//                 transactionId: transactionId
+//             });
+
+//             const savedPayment = await payment.save();
+
+//             if (!savedPayment) {
+//                 return res.status(400).json({ message: 'Payment details could not be saved' });
 //             }
-//         });
+//         } else {
+//             // Payment with Stripe
+//             paymentIntent = await stripe.paymentIntents.create({
+//                 amount: totalAmount * 100, // Amount in cents
+//                 currency: 'usd',
+//                 payment_method: paymentMethodToken,
+//                 payment_method_types: [payment_method_types],
+//                 confirm: true,
+//                 customer: req.user.stripeCustomerId,
+//                 metadata: {
+//                     UserName: `${req.user.firstname} ${req.user.lastname}`,
+//                     UserEmail: req.user.email
+//                 },
+//                 return_url: 'http://www.authentichef.com/' // Add your actual return URL here
+//             });
 
-//         if (!paymentIntent) {
-//             return res.status(400).json({ message: 'Payment failed' });
-//         }
+//             if (!paymentIntent) {
+//                 return res.status(400).json({ message: 'Payment failed' });
+//             }
 
+//             transactionId = paymentIntent.id;
 
-//         // Create a payment record
-//         const payment = new Payment({
-//             amount: totalAmount,
-//             paymentMethod: payment_method_types,
-//             status: "completed",
-//             transactionId: paymentIntent.id
-//         });
+//             payment = new Payment({
+//                 amount: totalAmount,
+//                 paymentMethod: payment_method_types,
+//                 status: 'completed',
+//                 transactionId: transactionId
+//             });
 
-//         // Save the payment
-//         const savedPayment = await payment.save();
+//             const savedPayment = await payment.save();
 
-//         if (!savedPayment) {
-//             return res.status(400).json({ message: 'Payment Details is not saved' });
+//             if (!savedPayment) {
+//                 return res.status(400).json({ message: 'Payment details could not be saved' });
+//             }
 //         }
 
 //         // Extract menu items from cart
 //         const items = cartItems.items.map(item => ({
 //             menuItem: item.menuItem._id,
 //             quantity: item.quantity,
-//             customization: item.customization
+//             customization: item.customization,
+//             price: item.menuItem.price,
+//             ProfileImage: item.menuItem.ProfileImage,
+//             name: item.menuItem.name
 //         }));
 
 //         // Create an order with delivery information
 //         const newOrder = new Order({
-//             items: items,
+//             items,
 //             user: req.user._id,
-//             deliveryDate: deliveryDate,
-//             deliveryInfo: deliveryInfo,
-//             totalAmount: totalAmount,
-//             Type_of_Address: Type_of_Address || "Shipping Address",
-//             status: status,
-//             payment: savedPayment._id,// Assign the _id of the saved payment to the order's payment field,
-//             TransactionId: paymentIntent.id
+//             deliveryDate,
+//             Delivery_instruction,
+//             Promo_code,
+//             deliveryInfo,
+//             BillingInfo,
+//             totalAmount,
+//             Type_of_Address: Type_of_Address || 'Shipping Address',
+//             status,
+//             payment: payment._id,
+//             TransactionId: transactionId // Include the transaction ID in the order
 //         });
-//         // Save the order
+
 //         const savedOrder = await newOrder.save();
 
 //         if (!savedOrder) {
 //             return res.status(400).json({ message: 'Order creation failed' });
 //         }
+
 //         // Update the payment with the order ID
-//         savedPayment.order = savedOrder._id;
-//         paymentIntent.metadata.orderId = savedOrder._id.toString();
-//         await savedPayment.save();
+//         payment.order = savedOrder._id;
+
+//         if (payment_method_types !== 'COD' && paymentIntent) {
+//             paymentIntent.metadata.orderId = savedOrder._id.toString();
+//             await stripe.paymentIntents.update(paymentIntent.id, {
+//                 metadata: { orderId: savedOrder._id.toString() }
+//             });
+//         }
+
+//         await payment.save();
 
 //         // Delete the cart after placing the order
 //         await Cart.deleteOne({ _id: cartItems._id });
+
+//         // Send confirmation email to the user
+//        // Send confirmation email to the user
+//        const emailOptions = userMailOptions(req, savedOrder, deliveryDate, deliveryInfo, totalAmount, cartItems, payment_method_types);
+//         transporter.sendMail(emailOptions, (error, info) => {
+//             if (error) {
+//                 console.error('Error sending email to user:', error);
+//             } else {
+//                 console.log('Email sent to user:', info.response);
+//             }
+//         });
+
+//         // Send notification email to the admin
+//         // Send notification email to the admin
+//         const adminoptions = adminMailOptions(req, savedOrder, deliveryDate, deliveryInfo, payment_method_types, totalAmount ,cartItems)
+//         transporter.sendMail(adminoptions, (error, info) => {
+//             if (error) {
+//                 console.error('Error sending email to admin:', error);
+//             } else {
+//                 console.log('Email sent to admin:', info.response);
+//             }
+//         });
+
 
 //         res.status(201).json({ message: 'Order created successfully', order: savedOrder });
 //     } catch (error) {
@@ -120,25 +177,52 @@ const transporter = nodemailer.createTransport(emailConfig);
 //     }
 // };
 
-
 // Check the Order List //
 
 exports.PlaceOrder = async (req, res, next) => {
     try {
-        const { deliveryDate, deliveryInfo, BillingInfo , status, paymentMethodToken, payment_method_types = 'COD', Type_of_Address , Delivery_instruction , Promo_code } = req.body;
+        const { deliveryDate, deliveryInfo, BillingInfo, status, paymentMethodToken, payment_method_types = 'COD', Type_of_Address, Delivery_instruction, Promo_code } = req.body;
 
         // Get the cart items
         const cartItems = await Cart.findOne({ user: req.user._id }).populate('items.menuItem');
-
 
         if (!cartItems || cartItems.items.length === 0) {
             return res.status(404).json({ message: "Cart is empty" });
         }
 
         // Calculate total amount from updated cart items
-        const totalAmount = cartItems.items.reduce((total, item) => {
+        let totalAmount = cartItems.items.reduce((total, item) => {
             return total + (item.menuItem.price * item.quantity);
         }, 0);
+
+        let discountApplied = 0;
+        let DiscountPercentage = 0;
+
+        // Check if promo code is provided and valid
+        if (Promo_code) {
+            const coupon = await Coupon.findOne({ code: Promo_code, isActive: true });
+            if (coupon) {
+                // Check if total amount is above $500
+                if (totalAmount > 100) {
+                    if (coupon.discountType === 'percentage') {
+                        discountApplied = (coupon.discountValue / 100) * totalAmount;
+                        DiscountPercentage = coupon.discountValue; // Store the percentage value
+                    } else if (coupon.discountType === 'fixed') {
+                        discountApplied = coupon.discountValue;
+                    }
+                } else {
+                    // Total amount is not eligible for the promo code
+                    console.log("Total amount is below $500. Promo code cannot be applied.");
+                }
+            } else {
+                // Promo code is not valid or active
+                console.log("Invalid or inactive promo code.");
+            }
+        }
+
+        // Calculate total amount after applying discount
+        const totalAmountBeforeDiscount = totalAmount
+        totalAmount -= discountApplied;
 
         let payment, transactionId, paymentIntent;
 
@@ -214,6 +298,9 @@ exports.PlaceOrder = async (req, res, next) => {
             deliveryInfo,
             BillingInfo,
             totalAmount,
+            discountApplied,
+            totalAmountBeforeDiscount,
+            DiscountPercentage,
             Type_of_Address: Type_of_Address || 'Shipping Address',
             status,
             payment: payment._id,
@@ -242,8 +329,7 @@ exports.PlaceOrder = async (req, res, next) => {
         await Cart.deleteOne({ _id: cartItems._id });
 
         // Send confirmation email to the user
-       // Send confirmation email to the user
-       const emailOptions = userMailOptions(req, savedOrder, deliveryDate, deliveryInfo, totalAmount, cartItems, payment_method_types);
+        const emailOptions = userMailOptions(req, savedOrder, deliveryDate, deliveryInfo, totalAmount, cartItems, payment_method_types);
         transporter.sendMail(emailOptions, (error, info) => {
             if (error) {
                 console.error('Error sending email to user:', error);
@@ -253,8 +339,7 @@ exports.PlaceOrder = async (req, res, next) => {
         });
 
         // Send notification email to the admin
-        // Send notification email to the admin
-        const adminoptions = adminMailOptions(req, savedOrder, deliveryDate, deliveryInfo, payment_method_types, totalAmount ,cartItems)
+        const adminoptions = adminMailOptions(req, savedOrder, deliveryDate, deliveryInfo, payment_method_types, totalAmount, cartItems)
         transporter.sendMail(adminoptions, (error, info) => {
             if (error) {
                 console.error('Error sending email to admin:', error);
@@ -263,13 +348,17 @@ exports.PlaceOrder = async (req, res, next) => {
             }
         });
 
-
-        res.status(201).json({ message: 'Order created successfully', order: savedOrder });
+        // Send response with order and applied discount
+        res.status(201).json({
+            message: 'Order created successfully', order: savedOrder
+        });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });
     }
 };
+
+
 
 
 exports.OrderList = async (req, res, next) => {
@@ -279,7 +368,7 @@ exports.OrderList = async (req, res, next) => {
         const itemsPerPage = parseInt(limit, 10);
 
         let orderQuery = Order.find({ user: req.user._id })
-                        .populate('payment'); // Filter by user_id
+            .populate('payment'); // Filter by user_id
 
         if (search) {
             orderQuery = orderQuery.where('items.menuItem').regex(new RegExp(search, 'i'));
@@ -296,7 +385,7 @@ exports.OrderList = async (req, res, next) => {
 
         // Execute the query
         const orders = await orderQuery.skip(skip).limit(itemsPerPage).populate('items.menuItem').exec();
-        
+
         // Prepare response data
         const formattedOrders = orders.map(order => ({
             _id: order._id,
@@ -309,7 +398,10 @@ exports.OrderList = async (req, res, next) => {
             deliveryInfo: order.deliveryInfo,
             billingInfo: order.BillingInfo,
             deliveryDate: order.deliveryDate,
-            totalAmount: order.totalAmount
+            totalAmount: order.totalAmount,
+            discountApplied: order.discountApplied,
+            totalAmountBeforeDiscount: order.totalAmountBeforeDiscount,
+            discountPercentage: order.DiscountPercentage
         }));
 
         // Send response
@@ -335,7 +427,7 @@ exports.AllOrderList = async (req, res, next) => {
         const itemsPerPage = parseInt(limit, 10);
 
         let orderQuery = Order.find()
-                        .populate('payment'); // Filter by user_id
+            .populate('payment'); // Filter by user_id
 
         if (search) {
             orderQuery = orderQuery.where('items.menuItem').regex(new RegExp(search, 'i'));
@@ -352,32 +444,36 @@ exports.AllOrderList = async (req, res, next) => {
 
         // Execute the query
         const orders = await orderQuery.skip(skip).limit(itemsPerPage)
-        .populate({
-            path: 'items.menuItem',
-            select: '-qrCode'
-        
-        }).exec();
+            .populate({
+                path: 'items.menuItem',
+                select: '-qrCode'
 
-             // Prepare response data
-             const formattedOrders = orders.map(order => ({
-                _id: order._id,
-                items: order.items.map(item => ({
-                    ...item.toObject(), // Convert Mongoose document to plain JavaScript object
-                    OrderId: order._id
-                })),
-                user: order.user,
-                status: order.status,
-                deliveryInfo: order.deliveryInfo,
-                billingInfo: order.BillingInfo,
-                deliveryDate: order.deliveryDate,
-                totalAmount: order.totalAmount
-            }));
+            }).exec();
+
+        // Prepare response data
+        const formattedOrders = orders.map(order => ({
+            _id: order._id,
+            items: order.items.map(item => ({
+                ...item.toObject(), // Convert Mongoose document to plain JavaScript object
+                OrderId: order._id
+            })),
+            user: order.user,
+            status: order.status,
+            deliveryInfo: order.deliveryInfo,
+            billingInfo: order.BillingInfo,
+            deliveryDate: order.deliveryDate,
+            totalAmount: order.totalAmount,
+            discountApplied: order.discountApplied,
+            totalAmountBeforeDiscount: order.totalAmountBeforeDiscount,
+            discountPercentage: order.DiscountPercentage
+
+        }));
 
         res.status(200).json({
             totalOrders,
             totalPages,
             currentPage,
-            orders:formattedOrders
+            orders: formattedOrders
         });
     } catch (error) {
         next(error);
@@ -393,7 +489,7 @@ exports.getOrderById = async (req, res, next) => {
 
     try {
         const order = await Order.findById(id);
-        console.log(("order is" ,  order))
+        console.log(("order is", order))
         if (!order) {
             return res.status(404).json({ error: 'Order not found' });
         }
@@ -408,7 +504,7 @@ exports.getOrderById = async (req, res, next) => {
 
 exports.UpdateOrder = async (req, res, next) => {
     const { id } = req.params;
-    const companyLogoUrl='https://authimages.s3.eu-west-2.amazonaws.com/banner-images/Color+logo+with+background+(2)+1.png'
+    const companyLogoUrl = 'https://authimages.s3.eu-west-2.amazonaws.com/banner-images/Color+logo+with+background+(2)+1.png'
 
     try {
         const foundOrder = await Order.findById(id);
@@ -748,7 +844,7 @@ exports.DeleteOrder = async (req, res, next) => {
         }
 
         await Order.findByIdAndDelete(id);
-        res.status(200).json({ message: 'Order deleted successfully' });1
+        res.status(200).json({ message: 'Order deleted successfully' }); 1
 
     } catch (error) {
         next(error)
