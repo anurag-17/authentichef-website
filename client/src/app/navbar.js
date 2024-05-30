@@ -46,11 +46,9 @@ const Navbar = () => {
   const { user } = useSelector((state) => state?.auth);
   const { success } = useSelector((state) => state?.auth);
   const userDetails = user;
-  // console.log(success, "success");
   const [isLoading, setLoading] = useState(false);
   const [isRefresh, setRefresh] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState("success");
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const handleRemoveItem = (_id) => {
     dispatch(removeItemFromCart({ _id }));
@@ -83,37 +81,100 @@ const Navbar = () => {
       setIsLoggedIn(success);
     }
   }, [success]);
-  // ===================Signup===============
+
+  useEffect(() => {
+    const tokenFromUrl = new URLSearchParams(window.location.search).get(
+      "token"
+    );
+    if (tokenFromUrl) {
+      handleTokenLogin(tokenFromUrl);
+    } else {
+      const tokenFromStorage = localStorage.getItem("authToken");
+      if (tokenFromStorage) {
+        handleTokenLogin(tokenFromStorage);
+      }
+    }
+  }, []);
+
+  const [tokenFromUrl, setTokenFromUrl] = useState("");
+
+  const handleGetToken = () => {
+    const tokenFromUrl = prompt("Enter the token:");
+    if (tokenFromUrl) {
+      setTokenFromUrl(tokenFromUrl);
+      handleTokenLogin(tokenFromUrl);
+    }
+  };
+
+  const handleTokenLogin = async (tokenFromUrl) => {
+    try {
+      const response = await axios.get(
+        `http://13.43.174.21:4000/api/auth/verifyUserToken/${tokenFromUrl}`,
+        {
+          headers: {
+            Authorization: `Bearer ${tokenFromUrl}`,
+          },
+        }
+      );
+
+      if (response.data.success) {
+        const user = response.data.user;
+        dispatch(setToken(tokenFromUrl));
+        dispatch(setUser(user));
+        dispatch(setSuccess(true));
+        localStorage.setItem("authToken", tokenFromUrl);
+        toast.success("Logged in successfully!");
+        router.push("/"); // Redirect to home or desired page
+      } else {
+        toast.error("Token verification failed");
+      }
+    } catch (error) {
+      console.error("Error verifying token:", error);
+      toast.error("An error occurred during token verification.");
+    }
+  };
+
   const handleSubmits = async (e) => {
     e.preventDefault();
+
+    // Check if the userDetail object is empty or has default values
+    const isUserDetailEmpty =
+      !userDetail.firstname &&
+      !userDetail.lastname &&
+      !userDetail.email &&
+      !userDetail.password &&
+      !userDetail.role;
+
+    if (isUserDetailEmpty) {
+      // The userDetail object is empty, likely due to Google OAuth sign-up
+      // You can optionally log a message or return early
+      console.log("Google OAuth sign-up detected, skipping form registration.");
+      return;
+    }
+
     try {
-      // setLoader(true);
       const response = await axios.post(
         `${config.baseURL}/api/auth/register`,
         userDetail
       );
       if (response.status === 201) {
         toast.success("Registration Successful!");
-        // router.push("/user/user-login");
-        // setUserId(response?.data?.user);
-        // handleSendOTP(response?.data?.user);
       } else {
         toast.error("Failed to Register. Please try again later.");
       }
     } catch (error) {
       console.error(error);
       toast.error("An error occurred while registering.");
-    } finally {
-      // setLoader(false);
     }
   };
+
   const InputHandler = (e) => {
     setLoginDetails({ ...loginDetails, [e.target.name]: e.target.value });
   };
   const refreshData = () => {
     setRefresh(!isRefresh);
   };
-  // ==========Handle login==========
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -133,7 +194,7 @@ const Navbar = () => {
         dispatch(setUser(res?.data?.user));
         dispatch(setSuccess(res?.data?.success));
         handleClose();
-        setLoader(false);
+        setLoading(false);
         setIsLoggedIn(true);
       } else {
         toast.error("Login failed please try later!");
@@ -145,7 +206,6 @@ const Navbar = () => {
     }
   };
 
-  // ==========Handle logout==========
   const handleLogout = async () => {
     try {
       const res = await axios.get(`${config.baseURL}/api/auth/logout`, {
@@ -160,7 +220,6 @@ const Navbar = () => {
         dispatch(removeSuccess());
         setIsLoggedIn(false);
         refreshData();
-        // router.push("/login");
       } else {
         toast.error("Logout failed");
       }
@@ -170,7 +229,6 @@ const Navbar = () => {
     }
   };
 
-  // ======handle localStorage and popup=====
   const handleClose = () => {
     const modal = document.getElementById("my_modal_2");
     modal.close();
@@ -179,16 +237,15 @@ const Navbar = () => {
     const modal = document.getElementById("my_modal_1");
     modal.close();
   };
-  // useEffect(() => {
-  // // Check if user token exists in local storage
-  // setIsLoggedIn(!!); // Set isLoggedIn to true if user token exists
-  // }, [!isRefresh]);
+
   const handleLoginClick = () => {
     document.getElementById("my_modal_2").showModal();
   };
+
   const handleSignUpClick = () => {
     document.getElementById("my_modal_1").showModal();
   };
+
   const { cart } = useSelector((state) => state?.userCart);
   cart.forEach((item, index) => {
     const { data } = item;
@@ -263,7 +320,6 @@ const Navbar = () => {
     const ids = cart.map((item) => ({
       menuItem: item.data._id,
       quantity: 1, // Set the default quantity to 1
-      // Add any other properties required by the server
     }));
 
     setItemId(ids);
@@ -274,7 +330,6 @@ const Navbar = () => {
     state.userCart.cart.map((item) => ({
       menuItem: item.data._id,
       quantity: 1, // Set the default quantity to 1
-      // Add any other properties required by the server
     }))
   );
 
@@ -286,7 +341,6 @@ const Navbar = () => {
 
   const handleAddCart = async () => {
     try {
-      // Ensure itemId is defined and has elements
       if (!itemId || itemId.length === 0) {
         toast.error("No items to add to the cart.");
         return;
@@ -294,7 +348,7 @@ const Navbar = () => {
 
       const items = itemId.map((id) => ({
         menuItem: id,
-        quantity: 1, // Set the default quantity to 1 for each item
+        quantity: 1,
       }));
 
       const payload = { items };
@@ -330,12 +384,10 @@ const Navbar = () => {
   };
 
   const getItemIdsFromCart = () => {
-    // Assuming `cart` is available and contains the items
     const itemIds = cart.map((item) => item.data._id);
     setItemId(itemIds);
   };
 
-  // Call this function whenever the cart is updated or when the component mounts
   useEffect(() => {
     getItemIdsFromCart();
   }, [cart]);
@@ -343,11 +395,9 @@ const Navbar = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // Get the item IDs from local storage
     const itemIdsFromStorage = localStorage.getItem("itemIds");
     console.log();
     if (itemIdsFromStorage) {
-      // If item IDs exist in local storage, dispatch them to the Redux store
       dispatch(setItemId(JSON.parse(itemIdsFromStorage)));
     }
   }, [dispatch]);
@@ -361,85 +411,61 @@ const Navbar = () => {
     handleAddCart();
   };
 
-  // const handleGoogleOAuth = () => {
-  //   window.location.href =
-  //     "https://server-backend-gamma.vercel.app/Google_OAuth/google";
-  // };
-
-  // const handleOAuthCallback = async (code) => {
-  //   try {
-  //     const response = await axios.get(
-  //       `https://server-backend-gamma.vercel.app/Google_OAuth/google/callback`,
-  //       {
-  //         params: {
-  //           code: code,
-  //           scope:
-  //             "email profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile openid",
-  //           authuser: 0,
-  //           prompt: "none",
-  //         },
-  //       }
-  //     );
-
-  //     const data = response.data;
-
-  //     if (data.success) {
-  //       dispatch(setToken(data.token));
-  //       dispatch(setUser(data.user));
-  //       dispatch(setSuccess(data.success));
-  //       router.push("/"); // Redirect to home or desired page
-  //     } else {
-  //       console.error("Authentication failed");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error handling callback:", error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   const code = new URLSearchParams(window.location.search).get("code");
-  //   if (code) {
-  //     handleOAuthCallback(code);
-  //   }
-  // }, []);
-
   const handleGoogleOAuth = () => {
+    console.log("Initiating Google OAuth");
     window.location.href = `https://server-backend-gamma.vercel.app/Google_OAuth/google`;
+
+    // After successful Google OAuth, handle the token login
+    const tokenFromUrl = new URLSearchParams(window.location.search).get(
+      "token"
+    );
+    if (tokenFromUrl) {
+      handleTokenLogin(tokenFromUrl);
+    }
   };
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);  
+  const [currentUser, setCurrentUser] = useState(null);
 
   const handleOAuthCallback = async (code) => {
     try {
-      const response = await axios.get(`https://server-backend-gamma.vercel.app/Google_OAuth/google/callback`, {
-        params: {
-          code: code,
-          scope: "email profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile openid",
-          authuser: 0,
-          prompt: "none",
-        },
-      });
+      const tokenFromUrl = new URLSearchParams(window.location.search).get(
+        "token"
+      );
+      if (tokenFromUrl) {
+        const response = await axios.get(`${config.baseURL}/api/auth/me`, {
+          headers: {
+            Authorization: `Bearer ${tokenFromUrl}`,
+          },
+        });
+        const data = response.data;
+        if (data.success) {
+          dispatch(setToken(tokenFromUrl));
+          dispatch(setUser(data.user));
+          dispatch(setSuccess(true));
+          localStorage.setItem("authToken", tokenFromUrl);
+          toast.success("Logged in successfully!");
 
-      const data = response.data;
+          // Update the isLoggedIn and userDetails state variables
+          setIsLoggedIn(true);
+          setCurrentUser(data.user);
 
-      if (data.success) {
-        dispatch(setToken(data.token));
-        dispatch(setUser(data.user));
-        dispatch(setSuccess(data.success));
-        router.push('/'); // Redirect to home or desired page
-      } else {
-        console.error("Authentication failed");
+          router.push("/");
+        } else {
+          toast.error("Token verification failed");
+        }
       }
     } catch (error) {
-      console.error("Error handling callback:", error);
+      console.error("Error verifying token:", error);
+      toast.error("An error occurred during token verification.");
     }
   };
-
   useEffect(() => {
-    const code = new URLSearchParams(window.location.search).get('code');
+    const code = new URLSearchParams(window.location.search).get("code");
     if (code) {
       handleOAuthCallback(code);
     }
-  }, []);
-
+  }, [window.location.search]);
 
   return (
     <>
@@ -954,40 +980,16 @@ const Navbar = () => {
               </div>
               <div className="flex 2xl:mt-[20px]">
                 <div className="mx-auto 2xl:w-[368px] xl:w-[230px]">
-                  {/* <a
-                    href="https://server-backend-gamma.vercel.app/Google_OAuth/google"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  > */}
                   <div className="menu">
-                    {isLoggedIn && user ? (
-                      <>
-                        <span>Welcome, {user.firstname}</span>
-                        <Image src={user.img || profile} alt="Profile" />
-                        <button onClick={handleLogout}>
-                          <Image src={logout} alt="Logout" />
-                        </button>
-                      </>
+                    {isLoggedIn && currentUser ? (
+                      <>Welcome, {currentUser.firstname}</>
                     ) : (
-                      <>
-                        <div className="social_div">
-                          <div
-                            className="flex social_btn"
-                            onClick={handleGoogleOAuth}
-                          >
-                            <Image
-                              className="social_img"
-                              src={google}
-                              alt="Google"
-                            />
-                            <h3 className="checkoutlable text-[#929292]">
-                              Continue with Google
-                            </h3>
-                          </div>
-                        </div>
-                      </>
+                      <button onClick={handleGoogleOAuth}>
+                        Continue with Google
+                      </button>
                     )}
                   </div>
+
                   {/* </a> */}
 
                   <Link href="https://www.facebook.com/login/" target="_blank">
