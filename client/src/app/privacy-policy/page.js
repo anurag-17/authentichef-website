@@ -280,7 +280,7 @@ const PrivacyPolicy = () => {
                         re-organization, we may need to transfer some or all of
                         your personal data to the relevant third party (or its
                         advisors) as part of any due diligence process for the
-                        purpose of analysis any proposed sale or
+                        purpose of analysing any proposed sale or
                         re-organization. We may also need to transfer your
                         personal data to that re-organized entity or third party
                         after the sale or reorganization for them to use for the
@@ -386,7 +386,7 @@ const PrivacyPolicy = () => {
             <p className="footer_text mb-7 2xl:mb-10">
               The personal data which we hold will be held securely in
               accordance with our internal security policy and the appropriate
-              data protection laws as and where applicable. Authentic chef has
+              data protection laws as and where applicable. Authentichef has
               implemented generally accepted standards of technology and
               operational security in order to protect personal data from loss,
               misuse, or unauthorized alteration or destruction. Unfortunately,
@@ -415,16 +415,17 @@ const PrivacyPolicy = () => {
               legal or business purposes. When we no longer have a purpose for
               retaining your personal data, we will destroy it and take
               commercially reasonable measures to make sure that the information
-              is irrecoverable. All third parties are carefully screened before
-              transfer of any personal data, so we can ensure that there are
-              adequate controls in place and, where relevant, that such third
-              parties are fully compliant with the applicable laws. In case any
-              of any international transfer of personal data, Authentic chef
-              takes all reasonable steps to ensure that your personal data
-              continues to receive a standard of protection that is at least
-              comparable to that provided under the applicable laws.
+              is irrecoverable and irreproducible. All third parties are
+              carefully screened before transfer of any personal data, so we can
+              ensure that there are adequate controls in place and, where
+              relevant, that such third parties are fully compliant with the
+              applicable laws. In case any of any international transfer of
+              personal data, Authentichef takes all reasonable steps to ensure
+              that your personal data continues to receive a standard of
+              protection that is at least comparable to that provided under the
+              applicable laws.
             </p>
-            <h3 className="font-semibold mb-2 footer_text">YOUR RIGHTS</h3>
+            <h3 className="font-semibold mb-2 footer_text">7. YOUR RIGHTS</h3>
             <p className="footer_text mb-7 2xl:mb-10">
               Under the applicable privacy laws including GDPR, you possess a
               number of rights in relation to your personal data. These rights
@@ -537,14 +538,14 @@ const PrivacyPolicy = () => {
             </h3>
 
             <p className="footer_text mb-7 2xl:mb-10">
-              This Cookies Policy explains how Authentic chef uses cookies and
-              similar technologies on their Website to collect certain
+              This Cookies Policy explains how Authentichef uses cookies and
+              similar technologies in their Website to collect certain
               information about you. This document explains what these
               technologies are and why we use them, as well as your rights to
-              control our use of them. Authentic chef reserves the right to
-              update and modify this Cookies Policy at any time and for any
-              reason. You are encouraged to periodically review this document to
-              stay informed of updates.
+              control our use of them. Authentichef reserve the right to update
+              and modify this Cookies Policy at any time and for any reason. You
+              are encouraged to periodically review this document to stay
+              informed of updates.
             </p>
 
             <h3 className="font-semibold mb-2 footer_text">
@@ -560,13 +561,13 @@ const PrivacyPolicy = () => {
             </p>
 
             <p className="footer_text mb-7 2xl:mb-10">
-              Cookies are broadly of two types: first-party cookies and
-              third-party cookies. First-party cookies are set directly by us.
-              Third-party cookies are set from a domain different than the
-              domain of the website you are visiting, or in other words, are
-              served by a third party on our behalf. Third-party cookies are
-              typically used for web analytics, performance, and marketing
-              activities.
+              Cookies are broadly of two types, first party cookies and third
+              party cookies. The cookies that are set directly by us are called
+              first party cookies. The cookies that are set from a domain
+              different than the domain of the website you are visiting, or in
+              other words, are served by a third party, on our behalf, are
+              called third party cookies. Third party cookies are typically used
+              for web analytics, performance and marketing activities.
             </p>
 
             <p className="footer_text mb-7 2xl:mb-10">
@@ -594,10 +595,10 @@ const PrivacyPolicy = () => {
             <p className="footer_text mb-7 2xl:mb-10">
               Cookies can be programmed to remain on your computer or mobile
               device for various periods of time. Session cookies are temporary
-              cookies that exist only while your browser is open and are deleted
+              cookies that exist only while your browser is open and is deleted
               automatically when you close your browser. Persistent cookies are
               more permanent in nature and remain on your device even after the
-              browser is closed (for example, to remember your user preferences
+              browser is closed (for example to remember your user preferences
               when you return to the site). These cookies do not collect or
               store any personally identifiable information. You can refuse the
               use of cookies or you can opt-out of each cookie category (except
@@ -632,6 +633,15 @@ const PrivacyPolicy = () => {
             </p>
 
             <p className="footer_text mb-7 2xl:mb-10">
+              Functional Cookies: We make use of cookies to provide you with
+              certain functionality. For example, to remember choices you make
+              (such as your user name, language or the region you are in), or to
+              recognise the platform from which you access the Website, and to
+              provide enhanced and more personal features. These cookies are not
+              used to track your browsing on other websites.
+            </p>
+
+            <p className="footer_text mb-7 2xl:mb-10">
               Targeting Cookies: These cookies may be set through our Website by
               our advertising partners to record information about your visit,
               build a profile of your interests, and show you relevant
@@ -649,19 +659,19 @@ const PrivacyPolicy = () => {
             </h3>
             <p className="footer_text mb-7 2xl:mb-10">
               In addition to the different types of cookies mentioned above, we
-              may use other similar technologies from time to time, like web
-              beacons (sometimes called tracking pixels or clear gifs). These
-              are tiny graphics files that contain a unique identifier that
-              enable us to recognize when someone has visited our Website or
-              opened an e-mail including them. This allows us, for example, to
-              monitor the traffic patterns of users from one page within the
+              may use other, similar technologies from time to time, like web
+              beacons (sometimes called "tracking pixels" or "clear gifs").
+              These are tiny graphics files that contain a unique identifier
+              that enable us to recognise when someone has visited our Website
+              or opened an e-mail including them. This allows us, for example,
+              to monitor the traffic patterns of users from one page within the
               Website to another, to deliver or communicate with cookies, to
               understand whether you have come to the Website from an online
               advertisement displayed on a third-party website, to improve
               Website performance, and to measure the success of e-mail
-              marketing campaigns. In many instances, these technologies rely on
-              cookies to function properly, and declining cookies will impair
-              their functioning.
+              marketing campaigns. In many instances, these technologies are
+              reliant on cookies to function properly, and so declining cookies
+              will impair their functioning.
             </p>
 
             <h3 className="font-semibold mb-2 footer_text">
@@ -678,10 +688,10 @@ const PrivacyPolicy = () => {
             </p>
 
             <p className="footer_text mb-7 2xl:mb-10">
-              If you wish to restrict or block web browser cookies that are set
-              on your device, you can do this through your browser settings; the
-              Help function within your browser should tell you how.
-              Alternatively, you may wish to visit www.aboutcookies.org or
+              If you wish to restrict or block web browser cookies which are set
+              on your device, then you can do this through your browser
+              settings; the Help function within your browser should tell you
+              how. Alternatively, you may wish to visit www.aboutcookies.org or
               www.allaboutcookies.org (link is external), which contains
               comprehensive information on how to do this on a wide variety of
               desktop browsers.{" "}
@@ -689,12 +699,12 @@ const PrivacyPolicy = () => {
 
             <p className="footer_text mb-7 2xl:mb-10">
               This Cookies Policy does not cover third party websites. Please
-              note that this Cookies Policy does not apply to, and Authentic
-              chef is not responsible for, the privacy practices of third party
+              note that this Cookies Policy does not apply to, and Authentichef
+              is not responsible for, the privacy practices of third party
               websites which may be linked to or accessible through our Website.
             </p>
             <p className="footer_text mb-7 2xl:mb-10">
-              If you have any further questions, comments or requests regarding
+              If you have any further questions, comments or requests regarding 
               this Cookies Policy, please email us at support@authentic
               chef.com.
             </p>
@@ -720,8 +730,8 @@ const PrivacyPolicy = () => {
                   <tr className="footer_text">
                     <td className="py-5 w-2/12">[insert name of cookie]</td>
                     <td className="py-5 w-3/12">
-                      insert category - such as Strictly necessary cookie or
-                      Functional cookie
+                      [insert category - such as Strictly necessary cookie or
+                      Functional cookie]
                     </td>
                     <td className="py-5 w-5/12">
                       [insert brief description - such as This cookie is used to
