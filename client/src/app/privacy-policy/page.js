@@ -660,7 +660,7 @@ const PrivacyPolicy = () => {
             <p className="footer_text mb-7 2xl:mb-10">
               In addition to the different types of cookies mentioned above, we
               may use other, similar technologies from time to time, like web
-              beacons (sometimes called "tracking pixels" or "clear gifs").
+              beacons (sometimes called tracking pixels or clear gifs).
               These are tiny graphics files that contain a unique identifier
               that enable us to recognise when someone has visited our Website
               or opened an e-mail including them. This allows us, for example,
