@@ -20,61 +20,53 @@ const Checkout = () => {
   const router = useRouter();
   const [Promo_code, setPromoCode] = useState("");
   const [isSameAsShippingAddress, setIsSameAsShippingAddress] = useState(true);
-  const [deliveryInfo, setDeliveryInfo] = useState([
-    {
-      phone: "",
-      houseNo: "",
-      buildingName: " ",
-      streetName: " ",
-      City: " ",
-      country: " ",
-      FirstName: "",
-      LastName: "",
-    },
-  ]);
-  const [billingInfo, setBillingInfo] = useState([
-    {
-      phone: "",
-      houseNo: "",
-      buildingName: " ",
-      streetName: " ",
-      City: " ",
-      country: " ",
-      FirstName: "",
-      LastName: "",
-    },
-  ]);
+  const [deliveryInfo, setDeliveryInfo] = useState({
+    phone: "",
+    houseNo: "",
+    buildingName: " ",
+    streetName: " ",
+    City: " ",
+    country: " ",
+    FirstName: "",
+    LastName: "",
+    Postcode: "",
+  });
+  const [billingInfo, setBillingInfo] = useState({
+    phone: "",
+    houseNo: "",
+    buildingName: " ",
+    streetName: " ",
+    City: " ",
+    country: " ",
+    FirstName: "",
+    LastName: "",
+    Postcode: "",
+  });
 
   const [deliveryDate, setDeliveryDate] = useState("");
   const [Delivery_instruction, setDeliveryInstruction] = useState("");
   const [getCartItems, setGetCartItems] = useState([]);
+  const [updatedCartItems, setUpdatedCartItems] = useState([]);
   const [subtotalPrice, setSubtotalPrice] = useState(0);
   const [isRefresh, setRefresh] = useState(false);
+  const [cartId, setCartId] = useState("");
 
   // Define today's date in the format YYYY-MM-DD
   const today = new Date().toISOString().split("T")[0];
 
-  // const handleInputChange = (e, setInfo) => {
-  //   const { name, value } = e.target;
-  //   setInfo((prevState) => (
-  //     {
-  //       ...prevState[0],
-  //       [name]: value,
-  //     }
-  //   ));
-  // };
-  
-  const handleInputChange = (e, setInfo) => {
+  const handleInputChange = (e, setInfo, updateBilling = false) => {
     const { name, value } = e.target;
-    setInfo((prevState) => [{
-      ...prevState[0],
-      [name]: value,
-    }
-  ]);
+    setInfo((prevState) => {
+      const newState = {
+        ...prevState,
+        [name]: value,
+      };
+      if (updateBilling && isSameAsShippingAddress) {
+        setBillingInfo(newState);
+      }
+      return newState;
+    });
   };
-  
-  
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -84,15 +76,18 @@ const Checkout = () => {
       return;
     }
 
+    console.log("Submitting order with the following cart items:", updatedCartItems.length ? updatedCartItems : getCartItems);
+
     try {
       const response = await axios.post(
         `${config.baseURL}/api/order/createOrder`,
         {
-          deliveryInfo,
-          billingInfo,
+          deliveryInfo: [deliveryInfo],
+          billingInfo: [billingInfo],
           deliveryDate,
           Promo_code,
           Delivery_instruction,
+          cartItems: updatedCartItems.length ? updatedCartItems : getCartItems, // Ensure updated items are sent
         },
         {
           headers: {
@@ -124,14 +119,17 @@ const Checkout = () => {
     axios
       .request(option)
       .then((response) => {
-        const cartItems = response?.data?.userCart?.items.map((item) => ({
+        const userCart = response?.data?.userCart;
+        const cartItems = userCart?.items.map((item) => ({
           ...item,
           totalPrice: item.menuItem.price * item.quantity,
         }));
         setGetCartItems(cartItems);
+        setUpdatedCartItems(cartItems); // Initializing updatedCartItems with fetched data
         setSubtotalPrice(
           cartItems.reduce((sum, item) => sum + item.totalPrice, 0)
         );
+        setCartId(userCart._id); // Set the cart ID
         console.log(response?.data, "data");
       })
       .catch((error) => {
@@ -156,7 +154,7 @@ const Checkout = () => {
 
   useEffect(() => {
     if (isSameAsShippingAddress) {
-      setBillingInfo({ ...deliveryInfo });
+      setBillingInfo(deliveryInfo);
     }
   }, [isSameAsShippingAddress, deliveryInfo]);
 
@@ -174,8 +172,30 @@ const Checkout = () => {
     }
   }, [getCartItems]);
 
+
   const refreshData = () => {
     setRefresh(!isRefresh);
+  };
+
+  const updateCartItemQuantity = async (cartId, menuId, quantity) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:4000/api/Orders/updateCartItem/${cartId}/${menuId}`,
+        { quantity },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      if (response.status >= 200 && response.status < 300) {
+        console.log("Cart item updated successfully");
+      } else {
+        console.log("Failed to update cart item", response.data.message);
+      }
+    } catch (error) {
+      console.log("Error updating cart item:", error);
+    }
   };
 
   const handleIncrement = (itemId) => {
@@ -190,6 +210,21 @@ const Checkout = () => {
           : item
       )
     );
+
+    setUpdatedCartItems((prevCartItems) =>
+      prevCartItems.map((item) =>
+        item._id === itemId
+          ? {
+              ...item,
+              quantity: item.quantity + 1,
+              totalPrice: item.menuItem.price * (item.quantity + 1),
+            }
+          : item
+      )
+    );
+
+    const item = getCartItems.find((item) => item._id === itemId);
+    updateCartItemQuantity(cartId, item.menuItem._id, item.quantity + 1);
   };
 
   const handleDecrement = (itemId) => {
@@ -204,7 +239,29 @@ const Checkout = () => {
           : item
       )
     );
+
+    setUpdatedCartItems((prevCartItems) =>
+      prevCartItems.map((item) =>
+        item._id === itemId && item.quantity > 1
+          ? {
+              ...item,
+              quantity: item.quantity - 1,
+              totalPrice: item.menuItem.price * (item.quantity - 1),
+            }
+          : item
+      )
+    );
+
+    const item = getCartItems.find((item) => item._id === itemId);
+    if (item.quantity > 1) {
+      updateCartItemQuantity(cartId, item.menuItem._id, item.quantity - 1);
+    }
   };
+
+  useEffect(() => {
+    console.log("Updated Cart Items:", updatedCartItems);
+  }, [updatedCartItems]);
+
 
   return (
     <>
@@ -400,9 +457,7 @@ const Checkout = () => {
                       <input
                         type="checkbox"
                         checked={isSameAsShippingAddress}
-                        onChange={() =>
-                          setIsSameAsShippingAddress(!isSameAsShippingAddress)
-                        }
+                        onChange={(e) => setIsSameAsShippingAddress(e.target.checked)}
                         className="checkbox checkbox-info rounded-none w-[18px] h-[18px]"
                       />
                     </label>
