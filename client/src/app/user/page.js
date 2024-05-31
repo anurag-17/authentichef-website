@@ -254,20 +254,20 @@ const LandingPage = () => {
   return (
     <>
       <ToastContainer autoClose={1000} />
-      <section className="">
         <Navbar />
+      <section className="">
 
         {/* ===================Second================== */}
 
-        <div className="hidden md:block 2xl:h-screen ">
+        <div className="hidden md:block 2xl:h-screen">
           <div className="poster-bg flex justify-center ">
             <div className="">
-              <h1 className="alata font-[400] text-white 2xl:text-[65px] 2xl:leading-[70px] xl:text-[46px] xl:leading-[55px] 2xl:pt-[54%] xl:pt-[50%] lg:text-[35px] lg:leading-[30px lg:pt-[50%] pt-[130%] mx-auto mdestination">
+              <h1 className="alata font-[400] text-white 2xl:text-[65px] 2xl:leading-[70px] xl:text-[46px] xl:leading-[55px] 2xl:pt-[54%] xl:pt-[45%] lg:text-[35px] lg:leading-[30px] md:text-[35px] lg:pt-[50%] pt-[50%] mx-auto mdestination">
                 Where’s your next food destination?
               </h1>
               <div className="flex justify-center 2xl:mt-12 xl:mt-6 lg:mt-5 mt-4">
                 <Link href="/explore-dishes">
-                  <button className=" alata font-[400] bg-[#DB5353] text-white rounded-[5px] 2xl:w-[218px] 2xl:h-[60px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[14px] xl:w-[150px] xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1 hover:bg-[#7e2727]  ">
+                  <button className=" alata font-[400] bg-[#DB5353] text-white rounded-[5px] 2xl:w-[218px] 2xl:h-[60px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[14px] xl:w-[150px] xl:py-[10px] lg:px-5 lg:py-2 md:px-5 py-[10px] hover:bg-[#7e2727]  ">
                     Explore Dishes
                   </button>
                 </Link>
@@ -286,12 +286,12 @@ const LandingPage = () => {
         <div className="md:hidden block">
           <div className=" poster-bg-m  h-screen flex justify-center ">
             <div className="">
-              <h4 className="alata font-[400] text-white  pt-[130%] mx-auto">
+              <h4 className="alata font-[400] text-white  pt-[50%] mx-auto text-[30px] text-center">
                 Where’s your next food destination?
               </h4>
-              <div className="flex mt-4">
+              <div className="flex justify-center mt-4">
                 <Link href="/explore-dishes">
-                  <button className=" alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] px-3 py-1 ">
+                  <button className=" alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] px-4 py-2 border border-white">
                     Explore Dishes
                   </button>
                 </Link>
@@ -304,12 +304,12 @@ const LandingPage = () => {
             </div>
           </div>
         </div>
-        <div className="offer-bg flex justify-center items-center 2xl:gap-[30px] xl:gap-[10px] gap-[8px] 2xl:h-[150px] xl:h-[100px] h-[60px] moffers">
+        <div className="offer-bg flex justify-center items-center 2xl:gap-[30px] xl:gap-[10px] gap-[8px] 2xl:h-[150px] xl:h-[100px] md:h-[60px] h-[40px] moffers">
           <Image
             src={offer}
-            className="2xl:w-[48px] 2xl:h-[48px] 2xl:w-[30px] 2xl:h-[30px] w-[25px] h-[25px]"
+            className="2xl:w-[48px] 2xl:h-[48px] 2xl:w-[30px] 2xl:h-[30px] md:w-[25px] md:h-[25px]  w-[15px] sm:h-[20px]"
           />
-          <h3 className="alata font-[400] 2xl:text-[40px] 2xl:leading-[50px] xl:text-[25px] leading-[35px] text-[20px]">
+          <h3 className="alata font-[400] 2xl:text-[40px] 2xl:leading-[50px] xl:text-[25px] leading-[35px] md:text-[20px] text-[10px] sm:text-[14px]">
             30% off on your first order ‘Welcome30’
           </h3>
         </div>
@@ -323,19 +323,19 @@ const LandingPage = () => {
             <div className="flex">
               <h2 className="four_head">Popular Dishes</h2>
             </div>
-            <div className="flex flex-col md:flex-row  flex-wrap gap-[20px] xl:gap-[25px] 2xl:gap-[70px] md:my-5 lg:my-0">
+            <div className="flex flex-col sm:flex-row  flex-wrap  md:gap-[25px] lg:gap-[21px] xl:gap-[25px] 2xl:gap-[70px] md:my-5 lg:my-0 px-3 sm:px-0  exploreDishesmain ">
               {Array.isArray(getAllDish) &&
                 getAllDish.map((item, index) => (
                   <div
                     key={item.id}
-                    className="  my-5 2xl:w-[345px] 2xl:h-[560px] lg:w-[23%] sm:w-[48%] md:w-[48%] w-[100%]  relative  rounded-[9.8px] mexploreD "
+                    className=" my-5 2xl:w-[345px] 2xl:h-[560px] lg:w-[23%] sm:w-[45%] md:w-[48%] mx-auto  relative rounded-[9.8px] mexploreD  "
                   >
                     <div>
                       <button className="" onClick={() => openModal(item._id)}>
                         <img
                           alt="spaghetti"
                           src={item?.ProfileImage[0]}
-                          className="four_img 2xl:w-[365.5px] 2xl:h-[278px] xl:w-[280px] xl:h-[200px] lg:w-[220px] lg:h-[160px]"
+                          className="2xl:w-[365.5px] 2xl:h-[278px] xl:w-[280px] xl:h-[200px] lg:w-[220px] lg:h-[160px] w-[366px] h-[260px] rounded-[10px] mexplorimg"
                         />
                       </button>
                     </div>
@@ -457,7 +457,7 @@ const LandingPage = () => {
         {/* ===================Five================== */}
 
         <div className=" flex justify-center bg-white 2xl:py-[100px] xl:py-10 lg:py-10 py-10">
-          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px] w-2/3  mx-auto mnavbar">
+          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px] w-[95%]  mx-auto mnavbar">
             <div className=" flex justify-center ">
               <div className="mx-5 sm:mx-0">
                 <div className="mx-auto">
@@ -543,12 +543,12 @@ const LandingPage = () => {
         {/* ===================Six================== */}
 
         <div className="flex justify-center 2xl:py-28 xl:py-10 lg:py-10 py-10 bg-[#F9F2F2]">
-          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px]  flex flex-wrap mnavbar ">
-            <div className="mx-20 sm:mx-auto">
+          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  flex flex-wrap  mnavbar">
+            <div className=" sm:mx-auto">
               <div className="flex justify-center lg:justify-start">
                 <h2 className="six_head mx-auto">Our Commitment</h2>
               </div>
-              <div className=" flex flex-col lg:flex-row justify-center lg:justify-between flex-wrap">
+              <div className="w-full flex flex-col md:flex-row justify-center md:justify-around lg:justify-between flex-wrap">
                 {" "}
                 <div className="lg:w-1/2 flex 2xl:my-10 ">
                   <div className="my-3 lg:my-0 lg:flex items-center">
