@@ -57,12 +57,13 @@ const Checkout = () => {
   const handleInputChange = (e, setInfo, updateBilling = false) => {
     const { name, value } = e.target;
     let newValue = value;
-    // Basic validation: Check if the value is numeric and limit to 8 characters
+    
+    // Basic validation: Allow only alphanumeric characters and limit to 8 characters
     if (name === "Postcode") {
-      newValue = value.replace(/\D/g, ""); // Remove non-digit characters
+      newValue = value.replace(/[^A-Z0-9]/g, ""); // Remove non-alphanumeric characters
       newValue = newValue.slice(0, 8); // Limit length to 8 characters
     }
-
+  
     setInfo((prevState) => {
       const newState = {
         ...prevState,
@@ -74,6 +75,7 @@ const Checkout = () => {
       return newState;
     });
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
