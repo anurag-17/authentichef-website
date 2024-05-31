@@ -470,7 +470,7 @@ const LandingPage = () => {
                   <h2 className=" alata font-[400] 2xl:text-[55px] 2xl:leading-[75px] text-center mx-auto xl:text-[35px] xl:leading-[45px] text-[25px] leading-[35px]">
                     How it Works?
                   </h2>
-                  <p className="five_p 2xl:pt-[35px] xl:pt-2 lg:pt-2 pt-2">
+                  <p className="five_pp 2xl:pt-[35px] xl:pt-2 lg:pt-2 pt-2">
                     We understand the demands of busy lives without compromising
                     on the quality of personalised meal choices on a daily
                     basis.
@@ -545,7 +545,7 @@ const LandingPage = () => {
             </div>
             <div className="flex justify-center">
               <Link href="/about-us">
-                <button className=" 2xl:w-[218px] alata font-[400] hover:bg-[#7e2727] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:h-[60px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:w-[160px] xl:h-[40px] xl:text-[14px] xl:leading-[25px] lg:w-[160px] lg:h-[30px] lg:text-[10px] lg:leading-[25px] 2xl:mt-[50px] xl:mt-[30px] mt-[20px]">
+                <button className=" 2xl:w-[218px] alata font-[400] hover:bg-[#7e2727] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:h-[60px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:w-[160px] xl:h-[40px] xl:text-[14px] xl:leading-[25px] lg:w-[160px] lg:h-[30px] lg:text-[10px] lg:leading-[25px] 2xl:mt-[50px] xl:mt-[30px] mt-[20px] px-3 p-1">
                   About Us
                 </button>
               </Link>
@@ -1180,164 +1180,3 @@ const LandingPage = () => {
 
 export default dynamic(() => Promise.resolve(LandingPage), { ssr: false });
 
-{
-  /* <div className="flex justify-center 2xl:my-20 xl:my-14 lg:my-8 hidden lg:block">
-          <div className="">
-            <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px] flex justify-between mx-auto">
-              <div className="">
-                <h4 className="third_head">Select your cuisine</h4>
-              </div>
-              <div className="flex justify-between 2xl:gap-10 xl:gap-5 lg:gap-4 items-center">
-                <div className="flex 2xl:gap-5 xl:gap-3 lg:gap-2">
-                  <div className="">
-                    <label for="cuisines">All Cuisines:</label>
-                    <select
-                      id="cuisines"
-                      className="2xl:w-[153px] third_select"
-                    >
-                      <option disabled selected>
-                        All Cuisines
-                      </option>
-                      <option>a</option>
-                      <option>b</option>
-                      <option>c</option>
-                    </select>
-                  </div>
-
-                  <div className="">
-                    <label for="dietary">Dietary:</label>
-                    <select id="dietary" className="2xl:w-[126px] third_select">
-                      <option disabled selected>
-                        Dietary
-                      </option>
-                      <option>d</option>
-                      <option>e</option>
-                      <option>f</option>
-                    </select>
-                  </div>
-
-                  <div className="">
-                    <label for="moreFilters">More Filters:</label>
-                    <select
-                      id="moreFilters"
-                      className="2xl:w-[143px] third_select"
-                    >
-                      <option disabled selected>
-                        More filters
-                      </option>
-                      <option>x</option>
-                      <option>y</option>
-                      <option>z</option>
-                    </select>
-                  </div>
-
-                  <div className="relative">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="w-[13px] h-[13px] absolute 2xl:right-3 2xl:top-[16px] xl:right-3 xl:top-[10px] lg:right-3 lg:top-[5px] lg:text-[8px]"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-                      />
-                    </svg>
-
-                    <input
-                      type=" search"
-                      placeholder="Search"
-                      className=" third_input"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="flex justify-center 2xl:my-10 xl:my-8 lg:my-5">
-              <div className="carousel  2xl:gap-14 xl:gap-7 lg:gap-5">
-                <div className="">
-                  <Image
-                    className="rounded-[5px] 2xl:w-[216px] 2xl:h-[216px] xl:w-[160px] xl:h-[160px] lg:w-[125px] lg:h-[125px]"
-                    src={food1}
-                    alt="cuisine-india"
-                  />
-                  <h4
-                    className="alata font-[400] 2xl:text-[20px] 2xl:leading-[20px] 2xl:my-4 xl:text-[14px] xl:leading-[20px] xl:my-4
-                  lg:text-[12px] lg:leading-[18px] lg:my-3  mx-auto text-center"
-                  >
-                    Indian
-                  </h4>
-                </div>
-                <div className="">
-                  <Image
-                    alt="cuisine-american"
-                    className="rounded-[5px] 2xl:w-[216px] 2xl:h-[216px] xl:w-[160px] xl:h-[160px] lg:w-[125px] lg:h-[125px]"
-                    src={food2}
-                  />
-                  <h4
-                    className="alata font-[400] 2xl:text-[20px] 2xl:leading-[20px] 2xl:my-4 xl:text-[14px] xl:leading-[20px] xl:my-4
-                  lg:text-[12px] lg:leading-[18px] lg:my-3  mx-auto text-center"
-                  >
-                    American
-                  </h4>
-                </div>
-                <div className="">
-                  <Image
-                    alt="cuisine-mexican"
-                    className="rounded-[5px] 2xl:w-[216px] 2xl:h-[216px] xl:w-[160px] xl:h-[160px] lg:w-[125px] lg:h-[125px]"
-                    src={food3}
-                  />
-                  <h4
-                    className="alata font-[400] 2xl:text-[20px] 2xl:leading-[20px] 2xl:my-4 xl:text-[14px] xl:leading-[20px] xl:my-4
-                  lg:text-[12px] lg:leading-[18px] lg:my-3  mx-auto text-center"
-                  >
-                    Mexican
-                  </h4>
-                </div>
-                <div className="">
-                  <Image
-                    alt="cuisine-mediterranean"
-                    className="rounded-[5px] 2xl:w-[216px] 2xl:h-[216px] xl:w-[160px] xl:h-[160px] lg:w-[125px] lg:h-[125px]"
-                    src={food4}
-                  />
-                  <h4
-                    className="alata font-[400] 2xl:text-[20px] 2xl:leading-[20px] 2xl:my-4 xl:text-[14px] xl:leading-[20px] xl:my-4
-                  lg:text-[12px] lg:leading-[18px] lg:my-3  mx-auto text-center"
-                  >
-                    Mediterranean
-                  </h4>
-                </div>
-                <div className="">
-                  <Image
-                    alt="cuisine-italian"
-                    className="rounded-[5px] 2xl:w-[216px] 2xl:h-[216px] xl:w-[160px] xl:h-[160px] lg:w-[125px] lg:h-[125px]"
-                    src={food5}
-                  />
-                  <h4
-                    className="alata font-[400] 2xl:text-[20px] 2xl:leading-[20px] 2xl:my-4 xl:text-[14px] xl:leading-[20px] xl:my-4
-                  lg:text-[12px] lg:leading-[18px] lg:my-3  mx-auto text-center"
-                  >
-                    Italian
-                  </h4>
-                </div>
-                <div className="">
-                  <Image
-                    alt="cuisine-middleEastern"
-                    className="rounded-[5px] 2xl:w-[216px] 2xl:h-[216px] xl:w-[160px] xl:h-[160px] lg:w-[125px] lg:h-[125px]"
-                    src={food6}
-                  />
-                  <h4
-                    className="alata font-[400] 2xl:text-[20px] 2xl:leading-[20px] 2xl:my-4 xl:text-[14px] xl:leading-[20px] xl:my-4
-                  lg:text-[12px] lg:leading-[18px] lg:my-3  mx-auto text-center"
-                  >
-                    Middle Eastern
-                  </h4>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> */
-}

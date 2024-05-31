@@ -222,7 +222,7 @@ td {
 
 /* ===================Four================== */
 .four_head {
-  @apply alata font-[400] 2xl:text-[55px] 2xl:leading-[75px]  mx-auto xl:text-[35px] xl:leading-[45px] lg:text-[25px] lg:leading-[30px] sm:text-[25px] sm:leading-[30px] 2xl:pb-[50px];
+  @apply alata font-[400] 2xl:text-[55px] 2xl:leading-[75px]  mx-auto xl:text-[35px] xl:leading-[45px] lg:text-[25px] lg:leading-[30px] sm:text-[25px] sm:leading-[30px] 2xl:pb-[50px] text-[25px];
 }
 
 .four_img {
@@ -265,6 +265,9 @@ td {
 }
 
 .five_p {
+  @apply alata font-[400] text-center 2xl:text-[18px] 2xl:leading-[30px] 2xl:w-[820px]  xl:text-[12px] xl:leading-[20px] xl:w-[600px]  sm:text-[10px] lg:leading-[22px] lg:w-[600px] text-[10px] leading-[22px] mx-5 sm:mx-auto;
+}
+.five_pp {
   @apply alata font-[400] text-center 2xl:text-[20px] 2xl:leading-[30px] 2xl:w-[820px]  xl:text-[14px] xl:leading-[22px] xl:w-[600px]  sm:text-[12px] lg:leading-[22px] lg:w-[600px] text-[12px] leading-[22px] mx-5 sm:mx-auto;
 }
 
