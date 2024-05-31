@@ -222,7 +222,7 @@ td {
 
 /* ===================Four================== */
 .four_head {
-  @apply alata font-[400] 2xl:text-[55px] 2xl:leading-[75px] 2xl:my-8 mx-auto xl:text-[35px] xl:leading-[45px] xl:my-4 lg:text-[25px] lg:leading-[30px] lg:my-2 sm:text-[25px] sm:leading-[30px] sm:my-2;
+  @apply alata font-[400] 2xl:text-[55px] 2xl:leading-[75px]  mx-auto xl:text-[35px] xl:leading-[45px] lg:text-[25px] lg:leading-[30px] sm:text-[25px] sm:leading-[30px] 2xl:pb-[50px];
 }
 
 .four_img {
@@ -262,11 +262,11 @@ td {
 }
 
 .five_p {
-  @apply alata font-[400] text-center 2xl:text-[20px] 2xl:leading-[30px] 2xl:w-[820px] 2xl:my-3 xl:text-[14px] xl:leading-[22px] xl:w-[600px] xl:my-2 sm:text-[12px] lg:leading-[22px] lg:w-[600px] lg:my-2 text-[12px] leading-[22px] my-2 mx-5 sm:mx-auto;
+  @apply alata font-[400] text-center 2xl:text-[20px] 2xl:leading-[30px] 2xl:w-[820px]  xl:text-[14px] xl:leading-[22px] xl:w-[600px]  sm:text-[12px] lg:leading-[22px] lg:w-[600px] text-[12px] leading-[22px] mx-5 sm:mx-auto;
 }
 
 .five_head2 {
-  @apply alata font-[400] 2xl:text-[32px] 2xl:leading-[40px] text-center 2xl:my-5 mx-auto xl:my-3 xl:text-[20px] lg:text-[16px] xl:leading-[20px] lg:my-2;
+  @apply alata font-[400] 2xl:text-[32px] 2xl:leading-[40px] text-center 2xl:my-8 mx-auto xl:my-3 xl:text-[20px] lg:text-[16px] xl:leading-[20px] lg:my-2;
 }
 
 .five_p2 {
@@ -359,7 +359,7 @@ td {
 }
 
 .footer_heading {
-  @apply poppins font-[600] text-[#111111] 2xl:text-[18px] 2xl:leading-[27px] 2xl:mb-8 xl:mb-5 xl:text-[14px] xl:leading-[23px] lg:text-[12px] lg:leading-[18px] lg:mb-3 text-[12px] leading-[18px] mb-2;
+  @apply poppins font-[600] text-[#111111] 2xl:text-[18px] 2xl:leading-[27px] 2xl:mb-5 xl:mb-5 xl:text-[14px] xl:leading-[23px] lg:text-[12px] lg:leading-[18px] lg:mb-2 text-[12px] leading-[18px] mb-1;
 }
 
 .footer_text_b {

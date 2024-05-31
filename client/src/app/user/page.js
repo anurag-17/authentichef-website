@@ -36,6 +36,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import config from "@/config";
 import { ToastContainer, toast } from "react-toastify";
+import cheficon from "../assets/chef-icon.png";
 
 const LandingPage = () => {
   const { token } = useSelector((state) => state?.auth);
@@ -254,9 +255,8 @@ const LandingPage = () => {
   return (
     <>
       <ToastContainer autoClose={1000} />
-        <Navbar />
+      <Navbar />
       <section className="">
-
         {/* ===================Second================== */}
 
         <div className="hidden md:block 2xl:h-screen">
@@ -310,7 +310,7 @@ const LandingPage = () => {
             className="2xl:w-[48px] 2xl:h-[48px] 2xl:w-[30px] 2xl:h-[30px] md:w-[25px] md:h-[25px]  w-[15px] sm:h-[20px]"
           />
           <h3 className="alata font-[400] 2xl:text-[40px] 2xl:leading-[50px] xl:text-[25px] leading-[35px] md:text-[20px] text-[10px] sm:text-[14px]">
-            30% off on your first order ‘Welcome30’
+            30% off on your first order ‘WELCOME30’
           </h3>
         </div>
 
@@ -318,17 +318,17 @@ const LandingPage = () => {
 
         {/* ===================Four================== */}
 
-        <div className="flex justify-center 2xl:py-20 xl:py-10 lg:py-10 py-10 bg-[#F9F2F2]">
+        <div className="flex justify-center 2xl:py-[100px] xl:py-10 lg:py-10 py-10 bg-[#F9F2F2]">
           <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px] mnavbar">
             <div className="flex">
               <h2 className="four_head">Popular Dishes</h2>
             </div>
-            <div className="flex flex-col sm:flex-row  flex-wrap  md:gap-[25px] lg:gap-[21px] xl:gap-[25px] 2xl:gap-[70px] md:my-5 lg:my-0 px-3 sm:px-0  exploreDishesmain ">
+            <div className="flex flex-col sm:flex-row  flex-wrap  md:gap-[25px] lg:gap-[21px] xl:gap-[25px] 2xl:gap-[35px] md:my-5 lg:my-0 px-3 sm:px-0  exploreDishesmain ">
               {Array.isArray(getAllDish) &&
                 getAllDish.map((item, index) => (
                   <div
                     key={item.id}
-                    className=" my-5 2xl:w-[345px] 2xl:h-[560px] lg:w-[23%] sm:w-[45%] md:w-[48%] mx-auto  relative rounded-[9.8px] mexploreD  "
+                    className=" my-5 2xl:w-[345px] 2xl:h-[560px] lg:w-[23%] sm:w-[45%] md:w-[48%]   relative rounded-[9.8px] mexploreD  "
                   >
                     <div>
                       <button className="" onClick={() => openModal(item._id)}>
@@ -340,18 +340,25 @@ const LandingPage = () => {
                       </button>
                     </div>
                     <div className="">
-                      <h4 className="alata capitalize font-[400] text-[#DB5353] 2xl:my-4 xl:my-3 my-2 2xl:text-[20px] 2xl:leading-[20px]  xl:text-[14px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[10px]">
-                        {item.name}
-                      </h4>
+                      <button className="" onClick={() => openModal(item._id)}>
+                        <h4 className="alata capitalize font-[400] text-[#DB5353] 2xl:my-4 xl:my-3 my-2 2xl:text-[20px] 2xl:leading-[20px]  xl:text-[14px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[10px]">
+                          {item.name}
+                        </h4>
+                      </button>
 
                       {/* ===============Chef ============= */}
                       <Link href={`/pages/chef-details/${item?.chef_id?._id}`}>
                         <div className="flex items-center 2xl:gap-3 xl:gap-2 lg:gap-2  gap-2 xl:my-3 lg:my-2 my-2">
-                          <img
-                            alt="image"
-                            src={item?.chef_id?.images}
-                            className="four_img2 "
-                          />
+                          {item?.chef_id?.images ? (
+                            <img
+                              alt="image"
+                              src={item.chef_id.images}
+                              className="four_img2"
+                            />
+                          ) : (
+                            <Image src={cheficon} className="four_img2" />
+                          )}  
+
                           <div>
                             <h4 className="fourth_name ">
                               {item?.chef_id?.name}
@@ -420,7 +427,7 @@ const LandingPage = () => {
                                 <Image
                                   src={addCart}
                                   alt={item.title}
-                                  className="cursor-pointerflex justify-center 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
+                                  className="cursor-pointer flex justify-center 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
                                 />
                               </label>
                             </div>
@@ -440,7 +447,7 @@ const LandingPage = () => {
                                 <Image
                                   src={addCart}
                                   alt={item.title}
-                                  className=" cursor-pointerflex justify-center 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
+                                  className=" cursor-pointer flex justify-center 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
                                 />
                               </label>
                             </div>
@@ -456,7 +463,7 @@ const LandingPage = () => {
 
         {/* ===================Five================== */}
 
-        <div className=" flex justify-center bg-white 2xl:py-[100px] xl:py-10 lg:py-10 py-10">
+        <div className=" flex justify-center bg-white 2xl:py-[120px] xl:py-10 lg:py-10 py-10">
           <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px] w-[95%]  mx-auto mnavbar">
             <div className=" flex justify-center ">
               <div className="mx-5 sm:mx-0">
@@ -464,12 +471,12 @@ const LandingPage = () => {
                   <h2 className=" alata font-[400] 2xl:text-[55px] 2xl:leading-[75px] text-center mx-auto xl:text-[35px] xl:leading-[45px] text-[25px] leading-[35px]">
                     How it Works?
                   </h2>
-                  <p className="five_p">
+                  <p className="five_p 2xl:pt-[35px] xl:pt-2 lg:pt-2 pt-2">
                     We understand the demands of busy lives without compromising
                     on the quality of personalised meal choices on a daily
                     basis.
                   </p>
-                  <p className="five_p">
+                  <p className="five_p 2xl:pt-[25px] xl:pt-2 lg:pt-2 pt-2">
                     Say goodbye to meal prep hassles and hello to truly
                     authentic, chef-crafted meals that take you on a culinary
                     journey around the globe - delivered directly to you.
@@ -478,7 +485,7 @@ const LandingPage = () => {
                 <div>
                   <Image
                     src={howworkbanner}
-                    className="2xl:h-[400px] h-auto 2xl:my-[65px] xl:my-[45px] my-[30px]"
+                    className="2xl:h-[400px] h-auto 2xl:my-[60px] xl:my-[45px] my-[30px]"
                   />
                 </div>
               </div>
@@ -536,6 +543,11 @@ const LandingPage = () => {
                   </p>
                 </div>
               </div>
+            </div>
+            <div className="flex justify-center">
+              <Link href="/about-us">
+                <button className=" 2xl:w-[218px] alata font-[400] hover:bg-[#7e2727] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:h-[60px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:w-[160px] xl:h-[40px] xl:text-[14px] xl:leading-[25px] lg:w-[160px] lg:h-[30px] lg:text-[10px] lg:leading-[25px] 2xl:mt-[50px] xl:mt-[30px] mt-[20px]">About Us</button>
+              </Link>
             </div>
           </div>
         </div>
@@ -621,27 +633,34 @@ const LandingPage = () => {
               global culinary experience, wherever you are
             </p>
 
-          <div className="flex justify-between">
-          {Array.isArray(getAllChef) &&
-              getAllChef.map((item, index) => (
-                <div key={index} className="flex justify-between md:mt-5 lg:mt-10">
-                  <div className="w-[160px] 2xl:w-[286px]  xl:w-[200px]">
-                    <img alt="person1" src={item?.images} className=" rounded-full" />
-                    <h2 className="seven_name ">Chef {item?.name}</h2>
-                    <p className="seven_p2 ">
-                      Lorem ipsum dolor sit amet. Non quos sunt et provident
-                      <Link href={`/pages/chef-details/${item?._id}`}>
-                     <span className="text-[#DB5353]">...more</span>
-                     </Link>
-                    </p>
-                    <h3 className="seven_h2 text-[#DB5353] 2xl:mt-[20px] xl:mt-[10px] lg:mt-[8px]">
-                      Thai
-                    </h3>
-                    <h4 className="seven_h2">Vegetarian, Dairy Free</h4>
+            <div className="flex justify-between">
+              {Array.isArray(getAllChef) &&
+                getAllChef.map((item, index) => (
+                  <div
+                    key={index}
+                    className="flex justify-between md:mt-5 lg:mt-10"
+                  >
+                    <div className="w-[160px] 2xl:w-[286px]  xl:w-[200px]">
+                      <img
+                        alt="person1"
+                        src={item?.images}
+                        className=" rounded-full"
+                      />
+                      <h2 className="seven_name ">Chef {item?.name}</h2>
+                      <p className="seven_p2 ">
+                        Lorem ipsum dolor sit amet. Non quos sunt et provident
+                        <Link href={`/pages/chef-details/${item?._id}`}>
+                          <span className="text-[#DB5353]">...more</span>
+                        </Link>
+                      </p>
+                      <h3 className="seven_h2 text-[#DB5353] 2xl:mt-[20px] xl:mt-[10px] lg:mt-[8px]">
+                        Thai
+                      </h3>
+                      <h4 className="seven_h2">Vegetarian, Dairy Free</h4>
+                    </div>
                   </div>
-                </div>
-              ))}
-          </div>
+                ))}
+            </div>
 
             <div className="flex justify-center">
               <Link href="/become-chef">

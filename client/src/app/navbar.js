@@ -71,10 +71,19 @@ const Navbar = () => {
   });
   const inputHandlers = (e) => {
     const { name, value } = e.target;
-    setUserDetail((prevDetails) => ({
-      ...prevDetails,
-      [name]: value,
-    }));
+    if (name === "firstname" || name === "lastname") {
+      if (/^[A-Za-z]*$/.test(value) && value.length <= 100) {
+        setUserDetail((prevDetails) => ({
+          ...prevDetails,
+          [name]: value,
+        }));
+      }
+    } else {
+      setUserDetail((prevDetails) => ({
+        ...prevDetails,
+        [name]: value,
+      }));
+    }
   };
   useEffect(() => {
     if (success !== undefined) {
@@ -679,7 +688,10 @@ const Navbar = () => {
                     <button onClick={handleLoginClick} className="nav_login1">
                       Log In
                     </button>
-                    <button onClick={handleSignUpClick} className="nav_signup">
+                    <button
+                      onClick={handleSignUpClick}
+                      className="nav_signup hover:bg-gray-300"
+                    >
                       Sign Up
                     </button>
                     <button>{/* Add your Image component here */}</button>
@@ -962,7 +974,6 @@ const Navbar = () => {
                     onChange={inputHandlers}
                     value={userDetail.lastname}
                     maxLength={100}
-
                   />
                 </div>
                 <div className="2xl:mt-[35px] mt-[25px] 2xl:w-[368px] xl:w-[230px] w-[190px]">
@@ -975,7 +986,6 @@ const Navbar = () => {
                     title="enter valid email ex. abc@gmail.com"
                     onChange={inputHandlers}
                     value={userDetail.email}
-                    
                   />
                 </div>
                 <div className="2xl:mt-[35px] mt-[25px] 2xl:w-[368px] xl:w-[230px] w-[190px]">
@@ -988,7 +998,6 @@ const Navbar = () => {
                     title="enter valid email ex. abc@gmail.com"
                     onChange={inputHandlers}
                     value={userDetail.password}
-                    
                   />
                 </div>
               </div>
