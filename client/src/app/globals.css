@@ -279,11 +279,11 @@ td {
 }
 
 .six_img {
-  @apply 2xl:w-[327px] 2xl:h-[242px] xl:w-[210px] xl:h-auto lg:w-[160px] lg:h-auto sm:w-full my-4 rounded-[5px];
+  @apply 2xl:w-[327px] 2xl:h-[242px] xl:w-[210px] xl:h-auto lg:w-[160px] lg:h-auto sm:w-full w-[90%] mx-auto my-4 rounded-[5px];
 }
 
 .six_p {
-  @apply alata font-[400] 2xl:text-[25px] 2xl:leading-[35px] 2xl:p-14 2xl:w-auto xl:text-[16px] xl:leading-[28px] xl:pl-6 xl:w-[260px] lg:text-[12px] lg:leading-[20px] lg:pl-4 lg:w-[190px] sm:text-[14px] sm:leading-[20px] sm:pl-0 w-[300px];
+  @apply alata font-[400] 2xl:text-[25px] 2xl:leading-[35px] 2xl:p-14 2xl:w-auto xl:text-[16px] xl:leading-[28px] xl:pl-6 xl:w-[260px] lg:text-[12px] lg:leading-[20px] lg:pl-4 lg:w-[190px] sm:text-[14px] sm:leading-[20px] sm:pl-0 w-[300px] text-center sm:text-start;
 }
 
 /* =================Seven================= */
