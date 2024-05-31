@@ -143,18 +143,24 @@ const FAQs = () => {
     },
   ];
 
-  const [openIndex, setOpenIndex] = useState(null);
+  // const [openIndex, setOpenIndex] = useState(null);
 
   // Function to toggle the accordion item
-  const toggleAccordion = (index) => {
-    setOpenIndex(index === openIndex ? null : index);
-  };
+
   // const [isOpen, setIsOpen] = useState(false);
 
   // const toggleAccordion = () => {
   //   toggleAccordion(index);
   //   setOpenIndex(!openIndex);
   // };
+
+  const [openIndex, setOpenIndex] = useState(null);
+
+  const toggleAccordion = (index, section) => {
+    const key = `${section}-${index}`;
+    setOpenIndex((prevIndex) => (prevIndex === key ? null : key));
+  };
+
   return (
     <>
       <section>
@@ -197,40 +203,63 @@ const FAQs = () => {
                   {/* Mapping through accordion items */}
                   {data.map((item, index) => (
                     <div
-                      className="collapse collapse-arrow join-item border-b xs:text-[12px] pt-[10px] text-[#000000] font-[400] alata"
+                      className="collapse collapse-arrow join-item border-b xs:text-[12px] pt-[10px] text-[#000000] font-[400] alata cursor-pointer"
                       key={index}
                     >
                       <input
                         type="radio"
                         name="my-accordion-4"
-                        defaultChecked={openIndex === index}
+                        checked={openIndex === `delivery-${index}`}
+                        onClick={() => toggleAccordion(index, "delivery")}
+                        className="cursor-pointer"
                       />
                       <div
-                        className="collapse-title text-xl font-medium flex justify-between items-center nine_p  xs:text-[12px]"
-                        onClick={() => toggleAccordion(index)}
+                        className="collapse-title text-xl font-medium flex justify-between items-center nine_p xs:text-[12px]"
+                        onClick={() => toggleAccordion(index, "delivery")}
                       >
                         {item.question}
                         <div
-                          className={`rounded-full bg-[#F38181] 2xl:w-[32px] 2xl:h-[32px]  xl:w-[25px] xl:h-[25px] lg:w-[16px] sm:w-[16px] w-[] flex items-center justify-center xs:text-[12px]`}
+                          className={`rounded-full bg-[#F38181] 2xl:w-[32px] 2xl:h-[32px] xl:w-[25px] xl:h-[25px] lg:w-[16px] sm:w-[16px] flex items-center justify-center xs:text-[12px]`}
+                          onClick={() => toggleAccordion(index, "delivery")}
                         >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            className="text-white 2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] xl:h-[18px] w-[12px] h-[12px] xs:text-[12px]"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M12 4.5v15m7.5-7.5h-15"
-                            />
-                          </svg>
+                          {openIndex === `delivery-${index}` ? (
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              strokeWidth="1.5"
+                              stroke="currentColor"
+                              className="text-white 2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] xl:h-[18px] w-[12px] h-[12px] xs:text-[12px] cursor-pointer"
+                              onClick={() => toggleAccordion(index, "delivery")}
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M18 12H6"
+                              />
+                            </svg>
+                          ) : (
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              strokeWidth="1.5"
+                              stroke="currentColor"
+                              className="text-white 2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] xl:h-[18px] w-[12px] h-[12px] xs:text-[12px] cursor-pointer"
+                              onClick={() => toggleAccordion(index, "delivery")}
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M12 4.5v15m7.5-7.5h-15"
+                              />
+                            </svg>
+                          )}
                         </div>
                       </div>
-                      <div className="collapse-content">
-                        <p className="seven_h2">{item.answer}</p>
-                      </div>
+                      {openIndex === `delivery-${index}` && (
+                        <div className="collapse-content">
+                          <p className="seven_h2">{item.answer}</p>
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -249,40 +278,63 @@ const FAQs = () => {
                   {/* Mapping through accordion items */}
                   {data2.map((item, index) => (
                     <div
-                      className="collapse collapse-arrow join-item border-b text-[#000000] xs:text-[12px]"
+                      className="collapse collapse-arrow join-item border-b xs:text-[12px] pt-[10px] text-[#000000] font-[400] alata"
                       key={index}
                     >
                       <input
                         type="radio"
                         name="my-accordion-4"
-                        defaultChecked={openIndex === index}
+                        checked={openIndex === `ordering-${index}`}
+                        onClick={() => toggleAccordion(index, "ordering")}
+                        className="cursor-pointer"
                       />
                       <div
                         className="collapse-title text-xl font-medium flex justify-between items-center nine_p xs:text-[12px]"
-                        onClick={() => toggleAccordion(index)}
+                        onClick={() => toggleAccordion(index, "ordering")}
                       >
                         {item.question}
                         <div
-                          className={`rounded-full bg-[#F38181] 2xl:w-[32px] 2xl:h-[32px]  xl:w-[25px] xl:h-[25px] lg:w-[16px] sm:w-[16px] w-[] flex items-center justify-center xs:text-[12px]`}
+                          className={`rounded-full bg-[#F38181] 2xl:w-[32px] 2xl:h-[32px] xl:w-[25px] xl:h-[25px] lg:w-[16px] sm:w-[16px] flex items-center justify-center xs:text-[12px]`}
+                          onClick={() => toggleAccordion(index, "ordering")}
                         >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            className="text-white 2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] xl:h-[18px] w-[12px] h-[12px]"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M12 4.5v15m7.5-7.5h-15"
-                            />
-                          </svg>
+                          {openIndex === `ordering-${index}` ? (
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              strokeWidth="1.5"
+                              stroke="currentColor"
+                              className="text-white 2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] xl:h-[18px] w-[12px] h-[12px] xs:text-[12px]"
+                              onClick={() => toggleAccordion(index, "ordering")}
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M18 12H6"
+                              />
+                            </svg>
+                          ) : (
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              strokeWidth="1.5"
+                              stroke="currentColor"
+                              className="text-white 2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] xl:h-[18px] w-[12px] h-[12px] xs:text-[12px]"
+                              onClick={() => toggleAccordion(index, "ordering")}
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M12 4.5v15m7.5-7.5h-15"
+                              />
+                            </svg>
+                          )}
                         </div>
                       </div>
-                      <div className="collapse-content">
-                        <p className="seven_h2">{item.answer}</p>
-                      </div>
+                      {openIndex === `ordering-${index}` && (
+                        <div className="collapse-content">
+                          <p className="seven_h2">{item.answer}</p>
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -300,40 +352,63 @@ const FAQs = () => {
                   {/* Mapping through accordion items */}
                   {data3.map((item, index) => (
                     <div
-                      className="collapse collapse-arrow join-item text-[#000000] alata font-[400] border-b xs:text-[12px]"
+                      className="collapse collapse-arrow join-item border-b xs:text-[12px] pt-[10px] text-[#000000] font-[400] alata"
                       key={index}
                     >
                       <input
                         type="radio"
                         name="my-accordion-4"
-                        defaultChecked={openIndex === index}
+                        checked={openIndex === `dish-${index}`}
+                        onClick={() => toggleAccordion(index, "dish")}
+                        className="cursor-pointer"
                       />
                       <div
                         className="collapse-title text-xl font-medium flex justify-between items-center nine_p xs:text-[12px]"
-                        onClick={() => toggleAccordion(index)}
+                        onClick={() => toggleAccordion(index, "dish")}
                       >
                         {item.question}
                         <div
-                          className={`rounded-full bg-[#F38181] 2xl:w-[32px] 2xl:h-[32px]  xl:w-[25px] xl:h-[25px] lg:w-[16px] sm:w-[16px] w-[] flex items-center justify-center xs:text-[12px]`}
+                          className={`rounded-full bg-[#F38181] 2xl:w-[32px] 2xl:h-[32px] xl:w-[25px] xl:h-[25px] lg:w-[16px] sm:w-[16px] flex items-center justify-center xs:text-[12px]`}
+                          onClick={() => toggleAccordion(index, "dish")}
                         >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            className="text-white 2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] xl:h-[18px] w-[12px] h-[12px]"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M12 4.5v15m7.5-7.5h-15"
-                            />
-                          </svg>
+                          {openIndex === `dish-${index}` ? (
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              strokeWidth="1.5"
+                              stroke="currentColor"
+                              className="text-white 2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] xl:h-[18px] w-[12px] h-[12px] xs:text-[12px]"
+                              onClick={() => toggleAccordion(index, "dish")}
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M18 12H6"
+                              />
+                            </svg>
+                          ) : (
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              strokeWidth="1.5"
+                              stroke="currentColor"
+                              className="text-white 2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] xl:h-[18px] w-[12px] h-[12px] xs:text-[12px]"
+                              onClick={() => toggleAccordion(index, "dish")}
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M12 4.5v15m7.5-7.5h-15"
+                              />
+                            </svg>
+                          )}
                         </div>
                       </div>
-                      <div className="collapse-content">
-                        <p className="seven_h2">{item.answer}</p>
-                      </div>
+                      {openIndex === `dish-${index}` && (
+                        <div className="collapse-content">
+                          <p className="seven_h2">{item.answer}</p>
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -352,64 +427,60 @@ const FAQs = () => {
                   {/* Mapping through accordion items */}
                   {data4.map((item, index) => (
                     <div
-                      className="collapse collapse-arrow join-item text-[#000000] alata font-[400] border-b xs:text-[12px]"
+                      className="collapse collapse-arrow join-item border-b xs:text-[12px] pt-[10px] text-[#000000] font-[400] alata"
                       key={index}
                     >
                       <input
                         type="radio"
                         name="my-accordion-4"
-                        defaultChecked={openIndex === index}
+                        checked={openIndex === `data4-${index}`}
+                        onClick={() => toggleAccordion(index, "data4")}
+                        className="cursor-pointer"
                       />
                       <div
                         className="collapse-title text-xl font-medium flex justify-between items-center nine_p xs:text-[12px]"
-                        onClick={() => toggleAccordion(index)}
+                        onClick={() => toggleAccordion(index, "data4")}
                       >
                         {item.question}
                         <div
-                          className={`rounded-full bg-[#F38181] 2xl:w-[32px] 2xl:h-[32px] xl:w-[25px] xl:h-[25px] lg:w-[16px] sm:w-[16px] w-[] flex items-center justify-center xs:text-[12px]`}
+                          className={`rounded-full bg-[#F38181] 2xl:w-[32px] 2xl:h-[32px] xl:w-[25px] xl:h-[25px] lg:w-[16px] sm:w-[16px] flex items-center justify-center xs:text-[12px]`}
                         >
-                          <div key={index}>
-                            <div>
-                              {openIndex === index ? (
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  viewBox="0 0 24 24"
-                                  strokeWidth="1.5"
-                                  stroke="currentColor"
-                                  className="text-white 2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] xl:h-[18px] w-[12px] h-[12px]"
-                                >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M5 12h14"
-                                  />
-                                </svg>
-                              ) : (
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  viewBox="0 0 24 24"
-                                  strokeWidth="1.5"
-                                  stroke="currentColor"
-                                  className="text-white 2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] xl:h-[18px] w-[12px] h-[12px]"
-                                >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M12 4.5v15m7.5-7.5h-15"
-                                  />
-                                </svg>
-                              )}
-                            </div>
-                            {openIndex === index && (
-                              <div>{/* Your accordion content here */}</div>
-                            )}
-                          </div>
-                          
+                          {openIndex === `data4-${index}` ? (
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              strokeWidth="1.5"
+                              stroke="currentColor"
+                              className="text-white 2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] xl:h-[18px] w-[12px] h-[12px] xs:text-[12px]"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M18 12H6"
+                              />
+                            </svg>
+                          ) : (
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              strokeWidth="1.5"
+                              stroke="currentColor"
+                              className="text-white 2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] xl:h-[18px] w-[12px] h-[12px] xs:text-[12px]"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M12 4.5v15m7.5-7.5h-15"
+                              />
+                            </svg>
+                          )}
                         </div>
                       </div>
-                      <div className="collapse-content">
-                        <p className="seven_h2">{item.answer}</p>
-                      </div>
+                      {openIndex === `data4-${index}` && (
+                        <div className="collapse-content">
+                          <p className="seven_h2">{item.answer}</p>
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -428,40 +499,60 @@ const FAQs = () => {
                   {/* Mapping through accordion items */}
                   {data5.map((item, index) => (
                     <div
-                      className="collapse collapse-arrow join-item text-[#000000] alata font-[400] border-b xs:text-[12px]"
+                      className="collapse collapse-arrow join-item border-b xs:text-[12px] pt-[10px] text-[#000000] font-[400] alata"
                       key={index}
                     >
                       <input
                         type="radio"
                         name="my-accordion-4"
-                        defaultChecked={openIndex === index}
+                        checked={openIndex === `data5-${index}`}
+                        onClick={() => toggleAccordion(index, "data5")} // Add onClick handler here
+                        className="cursor-pointer"
                       />
                       <div
                         className="collapse-title text-xl font-medium flex justify-between items-center nine_p xs:text-[12px]"
-                        onClick={() => toggleAccordion(index)}
+                        onClick={() => toggleAccordion(index, "data5")} // Call toggleAccordion here as well
                       >
                         {item.question}
                         <div
-                          className={`rounded-full bg-[#F38181] 2xl:w-[32px] 2xl:h-[32px]  xl:w-[25px] xl:h-[25px] lg:w-[16px] sm:w-[16px] w-[] flex items-center justify-center xs:text-[12px]`}
+                          className={`rounded-full bg-[#F38181] 2xl:w-[32px] 2xl:h-[32px] xl:w-[25px] xl:h-[25px] lg:w-[16px] sm:w-[16px] flex items-center justify-center xs:text-[12px]`}
                         >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            className="text-white 2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] xl:h-[18px] w-[12px] h-[12px]"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M12 4.5v15m7.5-7.5h-15"
-                            />
-                          </svg>
+                          {openIndex === `data5-${index}` ? (
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              strokeWidth="1.5"
+                              stroke="currentColor"
+                              className="text-white 2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] xl:h-[18px] w-[12px] h-[12px] xs:text-[12px]"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M18 12H6"
+                              />
+                            </svg>
+                          ) : (
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              strokeWidth="1.5"
+                              stroke="currentColor"
+                              className="text-white 2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] xl:h-[18px] w-[12px] h-[12px] xs:text-[12px]"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M12 4.5v15m7.5-7.5h-15"
+                              />
+                            </svg>
+                          )}
                         </div>
                       </div>
-                      <div className="collapse-content">
-                        <p className="seven_h2">{item.answer}</p>
-                      </div>
+                      {openIndex === `data5-${index}` && (
+                        <div className="collapse-content">
+                          <p className="seven_h2">{item.answer}</p>
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
