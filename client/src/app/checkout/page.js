@@ -348,7 +348,7 @@ const Checkout = () => {
                     </label>
                     <input
                       placeholder="Enter phone number"
-                      type="number"
+                      type="text"
                       name="phone"
                       value={deliveryInfo.phone}
                       onChange={(e) => handleInputChange(e, setDeliveryInfo)}
