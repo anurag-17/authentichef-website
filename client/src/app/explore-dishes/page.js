@@ -585,10 +585,7 @@ const ExploreDishes = () => {
         console.log(error, "Error");
       });
   };
-  const handleLoginClick = () => {
-    document.getElementById("my_modal_2").showModal();
-  };
-
+ 
   return (
     <>
       <ToastContainer className="mt-24" autoClose={1000} />
