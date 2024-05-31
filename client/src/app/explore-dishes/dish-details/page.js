@@ -64,27 +64,41 @@ const DishDetails = ({ dishID, defaultADish, handleAddCart, setItemId }) => {
                 <h3>Portion Size: Serves {getADish?.portion_Size}</h3>
               </div>
               <div className="flex flex-wrap 2xl:gap-[10px] xl:gap-[8px] gap-[6px]  2xl:my-[15px] xl:my-[12px] my-[8px]">
-                <div className="pop">
-                  <img
-                    src={getADish?.Dietary_id?.ProfileImage}
-                    className="2xl:[18px] xl:w-[14px] w-[12px]"
-                  />
-                  <h3>{getADish?.Dietary_id?.title}</h3>
-                </div>
+                {getADish?.Dietary_id?.title ? (
+                  <div className="pop">
+                    <img
+                      src={getADish?.Dietary_id?.ProfileImage}
+                      className="2xl:[18px] xl:w-[14px] w-[12px]"
+                    />
+                    <h3>{getADish?.Dietary_id?.title}</h3>
+                  </div>
+                ) : (
+                  ""
+                )}
 
-                <div className="pop">
+                <button className="four_btnn border">
                   <img
                     src={getADish?.spice_level_id?.ProfileImage}
-                    className="2xl:[18px] xl:w-[14px] w-[12px]"
+                    className="2xl:[100%] h-auto"
                   />
                   <h3>{getADish?.spice_level_id?.title}</h3>
-                </div>
+                </button>
+
                 <div className="pop">
                   {/* <img
                     src={getADish?.spice_level_id?.ProfileImage}
                     className="2xl:[18px] xl:w-[14px] w-[12px]"
                   /> */}
-                  <h3>{getADish?.Nutrition_id?.Nutritional}</h3>
+                  {/* <h3>{getADish?.Nutrition_id?.Nutritional}</h3> */}
+                  {getADish?.Nutrition_id?.Nutritional ? (
+                    <div className="four_btn">
+                      <p className="fourth_day capitalize">
+                        {getADish?.Nutrition_id?.Nutritional}
+                      </p>
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
               <div className="flex justify-center 2xl:w-[103px] 2xl:h-[39px] xl:w-[60px] xl:h-[22px] lg:w-[50px] lg:h-[20px] border rounded-[5px] 2xl:mt-[25px] xl:mt-[20px] mt-[15px]">
