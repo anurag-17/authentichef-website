@@ -56,10 +56,17 @@ const Checkout = () => {
 
   const handleInputChange = (e, setInfo, updateBilling = false) => {
     const { name, value } = e.target;
+    let newValue = value;
+    // Basic validation: Check if the value is numeric and limit to 8 characters
+    if (name === "Postcode") {
+      newValue = value.replace(/\D/g, ""); // Remove non-digit characters
+      newValue = newValue.slice(0, 8); // Limit length to 8 characters
+    }
+
     setInfo((prevState) => {
       const newState = {
         ...prevState,
-        [name]: value,
+        [name]: newValue,
       };
       if (updateBilling && isSameAsShippingAddress) {
         setBillingInfo(newState);
@@ -76,7 +83,10 @@ const Checkout = () => {
       return;
     }
 
-    console.log("Submitting order with the following cart items:", updatedCartItems.length ? updatedCartItems : getCartItems);
+    console.log(
+      "Submitting order with the following cart items:",
+      updatedCartItems.length ? updatedCartItems : getCartItems
+    );
 
     try {
       const response = await axios.post(
@@ -172,7 +182,6 @@ const Checkout = () => {
     }
   }, [getCartItems]);
 
-
   const refreshData = () => {
     setRefresh(!isRefresh);
   };
@@ -262,6 +271,24 @@ const Checkout = () => {
     console.log("Updated Cart Items:", updatedCartItems);
   }, [updatedCartItems]);
 
+  const [phone, setPhone] = useState("");
+
+  const handlePhoneChange = (e) => {
+    const inputValue = e.target.value;
+    // Limit the input to 15 characters
+    if (inputValue.length <= 15) {
+      setPhone(inputValue);
+    }
+  };
+
+  const [Postcode, setPostData] = useState("");
+
+  const handlePostChange = (e) => {
+    const inputValue = e.target.value;
+    if (inputValue.length <= 8) {
+      setPostData(inputValue);
+    }
+  };
 
   return (
     <>
@@ -307,11 +334,12 @@ const Checkout = () => {
                     </label>
                     <input
                       placeholder="Enter phone number"
-                      type="number"
+                      type="tel"
                       name="phone"
                       value={deliveryInfo.phone}
                       onChange={(e) => handleInputChange(e, setDeliveryInfo)}
                       className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
+                      maxLength={15}
                     />
                   </div>
                   <div>
@@ -346,6 +374,7 @@ const Checkout = () => {
                         value={deliveryInfo.houseNo}
                         onChange={(e) => handleInputChange(e, setDeliveryInfo)}
                         className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
+                        maxLength={200}
                       />
                     </div>
                     <div className="2xl:w-[388px] w-full">
@@ -359,6 +388,7 @@ const Checkout = () => {
                         value={deliveryInfo.buildingName}
                         onChange={(e) => handleInputChange(e, setDeliveryInfo)}
                         className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
+                        maxLength={200}
                       />
                     </div>
                   </div>
@@ -373,6 +403,7 @@ const Checkout = () => {
                       value={deliveryInfo.streetName}
                       onChange={(e) => handleInputChange(e, setDeliveryInfo)}
                       className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
+                      maxLength={200}
                     />
                   </div>
                   <div className="flex justify-between 2xl:gap-[20px] xl:gap-[15px] gap-[10px] xl:my-[10px] my-[8px] 2xl:my-[15px]">
@@ -387,6 +418,7 @@ const Checkout = () => {
                         value={deliveryInfo.City}
                         onChange={(e) => handleInputChange(e, setDeliveryInfo)}
                         className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
+                        maxLength={100}
                       />
                     </div>
                     <div className="2xl:w-[251px] xl:w-[180px] w-[140px]">
@@ -400,6 +432,7 @@ const Checkout = () => {
                         value={deliveryInfo.country}
                         onChange={(e) => handleInputChange(e, setDeliveryInfo)}
                         className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
+                        maxLength={100}
                       />
                     </div>
                     <div className="2xl:w-[251px] xl:w-[180px] w-[140px]">
@@ -407,12 +440,20 @@ const Checkout = () => {
                         Postcode <span className="text-[#DB1414]">*</span>
                       </label>
                       <input
-                        type="number"
+                        type="text"
                         name="Postcode"
                         placeholder="Enter"
                         value={deliveryInfo.Postcode}
                         onChange={(e) => handleInputChange(e, setDeliveryInfo)}
                         className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
+                        maxLength={8}
+                        inputMode="numeric" // Prevent increase/decrease arrows on mobile
+                        style={{
+                          WebkitAppearance: "none",
+                          MozAppearance: "textfield", // For Firefox
+                          appearance: "none",
+                          paddingRight: "16px", // Add some padding to compensate for hidden arrows
+                        }}
                       />
                     </div>
                   </div>
@@ -428,6 +469,7 @@ const Checkout = () => {
                         value={deliveryInfo.FirstName}
                         onChange={(e) => handleInputChange(e, setDeliveryInfo)}
                         className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
+                        maxLength={100}
                       />
                     </div>
                     <div className="2xl:w-[388px] w-full">
@@ -441,6 +483,7 @@ const Checkout = () => {
                         value={deliveryInfo.LastName}
                         onChange={(e) => handleInputChange(e, setDeliveryInfo)}
                         className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
+                        maxLength={100}
                       />
                     </div>
                   </div>
@@ -457,7 +500,9 @@ const Checkout = () => {
                       <input
                         type="checkbox"
                         checked={isSameAsShippingAddress}
-                        onChange={(e) => setIsSameAsShippingAddress(e.target.checked)}
+                        onChange={(e) =>
+                          setIsSameAsShippingAddress(e.target.checked)
+                        }
                         className="checkbox checkbox-info rounded-none w-[18px] h-[18px]"
                       />
                     </label>
@@ -511,6 +556,7 @@ const Checkout = () => {
                         onChange={(e) => handleInputChange(e, setBillingInfo)}
                         className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
                         disabled={isSameAsShippingAddress}
+                        maxLength={200}
                       />
                     </div>
                     <div className="2xl:w-[388px] w-full">
@@ -525,6 +571,7 @@ const Checkout = () => {
                         onChange={(e) => handleInputChange(e, setBillingInfo)}
                         className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
                         disabled={isSameAsShippingAddress}
+                        maxLength={200}
                       />
                     </div>
                   </div>
@@ -540,6 +587,7 @@ const Checkout = () => {
                       onChange={(e) => handleInputChange(e, setBillingInfo)}
                       className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
                       disabled={isSameAsShippingAddress}
+                      maxLength={200}
                     />
                   </div>
                   <div className="flex justify-between 2xl:gap-[20px] xl:gap-[15px] gap-[10px] xl:my-[10px] my-[8px] 2xl:my-[15px]">
@@ -555,6 +603,7 @@ const Checkout = () => {
                         onChange={(e) => handleInputChange(e, setBillingInfo)}
                         className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
                         disabled={isSameAsShippingAddress}
+                        maxLength={100}
                       />
                     </div>
                     <div className="2xl:w-[251px] xl:w-[180px] w-[140px]">
@@ -569,6 +618,7 @@ const Checkout = () => {
                         onChange={(e) => handleInputChange(e, setBillingInfo)}
                         className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
                         disabled={isSameAsShippingAddress}
+                        maxLength={100}
                       />
                     </div>
                     <div className="2xl:w-[251px] xl:w-[180px] w-[140px]">
@@ -576,7 +626,7 @@ const Checkout = () => {
                         Postcode <span className="text-[#DB1414]">*</span>
                       </label>
                       <input
-                        type="number"
+                        type="text"
                         name="Postcode"
                         placeholder="Enter"
                         value={billingInfo.Postcode}
@@ -599,6 +649,7 @@ const Checkout = () => {
                         disabled={isSameAsShippingAddress}
                         onChange={(e) => handleInputChange(e, setBillingInfo)}
                         value={billingInfo.FirstName}
+                        maxLength={100}
                       />
                     </div>
                     <div className="2xl:w-[388px] w-full">
@@ -613,6 +664,7 @@ const Checkout = () => {
                         disabled={isSameAsShippingAddress}
                         onChange={(e) => handleInputChange(e, setBillingInfo)}
                         value={billingInfo.LastName}
+                        maxLength={100}
                       />
                     </div>
                   </div>
