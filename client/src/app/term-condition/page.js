@@ -147,7 +147,7 @@ const TermCondition = () => {
             <p className="footer_text mb-7 2xl:mb-10">
               When you choose to register yourself at the Authentichef Website
               as a Customer or a Chef, or otherwise communicate with us via the
-              “Contact Us'' option or Join the Chef Waiting List (latter for
+              Contact Us option or Join the Chef Waiting List (latter for
               Chefs only) in the Website, you will be asked to provide certain
               personal data about yourself to facilitate communication and user
               experience. Please go through our Privacy Policy to know more
