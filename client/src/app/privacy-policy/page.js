@@ -10,16 +10,18 @@ const PrivacyPolicy = () => {
         <Navbar />
         <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[600px] xs:w-[90%] sm:w-[90%]    mx-auto 2xl:py-[150px] xl:py-[120px] py-[70px] mnavbar">
           <div>
-            <h1 className="third_head mb-7 2xl:mb-10 xs:items-center xs:justify-center">Privacy Policy</h1>
+            <h1 className="third_head mb-7 2xl:mb-10 xs:items-center xs:justify-center">
+              Privacy Policy
+            </h1>
 
             <p className="footer_text mb-7 2xl:mb-10">
-              Authentic chef is committed to protecting your privacy. This
-              Privacy Policy explains how we collect, use, disclose, and
-              safeguard your personal data when you use the Authentic chef
-              Website. We will only use the data that we collect about you in
-              accordance with the applicable privacy laws including but not
-              limited to the EU General Data Protection Regulation 2016/679
-              (GDPR) and UK Data Protection Act 2018.
+              Authentichef is committed to protecting your privacy. This Privacy
+              Policy explains how we collect, use, disclose, and safeguard your
+              personal data when you use the Authentichef Website. We will only
+              use the data that we collect about you in accordance with the
+              applicable privacy laws including but not limited to the EU
+              General Data Protection Regulation 2016/679 (GDPR) and UK Data
+              Protection Act 2018.
             </p>
 
             {/* <h2>Log Files</h2> */}
@@ -48,15 +50,15 @@ const PrivacyPolicy = () => {
             </h3>
 
             <p className="footer_text mb-7 2xl:mb-10">
-              While it is perfectly possible to visit and browse the Authentic
-              chef Website without disclosing any personal information, if you
-              choose to actively engage with us by registering an account, you
-              will be asked to provide certain personally identifiable
-              information, commonly known as personal data. Personal data is
-              basically any information about an individual from which that
-              individual can be identified whether directly or indirectly. It
-              does not include data where the identity has been removed
-              (anonymous data).
+              While it is perfectly possible to visit and browse the
+              Authentichef Website without disclosing any personal information,
+              if you choose to actively engage with us by registering an
+              account, you will be asked to provide certain personally
+              identifiable information, commonly known as personal data.
+              Personal data is basically any information about an individual
+              from which that individual can be identified whether directly or
+              indirectly. It does not include data where the identity has been
+              removed (anonymous data).
             </p>
             <p className="footer_text mb-7 2xl:mb-10">
               The personal data we collect from you depends on precisely what
@@ -77,12 +79,12 @@ const PrivacyPolicy = () => {
                 address and delivery address.
               </li>
               <li className="footer_text mb-7 2xl:mb-10">
-                <span className="font-semibold"> Financial Data</span> which,
+                <span className="font-semibold"> Financial Data</span>which,
                 where you provide them, includes your bank account and payment
                 card details.
               </li>
               <li className="footer_text mb-7 2xl:mb-10">
-                <span className="font-semibold"> Transaction Data</span> which
+                <span className="font-semibold"> Transaction Data</span>which
                 includes details about payments to and from you and other
                 details or services you have purchased from us or whilst using
                 the Website.
@@ -119,7 +121,7 @@ const PrivacyPolicy = () => {
             </ul>
             <p className="footer_text mb-7 2xl:mb-10">
               We also collect, use and share
-              <span className="font-semibold">Aggregated Data</span> such as
+              <span className="font-semibold"> Aggregated Data</span> such as
               statistical or demographic data for any purpose. Aggregated Data
               may be derived from your personal data but is not considered
               personal data in law as this data does not directly or indirectly
@@ -145,7 +147,7 @@ const PrivacyPolicy = () => {
               or philosophical beliefs, sex life, sexual orientation, political
               opinions, trade union membership, information about your health
               and genetic and biometric data). Nor do we collect any information
-              about criminal convictions and illegal.
+              about criminal convictions and offences.
             </p>
             <p className="footer_text mb-7 2xl:mb-10">
               No part of our Website is directed towards children below 13 years
@@ -155,20 +157,20 @@ const PrivacyPolicy = () => {
               parental consent, we will promptly delete that personal data from
               our database. If you believe we might have any personal data from
               or about a child under 13 years, please email us at
-              support@authentic chef.com
+              support@authentichef.com
             </p>
             <h3 className="font-semibold mb-2 footer_text">
               2. HOW WE USE YOUR PERSONAL DATA
             </h3>
             <p className="footer_text mb-7 2xl:mb-10">
               Having accurate information about you permits us to provide you
-              with a smooth, efficient, and customize service. In this section,
+              with a smooth, efficient, and customised service. In this section,
               we set out the purposes for which we use your personal data. If
               you are in a country in the European Economic Area (EEA) or in the
               United Kingdom, in compliance with our obligations under
               applicable laws (the EU General Data Protection Regulation 2016
-              and the UK Data Protection Act 2018), we also identify the legal
-              basis that we rely on to process such information.
+              and the UK Data Protection Act 2018), we also identify the “legal
+              basis” that we rely on to process such information.
             </p>
             <div className="2xl:my-10 m">
               <div className="overflow-x-auto">

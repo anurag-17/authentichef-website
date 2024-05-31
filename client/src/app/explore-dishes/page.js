@@ -569,9 +569,18 @@ const ExploreDishes = () => {
     axios
       .request(option)
       .then((response) => {
-        setGetCartItems(response?.data?.userCart?.items);
-        // Save fetched cart to local storage
-        saveCartToLocalStorage(response?.data?.userCart?.items);
+        const userCart = response?.data?.userCart;
+        const cartItems = userCart?.items.map((item) => ({
+          ...item,
+          totalPrice: item.menuItem.price * item.quantity,
+        }));
+        setGetCartItems(cartItems);
+        setUpdatedCartItems(cartItems); // Initializing updatedCartItems with fetched data
+        setSubtotalPrice(
+          cartItems.reduce((sum, item) => sum + item.totalPrice, 0)
+        );
+        setCartId(userCart._id); // Set the cart ID
+        console.log(response?.data, "data");
       })
       .catch((error) => {
         console.log(error, "Error");
@@ -585,10 +594,10 @@ const ExploreDishes = () => {
   // Function to handle decrement
   const handleDecrement = () => {
     if (count > 1) {
-      setCount(count - 1); // Decrement count
+      setCount(prevCount => prevCount - 1); // Use functional update
       // Update the cart with the new quantity
       const updatedCart = cart.map(item => {
-        if (item.id === itemId) { // Replace itemId with the actual identifier of the item in your cart
+        if (item.id === itemId) {
           return { ...item, quantity: count - 1 };
         }
         return item;
@@ -597,18 +606,41 @@ const ExploreDishes = () => {
     }
   };
   
-  // Function to handle increment
   const handleIncrement = () => {
-    setCount(count + 1); // Increment count
+    setCount(prevCount => prevCount + 1); // Use functional update
     // Update the cart with the new quantity
     const updatedCart = cart.map(item => {
-      if (item.id === itemId) { // Replace itemId with the actual identifier of the item in your cart
+      if (item.id === itemId) {
         return { ...item, quantity: count + 1 };
       }
       return item;
     });
     setCart(updatedCart); // Update the cart state
   };
+
+  
+
+  const updateCartItemQuantity = async (cartId, menuId, quantity) => {
+    try {
+      const response = await axios.put(
+        `${config.baseURL}/api/Orders/updateCartItem/${cartId}/${menuId}`,
+        { quantity },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      if (response.status >= 200 && response.status < 300) {
+        console.log("Cart item updated successfully");
+      } else {
+        console.log("Failed to update cart item", response.data.message);
+      }
+    } catch (error) {
+      console.log("Error updating cart item:", error);
+    }
+  };
+  
  
   return (
     <>
@@ -1769,7 +1801,7 @@ const ExploreDishes = () => {
                   </button>
                 </div>
                 <div>
-                  <button className="pop-btn">Add to basket</button>
+                  <button className="pop-btn" onClick={updateCartItemQuantity}>Add to basket</button>
                 </div>
               </div>
             </div>
