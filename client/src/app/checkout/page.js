@@ -191,7 +191,7 @@ const Checkout = () => {
   const updateCartItemQuantity = async (cartId, menuId, quantity) => {
     try {
       const response = await axios.put(
-        `http://localhost:4000/api/Orders/updateCartItem/${cartId}/${menuId}`,
+        `${config.baseURL}/api/Orders/updateCartItem/${cartId}/${menuId}`,
         { quantity },
         {
           headers: {
