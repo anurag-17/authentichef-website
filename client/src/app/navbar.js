@@ -472,7 +472,7 @@ const Navbar = () => {
       {/* <ToastContainer className="mt-24" autoClose={1000} /> */}
       <section>
         <nav className="z-50 flex justify-center bg-[#F38181] 2xl:h-[116px] xl:h-[80px] lg:h-[50px] sm:h-[45px] h-12 w-full mnavbar-h fixed">
-          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[800px] w-full px-10 md:px-0 flex justify-between items-center mnavbar">
+          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[800px] w-full px-5 md:px-0 flex justify-between items-center mnavbar">
             <div className="w-1/3">
               {/* =======Side Drawer======= */}
               <div className="drawer">
@@ -640,7 +640,7 @@ const Navbar = () => {
               </a>
             </div>
             <div className="w-1/3 flex justify-end ">
-              <div className="flex justify-end md:gap-0 gap-2 md:ml-6">
+              <div className="flex justify-end md:gap-0 gap-2 md:mx-6">
                 {isLoggedIn === success ? (
                   <div className="flex justify-end md:gap-7 gap-2 w-1/3">
                     <div className="relative flex items-center">
@@ -664,13 +664,13 @@ const Navbar = () => {
                         />
                       </svg>
                     </div>
-                    <div className="nav_login1 flex gap-2">
+                    <div className="nav_login1 md:flex items-center  gap-1 lg:gap-2 hidden sm:block">
                       Welcome <p>{userDetails?.firstname}!</p>
                     </div>
                     <button>
                       <Image
                         src={beg}
-                        className="2xl:w-[28px] xl:w-[20px] w-[16px]"
+                        className="2xl:w-[28px] xl:w-[20px] w-[16px] hidden sm:block"
                       />
                     </button>
                   </div>

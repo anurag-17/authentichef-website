@@ -661,8 +661,10 @@ const Checkout = () => {
                         onClick={handleSubmit}
                         className=" flex justify-center 2xl:gap-3 xl:gap-2 gap-1 items-center w-full alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:text-[20px] xl:text-[14px] text-[10px] leading-[27.6px] px-3 py-1 2xl:h-[45px] xl:h-[30px] lg:h-[25px] 2xl:mt-[60px] xl:mt-[40px] mt-[30px] "
                       >
-  
-                        <Image src={order} className="2xl:w-[30px] xl:w-[22px] lg:w-[18px] sm:w-[] w-[] " />
+                        <Image
+                          src={order}
+                          className="2xl:w-[30px] xl:w-[22px] lg:w-[18px] sm:w-[] w-[] "
+                        />
                         Place Order
                       </button>
                       <div className="flex justify-between items-center mt-20">
