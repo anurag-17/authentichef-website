@@ -56,6 +56,7 @@ const ExploreDishes = () => {
   const closeModal = () => setOpen(false);
   const [getADish, setGetADish] = useState("");
   const dispatch = useDispatch();
+  const [updatedCartItems, setUpdatedCartItems] = useState([]);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const { token } = useSelector((state) => state?.auth);
   const { cart } = useSelector((state) => state?.userCart);
@@ -93,15 +94,6 @@ const ExploreDishes = () => {
     setOpen(true);
   }
 
-  const handleIncrement = () => {
-    setCount(count + 1);
-  };
-
-  const handleDecrement = () => {
-    if (count > 0) {
-      setCount(count - 1);
-    }
-  };
 
   useEffect(() => {
     defaultCuisines();
@@ -584,6 +576,38 @@ const ExploreDishes = () => {
       .catch((error) => {
         console.log(error, "Error");
       });
+  };
+
+
+  // const [cart, setCart] = useState([]);
+  // const [count, setCount] = useState(1); 
+  
+  // Function to handle decrement
+  const handleDecrement = () => {
+    if (count > 1) {
+      setCount(count - 1); // Decrement count
+      // Update the cart with the new quantity
+      const updatedCart = cart.map(item => {
+        if (item.id === itemId) { // Replace itemId with the actual identifier of the item in your cart
+          return { ...item, quantity: count - 1 };
+        }
+        return item;
+      });
+      setCart(updatedCart); // Update the cart state
+    }
+  };
+  
+  // Function to handle increment
+  const handleIncrement = () => {
+    setCount(count + 1); // Increment count
+    // Update the cart with the new quantity
+    const updatedCart = cart.map(item => {
+      if (item.id === itemId) { // Replace itemId with the actual identifier of the item in your cart
+        return { ...item, quantity: count + 1 };
+      }
+      return item;
+    });
+    setCart(updatedCart); // Update the cart state
   };
  
   return (

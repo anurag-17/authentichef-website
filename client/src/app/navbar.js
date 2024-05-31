@@ -948,6 +948,7 @@ const Navbar = () => {
                     title="enter valid email ex. abc@gmail.com"
                     onChange={inputHandlers}
                     value={userDetail.firstname}
+                    maxLength={100}
                   />
                 </div>
                 <div className="2xl:mt-[35px] mt-[25px] 2xl:w-[368px] xl:w-[230px] w-[190px]">
@@ -960,6 +961,8 @@ const Navbar = () => {
                     title="enter valid email ex. abc@gmail.com"
                     onChange={inputHandlers}
                     value={userDetail.lastname}
+                    maxLength={100}
+
                   />
                 </div>
                 <div className="2xl:mt-[35px] mt-[25px] 2xl:w-[368px] xl:w-[230px] w-[190px]">
@@ -972,6 +975,7 @@ const Navbar = () => {
                     title="enter valid email ex. abc@gmail.com"
                     onChange={inputHandlers}
                     value={userDetail.email}
+                    
                   />
                 </div>
                 <div className="2xl:mt-[35px] mt-[25px] 2xl:w-[368px] xl:w-[230px] w-[190px]">
@@ -984,6 +988,7 @@ const Navbar = () => {
                     title="enter valid email ex. abc@gmail.com"
                     onChange={inputHandlers}
                     value={userDetail.password}
+                    
                   />
                 </div>
               </div>
