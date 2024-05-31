@@ -497,7 +497,7 @@ const Navbar = () => {
                     aria-label="close sidebar"
                     className="drawer-overlay"
                   ></label>
-                  <ul className="menu p-[3px] 2xl:px-[20px] xl:px-[20px] lg:px-[15px] sm:px-[5px] px-[3px] 2xl:w-[410px] xl:w-[320px] lg:w-[240px] sm:w-[200px] w-[180px] min-h-full bg-base-200 sidebar">
+                  <ul className="menu p-[3px] 2xl:px-[20px] xl:px-[20px] lg:px-[15px] sm:px-[10px] px-[8px] 2xl:w-[410px] xl:w-[320px] lg:w-[240px] sm:w-[240px] w-[60%] min-h-full bg-base-200 sidebar">
                     {/* Sidebar content here */}
                     <div>
                       <div className="flex justify-between items-center 2xl:my-[10px] my-[5px]">
@@ -534,7 +534,7 @@ const Navbar = () => {
                         <Link href="/setting">
                           <Image
                             src={profile}
-                            className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[10px] w-[8px]"
+                            className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[12px] w-[12px]"
                           />
                           Profile
                         </Link>
@@ -542,7 +542,7 @@ const Navbar = () => {
                         <button onClick={handleLoginClick}>
                           <Image
                             src={profile}
-                            className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[10px] w-[8px]"
+                            className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[12px] w-[12px]"
                           />
                           Profile
                         </button>
@@ -552,7 +552,7 @@ const Navbar = () => {
                       <Link href="about-us">
                         <Image
                           src={aboutauthentichef}
-                          className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[10px] w-[8px]"
+                          className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[12px] w-[12px]"
                         />
                         About Authentichef
                       </Link>
@@ -561,7 +561,7 @@ const Navbar = () => {
                       <Link href="/explore-dishes">
                         <Image
                           src={exploredish}
-                          className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[10px] w-[8px]"
+                          className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[12px] w-[12px]"
                         />
                         Explore Dishes
                       </Link>
@@ -570,7 +570,7 @@ const Navbar = () => {
                       <Link href="/become-chef">
                         <Image
                           src={beacomechef}
-                          className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[10px] w-[8px]"
+                          className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[12px] w-[12px]"
                         />
                         Become a Chef
                       </Link>
@@ -579,7 +579,7 @@ const Navbar = () => {
                       <a href="/FAQs">
                         <Image
                           src={faq}
-                          className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[10px] w-[8px]"
+                          className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[12px] w-[12px]"
                         />
                         FAQs
                       </a>
