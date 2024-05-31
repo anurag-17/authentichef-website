@@ -585,6 +585,9 @@ const ExploreDishes = () => {
         console.log(error, "Error");
       });
   };
+  const handleLoginClick = () => {
+    document.getElementById("my_modal_2").showModal();
+  };
 
   return (
     <>
@@ -592,10 +595,10 @@ const ExploreDishes = () => {
       <section>
         <Navbar />
         <div class="2xl:pt-[130px] xl:pt-[90px] pt-[60px] ">
-          <div class="main_section 2xl:w-[1700px] xl:w-[1100px] md:w-[811px]  m-auto mt-auto">
+          <div class="main_section 2xl:w-[1700px] xl:w-[1100px] md:w-[811px]  m-auto mt-auto mnavbar">
             <div class="flex flex-col md:flex-row justify-center my-10 mx-6 lg:my-6">
               <div class="mr-6 lg:mb-0 mb-4 lg lg:w-[30%] 2xl:w-[45%] xl:w-[33%] lg:text-[2.25rem] lg:ml-[-45px] md:w-[30%] xs:text-[1.875rem] sm:text-[2.25rem] md:text-[29px]">
-                <h1 className="third_head mb-4 alata font-[400] 2xl:text-[55px] lg:text-left 2xl:ml-[105px] xl:ml-[19px] text-center">
+                <h1 className="third_head mb-4 alata font-[400] 2xl:text-[55px] lg:text-left 2xl:ml-[105px] xl:ml-[19px] text-center SelectCuisine">
                   Select Cuisine
                 </h1>
               </div>
@@ -988,7 +991,7 @@ const ExploreDishes = () => {
               </div>
             </div>
 
-            <div class="flex flex-col sm:flex-row justify-center my-10 mx-6 sm:my-6 sm:{} ">
+            <div class="  flex flex-col sm:flex-row justify-center my-10 mx-6 sm:my-6 sm:{} ">
               <div class="carousel gap-4 sm:gap-6 xs:gap-4  grid sm:grid-cols-4  xs:grid-cols-4  md:grid-cols-4 lg:grid-cols-7">
                 <div class="">
                   <Image
@@ -1084,12 +1087,12 @@ const ExploreDishes = () => {
               </div>
               {/* 
               <div className=" flex flex-wrap gap-[20px] xl:gap-[25px] 2xl:gap-[70px] w-full px-10 md:px-0 mx-auto "> */}
-              <div className="flex flex-col md:flex-row  flex-wrap gap-[20px] xl:gap-[25px] 2xl:gap-[70px] md:my-5 lg:my-0">
+              <div className="flex flex-col sm:flex-row  flex-wrap gap-[25px] lg:gap-[21px] xl:gap-[25px] 2xl:gap-[70px] md:my-5 lg:my-0 px-5 sm:px-0  exploreDishesmain">
                 {Array.isArray(getAllDish) &&
                   getAllDish.map((item) => (
                     <div
                       key={item.id}
-                      className="  my-5 2xl:w-[345px] 2xl:h-[560px] lg:w-[23%] sm:w-[48%] md:w-[48%] w-[100%]  relative  rounded-[9.8px] mexploreD "
+                      className="  my-5 2xl:w-[345px] 2xl:h-[560px] lg:w-[23%] sm:w-[45%] md:w-[48%] mx-auto sm:mx-0 relative rounded-[9.8px] mexploreD "
                     >
                       <button className="" onClick={() => openModal(item._id)}>
                         <img
@@ -1097,7 +1100,7 @@ const ExploreDishes = () => {
                           alt={item.title}
                           width={345}
                           height={278}
-                          className="w-full 2xl:w-[365.5px] 2xl:h-[278px] xl:w-[280px] xl:h-[200px] lg:w-[220px] lg:h-[160px] rounded-[10px] mexplorimg"
+                          className=" 2xl:w-[365.5px] 2xl:h-[278px] xl:w-[280px] xl:h-[200px] lg:w-[220px] lg:h-[160px] w-[366px] h-[260px] rounded-[10px] mexplorimg"
                         />
                       </button>
                       <div className="">
