@@ -1,23 +1,23 @@
-"use client"
-import React from "react"
-import Footer from "../footer"
-import Navbar from "../navbar"
+"use client";
+import React from "react";
+import Footer from "../footer";
+import Navbar from "../navbar";
 
 const TermCondition = () => {
   return (
     <>
       <section>
         <Navbar />
-        <div className="mx-auto 2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] xs:w-[90%] md:w-[700px] sm:w-[90%] py-[150px] 2xl:py-[120px] lg:py-[70px] md:py-[70px] sm:py-[70px] xs:py-[70px] mnavbar">
+        <div className="mx-auto mnavbar 2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] xs:w-[90%] md:w-[700px] sm:w-[90%] py-[150px] 2xl:py-[120px] lg:py-[70px] md:py-[70px] sm:py-[70px] xs:py-[70px] mnavbar">
           <div>
             <h1 className="third_head mb-7 2xl:mb-10 ">TERMS AND CONDITIONS</h1>
             <p className="footer_text mb-7 2xl:mb-10">
               The Website www.authentichef.com and/or any other URL which
               facilitates access to the Website (together, Authentichef, the
-              Website, we or us) is owned and operated by AUTHENTICHEF LTD,
-              a private limited company registered under the laws of England and
-              Wales with Company Number 15236453 and registered office at 85
-              Corncrake Way, Bicester, England, OX26 6UF.
+              Website, we or us) is owned and operated by AUTHENTICHEF LTD, a
+              private limited company registered under the laws of England and
+              Wales with Company Number 15236453 and registered office at
+              167-169, Great Portland Street, 5th Floor, London, W1W 5PF.
             </p>
             <p className="footer_text mb-7 2xl:mb-10">
               PLEASE READ THIS DOCUMENT CAREFULLY BEFORE ACCESSING OR USING THE
@@ -31,11 +31,11 @@ const TermCondition = () => {
             <h3 className=" mb-2 privacyHead ">1. ABOUT AUTHENTICHEF</h3>
             <p className="footer_text mb-7 2xl:mb-10">
               Authentichef is an online platform which connects independent
-              chefs (hereinafter referred to as Chefs) with consumers
-              (hereinafter referred to as Customers) seeking authentic
+              chefs (hereinafter referred to as “Chefs”) with consumers
+              (hereinafter referred to as “Customers”) seeking authentic
               homemade dishes. The Website aims to provide a convenient and
               reliable marketplace to both Chefs and Customers (collectively,
-              the Users) wherein the former can showcase and sell their
+              the “Users”) wherein the former can showcase and sell their
               authentic homemade food dishes and the latter can discover and
               order such homemade food dishes while supporting the local chef
               community and experience global cuisine and culture. The Website
@@ -72,35 +72,30 @@ const TermCondition = () => {
             </h3>
             <p className="footer_text mb-7 2xl:mb-10">
               By using the Authentichef Website, the Customers agree that they
-              will • pay for their food order online in advance and ensure that
-              their preferred payment method is valid and accepted by the
-              Website • ensure that their food order details, including but not
-              limited to the name of item, number of portions, delivery address,
-              and any special instructions, are accurately provided to
-              Authentichef during the ordering process
+              will <br></br> • pay for their food order online in advance and
+              ensure that their preferred payment method is valid and accepted
+              by the Website <br></br>• ensure that their food order details,
+              including but not limited to the name of item, number of portions,
+              delivery address, and any special instructions, are accurately
+              provided to Authentichef during the ordering process
             </p>
             <h3 className=" mb-2 privacyHead ">
               {" "}
-              • 4. PAYMENT AND SUBSCRIPTION OPTIONS
+              4. PAYMENT AND SUBSCRIPTION OPTIONS
             </h3>
             <p className="footer_text mb-7 2xl:mb-10">
               Authentichef adheres to strict industry security standards for
               payment processing and accepts online payment from Customers
               through all international credit cards, debit cards, digital
-              wallets and wire transfer. Payouts to Chefs are determined on a
-              bespoke commission calculated based on nature and number of orders
-              and are processed within a maximum of thirty (30) days from the
-              date of delivery of the order. It is your responsibility to ensure
-              that a valid card number and billing address is provided for us to
-              successfully process your payment. If your card is issued in a
-              foreign currency other than £GBP, pricing will depend on
-              applicable foreign exchange rates as per your bank rules and
-              regulations. In case you have any question about the pricing or
-              method of payment, feel free to reach out to our customer support
-              before making the payment. We do not store any financial
-              information including card details from our Customers and accept
-              no liability for any error in any third-party payment gateway
-              under any circumstances whatsoever.{" "}
+              wallets and wire transfer. If your card is issued in a foreign
+              currency other than £GBP, pricing will depend on applicable
+              foreign exchange rates as per your bank’s rules and regulations.
+              In case you have any question about the pricing or method of
+              payment, feel free to reach out to our customer support before
+              making the payment. We do not store any financial information
+              including card details from our Customers and accept no liability
+              for any error in any third-party payment gateway under any
+              circumstances whatsoever.{" "}
             </p>
             <h3 className=" mb-2 privacyHead ">
               5. FOOD SAFETY AND HYGIENE POLICY
@@ -119,7 +114,7 @@ const TermCondition = () => {
               intermediary and are not directly involved in the sourcing,
               cooking, or packaging process of the cooked food, we explicitly
               exclude all liability, to the fullest extent permitted by law, for
-              any damage, loss, or injury arising from a Chef alleged or actual
+              any damage, loss, or injury arising from a Chefs alleged or actual
               non-compliance with the expected standards of food safety and
               hygiene. Notwithstanding the above, we agree to cooperate fully
               with the regulatory authorities and law enforcement agencies in
@@ -152,36 +147,35 @@ const TermCondition = () => {
             <p className="footer_text mb-7 2xl:mb-10">
               When you choose to register yourself at the Authentichef Website
               as a Customer or a Chef, or otherwise communicate with us via the
-              Contact Us option or Join the Chef Waiting List (latter for Chef
-              only) in the Website, you will be asked to provide certain
+              “Contact Us'' option or Join the Chef Waiting List (latter for
+              Chefs only) in the Website, you will be asked to provide certain
               personal data about yourself to facilitate communication and user
               experience. Please go through our Privacy Policy to know more
-              about how and why Authentichef, collects, stores and processes
-              such personal data and what are your legal rights regarding the
-              same.
+              about how and why Authentichef collects, stores and processes such
+              personal data and what are your legal rights regarding the same.
             </p>{" "}
             <h3 className=" mb-2 privacyHead ">9. CONTENT POLICY</h3>
             <p className="footer_text mb-7 2xl:mb-10">
               Certain features of the Authentichef Website allow Customers to
-              post, link, share, make available certain alphanumerical and
-              textual reviews and feedback in or through the Website. By
-              accepting these Terms and Conditions you understand and agree that
-              you are solely responsible for all uploaded Customer content and
-              hereby ensure that it does not offend any third-party rights,
-              including but not limited to any applicable intellectual property
-              rights, privacy rights, publicity rights, contractual rights and
-              does not in any way be considered against applicable laws.
-              Authentichef does not and cannot review all User Content generated
-              by users, and shall not be held responsible for the same under any
-              circumstances whatsoever. We reserve the right, but are not
-              obligated to, delete, modify, edit or update any User Content that
-              we, in our sole discretion, deem to be in violation of these Terms
-              and Conditions or deem to be otherwise unacceptable.
-              Notwithstanding the above, by accepting these Terms and Conditions
-              you grant us the right and license to use, modify, display and
-              distribute such User Content by and through the Website and make
-              it available to other users, who may also use such User Content
-              subject to these Terms and Conditions.
+              post, link, share, make available certain alphanumeric and textual
+              reviews and feedback in or through the Website. By accepting these
+              Terms and Conditions you understand and agree that you are solely
+              responsible for all uploaded Customer content and hereby ensure
+              that it does not offend any third-party rights, including but not
+              limited to any applicable intellectual property rights, privacy
+              rights, publicity rights, contractual rights and does not in any
+              way be considered against applicable laws. Authentichef does not
+              and cannot review all User Content generated by users, and shall
+              not be held responsible for the same under any circumstances
+              whatsoever. We reserve the right, but are not obligated to,
+              delete, modify, edit or update any User Content that we, in our
+              sole discretion, deem to be in violation of these Terms and
+              Conditions or deem to be otherwise unacceptable. Notwithstanding
+              the above, by accepting these Terms and Conditions you grant us
+              the right and license to use, modify, display and distribute such
+              User Content by and through the Website and make it available to
+              other users, who may also use such User Content subject to these
+              Terms and Conditions.
             </p>
             <h3 className=" mb-2 privacyHead ">
               10. ACCEPTABLE USE OF WEBSITE{" "}
@@ -189,32 +183,33 @@ const TermCondition = () => {
             <p className="footer_text mb-7 2xl:mb-10">
               In order to maximise your user experience in using the Website,
               and avoid, eliminate or minimise disruptive activities, we kindly
-              ask you to maintain the following: • do not use the Website in any
-              way or take any action that may undermine, disrupt, damage or
-              manipulate the working functionality, performance, availability or
-              accessibility of the Website • do not copy, decompile, reverse
-              engineer, disassemble, attempt to derive the source code of,
-              modify or create derivative works of the Website, or any updates
-              or any part thereof • do not use the Website in any manner that
-              is unlawful, illegal, fraudulent or harmful, or in connection with
-              any unlawful, illegal, fraudulent or harmful purpose or activity
-              • do not impersonate any person or entity, misrepresent any
-              affiliation with another person, entity, or association, use false
-              IP addresses or headers, or otherwise conceal your identity for
-              any purpose • do not violate, plagiarise, or infringe on the
-              rights of third parties, including without limitation copyright,
-              trademark, trade secret, privacy, publicity or other proprietary
-              rights • do not use data collected from the Website for any
-              direct marketing activity (including without limitation email
-              marketing, SMS marketing, telemarketing and direct mailing).
-              Without prejudice to our other rights under these Terms and
-              Conditions, in case of a breach, we may take such action as we
-              deem appropriate under the circumstances, including suspending
-              your access to the Website, prohibiting you from accessing the
-              Website, blocking computers using your IP address from accessing
-              the Website, contacting your internet service provider to request
-              that they block your access to the Website and/or bringing court
-              proceedings against you.
+              ask you to maintain the following: <br></br>• do not use the
+              Website in any way or take any action that may undermine, disrupt,
+              damage or manipulate the working functionality, performance,
+              availability or accessibility of the Website <br></br>• do not
+              copy, decompile, reverse engineer, disassemble, attempt to derive
+              the source code of, modify or create derivative works of the
+              Website, or any updates or any part thereof <br></br>• do not use
+              the Website in any manner that is unlawful, illegal, fraudulent or
+              harmful, or in connection with any unlawful, illegal, fraudulent
+              or harmful purpose or activity
+              <br></br> • do not impersonate any person or entity, misrepresent
+              any affiliation with another person, entity, or association, use
+              false IP addresses or headers, or otherwise conceal your identity
+              for any purpose <br></br>• do not violate, plagiarise, or infringe
+              on the rights of third parties, including without limitation
+              copyright, trademark, trade secret, privacy, publicity or other
+              proprietary rights <br></br>• do not use data collected from the
+              Website for any direct marketing activity (including without
+              limitation email marketing, SMS marketing, telemarketing and
+              direct mailing). <br></br>Without prejudice to our other rights
+              under these Terms and Conditions, in case of a breach, we may take
+              such action as we deem appropriate under the circumstances,
+              including suspending your access to the Website, prohibiting you
+              from accessing the Website, blocking computers using your IP
+              address from accessing the Website, contacting your internet
+              service provider to request that they block your access to the
+              Website and/or bringing court proceedings against you.
             </p>
             <h3 className=" mb-2 privacyHead ">11. INTELLECTUAL PROPERTY</h3>
             <p className="footer_text mb-7 2xl:mb-10">
@@ -256,9 +251,9 @@ const TermCondition = () => {
             <h3 className=" mb-2 privacyHead ">13. DISCLAIMER OF WARRANTIES</h3>
             <p className="footer_text mb-7 2xl:mb-10">
               To the maximum extent permitted by applicable law, Authentichef is
-              provided on an as is and as available basis without warranties
-              of any kind, either expressed or implied, including, but not
-              limited to, all warranties of quality, accuracy, completeness,
+              provided on an as is and as available basis without warranties of
+              any kind, either expressed or implied, including, but not limited
+              to, all warranties of quality, accuracy, completeness,
               reliability, conditions of merchantability, fitness for a
               particular purpose, title or non-infringement. Authentichef does
               not warrant that the products and services offered through the
@@ -377,13 +372,21 @@ const TermCondition = () => {
               access or use of the Website shall be deemed as a conclusive
               acceptance of such modified Terms and Conditions.
             </p>
+            <p className="footer_text mb-7 2xl:mb-10">
+              If you have any further questions, comments or requests regarding
+              these Terms and Conditions, please email us at
+              support@authentichef.com.
+            </p>
+            <p className="footer_text mb-7 2xl:mb-10">
+              These Terms and Conditions were last updated in April 2024.
+            </p>
           </div>
         </div>
 
         <Footer />
       </section>
     </>
-  )
-}
+  );
+};
 
-export default TermCondition
+export default TermCondition;
