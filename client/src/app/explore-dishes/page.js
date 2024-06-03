@@ -49,6 +49,8 @@ import "./styles.css";
 import { useRouter } from "next/navigation";
 import cheficon from "../assets/chef-icon.png";
 
+import { PrimeReactProvider, PrimeReactContext } from "primereact/api";
+
 const ExploreDishes = () => {
   const [count, setCount] = useState(0);
   const router = useRouter();
@@ -62,7 +64,7 @@ const ExploreDishes = () => {
   const { token } = useSelector((state) => state?.auth);
   const { cart } = useSelector((state) => state?.userCart);
   const [cartId, setCartId] = useState("");
-  console.log(cart, "cart");
+  // const price = item?.price?.toFixed(2);
 
   // const data = dish?.data;
 
@@ -575,7 +577,7 @@ const ExploreDishes = () => {
             totalPrice: item.menuItem.price * item.quantity,
           }));
           setGetCartItems(cartItems);
-          setUpdatedCartItems(cartItems); 
+          setUpdatedCartItems(cartItems);
           setSubtotalPrice(
             cartItems.reduce((sum, item) => sum + item.totalPrice, 0)
           );
@@ -1048,18 +1050,27 @@ const ExploreDishes = () => {
             </div>
 
             <div class="  flex flex-col sm:flex-row justify-center lg:justify-between  ">
-              <div class="carousel gap-4 sm:gap-6 xs:gap-4  grid sm:grid-cols-4  xs:grid-cols-4  md:grid-cols-4 lg:grid-cols-7">
-                <div class="">
-                  <Image
-                    className="rounded-[5px] w-[100%]  h-auto mcusinimg"
-                    src={cuisineindia}
-                    alt="cuisine-india"
-                  />
-                  <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm 2xl:text-[20px] xl:text-[14px] md:text-[10px] mt-3">
-                    Indian
-                  </h4>
-                </div>
-                <div class="">
+              <div class=" flex flex-wrap w-full gap-4 xl:gap-[30px] 2xl::gap-10 xs:gap-4 ">
+                {Array.isArray(getAllCuisines) &&
+                  getAllCuisines.map((item) => (
+                    <button
+                      key={item._id}
+                      onClick={() => handleSearchCuisines(item._id)}
+                      className=""
+                    >
+                      {" "}
+                      <img
+                        src={item.ProfileImage}
+                        className="rounded-[5px] 2xl:w-[202px] 2xl:h-[202px] xl:w-[130px] xl:h-[130px] lg:w-[100px] lg:h-[100px] mcusinimg"
+                        alt="cuisine-india"
+                      />
+                      <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm 2xl:text-[20px] xl:text-[14px] md:text-[10px] mt-3">
+                        {item.title}
+                      </h4>
+                    </button>
+                  ))}
+
+                {/* <div class="">
                   <Image
                     alt="cuisine-american"
                     className="rounded-[5px] w-[100%] h-auto mcusinimg"
@@ -1118,7 +1129,7 @@ const ExploreDishes = () => {
                   <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm 2xl:text-[20px] xl:text-[14px] md:text-[10px] mt-3">
                     Southeast Asian
                   </h4>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
@@ -1234,9 +1245,9 @@ const ExploreDishes = () => {
 
                         <div className=" w-full bottom-0 flex justify-between items-center  2xl:my-[22px] xl:my-[18px] my-[15px]">
                           <p className="alata font-[400] text-[#000] 2xl:text-[20px] 2xl:leading-[24px] xl:text-[14px] xl:leading-[18px] lg:text-[12px] lg:leading-[16px] text-[12px] leading-[16px] ">
-                            Serves 1 ({item?.weight}g){" "}
+                            Serves 1 | ({item?.weight}g) |
                             <span className="text-[#DB5353]">
-                              £{item?.price}
+                              {item?.price && `£${item.price.toFixed(2)}`}
                             </span>
                           </p>
                           {/* <button
@@ -1601,7 +1612,7 @@ const ExploreDishes = () => {
                                   {data.name}
                                 </h4>
                                 <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
-                                  Price:£{data.price}
+                                  Price: {data?.price && `£${data.price.toFixed(2)}`}
                                 </h4>
                                 <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
                                   Quantity:1

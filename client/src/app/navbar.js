@@ -256,6 +256,7 @@ const Navbar = () => {
   };
 
   const { cart } = useSelector((state) => state?.userCart);
+  console.log(cart , cart)
   cart.forEach((item, index) => {
     const { data } = item;
   });
@@ -848,7 +849,7 @@ const Navbar = () => {
                                   {item.menuItem.name}
                                 </h4>
                                 <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
-                                  Price: £{item.menuItem.price}
+                                  Price: {item?.menuItem?.price && `£${item.menuItem.price.toFixed(2)}`}
                                 </h4>
                                 <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
                                   Quantity: {item.quantity}

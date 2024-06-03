@@ -32,19 +32,19 @@ const AdminDashboard = () => {
       // console.log(res);
       if (res?.data?.success) {
         toast.success("Logout successfully !");
-        dispatch(removeToken());
-        dispatch(rem_AdDetails());
         router.push("/admin-module/admin/sign-in");
+        dispatch(removeToken());
+        router.push("/admin-module/admin/sign-in");
+        dispatch(rem_AdDetails());
       } else {
         dispatch(removeToken());
         dispatch(rem_AdDetails());
-        router.push("/admin-module/admin/sign-in");
         // toast.error("Logout failed try again !");
       }
     } catch (error) {
+      router.push("/admin-module/admin/sign-in");
       dispatch(removeToken());
       dispatch(rem_AdDetails());
-      router.push("/admin-module/admin/sign-in");
       console.error("Error occurred:", error);
       // toast.error(error?.response?.data?.error || "Invalid token !");
     }

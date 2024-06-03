@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { Fragment } from "react";
 import Link from "next/link";
 import { Menu, Transition } from "@headlessui/react";
@@ -12,36 +12,37 @@ import { useDispatch, useSelector } from "react-redux";
 import { rem_AdDetails, removeToken } from "@/app/redux/slice";
 import config from "@/config";
 
-
 const Dashboard = () => {
-  // const { userDetails } = useSelector((state) => state?.auth);
-  // console.log(userDetails);
+  const { token } = useSelector((state) => state?.auth);
 
   const router = useRouter();
   const dispatch = useDispatch();
 
   const handleSignout = async () => {
     try {
-      const res = await axios.get(`${config.baseURL}/api/auth/logout`, {
-        headers: {
-          Authorization: token,
-          "Content-Type": "application/json",
-        },
-      });
+      const res = await axios.get(
+        "http://www.authentichef.com/api/auth/logout",
+        {
+          headers: {
+            Authorization: token,
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (res?.data?.success) {
+        router.push("/admin-module/admin/sign-in");
         toast.success("Logout successfully !");
         dispatch(removeToken());
         // dispatch(rem_AdDetails());
-        router.push("/admin-module/admin/sign-in");
       } else {
+        router.push("/admin-module/admin/sign-in");
         dispatch(removeToken());
         // dispatch(rem_AdDetails());
-        router.push("/admin-module/admin/sign-in");
       }
     } catch (error) {
+      router.push("/admin-module/admin/sign-in");
       dispatch(removeToken());
       // dispatch(rem_AdDetails());
-      router.push("/admin-module/admin/sign-in");
       console.error("Error occurred:", error);
     }
   };
