@@ -57,25 +57,22 @@ const Checkout = () => {
   const handleInputChange = (e, setInfo, updateBilling = false) => {
     const { name, value } = e.target;
     let newValue = value;
-  
+
     if (name === "FirstName" || name === "LastName") {
       // Allow only alphabetic characters and limit to 100 characters
-      newValue = value.replace(/[^A-Za-z]/g, ""); // Remove non-alphabetic characters
-      newValue = newValue.slice(0, 100); // Limit length to 100 characters
+      newValue = value.replace(/[^A-Za-z]/g, "").slice(0, 100);
     }
-  
+
     if (name === "Postcode") {
       // Basic validation: Allow only alphanumeric characters and limit to 8 characters
-      newValue = value.replace(/[^A-Z0-9]/g, ""); // Remove non-alphanumeric characters
-      newValue = newValue.slice(0, 8); // Limit length to 8 characters
+      newValue = value.replace(/[^A-Z0-9]/g, "").slice(0, 8);
     }
-  
+
     if (name === "phone") {
       // Basic validation: Allow only numeric characters and limit to 15 characters
-      newValue = value.replace(/[^0-9]/g, ""); // Remove non-numeric characters
-      newValue = newValue.slice(0, 15); // Limit length to 15 characters
+      newValue = value.replace(/[^0-9]/g, "").slice(0, 15);
     }
-  
+
     setInfo((prevState) => {
       const newState = {
         ...prevState,
@@ -87,7 +84,6 @@ const Checkout = () => {
       return newState;
     });
   };
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();

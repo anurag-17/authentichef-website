@@ -278,6 +278,7 @@ const Navbar = () => {
       .request(option)
       .then((response) => {
         setGetCartItems(response?.data?.userCart?.items);
+        
       })
       .catch((error) => {
         console.log(error, "Error");
@@ -383,12 +384,11 @@ const Navbar = () => {
         refreshData();
       } else {
         toast.error("Failed to add items to cart. Please try again.");
+        refreshData();
       }
     } catch (error) {
       console.error("Error adding items to cart:", error);
-      toast.error(
-        "An error occurred while adding items to cart. Please try again."
-      );
+      refreshData();
     }
   };
 
