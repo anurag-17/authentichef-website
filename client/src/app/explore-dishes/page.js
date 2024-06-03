@@ -49,8 +49,6 @@ import "./styles.css";
 import { useRouter } from "next/navigation";
 import cheficon from "../assets/chef-icon.png";
 
-import { PrimeReactProvider, PrimeReactContext } from "primereact/api";
-
 const ExploreDishes = () => {
   const [count, setCount] = useState(0);
   const router = useRouter();
