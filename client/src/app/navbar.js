@@ -649,7 +649,7 @@ const Navbar = () => {
               </a>
             </div>
             <div className="w-1/3 flex justify-end ">
-              <div className="flex justify-end md:gap-0 gap-2 md:mx-6">
+              <div className="flex justify-end md:gap-0 gap-2 md:mx-6 2xl:mx-0">
                 {isLoggedIn === success ? (
                   <div className="flex justify-end md:gap-7 gap-2 w-1/3">
                     <div className="relative flex items-center">
