@@ -71,10 +71,19 @@ const Navbar = () => {
   });
   const inputHandlers = (e) => {
     const { name, value } = e.target;
-    setUserDetail((prevDetails) => ({
-      ...prevDetails,
-      [name]: value,
-    }));
+    if (name === "firstname" || name === "lastname") {
+      if (/^[A-Za-z]*$/.test(value) && value.length <= 100) {
+        setUserDetail((prevDetails) => ({
+          ...prevDetails,
+          [name]: value,
+        }));
+      }
+    } else {
+      setUserDetail((prevDetails) => ({
+        ...prevDetails,
+        [name]: value,
+      }));
+    }
   };
   useEffect(() => {
     if (success !== undefined) {
@@ -374,12 +383,11 @@ const Navbar = () => {
         refreshData();
       } else {
         toast.error("Failed to add items to cart. Please try again.");
+        refreshData();
       }
     } catch (error) {
       console.error("Error adding items to cart:", error);
-      toast.error(
-        "An error occurred while adding items to cart. Please try again."
-      );
+      refreshData();
     }
   };
 
@@ -472,7 +480,7 @@ const Navbar = () => {
       {/* <ToastContainer className="mt-24" autoClose={1000} /> */}
       <section>
         <nav className="z-50 flex justify-center bg-[#F38181] 2xl:h-[116px] xl:h-[80px] lg:h-[50px] sm:h-[45px] h-12 w-full mnavbar-h fixed">
-          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[800px] w-full px-10 md:px-0 flex justify-between items-center mnavbar">
+          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[750px] w-full px-5 md:px-0 flex justify-between items-center mnavbar">
             <div className="w-1/3">
               {/* =======Side Drawer======= */}
               <div className="drawer">
@@ -487,7 +495,7 @@ const Navbar = () => {
                     <Image
                       alt="image"
                       src={sidemanu}
-                      className=" cursor-pointer 2xl:w-[38.67px] 2xl:h-[32px] xl:w-[25px] h-auto w-[22px] menu-btn md:ml-6 lg:ml-0"
+                      className=" cursor-pointer 2xl:w-[38.67px] 2xl:h-[32px] xl:w-[25px] h-auto w-[22px] menu-btn "
                     />
                   </label>
                 </div>
@@ -497,7 +505,7 @@ const Navbar = () => {
                     aria-label="close sidebar"
                     className="drawer-overlay"
                   ></label>
-                  <ul className="menu p-[3px] 2xl:px-[20px] xl:px-[20px] lg:px-[15px] sm:px-[5px] px-[3px] 2xl:w-[410px] xl:w-[320px] lg:w-[240px] sm:w-[200px] w-[180px] min-h-full bg-base-200 sidebar">
+                  <ul className="menu p-[3px] 2xl:px-[20px] xl:px-[20px] lg:px-[15px] sm:px-[10px] px-[8px] 2xl:w-[410px] xl:w-[320px] lg:w-[240px] sm:w-[240px] w-[60%] min-h-full bg-base-200 sidebar">
                     {/* Sidebar content here */}
                     <div>
                       <div className="flex justify-between items-center 2xl:my-[10px] my-[5px]">
@@ -534,7 +542,7 @@ const Navbar = () => {
                         <Link href="/setting">
                           <Image
                             src={profile}
-                            className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[10px] w-[8px]"
+                            className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[12px] w-[12px]"
                           />
                           Profile
                         </Link>
@@ -542,7 +550,7 @@ const Navbar = () => {
                         <button onClick={handleLoginClick}>
                           <Image
                             src={profile}
-                            className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[10px] w-[8px]"
+                            className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[12px] w-[12px]"
                           />
                           Profile
                         </button>
@@ -552,7 +560,7 @@ const Navbar = () => {
                       <Link href="about-us">
                         <Image
                           src={aboutauthentichef}
-                          className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[10px] w-[8px]"
+                          className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[12px] w-[12px]"
                         />
                         About Authentichef
                       </Link>
@@ -561,7 +569,7 @@ const Navbar = () => {
                       <Link href="/explore-dishes">
                         <Image
                           src={exploredish}
-                          className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[10px] w-[8px]"
+                          className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[12px] w-[12px]"
                         />
                         Explore Dishes
                       </Link>
@@ -570,7 +578,7 @@ const Navbar = () => {
                       <Link href="/become-chef">
                         <Image
                           src={beacomechef}
-                          className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[10px] w-[8px]"
+                          className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[12px] w-[12px]"
                         />
                         Become a Chef
                       </Link>
@@ -579,7 +587,7 @@ const Navbar = () => {
                       <a href="/FAQs">
                         <Image
                           src={faq}
-                          className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[10px] w-[8px]"
+                          className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[12px] w-[12px]"
                         />
                         FAQs
                       </a>
@@ -640,7 +648,7 @@ const Navbar = () => {
               </a>
             </div>
             <div className="w-1/3 flex justify-end ">
-              <div className="flex justify-end md:gap-0 gap-2 md:ml-6">
+              <div className="flex justify-end md:gap-0 gap-2 ">
                 {isLoggedIn === success ? (
                   <div className="flex justify-end md:gap-7 gap-2 w-1/3">
                     <div className="relative flex items-center">
@@ -664,13 +672,13 @@ const Navbar = () => {
                         />
                       </svg>
                     </div>
-                    <div className="nav_login1 flex gap-2">
+                    <div className="nav_login1 md:flex items-center  gap-1 lg:gap-2 hidden sm:block">
                       Welcome <p>{userDetails?.firstname}!</p>
                     </div>
                     <button>
                       <Image
                         src={beg}
-                        className="2xl:w-[28px] xl:w-[20px] w-[16px]"
+                        className="2xl:w-[28px] xl:w-[20px] w-[16px] hidden sm:block"
                       />
                     </button>
                   </div>
@@ -679,7 +687,10 @@ const Navbar = () => {
                     <button onClick={handleLoginClick} className="nav_login1">
                       Log In
                     </button>
-                    <button onClick={handleSignUpClick} className="nav_signup">
+                    <button
+                      onClick={handleSignUpClick}
+                      className="nav_signup hover:bg-gray-300"
+                    >
                       Sign Up
                     </button>
                     <button>{/* Add your Image component here */}</button>
@@ -948,6 +959,7 @@ const Navbar = () => {
                     title="enter valid email ex. abc@gmail.com"
                     onChange={inputHandlers}
                     value={userDetail.firstname}
+                    maxLength={100}
                   />
                 </div>
                 <div className="2xl:mt-[35px] mt-[25px] 2xl:w-[368px] xl:w-[230px] w-[190px]">
@@ -960,6 +972,7 @@ const Navbar = () => {
                     title="enter valid email ex. abc@gmail.com"
                     onChange={inputHandlers}
                     value={userDetail.lastname}
+                    maxLength={100}
                   />
                 </div>
                 <div className="2xl:mt-[35px] mt-[25px] 2xl:w-[368px] xl:w-[230px] w-[190px]">

@@ -5,21 +5,23 @@ import Navbar from "../navbar";
 
 const PrivacyPolicy = () => {
   return (
-    <>
+    <>  
       <section>
         <Navbar />
-        <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[600px] xs:w-[90%] sm:w-[90%]    mx-auto 2xl:py-[150px] xl:py-[120px] py-[70px] mnavbar">
+        <div className="2xl:w-[1600px] mnavbar alata xl:w-[1100px] lg:w-[850px]  md:w-[747px] xs:w-[90%] sm:w-[93%]  mx-auto 2xl:pt-[120px]  xl:pt-[100px] lg:pt-[80px] md:pt-[60px] xs:pt-[60px] sm:pt-[60px] mnavbar">
           <div>
-            <h1 className="third_head mb-7 2xl:mb-10 xs:items-center xs:justify-center">Privacy Policy</h1>
+          <h1 className="third_head mb-7 alata 2xl:pt-[30px]  2xl:mb-7   xl:mb-6 lg:mb-5 md:mb-4 sm:mb-4 xs:mb-4 xs:items-center xs:justify-center">
+              PRIVACY POLICY
+            </h1>
 
             <p className="footer_text mb-7 2xl:mb-10">
-              Authentic chef is committed to protecting your privacy. This
-              Privacy Policy explains how we collect, use, disclose, and
-              safeguard your personal data when you use the Authentic chef
-              Website. We will only use the data that we collect about you in
-              accordance with the applicable privacy laws including but not
-              limited to the EU General Data Protection Regulation 2016/679
-              (GDPR) and UK Data Protection Act 2018.
+              Authentichef is committed to protecting your privacy. This Privacy
+              Policy explains how we collect, use, disclose, and safeguard your
+              personal data when you use the Authentichef Website. We will only
+              use the data that we collect about you in accordance with the
+              applicable privacy laws including but not limited to the EU
+              General Data Protection Regulation 2016/679 (GDPR) and UK Data
+              Protection Act 2018.
             </p>
 
             {/* <h2>Log Files</h2> */}
@@ -43,20 +45,20 @@ const PrivacyPolicy = () => {
               NOT TO CONTINUE USING THE WEBSITE ANY LONGER.
             </p>
 
-            <h3 className="font-semibold mb-2 footer_text">
+            <h3 className="mb-2 privacyHead font-[400]">
               1. TYPES OF PERSONAL DATA WE COLLECT
             </h3>
 
             <p className="footer_text mb-7 2xl:mb-10">
-              While it is perfectly possible to visit and browse the Authentic
-              chef Website without disclosing any personal information, if you
-              choose to actively engage with us by registering an account, you
-              will be asked to provide certain personally identifiable
-              information, commonly known as personal data. Personal data is
-              basically any information about an individual from which that
-              individual can be identified whether directly or indirectly. It
-              does not include data where the identity has been removed
-              (anonymous data).
+              While it is perfectly possible to visit and browse the
+              Authentichef Website without disclosing any personal information,
+              if you choose to actively engage with us by registering an
+              account, you will be asked to provide certain personally
+              identifiable information, commonly known as personal data.
+              Personal data is basically any information about an individual
+              from which that individual can be identified whether directly or
+              indirectly. It does not include data where the identity has been
+              removed (anonymous data).
             </p>
             <p className="footer_text mb-7 2xl:mb-10">
               The personal data we collect from you depends on precisely what
@@ -77,12 +79,12 @@ const PrivacyPolicy = () => {
                 address and delivery address.
               </li>
               <li className="footer_text mb-7 2xl:mb-10">
-                <span className="font-semibold"> Financial Data</span> which,
+                <span className="font-semibold"> Financial Data </span>which,
                 where you provide them, includes your bank account and payment
                 card details.
               </li>
               <li className="footer_text mb-7 2xl:mb-10">
-                <span className="font-semibold"> Transaction Data</span> which
+                <span className="font-semibold"> Transaction Data </span>which
                 includes details about payments to and from you and other
                 details or services you have purchased from us or whilst using
                 the Website.
@@ -110,8 +112,7 @@ const PrivacyPolicy = () => {
               <li className="footer_text mb-7 2xl:mb-10">
                 {" "}
                 <span className="font-semibold">
-                  Marketing and Communications Data
-                </span>
+                  Marketing and Communications Data </span>   
                 which includes your preferences in receiving marketing from us
                 and our third parties including information about the kind of
                 adverts that we believe you are most likely to be interested in.
@@ -119,7 +120,7 @@ const PrivacyPolicy = () => {
             </ul>
             <p className="footer_text mb-7 2xl:mb-10">
               We also collect, use and share
-              <span className="font-semibold">Aggregated Data</span> such as
+              <span className="font-semibold"> Aggregated Data</span> such as
               statistical or demographic data for any purpose. Aggregated Data
               may be derived from your personal data but is not considered
               personal data in law as this data does not directly or indirectly
@@ -145,7 +146,7 @@ const PrivacyPolicy = () => {
               or philosophical beliefs, sex life, sexual orientation, political
               opinions, trade union membership, information about your health
               and genetic and biometric data). Nor do we collect any information
-              about criminal convictions and illegal.
+              about criminal convictions and offences.
             </p>
             <p className="footer_text mb-7 2xl:mb-10">
               No part of our Website is directed towards children below 13 years
@@ -155,20 +156,20 @@ const PrivacyPolicy = () => {
               parental consent, we will promptly delete that personal data from
               our database. If you believe we might have any personal data from
               or about a child under 13 years, please email us at
-              support@authentic chef.com
+              support@authentichef.com
             </p>
-            <h3 className="font-semibold mb-2 footer_text">
+            <h3 className="mb-2 privacyHead font-[400]">
               2. HOW WE USE YOUR PERSONAL DATA
             </h3>
             <p className="footer_text mb-7 2xl:mb-10">
               Having accurate information about you permits us to provide you
-              with a smooth, efficient, and customize service. In this section,
+              with a smooth, efficient, and customised service. In this section,
               we set out the purposes for which we use your personal data. If
               you are in a country in the European Economic Area (EEA) or in the
               United Kingdom, in compliance with our obligations under
               applicable laws (the EU General Data Protection Regulation 2016
-              and the UK Data Protection Act 2018), we also identify the legal
-              basis that we rely on to process such information.
+              and the UK Data Protection Act 2018), we also identify the “legal
+              basis” that we rely on to process such information.
             </p>
             <div className="2xl:my-10 m">
               <div className="overflow-x-auto">
@@ -278,7 +279,7 @@ const PrivacyPolicy = () => {
                         re-organization, we may need to transfer some or all of
                         your personal data to the relevant third party (or its
                         advisors) as part of any due diligence process for the
-                        purpose of analysis any proposed sale or
+                        purpose of analysing any proposed sale or
                         re-organization. We may also need to transfer your
                         personal data to that re-organized entity or third party
                         after the sale or reorganization for them to use for the
@@ -316,14 +317,14 @@ const PrivacyPolicy = () => {
               </div>
             </div>
 
-            <h3 className="font-semibold mb-2 footer_text">
+            <h3 className="mb-2 privacyHead font-[400] mt-10">
               3. HOW WE SHARE YOUR PERSONAL DATA
             </h3>
             <p className="footer_text mb-7 2xl:mb-10">
               We may share certain personal data that we have collected about
               you in certain situations as follows:
             </p>
-            <h4 className="font-semibold mb-2 footer_text footer_text">
+            <h4 className="privacyHead font-[400] mb-2">
               a. Third-Party Service Providers
             </h4>
             <p className="footer_text mb-7 2xl:mb-10">
@@ -332,7 +333,7 @@ const PrivacyPolicy = () => {
               data analysis, email delivery, hosting services, customer service,
               and marketing assistance.
             </p>
-            <h4 className="font-semibold mb-2 footer_text footer_text">
+            <h4 className="privacyHead mb-2">
               b. Third-Party Advertisers
             </h4>
             <p className="footer_text mb-7 2xl:mb-10">
@@ -342,14 +343,14 @@ const PrivacyPolicy = () => {
               cookies in order to provide advertisements about goods and
               services that may be of interest to you.
             </p>
-            <h4 className="font-semibold mb-2 footer_text footer_text">
+            <h4 className="privacyHead mb-2 ">
               c. Marketing Communications
             </h4>
             <p className="footer_text mb-7 2xl:mb-10">
               With your informed consent (opt-in) we may share your information
               with third parties for marketing purposes, as permitted by law.
             </p>
-            <h4 className="font-semibold mb-2 footer_text footer_text">
+            <h4 className="privacyHead mb-2 ">
               d. By Law or to Protect Rights
             </h4>
             <p className="footer_text mb-7 2xl:mb-10">
@@ -371,20 +372,20 @@ const PrivacyPolicy = () => {
               so we can ensure that there are adequate controls in place in
               accordance with applicable laws.
             </p>
-            <h3 className="font-semibold mb-2 footer_text">
+            <h3 className="mb-2 privacyHead font-[400]">
               4. USE OF COOKIES
             </h3>
             <p className="footer_text mb-7 2xl:mb-10">
               Please go through our Cookies Policy to know more about our usage
               of cookies and other tracking technologies in the Website.
             </p>
-            <h3 className="font-semibold mb-2 footer_text">
+            <h3 className="mb-2 privacyHead font-[400]">
               5. PERSONAL DATA STORAGE AND SECURITY
             </h3>
             <p className="footer_text mb-7 2xl:mb-10">
               The personal data which we hold will be held securely in
               accordance with our internal security policy and the appropriate
-              data protection laws as and where applicable. Authentic chef has
+              data protection laws as and where applicable. Authentichef has
               implemented generally accepted standards of technology and
               operational security in order to protect personal data from loss,
               misuse, or unauthorized alteration or destruction. Unfortunately,
@@ -396,7 +397,7 @@ const PrivacyPolicy = () => {
               you to serious risk. We will never collect sensitive information
               about you without your explicit and informed consent.
             </p>
-            <h3 className="font-semibold mb-2 footer_text">
+            <h3 className="mb-2 privacyHead font-[400]">
               6. PERSONAL DATA RETENTION AND TRANSFER
             </h3>
             <p className="footer_text mb-7 2xl:mb-10">
@@ -413,43 +414,44 @@ const PrivacyPolicy = () => {
               legal or business purposes. When we no longer have a purpose for
               retaining your personal data, we will destroy it and take
               commercially reasonable measures to make sure that the information
-              is irrecoverable. All third parties are carefully screened before
-              transfer of any personal data, so we can ensure that there are
-              adequate controls in place and, where relevant, that such third
-              parties are fully compliant with the applicable laws. In case any
-              of any international transfer of personal data, Authentic chef
-              takes all reasonable steps to ensure that your personal data
-              continues to receive a standard of protection that is at least
-              comparable to that provided under the applicable laws.
+              is irrecoverable and irreproducible. All third parties are
+              carefully screened before transfer of any personal data, so we can
+              ensure that there are adequate controls in place and, where
+              relevant, that such third parties are fully compliant with the
+              applicable laws. In case any of any international transfer of
+              personal data, Authentichef takes all reasonable steps to ensure
+              that your personal data continues to receive a standard of
+              protection that is at least comparable to that provided under the
+              applicable laws.
             </p>
-            <h3 className="font-semibold mb-2 footer_text">YOUR RIGHTS</h3>
-            <p className="footer_text mb-7 2xl:mb-10">
+            <h3 className="mb-2 privacyHead font-[400]">7. YOUR RIGHTS</h3>
+            <p className="footer_text mb-7 2xl:mb-2">
               Under the applicable privacy laws including GDPR, you possess a
               number of rights in relation to your personal data. These rights
               include
             </p>
             <ul>
-              <li className="footer_text mb-7 2xl:mb-10">
+              <li className="footer_text mb-7 2xl:mb-2">
                 {" "}
                 <span className="font-semibold">Request information</span> about
                 your personal data. You have the right to be informed about how
                 and why your personal data is being collected or processed by
                 us.
               </li>
-              <li className="footer_text mb-7 2xl:mb-10">
+              <li className="footer_text mb-7 2xl:mb-2">
                 <span className="font-semibold">Request access</span> to your
                 personal data (commonly known as a data subject access request).
                 This enables you to receive a copy of the personal data we hold
                 about you and to check that we are lawfully processing it.
               </li>
-              <li className="footer_text mb-7 2xl:mb-10">
+              <li className="footer_text mb-7 2xl:mb-2">
                 <span className="font-semibold">Request correction</span> of the
                 personal data that we hold about you. This enables you to have
                 any incomplete or inaccurate data we hold about you corrected,
                 though we may need to verify the accuracy of the new data you
                 provide to us.
               </li>
-              <li className="footer_text mb-7 2xl:mb-10">
+              <li className="footer_text mb-7 2xl:mb-2">
                 <span className="font-semibold">Request erasure</span> of your
                 personal data. This enables you to ask us to delete or remove
                 personal data where there is no good reason for us continuing to
@@ -462,7 +464,7 @@ const PrivacyPolicy = () => {
                 your request of erasure for specific legal reasons which will be
                 notified to you, if applicable, at the time of your request.
               </li>
-              <li className="footer_text mb-7 2xl:mb-10">
+              <li className="footer_text mb-7 2xl:mb-2">
                 {" "}
                 <span className="font-semibold">Object to processing</span> of
                 your personal data where we are relying on a legitimate interest
@@ -475,7 +477,7 @@ const PrivacyPolicy = () => {
                 legitimate grounds to process your information which override
                 your rights and freedoms.
               </li>
-              <li className="footer_text mb-7 2xl:mb-10">
+              <li className="footer_text mb-7 2xl:mb-2">
                 {" "}
                 <span className="font-semibold">
                   Request restriction of processing
@@ -489,7 +491,7 @@ const PrivacyPolicy = () => {
                 or (d) you have objected to our use of your data but we need to
                 verify whether we have overriding legitimate grounds to use it.
               </li>
-              <li className="footer_text mb-7 2xl:mb-10">
+              <li className="footer_text mb-7 2xl:mb-2">
                 <span className="font-semibold">Request transfer</span> of your
                 personal data to you or to a third party. We will provide to
                 you, or a third party you have chosen, your personal data in a
@@ -530,22 +532,22 @@ const PrivacyPolicy = () => {
               </li>
             </ul>
 
-            <h3 className="font-semibold my-5 2xl:my-10 2xl:text-[35px]">
+            <h3 className="font-semibold my-5 2xl:mt-10 2xl:mb-1 2xl:text-[35px]">
               COOKIES POLICY
             </h3>
 
             <p className="footer_text mb-7 2xl:mb-10">
-              This Cookies Policy explains how Authentic chef uses cookies and
-              similar technologies on their Website to collect certain
+              This Cookies Policy explains how Authentichef uses cookies and
+              similar technologies in their Website to collect certain
               information about you. This document explains what these
               technologies are and why we use them, as well as your rights to
-              control our use of them. Authentic chef reserves the right to
-              update and modify this Cookies Policy at any time and for any
-              reason. You are encouraged to periodically review this document to
-              stay informed of updates.
+              control our use of them. Authentichef reserve the right to update
+              and modify this Cookies Policy at any time and for any reason. You
+              are encouraged to periodically review this document to stay
+              informed of updates.
             </p>
 
-            <h3 className="font-semibold mb-2 footer_text">
+            <h3 className="mb-2 privacyHead font-[400]">
               1. WHAT ARE COOKIES
             </h3>
             <p className="footer_text mb-7 2xl:mb-10">
@@ -558,29 +560,29 @@ const PrivacyPolicy = () => {
             </p>
 
             <p className="footer_text mb-7 2xl:mb-10">
-              Cookies are broadly of two types: first-party cookies and
-              third-party cookies. First-party cookies are set directly by us.
-              Third-party cookies are set from a domain different than the
-              domain of the website you are visiting, or in other words, are
-              served by a third party on our behalf. Third-party cookies are
-              typically used for web analytics, performance, and marketing
-              activities.
+              Cookies are broadly of two types, first party cookies and third
+              party cookies. The cookies that are set directly by us are called
+              first party cookies. The cookies that are set from a domain
+              different than the domain of the website you are visiting, or in
+              other words, are served by a third party, on our behalf, are
+              called third party cookies. Third party cookies are typically used
+              for web analytics, performance and marketing activities.
             </p>
 
-            <p className="footer_text mb-7 2xl:mb-10">
+            <p className="footer_text mb-7 2xl:mb-2">
               Authentic chef uses cookies and other tracking technologies for
               the following purposes:
             </p>
 
-            <p className="footer_text mb-7 2xl:mb-10">
+            <p className="footer_text mb-7 2xl:mb-2">
               Assisting you in navigation of our Website;
             </p>
 
-            <p className="footer_text mb-7 2xl:mb-10">
+            <p className="footer_text mb-7 2xl:mb-2">
               Assisting you in submitting your order, inquiry, or feedback;
             </p>
 
-            <p className="footer_text mb-7 2xl:mb-10">
+            <p className="footer_text mb-7 2xl:mb-2">
               Analyzing your use of our Website;
             </p>
 
@@ -592,10 +594,10 @@ const PrivacyPolicy = () => {
             <p className="footer_text mb-7 2xl:mb-10">
               Cookies can be programmed to remain on your computer or mobile
               device for various periods of time. Session cookies are temporary
-              cookies that exist only while your browser is open and are deleted
+              cookies that exist only while your browser is open and is deleted
               automatically when you close your browser. Persistent cookies are
               more permanent in nature and remain on your device even after the
-              browser is closed (for example, to remember your user preferences
+              browser is closed (for example to remember your user preferences
               when you return to the site). These cookies do not collect or
               store any personally identifiable information. You can refuse the
               use of cookies or you can opt-out of each cookie category (except
@@ -603,7 +605,7 @@ const PrivacyPolicy = () => {
               button.
             </p>
 
-            <h3 className="font-semibold mb-2 footer_text">
+            <h3 className="mb-2 privacyHead font-[400]">
               2. THE TYPES OF COOKIES WE USE
             </h3>
             <p className="footer_text mb-7 2xl:mb-10">
@@ -630,6 +632,15 @@ const PrivacyPolicy = () => {
             </p>
 
             <p className="footer_text mb-7 2xl:mb-10">
+              Functional Cookies: We make use of cookies to provide you with
+              certain functionality. For example, to remember choices you make
+              (such as your user name, language or the region you are in), or to
+              recognise the platform from which you access the Website, and to
+              provide enhanced and more personal features. These cookies are not
+              used to track your browsing on other websites.
+            </p>
+
+            <p className="footer_text mb-7 2xl:mb-10">
               Targeting Cookies: These cookies may be set through our Website by
               our advertising partners to record information about your visit,
               build a profile of your interests, and show you relevant
@@ -642,27 +653,27 @@ const PrivacyPolicy = () => {
               identifying your browser and internet device.
             </p>
 
-            <h3 className="font-semibold mb-2 footer_text">
+            <h3 className="mb-2 privacyHead font-[400]">
               3. OTHER TRACKING TECHNOLOGIES
             </h3>
             <p className="footer_text mb-7 2xl:mb-10">
               In addition to the different types of cookies mentioned above, we
-              may use other similar technologies from time to time, like web
-              beacons (sometimes called tracking pixels or clear gifs). These
-              are tiny graphics files that contain a unique identifier that
-              enable us to recognize when someone has visited our Website or
-              opened an e-mail including them. This allows us, for example, to
-              monitor the traffic patterns of users from one page within the
+              may use other, similar technologies from time to time, like web
+              beacons (sometimes called tracking pixels or clear gifs).
+              These are tiny graphics files that contain a unique identifier
+              that enable us to recognise when someone has visited our Website
+              or opened an e-mail including them. This allows us, for example,
+              to monitor the traffic patterns of users from one page within the
               Website to another, to deliver or communicate with cookies, to
               understand whether you have come to the Website from an online
               advertisement displayed on a third-party website, to improve
               Website performance, and to measure the success of e-mail
-              marketing campaigns. In many instances, these technologies rely on
-              cookies to function properly, and declining cookies will impair
-              their functioning.
+              marketing campaigns. In many instances, these technologies are
+              reliant on cookies to function properly, and so declining cookies
+              will impair their functioning.
             </p>
 
-            <h3 className="font-semibold mb-2 footer_text">
+            <h3 className="mb-2 privacyHead font-[400]    ">
               4. HOW TO CONTROL OR DELETE COOKIES
             </h3>
             <p className="footer_text mb-7 2xl:mb-10">
@@ -676,10 +687,10 @@ const PrivacyPolicy = () => {
             </p>
 
             <p className="footer_text mb-7 2xl:mb-10">
-              If you wish to restrict or block web browser cookies that are set
-              on your device, you can do this through your browser settings; the
-              Help function within your browser should tell you how.
-              Alternatively, you may wish to visit www.aboutcookies.org or
+              If you wish to restrict or block web browser cookies which are set
+              on your device, then you can do this through your browser
+              settings; the Help function within your browser should tell you
+              how. Alternatively, you may wish to visit www.aboutcookies.org or
               www.allaboutcookies.org (link is external), which contains
               comprehensive information on how to do this on a wide variety of
               desktop browsers.{" "}
@@ -687,12 +698,12 @@ const PrivacyPolicy = () => {
 
             <p className="footer_text mb-7 2xl:mb-10">
               This Cookies Policy does not cover third party websites. Please
-              note that this Cookies Policy does not apply to, and Authentic
-              chef is not responsible for, the privacy practices of third party
+              note that this Cookies Policy does not apply to, and Authentichef
+              is not responsible for, the privacy practices of third party
               websites which may be linked to or accessible through our Website.
             </p>
             <p className="footer_text mb-7 2xl:mb-10">
-              If you have any further questions, comments or requests regarding
+              If you have any further questions, comments or requests regarding 
               this Cookies Policy, please email us at support@authentic
               chef.com.
             </p>
@@ -718,8 +729,8 @@ const PrivacyPolicy = () => {
                   <tr className="footer_text">
                     <td className="py-5 w-2/12">[insert name of cookie]</td>
                     <td className="py-5 w-3/12">
-                      insert category - such as Strictly necessary cookie or
-                      Functional cookie
+                      [insert category - such as Strictly necessary cookie or
+                      Functional cookie]
                     </td>
                     <td className="py-5 w-5/12">
                       [insert brief description - such as This cookie is used to

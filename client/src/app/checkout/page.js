@@ -20,60 +20,70 @@ const Checkout = () => {
   const router = useRouter();
   const [Promo_code, setPromoCode] = useState("");
   const [isSameAsShippingAddress, setIsSameAsShippingAddress] = useState(true);
-  const [deliveryInfo, setDeliveryInfo] = useState([
-    {
-      phone: "",
-      houseNo: "",
-      buildingName: " ",
-      streetName: " ",
-      City: " ",
-      country: " ",
-      FirstName: "",
-      LastName: "",
-    },
-  ]);
-  const [billingInfo, setBillingInfo] = useState([
-    {
-      phone: "",
-      houseNo: "",
-      buildingName: " ",
-      streetName: " ",
-      City: " ",
-      country: " ",
-      FirstName: "",
-      LastName: "",
-    },
-  ]);
+  const [deliveryInfo, setDeliveryInfo] = useState({
+    phone: "",
+    houseNo: "",
+    buildingName: " ",
+    streetName: " ",
+    City: " ",
+    country: " ",
+    FirstName: "",
+    LastName: "",
+    Postcode: "",
+  });
+  const [billingInfo, setBillingInfo] = useState({
+    phone: "",
+    houseNo: "",
+    buildingName: " ",
+    streetName: " ",
+    City: " ",
+    country: " ",
+    FirstName: "",
+    LastName: "",
+    Postcode: "",
+  });
 
   const [deliveryDate, setDeliveryDate] = useState("");
   const [Delivery_instruction, setDeliveryInstruction] = useState("");
   const [getCartItems, setGetCartItems] = useState([]);
+  const [updatedCartItems, setUpdatedCartItems] = useState([]);
   const [subtotalPrice, setSubtotalPrice] = useState(0);
   const [isRefresh, setRefresh] = useState(false);
+  const [cartId, setCartId] = useState("");
 
   // Define today's date in the format YYYY-MM-DD
   const today = new Date().toISOString().split("T")[0];
 
-  // const handleInputChange = (e, setInfo) => {
-  //   const { name, value } = e.target;
-  //   setInfo((prevState) => (
-  //     {
-  //       ...prevState[0],
-  //       [name]: value,
-  //     }
-  //   ));
-  // };
-  
-  const handleInputChange = (e, setInfo) => {
+  const handleInputChange = (e, setInfo, updateBilling = false) => {
     const { name, value } = e.target;
-    setInfo((prevState) => [{
-      ...prevState[0],
-      [name]: value,
+    let newValue = value;
+  
+    if (name === "FirstName" || name === "LastName" || name === "City" || name === "country") {
+      // Allow only alphabetic characters and limit to 100 characters
+      newValue = value.replace(/[^A-Za-z]/g, "").slice(0, 100);
     }
-  ]);
+  
+    if (name === "Postcode") {
+      // Basic validation: Allow only alphanumeric characters and limit to 8 characters
+      newValue = value.replace(/[^A-Z0-9]/g, "").slice(0, 8);
+    }
+  
+    if (name === "phone") {
+      // Basic validation: Allow only numeric characters and limit to 15 characters
+      newValue = value.replace(/[^0-9]/g, "").slice(0, 15);
+    }
+  
+    setInfo((prevState) => {
+      const newState = {
+        ...prevState,
+        [name]: newValue,
+      };
+      if (updateBilling && isSameAsShippingAddress) {
+        setBillingInfo(newState);
+      }
+      return newState;
+    });
   };
-  
-  
   
 
   const handleSubmit = async (e) => {
@@ -84,15 +94,21 @@ const Checkout = () => {
       return;
     }
 
+    console.log(
+      "Submitting order with the following cart items:",
+      updatedCartItems.length ? updatedCartItems : getCartItems
+    );
+
     try {
       const response = await axios.post(
         `${config.baseURL}/api/order/createOrder`,
         {
-          deliveryInfo,
-          billingInfo,
+          deliveryInfo: [deliveryInfo],
+          billingInfo: [billingInfo],
           deliveryDate,
           Promo_code,
           Delivery_instruction,
+          cartItems: updatedCartItems.length ? updatedCartItems : getCartItems, // Ensure updated items are sent
         },
         {
           headers: {
@@ -124,14 +140,17 @@ const Checkout = () => {
     axios
       .request(option)
       .then((response) => {
-        const cartItems = response?.data?.userCart?.items.map((item) => ({
+        const userCart = response?.data?.userCart;
+        const cartItems = userCart?.items.map((item) => ({
           ...item,
           totalPrice: item.menuItem.price * item.quantity,
         }));
         setGetCartItems(cartItems);
+        setUpdatedCartItems(cartItems); // Initializing updatedCartItems with fetched data
         setSubtotalPrice(
           cartItems.reduce((sum, item) => sum + item.totalPrice, 0)
         );
+        setCartId(userCart._id); // Set the cart ID
         console.log(response?.data, "data");
       })
       .catch((error) => {
@@ -156,7 +175,7 @@ const Checkout = () => {
 
   useEffect(() => {
     if (isSameAsShippingAddress) {
-      setBillingInfo({ ...deliveryInfo });
+      setBillingInfo(deliveryInfo);
     }
   }, [isSameAsShippingAddress, deliveryInfo]);
 
@@ -178,6 +197,27 @@ const Checkout = () => {
     setRefresh(!isRefresh);
   };
 
+  const updateCartItemQuantity = async (cartId, menuId, quantity) => {
+    try {
+      const response = await axios.put(
+        `${config.baseURL}/api/Orders/updateCartItem/${cartId}/${menuId}`,
+        { quantity },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      if (response.status >= 200 && response.status < 300) {
+        console.log("Cart item updated successfully");
+      } else {
+        console.log("Failed to update cart item", response.data.message);
+      }
+    } catch (error) {
+      console.log("Error updating cart item:", error);
+    }
+  };
+
   const handleIncrement = (itemId) => {
     setGetCartItems((prevCartItems) =>
       prevCartItems.map((item) =>
@@ -190,6 +230,21 @@ const Checkout = () => {
           : item
       )
     );
+
+    setUpdatedCartItems((prevCartItems) =>
+      prevCartItems.map((item) =>
+        item._id === itemId
+          ? {
+              ...item,
+              quantity: item.quantity + 1,
+              totalPrice: item.menuItem.price * (item.quantity + 1),
+            }
+          : item
+      )
+    );
+
+    const item = getCartItems.find((item) => item._id === itemId);
+    updateCartItemQuantity(cartId, item.menuItem._id, item.quantity + 1);
   };
 
   const handleDecrement = (itemId) => {
@@ -204,6 +259,46 @@ const Checkout = () => {
           : item
       )
     );
+
+    setUpdatedCartItems((prevCartItems) =>
+      prevCartItems.map((item) =>
+        item._id === itemId && item.quantity > 1
+          ? {
+              ...item,
+              quantity: item.quantity - 1,
+              totalPrice: item.menuItem.price * (item.quantity - 1),
+            }
+          : item
+      )
+    );
+
+    const item = getCartItems.find((item) => item._id === itemId);
+    if (item.quantity > 1) {
+      updateCartItemQuantity(cartId, item.menuItem._id, item.quantity - 1);
+    }
+  };
+
+  useEffect(() => {
+    console.log("Updated Cart Items:", updatedCartItems);
+  }, [updatedCartItems]);
+
+  const [phone, setPhone] = useState("");
+
+  const handlePhoneChange = (e) => {
+    const inputValue = e.target.value;
+    // Limit the input to 15 characters
+    if (inputValue.length <= 15) {
+      setPhone(inputValue);
+    }
+  };
+
+  const [Postcode, setPostData] = useState("");
+
+  const handlePostChange = (e) => {
+    const inputValue = e.target.value;
+    if (inputValue.length <= 8) {
+      setPostData(inputValue);
+    }
   };
 
   return (
@@ -250,11 +345,12 @@ const Checkout = () => {
                     </label>
                     <input
                       placeholder="Enter phone number"
-                      type="number"
+                      type="text"
                       name="phone"
                       value={deliveryInfo.phone}
                       onChange={(e) => handleInputChange(e, setDeliveryInfo)}
                       className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
+                      maxLength={15}
                     />
                   </div>
                   <div>
@@ -289,6 +385,7 @@ const Checkout = () => {
                         value={deliveryInfo.houseNo}
                         onChange={(e) => handleInputChange(e, setDeliveryInfo)}
                         className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
+                        maxLength={200}
                       />
                     </div>
                     <div className="2xl:w-[388px] w-full">
@@ -302,6 +399,7 @@ const Checkout = () => {
                         value={deliveryInfo.buildingName}
                         onChange={(e) => handleInputChange(e, setDeliveryInfo)}
                         className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
+                        maxLength={200}
                       />
                     </div>
                   </div>
@@ -316,6 +414,7 @@ const Checkout = () => {
                       value={deliveryInfo.streetName}
                       onChange={(e) => handleInputChange(e, setDeliveryInfo)}
                       className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
+                      maxLength={200}
                     />
                   </div>
                   <div className="flex justify-between 2xl:gap-[20px] xl:gap-[15px] gap-[10px] xl:my-[10px] my-[8px] 2xl:my-[15px]">
@@ -330,6 +429,7 @@ const Checkout = () => {
                         value={deliveryInfo.City}
                         onChange={(e) => handleInputChange(e, setDeliveryInfo)}
                         className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
+                        maxLength={100}
                       />
                     </div>
                     <div className="2xl:w-[251px] xl:w-[180px] w-[140px]">
@@ -343,6 +443,7 @@ const Checkout = () => {
                         value={deliveryInfo.country}
                         onChange={(e) => handleInputChange(e, setDeliveryInfo)}
                         className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
+                        maxLength={100}
                       />
                     </div>
                     <div className="2xl:w-[251px] xl:w-[180px] w-[140px]">
@@ -350,12 +451,20 @@ const Checkout = () => {
                         Postcode <span className="text-[#DB1414]">*</span>
                       </label>
                       <input
-                        type="number"
+                        type="text"
                         name="Postcode"
                         placeholder="Enter"
                         value={deliveryInfo.Postcode}
                         onChange={(e) => handleInputChange(e, setDeliveryInfo)}
                         className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
+                        maxLength={8}
+                        inputMode="numeric" // Prevent increase/decrease arrows on mobile
+                        style={{
+                          WebkitAppearance: "none",
+                          MozAppearance: "textfield", // For Firefox
+                          appearance: "none",
+                          paddingRight: "16px", // Add some padding to compensate for hidden arrows
+                        }}
                       />
                     </div>
                   </div>
@@ -371,6 +480,7 @@ const Checkout = () => {
                         value={deliveryInfo.FirstName}
                         onChange={(e) => handleInputChange(e, setDeliveryInfo)}
                         className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
+                        maxLength={100}
                       />
                     </div>
                     <div className="2xl:w-[388px] w-full">
@@ -384,6 +494,7 @@ const Checkout = () => {
                         value={deliveryInfo.LastName}
                         onChange={(e) => handleInputChange(e, setDeliveryInfo)}
                         className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
+                        maxLength={100}
                       />
                     </div>
                   </div>
@@ -400,8 +511,8 @@ const Checkout = () => {
                       <input
                         type="checkbox"
                         checked={isSameAsShippingAddress}
-                        onChange={() =>
-                          setIsSameAsShippingAddress(!isSameAsShippingAddress)
+                        onChange={(e) =>
+                          setIsSameAsShippingAddress(e.target.checked)
                         }
                         className="checkbox checkbox-info rounded-none w-[18px] h-[18px]"
                       />
@@ -456,6 +567,7 @@ const Checkout = () => {
                         onChange={(e) => handleInputChange(e, setBillingInfo)}
                         className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
                         disabled={isSameAsShippingAddress}
+                        maxLength={200}
                       />
                     </div>
                     <div className="2xl:w-[388px] w-full">
@@ -470,6 +582,7 @@ const Checkout = () => {
                         onChange={(e) => handleInputChange(e, setBillingInfo)}
                         className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
                         disabled={isSameAsShippingAddress}
+                        maxLength={200}
                       />
                     </div>
                   </div>
@@ -485,6 +598,7 @@ const Checkout = () => {
                       onChange={(e) => handleInputChange(e, setBillingInfo)}
                       className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
                       disabled={isSameAsShippingAddress}
+                      maxLength={200}
                     />
                   </div>
                   <div className="flex justify-between 2xl:gap-[20px] xl:gap-[15px] gap-[10px] xl:my-[10px] my-[8px] 2xl:my-[15px]">
@@ -500,6 +614,7 @@ const Checkout = () => {
                         onChange={(e) => handleInputChange(e, setBillingInfo)}
                         className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
                         disabled={isSameAsShippingAddress}
+                        maxLength={100}
                       />
                     </div>
                     <div className="2xl:w-[251px] xl:w-[180px] w-[140px]">
@@ -514,6 +629,7 @@ const Checkout = () => {
                         onChange={(e) => handleInputChange(e, setBillingInfo)}
                         className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
                         disabled={isSameAsShippingAddress}
+                        maxLength={100}
                       />
                     </div>
                     <div className="2xl:w-[251px] xl:w-[180px] w-[140px]">
@@ -521,7 +637,7 @@ const Checkout = () => {
                         Postcode <span className="text-[#DB1414]">*</span>
                       </label>
                       <input
-                        type="number"
+                        type="text"
                         name="Postcode"
                         placeholder="Enter"
                         value={billingInfo.Postcode}
@@ -544,6 +660,7 @@ const Checkout = () => {
                         disabled={isSameAsShippingAddress}
                         onChange={(e) => handleInputChange(e, setBillingInfo)}
                         value={billingInfo.FirstName}
+                        maxLength={100}
                       />
                     </div>
                     <div className="2xl:w-[388px] w-full">
@@ -558,6 +675,7 @@ const Checkout = () => {
                         disabled={isSameAsShippingAddress}
                         onChange={(e) => handleInputChange(e, setBillingInfo)}
                         value={billingInfo.LastName}
+                        maxLength={100}
                       />
                     </div>
                   </div>
