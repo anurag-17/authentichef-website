@@ -278,7 +278,6 @@ const Navbar = () => {
       .request(option)
       .then((response) => {
         setGetCartItems(response?.data?.userCart?.items);
-        
       })
       .catch((error) => {
         console.log(error, "Error");
@@ -481,7 +480,7 @@ const Navbar = () => {
       {/* <ToastContainer className="mt-24" autoClose={1000} /> */}
       <section>
         <nav className="z-50 flex justify-center bg-[#F38181] 2xl:h-[116px] xl:h-[80px] lg:h-[50px] sm:h-[45px] h-12 w-full mnavbar-h fixed">
-          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[800px] w-full px-5 md:px-0 flex justify-between items-center mnavbar">
+          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[750px] w-full px-5 md:px-0 flex justify-between items-center mnavbar">
             <div className="w-1/3">
               {/* =======Side Drawer======= */}
               <div className="drawer">
@@ -496,7 +495,7 @@ const Navbar = () => {
                     <Image
                       alt="image"
                       src={sidemanu}
-                      className=" cursor-pointer 2xl:w-[38.67px] 2xl:h-[32px] xl:w-[25px] h-auto w-[22px] menu-btn md:ml-6 lg:ml-0"
+                      className=" cursor-pointer 2xl:w-[38.67px] 2xl:h-[32px] xl:w-[25px] h-auto w-[22px] menu-btn "
                     />
                   </label>
                 </div>
@@ -649,7 +648,7 @@ const Navbar = () => {
               </a>
             </div>
             <div className="w-1/3 flex justify-end ">
-              <div className="flex justify-end md:gap-0 gap-2 md:mx-6 2xl:mx-0">
+              <div className="flex justify-end md:gap-0 gap-2 ">
                 {isLoggedIn === success ? (
                   <div className="flex justify-end md:gap-7 gap-2 w-1/3">
                     <div className="relative flex items-center">
