@@ -72,8 +72,32 @@ const promoCodeSchema = new mongoose.Schema({
     isActive: {
         type: Boolean,
         default: true
-    }
+    },
+
+        expiryDate: {
+        type: Date
+    },
+
 }, { timestamps: true });
+
+// Expire the coupon midnight GMT 30th June 2024
+
+promoCodeSchema.pre('save', function(next) {
+    const expiryDate = new Date('2024-06-30T23:59:59Z');
+    this.expiryDate = expiryDate;
+    next();
+
+}
+);
+
+// Update isActive based on expiryDate
+promoCodeSchema.pre('save', function(next) {
+    const currentDate = new Date();
+    if (this.expiryDate < currentDate) {
+        this.isActive = false; // Set isActive to false if the coupon has expired
+    }
+    next();
+});
 
 
 module.exports = mongoose.model('Coupon', promoCodeSchema);

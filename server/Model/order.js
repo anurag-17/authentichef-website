@@ -1,40 +1,40 @@
 const mongoose = require("mongoose");
 
 const deliveryInfoSchema = new mongoose.Schema({
-  phone: {
-      type: String,
-  },
-  houseNo: {
-      type: String,
-     
-  },
-  buildingName: String, // Assuming a building name might not always be required
-  streetName: {
-      type: String,
-      
-  },
-  City: {
-      type: String,
-      
-  },
-  country: {
-      type: String,
-      
-  },
-FirstName:{
-  type:String,
+    phone: {
+        type: String,
+    },
+    houseNo: {
+        type: String,
+
+    },
+    buildingName: String, // Assuming a building name might not always be required
+    streetName: {
+        type: String,
+
+    },
+    City: {
+        type: String,
+
+    },
+    country: {
+        type: String,
+
+    },
+    FirstName: {
+        type: String,
 
 
-},
-LastName:{
-  type:String,
+    },
+    LastName: {
+        type: String,
 
-},
-Type_of_Address:{
- type:String,
- enum:["Shipping Address","Billing address"],
- default:"Shipping Address"
-}
+    },
+    Type_of_Address: {
+        type: String,
+        enum: ["Shipping Address", "Billing address"],
+        default: "Shipping Address"
+    }
 });
 
 const BillingInfoSchema = new mongoose.Schema({
@@ -43,34 +43,34 @@ const BillingInfoSchema = new mongoose.Schema({
     },
     houseNo: {
         type: String,
-       
+
     },
     buildingName: String, // Assuming a building name might not always be required
     streetName: {
         type: String,
-       
+
     },
     City: {
         type: String,
-       
+
     },
     country: {
         type: String,
-        
-    },
-  FirstName:{
-    type:String,
 
-  
-  },
-  LastName:{
-    type:String,
-  },
-  Type_of_Address:{
-   type:String,
-   enum:["Shipping Address","Billing address"],
-   default:"Shipping Address"
-  }
+    },
+    FirstName: {
+        type: String,
+
+
+    },
+    LastName: {
+        type: String,
+    },
+    Type_of_Address: {
+        type: String,
+        enum: ["Shipping Address", "Billing address"],
+        default: "Shipping Address"
+    }
 
 })
 
@@ -84,20 +84,20 @@ const orderSchema = new mongoose.Schema({
             },
             quantity: {
                 type: Number,
-              
+
             },
             customization: String,
             price: {
                 type: Number,
-                
+
             },
-            ProfileImage:{
-            type:mongoose.Schema.Types.Mixed,
-                
+            ProfileImage: {
+                type: mongoose.Schema.Types.Mixed,
+
             },
-            name:{
-                type:String,
-                
+            name: {
+                type: String,
+
             }
         },
     ],
@@ -108,7 +108,7 @@ const orderSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ["pending", "preparing", "ready", "delivered" , "cancelled"],
+        enum: ["pending", "preparing", "ready", "delivered", "cancelled"],
         default: "pending",
     },
     orderDate: {
@@ -116,39 +116,43 @@ const orderSchema = new mongoose.Schema({
         default: Date.now
     },
     deliveryInfo: [deliveryInfoSchema], // Array of delivery addresses
-    BillingInfo:[BillingInfoSchema],
-    deliveryDate:{
-      type:Date,
+    BillingInfo: [BillingInfoSchema],
+    deliveryDate: {
+        type: Date,
     },
 
     totalAmount: {
         type: Number,
     },
 
-    Delivery_instruction:{
-        type:String,
-        required:false
+    Delivery_instruction: {
+        type: String,
+        required: false
     },
 
-    Promo_code:{
-        type:String,
-        required:false
+    Promo_code: {
+        type: String,
+        required: false
     },
-    discountApplied: { type: Number, default: 0 }, 
+    discountApplied: { type: Number, default: 0 },
     // Add discountApplied field
-    DiscountPercentage:{
-        type:Number,
-        default:0
+    DiscountPercentage: {
+        type: Number,
+        default: 0
     },
 
     totalAmountBeforeDiscount: { type: Number, default: 0 },
-     // Add totalAmountBeforeDiscount field
+    // Add totalAmountBeforeDiscount field
+
+    // Add the shipping Cost
+
+
     payment: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Payment",
     },
-    TransactionId:{
-      type:String
+    TransactionId: {
+        type: String
     }
 });
 
