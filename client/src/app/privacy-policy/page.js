@@ -8,9 +8,9 @@ const PrivacyPolicy = () => {
     <>
       <section>
         <Navbar />
-        <div className="2xl:w-[1600px] mnavbar xl:w-[1100px] lg:w-[850px]  md:w-[600px] xs:w-[90%] sm:w-[90%]    mx-auto 2xl:py-[150px] xl:py-[120px] py-[70px] mnavbar">
+        <div className="2xl:w-[1600px] mnavbar alata xl:w-[1100px] lg:w-[850px]  md:w-[747px] xs:w-[90%] sm:w-[93%]  mx-auto 2xl:pt-[120px]  xl:pt-[100px] lg:pt-[80px] md:pt-[60px] xs:pt-[60px] sm:pt-[60px] mnavbar">
           <div>
-            <h1 className="third_head mb-7 2xl:mb-10 xs:items-center xs:justify-center">
+          <h1 className="third_head mb-7 alata 2xl:pt-[20px]  2xl:mb-8 xl:mb-6 lg:mb-5 md:mb-4 sm:mb-4 xs:mb-4 xs:items-center xs:justify-center">
               Privacy Policy
             </h1>
 
