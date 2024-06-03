@@ -61,6 +61,7 @@ const ExploreDishes = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const { token } = useSelector((state) => state?.auth);
   const { cart } = useSelector((state) => state?.userCart);
+  const [cartId, setCartId] = useState("");
   console.log(cart, "cart");
 
   // const data = dish?.data;
@@ -459,9 +460,6 @@ const ExploreDishes = () => {
       }
     } catch (error) {
       console.error("Error adding items to cart:", error);
-      toast.error(
-        "An error occurred while adding items to cart. Please try again."
-      );
     }
   };
 
@@ -566,20 +564,29 @@ const ExploreDishes = () => {
         Authorization: token,
       },
     };
+
     axios
       .request(option)
       .then((response) => {
         const userCart = response?.data?.userCart;
-        const cartItems = userCart?.items.map((item) => ({
-          ...item,
-          totalPrice: item.menuItem.price * item.quantity,
-        }));
-        setGetCartItems(cartItems);
-        setUpdatedCartItems(cartItems); // Initializing updatedCartItems with fetched data
-        setSubtotalPrice(
-          cartItems.reduce((sum, item) => sum + item.totalPrice, 0)
-        );
-        setCartId(userCart._id); // Set the cart ID
+        if (userCart && userCart.items) {
+          const cartItems = userCart.items.map((item) => ({
+            ...item,
+            totalPrice: item.menuItem.price * item.quantity,
+          }));
+          setGetCartItems(cartItems);
+          setUpdatedCartItems(cartItems); 
+          setSubtotalPrice(
+            cartItems.reduce((sum, item) => sum + item.totalPrice, 0)
+          );
+          setCartId(userCart._id); // Set the cart ID
+        } else {
+          // Handle the case where userCart or userCart.items is undefined
+          setGetCartItems([]);
+          setUpdatedCartItems([]);
+          setSubtotalPrice(0);
+          setCartId(null);
+        }
         console.log(response?.data, "data");
       })
       .catch((error) => {
