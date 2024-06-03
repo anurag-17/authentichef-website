@@ -222,7 +222,7 @@ td {
 
 /* ===================Four================== */
 .four_head {
-  @apply alata font-[400] 2xl:text-[55px] 2xl:leading-[75px]  mx-auto xl:text-[35px] xl:leading-[45px] lg:text-[25px] lg:leading-[30px] sm:text-[25px] sm:leading-[30px] 2xl:pb-[50px] text-[25px];
+  @apply alata font-[400] 2xl:text-[55px] 2xl:leading-[75px] mx-auto xl:text-[35px] xl:leading-[45px] lg:text-[25px] lg:leading-[30px] sm:text-[25px] sm:leading-[30px] 2xl:pb-[50px] text-[25px];
 }
 
 .four_img {
@@ -248,8 +248,9 @@ td {
 .four_btn {
   @apply bg-[#E3E3E3] flex items-center rounded-[3px] 2xl:px-[20px] 2xl:gap-2 2xl:h-[34px] 2xl:text-[14px] 2xl:leading-[24px] xl:px-[10px] xl:gap-2 xl:h-[27px] xl:text-[10px] xl:leading-[18px] lg:px-[10px] lg:gap-2 lg:h-[22px] lg:text-[9px] lg:leading-[16px] px-[10px] gap-2 h-[22px] text-[10px] leading-[16px];
 }
+
 .four_btnn {
-  @apply  flex items-center rounded-[3px] 2xl:px-[20px] 2xl:gap-2 2xl:h-[34px] 2xl:text-[14px] 2xl:leading-[24px] xl:px-[10px] xl:gap-2 xl:h-[27px] xl:text-[10px] xl:leading-[18px] lg:px-[10px] lg:gap-2 lg:h-[22px] lg:text-[9px] lg:leading-[16px] px-[10px] gap-2 h-[22px] text-[10px] leading-[16px];
+  @apply flex items-center rounded-[3px] 2xl:px-[20px] 2xl:gap-2 2xl:h-[34px] 2xl:text-[14px] 2xl:leading-[24px] xl:px-[10px] xl:gap-2 xl:h-[27px] xl:text-[10px] xl:leading-[18px] lg:px-[10px] lg:gap-2 lg:h-[22px] lg:text-[9px] lg:leading-[16px] px-[10px] gap-2 h-[22px] text-[10px] leading-[16px];
 }
 
 .fourth_day {
@@ -265,10 +266,11 @@ td {
 }
 
 .five_p {
-  @apply alata font-[400] text-center 2xl:text-[18px] 2xl:leading-[30px] 2xl:w-[820px]  xl:text-[12px] xl:leading-[20px] xl:w-[600px]  sm:text-[10px] lg:leading-[22px] lg:w-[600px] text-[10px] leading-[22px] mx-5 sm:mx-auto;
+  @apply alata font-[400] text-center 2xl:text-[18px] 2xl:leading-[30px] 2xl:w-[820px] xl:text-[12px] xl:leading-[20px] xl:w-[600px] sm:text-[10px] lg:leading-[22px] lg:w-[600px] text-[10px] leading-[22px] mx-5 sm:mx-auto;
 }
+
 .five_pp {
-  @apply alata font-[400] text-center 2xl:text-[20px] 2xl:leading-[30px] 2xl:w-[820px]  xl:text-[14px] xl:leading-[22px] xl:w-[600px]  sm:text-[12px] lg:leading-[22px] lg:w-[600px] text-[12px] leading-[22px] mx-5 sm:mx-auto;
+  @apply alata font-[400] text-center 2xl:text-[20px] 2xl:leading-[30px] 2xl:w-[820px] xl:text-[14px] xl:leading-[22px] xl:w-[600px] sm:text-[12px] lg:leading-[22px] lg:w-[600px] text-[12px] leading-[22px] mx-5 sm:mx-auto;
 }
 
 .five_head2 {
@@ -285,7 +287,7 @@ td {
 }
 
 .six_img {
-  @apply 2xl:w-[327px] 2xl:h-[242px] xl:w-[210px] xl:h-auto lg:w-[160px] lg:h-auto sm:w-full w-[90%] mx-auto  rounded-[5px];
+  @apply 2xl:w-[327px] 2xl:h-[242px] xl:w-[210px] xl:h-auto lg:w-[160px] lg:h-auto sm:w-full w-[90%] mx-auto rounded-[5px];
 }
 
 .six_p {
@@ -578,7 +580,7 @@ td {
   }
 
   .mcusinimg {
-    width: 200px !important;
+    width: 181px !important;
     height: auto !important;
   }
 
@@ -745,6 +747,10 @@ td {
     margin: 0px !important;
   }
 
+  .croselImg {
+    width: ;
+  }
+
 }
 
 @media (min-width: 300px) and (max-width: 390px) {
@@ -752,6 +758,7 @@ td {
     width: 290px !important;
     height: 240px !important;
   }
+
   .mexploreD {
     width: 290px !important;
   }

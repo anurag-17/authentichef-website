@@ -408,7 +408,7 @@ const LandingPage = () => {
                       <div className=" w-full bottom-0 flex justify-between items-center  2xl:my-[22px] xl:my-[18px] my-[15px]">
                         <p className="alata font-[400] text-[#000] 2xl:text-[20px] 2xl:leading-[24px] xl:text-[14px] xl:leading-[18px] lg:text-[12px] lg:leading-[16px] text-[12px] leading-[16px] ">
                           Serves 1 ({item?.weight}g){" "}
-                          <span className="text-[#DB5353]">£{item?.price}</span>
+                          <span className="text-[#DB5353]">{item?.price && `£${item.price.toFixed(2)}`}</span>
                         </p>
                         {token ? (
                           <button
@@ -1001,7 +1001,7 @@ const LandingPage = () => {
                                   {data.name}
                                 </h4>
                                 <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
-                                  Price:£{data.price}
+                                  Price:£{data?.price && `£${data.price.toFixed(2)}`}
                                 </h4>
                                 <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
                                   Quantity:1
