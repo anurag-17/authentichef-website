@@ -124,6 +124,21 @@ const FAQs = () => {
       answer:
         "Yes, we offer FREE delivery on orders over £55, otherwise delivery is £5.99.",
     },
+    {
+      question: "What time will my delivery arrive?",
+      answer:
+        "Your frozen dishes can arrive anytime between 8am and 6pm. Our courier partner will provide a one-hour delivery window notification on the morning of your delivery day.",
+    },
+    {
+      question: "What if I’m out when the delivery arrives?",
+      answer:
+        "We’ll ask you to enter some delivery instructions at checkout to let us know where we can leave your box if you’re not in. If you don't leave any instructions and you are out, your box will be placed by your front door.",
+    },
+    {
+      question: "What days do you deliver?",
+      answer:
+        "We offer the best food delivery service where you can choose your day of delivery! We deliver Monday to Thursday. Should you require a Saturday delivery, there will be an additional £10 surcharge added to your order. Please contact us should you require this. See our delivery schedule below for your fastest delivery date:",
+    },
   ];
   const data5 = [
     {
@@ -424,7 +439,6 @@ const FAQs = () => {
             <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] mx-auto mnavbar">
               <div className="2xl:w-[1129px] xl:w-[700px] lg:w-[550px] sm:w-[] w-[] mx-auto">
                 <div className="join join-vertical w-full text-start">
-                  {/* Mapping through accordion items */}
                   {data4.map((item, index) => (
                     <div
                       className="collapse collapse-arrow join-item border-b xs:text-[12px] pt-[10px] text-[#000000] font-[400] alata"
@@ -478,7 +492,107 @@ const FAQs = () => {
                       </div>
                       {openIndex === `data4-${index}` && (
                         <div className="collapse-content">
-                          <p className="seven_h2">{item.answer}</p>
+                          <p className="seven_h2 w-[94%]">
+                            {item.answer}
+                            {item.question === "What days do you deliver?" && (
+                              <div className="overflow-x-auto mt-4">
+                                <table className="min-w-full border-collapse table-auto bg-white text-black border border-black">
+                                  <thead>
+                                    <tr className="border border-black">
+                                      <th className="bg-white p-2 text-black font-bold border border-black">
+                                        Order Day
+                                      </th>
+                                      <th className="bg-white p-2 text-black font-bold border border-black text-center">
+                                        Delivery Day if order in BEFORE 8am
+                                      </th>
+                                      <th className="bg-white p-2 text-black font-bold border border-black text-center">
+                                        Delivery Day if order in AFTER 8am
+                                      </th>
+                                    </tr>
+                                  </thead>
+                                  <tbody className="text-center">
+                                    <tr className="bg-white border border-black">
+                                      <td className="p-2 border border-black">
+                                        Monday
+                                      </td>
+                                      <td className="p-2 border border-black text-center">
+                                        Tuesday
+                                      </td>
+                                      <td className="p-2 border border-black text-center">
+                                        Wednesday
+                                      </td>
+                                    </tr>
+                                    <tr className="bg-gray-100 border border-black">
+                                      <td className="p-2 border border-black">
+                                        Tuesday
+                                      </td>
+                                      <td className="p-2 border border-black text-center">
+                                        Wednesday
+                                      </td>
+                                      <td className="p-2 border border-black text-center">
+                                        Thursday
+                                      </td>
+                                    </tr>
+                                    <tr className="bg-white border border-black">
+                                      <td className="p-2 border border-black">
+                                        Wednesday
+                                      </td>
+                                      <td className="p-2 border border-black text-center">
+                                        Thursday
+                                      </td>
+                                      <td className="p-2 border border-black text-center">
+                                        Friday
+                                      </td>
+                                    </tr>
+                                    <tr className="bg-gray-100 border border-black">
+                                      <td className="p-2 border border-black">
+                                        Thursday
+                                      </td>
+                                      <td className="p-2 border border-black text-center">
+                                        Friday
+                                      </td>
+                                      <td className="p-2 border border-black text-center">
+                                        Monday
+                                      </td>
+                                    </tr>
+                                    <tr className="bg-white border border-black">
+                                      <td className="p-2 border border-black">
+                                        Friday
+                                      </td>
+                                      <td className="p-2 border border-black text-center">
+                                        Monday
+                                      </td>
+                                      <td className="p-2 border border-black text-center">
+                                        Tuesday
+                                      </td>
+                                    </tr>
+                                    <tr className="bg-gray-100 border border-black">
+                                      <td className="p-2 border border-black">
+                                        Saturday
+                                      </td>
+                                      <td className="p-2 border border-black text-center">
+                                        Tuesday
+                                      </td>
+                                      <td className="p-2 border border-black text-center">
+                                        Tuesday
+                                      </td>
+                                    </tr>
+                                    <tr className="bg-white border border-black">
+                                      <td className="p-2 border border-black">
+                                        Sunday
+                                      </td>
+                                      <td className="p-2 border border-black text-center">
+                                        Tuesday
+                                      </td>
+                                      <td className="p-2 border border-black text-center">
+                                        Tuesday
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            )}
+                          </p>
                         </div>
                       )}
                     </div>
