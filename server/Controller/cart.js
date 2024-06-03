@@ -205,7 +205,7 @@ exports.updateCartItem = async (req, res) => {
     let shippingCost = totalCost > 55 ? 0 : 5.99;
 
     // Update the shipping cost in the cart
-    userCart.shippingCost = shippingCost;
+    userCart.Shipping_cost = shippingCost;
 
     // Save the updated cart to the database
     userCart = await userCart.save();
