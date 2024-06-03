@@ -382,14 +382,9 @@ exports.PlaceOrder = async (req, res, next) => {
             return total + (item.menuItem.price * item.quantity);
         }, 0);
 
-  // Determine the shipping cost based on the total amount
-  let shippingCost = cartItems.Shipping_cost;
-  if (totalAmount > 55) {
-    shippingCost = 0; // Free shipping for orders above £55
-  }
-  totalAmount += shippingCost;
-     // Format totalAmount to two decimal places
-totalAmount = parseFloat(totalAmount.toFixed(2));
+
+        console.log("Total amount before discount:", totalAmount)
+
 
 
         let discountApplied = 0;
@@ -405,9 +400,15 @@ totalAmount = parseFloat(totalAmount.toFixed(2));
                 if (coupon) {
                     // Apply discount if conditions are met
                     if (totalAmount > 0) {
+                        console.log("Total amount is above $0. Proceed with applying promo code.",totalAmount)
                         if (coupon.discountType === 'percentage') {
+                            console.log("Discount value:", coupon.discountValue)
                             discountApplied = (coupon.discountValue / 100) * totalAmount;
+                            console.log("Discount Applied:", discountApplied)
                             DiscountPercentage = coupon.discountValue;
+                         
+                            console.log("Discount Percentage:", DiscountPercentage)
+                            console.log("Total Amount Before Discount:", totalAmount)
                         } else if (coupon.discountType === 'fixed') {
                             discountApplied = coupon.discountValue;
                         }
@@ -430,8 +431,19 @@ totalAmount = parseFloat(totalAmount.toFixed(2));
 
         // Calculate total amount after applying discount
         const totalAmountBeforeDiscount = totalAmount;
-        console.log("TotalAmountBeforeDiscount", totalAmountBeforeDiscount);
         totalAmount -= discountApplied;
+
+        console.log("Total amount after discount:", totalAmount)
+
+        // Determine the shipping cost based on the total amount after discount
+        let shippingCost = cartItems.Shipping_cost;
+        if (totalAmount > 55) {
+            shippingCost = 0; // Free shipping for orders above £55
+        }
+        totalAmount += shippingCost; // Add shipping cost
+
+        // Format totalAmount to two decimal places
+        totalAmount = parseFloat(totalAmount.toFixed(2));
 
         let payment, transactionId;
 
@@ -477,6 +489,7 @@ totalAmount = parseFloat(totalAmount.toFixed(2));
                 DiscountPercentage,
                 Type_of_Address: Type_of_Address || 'Shipping Address',
                 status,
+                shippingCharge: shippingCost,
                 payment: payment._id,
                 TransactionId: transactionId // Include the transaction ID in the order
             });

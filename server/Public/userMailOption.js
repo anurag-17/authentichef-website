@@ -111,6 +111,7 @@ const userMailOptions = (req, savedOrder, deliveryDate, deliveryInfo, totalAmoun
             
                 <p><strong>Amount:</strong> $${savedOrder.totalAmountBeforeDiscount.toFixed(2)}</p>
                 <p><strong>Discount:</strong>${savedOrder.DiscountPercentage}%</p>
+                <p><strong>Shipping Charges:</strong> ${savedOrder.shippingCharge}</p>
                 <p><strong>Total Amount:</strong> $${savedOrder.totalAmount.toFixed(2)}</p>
                 <p>We will notify you once your order has been processed and shipped.</p>
                 <p>If you have any questions or concerns, feel free to <a href="mailto:support@authentichef.com">contact us</a> at support@authentichef.com.</p>

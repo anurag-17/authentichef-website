@@ -141,6 +141,11 @@ const orderSchema = new mongoose.Schema({
         default: 0
     },
 
+    shippingCharge: {
+        type: Number,
+        default: 0
+    },
+
     totalAmountBeforeDiscount: { type: Number, default: 0 },
     // Add totalAmountBeforeDiscount field
 
