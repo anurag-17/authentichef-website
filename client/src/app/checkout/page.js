@@ -52,6 +52,10 @@ const Checkout = () => {
   const [cartId, setCartId] = useState("");
   const [isChecked, setIsChecked] = useState(false);
   const [deliveryMessage, setDeliveryMessage] = useState("");
+  const [discountInfo, setDiscountInfo] = useState(null);
+  const [shippingCost, setShippingCost] = useState(0);
+  const shippingThreshold = 55;
+
 
   // Define today's date in the format YYYY-MM-DD
   const today = new Date().toISOString().split("T")[0];
@@ -95,8 +99,68 @@ const Checkout = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Validate required fields
+    const requiredFields = [
+      { value: deliveryInfo.phone, name: "Mobile Number" },
+      { value: deliveryInfo.houseNo, name: "House No." },
+      { value: deliveryInfo.streetName, name: "Street Name" },
+      { value: deliveryInfo.City, name: "Town/City" },
+      { value: deliveryInfo.country, name: "County" },
+      { value: deliveryInfo.Postcode, name: "Postcode" },
+      { value: deliveryInfo.FirstName, name: "First Name" },
+      { value: deliveryInfo.LastName, name: "Last Name" },
+      {
+        value: billingInfo.houseNo,
+        name: "Billing House No.",
+        required: !isSameAsShippingAddress,
+      },
+      {
+        value: billingInfo.streetName,
+        name: "Billing Street Name",
+        required: !isSameAsShippingAddress,
+      },
+      {
+        value: billingInfo.City,
+        name: "Billing Town/City",
+        required: !isSameAsShippingAddress,
+      },
+      {
+        value: billingInfo.country,
+        name: "Billing County",
+        required: !isSameAsShippingAddress,
+      },
+      {
+        value: billingInfo.Postcode,
+        name: "Billing Postcode",
+        required: !isSameAsShippingAddress,
+      },
+      {
+        value: billingInfo.FirstName,
+        name: "Billing First Name",
+        required: !isSameAsShippingAddress,
+      },
+      {
+        value: billingInfo.LastName,
+        name: "Billing Last Name",
+        required: !isSameAsShippingAddress,
+      },
+    ];
+
+    let allFieldsValid = true;
+
+    requiredFields.forEach((field) => {
+      if (field.required !== false && !field.value) {
+        toast.error(`${field.name} is required.`);
+        allFieldsValid = false;
+      }
+    });
+
     if (!deliveryDate) {
       toast.error("Delivery date is required.");
+      allFieldsValid = false;
+    }
+
+    if (!allFieldsValid) {
       return;
     }
 
@@ -114,7 +178,7 @@ const Checkout = () => {
           deliveryDate,
           Promo_code,
           Delivery_instruction,
-          cartItems: updatedCartItems.length ? updatedCartItems : getCartItems, // Ensure updated items are sent
+          cartItems: updatedCartItems.length ? updatedCartItems : getCartItems,
         },
         {
           headers: {
@@ -147,6 +211,7 @@ const Checkout = () => {
       .request(option)
       .then((response) => {
         const userCart = response?.data?.userCart;
+        console.log(userCart, "sfjhsdfbhahdfhdhfhafhdfjh");
         const cartItems = userCart?.items.map((item) => ({
           ...item,
           totalPrice: item.menuItem.price * item.quantity,
@@ -156,6 +221,7 @@ const Checkout = () => {
         setSubtotalPrice(
           cartItems.reduce((sum, item) => sum + item.totalPrice, 0)
         );
+        setShippingCost(userCart.Shipping_cost ?? 0); // Set the shipping cost
         setCartId(userCart._id); // Set the cart ID
         console.log(response?.data, "data");
       })
@@ -175,7 +241,7 @@ const Checkout = () => {
       // Generate delivery message
       const orderDay = inputDate.getDay();
       const currentHour = new Date().getHours();
-      const deliveryDay = getDeliveryDay(orderDay, currentHour);
+      // const deliveryDay = getDeliveryDay(orderDay, currentHour);
       setDeliveryMessage(
         `Order will arrive on ${deliveryDay} between 8am and 6pm.`
       );
@@ -328,20 +394,52 @@ const Checkout = () => {
     setIsChecked(e.target.checked);
   };
 
-  const getDeliveryDay = (orderDay, orderTime) => {
-    const dayMap = {
-      1: ["Tuesday", "Wednesday"],
-      2: ["Wednesday", "Thursday"],
-      3: ["Thursday", "Friday"],
-      4: ["Friday", "Monday"],
-      5: ["Monday", "Tuesday"],
-      6: ["Tuesday", "Tuesday"],
-      0: ["Tuesday", "Tuesday"], // For Sunday
-    };
+  // const getDeliveryDay = (orderDay, orderTime) => {
+  //   const dayMap = {
+  //     1: ["Tuesday", "Wednesday"],
+  //     2: ["Wednesday", "Thursday"],
+  //     3: ["Thursday", "Friday"],
+  //     4: ["Friday", "Monday"],
+  //     5: ["Monday", "Tuesday"],
+  //     6: ["Tuesday", "Tuesday"],
+  //     0: ["Tuesday", "Tuesday"], // For Sunday
+  //   };
 
-    const before8am = orderTime < 8;
-    return dayMap[orderDay][before8am ? 0 : 1];
+  //   const before8am = orderTime < 8;
+  //   return dayMap[orderDay][before8am ? 0 : 1];
+  // };
+
+  const applyPromoCode = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:4000/api/order/checkDiscount?Promo_code=${Promo_code}`,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      if (response.status >= 200 && response.status < 300) {
+        const data = response.data;
+        setDiscountInfo(data);
+        toast.success(data.message);
+      } else {
+        toast.error("Failed to apply discount.");
+      }
+    } catch (error) {
+      toast.error("Failed to apply discount.");
+      console.log("Error:", error);
+    }
   };
+
+  useEffect(() => {
+    if (subtotalPrice >= shippingThreshold) {
+      // Order meets the free delivery threshold
+      setRefresh(true);
+    } else {
+      setRefresh(false);
+    }
+  }, [subtotalPrice]);
 
   return (
     <>
@@ -393,6 +491,7 @@ const Checkout = () => {
                       onChange={(e) => handleInputChange(e, setDeliveryInfo)}
                       className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
                       maxLength={15}
+                      required
                     />
                   </div>
                   <div>
@@ -428,6 +527,7 @@ const Checkout = () => {
                         onChange={(e) => handleInputChange(e, setDeliveryInfo)}
                         className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
                         maxLength={200}
+                        required
                       />
                     </div>
                     <div className="2xl:w-[388px] w-full">
@@ -455,6 +555,7 @@ const Checkout = () => {
                       onChange={(e) => handleInputChange(e, setDeliveryInfo)}
                       className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
                       maxLength={200}
+                      required
                     />
                   </div>
                   <div className="flex justify-between 2xl:gap-[20px] xl:gap-[15px] gap-[10px] xl:my-[10px] my-[8px] 2xl:my-[15px]">
@@ -470,6 +571,7 @@ const Checkout = () => {
                         onChange={(e) => handleInputChange(e, setDeliveryInfo)}
                         className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
                         maxLength={100}
+                        required
                       />
                     </div>
                     <div className="2xl:w-[251px] xl:w-[180px] w-[140px]">
@@ -484,6 +586,7 @@ const Checkout = () => {
                         onChange={(e) => handleInputChange(e, setDeliveryInfo)}
                         className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
                         maxLength={100}
+                        required
                       />
                     </div>
                     <div className="2xl:w-[251px] xl:w-[180px] w-[140px]">
@@ -505,6 +608,7 @@ const Checkout = () => {
                           appearance: "none",
                           paddingRight: "16px", // Add some padding to compensate for hidden arrows
                         }}
+                        required
                       />
                     </div>
                   </div>
@@ -521,6 +625,7 @@ const Checkout = () => {
                         onChange={(e) => handleInputChange(e, setDeliveryInfo)}
                         className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
                         maxLength={100}
+                        required
                       />
                     </div>
                     <div className="2xl:w-[388px] w-full">
@@ -535,6 +640,7 @@ const Checkout = () => {
                         onChange={(e) => handleInputChange(e, setDeliveryInfo)}
                         className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
                         maxLength={100}
+                        required
                       />
                     </div>
                   </div>
@@ -790,9 +896,10 @@ const Checkout = () => {
                           <p>Spend over £55 for FREE delivery</p>
                         </div>
                         <h4 className="alata font-[400] text-[#555555] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
-                          0
+                          £{shippingCost.toFixed(2)}
                         </h4>
                       </div>
+
                       <div className="2xl:my-[30px] xl:my-[20px] my-[15px]">
                         <label className="seven_p2 text-[#555555]">
                           Promo code or Gift card
@@ -805,11 +912,11 @@ const Checkout = () => {
                             maxLength="15" // Enforce maximum length
                             className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
                             value={Promo_code}
-                            //onChange={handlePromoCodeChange}
+                            onChange={handlePromoCodeChange}
                           />
                           <button
                             className="ml-2 bg-[#DB5353] alata text-white 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] px-4 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
-                            // onClick={applyPromoCode} // Assuming you have a function to handle applying the promo code
+                            onClick={applyPromoCode}
                           >
                             Apply
                           </button>
@@ -821,7 +928,13 @@ const Checkout = () => {
                           Total
                         </h4>
                         <h4 className="alata font-[400] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
-                          £{subtotalPrice.toFixed(2)}
+                          £
+                          {discountInfo
+                            ? (
+                                discountInfo.totalAmountAfterDiscount +
+                                shippingCost
+                              ).toFixed(2)
+                            : (subtotalPrice + shippingCost).toFixed(2)}
                         </h4>
                       </div>
 
