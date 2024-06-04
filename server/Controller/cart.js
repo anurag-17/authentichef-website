@@ -94,33 +94,24 @@ exports.addToCart = async (req, res, next) => {
       return res.status(400).json({ message: "Items are required and should be an array" });
     }
 
-    // Fetch all menu items and calculate the total cost
     let totalCost = 0;
-    const menuItemMap = new Map();
 
     for (const item of items) {
       if (!item.menuItem || !item.quantity) {
         return res.status(400).json({ message: "Each item must include a menuItem and a quantity" });
       }
 
-      // Check if the menu item exists
-      const menuItem = await MenuItem.findById(item.menuItem).select("name price");
-      if (!menuItem) {
-        console.log("Menu item not found:", item.menuItem);
+      const menuItemExists = await MenuItem.findById(item.menuItem).select("name price");
+      if (!menuItemExists) {
         return res.status(404).json({ message: `Menu item not found: ${item.menuItem}` });
       }
 
-      // Add debugging statement to check if menuItem.price is defined
-      if (typeof menuItem.price === 'undefined') {
-        console.log("Price is undefined for menu item:", menuItem._id);
-      }
-
-      menuItemMap.set(item.menuItem, menuItem);
-      totalCost += menuItem.price * item.quantity;
+      totalCost += menuItemExists.price * item.quantity;
     }
 
-    // Calculate shipping cost based on total cost
-    const shippingCost = totalCost > 55 ? 0 : 5.99;
+    console.log("Total cost is", totalCost);
+
+    let shippingCost = totalCost > 55 ? 0 : 5.99;
 
     if (!userId) {
       // For guest users
@@ -133,17 +124,15 @@ exports.addToCart = async (req, res, next) => {
       return res.status(200).json({ message: "Items added to cart", cartData, shippingCost });
     }
 
-    // For logged-in users
     let userCart = await Cart.findOne({ user: userId });
     if (!userCart) {
       userCart = new Cart({
         user: userId,
         items: [],
-        shippingCost: 0,
+        Shipping_cost: 0
       });
     }
 
-    // Update cart items and recalculate total cost
     for (const item of items) {
       const existingItemIndex = userCart.items.findIndex(cartItem => cartItem.menuItem.toString() === item.menuItem);
 
@@ -151,27 +140,31 @@ exports.addToCart = async (req, res, next) => {
         // Update quantity of existing item
         userCart.items[existingItemIndex].quantity += item.quantity;
       } else {
-        // Add new item to cart
         userCart.items.push({ menuItem: item.menuItem, quantity: item.quantity, customization: item.customization });
       }
     }
 
-    // Recalculate total cost based on the updated cart
-    totalCost = userCart.items.reduce((acc, cartItem) => {
-      const menuItem = menuItemMap.get(cartItem.menuItem.toString());
-      return acc + (menuItem.price * cartItem.quantity);
-    }, 0);
+    // Recalculate total cost after updating quantities
+    totalCost = 0;
+    for (const item of userCart.items) {
+      const menuItemExists = await MenuItem.findById(item.menuItem).select("price");
+      if (menuItemExists) {
+        totalCost += menuItemExists.price * item.quantity;
+      }
+    }
 
-    userCart.Shipping_cost = totalCost > 55 ? 0 : 5.99;
+    shippingCost = totalCost > 55 ? 0 : 5.99; // Update shipping cost based on the recalculated total cost
+
+    userCart.Shipping_cost = shippingCost;
+
     await userCart.save();
 
-    // Populate the menuItem field with name and price
     const updatedCart = await Cart.findById(userCart._id).populate({
       path: "items.menuItem",
-      select: "name price",
+      select: "name price"
     });
 
-    res.status(201).json({ message: "Items added to cart", updatedCart });
+    res.status(201).json({ message: "Items added to cart", updatedCart, shippingCost });
   } catch (error) {
     next(error);
   }
