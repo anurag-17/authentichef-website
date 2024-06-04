@@ -651,7 +651,7 @@ const ExploreDishes = () => {
       <section>
         <Navbar />
         <div class="2xl:pt-[130px] xl:pt-[90px] pt-[60px] ">
-          <div class="main_section 2xl:w-[1600px] xl:w-[1100px] md:w-[811px]  m-auto mt-auto mnavbar 2xl:py-[110px] xl:py-[70px] lg:py-[40px]">
+          <div class="main_section 2xl:w-[1600px] xl:w-[1200px] md:w-[811px]  m-auto mt-auto mnavbar 2xl:py-[110px] xl:py-[70px] lg:py-[40px]">
             <div class="flex justify-between flex-col md:flex-row   ">
               <div class=" lg:mb-0 mb-4 lg  lg:text-[2.25rem]  md:w-[30%] xs:text-[1.875rem] sm:text-[2.25rem] md:text-[29px]">
                 <h1 className="third_head mb-4 alata font-[400] 2xl:text-[55px] lg:text-left  text-center SelectCuisine">
@@ -1137,7 +1137,7 @@ const ExploreDishes = () => {
 
         <div className="sm:col-2">
           <div className="2xl:py-[120px] xl:py-[20px] py-[50px] bg-[#F9F2F2]">
-            <div className="mnavbar 2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px]  2xl:py-[60px] xl:py-[60px] py-[40px] mx-auto">
+            <div className="mnavbar 2xl:w-[1600px] xl:w-[1200px] lg:w-[850px]  md:w-[700px] w-[90%] 2xl:py-[60px] xl:py-[60px] py-[40px] mx-auto">
               <div className="flex justify-center">
                 <div class="px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 mt-3 xs:text-center">
                   <h4 class="third_head text-center text-3xl sm:text-4xl md:text-55px">
@@ -1152,12 +1152,12 @@ const ExploreDishes = () => {
               </div>
               {/* 
               <div className=" flex flex-wrap gap-[20px] xl:gap-[25px] 2xl:gap-[70px] w-full px-10 md:px-0 mx-auto "> */}
-              <div className="flex flex-col sm:flex-row  flex-wrap gap-[25px] lg:gap-[21px] xl:gap-[25px] 2xl:gap-[70px] md:my-5 lg:my-0 px-5 sm:px-0  exploreDishesmain">
+              <div className=" grid 2xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-[25px] lg:gap-[20px] xl:gap-[45px] 2xl:gap-[70px] md:my-5 lg:my-0 md:px-5 px-0  exploreDishesmain">
                 {Array.isArray(getAllDish) &&
                   getAllDish.map((item) => (
                     <div
                       key={item.id}
-                      className="  my-5 2xl:w-[345px] 2xl:h-[560px] lg:w-[23%] sm:w-[45%] md:w-[48%] mx-auto sm:mx-0 relative rounded-[9.8px] mexploreD "
+                      className="my-5 col-span-1  mx-auto sm:mx-0 relative rounded-[9.8px] mexploreD p-2"
                     >
                       <button className="" onClick={() => openModal(item._id)}>
                         <img
@@ -1208,7 +1208,7 @@ const ExploreDishes = () => {
                             <div className="four_btn" key={dietary._id}>
                               <img
                                 src={dietary.ProfileImage}
-                                className="2xl:[18px] xl:w-[14px] w-[12px]"
+                                className="2xl:h-[18px] 2xl:w-[18px] w-[16px] h-[16px]"
                                 alt={dietary.title}
                               />
                               <p className="fourth_day capitalize">
@@ -1242,8 +1242,9 @@ const ExploreDishes = () => {
                         </div>
 
                         <div className=" w-full bottom-0 flex justify-between items-center  2xl:my-[22px] xl:my-[18px] my-[15px]">
-                          <p className="alata font-[400] text-[#000] 2xl:text-[20px] 2xl:leading-[24px] xl:text-[14px] xl:leading-[18px] lg:text-[12px] lg:leading-[16px] text-[12px] leading-[16px] ">
-                            Serves 1 | ({item?.weight}g) |
+
+                          <p className="alata font-[400] text-[#000] 2xl  :text-[20px] leading-[24px]  text-[18px]  ">
+                            Serves 1 ({item?.weight}g){" "}
                             <span className="text-[#DB5353]">
                               {item?.price && `£${item.price.toFixed(2)}`}
                             </span>
@@ -1316,7 +1317,7 @@ const ExploreDishes = () => {
         </div>
 
         <div className="flex justify-center 2xl:py-[120px] xl:py-[80px] py-[50px]">
-          <div className="mnavbar 2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px]">
+          <div className="mnavbar 2xl:w-[1600px] xl:w-[1200px] lg:w-[850px]  md:w-[700px]">
             <h4 className="nine_head">Testimonials</h4>
             <p className="nine_p text-center">
               All our chefs have fans raving about their food
