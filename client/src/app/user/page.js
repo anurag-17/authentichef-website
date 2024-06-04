@@ -283,9 +283,9 @@ const LandingPage = () => {
             </div>
           </div>
         </div>
-        <div className="md:hidden block">
-          <div className="py-[100px]">
-            <h4 className="alata font-[400] text-white mx-auto text-[30px] text-center">
+        <div className="md:hidden block pt-[100px">
+          <div className="pt-[90px] pb-[25px] px-[20px]">
+            <h4 className="alata font-[400] text-black mx-auto text-[30px] text-center">
               Where’s your next food destination?
             </h4>
             <div className="flex justify-center mt-4">
@@ -297,14 +297,15 @@ const LandingPage = () => {
             </div>
             {/* <div className="flex mt-4">
                 <h4 className="alata font-[400] mx-auto text-white">
-                  Save 30% on your first order
+                Save 30% on your first order
                 </h4>
               </div> */}
           </div>
+              <div className=" ">
+                <Image src="/images/poster-bg-m.webp" height="400" width="500" objectFit="cover" alt="background" className="w-full"/>
+              </div>
           {/* <div className=" Fv  h-screen flex justify-center "> */}
-          <div className="">
-            <Image src="/images/poster-bg-m.webp" height="400" width="1000" alt="background" />
-          </div>
+
         </div>
         <div className="offer-bg flex justify-center items-center 2xl:gap-[30px] xl:gap-[10px] gap-[8px] 2xl:h-[150px] xl:h-[100px] md:h-[60px] h-[40px] moffers">
           <Image
@@ -715,7 +716,7 @@ const LandingPage = () => {
             </p>
 
             <div className="lg:flex justify-around 2xl:mt-10 xl:mt-8 lg:mt-6 mt-3">
-              <div className="w-2/4 sm:w-1/3 mx-auto my-5 lg:my-0 lg:mx-0 lg:w-auto">
+              <div className="w-[90%] sm:w-[60%] mx-auto my-5 lg:my-0 lg:mx-0 lg:w-auto">
                 <div>
                   <div>
                     <Image
@@ -777,7 +778,7 @@ const LandingPage = () => {
                 </div>
               </div>
               <div>
-                <div className="w-2/4 sm:w-1/3 mx-auto my-5 lg:my-0 lg:mx-0 lg:w-auto">
+                <div className="w-[90%] sm:w-[60%] mx-auto my-5 lg:my-0 lg:mx-0 lg:w-auto">
                   <div>
                     <Image
                       alt="chef-rohit"
@@ -838,7 +839,7 @@ const LandingPage = () => {
                 </div>
               </div>
               <div>
-                <div className="w-2/4 sm:w-1/3 mx-auto my-5 lg:my-0 lg:mx-0 lg:w-auto">
+                <div className="w-[90%] sm:w-[60%] mx-auto my-5 lg:my-0 lg:mx-0 lg:w-auto">
                   <div>
                     <Image
                       alt="chef-shubham"
