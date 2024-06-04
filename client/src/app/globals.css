@@ -246,7 +246,7 @@ td {
 }
 
 .four_btn {
-  @apply bg-[#E3E3E3] flex items-center rounded-[3px] px-[15px] py-[10px]  gap-2 h-[34px] text-[16px] leading-[24px];
+  @apply bg-[#E3E3E3] flex items-center rounded-[3px] px-[15px] py-[10px] gap-2 h-[34px] text-[16px] leading-[24px];
 }
 
 .four_btnn {
@@ -576,13 +576,18 @@ td {
     height: auto !important;
   }
 
+  .mcusinimgs {
+    width: 12.4% !important;
+
+  }
+
   .mcusinimg {
-    width: 181px !important;
+    width: 100% !important;
     height: auto !important;
   }
 
   .mexploreD {
-    width: 23% !important;
+    width: 100% !important;
     height: auto !important;
   }
 
