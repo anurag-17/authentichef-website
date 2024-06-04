@@ -92,11 +92,6 @@ const FAQs = () => {
         "We deliver to all Mainland UK. We currently do not deliver to Scottish Highlands and Northern Ireland.",
     },
     {
-      question: "What days do you deliver?",
-      answer:
-        "Choose your delivery day! We deliver Monday through Friday. For Monday delivery, get your orders in by midnight Saturday to guarantee your slot.",
-    },
-    {
       question: "What time will my delivery arrive?",
       answer:
         "Your frozen dishes can arrive anytime between 8am and 6pm. DPD will provide a one-hour delivery window notification on the morning of delivery.",

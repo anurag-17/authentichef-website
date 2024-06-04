@@ -56,7 +56,6 @@ const Checkout = () => {
   const [shippingCost, setShippingCost] = useState(0);
   const shippingThreshold = 55;
 
-
   // Define today's date in the format YYYY-MM-DD
   const today = new Date().toISOString().split("T")[0];
 
@@ -70,8 +69,8 @@ const Checkout = () => {
       name === "City" ||
       name === "country"
     ) {
-      // Allow only alphabetic characters and limit to 100 characters
-      newValue = value.replace(/[^A-Za-z]/g, "").slice(0, 100);
+      // Allow only alphabetic characters and spaces, and limit to 100 characters
+      newValue = value.replace(/[^A-Za-z\s]/g, "").slice(0, 100);
     }
 
     if (name === "Postcode") {
@@ -211,7 +210,7 @@ const Checkout = () => {
       .request(option)
       .then((response) => {
         const userCart = response?.data?.userCart;
-        console.log(userCart, "sfjhsdfbhahdfhdhfhafhdfjh");
+
         const cartItems = userCart?.items.map((item) => ({
           ...item,
           totalPrice: item.menuItem.price * item.quantity,
@@ -236,15 +235,27 @@ const Checkout = () => {
 
     if (dayOfWeek !== 0 && dayOfWeek !== 6) {
       // Valid date, update delivery date
-      setDeliveryDate(e.target.value);
+      const today = new Date();
+      const selectedDate = new Date(e.target.value);
+
+      // Check if the selected date is today
+      if (
+        selectedDate.getDate() === today.getDate() &&
+        selectedDate.getMonth() === today.getMonth() &&
+        selectedDate.getFullYear() === today.getFullYear()
+      ) {
+        // If the selected date is today, set the delivery date to 48 hours (2 days) later
+        const deliveryDate = new Date(today.getTime() + 48 * 60 * 60 * 1000); // 48 hours in milliseconds
+        setDeliveryDate(deliveryDate.toISOString().split("T")[0]); // Set only the date part
+      } else {
+        // If the selected date is not today, use the selected date as the delivery date
+        setDeliveryDate(e.target.value);
+      }
 
       // Generate delivery message
       const orderDay = inputDate.getDay();
       const currentHour = new Date().getHours();
       // const deliveryDay = getDeliveryDay(orderDay, currentHour);
-      setDeliveryMessage(
-        `Order will arrive on ${deliveryDay} between 8am and 6pm.`
-      );
     } else {
       // Invalid date (weekend), reset the input
       e.target.value = "";
@@ -412,7 +423,7 @@ const Checkout = () => {
   const applyPromoCode = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:4000/api/order/checkDiscount?Promo_code=${Promo_code}`,
+        `${config.baseURL}/api/order/checkDiscount?Promo_code=${Promo_code}`,
         {
           headers: {
             Authorization: token,

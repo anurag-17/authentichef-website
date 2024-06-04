@@ -62,6 +62,9 @@ const ExploreDishes = () => {
   const { token } = useSelector((state) => state?.auth);
   const { cart } = useSelector((state) => state?.userCart);
   const [cartId, setCartId] = useState("");
+  const [shouldRefresh, setShouldRefresh] = useState(false);
+  const [subtotalPrice, setSubtotalPrice] = useState(0);
+
   // const price = item?.price?.toFixed(2);
 
   // const data = dish?.data;
@@ -564,70 +567,62 @@ const ExploreDishes = () => {
         Authorization: token,
       },
     };
-
     axios
       .request(option)
-      .then((response) => {
+      .then(async (response) => {
         const userCart = response?.data?.userCart;
-        if (userCart && userCart.items) {
-          const cartItems = userCart.items.map((item) => ({
-            ...item,
-            totalPrice: item.menuItem.price * item.quantity,
-          }));
-          setGetCartItems(cartItems);
-          setUpdatedCartItems(cartItems);
-          setSubtotalPrice(
-            cartItems.reduce((sum, item) => sum + item.totalPrice, 0)
+        const cartItems = userCart?.items.map((item) => ({
+          ...item,
+          totalPrice: item.menuItem.price * item.quantity,
+        }));
+        console.log("User cart is -------------->>>>>>>>>>>>>", userCart._id);
+        setGetCartItems(cartItems);
+        setUpdatedCartItems(cartItems); // Initializing updatedCartItems with fetched data
+        setSubtotalPrice(
+          cartItems.reduce((sum, item) => sum + item.totalPrice, 0)
+        );
+        setShippingCost(userCart.Shipping_cost ?? 0); // Set the shipping cost
+        setCartId(userCart._id); // Set the cart ID inside the .then callback
+
+        // Update quantities for default cart items
+        for (const item of cartItems) {
+          await updateCartItemQuantity(
+            userCart._id,
+            item.menuItem._id,
+            item.quantity
           );
-          setCartId(userCart._id); // Set the cart ID
-        } else {
-          // Handle the case where userCart or userCart.items is undefined
-          setGetCartItems([]);
-          setUpdatedCartItems([]);
-          setSubtotalPrice(0);
-          setCartId(null);
         }
-        console.log(response?.data, "data");
       })
       .catch((error) => {
         console.log(error, "Error");
       });
   };
-
   // const [cart, setCart] = useState([]);
   // const [count, setCount] = useState(1);
 
   // Function to handle decrement
-  const handleDecrement = () => {
-    if (count > 1) {
-      setCount((prevCount) => prevCount - 1); // Use functional update
-      // Update the cart with the new quantity
-      const updatedCart = cart.map((item) => {
-        if (item.id === itemId) {
-          return { ...item, quantity: count - 1 };
-        }
-        return item;
-      });
-      setCart(updatedCart); // Update the cart state
-    }
-  };
-
-  const handleIncrement = () => {
-    setCount((prevCount) => prevCount + 1); // Use functional update
-    // Update the cart with the new quantity
-    const updatedCart = cart.map((item) => {
-      if (item.id === itemId) {
-        return { ...item, quantity: count + 1 };
-      }
-      return item;
+  const handleIncrement = (itemId) => {
+    setGetCartItems((prevCartItems) => {
+      const updatedCartItems = prevCartItems.map((item) =>
+        item._id === itemId
+          ? {
+              ...item,
+              quantity: item.quantity + 1,
+              totalPrice: item.menuItem.price * (item.quantity + 1),
+            }
+          : item
+      );
+      setUpdatedCartItems(updatedCartItems);
+      return updatedCartItems;
     });
-    setCart(updatedCart); // Update the cart state
+
+    setShouldRefresh(true);
   };
 
   const updateCartItemQuantity = async (cartId, menuId, quantity) => {
     try {
       const response = await axios.put(
-        `${config.baseURL}/api/Orders/updateCartItem/${cartId}/${menuId}`,
+        `${config.baseURL}/api/Orders/updateItem/${menuId}`,
         { quantity },
         {
           headers: {
@@ -644,6 +639,47 @@ const ExploreDishes = () => {
       console.log("Error updating cart item:", error);
     }
   };
+
+  const handleDecrement = (itemId) => {
+    setGetCartItems((prevCartItems) => {
+      const updatedCartItems = prevCartItems.map((item) =>
+        item._id === itemId && item.quantity > 1
+          ? {
+              ...item,
+              quantity: item.quantity - 1,
+              totalPrice: item.menuItem.price * (item.quantity - 1),
+            }
+          : item
+      );
+      setUpdatedCartItems(updatedCartItems);
+      return updatedCartItems;
+    });
+
+    setShouldRefresh(true);
+  };
+
+  useEffect(() => {
+    if (shouldRefresh) {
+      getCartItems.forEach((item) => {
+        updateCartItemQuantity(cartId, item.menuItem._id, item.quantity);
+      });
+
+      // Recalculate the subtotal price after updating quantities
+      const newSubtotalPrice = getCartItems.reduce(
+        (sum, item) => sum + item.totalPrice,
+        0
+      );
+      setSubtotalPrice(newSubtotalPrice);
+
+      setShouldRefresh(false);
+    }
+  }, [shouldRefresh, cartId, getCartItems]);
+
+  useEffect(() => {
+    console.log("Updated Cart Items:", updatedCartItems);
+  }, [updatedCartItems]);
+
+  
 
   return (
     <>
@@ -1522,7 +1558,6 @@ const ExploreDishes = () => {
           checked={isDrawerOpen}
           onChange={() => {}}
         />
-
         <div className="drawer-side">
           <label
             htmlFor="my-drawer-4"
@@ -1568,12 +1603,11 @@ const ExploreDishes = () => {
                       Add dishes to your cart now.
                     </p>
                     <div className="flex 2xl:mt-12 xl:mt-6 lg:mt-5 mt-4">
-                      <button
-                        className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[221px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1"
-                        onClick={handleDrawerClose}
-                      >
-                        Explore Dishes
-                      </button>
+                      <Link href="/explore-dishes">
+                        <button className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[221px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1">
+                          Explore Dishes
+                        </button>
+                      </Link>
                     </div>
                   </div>
                 ) : (
@@ -1601,7 +1635,7 @@ const ExploreDishes = () => {
                               <div>
                                 <img
                                   src={data.ProfileImage}
-                                  alt={item.name}
+                                  alt={data.name}
                                   className="w-[90px] h-auto rounded-[5.8px]"
                                 />
                               </div>
@@ -1610,11 +1644,34 @@ const ExploreDishes = () => {
                                   {data.name}
                                 </h4>
                                 <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
-                                  Price:{" "}
-                                  {data?.price && `£${data.price.toFixed(2)}`}
+                                  Price: £{data.price}
                                 </h4>
                                 <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
-                                  Quantity:1
+                                  <div className="flex justify-center 2xl:w-[103px] 2xl:h-[39px] xl:w-[60px] xl:h-[22px] lg:w-[50px] lg:h-[20px] border rounded-[5px]">
+                                    <button
+                                      className="text-[#DB5353] rounded-l w-1/3"
+                                      onClick={() => handleDecrement(item._id)}
+                                    >
+                                      <Image
+                                        src={minus}
+                                        className="2xl:w-[15px] 2xl:h-[15px] xl:w-[10px] xl:h-[10px] lg:w-[8px] lg:h-[8px] mx-auto"
+                                        alt="decrement"
+                                      />
+                                    </button>
+                                    <p className="flex mx-auto items-center text-[10px] xl:text-[12px] 2xl:text-[18px] 2xl:leading-[28px]">
+                                      {item.quantity}
+                                    </p>
+                                    <button
+                                      className="text-[#DB5353] rounded-r w-1/3"
+                                      onClick={() => handleIncrement(item._id)}
+                                    >
+                                      <Image
+                                        src={plus}
+                                        className="2xl:w-[15px] 2xl:h-[15px] xl:w/[10px] xl:h/[10px] lg:w/[8px] lg:h/[8px] mx-auto"
+                                        alt="increment"
+                                      />
+                                    </button>
+                                  </div>
                                 </h4>
                               </div>
                             </div>
@@ -1626,14 +1683,14 @@ const ExploreDishes = () => {
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24"
-                                stroke-width="1.5"
+                                strokeWidth="1.5"
                                 stroke="currentColor"
                                 className="w-6 h-6"
                               >
                                 <path
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  d="M6 18 18 6M6 6l12 12"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M6 18L18 6M6 6l12 12"
                                 />
                               </svg>
                             </button>
@@ -1660,11 +1717,35 @@ const ExploreDishes = () => {
                                   {item.menuItem.name}
                                 </h4>
                                 <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
-                                  Price: £{item.menuItem.price}
+                                  Price:{" "}
+                                  {item?.menuItem?.price &&
+                                    `£${item.menuItem.price.toFixed(2)}`}
                                 </h4>
-                                <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
-                                  Quantity: {item.quantity}
-                                </h4>
+                                <div className="flex justify-center 2xl:w-[103px] 2xl:h-[39px] xl:w-[60px] xl:h-[22px] lg:w-[50px] lg:h-[20px] border rounded-[5px]">
+                                  <button
+                                    className="text-[#DB5353] rounded-l w-1/3"
+                                    onClick={() => handleDecrement(item._id)}
+                                  >
+                                    <Image
+                                      src={minus}
+                                      className="2xl:w-[15px] 2xl:h-[15px] xl:w-[10px] xl:h-[10px] lg:w-[8px] lg:h-[8px] mx-auto"
+                                      alt="decrement"
+                                    />
+                                  </button>
+                                  <p className="flex mx-auto items-center text-[10px] xl:text-[12px] 2xl:text-[18px] 2xl:leading-[28px]">
+                                    {item.quantity}
+                                  </p>
+                                  <button
+                                    className="text-[#DB5353] rounded-r w-1/3"
+                                    onClick={() => handleIncrement(item._id)}
+                                  >
+                                    <Image
+                                      src={plus}
+                                      className="2xl:w-[15px] 2xl:h-[15px] xl:w/[10px] xl:h/[10px] lg:w/[8px] lg:h/[8px] mx-auto"
+                                      alt="increment"
+                                    />
+                                  </button>
+                                </div>
                               </div>
                             </div>
                             <button
@@ -1684,13 +1765,23 @@ const ExploreDishes = () => {
                                 <path
                                   strokeLinecap="round"
                                   strokeLinejoin="round"
-                                  d="M6 18 18 6M6 6l12 12"
+                                  d="M6 18L18 6M6 6l12 12"
                                 />
                               </svg>
                             </button>
                           </div>
                         ))}
-
+                      <p className="font-[500] text-[16px]">
+                        FREE delivery on orders over £55{" "}
+                      </p>
+                      <div className="flex justify-between mt-4">
+                        <h4 className="alata font-[400] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
+                          Total :
+                        </h4>
+                        <h4 className="alata font-[400] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
+                          £{subtotalPrice.toFixed(2)}
+                        </h4>
+                      </div>
                       <div className="flex justify-between items-center mt-20">
                         <div>
                           <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]"></h4>
