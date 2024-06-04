@@ -1157,7 +1157,7 @@ const ExploreDishes = () => {
                   getAllDish.map((item) => (
                     <div
                       key={item.id}
-                      className="my-5 col-span-1  mx-auto sm:mx-0 relative rounded-[9.8px] mexploreD p-2"
+                      className="my-5 col-span-1  mx-auto sm:mx-0 relative rounded-[9.8px] mexploreD p-2 "
                     >
                       <button className="" onClick={() => openModal(item._id)}>
                         <img
@@ -1242,7 +1242,6 @@ const ExploreDishes = () => {
                         </div>
 
                         <div className=" w-full bottom-0 flex justify-between items-center  2xl:my-[22px] xl:my-[18px] my-[15px]">
-
                           <p className="alata font-[400] text-[#000] 2xl  :text-[20px] leading-[24px]  text-[18px]  ">
                             Serves 1 ({item?.weight}g){" "}
                             <span className="text-[#DB5353]">
@@ -1611,7 +1610,8 @@ const ExploreDishes = () => {
                                   {data.name}
                                 </h4>
                                 <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
-                                  Price: {data?.price && `£${data.price.toFixed(2)}`}
+                                  Price:{" "}
+                                  {data?.price && `£${data.price.toFixed(2)}`}
                                 </h4>
                                 <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
                                   Quantity:1
