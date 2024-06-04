@@ -1054,12 +1054,12 @@ const ExploreDishes = () => {
                     <button
                       key={item._id}
                       onClick={() => handleSearchCuisines(item._id)}
-                      className=""
+                      className="mcusinimgs"
                     >
                       {" "}
                       <img
                         src={item.ProfileImage}
-                        className="rounded-[5px] 2xl:w-[202px] 2xl:h-[202px] xl:w-[130px] xl:h-[130px] lg:w-[100px] lg:h-[100px] mcusinimg"
+                        className="rounded-[5px] 2xl:w-[202px] 2xl:h-[202px] xl:w-[144px] xl:h-[144px] lg:w-[100px] lg:h-[100px] mcusinimg"
                         alt="cuisine-india"
                       />
                       <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm 2xl:text-[20px] xl:text-[14px] md:text-[10px] mt-3">
