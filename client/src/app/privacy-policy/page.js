@@ -5,13 +5,13 @@ import Navbar from "../navbar";
 
 const PrivacyPolicy = () => {
   return (
-    <>
+    <>  
       <section>
         <Navbar />
-        <div className="2xl:w-[1600px] mnavbar xl:w-[1100px] lg:w-[850px]  md:w-[600px] xs:w-[90%] sm:w-[90%]    mx-auto 2xl:py-[150px] xl:py-[120px] py-[70px] mnavbar">
+        <div className="2xl:w-[1600px] mnavbar alata xl:w-[1100px] lg:w-[850px]  md:w-[747px] xs:w-[90%] sm:w-[93%]  mx-auto 2xl:pt-[120px]  xl:pt-[100px] lg:pt-[80px] md:pt-[60px] xs:pt-[60px] sm:pt-[60px] mnavbar">
           <div>
-            <h1 className="third_head mb-7 2xl:mb-10 xs:items-center xs:justify-center">
-              Privacy Policy
+          <h1 className="third_head mb-7 alata 2xl:pt-[30px]  2xl:mb-7   xl:mb-6 lg:mb-5 md:mb-4 sm:mb-4 xs:mb-4 xs:items-center xs:justify-center">
+              PRIVACY POLICY
             </h1>
 
             <p className="footer_text mb-7 2xl:mb-10">
@@ -45,7 +45,7 @@ const PrivacyPolicy = () => {
               NOT TO CONTINUE USING THE WEBSITE ANY LONGER.
             </p>
 
-            <h3 className="font-semibold mb-2 footer_text">
+            <h3 className="mb-2 privacyHead font-[400]">
               1. TYPES OF PERSONAL DATA WE COLLECT
             </h3>
 
@@ -79,12 +79,12 @@ const PrivacyPolicy = () => {
                 address and delivery address.
               </li>
               <li className="footer_text mb-7 2xl:mb-10">
-                <span className="font-semibold"> Financial Data</span>which,
+                <span className="font-semibold"> Financial Data </span>which,
                 where you provide them, includes your bank account and payment
                 card details.
               </li>
               <li className="footer_text mb-7 2xl:mb-10">
-                <span className="font-semibold"> Transaction Data</span>which
+                <span className="font-semibold"> Transaction Data </span>which
                 includes details about payments to and from you and other
                 details or services you have purchased from us or whilst using
                 the Website.
@@ -112,8 +112,7 @@ const PrivacyPolicy = () => {
               <li className="footer_text mb-7 2xl:mb-10">
                 {" "}
                 <span className="font-semibold">
-                  Marketing and Communications Data
-                </span>
+                  Marketing and Communications Data </span>   
                 which includes your preferences in receiving marketing from us
                 and our third parties including information about the kind of
                 adverts that we believe you are most likely to be interested in.
@@ -159,7 +158,7 @@ const PrivacyPolicy = () => {
               or about a child under 13 years, please email us at
               support@authentichef.com
             </p>
-            <h3 className="font-semibold mb-2 footer_text">
+            <h3 className="mb-2 privacyHead font-[400]">
               2. HOW WE USE YOUR PERSONAL DATA
             </h3>
             <p className="footer_text mb-7 2xl:mb-10">
@@ -318,14 +317,14 @@ const PrivacyPolicy = () => {
               </div>
             </div>
 
-            <h3 className="font-semibold mb-2 footer_text">
+            <h3 className="mb-2 privacyHead font-[400] mt-10">
               3. HOW WE SHARE YOUR PERSONAL DATA
             </h3>
             <p className="footer_text mb-7 2xl:mb-10">
               We may share certain personal data that we have collected about
               you in certain situations as follows:
             </p>
-            <h4 className="font-semibold mb-2 footer_text footer_text">
+            <h4 className="privacyHead font-[400] mb-2">
               a. Third-Party Service Providers
             </h4>
             <p className="footer_text mb-7 2xl:mb-10">
@@ -334,7 +333,7 @@ const PrivacyPolicy = () => {
               data analysis, email delivery, hosting services, customer service,
               and marketing assistance.
             </p>
-            <h4 className="font-semibold mb-2 footer_text footer_text">
+            <h4 className="privacyHead mb-2">
               b. Third-Party Advertisers
             </h4>
             <p className="footer_text mb-7 2xl:mb-10">
@@ -344,14 +343,14 @@ const PrivacyPolicy = () => {
               cookies in order to provide advertisements about goods and
               services that may be of interest to you.
             </p>
-            <h4 className="font-semibold mb-2 footer_text footer_text">
+            <h4 className="privacyHead mb-2 ">
               c. Marketing Communications
             </h4>
             <p className="footer_text mb-7 2xl:mb-10">
               With your informed consent (opt-in) we may share your information
               with third parties for marketing purposes, as permitted by law.
             </p>
-            <h4 className="font-semibold mb-2 footer_text footer_text">
+            <h4 className="privacyHead mb-2 ">
               d. By Law or to Protect Rights
             </h4>
             <p className="footer_text mb-7 2xl:mb-10">
@@ -373,14 +372,14 @@ const PrivacyPolicy = () => {
               so we can ensure that there are adequate controls in place in
               accordance with applicable laws.
             </p>
-            <h3 className="font-semibold mb-2 footer_text">
+            <h3 className="mb-2 privacyHead font-[400]">
               4. USE OF COOKIES
             </h3>
             <p className="footer_text mb-7 2xl:mb-10">
               Please go through our Cookies Policy to know more about our usage
               of cookies and other tracking technologies in the Website.
             </p>
-            <h3 className="font-semibold mb-2 footer_text">
+            <h3 className="mb-2 privacyHead font-[400]">
               5. PERSONAL DATA STORAGE AND SECURITY
             </h3>
             <p className="footer_text mb-7 2xl:mb-10">
@@ -398,7 +397,7 @@ const PrivacyPolicy = () => {
               you to serious risk. We will never collect sensitive information
               about you without your explicit and informed consent.
             </p>
-            <h3 className="font-semibold mb-2 footer_text">
+            <h3 className="mb-2 privacyHead font-[400]">
               6. PERSONAL DATA RETENTION AND TRANSFER
             </h3>
             <p className="footer_text mb-7 2xl:mb-10">
@@ -425,34 +424,34 @@ const PrivacyPolicy = () => {
               protection that is at least comparable to that provided under the
               applicable laws.
             </p>
-            <h3 className="font-semibold mb-2 footer_text">7. YOUR RIGHTS</h3>
-            <p className="footer_text mb-7 2xl:mb-10">
+            <h3 className="mb-2 privacyHead font-[400]">7. YOUR RIGHTS</h3>
+            <p className="footer_text mb-7 2xl:mb-2">
               Under the applicable privacy laws including GDPR, you possess a
               number of rights in relation to your personal data. These rights
               include
             </p>
             <ul>
-              <li className="footer_text mb-7 2xl:mb-10">
+              <li className="footer_text mb-7 2xl:mb-2">
                 {" "}
                 <span className="font-semibold">Request information</span> about
                 your personal data. You have the right to be informed about how
                 and why your personal data is being collected or processed by
                 us.
               </li>
-              <li className="footer_text mb-7 2xl:mb-10">
+              <li className="footer_text mb-7 2xl:mb-2">
                 <span className="font-semibold">Request access</span> to your
                 personal data (commonly known as a data subject access request).
                 This enables you to receive a copy of the personal data we hold
                 about you and to check that we are lawfully processing it.
               </li>
-              <li className="footer_text mb-7 2xl:mb-10">
+              <li className="footer_text mb-7 2xl:mb-2">
                 <span className="font-semibold">Request correction</span> of the
                 personal data that we hold about you. This enables you to have
                 any incomplete or inaccurate data we hold about you corrected,
                 though we may need to verify the accuracy of the new data you
                 provide to us.
               </li>
-              <li className="footer_text mb-7 2xl:mb-10">
+              <li className="footer_text mb-7 2xl:mb-2">
                 <span className="font-semibold">Request erasure</span> of your
                 personal data. This enables you to ask us to delete or remove
                 personal data where there is no good reason for us continuing to
@@ -465,7 +464,7 @@ const PrivacyPolicy = () => {
                 your request of erasure for specific legal reasons which will be
                 notified to you, if applicable, at the time of your request.
               </li>
-              <li className="footer_text mb-7 2xl:mb-10">
+              <li className="footer_text mb-7 2xl:mb-2">
                 {" "}
                 <span className="font-semibold">Object to processing</span> of
                 your personal data where we are relying on a legitimate interest
@@ -478,7 +477,7 @@ const PrivacyPolicy = () => {
                 legitimate grounds to process your information which override
                 your rights and freedoms.
               </li>
-              <li className="footer_text mb-7 2xl:mb-10">
+              <li className="footer_text mb-7 2xl:mb-2">
                 {" "}
                 <span className="font-semibold">
                   Request restriction of processing
@@ -492,7 +491,7 @@ const PrivacyPolicy = () => {
                 or (d) you have objected to our use of your data but we need to
                 verify whether we have overriding legitimate grounds to use it.
               </li>
-              <li className="footer_text mb-7 2xl:mb-10">
+              <li className="footer_text mb-7 2xl:mb-2">
                 <span className="font-semibold">Request transfer</span> of your
                 personal data to you or to a third party. We will provide to
                 you, or a third party you have chosen, your personal data in a
@@ -533,7 +532,7 @@ const PrivacyPolicy = () => {
               </li>
             </ul>
 
-            <h3 className="font-semibold my-5 2xl:my-10 2xl:text-[35px]">
+            <h3 className="font-semibold my-5 2xl:mt-10 2xl:mb-1 2xl:text-[35px]">
               COOKIES POLICY
             </h3>
 
@@ -548,7 +547,7 @@ const PrivacyPolicy = () => {
               informed of updates.
             </p>
 
-            <h3 className="font-semibold mb-2 footer_text">
+            <h3 className="mb-2 privacyHead font-[400]">
               1. WHAT ARE COOKIES
             </h3>
             <p className="footer_text mb-7 2xl:mb-10">
@@ -570,20 +569,20 @@ const PrivacyPolicy = () => {
               for web analytics, performance and marketing activities.
             </p>
 
-            <p className="footer_text mb-7 2xl:mb-10">
+            <p className="footer_text mb-7 2xl:mb-2">
               Authentic chef uses cookies and other tracking technologies for
               the following purposes:
             </p>
 
-            <p className="footer_text mb-7 2xl:mb-10">
+            <p className="footer_text mb-7 2xl:mb-2">
               Assisting you in navigation of our Website;
             </p>
 
-            <p className="footer_text mb-7 2xl:mb-10">
+            <p className="footer_text mb-7 2xl:mb-2">
               Assisting you in submitting your order, inquiry, or feedback;
             </p>
 
-            <p className="footer_text mb-7 2xl:mb-10">
+            <p className="footer_text mb-7 2xl:mb-2">
               Analyzing your use of our Website;
             </p>
 
@@ -606,7 +605,7 @@ const PrivacyPolicy = () => {
               button.
             </p>
 
-            <h3 className="font-semibold mb-2 footer_text">
+            <h3 className="mb-2 privacyHead font-[400]">
               2. THE TYPES OF COOKIES WE USE
             </h3>
             <p className="footer_text mb-7 2xl:mb-10">
@@ -654,7 +653,7 @@ const PrivacyPolicy = () => {
               identifying your browser and internet device.
             </p>
 
-            <h3 className="font-semibold mb-2 footer_text">
+            <h3 className="mb-2 privacyHead font-[400]">
               3. OTHER TRACKING TECHNOLOGIES
             </h3>
             <p className="footer_text mb-7 2xl:mb-10">
@@ -674,7 +673,7 @@ const PrivacyPolicy = () => {
               will impair their functioning.
             </p>
 
-            <h3 className="font-semibold mb-2 footer_text">
+            <h3 className="mb-2 privacyHead font-[400]    ">
               4. HOW TO CONTROL OR DELETE COOKIES
             </h3>
             <p className="footer_text mb-7 2xl:mb-10">

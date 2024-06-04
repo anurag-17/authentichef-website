@@ -10,27 +10,27 @@ import config from "@/config";
 const protectedRoute = (WrappedComponent) => {
   const Wrapper = (props) => {
     const router = useRouter();
-    const userAuthToken = useSelector((state) => state.auth?.token);
+    const token = useSelector((state) => state.auth?.token);
     const [isLoading, setIsLoading] = useState(false);
     const [isAuth, setIsAuth] = useState(false);
 
     useEffect(() => {
       const checkAuth = async () => {
-        if (!userAuthToken) {
+        if (!token) {
           router.push(`${config.baseURL}/admin-module/admin/sign-in`);
           return;
         }
         verify();
       };
       checkAuth();
-    }, [userAuthToken, router]);
+    }, [token, router]);
 
     const verify = async () => {
       setIsLoading(true);
       setIsAuth(false);
       try {
         const res = await axios.get(
-          `${config.baseURL}/api/auth/verifyUserToken/${userAuthToken}`
+          `${config.baseURL}/api/auth/verifyUserToken/${token}`
         );
         if (res.status === 200) {
           setIsAuth(true);
@@ -52,7 +52,7 @@ const protectedRoute = (WrappedComponent) => {
         {isLoading ? (
           <Loader />
         ) : (
-          userAuthToken && isAuth && <WrappedComponent {...props} />
+          token && isAuth && <WrappedComponent {...props} />
         )}
       </>
     );

@@ -40,6 +40,7 @@ const ChefDetails = ({ params }) => {
     email: "",
     password: "",
   });
+  console.log(getAChef, "getAChef");
   cart.forEach((item, index) => {
     const { data } = item;
     console.log(data, `data from item ${index + 1}`);
@@ -291,10 +292,11 @@ const ChefDetails = ({ params }) => {
                 </div>
                 <div>
                   <h4 className="alata font-[400] 2xl:text-[35px] 2xl:leading-[45px] xl:text-[20px] xl:leading-[35px] lg:text-[16px] lg:leading-[24px]">
-                    Chef {getAChef?.name} Menu
+                    Chef {getAChef?.name}
                   </h4>
                   <p className="fourth_p text-[#555555]">
                     {/* Punjabi · North Indian · South Indian · Indian · Vegetarian */}
+                    {getAChef?.specialty}
                   </p>
                   <div className="flex gap-3 2xl:my-[20px] xl:my-[15px] my-[10px]">
                     {/* <div className="2xl:w-[197px] 2xl:h-[37px] xl:w-[140px] xl:h-[30px] w-[130px] h-[25px] bg-[#F3F3F3] flex justify-around items-center">
@@ -317,37 +319,13 @@ Meals prepared
                       </h2>
                       <p className="fourth_day 2xl:my-[12px] xl:my-[8px] my-[6px]"></p>
                     </div>
-                    {/* <div className="2xl:w-[404px] xl:w-[280px] w-[204px] ">
-<h2 className="fourth_p text-[#555555]">
-Lorem Ipsum is simply dummy
-</h2>
-<p className="fourth_day 2xl:my-[12px] xl:my-[8px] my-[6px]">
-Lorem Ipsum is simply dummy text of the printing and
-typesetting industry. Lorem Ipsum has been the industrys
-standard dummy text ever since the 1500s, when an
-unknown printer took a galley of type and scrambled it
-to make a type specimen book.
-</p>
-</div> */}
                   </div>
-                  {/* <div className="2xl:my-[30px] ">
-<h2 className="fourth_p text-[#555555]">
-Lorem Ipsum is simply dummy
-</h2>
-<p className="fourth_day 2xl:my-[12px] xl:my-[8px] my-[6px] 2xl:w-[869px] xl:w-[600px] w-[540px]">
-Lorem Ipsum is simply dummy text of the printing and
-typesetting industry. Lorem Ipsum has been the industrys
-standard dummy text ever since the 1500s, when an unknown
-printer took a galley of type and scrambled it to make a
-type specimen book.
-</p>
-</div> */}
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="2xl:my-[50px] xl:my-[30px] my-[20px] ">
+        <div className="2xl:my-[80px] xl:my-[60px] my-[20px] ">
           <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] mx-auto mnavbar">
             <div className="">
               <div>
@@ -391,14 +369,6 @@ type specimen book.
                         </div>
                       </div>
                       <div className="flex flex-wrap gap-5 2xl:my-[20px] xl:my-[15px] my-[12px]">
-                        {/* <button className="four_btn">
-<img
-alt="image"
-src={vegetarian}
-className="2xl:w-[13px] 2xl:h-[13px] lg:w-[10px] lg:h-[10px] w-[10px] h-auto"
-/>
-<p className="fourth_day">Vegetarian</p>
-</button> */}
                         {item?.Dietary_id.map((dietary) => (
                           <button className="four_btn" key={dietary._id}>
                             <img
@@ -572,7 +542,8 @@ className="2xl:w-[13px] 2xl:h-[13px] lg:w-[10px] lg:h-[10px] w-[10px] h-auto"
                                   {data.name}
                                 </h4>
                                 <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
-                                  Price: £{data.price}
+                                  Price:
+                                  {data?.price && `£${data.price.toFixed(2)}`}
                                 </h4>
                                 <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
                                   Quantity: 1

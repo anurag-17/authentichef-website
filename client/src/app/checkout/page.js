@@ -50,6 +50,8 @@ const Checkout = () => {
   const [subtotalPrice, setSubtotalPrice] = useState(0);
   const [isRefresh, setRefresh] = useState(false);
   const [cartId, setCartId] = useState("");
+  const [isChecked, setIsChecked] = useState(false);
+  const [deliveryMessage, setDeliveryMessage] = useState("");
 
   // Define today's date in the format YYYY-MM-DD
   const today = new Date().toISOString().split("T")[0];
@@ -58,7 +60,12 @@ const Checkout = () => {
     const { name, value } = e.target;
     let newValue = value;
 
-    if (name === "FirstName" || name === "LastName") {
+    if (
+      name === "FirstName" ||
+      name === "LastName" ||
+      name === "City" ||
+      name === "country"
+    ) {
       // Allow only alphabetic characters and limit to 100 characters
       newValue = value.replace(/[^A-Za-z]/g, "").slice(0, 100);
     }
@@ -159,8 +166,25 @@ const Checkout = () => {
 
   const handleDateChange = (e) => {
     const inputDate = new Date(e.target.value);
-    if (inputDate > new Date(today)) {
+    const dayOfWeek = inputDate.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+
+    if (dayOfWeek !== 0 && dayOfWeek !== 6) {
+      // Valid date, update delivery date
       setDeliveryDate(e.target.value);
+
+      // Generate delivery message
+      const orderDay = inputDate.getDay();
+      const currentHour = new Date().getHours();
+      const deliveryDay = getDeliveryDay(orderDay, currentHour);
+      setDeliveryMessage(
+        `Order will arrive on ${deliveryDay} between 8am and 6pm.`
+      );
+    } else {
+      // Invalid date (weekend), reset the input
+      e.target.value = "";
+      setDeliveryDate("");
+      setDeliveryMessage("");
+      toast.info("Delivery is not available on Saturday and Sunday");
     }
   };
 
@@ -300,6 +324,25 @@ const Checkout = () => {
     }
   };
 
+  const handleCheckboxChange = (e) => {
+    setIsChecked(e.target.checked);
+  };
+
+  const getDeliveryDay = (orderDay, orderTime) => {
+    const dayMap = {
+      1: ["Tuesday", "Wednesday"],
+      2: ["Wednesday", "Thursday"],
+      3: ["Thursday", "Friday"],
+      4: ["Friday", "Monday"],
+      5: ["Monday", "Tuesday"],
+      6: ["Tuesday", "Tuesday"],
+      0: ["Tuesday", "Tuesday"], // For Sunday
+    };
+
+    const before8am = orderTime < 8;
+    return dayMap[orderDay][before8am ? 0 : 1];
+  };
+
   return (
     <>
       <ToastContainer autoClose={1000} />
@@ -340,7 +383,7 @@ const Checkout = () => {
                 <div>
                   <div>
                     <label className="checkoutlable">
-                      Phone <span className="text-[#DB1414]">*</span>
+                      Mobile Number <span className="text-[#DB1414]">*</span>
                     </label>
                     <input
                       placeholder="Enter phone number"
@@ -388,9 +431,7 @@ const Checkout = () => {
                       />
                     </div>
                     <div className="2xl:w-[388px] w-full">
-                      <label className="checkoutlable">
-                        Building Name. <span className="text-[#DB1414]">*</span>
-                      </label>
+                      <label className="checkoutlable">Building Name.</label>
                       <input
                         type="text"
                         name="buildingName"
@@ -536,7 +577,9 @@ const Checkout = () => {
                   <div>
                     <div className="my-[20px]">
                       <label className="checkoutlable ">
-                        Shipping Address{" "}
+                        {isSameAsShippingAddress
+                          ? "Shipping Address"
+                          : "Billing Address"}{" "}
                         <span className="text-[#DB1414]">*</span>
                       </label>
                     </div>
@@ -570,9 +613,7 @@ const Checkout = () => {
                       />
                     </div>
                     <div className="2xl:w-[388px] w-full">
-                      <label className="checkoutlable">
-                        Building Name. <span className="text-[#DB1414]">*</span>
-                      </label>
+                      <label className="checkoutlable">Building Name.</label>
                       <input
                         type="text"
                         name="buildingName"
@@ -752,6 +793,29 @@ const Checkout = () => {
                           0
                         </h4>
                       </div>
+                      <div className="2xl:my-[30px] xl:my-[20px] my-[15px]">
+                        <label className="seven_p2 text-[#555555]">
+                          Promo code or Gift card
+                        </label>
+                        <div className="flex items-center">
+                          <input
+                            type="text"
+                            name="promoCode"
+                            placeholder="Promo Code"
+                            maxLength="15" // Enforce maximum length
+                            className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
+                            value={Promo_code}
+                            //onChange={handlePromoCodeChange}
+                          />
+                          <button
+                            className="ml-2 bg-[#DB5353] alata text-white 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] px-4 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
+                            // onClick={applyPromoCode} // Assuming you have a function to handle applying the promo code
+                          >
+                            Apply
+                          </button>
+                        </div>
+                      </div>
+
                       <div className="flex justify-between">
                         <h4 className="alata font-[400] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
                           Total
@@ -761,25 +825,11 @@ const Checkout = () => {
                         </h4>
                       </div>
 
-                      <div className="2xl:my-[30px] xl:my-[20px] my-[15px]">
-                        <label className="seven_p2 text-[#555555]">
-                          Promo code or Gift card
-                        </label>
-                        <input
-                          type="text"
-                          name="promoCode"
-                          placeholder="Promo Code"
-                          maxLength="15" // Enforce maximum length
-                          className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
-                          value={Promo_code}
-                          onChange={handlePromoCodeChange}
-                        />
-                      </div>
                       <div className="flex justify-between 2xl:gap-[20px] xl:gap-[15px] gap-[10px] xl:my-[10px] my-[8px] 2xl:my-[15px]">
                         <div className="2xl:w-[388px] w-full">
                           <form onSubmit={handleSubmit}>
                             <label className="checkoutlable">
-                              Delivery date*
+                              Delivery date
                               <span className="text-[#DB1414]">*</span>
                             </label>
                             <input
@@ -792,6 +842,11 @@ const Checkout = () => {
                               onChange={handleDateChange}
                               required
                             />
+                            {/* {deliveryMessage && (
+                              <div className="text-[#555555] mt-2">
+                                {deliveryMessage}
+                              </div>
+                            )} */}
                           </form>
                         </div>
                         <div className="pop-chef flex items-end">
@@ -819,35 +874,46 @@ const Checkout = () => {
                           Your personal data only be used to process your order
                           and support your experience. We do not sell or rent
                           your data. See our{" "}
-                          <span className="text-[#FF0000] underline">
-                            {" "}
-                            privacy policy
-                          </span>
+                          <Link href={"/privacy-policy"}>
+                            <span className="text-[#FF0000] underline">
+                              {" "}
+                              privacy policy
+                            </span>
+                          </Link>
                         </p>
                       </div>
                       <div className="form-control flex flex-row gap-5 items-center 2xl:mt-[30px] xl:mt-[20px] mt-[15px]">
                         <label className="label cursor-pointer w-[15px] h-[15px]">
                           <input
                             type="checkbox"
-                            defaultChecked
+                            checked={isChecked}
                             className="checkbox checkbox-info rounded-none w-[20px] h-[20px]"
+                            onChange={handleCheckboxChange}
                           />
                         </label>
                         <span className="seven_p2 text-[#555555]">
                           I have read and agree to the website
-                          <span className="text-[#FF0000] underline">
-                            {" "}
-                            terms and conditions*
-                          </span>
+                          <Link href={"/term-condition"}>
+                            <span className="text-[#FF0000] underline">
+                              {" "}
+                              terms and conditions*
+                            </span>
+                          </Link>
                         </span>
                       </div>
                       <button
                         onClick={handleSubmit}
-                        className=" flex justify-center 2xl:gap-3 xl:gap-2 gap-1 items-center w-full alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:text-[20px] xl:text-[14px] text-[10px] leading-[27.6px] px-3 py-1 2xl:h-[45px] xl:h-[30px] lg:h-[25px] 2xl:mt-[60px] xl:mt-[40px] mt-[30px] "
+                        disabled={!isChecked}
+                        className={`flex justify-center 2xl:gap-3 xl:gap-2 gap-1 items-center w-full alata font-[400] ${
+                          isChecked
+                            ? "bg-[#DB5353] cursor-pointer"
+                            : "bg-[#DB5353] opacity-50 cursor-not-allowed"
+                        } text-white mx-auto rounded-[5px] 2xl:text-[20px] xl:text-[14px] text-[10px] leading-[27.6px] px-3 py-1 2xl:h-[45px] xl:h-[30px] lg:h-[25px] 2xl:mt-[60px] xl:mt-[40px] mt-[30px]`}
                       >
                         <Image
                           src={order}
-                          className="2xl:w-[30px] xl:w-[22px] lg:w-[18px] sm:w-[] w-[] "
+                          className="2xl:w-[30px] xl:w-[22px] lg:w-[18px] sm:w-[] w-[]"
+                          alt="Place Order"
                         />
                         Place Order
                       </button>

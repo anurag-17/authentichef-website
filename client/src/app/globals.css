@@ -250,7 +250,9 @@ td {
 }
 
 .four_btnn {
+
   @apply flex items-center rounded-[3px] px-[15px] py-[5px] gap-2 h-[34px] text-[16px] leading-[24px];
+
 }
 
 .fourth_day {
@@ -575,7 +577,7 @@ td {
   }
 
   .mcusinimg {
-    width: 200px !important;
+    width: 181px !important;
     height: auto !important;
   }
 
@@ -740,6 +742,10 @@ td {
     width: 50px !important;
     height: 50px !important;
     margin: 0px !important;
+  }
+
+  .croselImg {
+    width: ;
   }
 
 }

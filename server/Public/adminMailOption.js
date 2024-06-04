@@ -103,6 +103,12 @@ const adminMailOptions=(req, savedOrder, deliveryDate, deliveryInfo, payment_met
                     </tr>
 
                     <tr>
+                    <th>Shipping Charges</th>
+                    <td>$${savedOrder.shippingCharge}%</td>
+                </tr>
+                    
+
+                    <tr>
                         <th>Total Amount</th>
                         <td>$${savedOrder.totalAmount.toFixed(2)}</td>
                     </tr>

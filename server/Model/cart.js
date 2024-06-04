@@ -18,6 +18,12 @@ const cartSchema = new mongoose.Schema({
       customization: String
     }
   ],
+
+  // Add A shipping cost field
+
+  Shipping_cost: {
+    type: Number
+  },
   
   user: {
     type: mongoose.Schema.Types.ObjectId,

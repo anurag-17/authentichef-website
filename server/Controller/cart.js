@@ -61,6 +61,7 @@ exports.addToCart = async (req, res, next) => {
     if (!items || !Array.isArray(items) || items.length === 0) {
       return res.status(400).json({ message: "Items are required and should be an array" });
     }
+    let totalCost = 0;
 
     for (const item of items) {
       if (!item.menuItem || !item.quantity ) {
@@ -68,11 +69,21 @@ exports.addToCart = async (req, res, next) => {
       }
 
       // Check if the menu item exists
+      
       const menuItemExists = await MenuItem.findById(item.menuItem).select("name price");
       if (!menuItemExists) {
         return res.status(404).json({ message: `Menu item not found: ${item.menuItem}` });
       }
+
+      totalCost += menuItemExists.price * item.quantity;
     }
+
+    console.log("Total cost is", totalCost);
+
+    // Add the shipping cart logic
+    let shippingCost = totalCost > 55 ? 0 : 5.99;
+
+    
 
     if (!userId) {
       // For guest users
@@ -89,7 +100,8 @@ exports.addToCart = async (req, res, next) => {
     if (!userCart) {
       userCart = new Cart({
         user: userId,
-        items: []
+        items: [],
+        Shipping_cost:0
       });
     }
 
@@ -104,6 +116,8 @@ exports.addToCart = async (req, res, next) => {
       }
     }
 
+    userCart.Shipping_cost = shippingCost;
+
     await userCart.save();
 
     // Populate the menuItem field with name and price
@@ -112,7 +126,7 @@ exports.addToCart = async (req, res, next) => {
       select: "name price"
     });
 
-    res.status(201).json({ message: "Items added to cart", updatedCart });
+    res.status(201).json({ message: "Items added to cart", updatedCart , shippingCost});
   } catch (error) {
     next(error);
   }
@@ -131,6 +145,7 @@ exports.getCartItems = async (req, res) => {
     if (!userCart) {
       return res.status(200).json({ message: "Cart is empty", length: 0 });
   }
+  
 
     const TotalPricePerQuntity = userCart.items.map(item => item.menuItem.price * item.quantity).reduce((a, b) => a + b, 0);
 
@@ -177,16 +192,32 @@ exports.updateCartItem = async (req, res) => {
     userCart.items[itemIndex].quantity = quantity;
     userCart.items[itemIndex].customization = customization;
 
+    // Calculate total cost of items in the cart
+    let totalCost = 0;
+    for (const item of userCart.items) {
+      const menuItem = await MenuItem.findById(item.menuItem).select("price");
+      if (menuItem) {
+        totalCost += menuItem.price * item.quantity;
+      }
+    }
+
+    // Determine shipping cost based on total cost
+    let shippingCost = totalCost > 55 ? 0 : 5.99;
+
+    // Update the shipping cost in the cart
+    userCart.Shipping_cost = shippingCost;
+
     // Save the updated cart to the database
     userCart = await userCart.save();
 
-    // Respond with a success message
-    res.status(200).json({ message: "Item updated successfully", cart: userCart });
+    // Respond with a success message and updated cart details
+    res.status(200).json({ message: "Item updated successfully", cart: userCart, shippingCost });
   } catch (error) {
     // If an error occurs, respond with an error message
     res.status(500).json({ error: "Failed to update item in cart", message: error.message });
   }
 };
+
 
 
 
