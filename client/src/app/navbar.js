@@ -278,7 +278,7 @@ const Navbar = () => {
       .request(option)
       .then((response) => {
         setGetCartItems(response?.data?.userCart?.items);
-        
+
       })
       .catch((error) => {
         console.log(error, "Error");
@@ -481,7 +481,7 @@ const Navbar = () => {
       {/* <ToastContainer className="mt-24" autoClose={1000} /> */}
       <section>
         <nav className="z-50 flex justify-center bg-[#F38181] 2xl:h-[116px] xl:h-[80px] lg:h-[50px] sm:h-[45px] h-12 w-full mnavbar-h fixed">
-          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[800px] w-full px-5 md:px-0 flex justify-between items-center mnavbar">
+          <div className="2xl:w-[1600px] xl:w-[1200px] lg:w-[850px] md:w-[800px] w-full px-5 md:px-0 flex justify-between items-center mnavbar">
             <div className="w-1/3">
               {/* =======Side Drawer======= */}
               <div className="drawer">
@@ -651,28 +651,19 @@ const Navbar = () => {
             <div className="w-1/3 flex justify-end ">
               <div className="flex justify-end md:gap-0 gap-2 md:mx-6">
                 {isLoggedIn === success ? (
-                  <div className="flex justify-end md:gap-7 gap-2 w-1/3">
-                    <div className="relative flex items-center">
-                      {/* <input
-                        type="text"
-                        placeholder="Search dishes, chefs, cuisine "
-                        className="2xl:w-[258px] xl:w-[170px] 2xl:h-[44px] xl:h-[30px] w-[130px] h-[20px] bg-[#FF9C9C] text-[#AE6363] 2xl:px-[40px] xl:px-[30px] px-[20px] outline-none placeholder:text-[#AE6363] 2xl:text-[14px] xl:text-[12px] text-[9px]"
-                      /> */}
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth="1.5"
-                        stroke="currentColor"
-                        className="absolute hidden text-[#AE6363] 2xl:top-[10px] 2xl:left-[10px] xl:top-[8px] xl:left-[10px] top-[10px] left-[5px] 2xl:w-5 2xl:h-5 xl:w-4 xl:h-4 w-3 h-3"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-                        />
+                  <div className="flex justify-end 2xl:gap-7 md:gap-5  gap-1 w-1/3">
+                    {/* <div className=" lg:flex hidden items-center bg-[#FF9C9C] rounded-[6px] gap-1 pl-[10px] pr-[5px] 2xl:w-[258px] 2xl:h-[44px] h-[40px]">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="2xl:h-[20px] 2xl:w-[20px] h-[18px] w-[18px] text-[#AE6363]">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                       </svg>
-                    </div>
+
+                      <input
+                        type="search"
+                        placeholder="Search dishes, chefs, cuisine "
+                        className=" bg-[#FF9C9C] text-[#AE6363]  outline-none placeholder:text-[#AE6363] text-[14px] leading-[26px] font-[400]  text-alata border-none"
+                      />
+
+                    </div> */}
                     <div className="nav_login1 md:flex items-center  gap-1 lg:gap-2 hidden sm:block">
                       Welcome <p>{userDetails?.firstname}!</p>
                     </div>
@@ -712,7 +703,7 @@ const Navbar = () => {
           type="checkbox"
           className="drawer-toggle"
           checked={isDrawerOpen}
-          onChange={() => {}}
+          onChange={() => { }}
         />
         <div className="drawer-side">
           <label

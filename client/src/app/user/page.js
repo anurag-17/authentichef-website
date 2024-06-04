@@ -284,24 +284,26 @@ const LandingPage = () => {
           </div>
         </div>
         <div className="md:hidden block">
-          <div className=" poster-bg-m  h-screen flex justify-center ">
-            <div className="">
-              <h4 className="alata font-[400] text-white  pt-[50%] mx-auto text-[30px] text-center">
-                Where’s your next food destination?
-              </h4>
-              <div className="flex justify-center mt-4">
-                <Link href="/explore-dishes">
-                  <button className=" alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] px-4 py-2 border border-white">
-                    Explore Dishes
-                  </button>
-                </Link>
-              </div>
-              {/* <div className="flex mt-4">
+          <div className="py-[100px]">
+            <h4 className="alata font-[400] text-white mx-auto text-[30px] text-center">
+              Where’s your next food destination?
+            </h4>
+            <div className="flex justify-center mt-4">
+              <Link href="/explore-dishes">
+                <button className=" alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] px-4 py-2 border border-white">
+                  Explore Dishes
+                </button>
+              </Link>
+            </div>
+            {/* <div className="flex mt-4">
                 <h4 className="alata font-[400] mx-auto text-white">
                   Save 30% on your first order
                 </h4>
               </div> */}
-            </div>
+          </div>
+          {/* <div className=" Fv  h-screen flex justify-center "> */}
+          <div className="">
+            <Image src="/images/poster-bg-m.webp" height="400" width="1000" alt="background" />
           </div>
         </div>
         <div className="offer-bg flex justify-center items-center 2xl:gap-[30px] xl:gap-[10px] gap-[8px] 2xl:h-[150px] xl:h-[100px] md:h-[60px] h-[40px] moffers">
@@ -911,7 +913,7 @@ const LandingPage = () => {
           type="checkbox"
           className="drawer-toggle"
           checked={isDrawerOpen}
-          onChange={() => {}}
+          onChange={() => { }}
         />
 
         <div className="drawer-side">
@@ -1116,7 +1118,7 @@ const LandingPage = () => {
         </div>
       </div>
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={() => {}}>
+        <Dialog as="div" className="relative z-10" onClose={() => { }}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
