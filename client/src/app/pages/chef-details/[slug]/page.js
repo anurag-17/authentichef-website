@@ -23,6 +23,7 @@ import {
 } from "@/app/redux/dishSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
+import cheficon from "../../../assets/chef-icon.png";
 const ChefDetails = ({ params }) => {
   const { token } = useSelector((state) => state?.auth);
   const [isRefresh, setRefresh] = useState(false);
@@ -271,12 +272,12 @@ const ChefDetails = ({ params }) => {
       <section>
         <Navbar />
         <div className=" ">
-          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] px-5 sm:px-5 sm:px-10 mnavbar  md:w-[700px] 2xl:pt-[220px] xl:pt-[140px] pt-[100px] 2xl:py-[100px] xl:py-[50px] py-[40px] mx-auto ">
+          <div className="2xl:w-[1600px] xl:w-[1200px] lg:w-[850px] md:w-[750px] w-[90%] px-5 sm:px-0 mnavbar 2xl:pt-[220px] xl:pt-[140px] pt-[100px] 2xl:py-[100px] xl:py-[50px] py-[40px] mx-auto ">
             <div
               className="chefDishes-bg rounded-[15px] relative 2xl:h-[529px] xl:h-[360px] h-[280px] 2xl:pt-[295px] xl:pt-[200px] lg:pt-[155px] pt-[120px]"
               style={{ backgroundImage: `url(${bannerImage})` }}
             >
-              <div className="overflow-y-scroll border flex gap-5 2xl:w-[1414px] xl:w-[970px] lg:w-[750px] w-[90%] h-[250px]  rounded-[15px] bg-white mx-auto 2xl:p-[50px] xl:p-[20px] p-[15px] chefdishWB">
+              <div className="overflow-y-scroll border flex gap-5 2xl:w-[1414px] xl:w-[1000px] lg:w-[750px] w-[90%] h-[200px] xl:h-[250px]  rounded-[15px] bg-white mx-auto 2xl:p-[50px] xl:p-[20px] p-[15px] chefdishWB">
                 <div className="2xl:w-[154px] xl:w-[80px] w-[60px]">
                   <div>
                     <img src={getAChef?.images} className="w-full" />
@@ -309,7 +310,7 @@ Meals prepared
                     <div className="2xl:w-[197px] 2xl:h-[37px] xl:w-[140px] xl:h-[30px] w-[130px] h-[25px bg-[#F3F3F3] flex justify-around items-center">
                       <Image src={cook2} className="w-[17px]" />
                       <p className="fourth_day">Certified</p>
-                      <p className="fourth_day text-[#838383]">Food safety</p>
+                      {/* <p className="fourth_day text-[#838383]">Food safety</p> */}
                     </div>
                   </div>
                   <div className="flex gap-[50px] 2xl:my-[30px] xl:my-[20px] my-[10px]">
@@ -325,19 +326,19 @@ Meals prepared
             </div>
           </div>
         </div>
-        <div className="2xl:my-[80px] xl:my-[60px] my-[20px] ">
-          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] mx-auto mnavbar">
+        <div className="2xl:py-[140px] xl:py-[100px] py-[80px] ">
+          <div className="2xl:w-[1600px] xl:w-[1200px] lg:w-[850px] md:w-[750px] w-[90%] mx-auto mnavbar">
             <div className="">
               <div>
-                <h4 className="third_head px-5 sm:px-10">Chef Dishes</h4>
+                <h4 className="third_head px-5 sm:px-0">Chef Dishes</h4>
               </div>
             </div>
-            <div className=" flex flex-wrap gap-[20px] xl:gap-[25px] 2xl:gap-[70px] w-full px-5 sm:px-10 md:px-0 mx-auto">
+            <div className=" flex flex-wrap gap-[20px] xl:gap-[25px] 2xl:gap-[70px] w-full px-5 sm:px-0 mx-auto">
               {Array.isArray(chefItems) &&
                 chefItems.map((item) => (
                   <div
                     key={item.id}
-                    className=" my-5 2xl:w-[345px] 2xl:h-[560px] lg:w-[23%] md:w-[31%] sm:w-[45%] mx-auto relative rounded-[9.8px] w-[80%]"
+                    className=" my-5 2xl:w-[345px] 2xl:h-[560px] lg:w-[23%] md:w-[31%] sm:w-[45%] mx-auto sm:mx-0 relative rounded-[9.8px] w-[80%]"
                   >
                     <button className="" onClick={() => openModal(item._id)}>
                       <img
@@ -349,15 +350,19 @@ Meals prepared
                       />
                     </button>
                     <div className="">
-                      <h4 className="alata font-[400] text-[#DB5353] 2xl:my-4 xl:my-3 my-2 2xl:text-[20px] 2xl:leading-[20px] xl:text-[14px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[10px]">
+                      <h4 className="alata font-[400] text-[#DB5353] 2xl:my-4 xl:my-3 my-2 2xl:text-[20px] 2xl:leading-[20px] xl:text-[14px] xl:leading-[18px] lg:text-[14px] lg:leading-[16px] text-[10px]">
                         {item?.name}
                       </h4>
                       <div className="flex items-center 2xl:gap-3 xl:gap-2 lg:gap-2 gap-2 xl:my-3 lg:my-2 my-2">
-                        <img
-                          alt="image"
-                          src={item?.chef_id?.images}
-                          className="four_img2 "
-                        />
+                        {item?.chef_id?.images ? (
+                          <img
+                            alt="image"
+                            src={item.chef_id.images}
+                            className="four_img2 border-[2px] border-[#DB5353]"
+                          />
+                        ) : (
+                          <Image src={cheficon} className="four_img2" />
+                        )}
                         <div>
                           <h4 className="fourth_name ">
                             {" "}
@@ -395,8 +400,10 @@ Meals prepared
                       </div>
                       <div className=" w-full bottom-0 flex justify-between items-center 2xl:my-[22px] xl:my-[18px] my-[15px]">
                         <p className="alata font-[400] text-[#000] 2xl:text-[20px] 2xl:leading-[24px] xl:text-[14px] xl:leading-[18px] lg:text-[12px] lg:leading-[16px] text-[12px] leading-[16px] ">
-                          Serves {item?.portion_Size} || {item?.weight}g{" "}
-                          <span className="text-[#DB5353]">£{item?.price}</span>
+                          Serves {item?.portion_Size} | {item?.weight}g |
+                          <span className="text-[#DB5353]">
+                            {item?.price && `£${item.price.toFixed(2)}`}
+                          </span>
                         </p>
                         {token ? (
                           <button
