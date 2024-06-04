@@ -258,6 +258,59 @@ exports.updateCartItem = async (req, res) => {
 };
 
 
+exports.updateItem = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const menuItemId = req.params.menuid;
+    const { quantity, customization } = req.body;
+
+    // Find the user's cart
+    let userCart = await Cart.findOne({ user: userId });
+
+    if (!userCart) {
+      return res.status(404).json({ message: "Cart not found" });
+    }
+    
+
+    // Find the index of the item in the cart
+    const itemIndex = userCart.items.findIndex(item => String(item.menuItem) === menuItemId);
+
+    if (itemIndex === -1) {
+      return res.status(404).json({ message: "Item not found in cart" });
+    }
+
+    // Update the item details
+    userCart.items[itemIndex].quantity = quantity;
+    userCart.items[itemIndex].customization = customization;
+
+    // Calculate total cost of items in the cart
+    let totalCost = 0;
+    for (const item of userCart.items) {
+      const menuItem = await MenuItem.findById(item.menuItem).select("price");
+      if (menuItem) {
+        totalCost += menuItem.price * item.quantity;
+      }
+    }
+
+    // Determine shipping cost based on total cost
+    let shippingCost = totalCost > 55 ? 0 : 5.99;
+
+    // Update the shipping cost in the cart
+    userCart.Shipping_cost = shippingCost;
+
+    // Save the updated cart to the database
+    userCart = await userCart.save();
+
+    // Respond with a success message and updated cart details
+    res.status(200).json({ message: "Item updated successfully", cart: userCart, shippingCost });
+  } catch (error) {
+    // If an error occurs, respond with an error message
+    res.status(500).json({ error: "Failed to update item in cart", message: error.message });
+  }
+}
+
+
+
 
 
 exports.deleteCartItem = async (req, res) => {
