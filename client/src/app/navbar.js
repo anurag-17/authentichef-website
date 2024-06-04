@@ -256,7 +256,7 @@ const Navbar = () => {
   };
 
   const { cart } = useSelector((state) => state?.userCart);
-  console.log(cart , cart)
+  console.log(cart, cart)
   cart.forEach((item, index) => {
     const { data } = item;
   });
@@ -507,7 +507,7 @@ const Navbar = () => {
                     aria-label="close sidebar"
                     className="drawer-overlay"
                   ></label>
-                  <ul className="menu p-[3px] 2xl:px-[20px] xl:px-[20px] lg:px-[15px] sm:px-[10px] px-[8px] 2xl:w-[410px] xl:w-[320px] lg:w-[240px] sm:w-[240px] w-[60%] min-h-full bg-base-200 sidebar">
+                  <ul className="menu p-[3px]  px-[20px] 2xl:w-[410px] xl:w-[320px] lg:w-[240px] sm:w-[240px] w-[240px] min-h-full bg-base-200 sidebar py-[10px]">
                     {/* Sidebar content here */}
                     <div>
                       <div className="flex justify-between items-center 2xl:my-[10px] my-[5px]">
@@ -544,7 +544,7 @@ const Navbar = () => {
                         <Link href="/setting">
                           <Image
                             src={profile}
-                            className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[12px] w-[12px]"
+                            className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] w-[16px]"
                           />
                           Profile
                         </Link>
@@ -552,7 +552,7 @@ const Navbar = () => {
                         <button onClick={handleLoginClick}>
                           <Image
                             src={profile}
-                            className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[12px] w-[12px]"
+                            className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] w-[16px]"
                           />
                           Profile
                         </button>
@@ -562,7 +562,7 @@ const Navbar = () => {
                       <Link href="about-us">
                         <Image
                           src={aboutauthentichef}
-                          className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[12px] w-[12px]"
+                          className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] w-[16px]"
                         />
                         About Authentichef
                       </Link>
@@ -571,7 +571,7 @@ const Navbar = () => {
                       <Link href="/explore-dishes">
                         <Image
                           src={exploredish}
-                          className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[12px] w-[12px]"
+                          className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] w-[16px]"
                         />
                         Explore Dishes
                       </Link>
@@ -580,7 +580,7 @@ const Navbar = () => {
                       <Link href="/become-chef">
                         <Image
                           src={beacomechef}
-                          className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[12px] w-[12px]"
+                          className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] w-[16px]"
                         />
                         Become a Chef
                       </Link>
@@ -589,31 +589,25 @@ const Navbar = () => {
                       <a href="/FAQs">
                         <Image
                           src={faq}
-                          className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[12px] w-[12px]"
+                          className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] w-[16px]"
                         />
                         FAQs
                       </a>
                     </li>
-                    <hr className="mx-auto 2xl:w-[345px] xl:w-[260px] lg:w-[180px] sm:w-[140px] w-[120px] 2xl:mt-[75px] xl:mt-[40px] lg:mt-[20px] sm:mt-[15px] mt-[10px]" />
+                    <hr className="mx-auto 2xl:w-[345px] xl:w-[260px] lg:w-[180px] sm:w-[140px] w-[80%] 2xl:mt-[75px] xl:mt-[40px] lg:mt-[20px] sm:mt-[15px] mt-[10px] text-[#D8D8D8]" />
                     <div className="text-center 2xl:mt-[35px] xl:mt-[15px] lg:mt-[10px] sm:mt-[8px] mt-[5px]">
                       <div className="flex justify-center md:gap-11 gap-2 md:ml-6 lg:ml-0">
                         {isLoggedIn === success ? (
                           <div>
-                            <p className="text-[#555555] font-alata font-[400] 2xl:text-[14px] xl:text-[10px] lg:text-[9px] sm:text-[10px] text-[8px] 2xl:leading-[26px] xl:leading-[22px] lg:leading-[16px] sm:leading-[16px] leading-[14px]">
+                            <p className="text-[#000000] font-alata font-[400] 2xl:text-[20px] md:text-[18px] text-[16px] leading-[30px] py-[3px]">
                               {userDetails?.firstname} {userDetails?.lastname}
                             </p>
-                            <p className="text-[#555555] font-alata font-[400] 2xl:text-[14px] xl:text-[10px] lg:text-[9px] sm:text-[10px] text-[8px] 2xl:leading-[26px] xl:leading-[22px] lg:leading-[16px] sm:leading-[16px] leading-[14px]">
+                            <p className="text-[#555555] font-alata font-[400] text-[14px] leading-[26px]">
                               {userDetails?.email}
                             </p>
-                            <div className="flex justify-center items-center gap-1">
-                              <Image
-                                src={logout}
-                                className="2xl:w-[17px] 2xl:h-[17px] xl:w-[12px] lg:w-[10px] sm:w-[8px] w-[6px]"
-                              />
-                              <button
-                                onClick={handleLogout}
-                                className="text-[#DB5353] fourth_p"
-                              >
+                            <div className="flex justify-center items-center gap-[7px] py-[8px]">
+                              <Image src={logout} className="2xl:w-[17px] 2xl:h-[17px] w-[16px]" />
+                              <button onClick={handleLogout} className="text-[#DB5353] fourth_p" >
                                 Logout
                               </button>
                             </div>
