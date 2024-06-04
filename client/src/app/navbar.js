@@ -50,6 +50,11 @@ const Navbar = () => {
   const [isRefresh, setRefresh] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [cartId, setCartId] = useState("");
+  const [subtotalPrice, setSubtotalPrice] = useState(0);
+  const [shouldRefresh, setShouldRefresh] = useState(false);
+  const [updatedCartItems, setUpdatedCartItems] = useState([]);
+
   const handleRemoveItem = (_id) => {
     dispatch(removeItemFromCart({ _id }));
   };
@@ -256,7 +261,7 @@ const Navbar = () => {
   };
 
   const { cart } = useSelector((state) => state?.userCart);
-  console.log(cart , cart)
+  console.log(cart, cart);
   cart.forEach((item, index) => {
     const { data } = item;
   });
@@ -266,6 +271,14 @@ const Navbar = () => {
       defaultCartItems(isRefresh);
     }
   }, [isRefresh, token]);
+
+  useEffect(() => {
+    if (cartId && getCartItems.length > 0) {
+      getCartItems.forEach((item) => {
+        updateCartItemQuantity(cartId, item.menuItem._id, item.quantity);
+      });
+    }
+  }, [cartId, getCartItems]);
 
   const defaultCartItems = () => {
     const option = {
@@ -277,9 +290,29 @@ const Navbar = () => {
     };
     axios
       .request(option)
-      .then((response) => {
-        setGetCartItems(response?.data?.userCart?.items);
+      .then(async (response) => {
+        const userCart = response?.data?.userCart;
+        const cartItems = userCart?.items.map((item) => ({
+          ...item,
+          totalPrice: item.menuItem.price * item.quantity,
+        }));
+        console.log("User cart is -------------->>>>>>>>>>>>>", userCart._id);
+        setGetCartItems(cartItems);
+        setUpdatedCartItems(cartItems); // Initializing updatedCartItems with fetched data
+        setSubtotalPrice(
+          cartItems.reduce((sum, item) => sum + item.totalPrice, 0)
+        );
+        setShippingCost(userCart.Shipping_cost ?? 0); // Set the shipping cost
+        setCartId(userCart._id); // Set the cart ID inside the .then callback
 
+        // Update quantities for default cart items
+        for (const item of cartItems) {
+          await updateCartItemQuantity(
+            userCart._id,
+            item.menuItem._id,
+            item.quantity
+          );
+        }
       })
       .catch((error) => {
         console.log(error, "Error");
@@ -477,6 +510,84 @@ const Navbar = () => {
     }
   }, [window.location.search]);
 
+  const handleIncrement = (itemId) => {
+    setGetCartItems((prevCartItems) => {
+      const updatedCartItems = prevCartItems.map((item) =>
+        item._id === itemId
+          ? {
+              ...item,
+              quantity: item.quantity + 1,
+              totalPrice: item.menuItem.price * (item.quantity + 1),
+            }
+          : item
+      );
+      setUpdatedCartItems(updatedCartItems);
+      return updatedCartItems;
+    });
+
+    setShouldRefresh(true);
+  };
+
+  const updateCartItemQuantity = async (cartId, menuId, quantity) => {
+    try {
+      const response = await axios.put(
+        `${config.baseURL}/api/Orders/updateItem/${menuId}`,
+        { quantity },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      if (response.status >= 200 && response.status < 300) {
+        console.log("Cart item updated successfully");
+      } else {
+        console.log("Failed to update cart item", response.data.message);
+      }
+    } catch (error) {
+      console.log("Error updating cart item:", error);
+    }
+  };
+
+  const handleDecrement = (itemId) => {
+    setGetCartItems((prevCartItems) => {
+      const updatedCartItems = prevCartItems.map((item) =>
+        item._id === itemId && item.quantity > 1
+          ? {
+              ...item,
+              quantity: item.quantity - 1,
+              totalPrice: item.menuItem.price * (item.quantity - 1),
+            }
+          : item
+      );
+      setUpdatedCartItems(updatedCartItems);
+      return updatedCartItems;
+    });
+
+    setShouldRefresh(true);
+  };
+
+  useEffect(() => {
+    if (shouldRefresh) {
+      getCartItems.forEach((item) => {
+        updateCartItemQuantity(cartId, item.menuItem._id, item.quantity);
+      });
+
+      // Recalculate the subtotal price after updating quantities
+      const newSubtotalPrice = getCartItems.reduce(
+        (sum, item) => sum + item.totalPrice,
+        0
+      );
+      setSubtotalPrice(newSubtotalPrice);
+
+      setShouldRefresh(false);
+    }
+  }, [shouldRefresh, cartId, getCartItems]);
+
+  useEffect(() => {
+    console.log("Updated Cart Items:", updatedCartItems);
+  }, [updatedCartItems]);
+
   return (
     <>
       {/* <ToastContainer className="mt-24" autoClose={1000} /> */}
@@ -507,7 +618,7 @@ const Navbar = () => {
                     aria-label="close sidebar"
                     className="drawer-overlay"
                   ></label>
-                  <ul className="menu p-[3px] 2xl:px-[20px] xl:px-[20px] lg:px-[15px] sm:px-[10px] px-[8px] 2xl:w-[410px] xl:w-[320px] lg:w-[240px] sm:w-[240px] w-[60%] min-h-full bg-base-200 sidebar">
+                  <ul className="menu p-[3px]  px-[20px] 2xl:w-[410px] xl:w-[320px] lg:w-[240px] sm:w-[240px] w-[240px] min-h-full bg-base-200 sidebar py-[10px]">
                     {/* Sidebar content here */}
                     <div>
                       <div className="flex justify-between items-center 2xl:my-[10px] my-[5px]">
@@ -544,7 +655,7 @@ const Navbar = () => {
                         <Link href="/setting">
                           <Image
                             src={profile}
-                            className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[12px] w-[12px]"
+                            className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] w-[16px]"
                           />
                           Profile
                         </Link>
@@ -552,7 +663,7 @@ const Navbar = () => {
                         <button onClick={handleLoginClick}>
                           <Image
                             src={profile}
-                            className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[12px] w-[12px]"
+                            className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] w-[16px]"
                           />
                           Profile
                         </button>
@@ -562,7 +673,7 @@ const Navbar = () => {
                       <Link href="about-us">
                         <Image
                           src={aboutauthentichef}
-                          className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[12px] w-[12px]"
+                          className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] w-[16px]"
                         />
                         About Authentichef
                       </Link>
@@ -571,7 +682,7 @@ const Navbar = () => {
                       <Link href="/explore-dishes">
                         <Image
                           src={exploredish}
-                          className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[12px] w-[12px]"
+                          className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] w-[16px]"
                         />
                         Explore Dishes
                       </Link>
@@ -580,7 +691,7 @@ const Navbar = () => {
                       <Link href="/become-chef">
                         <Image
                           src={beacomechef}
-                          className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[12px] w-[12px]"
+                          className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] w-[16px]"
                         />
                         Become a Chef
                       </Link>
@@ -589,26 +700,26 @@ const Navbar = () => {
                       <a href="/FAQs">
                         <Image
                           src={faq}
-                          className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] lg:w-[12px] sm:w-[12px] w-[12px]"
+                          className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] w-[16px]"
                         />
                         FAQs
                       </a>
                     </li>
-                    <hr className="mx-auto 2xl:w-[345px] xl:w-[260px] lg:w-[180px] sm:w-[140px] w-[120px] 2xl:mt-[75px] xl:mt-[40px] lg:mt-[20px] sm:mt-[15px] mt-[10px]" />
+                    <hr className="mx-auto 2xl:w-[345px] xl:w-[260px] lg:w-[180px] sm:w-[140px] w-[80%] 2xl:mt-[75px] xl:mt-[40px] lg:mt-[20px] sm:mt-[15px] mt-[10px] text-[#D8D8D8]" />
                     <div className="text-center 2xl:mt-[35px] xl:mt-[15px] lg:mt-[10px] sm:mt-[8px] mt-[5px]">
                       <div className="flex justify-center md:gap-11 gap-2 md:ml-6 lg:ml-0">
                         {isLoggedIn === success ? (
                           <div>
-                            <p className="text-[#555555] font-alata font-[400] 2xl:text-[14px] xl:text-[10px] lg:text-[9px] sm:text-[10px] text-[8px] 2xl:leading-[26px] xl:leading-[22px] lg:leading-[16px] sm:leading-[16px] leading-[14px]">
+                            <p className="text-[#000000] font-alata font-[400] 2xl:text-[20px] md:text-[18px] text-[16px] leading-[30px] py-[3px]">
                               {userDetails?.firstname} {userDetails?.lastname}
                             </p>
-                            <p className="text-[#555555] font-alata font-[400] 2xl:text-[14px] xl:text-[10px] lg:text-[9px] sm:text-[10px] text-[8px] 2xl:leading-[26px] xl:leading-[22px] lg:leading-[16px] sm:leading-[16px] leading-[14px]">
+                            <p className="text-[#555555] font-alata font-[400] text-[14px] leading-[26px]">
                               {userDetails?.email}
                             </p>
-                            <div className="flex justify-center items-center gap-1">
+                            <div className="flex justify-center items-center gap-[7px] py-[8px]">
                               <Image
                                 src={logout}
-                                className="2xl:w-[17px] 2xl:h-[17px] xl:w-[12px] lg:w-[10px] sm:w-[8px] w-[6px]"
+                                className="2xl:w-[17px] 2xl:h-[17px] w-[16px]"
                               />
                               <button
                                 onClick={handleLogout}
@@ -704,7 +815,7 @@ const Navbar = () => {
           type="checkbox"
           className="drawer-toggle"
           checked={isDrawerOpen}
-          onChange={() => { }}
+          onChange={() => {}}
         />
         <div className="drawer-side">
           <label
@@ -795,7 +906,31 @@ const Navbar = () => {
                                   Price: £{data.price}
                                 </h4>
                                 <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
-                                  Quantity: 1
+                                  <div className="flex justify-center 2xl:w-[103px] 2xl:h-[39px] xl:w-[60px] xl:h-[22px] lg:w-[50px] lg:h-[20px] border rounded-[5px]">
+                                    <button
+                                      className="text-[#DB5353] rounded-l w-1/3"
+                                      onClick={() => handleDecrement(item._id)}
+                                    >
+                                      <Image
+                                        src={minus}
+                                        className="2xl:w-[15px] 2xl:h-[15px] xl:w-[10px] xl:h-[10px] lg:w-[8px] lg:h-[8px] mx-auto"
+                                        alt="decrement"
+                                      />
+                                    </button>
+                                    <p className="flex mx-auto items-center text-[10px] xl:text-[12px] 2xl:text-[18px] 2xl:leading-[28px]">
+                                      {item.quantity}
+                                    </p>
+                                    <button
+                                      className="text-[#DB5353] rounded-r w-1/3"
+                                      onClick={() => handleIncrement(item._id)}
+                                    >
+                                      <Image
+                                        src={plus}
+                                        className="2xl:w-[15px] 2xl:h-[15px] xl:w/[10px] xl:h/[10px] lg:w/[8px] lg:h/[8px] mx-auto"
+                                        alt="increment"
+                                      />
+                                    </button>
+                                  </div>
                                 </h4>
                               </div>
                             </div>
@@ -841,11 +976,35 @@ const Navbar = () => {
                                   {item.menuItem.name}
                                 </h4>
                                 <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
-                                  Price: {item?.menuItem?.price && `£${item.menuItem.price.toFixed(2)}`}
+                                  Price:{" "}
+                                  {item?.menuItem?.price &&
+                                    `£${item.menuItem.price.toFixed(2)}`}
                                 </h4>
-                                <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
-                                  Quantity: {item.quantity}
-                                </h4>
+                                <div className="flex justify-center 2xl:w-[103px] 2xl:h-[39px] xl:w-[60px] xl:h-[22px] lg:w-[50px] lg:h-[20px] border rounded-[5px]">
+                                  <button
+                                    className="text-[#DB5353] rounded-l w-1/3"
+                                    onClick={() => handleDecrement(item._id)}
+                                  >
+                                    <Image
+                                      src={minus}
+                                      className="2xl:w-[15px] 2xl:h-[15px] xl:w-[10px] xl:h-[10px] lg:w-[8px] lg:h-[8px] mx-auto"
+                                      alt="decrement"
+                                    />
+                                  </button>
+                                  <p className="flex mx-auto items-center text-[10px] xl:text-[12px] 2xl:text-[18px] 2xl:leading-[28px]">
+                                    {item.quantity}
+                                  </p>
+                                  <button
+                                    className="text-[#DB5353] rounded-r w-1/3"
+                                    onClick={() => handleIncrement(item._id)}
+                                  >
+                                    <Image
+                                      src={plus}
+                                      className="2xl:w-[15px] 2xl:h-[15px] xl:w/[10px] xl:h/[10px] lg:w/[8px] lg:h/[8px] mx-auto"
+                                      alt="increment"
+                                    />
+                                  </button>
+                                </div>
                               </div>
                             </div>
                             <button
@@ -871,7 +1030,17 @@ const Navbar = () => {
                             </button>
                           </div>
                         ))}
-
+                      <p className="font-[500] text-[16px]">
+                        FREE delivery on orders over £55{" "}
+                      </p>
+                      <div className="flex justify-between mt-4">
+                        <h4 className="alata font-[400] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
+                          Total :
+                        </h4>
+                        <h4 className="alata font-[400] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
+                          £{subtotalPrice.toFixed(2)}
+                        </h4>
+                      </div>
                       <div className="flex justify-between items-center mt-20">
                         <div>
                           <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]"></h4>

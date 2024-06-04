@@ -337,15 +337,15 @@ td {
 
 /* =================Nine================= */
 .nine_start {
-  @apply 2xl:my-4 xl:my-2 mx-auto 2xl:w-[106.64px] 2xl:h-[18.74px] xl:w-[80.64px] xl:h-[15.74px] lg:w-[60.64px] lg:h-[12.74px] w-[60px] h-[12px];
+  @apply  lg:w-[60.64px] mx-auto w-[60px] mt-[12px] mb-[8px];
 }
 
 .nine_head {
-  @apply text-center alata font-[400] 2xl:text-[55px] 2xl:leading-[75px] xl:text-[35px] xl:leading-[45px] lg:text-[25px] lg:leading-[30px] sm:text-[25px] sm:leading-[30px] text-[20px] leading-[25px];
+  @apply text-center alata font-[400] 2xl:text-[55px] 2xl:leading-[75px] lg:text-[45px] lg:leading-[60px] sm:text-[35px]  leading-[45px] text-[30px];
 }
 
 .nine_p {
-  @apply alata font-[400] 2xl:text-[20px] 2xl:leading-[30px] xl:text-[14px] xl:leading-[25px] lg:text-[12px] lg:leading-[16px] sm:text-[12px] sm:leading-[20px] text-[10px] leading-[16px];
+  @apply alata font-[400] md:text-[20px] leading-[30px] text-[16px];
 }
 
 .nine_img {
@@ -353,11 +353,11 @@ td {
 }
 
 .nine_p2 {
-  @apply alata font-[400] text-center 2xl:w-[352px] 2xl:text-[18px] 2xl:leading-[28px] 2xl:my-5 xl:w-[280px] xl:text-[14px] xl:leading-[20px] xl:my-5 lg:w-[230px] lg:text-[12px] lg:leading-[18px] lg:my-4 text-[12px] leading-[18px] my-2;
+  @apply alata font-[400] text-center 2xl:w-[352px] lg:text-[18px] leading-[28px] 2xl:my-5 xl:w-[280px]  xl:my-5 lg:w-[230px] sm:w-[80%] mx-auto lg:my-4 sm:text-[16px] text-[15px]  my-2;
 }
 
 .nine_name {
-  @apply alata font-[400] text-[#DB5353] 2xl:text-[18px] 2xl:leading-[28px] text-center xl:text-[14px] xl:leading-[20px] lg:text-[12px] lg:leading-[18px] text-[12px] leading-[18px];
+  @apply alata font-[400] text-[#DB5353] lg:text-[18px] leading-[28px] text-center sm:text-[16px] text-[15px];
 }
 
 /* =================footer================= */
@@ -477,7 +477,9 @@ td {
 .privacyHead {
   @apply alata font-[400] 2xl:text-[22px] 2xl:leading-[32px] xl:text-[14px] xl:leading-[20px] text-[11px] leading-[14px]
 }
-
+.menu li a{
+  @apply text-[#000000] alata font-[400] md:text-[16px] sm:text-[15px] text-[14px] leading-[26px]
+}
 @media (min-width: 1536px) and (max-width: 1750px) {
   .mnavbar {
     width: 93% !important;
@@ -486,7 +488,6 @@ td {
   .exploreDishesmain {
     gap: 35px !important;
   }
-
   .exploreMainDiv {
     gap: 35px !important;
   }
