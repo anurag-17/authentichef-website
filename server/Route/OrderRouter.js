@@ -3,12 +3,14 @@ const { isAuthenticatedUser,isAuthenticatedUserForAddtocard,authorizeRoles} = re
 const {PlaceOrder,OrderList,getOrderById,UpdateOrder,DeleteOrder,  getChefAndOrderCounts , AllOrderList ,checkDiscount} = require("../Controller/order")
 const {handleWebhook}=require("../Controller/handlehookcontroller")
 const router=express.Router()
+const bodyParser = require('body-parser');
 
 // Creata  a  order //
 
 router.post("/createOrder", isAuthenticatedUser , PlaceOrder)
 // Webhook endpoint for Stripe
-router.post("/webhook", express.raw({ type: 'application/json' }), handleWebhook);
+// Route for handling webhook events from Stripe
+router.post("/webhook", bodyParser.raw({ type: 'application/json' }), handleWebhook);
 
 router.get("/orderList" ,isAuthenticatedUser , OrderList)
 router.get("/orderListById/:id", isAuthenticatedUser , getOrderById)
