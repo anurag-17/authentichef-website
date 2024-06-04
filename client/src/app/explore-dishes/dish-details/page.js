@@ -140,7 +140,10 @@ const DishDetails = ({ dishID, defaultADish, handleAddCart, setItemId }) => {
                     className="pop-btn"
                   >
                     <div className="drawer-content">
-                      <label htmlFor="my-drawer-4" className="drawer-button cursor-pointer">
+                      <label
+                        htmlFor="my-drawer-4"
+                        className="drawer-button cursor-pointer"
+                      >
                         {/* <Image
                           src={addCart}
                           alt={item.title}
@@ -158,7 +161,10 @@ const DishDetails = ({ dishID, defaultADish, handleAddCart, setItemId }) => {
                     className="pop-btn"
                   >
                     <div className="drawer-content">
-                      <label htmlFor="my-drawer-4" className="drawer-button cursor-pointer">
+                      <label
+                        htmlFor="my-drawer-4"
+                        className="drawer-button cursor-pointer"
+                      >
                         {/* <Image
                           src={addCart}
                           alt={item.title}

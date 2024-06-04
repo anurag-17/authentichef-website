@@ -238,15 +238,15 @@ td {
 }
 
 .fourth_name {
-  @apply text-[#111111] alata font-[400] 2xl:text-[16px] 2xl:leading-[20px] xl:text-[12px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[10px] leading-[16px];
+  @apply text-[#111111] alata font-[400] 2xl:text-[16px] 2xl:leading-[20px] xl:text-[12px] xl:leading-[18px] lg:text-[12px] lg:leading-[16px] text-[10px] leading-[16px];
 }
 
 .fourth_p {
-  @apply alata font-[400] text-[16px] leading-[24px];
+  @apply alata font-[400] xl:text-[16px] xl:leading-[24px] text-[12px];
 }
 
 .four_btn {
-  @apply bg-[#E3E3E3] flex items-center rounded-[3px] px-[15px] py-[10px] gap-2 h-[34px] text-[16px] leading-[24px];
+  @apply bg-[#E3E3E3] flex items-center rounded-[3px] xl:px-[15px] xl:py-[10px] gap-2 xl:h-[34px] xl:text-[16px] xl:leading-[24px] px-2 py-[2px];
 }
 
 .four_btnn {
@@ -256,7 +256,7 @@ td {
 }
 
 .fourth_day {
-  @apply alata font-[400] text-[16px] leading-[24px];
+  @apply alata font-[400] xl:text-[16px]  xl:leading-[24px] text-[12px] ;
 }
 
 /* ==================Five================== */
