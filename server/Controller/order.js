@@ -365,7 +365,7 @@ const transporter = nodemailer.createTransport(emailConfig);
 // };
 
 
-
+// Working code on Production ----------------------------
 exports.PlaceOrder = async (req, res, next) => {
     try {
         const { deliveryDate, deliveryInfo, BillingInfo, status, paymentMethodToken, payment_method_types = 'COD', Type_of_Address, Delivery_instruction, Promo_code } = req.body;
@@ -541,7 +541,7 @@ exports.PlaceOrder = async (req, res, next) => {
                     price_data: {
                         currency: 'usd',
                         product_data: {
-                            name: item.menuItem.name,
+                            name: item.menuItem.name
                         },
                         unit_amount: item.menuItem.price * 100,
                     },
@@ -579,6 +579,283 @@ exports.PlaceOrder = async (req, res, next) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 };
+
+
+
+// exports.PlaceOrder = async (req, res, next) => {
+//     try {
+//       const { deliveryDate, deliveryInfo, BillingInfo, status, paymentMethodToken, payment_method_types = 'COD', Type_of_Address, Delivery_instruction, Promo_code } = req.body;
+  
+//       // Get the cart items
+//       const cartItems = await Cart.findOne({ user: req.user._id }).populate('items.menuItem');
+  
+//       if (!cartItems || cartItems.items.length === 0) {
+//         return res.status(404).json({ message: "Cart is empty" });
+//       }
+  
+//       // Calculate total amount from updated cart items
+//       let totalAmount = cartItems.items.reduce((total, item) => {
+//         return total + (item.menuItem.price * item.quantity);
+//       }, 0);
+  
+//       console.log("Total amount before discount:", totalAmount);
+  
+//       let discountApplied = 0;
+//       let DiscountPercentage = 0;
+  
+//       // Check if this is the user's first order and a promo code is provided
+//       const userOrder = await Order.find({ user: req.user._id });
+  
+//       if (userOrder.length === 0) {
+//         if (Promo_code) {
+//           console.log("First Order with Promo Code");
+//           const coupon = await Coupon.findOne({ code: Promo_code, isActive: true });
+//           if (coupon) {
+//             // Apply discount if conditions are met
+//             if (totalAmount > 0) {
+//               console.log("Total amount is above $0. Proceed with applying promo code.", totalAmount);
+//               if (coupon.discountType === 'percentage') {
+//                 console.log("Discount value:", coupon.discountValue);
+//                 discountApplied = (coupon.discountValue / 100) * totalAmount;
+//                 console.log("Discount Applied:", discountApplied);
+//                 DiscountPercentage = coupon.discountValue;
+//                 console.log("Discount Percentage:", DiscountPercentage);
+//                 console.log("Total Amount Before Discount:", totalAmount);
+//               } else if (coupon.discountType === 'fixed') {
+//                 discountApplied = coupon.discountValue;
+//               }
+//             } else {
+//               console.log("Total amount is below $0. Promo code cannot be applied.");
+//               return res.status(400).json({ message: "Total amount is below $0. Promo code cannot be applied." });
+//             }
+//           } else {
+//             console.log("Invalid or inactive promo code.");
+//             return res.status(400).json({ message: "Invalid or inactive promo code." });
+//           }
+//         } else {
+//           console.log("First Order without promo code");
+//           // Proceed with order without applying any discount
+//         }
+//       } else if (Promo_code) {
+//         console.log("Not the first order. Promo code cannot be applied.");
+//         return res.status(400).json({ message: 'You have already used the promo code' });
+//       }
+  
+//       // Calculate total amount after applying discount
+//       const totalAmountBeforeDiscount = totalAmount;
+//       totalAmount -= discountApplied;
+  
+//       console.log("Total amount after discount:", totalAmount);
+  
+//       // Determine the shipping cost based on the total amount after discount
+//       let shippingCost = cartItems.Shipping_cost;
+//       if (totalAmount > 55) {
+//         shippingCost = 0; // Free shipping for orders above £55
+//       }
+//       totalAmount += shippingCost; // Add shipping cost
+  
+//       // Format totalAmount to two decimal places
+//       totalAmount = parseFloat(totalAmount.toFixed(2));
+  
+//       let payment, transactionId;
+  
+//       if (payment_method_types === 'COD') {
+//         // Handle Cash on Delivery
+//         transactionId = 'COD-' + new Date().getTime(); // Generate a unique transaction ID for COD
+  
+//         payment = new Payment({
+//           amount: totalAmount,
+//           paymentMethod: 'COD',
+//           status: 'pending',
+//           transactionId: transactionId
+//         });
+  
+//         const savedPayment = await payment.save();
+  
+//         if (!savedPayment) {
+//           return res.status(400).json({ message: 'Payment details could not be saved' });
+//         }
+  
+//         // Extract menu items from cart
+//         const items = cartItems.items.map(item => ({
+//           menuItem: item.menuItem._id,
+//           quantity: item.quantity,
+//           customization: item.customization,
+//           price: item.menuItem.price,
+//           ProfileImage: item.menuItem.ProfileImage,
+//           name: item.menuItem.name
+//         }));
+  
+//         // Create an order with delivery information
+//         const newOrder = new Order({
+//           items,
+//           user: req.user._id,
+//           deliveryDate,
+//           Delivery_instruction,
+//           Promo_code,
+//           deliveryInfo,
+//           BillingInfo,
+//           totalAmount,
+//           discountApplied,
+//           totalAmountBeforeDiscount,
+//           DiscountPercentage,
+//           Type_of_Address: Type_of_Address || 'Shipping Address',
+//           status,
+//           shippingCharge: shippingCost,
+//           payment: payment._id,
+//           TransactionId: transactionId // Include the transaction ID in the order
+//         });
+  
+//         const savedOrder = await newOrder.save();
+  
+//         if (!savedOrder) {
+//           return res.status(400).json({ message: 'Order creation failed' });
+//         }
+  
+//         // Update the payment with the order ID
+//         payment.order = savedOrder._id;
+//         await payment.save();
+  
+//         // Delete the cart after placing the order
+//         await Cart.deleteOne({ _id: cartItems._id });
+  
+//         // Send confirmation email to the user
+//         const emailOptions = userMailOptions(req, savedOrder, deliveryDate, deliveryInfo, totalAmount, cartItems, payment_method_types);
+//         transporter.sendMail(emailOptions, (error, info) => {
+//           if (error) {
+//             console.error('Error sending email to user:', error);
+//           } else {
+//             console.log('Email sent to user:', info.response);
+//           }
+//         });
+  
+//         // Send notification email to the admin
+//         const adminoptions = adminMailOptions(req, savedOrder, deliveryDate, deliveryInfo, payment_method_types, totalAmount, cartItems);
+//         transporter.sendMail(adminoptions, (error, info) => {
+//           if (error) {
+//             console.error('Error sending email to admin:', error);
+//           } else {
+//             console.log('Email sent to admin:', info.response);
+//           }
+//         });
+  
+//         // Send response with order and applied discount
+//         res.status(201).json({
+//           message: 'Order created successfully',
+//           order: savedOrder
+//         });
+  
+//       } else {
+//         // Payment with Stripe Checkout Session
+//         const session = await stripe.checkout.sessions.create({
+//           payment_method_types: ['card'],
+//           line_items: cartItems.items.map(item => ({
+//             price_data: {
+//               currency: 'usd',
+//               product_data: {
+//                 name: item.menuItem.name
+//               },
+//               unit_amount: item.menuItem.price * 100,
+//             },
+//             quantity: item.quantity,
+//           })),
+//           mode: 'payment',
+//           customer: req.user.stripeCustomerId,
+//           success_url: 'http://www.authentichef.com/success?session_id={CHECKOUT_SESSION_ID}',
+//           cancel_url: 'http://www.authentichef.com/cancel',
+//           metadata: {
+//             userId: req.user._id.toString(),
+//             deliveryDate: deliveryDate.toString(),
+//             deliveryInfo: JSON.stringify(deliveryInfo),
+//             BillingInfo: JSON.stringify(BillingInfo),
+//             Type_of_Address: Type_of_Address || 'Shipping Address',
+//             Delivery_instruction: Delivery_instruction,
+//             Promo_code: Promo_code,
+//             totalAmountBeforeDiscount: totalAmountBeforeDiscount,
+//             discountApplied: discountApplied,
+//             DiscountPercentage: DiscountPercentage,
+//             status: status,
+//           }
+//         });
+  
+//         // Extract transaction ID from payment intent
+//         transactionId = session.payment_intent;
+
+//         console.log("Transaction ID:", transactionId);
+  
+//         // Create a new payment entry
+//         payment = new Payment({
+//           amount: totalAmount,
+//           paymentMethod: 'card',
+//           status: 'pending',
+//           transactionId: transactionId
+//         });
+  
+//         const savedPayment = await payment.save();
+  
+//         if (!savedPayment) {
+//           return res.status(400).json({ message: 'Payment details could not be saved' });
+//         }
+  
+//         // Extract menu items from cart
+//         const items = cartItems.items.map(item => ({
+//           menuItem: item.menuItem._id,
+//           quantity: item.quantity,
+//           customization: item.customization,
+//           price: item.menuItem.price,
+//           ProfileImage: item.menuItem.ProfileImage,
+//           name: item.menuItem.name
+//         }));
+  
+//         // Create an order with delivery information
+//         const newOrder = new Order({
+//           items,
+//           user: req.user._id,
+//           deliveryDate,
+//           Delivery_instruction,
+//           Promo_code,
+//           deliveryInfo,
+//           BillingInfo,
+//           totalAmount,
+//           discountApplied,
+//           totalAmountBeforeDiscount,
+//           DiscountPercentage,
+//           Type_of_Address: Type_of_Address || 'Shipping Address',
+//           status,
+//           shippingCharge: shippingCost,
+//           payment: payment._id,
+//           TransactionId: transactionId // Include the transaction ID in the order
+//         });
+  
+//         const savedOrder = await newOrder.save();
+  
+//         if (!savedOrder) {
+//           return res.status(400).json({ message: 'Order creation failed' });
+//         }
+  
+//         // Update the payment with the order ID
+//         payment.order = savedOrder._id;
+//         await payment.save();
+  
+//         // Delete the cart after placing the order
+//         await Cart.deleteOne({ _id: cartItems._id });
+  
+//         // Send response with order and applied discount
+//         res.status(200).json({
+//           message: 'Checkout session created successfully',
+//           sessionId: session.id,
+//           sessionUrl: session.url, // Include the session URL in the response
+//           order: savedOrder
+//         });
+//       }
+  
+//     } catch (error) {
+//       console.error(error);
+//       res.status(500).json({ message: 'Internal server error' });
+//     }
+//   };
+
+
 
 
 // Make a api to check the Discoun on Users cart
