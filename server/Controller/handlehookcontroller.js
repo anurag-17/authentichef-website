@@ -13,6 +13,11 @@ exports.handleWebhook = async (req, res) => {
     try {
         const event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
 
+        console.log("Request received", event.type)
+        console.log("Request received", event.data.object)
+        console.log("Reqest data",req.body)
+        
+
         if (event.type === 'checkout.session.completed') {
             const session = event.data.object;
 
