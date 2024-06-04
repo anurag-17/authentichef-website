@@ -7,10 +7,13 @@ const bodyParser = require('body-parser');
 
 // Creata  a  order //
 
+// Middleware to parse raw request body for webhook
+router.use(bodyParser.raw({ type: 'application/json' }));
+
 router.post("/createOrder", isAuthenticatedUser , PlaceOrder)
 // Webhook endpoint for Stripe
 // Route for handling webhook events from Stripe
-router.post("/webhook", bodyParser.raw({ type: 'application/json' }), handleWebhook);
+router.post("/webhook",  handleWebhook);
 
 router.get("/orderList" ,isAuthenticatedUser , OrderList)
 router.get("/orderListById/:id", isAuthenticatedUser , getOrderById)
