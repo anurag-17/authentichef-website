@@ -11,7 +11,7 @@ router.put('/updateCartItem/:cardid/:menuid',isAuthenticatedUserForAddtocard ,up
 router.delete('/deleteCartItem/:id', isAuthenticatedUserForAddtocard, deleteCartItem)
 router.delete('/deleteAllCartItem', isAuthenticatedUserForAddtocard, deleteAllCartItems)
 router.post('/placeOrder', isAuthenticatedUserForAddtocard,authorizeRoles('user'), placeOrder)
-router.put('/updateItem/:menuid', updateItem)
+router.put('/updateItem/:menuid', isAuthenticatedUserForAddtocard, updateItem)
 
 
 

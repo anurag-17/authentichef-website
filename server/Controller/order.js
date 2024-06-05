@@ -558,8 +558,8 @@ exports.PlaceOrder = async (req, res, next) => {
                 })),
                 mode: 'payment',
                 customer: req.user.stripeCustomerId,
-                success_url: 'http://www.authentichef.com/?session_id={CHECKOUT_SESSION_ID}',
-                cancel_url: 'http://www.authentichef.com/cancel',
+                success_url: 'http://www.authentichef.com/thankyou?session_id={CHECKOUT_SESSION_ID}',
+                cancel_url: 'http://www.authentichef.com',
                 metadata: {
                     userId: req.user._id.toString(),
                     deliveryDate: deliveryDate.toString(),
