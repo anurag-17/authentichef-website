@@ -86,6 +86,7 @@ const ExploreDishes = () => {
 
   const handleClearCart = () => {
     dispatch(clearCart());
+    router.push("/explore-dishes");
   };
 
   const handleDrawerOpen = () => {
@@ -510,6 +511,7 @@ const ExploreDishes = () => {
       if (response.status >= 200 && response.status < 300) {
         toast.success("All Items Are Removed");
         refreshData();
+        router.push("/explore-dishes");
       } else {
         alert("failed");
       }
@@ -1115,7 +1117,7 @@ const ExploreDishes = () => {
                     <button
                       key={item._id}
                       onClick={() => handleSearchCuisines(item._id)}
-                      className="mcusinimgs"
+                      className="mcusinimgs buttonHov"
                     >
                       {" "}
                       <img
@@ -1537,7 +1539,8 @@ const ExploreDishes = () => {
                     <p className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[16px] 2xl:leading-[26px] xl:text-[14px] xl:leading-[20px] lg:text-[12px] lg:leading-[18px] text-center">
                       Add dishes to your cart now.
                     </p>
-                    <div className="flex 2xl:mt-12 xl:mt-6 lg:mt-5 mt-4">
+
+                    <div className="flex justify-center 2xl:mt-12 xl:mt-6 lg:mt-5 mt-4 w-full">
                       <Link href="/explore-dishes">
                         <button className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[221px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1">
                           Explore Dishes
@@ -1756,12 +1759,24 @@ const ExploreDishes = () => {
                               </button>
                             </Link>
                           ) : (
-                            <button
-                              onClick={handleLoginClick}
-                              className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w/[164px] 2xl:h/[56px] 2xl:text/[20px] 2xl:leading/[27.6px] xl:text/[12px] lg:text/[10px] xl:px-[6px] xl:py/[10px] lg:px/[3px] lg:py/[1px] px/[3px] py/[1px]"
-                            >
-                              Checkout
-                            </button>
+                            <div>
+                              {/* {cart?.length === 0 &&
+                              getCartItems?.length === 0 ? ( */}
+                              <button
+                                onClick={handleLoginClick}
+                                className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w/[164px] 2xl:h/[56px] 2xl:text/[20px] 2xl:leading/[27.6px] xl:text/[12px] lg:text/[10px] xl:px-[6px] xl:py/[10px] lg:px/[3px] lg:py/[1px] px/[3px] py/[1px]"
+                              >
+                                Checkout
+                              </button>
+                              {/* ) : (
+                                <button
+                                  onClick={handleDrawerClose}
+                                  className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w/[164px] 2xl:h/[56px] 2xl:text/[20px] 2xl:leading/[27.6px] xl:text/[12px] lg:text/[10px] xl:px-[6px] xl:py/[10px] lg:px/[3px] lg:py/[1px] px/[3px] py/[1px]"
+                                >
+                                  Checkout
+                                </button>
+                              )} */}
+                            </div>
                           )}
                         </div>
                       </div>

@@ -999,7 +999,7 @@ const Checkout = () => {
                         <p className="fourth_p text-[#555555]">
                           Your personal data only be used to process your order
                           and support your experience. We do not sell or rent
-                          your data. See our{" "} 
+                          your data. See our{" "}
                           <Link href={"/privacy-policy"} target="_blank">
                             <span className="text-[#FF0000] underline">
                               {" "}

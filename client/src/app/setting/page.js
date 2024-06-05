@@ -16,6 +16,7 @@ import config from "@/config";
 import { ToastContainer, toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
+import Address from "./address";
 
 const Setting = () => {
   const menulist = [
@@ -36,6 +37,12 @@ const Setting = () => {
           label: "Edit Profile",
         },
       ],
+    },
+    {
+      id: 3,
+      label: "My Address",
+      component: <Address />,
+      icon: myorder,
     },
   ];
 
@@ -64,10 +71,10 @@ const Setting = () => {
       });
       if (res.status >= 200 && res.status < 300) {
         toast.success("Logout successfully");
+        router.push("/explore-dishes");
         dispatch(removeToken());
         dispatch(removeUser());
         dispatch(removeSuccess());
-        router.push("/explore-dishes");
         refreshData();
       } else {
         console.log("Logout failed");
@@ -128,7 +135,7 @@ const Setting = () => {
                     onClick={handleLogout}
                     className="py-3 rounded text-center cursor-pointer my-3 flex justify-between items-center transition-colors dash-menu gap-x-3 hover:bg-menu_secondary hover:rounded-md hover:text-black text-[#A3A3A3] alata font-[400] 2xl:text-[25px] xl:text-[14px] lg:text-[14px] md:text-[14px] sm:text-[12px] text-[11px] dashboard_box_t"
                   >
-                    <button className="text-inherit">Log out</button>
+                    <button className="text-inherit">Log Out</button>
                     <Image
                       src={logout}
                       alt="Logout Icon"

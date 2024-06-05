@@ -44,7 +44,7 @@ const MyOrder = () => {
               <div key={orderIndex}>
                 <ul>
                   <li className="fourth_p text-[#787878]">
-                    Delivered on {order.deliveryDate}
+                    {/* Delivered on {order.deliveryDate} */}
                   </li>
                 </ul>
                 {order.items.map((item, itemIndex) => (
