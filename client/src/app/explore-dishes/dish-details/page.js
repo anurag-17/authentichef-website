@@ -10,12 +10,23 @@ const DishDetails = ({ dishID, defaultADish, handleAddCart, setItemId }) => {
   const { token } = useSelector((state) => state?.auth);
 
   const [count, setCount] = useState(1);
-  // console.log(dishID, "dishID");
   const [getADish, setGetADish] = useState("");
+  const [subtotalPrice, setSubtotalPrice] = useState(0);
+  const [updatedCartItems, setUpdatedCartItems] = useState([]);
+  const [shouldRefresh, setShouldRefresh] = useState(false);
+  const [cartId, setCartId] = useState("");
+  const [getCartItems, setGetCartItems] = useState({});
+  const [isRefresh, setRefresh] = useState(false);
 
   useEffect(() => {
     defaultDish();
   }, []);
+
+  useEffect(() => {
+    if (token) {
+      defaultCartItems();
+    }
+  }, [token, isRefresh]);
 
   const defaultDish = () => {
     const option = {
@@ -33,15 +44,134 @@ const DishDetails = ({ dishID, defaultADish, handleAddCart, setItemId }) => {
       });
   };
 
-  const handleIncrement = () => {
-    setCount(count + 1);
+  const handleIncrement = (itemId, prevCartItems) => {
+    if (!Array.isArray(prevCartItems)) {
+      // If prevCartItems is not an array, return early or handle the error
+      console.error("prevCartItems is not an array");
+      return;
+    }
+  
+    setGetCartItems((prevCartItems) => {
+      const updatedCartItems = prevCartItems.map((item) =>
+        item._id === itemId
+          ? {
+              ...item,
+              quantity: item.quantity + 1,
+              totalPrice: item.menuItem.price * (item.quantity + 1),
+            }
+          : item
+      );
+      setUpdatedCartItems(updatedCartItems);
+      return updatedCartItems;
+    });
+  
+    setShouldRefresh(true);
   };
 
-  const handleDecrement = () => {
-    if (count > 1) {
-      setCount(count - 1);
+  const updateCartItemQuantity = async (cartId, menuId, quantity) => {
+    try {
+      const response = await axios.put(
+        `${config.baseURL}/api/Orders/updateItem/${menuId}`,
+        { quantity },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      if (response.status >= 200 && response.status < 300) {
+        console.log("Cart item updated successfully");
+      } else {
+        console.log("Failed to update cart item", response.data.message);
+      }
+    } catch (error) {
+      console.log("Error updating cart item:", error);
     }
   };
+
+  const defaultCartItems = () => {
+    const option = {
+      method: "GET",
+      url: `${config.baseURL}/api/Orders/getCartItem`,
+      headers: {
+        Authorization: token,
+      },
+    };
+    axios
+      .request(option)
+      .then(async (response) => {
+        const userCart = response?.data?.userCart;
+        const cartItems = userCart?.items.map((item) => ({
+          ...item,
+          totalPrice: item.menuItem.price * item.quantity,
+        }));
+        console.log("User cart is -------------->>>>>>>>>>>>>", userCart._id);
+        setGetCartItems(cartItems);
+        setUpdatedCartItems(cartItems); // Initializing updatedCartItems with fetched data
+        setSubtotalPrice(
+          cartItems.reduce((sum, item) => sum + item.totalPrice, 0)
+        );
+        setShippingCost(userCart.Shipping_cost ?? 0); // Set the shipping cost
+        setCartId(userCart._id); // Set the cart ID inside the .then callback
+
+        // Update quantities for default cart items
+        for (const item of cartItems) {
+          await updateCartItemQuantity(
+            userCart._id,
+            item.menuItem._id,
+            item.quantity
+          );
+        }
+      })
+      .catch((error) => {
+        console.log(error, "Error");
+      });
+  };
+  const handleDecrement = (itemId, prevCartItems) => {
+    if (!Array.isArray(prevCartItems)) {
+      // If prevCartItems is not an array, return early or handle the error
+      console.error("prevCartItems is not an array");
+      return;
+    }
+  
+    setGetCartItems((prevCartItems) => {
+      const updatedCartItems = prevCartItems.map((item) =>
+        item._id === itemId && item.quantity > 1
+          ? {
+              ...item,
+              quantity: item.quantity - 1,
+              totalPrice: item.menuItem.price * (item.quantity - 1),
+            }
+          : item
+      );
+      setUpdatedCartItems(updatedCartItems);
+      return updatedCartItems;
+    });
+  
+    setShouldRefresh(true);
+  };
+
+  useEffect(() => {
+    if (shouldRefresh) {
+      getCartItems.forEach((item) => {
+        updateCartItemQuantity(cartId, item.menuItem._id, item.quantity);
+      });
+
+      // Recalculate the subtotal price after updating quantities
+      const newSubtotalPrice = getCartItems.reduce(
+        (sum, item) => sum + item.totalPrice,
+        0
+      );
+      setSubtotalPrice(newSubtotalPrice);
+
+      setShouldRefresh(false);
+    }
+  }, [shouldRefresh, cartId, getCartItems]);
+
+  useEffect(() => {
+    console.log("Updated Cart Items:", updatedCartItems);
+  }, [updatedCartItems]);
+
   return (
     <>
       <section>
@@ -84,52 +214,52 @@ const DishDetails = ({ dishID, defaultADish, handleAddCart, setItemId }) => {
                   <h3>{getADish?.spice_level_id?.title}</h3>
                 </button>
 
-               
-                  {/* <img
+                {/* <img
                     src={getADish?.spice_level_id?.ProfileImage}
                     className="2xl:[18px] xl:w-[14px] w-[12px]"
                   /> */}
-                  {/* <h3>{getADish?.Nutrition_id?.Nutritional}</h3> */}
-                  {getADish?.Nutrition_id?.Nutritional ? (
-                    <div className="four_btn">
-                      <p className="fourth_day capitalize">
-                        {getADish?.Nutrition_id?.Nutritional}
-                      </p>
-                    </div>
-                  ) : (
-                    ""
-                  )}
-            
+                {/* <h3>{getADish?.Nutrition_id?.Nutritional}</h3> */}
+                {getADish?.Nutrition_id?.Nutritional ? (
+                  <div className="four_btn">
+                    <p className="fourth_day capitalize">
+                      {getADish?.Nutrition_id?.Nutritional}
+                    </p>
+                  </div>
+                ) : (
+                  ""
+                )}
               </div>
               <div className="flex justify-center 2xl:w-[103px] 2xl:h-[39px] xl:w-[60px] xl:h-[22px] lg:w-[50px] lg:h-[20px] border rounded-[5px] 2xl:mt-[25px] xl:mt-[20px] mt-[15px]">
                 {" "}
                 <button
                   className="   text-[#DB5353] rounded-l w-1/3"
                   onClick={() => {
-                    handleDecrement();
+                    handleDecrement(getADish?._id, getCartItems);
+                    // Pass dish ID instead of item ID
                     // alert("Removed from cart");
                   }}
                 >
                   -
                   {/* <Image
-                      src={minus}
-                      className="2xl:w-[15px] 2xl:h-[15px] xl:w-[10px] xl:h-[10px] lg:w-[8px] lg:h-[8px] mx-auto "
-                    /> */}
+        src={minus}
+        className="2xl:w-[15px] 2xl:h-[15px] xl:w-[10px] xl:h-[10px] lg:w-[8px] lg:h-[8px] mx-auto "
+      /> */}
                 </button>
                 <p className=" flex mx-auto items-center text-[10px] xl:text-[12px] 2xl:text-[18px]  2xl:leading-[28px] ">
                   {count}
                 </p>
                 <button
                   className="    text-[#DB5353] rounded-r w-1/3"
-                  onClick={() => handleIncrement()}
+                  onClick={() => handleIncrement(getADish?._id, getCartItems)} // Pass dish ID instead of item ID
                 >
                   +
                   {/* <Image
-                      src={plus}
-                      className="2xl:w-[15px] 2xl:h-[15px] xl:w-[10px] xl:h-[10px] lg:w-[8px] lg:h-[8px] mx-auto "
-                    /> */}
+        src={plus}
+        className="2xl:w-[15px] 2xl:h-[15px] xl:w-[10px] xl:h-[10px] lg:w-[8px] lg:h-[8px] mx-auto "
+      /> */}
                 </button>
               </div>
+
               <div>
                 {token ? (
                   <button
@@ -199,6 +329,15 @@ const DishDetails = ({ dishID, defaultADish, handleAddCart, setItemId }) => {
               <div className="2xl:my-[20px] xl:my-[12px] my-[10px]">
                 <p className="fourth_p text-[#555555]">Heating instructions</p>{" "}
                 <p className="fourth_p ">{getADish?.Heating_Instruction}</p>
+              </div>
+              <div>
+                <p className="fourth_p text-[#555555]">
+                  Nutritional Information:
+                </p>{" "}
+                <p className="fourth_p ">
+                  {" "}
+                  {getADish?.nutritional_information}
+                </p>
               </div>
             </div>
           </div>
