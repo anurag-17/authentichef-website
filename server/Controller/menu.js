@@ -48,7 +48,7 @@ exports.upload = upload;
 exports.createMenuItem = async (req, res) => {
   try {
 
-    const { name, description, price, weight, portion_Size, Ingredients, Heating_Instruction, List_of_Allergens, Cuisines_id, Dishtype_id, Dietary_id, spice_level_id, chef_id, popular_dish , Nutrition_id} = req.body;
+    const { name, description, price, weight, portion_Size, Ingredients, Heating_Instruction, List_of_Allergens, Cuisines_id, Dishtype_id, Dietary_id, spice_level_id, chef_id, popular_dish , Nutrition_id , nutritional_information} = req.body;
 
     // Access the uploaded files from req.files
     const profileImages = req.files['ProfileImage'];
@@ -94,6 +94,7 @@ exports.createMenuItem = async (req, res) => {
       chef_id,
       Nutrition_id,
       popular_dish: popular_dish || 'No',
+      nutritional_information,
       ProfileImage: imageUrls
     });
 
@@ -191,6 +192,17 @@ exports.updateMenuItemById = async (req, res, next) => {
              }
          });
 
+
+         const NewFields = [ 'Nutrition_id'];
+          NewFields.forEach(field => {
+              if (req.body[field] && !Array.isArray(req.body[field])) {
+                  req.body[field] = [req.body[field]];
+              }
+          
+          })
+
+
+
       // Update menu item details
       const updatedMenuItem = await MenuItem.findByIdAndUpdate(id, req.body, { new: true });
 
@@ -281,7 +293,7 @@ exports.getMenuItemByParams = async (req, res, next) => {
     if (Dishtype_id) query.Dishtype_id = Dishtype_id;
     if (Dietary_id) query.Dietary_id = { $in: Array.isArray(Dietary_id) ? Dietary_id : [Dietary_id] };
     if (spice_level_id) query.spice_level_id = spice_level_id;
-    if(Nutrition_id) query.Nutrition_id = Nutrition_id
+    if(Nutrition_id) query.Nutrition_id = { $in: Array.isArray(Nutrition_id) ? Nutrition_id : [Nutrition_id] };
 
     // Find documents matching the query
     const menuItem = await MenuItem.find(query)

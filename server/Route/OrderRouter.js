@@ -1,6 +1,6 @@
 const express=require('express')
 const { isAuthenticatedUser,isAuthenticatedUserForAddtocard,authorizeRoles} = require('../middleware/auth')
-const {PlaceOrder,OrderList,getOrderById,UpdateOrder,DeleteOrder,  getChefAndOrderCounts , AllOrderList ,checkDiscount} = require("../Controller/order")
+const {PlaceOrder,OrderList,getOrderById,UpdateOrder,DeleteOrder,  getChefAndOrderCounts , AllOrderList ,checkDiscount,BookOrder} = require("../Controller/order")
 const {handleWebhook}=require("../Controller/handlehookcontroller")
 const router=express.Router()
 const bodyParser = require('body-parser');
@@ -11,6 +11,8 @@ const bodyParser = require('body-parser');
 router.use(bodyParser.raw({ type: 'application/json' }));
 
 router.post("/createOrder", isAuthenticatedUser , PlaceOrder)
+
+router.post("/bookOrder", isAuthenticatedUser , BookOrder)
 // Webhook endpoint for Stripe
 // Route for handling webhook events from Stripe
 router.post("/webhook",  handleWebhook);
