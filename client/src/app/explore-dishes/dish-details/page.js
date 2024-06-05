@@ -336,11 +336,14 @@ const DishDetails = ({ dishID, defaultADish, handleAddCart, setItemId }) => {
               <div>
                 <p className="fourth_p text-[#555555]">
                   Nutritional Information:
-                </p>{" "}
-                <p className="fourth_p ">
-                  {" "}
-                  {getADish?.nutritional_information}
                 </p>
+                {getADish?.nutritional_information && (
+                  <span
+                    dangerouslySetInnerHTML={{
+                      __html: getADish?.nutritional_information,
+                    }}
+                  />
+                )}
               </div>
             </div>
           </div>

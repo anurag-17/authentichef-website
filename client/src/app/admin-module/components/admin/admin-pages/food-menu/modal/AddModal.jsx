@@ -8,6 +8,8 @@ import { defaultHead } from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import config from "@/config";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css"; // Import the styles
 
 const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
   const router = useRouter();
@@ -31,7 +33,7 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
     ProfileImage: [],
     popular_dish: "",
     Cuisines_id: "",
-    nutritional_information:"",
+    nutritional_information: "",
   });
   console.log(menuItem);
 
@@ -71,7 +73,10 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
       formData.append("Ingredients", menuItem.Ingredients);
       formData.append("Heating_Instruction", menuItem.Heating_Instruction);
       formData.append("List_of_Allergens", menuItem.List_of_Allergens);
-      formData.append("nutritional_information", menuItem.nutritional_information);
+      formData.append(
+        "nutritional_information",
+        menuItem.nutritional_information
+      );
       // Append dropdown values
       menuItem.Dietary_id.forEach((id) => {
         formData.append("Dietary_id[]", id);
@@ -274,6 +279,14 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
     });
   };
 
+  const handleNutritionalInformationChange = (value) => {
+    setMenuItem({
+      ...menuItem,
+      nutritional_information: value,
+    });
+  };
+  
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -390,13 +403,12 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
           <label className="block mb-1" htmlFor="nutritionalInformation">
             Nutritional Information:
           </label>
-          <textarea
+          <ReactQuill
             id="nutritionalInformation"
-            name="nutritional_information"
             value={menuItem.nutritional_information}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border rounded"
-            required
+            onChange={handleNutritionalInformationChange}
+            className="w-full border rounded"
+            placeholder="Enter nutritional information"
           />
         </div>
       </div>
