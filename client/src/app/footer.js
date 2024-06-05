@@ -252,7 +252,7 @@ const Footer = () => {
           <hr className="2xl:mt-[56px] xl:mt-[25px] lg:mt-[15px] first-letter sm:mt-[15px] mt-[10px]" />
           <div>
             <div className="flex justify-center 2xl:my-5 xl:my-3 lg:my-2 sm:my-2 py-3 lg:py-0">
-              <h4 className="footer_text ">
+              <h4 className="footer_text_b ">
                 © 2024 Authentichef | All Rights Reserved.
               </h4>
             </div>

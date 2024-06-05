@@ -72,7 +72,7 @@ const AboutUs = () => {
             </div>
           </div>
 
-          <div className="custom_container 2xl:py-[140px] xl:py-[50px]  py-[30px] flex justify-between mnavbar relative  items-center md:px-0 px-[20px]">
+          <div className="custom_container 2xl:py-[140px] xl:py-[50px]  py-[30px] flex justify-between mnavbar md:relative  items-center md:px-0 px-[20px] md:flex-row flex-col">
             {/* Ensure the container is set to flex and justify-between */}
             <div>
               <div className="2xl:w-[1031px] xl:w-[680px] lg:w-[520px]">
@@ -84,8 +84,8 @@ const AboutUs = () => {
             </div>
             {/* Overlay Div */}
             <div className="overDive ">
-              <div className="2xl:mb-[30px] xl:mb-[15px] 2xl:gap-[] flex  self-start box-sizing-border">
-                <div className="flex items-center flex-row box-sizing-border ">
+              <div className="2xl:mb-[30px] xl:mb-[15px] lg:gap-[] md:gap-[20px] flex md:flex-row flex-col md:text-start text-center md:items-normal items-center md:self-start box-sizing-border justify-between">
+                <div className="flex items-center md:flex-row flex-col box-sizing-border  ">
                   <div className="overImgDiv">
                     <div className="flex justify-center items-center w-full box-sizing-border">
                       <Image
@@ -102,8 +102,8 @@ const AboutUs = () => {
                   no need to cook!
                 </div>
               </div>
-              <div className="2xl:mb-[36px] xl:mb-[15px] 2xl:gap-[] flex  self-start box-sizing-border">
-                <div className="flex items-center flex-row box-sizing-border">
+              <div className="2xl:mb-[30px] xl:mb-[15px] lg:gap-[] md:gap-[20px] flex md:flex-row flex-col md:text-start text-center md:items-normal items-center md:self-start box-sizing-border justify-between">
+                <div className="flex items-center md:flex-row flex-col box-sizing-border  ">
                   <div className="overImgDiv">
                     <div className="flex justify-center items-center w-full box-sizing-border">
                       <Image src={profile} className="overImg" />
@@ -117,8 +117,8 @@ const AboutUs = () => {
                   mix and match your dishes
                 </div>
               </div>
-              <div className="2xl:mb-[30px] xl:mb-[15px] 2xl:gap-[] flex   box-sizing-border">
-                <div className="flex items-center flex-row box-sizing-border">
+              <div className="2xl:mb-[30px] xl:mb-[15px] lg:gap-[] md:gap-[20px] flex md:flex-row flex-col md:text-start text-center md:items-normal items-center md:self-start box-sizing-border justify-between">
+                <div className="flex items-center md:flex-row flex-col box-sizing-border  ">
                   <div className="overImgDiv">
                     <div className="flex items-center justify-center w-full box-sizing-border">
                       <Image src={hand2} className="overImg" />
@@ -132,8 +132,8 @@ const AboutUs = () => {
                   delivered directly to your door
                 </div>
               </div>
-              <div className="2xl:mb-[19px] xl:mb-[15px] 2xl:gap-[] flex   box-sizing-border">
-                <div className="2xl:m-[0_0_21px_0] flex items-center flex-row box-sizing-border">
+              <div className="2xl:mb-[30px] xl:mb-[15px] lg:gap-[] md:gap-[20px] flex md:flex-row flex-col md:text-start text-center md:items-normal items-center md:self-start box-sizing-border justify-between">
+                <div className="flex items-center md:flex-row flex-col box-sizing-border  ">
                   <div className="overImgDiv">
                     <div className="flex justify-center items-center w-full box-sizing-border">
                       <Image src={timer} className="overImg" />
@@ -151,7 +151,7 @@ const AboutUs = () => {
           </div>
 
           <div className="custom_container flex justify-between  mnavbar pb-[50px]">
-            <div className="flex flex-col xs:mx-[10px] w-full md:flex-row md:justify-between xs:grid xs:grid-cols-2 xs:gap-4">
+            <div className="flex xs:mx-[10px] w-full gap-[15px] sm:flex-row flex-col md:justify-between gap-y-[20px] ">
               <div className="w-full md:w-[48%]">
                 <Image
                   src={aboutDishes}
