@@ -36,7 +36,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import config from "@/config";
 import { ToastContainer, toast } from "react-toastify";
-import cheficon from "../assets/chef-icon.png";
+import cheficon from "../assets/Chef-icon.webp";
 
 const LandingPage = () => {
   const { token } = useSelector((state) => state?.auth);
