@@ -23,7 +23,7 @@ import {
 } from "@/app/redux/dishSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
-import cheficon from "../../../assets/chef-icon.png";
+import cheficon from "../../../assets/Chef-icon.webp";
 const ChefDetails = ({ params }) => {
   const { token } = useSelector((state) => state?.auth);
   const [isRefresh, setRefresh] = useState(false);

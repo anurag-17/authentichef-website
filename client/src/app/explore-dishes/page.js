@@ -47,7 +47,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import "./styles.css";
 import { useRouter } from "next/navigation";
-import cheficon from "../assets/chef-icon.png";
+import cheficon from "../assets/Chef-icon.webp";
 
 const ExploreDishes = () => {
   const [count, setCount] = useState(0);
@@ -685,15 +685,16 @@ const ExploreDishes = () => {
       <section>
         <Navbar />
         <div class="2xl:pt-[130px] xl:pt-[90px] pt-[60px] ">
-          <div class="main_section 2xl:w-[1600px] xl:w-[1200px] md:w-[811px]  m-auto mt-auto mnavbar 2xl:py-[110px] xl:py-[70px] lg:py-[40px]">
+          <div class="main_section 2xl:w-[1600px] xl:w-[1200px] md:w-[811px]  m-auto mt-auto mnavbar 2xl:py-[40px] xl:py-[30px] lg:py-[20px]">
             <div class="flex justify-between flex-col md:flex-row   ">
               <div class=" lg:mb-0 mb-4 lg  lg:text-[2.25rem]  md:w-[30%] xs:text-[1.875rem] sm:text-[2.25rem] md:text-[29px]">
-                <h1 className="third_head mb-4 alata font-[400] 2xl:text-[55px] lg:text-left  text-center SelectCuisine">
+                <h1 className="third_head mb-4 alata font-[400] 2xl:text-[40px] lg:text-left  text-center SelectCuisine">
                   Select Cuisine
                 </h1>
               </div>
 
-              <div className="mnavbar sm:pt-[12px] sm:pb-[4px] 2xl:pt-[21px] md:pt-[9px] md:w-[700px]  2xl:py-[60px] xl:py-[10px] lg:pt-[7px] lg:pb-[40px]  py-[40px] xs:py-[10px] ">
+              <div className="mnavbar sm:pt-[12px] sm:pb-[4px] 2xl:pt-[21px] md:pt-[9px] md:w-[700px]   ">
+              {/* 2xl:py-[60px] xl:py-[10px] lg:pt-[7px] lg:pb-[40px]  py-[40px] xs:py-[10px] */}
                 <div className="filter_div_second">
                   <div className="select-divs flex gap-5">
                     <div className="select-1 alata">
@@ -1082,7 +1083,8 @@ const ExploreDishes = () => {
             </div>
 
             <div class="  flex flex-col sm:flex-row justify-center lg:justify-between  ">
-              <div class=" flex flex-wrap w-full gap-4 xl:gap-[30px] 2xl::gap-10 xs:gap-4 ">
+            {/* gap-[5px] xl:gap-[10px] 2xl::gap-[21px] xs:gap-4 */}
+              <div class=" flex flex-wrap w-full justify-between ">
                 {Array.isArray(getAllCuisines) &&
                   getAllCuisines.map((item) => (
                     <button
@@ -1093,10 +1095,10 @@ const ExploreDishes = () => {
                       {" "}
                       <img
                         src={item.ProfileImage}
-                        className="rounded-[5px] 2xl:w-[202px] 2xl:h-[202px] xl:w-[144px] xl:h-[144px] lg:w-[100px] lg:h-[100px] mcusinimg"
+                        className="rounded-[5px] 2xl:w-[103px] 2xl:h-[103px] xl:w-[144px] xl:h-[144px] lg:w-[100px] lg:h-[100px] mcusinimg hover:opacity-[0.5]"
                         alt="cuisine-india"
                       />
-                      <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm 2xl:text-[20px] xl:text-[14px] md:text-[10px] mt-3">
+                      <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm 2xl:text-[15px] xl:text-[14px] md:text-[10px] mt-3">
                         {item.title}
                       </h4>
                     </button>
@@ -1170,9 +1172,11 @@ const ExploreDishes = () => {
         {/* All Dishes */}
 
         <div className="sm:col-2">
-          <div className="2xl:py-[120px] xl:py-[20px] py-[50px] bg-[#F9F2F2]">
-            <div className="mnavbar 2xl:w-[1600px] xl:w-[1200px] lg:w-[850px]  md:w-[700px] w-[90%] 2xl:py-[60px] xl:py-[60px] py-[40px] mx-auto">
-              <div className="flex justify-center">
+          <div className=" ">
+          {/* 2xl:py-[120px] xl:py-[20px] py-[50px] */}
+            <div className="mnavbar 2xl:w-[1600px] xl:w-[1200px] lg:w-[850px]  md:w-[700px] w-[90%] mx-auto">
+            {/* 2xl:py-[60px] xl:py-[60px] py-[40px]  */}
+              {/* <div className="flex justify-center">
                 <div class="px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 mt-3 xs:text-center">
                   <h4 class="third_head text-center text-3xl sm:text-4xl md:text-55px">
                     Explore Dishes
@@ -1183,15 +1187,15 @@ const ExploreDishes = () => {
                     added every week.
                   </p>
                 </div>
-              </div>
+              </div> */}
               {/* 
               <div className=" flex flex-wrap gap-[20px] xl:gap-[25px] 2xl:gap-[70px] w-full px-10 md:px-0 mx-auto "> */}
-              <div className=" grid 2xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-[25px] lg:gap-[20px] xl:gap-[45px] 2xl:gap-[70px] md:my-5 lg:my-0 md:px-5 px-0  exploreDishesmain">
-                {Array.isArray(getAllDish) &&
-                  getAllDish.map((item) => (
+              {Array.isArray(getAllDish) && getAllDish.length > 0 ? (
+                <div className="grid 2xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-[25px] lg:gap-[20px] xl:gap-[45px] 2xl:gap-[20px] md:my-5 lg:my-0 md:px-5 lg:px-0 exploreDishesmain">
+                  {getAllDish.map((item) => (
                     <div
                       key={item.id}
-                      className="my-5 col-span-1  mx-auto sm:mx-0 relative rounded-[9.8px] mexploreD p-2 "
+                      className=" col-span-1 mx-auto sm:mx-0 relative rounded-[9.8px] mexploreD p-2"
                     >
                       <button className="" onClick={() => openModal(item._id)}>
                         <img
@@ -1199,7 +1203,7 @@ const ExploreDishes = () => {
                           alt={item.title}
                           width={345}
                           height={278}
-                          className=" 2xl:w-[365.5px] 2xl:h-[278px] xl:w-[280px] xl:h-[200px] lg:w-[220px] lg:h-[160px] w-[366px] h-[260px] rounded-[10px] mexplorimg"
+                          className="2xl:w-[365.5px] 2xl:h-[278px] xl:w-[280px] xl:h-[200px] lg:w-[220px] lg:h-[160px] w-[366px] h-[260px] rounded-[10px] mexplorimg"
                         />
                       </button>
                       <div className="">
@@ -1207,16 +1211,14 @@ const ExploreDishes = () => {
                           className=""
                           onClick={() => openModal(item._id)}
                         >
-                          <h4 className="alata capitalize font-[400] text-[#DB5353] 2xl:my-4 xl:my-3 my-2 2xl:text-[20px] 2xl:leading-[20px]  xl:text-[14px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[10px]">
+                          <h4 className="alata capitalize font-[400] text-[#DB5353] 2xl:my-4 xl:my-3 my-2 2xl:text-[20px] 2xl:leading-[20px] xl:text-[14px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[10px]">
                             {item.name}
                           </h4>
                         </button>
-
-                        {/* ===============Chef ============= */}
                         <Link
                           href={`/pages/chef-details/${item?.chef_id?._id}`}
                         >
-                          <div className="flex items-center 2xl:gap-3 xl:gap-2 lg:gap-2  gap-2 xl:my-3 lg:my-2 my-2">
+                          <div className="flex items-center 2xl:gap-3 xl:gap-2 lg:gap-2 gap-2 xl:my-3 lg:my-2 my-2">
                             {item?.chef_id?.images ? (
                               <img
                                 alt="image"
@@ -1236,7 +1238,6 @@ const ExploreDishes = () => {
                             </div>
                           </div>
                         </Link>
-
                         <div className="flex flex-wrap gap-5 2xl:my-[20px] xl:my-[15px] my-[12px]">
                           {item?.Dietary_id.map((dietary) => (
                             <div className="four_btn" key={dietary._id}>
@@ -1250,7 +1251,6 @@ const ExploreDishes = () => {
                               </p>
                             </div>
                           ))}
-
                           {item?.Nutrition_id?.Nutritional ? (
                             <div className="four_btn">
                               <p className="fourth_day capitalize">
@@ -1261,45 +1261,26 @@ const ExploreDishes = () => {
                             ""
                           )}
                         </div>
-                        <div className="flex items-center gap-5  2xl:my-[20px] xl:my-[15px] my-[12px]">
+                        <div className="flex items-center gap-5 2xl:my-[20px] xl:my-[15px] my-[12px]">
                           <h4 className="fourth_p">Spice level</h4>
                           <button className="four_btnn border">
                             <img
                               alt="image"
                               src={item.spice_level_id.ProfileImage}
-                              className=" w-[100%] h-auto"
+                              className="w-[100%] h-auto"
                             />
                             <p className="fourth_day capitalize">
                               {item.spice_level_id.title}
                             </p>
                           </button>
                         </div>
-
-                        <div className=" w-full bottom-0 flex justify-between items-center  2xl:my-[22px] xl:my-[18px] my-[15px]">
-                          <p className="alata font-[400] text-[#000] 2xl  :text-[20px] leading-[24px]  text-[18px]  ">
+                        <div className="w-full bottom-0 flex justify-between items-center 2xl:my-[22px] xl:my-[18px] my-[15px]">
+                          <p className="alata font-[400] text-[#000] 2xl:text-[20px] leading-[24px] text-[18px]">
                             Serves 1 ({item?.weight}g){" "}
                             <span className="text-[#DB5353]">
                               {item?.price && `£${item.price.toFixed(2)}`}
                             </span>
                           </p>
-                          {/* <button
-                            onClick={() => {
-                              defaultADish(item?._id);
-                            }}
-                          >
-                            <div className="drawer-content">
-                              <label
-                                htmlFor="my-drawer-4"
-                                className="drawer-button"
-                              >
-                                <Image
-                                  src={addCart}
-                                  alt={item.title}
-                                  className=" 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
-                                />
-                              </label>
-                            </div>
-                          </button> */}
                           {token ? (
                             <button
                               onClick={() => {
@@ -1344,7 +1325,21 @@ const ExploreDishes = () => {
                       </div>
                     </div>
                   ))}
-              </div>
+                  <div className="flex justify-center w-full"></div>
+                </div>
+              ) : (
+                <div className="text-center my-5">
+                  <h2 className="text-[40px] font-bold">No dishes found</h2>
+                  <div className="flex justify-center">
+                    <button
+                      onClick={defaultDish}
+                      className=" 2xl:w-[218px] alata font-[400] hover:bg-[#7e2727] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:h-[60px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:w-[160px] xl:h-[40px] xl:text-[14px] xl:leading-[25px] lg:w-[160px] lg:h-[30px] lg:text-[10px] lg:leading-[25px] 2xl:mt-[50px] xl:mt-[30px] mt-[20px] px-3 p-1"
+                    >
+                      Try Again
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -1839,191 +1834,193 @@ const ExploreDishes = () => {
 
       {/* ===============PopUp=============== */}
       {cart?.map((item, index) => (
-      <dialog
-        id="my_modal_10"
-        className="2xl:w-[1000px] 2xl:h-[939px] xl:w-[720px] w-[600px] h-auto mx-auto rounded-[10px]  my-auto 2xl:px-[40px] 2xl:py-[45px] xl:px-[25px] xl:py-[30px] px-[15px] py-[20px]"
-      >
-        <button
-          onClick={() => document.getElementById("my_modal_10").close()}
-          className="absolute right-4 "
+        <dialog
+          id="my_modal_10"
+          className="2xl:w-[1000px] 2xl:h-[939px] xl:w-[720px] w-[600px] h-auto mx-auto rounded-[10px]  my-auto 2xl:px-[40px] 2xl:py-[45px] xl:px-[25px] xl:py-[30px] px-[15px] py-[20px]"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] w-[14px]"
+          <button
+            onClick={() => document.getElementById("my_modal_10").close()}
+            className="absolute right-4 "
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M6 18 18 6M6 6l12 12"
-            />
-          </svg>
-        </button>
-        <div className="w-full">
-          <div method="dialog">
-            <div className="flex 2xl:gap-[60px] xl:gap-[40px] gap-[20px] justify-between">
-              <div className="2xl:w-[459px] xl:w-[360px] w-[260px] ">
-                <Image src={popimg} className="rounded-[15px]" />
-              </div>
-              <div className="2xl:w-[400px] xl:w-[359px] w-[300px]">
-                <div>
-                  <h4 className="pop-head">Chicken kabab</h4>
-                  <p className="pop-chef">by Chef Radha</p>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] w-[14px]"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 18 18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+          <div className="w-full">
+            <div method="dialog">
+              <div className="flex 2xl:gap-[60px] xl:gap-[40px] gap-[20px] justify-between">
+                <div className="2xl:w-[459px] xl:w-[360px] w-[260px] ">
+                  <Image src={popimg} className="rounded-[15px]" />
                 </div>
-                <div className="flex justify-between pop-detail">
-                  <h3>Price: £8.50</h3>
-                  <h3>Weight: 400g</h3>
-                  <h3>Portion Size: Serves 1</h3>
-                </div>
-                <div className="flex flex-wrap 2xl:gap-[10px] xl:gap-[8px] gap-[6px]  2xl:my-[15px] xl:my-[12px] my-[8px]">
-                  <div className="pop">
-                    <Image
-                      src={nonveg}
-                      className="2xl:[18px] xl:w-[14px] w-[12px]"
-                    />
-                    <h3>Non-Veg</h3>
+                <div className="2xl:w-[400px] xl:w-[359px] w-[300px]">
+                  <div>
+                    <h4 className="pop-head">Chicken kabab</h4>
+                    <p className="pop-chef">by Chef Radha</p>
                   </div>
-                  <div className="pop">
-                    <Image
-                      src={glutenfree}
-                      className="2xl:[18px] xl:w-[14px] w-[12px]"
-                    />
-                    <h3>Gulten Free</h3>
-                  </div>{" "}
-                  <div className="pop">
-                    <Image
-                      src={organic}
-                      className="2xl:[18px] xl:w-[14px] w-[12px]"
-                    />
-                    <h3>Organic</h3>
-                  </div>{" "}
-                  <div className="pop">
-                    <Image
-                      src={dairyfree}
-                      className="2xl:[18px] xl:w-[14px] w-[12px]"
-                    />
-                    <h3>Dairy Free</h3>
-                  </div>{" "}
-                  <div className="pop">
-                    <Image
-                      src={spicemedium}
-                      className="2xl:[18px] xl:w-[14px] w-[12px]"
-                    />
-                    <h3>Medium</h3>
+                  <div className="flex justify-between pop-detail">
+                    <h3>Price: £8.50</h3>
+                    <h3>Weight: 400g</h3>
+                    <h3>Portion Size: Serves 1</h3>
+                  </div>
+                  <div className="flex flex-wrap 2xl:gap-[10px] xl:gap-[8px] gap-[6px]  2xl:my-[15px] xl:my-[12px] my-[8px]">
+                    <div className="pop">
+                      <Image
+                        src={nonveg}
+                        className="2xl:[18px] xl:w-[14px] w-[12px]"
+                      />
+                      <h3>Non-Veg</h3>
+                    </div>
+                    <div className="pop">
+                      <Image
+                        src={glutenfree}
+                        className="2xl:[18px] xl:w-[14px] w-[12px]"
+                      />
+                      <h3>Gulten Free</h3>
+                    </div>{" "}
+                    <div className="pop">
+                      <Image
+                        src={organic}
+                        className="2xl:[18px] xl:w-[14px] w-[12px]"
+                      />
+                      <h3>Organic</h3>
+                    </div>{" "}
+                    <div className="pop">
+                      <Image
+                        src={dairyfree}
+                        className="2xl:[18px] xl:w-[14px] w-[12px]"
+                      />
+                      <h3>Dairy Free</h3>
+                    </div>{" "}
+                    <div className="pop">
+                      <Image
+                        src={spicemedium}
+                        className="2xl:[18px] xl:w-[14px] w-[12px]"
+                      />
+                      <h3>Medium</h3>
+                    </div>
+                  </div>
+                  <div className="flex justify-center 2xl:w-[103px] 2xl:h-[39px] xl:w-[60px] xl:h-[22px] lg:w-[50px] lg:h-[20px] border rounded-[5px] 2xl:mt-[25px] xl:mt-[20px] mt-[15px]">
+                    {" "}
+                    <button
+                      className="   text-[#DB5353] rounded-l w-1/3"
+                      onClick={() => handleDecrement(item._id)}
+                    >
+                      <Image
+                        src={minus}
+                        className="2xl:w-[15px] 2xl:h-[15px] xl:w-[10px] xl:h-[10px] lg:w-[8px] lg:h-[8px] mx-auto "
+                      />
+                    </button>
+                    <p className=" flex mx-auto items-center text-[10px] xl:text-[12px] 2xl:text-[18px]  2xl:leading-[28px] ">
+                      {count}
+                    </p>
+                    <button
+                      className="    text-[#DB5353] rounded-r w-1/3"
+                      onClick={() => handleIncrement(item._id)}
+                    >
+                      <Image
+                        src={plus}
+                        className="2xl:w-[15px] 2xl:h-[15px] xl:w-[10px] xl:h-[10px] lg:w-[8px] lg:h-[8px] mx-auto "
+                      />
+                    </button>
+                  </div>
+                  <div>
+                    <button
+                      className="pop-btn"
+                      onClick={updateCartItemQuantity}
+                    >
+                      Add to basket
+                    </button>
                   </div>
                 </div>
-                <div className="flex justify-center 2xl:w-[103px] 2xl:h-[39px] xl:w-[60px] xl:h-[22px] lg:w-[50px] lg:h-[20px] border rounded-[5px] 2xl:mt-[25px] xl:mt-[20px] mt-[15px]">
-                  {" "}
-                  <button
-                    className="   text-[#DB5353] rounded-l w-1/3"
-                    onClick={() => handleDecrement(item._id)}
-                  >
-                    <Image
-                      src={minus}
-                      className="2xl:w-[15px] 2xl:h-[15px] xl:w-[10px] xl:h-[10px] lg:w-[8px] lg:h-[8px] mx-auto "
-                    />
-                  </button>
-                  <p className=" flex mx-auto items-center text-[10px] xl:text-[12px] 2xl:text-[18px]  2xl:leading-[28px] ">
-                    {count}
-                  </p>
-                  <button
-                    className="    text-[#DB5353] rounded-r w-1/3"
-                    onClick={() => handleIncrement(item._id)}
-                  >
-                    <Image
-                      src={plus}
-                      className="2xl:w-[15px] 2xl:h-[15px] xl:w-[10px] xl:h-[10px] lg:w-[8px] lg:h-[8px] mx-auto "
-                    />
-                  </button>
-                </div>
-                <div>
-                  <button className="pop-btn" onClick={updateCartItemQuantity}>
-                    Add to basket
-                  </button>
-                </div>
               </div>
-            </div>
-            <div className="2xl:my-[15px] xl:my-[10px] my-[8px]">
-              <div className="">
-                <p className="fourth_p text-[#555555]">Description</p>{" "}
-                <p className="fourth_p 2xl:w-[890px] xl:w-[660px] w-[550px]">
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industrys
-                  standard dummy text ever since the 1500s, when an unknown
-                  printer took a galley of type and scrambled it to make a type
-                  specimen book.
-                </p>
-              </div>
-            </div>
-            <div className="2xl:my-[20px] xl:my-[12px] my-[10px]">
-              <div className="flex justify-between">
-                <div>
-                  <p className="fourth_p text-[#555555]">Ingredients</p>{" "}
-                  <p className="fourth_p ">Chicken, Egg, Tomato, etc</p>
-                </div>
-                <div className="2xl:w-[578px] xl:w-[430px] w-[360px]">
-                  <p className="fourth_p text-[#555555]">
-                    Heating instructions
-                  </p>{" "}
-                  <p className="fourth_p ">
-                    As our food is hand-made by our chefs, these reheating
-                    instructions are a guide. Check your food is piping hot
-                    throughout before serving.
+              <div className="2xl:my-[15px] xl:my-[10px] my-[8px]">
+                <div className="">
+                  <p className="fourth_p text-[#555555]">Description</p>{" "}
+                  <p className="fourth_p 2xl:w-[890px] xl:w-[660px] w-[550px]">
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry. Lorem Ipsum has been the industrys
+                    standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of type and scrambled it to make a
+                    type specimen book.
                   </p>
                 </div>
               </div>
-            </div>
-            <div className="2xl:my-[20px] xl:my-[12px] my-[10px]">
-              <div className="flex justify-between">
-                <div>
-                  <p className="fourth_p text-[#555555]">List of Allergens</p>{" "}
-                  <p className="fourth_p ">Dish contains i.e Celery, Egg</p>
-                </div>
-                <div className="2xl:w-[578px] xl:w-[430px] w-[360px]">
-                  <p className="fourth_p text-[#555555]">
-                    Best Cooked directly from FROZEN
-                  </p>{" "}
-                  <p className="fourth_p ">
-                    OVEN: Preheat oven to 180°C (Gas Mark 5). Remove lid and any
-                    outer packaging. Place on a baking tray at the top of oven
-                    for 20 minutes or until piping hot.
-                  </p>
+              <div className="2xl:my-[20px] xl:my-[12px] my-[10px]">
+                <div className="flex justify-between">
+                  <div>
+                    <p className="fourth_p text-[#555555]">Ingredients</p>{" "}
+                    <p className="fourth_p ">Chicken, Egg, Tomato, etc</p>
+                  </div>
+                  <div className="2xl:w-[578px] xl:w-[430px] w-[360px]">
+                    <p className="fourth_p text-[#555555]">
+                      Heating instructions
+                    </p>{" "}
+                    <p className="fourth_p ">
+                      As our food is hand-made by our chefs, these reheating
+                      instructions are a guide. Check your food is piping hot
+                      throughout before serving.
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="2xl:my-[20px] xl:my-[12px] my-[10px]">
-              <div className="flex justify-between">
-                <div>
-                  <p className="fourth_p text-[#555555]">Storage</p>{" "}
-                  <p className="fourth_p 2xl:w-[270px] xl:w-[200px] w-[160px]">
-                    Store immediately in freezer on delivery.
-                  </p>
-                  <p className="fourth_p ">Keep frozen at -18℃.</p>
-                  <p className="fourth_p 2xl:w-[270px] xl:w-[200px] w-[180px]">
-                    Should this product defrost, keep refrigerated, heat and eat
-                    within 48 hours.
-                  </p>
+              <div className="2xl:my-[20px] xl:my-[12px] my-[10px]">
+                <div className="flex justify-between">
+                  <div>
+                    <p className="fourth_p text-[#555555]">List of Allergens</p>{" "}
+                    <p className="fourth_p ">Dish contains i.e Celery, Egg</p>
+                  </div>
+                  <div className="2xl:w-[578px] xl:w-[430px] w-[360px]">
+                    <p className="fourth_p text-[#555555]">
+                      Best Cooked directly from FROZEN
+                    </p>{" "}
+                    <p className="fourth_p ">
+                      OVEN: Preheat oven to 180°C (Gas Mark 5). Remove lid and
+                      any outer packaging. Place on a baking tray at the top of
+                      oven for 20 minutes or until piping hot.
+                    </p>
+                  </div>
                 </div>
-                <div className="2xl:w-[578px] xl:w-[430px] w-[360px]">
-                  <p className="fourth_p ">
-                    MICROWAVE: Remove lid and place loosely on the container.
-                    Place on a microwaveable plate and heat on full power for
-                    7-8 minutes. Halfway through heating, add 2 tablespoons of
-                    water to rice and stir contents together. Re-cover and
-                    continue heating. Heat until piping hot and stand for 1
-                    minute.
-                  </p>
+              </div>
+              <div className="2xl:my-[20px] xl:my-[12px] my-[10px]">
+                <div className="flex justify-between">
+                  <div>
+                    <p className="fourth_p text-[#555555]">Storage</p>{" "}
+                    <p className="fourth_p 2xl:w-[270px] xl:w-[200px] w-[160px]">
+                      Store immediately in freezer on delivery.
+                    </p>
+                    <p className="fourth_p ">Keep frozen at -18℃.</p>
+                    <p className="fourth_p 2xl:w-[270px] xl:w-[200px] w-[180px]">
+                      Should this product defrost, keep refrigerated, heat and
+                      eat within 48 hours.
+                    </p>
+                  </div>
+                  <div className="2xl:w-[578px] xl:w-[430px] w-[360px]">
+                    <p className="fourth_p ">
+                      MICROWAVE: Remove lid and place loosely on the container.
+                      Place on a microwaveable plate and heat on full power for
+                      7-8 minutes. Halfway through heating, add 2 tablespoons of
+                      water to rice and stir contents together. Re-cover and
+                      continue heating. Heat until piping hot and stand for 1
+                      minute.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </dialog>
+        </dialog>
       ))}
-
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={() => {}}>

@@ -1,4 +1,5 @@
-import React from "react";
+"use client"
+import React, { useRef } from "react";
 import Image from "next/image";
 import banner1 from "./assets/chef-banner1.png";
 import banner2 from "./assets/chef-banner2.png";
@@ -10,6 +11,13 @@ import Footer from "../footer";
 import Navbar from "../navbar";
 
 const BecomeChef = () => {
+  const formRef = useRef(null);
+
+  const handleButtonClick = () => {
+    if (formRef.current) {
+      formRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
   return (
     <>
       <Navbar />
@@ -32,13 +40,15 @@ const BecomeChef = () => {
                 </p>
               </div>
               <div className="flex justify-center">
-                <button className="font-alata  xs:w-[50%] font-medium bg-[#DB5353] text-white rounded-[5px] w-[130px] xl:w-[160px] 2xl:w-[240px] py-1 xl:py-[12px] lg:py-[10px] px-3 lg:px-2 xl:px-2 2xl:px-4  mt-[20px] xs:py-[12px] xs:mx-auto text-[10px] lg:text-[10px] xl:text-[14px] 2xl:text-[20px]">
+                <button  onClick={handleButtonClick} className="font-alata  xs:w-[50%] font-medium bg-[#DB5353] text-white rounded-[5px] w-[130px] xl:w-[160px] 2xl:w-[240px] py-1 xl:py-[12px] lg:py-[10px] px-3 lg:px-2 xl:px-2 2xl:px-4  mt-[20px] xs:py-[12px] xs:mx-auto text-[10px] lg:text-[10px] xl:text-[14px] 2xl:text-[20px]">
                   Join the Waiting List
                 </button>
               </div>
             </div>
           </div>
         </div>
+
+    
 
         <div className="bg-[#f7bda6] w-full mt-8 lg:mt-16 xl:mt-24 2xl:mt-36 my-10">
           <div className="2xl:max-w-[1600px] xl:max-w-[1100px] lg:max-w-[850px] md:max-w-[800px] mx-auto  pb-10 lg:pb-20 2xl:pb-[55px] mnavbar">
@@ -250,7 +260,7 @@ const BecomeChef = () => {
           </div>
         </div>
 
-        <div className="2xl:w-[1600px] mnavbar xs:px-[20px] md:px-[0px] sm:px-[20px] lg:w-[850px] md:w-[745px] w-full mx-auto flex flex-col sm:flex-row justify-between items-center mt-12 xl:mt-20 2xl:mt-28 mb-12 xl:mb-20 2xl:mb-28 px-4 xl:w-[77%] h-full">
+        <div  ref={formRef} className="2xl:w-[1600px] mnavbar xs:px-[20px] md:px-[0px] sm:px-[20px] lg:w-[850px] md:w-[745px] w-full mx-auto flex flex-col sm:flex-row justify-between items-center mt-12 xl:mt-20 2xl:mt-28 mb-12 xl:mb-20 2xl:mb-28 px-4 xl:w-[77%] h-full">
           <div className="2xl:w-[45%] xl:w-[42%] md:w-[50%] sm:w-[50%] mb-8 sm:mb-0 h-full">
             <Image
               src={banner3}

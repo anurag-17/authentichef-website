@@ -173,6 +173,7 @@ const Navbar = () => {
       );
       if (response.status === 201) {
         toast.success("Registration Successful!");
+        handleClosee();
       } else {
         toast.error("Failed to Register. Please try again later.");
       }
