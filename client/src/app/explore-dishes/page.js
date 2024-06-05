@@ -679,8 +679,6 @@ const ExploreDishes = () => {
     console.log("Updated Cart Items:", updatedCartItems);
   }, [updatedCartItems]);
 
-  
-
   return (
     <>
       <ToastContainer className="mt-24" autoClose={1000} />
@@ -1646,33 +1644,43 @@ const ExploreDishes = () => {
                                 <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
                                   Price: £{data.price}
                                 </h4>
-                                <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
-                                  <div className="flex justify-center 2xl:w-[103px] 2xl:h-[39px] xl:w-[60px] xl:h-[22px] lg:w-[50px] lg:h-[20px] border rounded-[5px]">
-                                    <button
-                                      className="text-[#DB5353] rounded-l w-1/3"
-                                      onClick={() => handleDecrement(item._id)}
-                                    >
-                                      <Image
-                                        src={minus}
-                                        className="2xl:w-[15px] 2xl:h-[15px] xl:w-[10px] xl:h-[10px] lg:w-[8px] lg:h-[8px] mx-auto"
-                                        alt="decrement"
-                                      />
-                                    </button>
+                                <div className="flex justify-center 2xl:w-[103px] 2xl:h-[39px] xl:w-[60px] xl:h-[22px] lg:w-[50px] lg:h-[20px] border rounded-[5px]">
+                                  {token ? (
+                                    <>
+                                      <button
+                                        className="text-[#DB5353] rounded-l w-1/3"
+                                        onClick={() =>
+                                          handleDecrement(item._id)
+                                        }
+                                      >
+                                        <Image
+                                          src={minus}
+                                          className="2xl:w-[15px] 2xl:h-[15px] xl:w-[10px] xl:h-[10px] lg:w/[8px] lg:h/[8px] mx-auto"
+                                          alt="decrement"
+                                        />
+                                      </button>
+                                      <p className="flex mx-auto items-center text-[10px] xl:text-[12px] 2xl:text-[18px] 2xl:leading-[28px]">
+                                        {item.quantity}
+                                      </p>
+                                      <button
+                                        className="text-[#DB5353] rounded-r w-1/3"
+                                        onClick={() =>
+                                          handleIncrement(item._id)
+                                        }
+                                      >
+                                        <Image
+                                          src={plus}
+                                          className="2xl:w-[15px] 2xl:h-[15px] xl:w/[10px] xl:h/[10px] lg:w/[8px] lg:h/[8px] mx-auto"
+                                          alt="increment"
+                                        />
+                                      </button>
+                                    </>
+                                  ) : (
                                     <p className="flex mx-auto items-center text-[10px] xl:text-[12px] 2xl:text-[18px] 2xl:leading-[28px]">
-                                      {item.quantity}
+                                      1
                                     </p>
-                                    <button
-                                      className="text-[#DB5353] rounded-r w-1/3"
-                                      onClick={() => handleIncrement(item._id)}
-                                    >
-                                      <Image
-                                        src={plus}
-                                        className="2xl:w-[15px] 2xl:h-[15px] xl:w/[10px] xl:h/[10px] lg:w/[8px] lg:h/[8px] mx-auto"
-                                        alt="increment"
-                                      />
-                                    </button>
-                                  </div>
-                                </h4>
+                                  )}
+                                </div>
                               </div>
                             </div>
                             <button
@@ -1722,29 +1730,41 @@ const ExploreDishes = () => {
                                     `£${item.menuItem.price.toFixed(2)}`}
                                 </h4>
                                 <div className="flex justify-center 2xl:w-[103px] 2xl:h-[39px] xl:w-[60px] xl:h-[22px] lg:w-[50px] lg:h-[20px] border rounded-[5px]">
-                                  <button
-                                    className="text-[#DB5353] rounded-l w-1/3"
-                                    onClick={() => handleDecrement(item._id)}
-                                  >
-                                    <Image
-                                      src={minus}
-                                      className="2xl:w-[15px] 2xl:h-[15px] xl:w-[10px] xl:h-[10px] lg:w-[8px] lg:h-[8px] mx-auto"
-                                      alt="decrement"
-                                    />
-                                  </button>
-                                  <p className="flex mx-auto items-center text-[10px] xl:text-[12px] 2xl:text-[18px] 2xl:leading-[28px]">
-                                    {item.quantity}
-                                  </p>
-                                  <button
-                                    className="text-[#DB5353] rounded-r w-1/3"
-                                    onClick={() => handleIncrement(item._id)}
-                                  >
-                                    <Image
-                                      src={plus}
-                                      className="2xl:w-[15px] 2xl:h-[15px] xl:w/[10px] xl:h/[10px] lg:w/[8px] lg:h/[8px] mx-auto"
-                                      alt="increment"
-                                    />
-                                  </button>
+                                  {token ? (
+                                    <>
+                                      <button
+                                        className="text-[#DB5353] rounded-l w-1/3"
+                                        onClick={() =>
+                                          handleDecrement(item._id)
+                                        }
+                                      >
+                                        <Image
+                                          src={minus}
+                                          className="2xl:w/[15px] 2xl:h/[15px] xl:w/[10px] xl:h/[10px] lg:w/[8px] lg:h/[8px] mx-auto"
+                                          alt="decrement"
+                                        />
+                                      </button>
+                                      <p className="flex mx-auto items-center text-[10px] xl:text-[12px] 2xl:text-[18px] 2xl:leading-[28px]">
+                                        {item.quantity}
+                                      </p>
+                                      <button
+                                        className="text-[#DB5353] rounded-r w-1/3"
+                                        onClick={() =>
+                                          handleIncrement(item._id)
+                                        }
+                                      >
+                                        <Image
+                                          src={plus}
+                                          className="2xl:w/[15px] 2xl:h/[15px] xl:w/[10px] xl:h/[10px] lg:w/[8px] lg:h/[8px] mx-auto"
+                                          alt="increment"
+                                        />
+                                      </button>
+                                    </>
+                                  ) : (
+                                    <p className="flex mx-auto items-center text-[10px] xl:text-[12px] 2xl:text-[18px] 2xl:leading-[28px]">
+                                      1
+                                    </p>
+                                  )}
                                 </div>
                               </div>
                             </div>
@@ -1784,7 +1804,7 @@ const ExploreDishes = () => {
                       </div>
                       <div className="flex justify-between items-center mt-20">
                         <div>
-                          <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]"></h4>
+                          <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading/[20px] lg:text/[10px] lg:leading/[18px]"></h4>
                         </div>
                         <div>
                           {token ? (
@@ -1793,7 +1813,7 @@ const ExploreDishes = () => {
                                 onClick={() => {
                                   handleAddCart();
                                 }}
-                                className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1"
+                                className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text/[20px] 2xl:leading-[27.6px] xl:text/[12px] lg:text/[10px] xl:px-[6px] xl:py-[10px] lg:px-[3px] lg:py-[1px] px-[3px] py-[1px]"
                               >
                                 Checkout
                               </button>
@@ -1801,7 +1821,7 @@ const ExploreDishes = () => {
                           ) : (
                             <button
                               onClick={handleLoginClick}
-                              className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1"
+                              className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w/[164px] 2xl:h/[56px] 2xl:text/[20px] 2xl:leading/[27.6px] xl:text/[12px] lg:text/[10px] xl:px-[6px] xl:py/[10px] lg:px/[3px] lg:py/[1px] px/[3px] py/[1px]"
                             >
                               Checkout
                             </button>
@@ -1816,7 +1836,9 @@ const ExploreDishes = () => {
           </ul>
         </div>
       </div>
+
       {/* ===============PopUp=============== */}
+      {cart?.map((item, index) => (
       <dialog
         id="my_modal_10"
         className="2xl:w-[1000px] 2xl:h-[939px] xl:w-[720px] w-[600px] h-auto mx-auto rounded-[10px]  my-auto 2xl:px-[40px] 2xl:py-[45px] xl:px-[25px] xl:py-[30px] px-[15px] py-[20px]"
@@ -1897,10 +1919,7 @@ const ExploreDishes = () => {
                   {" "}
                   <button
                     className="   text-[#DB5353] rounded-l w-1/3"
-                    onClick={() => {
-                      handleDecrement();
-                      // alert("Removed from cart");
-                    }}
+                    onClick={() => handleDecrement(item._id)}
                   >
                     <Image
                       src={minus}
@@ -1912,7 +1931,7 @@ const ExploreDishes = () => {
                   </p>
                   <button
                     className="    text-[#DB5353] rounded-r w-1/3"
-                    onClick={() => handleIncrement()}
+                    onClick={() => handleIncrement(item._id)}
                   >
                     <Image
                       src={plus}
@@ -2003,6 +2022,8 @@ const ExploreDishes = () => {
           </div>
         </div>
       </dialog>
+      ))}
+
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={() => {}}>
