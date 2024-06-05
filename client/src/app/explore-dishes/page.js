@@ -698,7 +698,7 @@ const ExploreDishes = () => {
                 </h1>
               </div>
 
-              <div className="mnavbar sm:pt-[12px] sm:pb-[4px] 2xl:pt-[21px] md:pt-[9px] md:w-[700px]   ">
+              <div className="mnavbar sm:pt-[12px] sm:pb-[4px] 2xl:pt-[21px] md:pt-[9px] md:w-[820px]   ">
                 {/* 2xl:py-[60px] xl:py-[10px] lg:pt-[7px] lg:pb-[40px]  py-[40px] xs:py-[10px] */}
                 <div className="filter_div_second">
                   <div className="select-divs flex gap-5">
@@ -767,6 +767,26 @@ const ExploreDishes = () => {
                     </div>
                   </div>
                   {/* =================Cuisines========================== */}
+                  <button
+                    onClick={defaultDish}
+                    className=" bt-1 alata font-[400] 2xl:text-[16px] 2xl:w-[153px] third_select flex justify-center items-center gap-3 md:text-[12px] sm:text-[12px] md:pl-2 sm:pl-2 flex"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="size-6"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"
+                      />
+                    </svg>
+                    Reset
+                  </button>
                   <button
                     className="bt-1 alata font-[400] 2xl:text-[16px] 2xl:w-[153px] third_select flex justify-center items-center gap-3 md:text-[12px] sm:text-[12px] md:pl-2 sm:pl-2"
                     onClick={() =>
@@ -1108,67 +1128,6 @@ const ExploreDishes = () => {
                       </h4>
                     </button>
                   ))}
-
-                {/* <div class="">
-                  <Image
-                    alt="cuisine-american"
-                    className="rounded-[5px] w-[100%] h-auto mcusinimg"
-                    src={cuisineamerican}
-                  />
-                  <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm 2xl:text-[20px] xl:text-[14px] md:text-[10px] mt-3">
-                    American
-                  </h4>
-                </div>
-                <div class="">
-                  <Image
-                    alt="cuisine-mexican"
-                    className="rounded-[5px] w-[100%] h-auto mcusinimg"
-                    src={cuisinemexican}
-                  />
-                  <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm 2xl:text-[20px] xl:text-[14px] md:text-[10px] mt-3">
-                    Mexican
-                  </h4>
-                </div>
-                <div class="">
-                  <Image
-                    alt="cuisine-mediterranean"
-                    className="rounded-[5px] w-[100%]   h-auto mcusinimg"
-                    src={cuisinemediterranean}
-                  />
-                  <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm 2xl:text-[20px] xl:text-[14px] md:text-[10px] mt-3">
-                    Mediterranean
-                  </h4>
-                </div>
-                <div class="">
-                  <Image
-                    alt="cuisine-italian"
-                    className="rounded-[5px] w-[100%] h-auto mcusinimg"
-                    src={cuisineitalian}
-                  />
-                  <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm 2xl:text-[20px] xl:text-[14px] md:text-[10px] mt-3">
-                    Italian
-                  </h4>
-                </div>
-                <div class="">
-                  <Image
-                    alt="cuisine-middleEastern"
-                    className="rounded-[5px] w-[100%] h-auto mcusinimg"
-                    src={cuisinemiddleEastern}
-                  />
-                  <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm 2xl:text-[20px] xl:text-[14px] md:text-[10px] mt-3">
-                    Middle Eastern
-                  </h4>
-                </div>
-                <div class="">
-                  <Image
-                    alt="cuisine-middleEastern"
-                    className="rounded-[5px] w-[100%] h-auto mcusinimg"
-                    src={cuisinesoutheast}
-                  />
-                  <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm 2xl:text-[20px] xl:text-[14px] md:text-[10px] mt-3">
-                    Southeast Asian
-                  </h4>
-                </div> */}
               </div>
             </div>
           </div>
@@ -1180,21 +1139,6 @@ const ExploreDishes = () => {
           <div className=" ">
             {/* 2xl:py-[120px] xl:py-[20px] py-[50px] */}
             <div className="mnavbar 2xl:w-[1600px] xl:w-[1200px] lg:w-[850px]  md:w-[700px] w-[90%] mx-auto">
-              {/* 2xl:py-[60px] xl:py-[60px] py-[40px]  */}
-              {/* <div className="flex justify-center">
-                <div class="px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 mt-3 xs:text-center">
-                  <h4 class="third_head text-center text-3xl sm:text-4xl md:text-55px">
-                    Explore Dishes
-                  </h4>
-                  <p class="seven_p mt-4 text-base sm:text-lg md:text-xl lg:text-lg xl:text-xl 2xl:text-lg">
-                    Browse the world of authentic homemade dishes by our
-                    independent chef community. <br /> More chefs and dishes
-                    added every week.
-                  </p>
-                </div>
-              </div> */}
-              {/* 
-              <div className=" flex flex-wrap gap-[20px] xl:gap-[25px] 2xl:gap-[70px] w-full px-10 md:px-0 mx-auto "> */}
               {Array.isArray(getAllDish) && getAllDish.length > 0 ? (
                 <div className="grid 2xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-[25px] lg:gap-[20px] xl:gap-[45px] 2xl:gap-[20px] md:my-5 lg:my-0 md:px-5 lg:px-0 exploreDishesmain">
                   {getAllDish.map((item) => (
@@ -1335,14 +1279,7 @@ const ExploreDishes = () => {
               ) : (
                 <div className="text-center my-5">
                   <h2 className="text-[40px] font-bold">No dishes found</h2>
-                  <div className="flex justify-center">
-                    <button
-                      onClick={defaultDish}
-                      className=" 2xl:w-[218px] alata font-[400] hover:bg-[#7e2727] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:h-[60px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:w-[160px] xl:h-[40px] xl:text-[14px] xl:leading-[25px] lg:w-[160px] lg:h-[30px] lg:text-[10px] lg:leading-[25px] 2xl:mt-[50px] xl:mt-[30px] mt-[20px] px-3 p-1"
-                    >
-                      Try Again
-                    </button>
-                  </div>
+                  <div className="flex justify-center"></div>
                 </div>
               )}
             </div>
