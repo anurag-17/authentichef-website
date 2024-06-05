@@ -48,6 +48,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "./styles.css";
 import { useRouter } from "next/navigation";
 import cheficon from "../assets/Chef-icon.webp";
+import Loader from "../admin-module/components/admin/loader/Index";
 
 const ExploreDishes = () => {
   const [count, setCount] = useState(0);
@@ -64,6 +65,7 @@ const ExploreDishes = () => {
   const [cartId, setCartId] = useState("");
   const [shouldRefresh, setShouldRefresh] = useState(false);
   const [subtotalPrice, setSubtotalPrice] = useState(0);
+  const [isLoading, setLoading] = useState(false);
 
   // const price = item?.price?.toFixed(2);
 
@@ -112,6 +114,7 @@ const ExploreDishes = () => {
   const [getAllDish, setGetAllDish] = useState("");
 
   const defaultDish = () => {
+    setLoading(true);
     const option = {
       method: "GET",
       url: `${config.baseURL}/api/menu/menuItems`,
@@ -125,6 +128,7 @@ const ExploreDishes = () => {
       .request(option)
       .then((response) => {
         setGetAllDish(response?.data?.menuItems);
+        setLoading(false);
       })
       .catch((error) => {
         console.log(error, "Error");
@@ -226,7 +230,7 @@ const ExploreDishes = () => {
   // ========= Filter By Cuisines =======
   const [cuisinesFilter, setCuisinesFilter] = useState("");
   const handleSearchCuisines = (_id) => {
-    // setLoader(true);
+    setLoading(true);
     try {
       setCuisinesFilter(_id);
       const options = {
@@ -239,26 +243,26 @@ const ExploreDishes = () => {
           if (response.status === 200) {
             setGetAllDish(response?.data?.menuItem);
             document.getElementById("my_modal_3").close();
-            // setLoader(false);
+            setLoading(false);
           } else {
-            // setLoader(false);
+            setLoading(false);
             return;
           }
         })
         .catch(function (error) {
           console.error(error);
-          // setLoader(false);
+          setLoading(false);
         });
     } catch (error) {
       console.error(error);
-      // setLoader(false);
+      setLoading(false);
     }
   };
 
   // ========= Filter By Dietary =======
   const [dietaryFilter, setDietaryFilter] = useState("");
   const handleSearchDietary = (_id) => {
-    // setLoader(true);
+    setLoading(true);
     try {
       setDietaryFilter(_id);
       const options = {
@@ -272,19 +276,19 @@ const ExploreDishes = () => {
             setGetAllDish(response?.data?.menuItem);
             document.getElementById("my_modal_4").close();
 
-            // setLoader(false);
+            setLoading(false);
           } else {
-            // setLoader(false);
+            setLoading(false);
             return;
           }
         })
         .catch(function (error) {
           console.error(error);
-          // setLoader(false);
+          setLoading(false);
         });
     } catch {
       console.error(error);
-      // setLoader(false);
+      setLoading(false);
     }
   };
 
@@ -293,7 +297,7 @@ const ExploreDishes = () => {
   const [moreFilters, setMoreFilters] = useState("");
 
   const handleSearchMoreFilter = (_id) => {
-    // setLoader(true);
+    setLoading(true);
     try {
       setMoreFilters(_id);
       const options = {
@@ -307,26 +311,26 @@ const ExploreDishes = () => {
             setGetAllDish(response?.data?.menuItem);
             document.getElementById("my_modal_5").close();
 
-            // setLoader(false);
+            setLoading(false);
           } else {
-            // setLoader(false);
+            setLoading(false);
             return;
           }
         })
         .catch(function (error) {
           console.error(error);
-          // setLoader(false);
+          setLoading(false);
         });
     } catch {
       console.error(error);
-      // setLoader(false);
+      setLoading(false);
     }
   };
 
   // ========= Add to Cart =======
 
   // const handleAddToCart = async (id) => {
-  //   // setLoader(true);
+  //    setLoading(true);
   //   try {
   //     const response = await axios.post(
   //       `${config.baseURL}/api/Orders/AddtoCart`,
@@ -338,10 +342,10 @@ const ExploreDishes = () => {
   //     if (response.status === 200) {
   //       // toast.success("Added to Cart!");
   //       refreshData();
-  //       // setLoader(false);
+  //        setLoading(false);
   //     } else {
   //       // toast.error("Failed. Something went wrong!");
-  //       // setLoader(false);
+  //        setLoading(false);
   //     }
   //   } catch (error) {
   //     console.error(error);
@@ -370,7 +374,7 @@ const ExploreDishes = () => {
   // };
 
   const handleAllClear = async () => {
-    setLoader(true);
+    setLoading(true);
 
     try {
       const response = await axios.delete(
@@ -387,7 +391,7 @@ const ExploreDishes = () => {
       console.error(error);
       toast.error("Failed. Something went wrong!");
     } finally {
-      setLoader(false);
+      setLoading(false);
     }
   };
 
@@ -532,7 +536,7 @@ const ExploreDishes = () => {
         dispatch(setUser(res?.data?.user));
         dispatch(setSuccess(res?.data?.success));
         handleClose();
-        setLoader(false);
+        setLoading(false);
         setIsLoggedIn(true);
       } else {
         toast.error("Login failed please try later!");
@@ -682,6 +686,7 @@ const ExploreDishes = () => {
   return (
     <>
       <ToastContainer className="mt-24" autoClose={1000} />
+      {isLoading && <Loader />}
       <section>
         <Navbar />
         <div class="2xl:pt-[130px] xl:pt-[90px] pt-[60px] ">
@@ -1835,7 +1840,6 @@ const ExploreDishes = () => {
       {/* ===============PopUp=============== */}
 
       <dialog
-        kay={index}
         id="my_modal_10"
         className="2xl:w-[1000px] 2xl:h-[939px] xl:w-[720px] w-[600px] h-auto mx-auto rounded-[10px]  my-auto 2xl:px-[40px] 2xl:py-[45px] xl:px-[25px] xl:py-[30px] px-[15px] py-[20px]"
       >
