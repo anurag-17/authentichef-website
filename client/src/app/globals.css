@@ -256,7 +256,7 @@ td {
 }
 
 .fourth_day {
-  @apply alata font-[400] xl:text-[16px]  xl:leading-[24px] text-[12px] ;
+  @apply alata font-[400] xl:text-[16px] xl:leading-[24px] text-[12px];
 }
 
 /* ==================Five================== */
@@ -337,11 +337,11 @@ td {
 
 /* =================Nine================= */
 .nine_start {
-  @apply  lg:w-[60.64px] mx-auto w-[60px] mt-[12px] mb-[8px];
+  @apply lg:w-[60.64px] mx-auto w-[60px] mt-[12px] mb-[8px];
 }
 
 .nine_head {
-  @apply text-center alata font-[400] 2xl:text-[55px] 2xl:leading-[75px] lg:text-[45px] lg:leading-[60px] sm:text-[35px]  leading-[45px] text-[30px];
+  @apply text-center alata font-[400] 2xl:text-[55px] 2xl:leading-[75px] lg:text-[45px] lg:leading-[60px] sm:text-[35px] leading-[45px] text-[30px];
 }
 
 .nine_p {
@@ -353,7 +353,7 @@ td {
 }
 
 .nine_p2 {
-  @apply alata font-[400] text-center 2xl:w-[352px] lg:text-[18px] leading-[28px] 2xl:my-5 xl:w-[280px]  xl:my-5 lg:w-[230px] sm:w-[80%] mx-auto lg:my-4 sm:text-[16px] text-[15px]  my-2;
+  @apply alata font-[400] text-center 2xl:w-[352px] lg:text-[18px] leading-[28px] 2xl:my-5 xl:w-[280px] xl:my-5 lg:w-[230px] sm:w-[80%] mx-auto lg:my-4 sm:text-[16px] text-[15px] my-2;
 }
 
 .nine_name {
@@ -362,11 +362,11 @@ td {
 
 /* =================footer================= */
 .footer_text {
-  @apply poppins font-[400] text-[#111111] 2xl:text-[16px] 2xl:leading-[30px] xl:text-[12px] xl:leading-[22px] lg:text-[10px] lg:leading-[18px] text-[10px] leading-[18px];
+  @apply poppins font-[400] text-[#111111] md:text-[16px]  md:leading-[30px] leading-[26px] text-[14px];
 }
 
 .footer_heading {
-  @apply poppins font-[600] text-[#111111] 2xl:text-[18px] 2xl:leading-[27px] 2xl:mb-5 xl:mb-5 xl:text-[14px] xl:leading-[23px] lg:text-[12px] lg:leading-[18px] lg:mb-2 text-[12px] leading-[18px] mb-1;
+  @apply poppins font-[600] text-[#111111] md:text-[18px] md:leading-[27px] 2xl:mb-5 xl:mb-5 mb-2 text-[16px] leading-[24px];
 }
 
 .footer_text_b {
@@ -435,7 +435,7 @@ td {
 }
 
 .pop-head {
-  @apply alata font-[400] 2xl:text-[30px] 2xl:leading-[40px] xl:text-[18px] xl:leading-[28px] text-[14px] leading-[20px]
+  @apply alata font-[400] 2xl:text-[30px] 2xl:leading-[40px] lg:text-[20px] md:text-[18px] xl:leading-[28px] text-[16px] leading-[24px]
 }
 
 .pop-chef {
@@ -477,9 +477,11 @@ td {
 .privacyHead {
   @apply alata font-[400] 2xl:text-[22px] 2xl:leading-[32px] xl:text-[14px] xl:leading-[20px] text-[11px] leading-[14px]
 }
-.menu li a{
+
+.menu li a {
   @apply text-[#000000] alata font-[400] md:text-[16px] sm:text-[15px] text-[14px] leading-[26px]
 }
+
 @media (min-width: 1536px) and (max-width: 1750px) {
   .mnavbar {
     width: 93% !important;
@@ -488,6 +490,7 @@ td {
   .exploreDishesmain {
     gap: 35px !important;
   }
+
   .exploreMainDiv {
     gap: 35px !important;
   }
@@ -750,9 +753,9 @@ td {
     margin: 0px !important;
   }
 
-  .croselImg {
+  /* .croselImg {
     width: ;
-  }
+  } */
 
 }
 
@@ -772,7 +775,7 @@ td {
 }
 
 .faqhead {
-  @apply alata font-[400] 2xl:text-[75px] xl:text-[45px] lg:text-[30px] sm:text-[30px] text-[] 2xl:leading-[85px] xl:leading-[55px] lg:leading-[40px] sm:leading-[40px] leading-[]
+  @apply alata font-[400] 2xl:text-[75px] xl:text-[45px] lg:text-[30px] sm:text-[30px] text-[24px] 2xl:leading-[85px] xl:leading-[55px] lg:leading-[40px] sm:leading-[40px] leading-[normal]
 }
 
 .aboutHead {
@@ -780,7 +783,7 @@ td {
 }
 
 .aboutPara {
-  @apply alata font-[400] 2xl:text-[25px] 2xl:leading-[34px] 2xl:w-auto xl:text-[16px] xl:leading-[28px] text-[12px] leading-[18px] 2xl:mt-[50px]
+  @apply alata font-[400] 2xl:text-[25px] 2xl:leading-[34px] 2xl:w-auto lg:text-[18px] lg:leading-[28px] sm:text-[16px] text-[16px] leading-[normal] 2xl:mt-[50px] text-justify sm:text-center
 }
 
 .globalhead {
@@ -980,4 +983,8 @@ td {
 
 .overTitle {
   @apply flex items-center break-words font-['Alata'] font-normal 2xl:text-[24px] xl:text-[16px] md:text-[10px] 2xl:leading-[1.417] text-[#000000]
+}
+
+.custom_container {
+  @apply 2xl:w-[1600px] xl:w-[1200px] lg:w-[1000px] md:w-[90%] w-full mx-auto md:px-0 px-[20px]
 }

@@ -283,8 +283,8 @@ const LandingPage = () => {
             </div>
           </div>
         </div>
-        <div className="md:hidden block pt-[100px">
-          <div className="pt-[90px] pb-[25px] px-[20px]">
+        <div className="md:hidden block pt-[70px] pb-[20px]">
+          <div className=" pb-[25px] px-[20px]">
             <h4 className="alata font-[400] text-black mx-auto text-[30px] text-center">
               Where’s your next food destination?
             </h4>
@@ -302,7 +302,7 @@ const LandingPage = () => {
               </div> */}
           </div>
               <div className=" ">
-                <Image src="/images/poster-bg-m.webp" height="400" width="500" objectFit="cover" alt="background" className="w-full"/>
+                <Image src="/images/mobile _image.png" height="400" width="500" objectFit="cover" alt="background" className="w-full"/>
               </div>
           {/* <div className=" Fv  h-screen flex justify-center "> */}
 
@@ -324,7 +324,7 @@ const LandingPage = () => {
         <div className="flex justify-center 2xl:py-[100px] xl:py-[70px]  lg:py-10 py-10 bg-[#F9F2F2]">
           <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px] mnavbar">
             <div className="flex">
-              <h2 className="four_head">Popular Dishes</h2>
+              <h2 className="four_head nine_head">Popular Dishes</h2>
             </div>
             <div className="flex flex-col sm:flex-row  flex-wrap  md:gap-[25px] lg:gap-[21px] xl:gap-[25px] 2xl:gap-[35px] md:my-5 lg:my-0 px-3 sm:px-0  exploreDishesmain ">
               {Array.isArray(getAllDish) &&
@@ -333,6 +333,7 @@ const LandingPage = () => {
                     key={item.id}
                     className=" my-5 2xl:w-[345px] 2xl:h-[560px] lg:w-[23%] sm:w-[45%] md:w-[48%]   relative rounded-[9.8px] mexploreD  "
                   >
+                    {console.log("ssss",item?.chef_id?.images)}
                     <div>
                       <button className="" onClick={() => openModal(item._id)}>
                         <img
@@ -470,7 +471,7 @@ const LandingPage = () => {
             <div className=" flex justify-center ">
               <div className="mx-5 sm:mx-0">
                 <div className="mx-auto">
-                  <h2 className=" alata font-[400] 2xl:text-[55px] 2xl:leading-[75px] text-center mx-auto xl:text-[35px] xl:leading-[45px] text-[25px] leading-[35px]">
+                  <h2 className=" nine_head">
                     How it Works?
                   </h2>
                   <p className="five_pp 2xl:pt-[35px] xl:pt-2 lg:pt-2 pt-2">
@@ -562,7 +563,7 @@ const LandingPage = () => {
           <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  flex flex-wrap  mnavbar">
             <div className=" sm:mx-auto">
               <div className="flex justify-center lg:justify-start">
-                <h2 className="six_head mx-auto">Our Commitment</h2>
+                <h2 className="six_head nine_head mx-auto">Our Commitment</h2>
               </div>
               <div className="w-full flex flex-col md:flex-row justify-center md:justify-around lg:justify-between flex-wrap">
                 {" "}
@@ -630,7 +631,7 @@ const LandingPage = () => {
 
         <div className="yellow-bg 2xl:h-[1050px] md:w-full lg:flex justify-center 2xl:pt-[75px] 2xl:pb-[100px] xl:pt-[60px] pt-[25px] xl:pb-[60px] hidden lg:block">
           <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px] mnavbar ">
-            <h2 className="seven_head">Our Chef Community</h2>
+            <h2 className="seven_head nine_head">Our Chef Community</h2>
             <p className="seven_p">
               Our independent chefs, create dishes born from their passion for
               wholesome homemade meals. Made with love and care to give you a

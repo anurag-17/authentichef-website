@@ -128,10 +128,10 @@ const Footer = () => {
   return (
     <>
       <footer className="bg-[#F6F6F6] flex justify-center">
-        <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px]  2xl:mt-[35px] xl:mt-[50px] lg:mt-[35px] sm:mt-[30px] mt-[20px] mnavbar">
-          <div className="flex justify-around  lg:justify-between flex-wrap gap-5 lg:gap-0">
+        <div className="custom_container 2xl:mt-[35px] xl:mt-[50px] lg:mt-[35px] sm:mt-[30px] mt-[20px] mnavbar">
+          <div className="flex justify-around  lg:justify-between flex-wrap md:gap-5 lg:gap-0">
 
-            <div className="lg:w-auto  sm:w-[45%] w-full my-3 md:my-0">
+            <div className="lg:w-auto  sm:w-[27%] w-[50%] my-3 md:my-0">
               <div className="lg:text-start text-center">
                 <h4 className="footer_heading">Quick Links</h4>
                 <Link href="/about-us">
@@ -148,7 +148,7 @@ const Footer = () => {
                 </Link>
               </div>
             </div>
-            <div className="lg:w-auto  sm:w-[45%] w-full my-3 md:my-0">
+            <div className="lg:w-auto  sm:w-[27%] w-[50%] my-3 md:my-0">
               <div className="lg:text-start text-center">
                 <h4 className="footer_heading">Resources</h4>
                 <Link href="/become-chef">
@@ -165,7 +165,7 @@ const Footer = () => {
                 </Link>
               </div>
             </div>
-            <div className="lg:w-auto  sm:w-[45%] w-full my-3 md:my-0">
+            <div className="lg:w-auto  sm:w-[27%] w-[50%] my-3 md:my-0">
               <div className="lg:text-start text-center">
                 <h4 className="footer_heading">Other Links</h4>
 
@@ -203,7 +203,7 @@ const Footer = () => {
                 </Link>
               </div>
             </div>
-            <div className="lg:w-auto  sm:w-[45%] w-full my-3 md:my-4 lg:my-0">
+            <div className="lg:w-auto  sm:w-[27%] w-[50%] my-3 md:my-4 lg:my-0">
               <div className="lg:text-start text-center">
                 <h4 className="footer_heading">Connect with us</h4>
                 <div className="flex gap-2 justify-center lg:justify-start">
@@ -252,7 +252,7 @@ const Footer = () => {
           <hr className="2xl:mt-[56px] xl:mt-[25px] lg:mt-[15px] first-letter sm:mt-[15px] mt-[10px]" />
           <div>
             <div className="flex justify-center 2xl:my-5 xl:my-3 lg:my-2 sm:my-2 py-3 lg:py-0">
-              <h4 className="footer_text_b ">
+              <h4 className="footer_text ">
                 © 2024 Authentichef | All Rights Reserved.
               </h4>
             </div>
