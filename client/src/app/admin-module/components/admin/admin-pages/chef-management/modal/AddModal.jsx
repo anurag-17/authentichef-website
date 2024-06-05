@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
-
-import { useDispatch, useSelector } from "react-redux";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css"; // Import the styles
 import Loader from "../../../loader/Index";
 import config from "@/config";
 
-const AddModal = ({ closeModal ,refreshData }) => {
+const AddModal = ({ closeModal, refreshData }) => {
   const token = JSON.parse(localStorage.getItem("admin_token"));
-
+  const [error, setError] = useState("");
+  const [renderedHTML, setRenderedHTML] = useState("");
   const [chefData, setChefData] = useState({
     name: "",
-    specialty: "",
+    nationality: "",
     bio: "",
     images: [],
     bannerImage: [],
@@ -20,43 +21,74 @@ const AddModal = ({ closeModal ,refreshData }) => {
   });
   const [isLoading, setLoading] = useState(false);
 
-
   const inputHandler = (e) => {
     const { name, value, files } = e.target;
 
     if (name === "images" || name === "bannerImage") {
-      // Check file size
-      const fileSize = files[0].size; // in bytes
-      const maxSize = name === "bannerImage" ? 1024 * 1024 : 200 * 1024; // 1MB for bannerImage, 200KB for images
-      if (fileSize > maxSize) {
-        toast.error(
-          `File size exceeds the limit. Maximum allowed size is ${
-            name === "bannerImage" ? "1 MB" : "200 KB"
-          }.`
-        );
-        return; // Prevent setting state if file size exceeds the limit
-      }
+      if (files && files[0]) {
+        const fileSize = files[0].size; // in bytes
+        const maxSize = name === "bannerImage" ? 1024 * 1024 : 200 * 1024; // 1MB for bannerImage, 200KB for images
+        if (fileSize > maxSize) {
+          setError(
+            `File size exceeds the limit. Maximum allowed size is ${
+              name === "bannerImage" ? "1 MB" : "200 KB"
+            }.`
+          );
+          return;
+        }
 
-      setChefData({
-        ...chefData,
-        [name]: files[0],
-      });
+        setChefData({
+          ...chefData,
+          [name]: files[0],
+        });
+        setError(""); // Clear the error if the file size is valid
+      } else {
+        setError("No file selected.");
+      }
     } else {
       setChefData({
         ...chefData,
         [name]: value,
       });
+      setError(""); // Clear the error for non-file inputs
     }
+  };
+
+  const handleBioChange = (value) => {
+    setChefData({
+      ...chefData,
+      bio: value,
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setError(""); // Clear any previous errors
+
+    const maxImageSize = 200 * 1024; // 200KB
+    const maxBannerImageSize = 1024 * 1024; // 1MB
+
+    // Validate image sizes
+    if (chefData.images && chefData.images.size > maxImageSize) {
+      setError("Image size exceeds the limit of 200 KB.");
+      setLoading(false);
+      return;
+    }
+
+    if (
+      chefData.bannerImage &&
+      chefData.bannerImage.size > maxBannerImageSize
+    ) {
+      setError("Banner image size exceeds the limit of 1 MB.");
+      setLoading(false);
+      return;
+    }
 
     try {
       const formData = new FormData();
       formData.append("name", chefData.name);
-      formData.append("specialty", chefData.specialty);
+      formData.append("nationality", chefData.nationality);
       formData.append("bio", chefData.bio);
       formData.append("images", chefData.images);
       formData.append("bannerImage", chefData.bannerImage);
@@ -79,19 +111,24 @@ const AddModal = ({ closeModal ,refreshData }) => {
         setLoading(false);
         refreshData();
         closeModal();
+
+        // Render the HTML content
+        const renderedHTML = `<div dangerouslySetInnerHTML={{ __html: '${chefData.bio}' }} />`;
+        setRenderedHTML(renderedHTML);
       } else {
         toast.error("Invalid details");
         setLoading(false);
       }
     } catch (error) {
       console.error("Error during category:", error);
-      toast.error("Something went wrong, try again later.");
+      setError("Image size not as per requirement");
       setLoading(false);
     }
   };
 
   return (
     <>
+      <ToastContainer autoClose={1000} />
       <div className="">
         <form action="" className="" onSubmit={handleSubmit}>
           <div className="flex flex-col justify-center px-4 lg:px-8 py-4 ">
@@ -114,28 +151,32 @@ const AddModal = ({ closeModal ,refreshData }) => {
               </span>
               <input
                 type="text"
-                name="specialty"
+                name="nationality"
                 placeholder="Enter Nationality"
                 className="login-input w-full mt-1 "
                 onChange={inputHandler}
               />
             </div>
 
-            <div className="py-2 ">
+            <div className="py-2 mb-8">
               <span className="login-input-label capitalize"> Bio :</span>
-              <textarea
-                name="bio"
-                placeholder="Enter chef`s bio"
-                className="login-input w-full mt-1 "
-                onChange={inputHandler}
+              <ReactQuill
+                value={chefData.bio}
+                onChange={handleBioChange}
+                placeholder="Enter chef's bio"
+                className="login-input w-full mt-1"
+                style={{ height: "200px" }} // Adjust the height as needed
+                // dangerouslySetInnerHTML={{ __html:{chefData.bio} }}
               />
             </div>
 
             <div>
               <label className="custom_input_label">Profile Image</label>
               <p className="text-sm text-red-500 mt-1">
-                Profile Image size should be width 288px and height 323px pixels.
+                Profile Image size should be width 288px and height 323px
+                pixels.
               </p>
+              {error && <p className="text-sm text-red-500 mt-1">{error}</p>}
               <input
                 type="file"
                 onChange={inputHandler}
@@ -144,14 +185,15 @@ const AddModal = ({ closeModal ,refreshData }) => {
                 accept="image/*"
                 required
               />
-              
             </div>
 
             <div>
               <label className="custom_input_label">Banner Image</label>
               <p className="text-sm text-red-500 mt-1">
-                Banner Image size should be width 1600px and height 529px pixels.
+                Banner Image size should be width 1600px and height 529px
+                pixels.
               </p>
+              {error && <p className="text-sm text-red-500 mt-1">{error}</p>}
               <input
                 type="file"
                 onChange={inputHandler}
@@ -160,7 +202,6 @@ const AddModal = ({ closeModal ,refreshData }) => {
                 accept="image/*"
                 required
               />
-              
             </div>
 
             <div>

@@ -8,7 +8,7 @@ import AddModal from "./modal/AddModal";
 import EditModal from "./modal/EditModal";
 import DeleteUser from "./modal/DeleteModal";
 import protectedRoute from "@/app/admin-module/config/protectedRoute";
-import { ToastContainer , toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import config from "@/config";
 
 export const headItems = [
@@ -29,7 +29,7 @@ const ChefMain = () => {
   const [openEdit, setOpenEdit] = useState(false);
   const [updateId, setUpdateId] = useState("");
   const [editData, setEditData] = useState([]);
-
+  const [renderedHTML, setRenderedHTML] = useState("");
   const [openDelete, setOpenDelete] = useState(false);
   const [Id, setId] = useState(null);
 
@@ -156,6 +156,8 @@ const ChefMain = () => {
         if (res?.status === 200) {
           setIsLoader(false);
           setAllData(res?.data);
+          // Update the renderedHTML state with the bio value from chefData
+          setRenderedHTML(chefData.bio);
         } else {
           setIsLoader(false);
           return;
@@ -247,8 +249,13 @@ const ChefMain = () => {
                         {/* {console.log(items)} */}
                         <td className="table_data">{index + 1}</td>
                         <td className="table_data capitalize">{items?.name}</td>
-                        <td className="table_data">{items?.specialty} </td>
-                        <td className="table_data">{items?.bio}</td>
+                        <td className="table_data">{items?.nationality} </td>
+                        <td className="table_data">
+                          <div
+                            dangerouslySetInnerHTML={{ __html: items?.bio }}
+                          />
+                        </td>
+
                         <td className="table_data">
                           <img
                             src={items?.images}
