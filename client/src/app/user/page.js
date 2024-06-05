@@ -301,11 +301,17 @@ const LandingPage = () => {
                 </h4>
               </div> */}
           </div>
-              <div className=" ">
-                <Image src="/images/poster-bg-m.webp" height="400" width="500" objectFit="cover" alt="background" className="w-full"/>
-              </div>
+          <div className=" ">
+            <Image
+              src="/images/poster-bg-m.webp"
+              height="400"
+              width="500"
+              objectFit="cover"
+              alt="background"
+              className="w-full"
+            />
+          </div>
           {/* <div className=" Fv  h-screen flex justify-center "> */}
-
         </div>
         <div className="offer-bg flex justify-center items-center 2xl:gap-[30px] xl:gap-[10px] gap-[8px] 2xl:h-[150px] xl:h-[100px] md:h-[60px] h-[40px] moffers">
           <Image
@@ -411,7 +417,9 @@ const LandingPage = () => {
                       <div className=" w-full bottom-0 flex justify-between items-center  2xl:my-[22px] xl:my-[18px] my-[15px]">
                         <p className="alata font-[400] text-[#000] 2xl:text-[20px] 2xl:leading-[24px] xl:text-[14px] xl:leading-[18px] lg:text-[12px] lg:leading-[16px] text-[12px] leading-[16px] ">
                           Serves 1 ({item?.weight}g){" "}
-                          <span className="text-[#DB5353]">{item?.price && `£${item.price.toFixed(2)}`}</span>
+                          <span className="text-[#DB5353]">
+                            {item?.price && `£${item.price.toFixed(2)}`}
+                          </span>
                         </p>
                         {token ? (
                           <button
@@ -639,19 +647,19 @@ const LandingPage = () => {
 
             <div className="flex justify-between">
               {Array.isArray(getAllChef) &&
-                getAllChef.map((item, index) => (
+                getAllChef.slice(0, 5).map((item, index) => (
                   <div
                     key={index}
                     className="flex justify-between md:mt-5 lg:mt-10"
                   >
-                    <div className="w-[160px] 2xl:w-[286px]  xl:w-[200px]">
+                    <div className="w-[160px] 2xl:w-[286px] xl:w-[200px]">
                       <img
                         alt="person1"
                         src={item?.images}
-                        className=" rounded-full"
+                        className="rounded-full"
                       />
-                      <h2 className="seven_name ">Chef {item?.name}</h2>
-                      <p className="seven_p2 ">
+                      <h2 className="seven_name">Chef {item?.name}</h2>
+                      <p className="seven_p2">
                         Lorem ipsum dolor sit amet. Non quos sunt et provident
                         <Link href={`/pages/chef-details/${item?._id}`}>
                           <span className="text-[#DB5353]">...more</span>
@@ -914,7 +922,7 @@ const LandingPage = () => {
           type="checkbox"
           className="drawer-toggle"
           checked={isDrawerOpen}
-          onChange={() => { }}
+          onChange={() => {}}
         />
 
         <div className="drawer-side">
@@ -1004,7 +1012,8 @@ const LandingPage = () => {
                                   {data.name}
                                 </h4>
                                 <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
-                                  Price:£{data?.price && `£${data.price.toFixed(2)}`}
+                                  Price:£
+                                  {data?.price && `£${data.price.toFixed(2)}`}
                                 </h4>
                                 <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
                                   Quantity:1
@@ -1119,7 +1128,7 @@ const LandingPage = () => {
         </div>
       </div>
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={() => { }}>
+        <Dialog as="div" className="relative z-10" onClose={() => {}}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -1182,4 +1191,3 @@ const LandingPage = () => {
 };
 
 export default dynamic(() => Promise.resolve(LandingPage), { ssr: false });
-

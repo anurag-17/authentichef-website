@@ -460,23 +460,25 @@ const Checkout = () => {
         <div className=" 2xl:pt-[116px] xl:pt-[80px] pt-[50px]">
           <div className="flex justify-center bg-[#F5F5F5] 2xl:h-[90px] xl:h-[60px] lg:h-[50px] sm:h-[45px] h-12">
             <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] w-full px-10 md:px-0 flex 2xl:gap-[15px] xl:gap-[10px] gap-[5px] items-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                className="text-[#828282] w-6 h-6"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M15.75 19.5 8.25 12l7.5-7.5"
-                />
-              </svg>
               <Link href="/explore-dishes">
-                <button className="alata font-[400] text-[#828282] 2xl:text-[16px] 2xl:leading-[20px] xl:text-[12px] xl:leading-[18px] text-[10px] leading-[16px]">
-                  Back to Chef’s Menu
+                <button className="flex items-center gap-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    className="text-[#828282] w-6 h-6"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15.75 19.5 8.25 12l7.5-7.5"
+                    />
+                  </svg>
+                  <p className="alata font-[400] text-[#828282] 2xl:text-[16px] 2xl:leading-[20px] xl:text-[12px] xl:leading-[18px] text-[10px] leading-[16px]">
+                    Back to Chef’s Menu
+                  </p>
                 </button>
               </Link>
             </div>
@@ -998,7 +1000,7 @@ const Checkout = () => {
                           Your personal data only be used to process your order
                           and support your experience. We do not sell or rent
                           your data. See our{" "}
-                          <Link href={"/privacy-policy"}>
+                          <Link href={"/privacy-policy"} target="_blank">
                             <span className="text-[#FF0000] underline">
                               {" "}
                               privacy policy
@@ -1017,7 +1019,7 @@ const Checkout = () => {
                         </label>
                         <span className="seven_p2 text-[#555555]">
                           I have read and agree to the website
-                          <Link href={"/term-condition"}>
+                          <Link href={"/term-condition"} target="_blank">
                             <span className="text-[#FF0000] underline">
                               {" "}
                               terms and conditions*

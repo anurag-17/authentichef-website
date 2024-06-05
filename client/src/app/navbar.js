@@ -233,6 +233,7 @@ const Navbar = () => {
         dispatch(removeToken());
         dispatch(removeUser());
         dispatch(removeSuccess());
+        router.push("/explore-dishes");
         setIsLoggedIn(false);
         refreshData();
       } else {
@@ -756,6 +757,7 @@ const Navbar = () => {
                 </div>
               </div>
             </div>
+
             <div className="w-1/3 flex justify-center ">
               <a href="/">
                 <Image alt="logo" src={logo} className="nav_logo" />
@@ -765,18 +767,7 @@ const Navbar = () => {
               <div className="flex justify-end md:gap-0 gap-2 ">
                 {isLoggedIn === success ? (
                   <div className="flex justify-end 2xl:gap-7 md:gap-5  gap-1 w-1/3">
-                    {/* <div className=" lg:flex hidden items-center bg-[#FF9C9C] rounded-[6px] gap-1 pl-[10px] pr-[5px] 2xl:w-[258px] 2xl:h-[44px] h-[40px]">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="2xl:h-[20px] 2xl:w-[20px] h-[18px] w-[18px] text-[#AE6363]">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-                      </svg>
-
-                      <input
-                        type="search"
-                        placeholder="Search dishes, chefs, cuisine "
-                        className=" bg-[#FF9C9C] text-[#AE6363]  outline-none placeholder:text-[#AE6363] text-[14px] leading-[26px] font-[400]  text-alata border-none"
-                      />
-
-                    </div> */}
+                   
                     <div className="nav_login1 md:flex items-center  gap-1 lg:gap-2 hidden sm:block">
                       Welcome <p>{userDetails?.firstname}!</p>
                     </div>
@@ -862,9 +853,9 @@ const Navbar = () => {
                     <p className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[16px] 2xl:leading-[26px] xl:text-[14px] xl:leading-[20px] lg:text-[12px] lg:leading-[18px] text-center">
                       Add dishes to your cart now.
                     </p>
-                    <div className="flex 2xl:mt-12 xl:mt-6 lg:mt-5 mt-4">
+                    <div className="flex justify-center 2xl:mt-12 xl:mt-6 lg:mt-5 mt-4 w-full">
                       <Link href="/explore-dishes">
-                        <button className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[221px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1">
+                        <button className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[221px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1 mx-auto">
                           Explore Dishes
                         </button>
                       </Link>
@@ -1077,7 +1068,7 @@ const Navbar = () => {
         </div>
       </div>
       {/* =======Signup popup======= */}
-      <div className="">
+      <div className="" >
         <dialog
           id="my_modal_1"
           className="modal rounded-[10px] 2xl:w-[1000px] 2xl:h-[605px] xl:w-[620px] xl:h-[410px] lg:w-[480px] h-[400px] 2xl:mt-40 xl:mt-24 mt-14 p-0 signup"
@@ -1209,7 +1200,7 @@ const Navbar = () => {
         </dialog>
       </div>
       {/* =======Login======= */}
-      <div className="">
+      <div className="" >
         <dialog
           id="my_modal_2"
           className="modal rounded-[10px] 2xl:w-[1000px] 2xl:h-[551px] xl:w-[620px] xl:h-[400px] lg:w-[480px] h-[350px] 2xl:mt-40 xl:mt-24 mt-14 p-0 loginpop"
