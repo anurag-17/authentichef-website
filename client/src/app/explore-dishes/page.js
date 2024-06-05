@@ -1111,7 +1111,7 @@ const ExploreDishes = () => {
 
             <div class="  flex flex-col sm:flex-row justify-center lg:justify-between  ">
               {/* gap-[5px] xl:gap-[10px] 2xl::gap-[21px] xs:gap-4 */}
-              <div class=" flex flex-wrap w-full justify-between ">
+              <div class=" flex flex-wrap gap-[10px] w-full justify-center md:justify-between my-5 lg:my-0 ">
                 {Array.isArray(getAllCuisines) &&
                   getAllCuisines.map((item) => (
                     <button
@@ -1122,10 +1122,10 @@ const ExploreDishes = () => {
                       {" "}
                       <img
                         src={item.ProfileImage}
-                        className="rounded-[5px] 2xl:w-[103px] 2xl:h-[103px] xl:w-[144px] xl:h-[144px] lg:w-[100px] lg:h-[100px] mcusinimg hover:opacity-[0.5]"
+                        className="rounded-[5px] 2xl:w-[103px] 2xl:h-[103px] xl:w-[144px] xl:h-[144px] lg:w-[100px] lg:h-[100px] w-[65px] mcusinimg hover:opacity-[0.5] mx-auto md:mx-0"
                         alt="cuisine-india"
                       />
-                      <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm 2xl:text-[15px] xl:text-[14px] md:text-[10px] mt-3">
+                      <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-[10px] 2xl:text-[15px] xl:text-[14px] md:text-[10px] mt-1 md:mt-3">
                         {item.title}
                       </h4>
                     </button>
@@ -1162,7 +1162,7 @@ const ExploreDishes = () => {
                           className=""
                           onClick={() => openModal(item._id)}
                         >
-                          <h4 className="alata capitalize font-[400] text-[#DB5353] 2xl:my-4 xl:my-3 my-2 2xl:text-[20px] 2xl:leading-[20px] xl:text-[14px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[10px]">
+                          <h4 className="alata capitalize font-[400] text-[#DB5353] 2xl:my-4 xl:my-3 my-2 2xl:text-[20px] 2xl:leading-[20px] xl:text-[14px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[16px]">
                             {item.name}
                           </h4>
                         </button>
@@ -1226,8 +1226,8 @@ const ExploreDishes = () => {
                           </button>
                         </div>
                         <div className="w-full bottom-0 flex justify-between items-center 2xl:my-[22px] xl:my-[18px] my-[15px]">
-                          <p className="alata font-[400] text-[#000] 2xl:text-[20px] leading-[24px] text-[18px]">
-                            Serves 1 ({item?.weight}g){" "}
+                          <p className="alata font-[400] text-[#000] 2xl:text-[20px] leading-[24px] text-[14px]">
+                            Serves {item?.portion_Size} | ({item?.weight}g) |
                             <span className="text-[#DB5353]">
                               {item?.price && `£${item.price.toFixed(2)}`}
                             </span>
