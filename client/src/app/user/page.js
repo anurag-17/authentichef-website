@@ -316,9 +316,9 @@ const LandingPage = () => {
         <div className="offer-bg flex justify-center items-center 2xl:gap-[30px] xl:gap-[10px] gap-[8px] 2xl:h-[150px] xl:h-[100px] md:h-[60px] h-[40px] moffers">
           <Image
             src={offer}
-            className="2xl:w-[48px] 2xl:h-[48px] 2xl:w-[30px] 2xl:h-[30px] md:w-[25px] md:h-[25px]  w-[15px] sm:h-[20px]"
+            className="2xl:w-[48px] 2xl:h-[48px] 2xl:w-[30px] 2xl:h-[30px] md:w-[25px] md:h-[25px]  w-[20px] sm:h-[20px]"
           />
-          <h3 className="alata font-[400] 2xl:text-[40px] 2xl:leading-[50px] xl:text-[25px] leading-[35px] md:text-[20px] text-[10px] sm:text-[14px]">
+          <h3 className="alata font-[400] 2xl:text-[40px] 2xl:leading-[50px] xl:text-[25px] leading-[35px] md:text-[20px] text-[14px] sm:text-[14px]">
             30% off on your first order ‘WELCOME30’
           </h3>
         </div>
@@ -350,7 +350,7 @@ const LandingPage = () => {
                     </div>
                     <div className="">
                       <button className="" onClick={() => openModal(item._id)}>
-                        <h4 className="alata cursor-pointer capitalize font-[400] text-[#DB5353] 2xl:my-4 xl:my-3 my-2 2xl:text-[20px] 2xl:leading-[20px]  xl:text-[14px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[10px]">
+                        <h4 className="alata cursor-pointer capitalize font-[400] text-[#DB5353] 2xl:my-4 xl:my-3 my-2 2xl:text-[20px] 2xl:leading-[20px]  xl:text-[14px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[14px]">
                           {item.name}
                         </h4>
                       </button>
@@ -416,7 +416,7 @@ const LandingPage = () => {
 
                       <div className=" w-full bottom-0 flex justify-between items-center  2xl:my-[22px] xl:my-[18px] my-[15px]">
                         <p className="alata font-[400] text-[#000] 2xl:text-[20px] 2xl:leading-[24px] xl:text-[14px] xl:leading-[18px] lg:text-[12px] lg:leading-[16px] text-[12px] leading-[16px] ">
-                          Serves 1 ({item?.weight}g){" "}
+                          Serves {item?.portion_Size} |({item?.weight}g){" "}|
                           <span className="text-[#DB5353]">
                             {item?.price && `£${item.price.toFixed(2)}`}
                           </span>
