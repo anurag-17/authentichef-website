@@ -10,6 +10,7 @@ const userMailOptions = require("../Public/userMailOption")
 const adminMailOptions = require("../Public/adminMailOption")
 const sendEmail = require('../Utils/SendEmail');
 const Coupon = require("../Model/Coupon");
+const User =require("../Model/User")
 require('dotenv').config(); // Import dotenv to use environment variables
 
 // Define your email credentials and configuration
@@ -495,6 +496,13 @@ exports.PlaceOrder = async (req, res, next) => {
             });
 
             const savedOrder = await newOrder.save();
+
+            // Also Update the Billing and shipping Address
+
+            const user = await User.findById(req.user._id);
+            user.BillingInfo = BillingInfo;
+            user.deliveryInfo = deliveryInfo;
+            user.save();
 
             if (!savedOrder) {
                 return res.status(400).json({ message: 'Order creation failed' });
