@@ -820,7 +820,7 @@ const Navbar = () => {
             className="drawer-overlay"
             onClick={handleDrawerClose}
           ></label>
-          <ul className=" min-h-full text-base-content max-w-[310px] sm:max-w-[350px] md:w-[400px] bg-white">
+          <ul className=" min-h-full text-base-content max-w-[310px] sm:max-w-[350px] md:w-[400px] md:max-w-[400px] 2xl:w-[450px] 2xl:max-w-[450px] bg-white">
             <div className="flex flex-col  justify-center items-center p-[15px]  md:p-[20px]  h-[100vh]">
             
               {cart?.length === 0 && getCartItems?.length === 0 ? (
@@ -855,7 +855,7 @@ const Navbar = () => {
                         All Clear
                       </button>
                     </div> */}
-                      <div className="flex justify-between items-center">
+                      <div className="w-full flex justify-between items-center">
                 {/* <button
                     onClick={handleDrawerClose}
                     className="border rounded-md"
@@ -882,7 +882,7 @@ const Navbar = () => {
 
               </div>
 
-                  <div className="pt-[2rem] flex-1 overflow-auto">
+                  <div className="pt-[2rem] flex-1 overflow-auto w-full">
                     <div className="flex justify-between">
                       <h4 className="alata font-[400] text-[#111] my-0 md:text-[18px] text-[16px] leading-[25px]">
                         ITEMS
