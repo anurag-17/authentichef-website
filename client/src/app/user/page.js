@@ -657,7 +657,7 @@ const LandingPage = () => {
                       <img
                         alt="person1"
                         src={item?.images}
-                        className="rounded-full "
+                        className="rounded-full 2xl:w-[180px] 2xl:h-[180px] xl:w-[120px] xl:h-[120px] lg:w-[100px] lg:h-[100px] object-cover"
                       />
                       <h2 className="seven_name">Chef {item?.name}</h2>
                       <p className="seven_p2">

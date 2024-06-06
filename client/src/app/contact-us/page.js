@@ -35,7 +35,7 @@ const ContactUS = () => {
         </section>
         <section>
           <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[800px] w-full px-10 md:px-0 text-center mx-auto 2xl:pt-[60px] xl:pt pt-[80px] mnavbar">
-            <h1 className="globalhead">We would love to hear from you</h1>
+            <h1 className="globalhead2">We would love to hear from you</h1>
             <div className="flex justify-center items-center sm:px-10 md:px-0 2xl:my-[50px] xl:my-[35px] my-[20px]">
               <div className="w-full ">
                 <div className="flex justify-between 2xl:gap-[20px] xl:gap-[15px] gap-[10px] xl:my-[10px] my-[8px] 2xl:my-[15px] 2xl:w-[932px] w-[60%] mx-auto">

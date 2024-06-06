@@ -18,7 +18,7 @@ const AboutUs = () => {
         <Navbar />
 
         <div className="2xl:pt-[116px] xl:pt pt-[40px] aboutusmain">
-          <div className="aboutUsBanner 2xl:h-[100%] xl:h-[100%] lg:h-[100%] md:h-[50%]  sm:h-[40%] xs:h-[400px] h-auto md:block flex flex-col justify-center items-center">
+          <div className="aboutUsBanner lg:h-[100%] md:h-[50%]  sm:h-[40%] xs:h-[400px] h-auto md:block flex flex-col justify-center items-center">
             <div className="2xl:w-[905px] xl:w-[540px] lg:w-[390px] md:w-[400px] w-[300px] text-center mx-auto">
               <h1 className="faqhead text-white 2xl:pt-[165px] xs:px-[20px] sm:px-[30px] xl:pt-[110px] lg:pt-[80px] md:pt-[60px] sm:pt-[40px] xs:pt-[30px] pb-[10px] aboutusmaintext">
                 At authentichef, we see homemade meals as more than just food;
@@ -34,7 +34,7 @@ const AboutUs = () => {
             </div>
           </div>
 
-          <div className="bg-[#FFE8E8] 2xl:h-[937px] flex justify-center  2xl:py-[115px] xl:py-[50px]  md:py-[50px] sm:px-[30px] py-[30px]">
+          <div className="bg-[#FFE8E8] 2xl:h-[937px] flex items-center justify-center ">
             <div className="text-center 2xl:w-[1293px] xl:w-[870px] lg:w-[600px] sm:w-[] w-[]  mx-auto md:px-0 px-[20px]">
               <h4 className=" nine_head">The Ever-Growing Problem</h4>
               <p className="aboutPara 2xl:mt-[50px] xl:mt-[30px] mt-[15px]">
