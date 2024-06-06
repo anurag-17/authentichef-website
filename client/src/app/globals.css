@@ -990,3 +990,9 @@ td {
 .custom_container {
   @apply 2xl:w-[1600px] xl:w-[1200px] lg:w-[80%] md:w-[90%] w-full mx-auto md:px-0 px-[20px]
 }
+
+@layer utilities {
+  .max-w-calc {
+    max-width: calc(100vw - 2rem);
+  }
+}
