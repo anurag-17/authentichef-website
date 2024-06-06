@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useRef, useState } from "react";
 import Image from "next/image";
 import banner1 from "./assets/chef-banner1.png";
 import banner2 from "./assets/chef-banner2.png";
@@ -8,10 +9,71 @@ import dishmenu from "./assets/dishes-menu.svg";
 import cook from "./assets/cook.svg";
 import Footer from "../footer";
 import Navbar from "../navbar";
+import config from "@/config";
+import { ToastContainer, toast } from "react-toastify";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
 const BecomeChef = () => {
+  const { token } = useSelector((state) => state?.auth);
+  const formRef = useRef(null);
+
+  const handleButtonClick = () => {
+    if (formRef.current) {
+      formRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const [first, setFirst] = useState({
+    FirstName: "",
+    Surname: "",
+    Phone: "",
+    Email: "",
+    Postcode: "",
+    Status: "Pending",
+  });
+
+  const inputHandler = (e) => {
+    setFirst({
+      ...first,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        `${config.baseURL}/api/chefProfile`,
+        first,
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+
+      if (response.status === 201) {
+        toast.success("Your form has been submitted.");
+        setFirst({
+          FirstName: "",
+          Surname: "",
+          Phone: "",
+          Email: "",
+          Postcode: "",
+        });
+      } else {
+        toast.error("Failed to submit the form. Please try again later.");
+      }
+    } catch (error) {
+      console.error("Submission error:", error);
+      toast.error("An error occurred. Please try again later.");
+    }
+  };
+
   return (
     <>
+      <ToastContainer autoClose={1000} />
       <Navbar />
       <div className="w-full">
         <div className="flex justify-center">
@@ -32,7 +94,10 @@ const BecomeChef = () => {
                 </p>
               </div>
               <div className="flex justify-center">
-                <button className="font-alata  xs:w-[50%] font-medium bg-[#DB5353] text-white rounded-[5px] w-[130px] xl:w-[160px] 2xl:w-[240px] py-1 xl:py-[12px] lg:py-[10px] px-3 lg:px-2 xl:px-2 2xl:px-4  mt-[20px] xs:py-[12px] xs:mx-auto text-[10px] lg:text-[10px] xl:text-[14px] 2xl:text-[20px]">
+                <button
+                  onClick={handleButtonClick}
+                  className="font-alata  xs:w-[50%] font-medium bg-[#DB5353] text-white rounded-[5px] w-[130px] xl:w-[160px] 2xl:w-[240px] py-1 xl:py-[12px] lg:py-[10px] px-3 lg:px-2 xl:px-2 2xl:px-4  mt-[20px] xs:py-[12px] xs:mx-auto text-[10px] lg:text-[10px] xl:text-[14px] 2xl:text-[20px]"
+                >
                   Join the Waiting List
                 </button>
               </div>
@@ -238,7 +303,13 @@ const BecomeChef = () => {
 
         <div className="flex items-center w-full ">
           <div className="bg-[#FFE2E2] py-24 lg:py-16 xl:py-20 xs:py-[2rem] w-full xs:px-[20px] 2xl:mt-[100px] xl:mt-[80px] md:py-[4rem] lg:mt-[60px] md:mt-[40px] xs:mt-[40px] sm:mt-[40px]">
-            <div className="custom_containertext-center mnavbar">
+
+
+            <div
+              ref={formRef}
+              className="2xl:max-w-[1600px] xl:max-w-[1100px] lg:max-w-[850px] md:max-w-[800px] mx-auto text-center mnavbar"
+            >
+
               <h2 className="font-alata font-medium text-[#111111] text-2xl leading-8 sm:text-3xl sm:leading-9 md:text-4xl md:leading-10 xl:text-5xl xl:leading-[45px] 2xl:text-[55px] 2xl:leading-[75px]">
                 Ready to Get Started?
               </h2>
@@ -262,32 +333,53 @@ const BecomeChef = () => {
             <h3 className="font-alata text-[#111111] font-[400] xl:text-[2.5rem] text-2xl sm:text-[22px] md:text-[30px] leading-8 text-center sm:text-left sm:text-3xl sm:leading-9 md:text-4xl md:leading-10 xl:text-5xl xl:leading-[45px] 2xl:text-[55px] 2xl:leading-[75px] mb-6">
               Join the Chef Waiting List
             </h3>
-            <div className="flex flex-col alata gap-4 md:gap-[5px] xs:gap-[5px]">
-              <div className="flex flex-col sm:flex-row gap-4 xs:gap-[5px]">
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col alata gap-4 md:gap-5 xs:gap-5"
+            >
+              <div className="flex flex-col sm:flex-row gap-4 xs:gap-5">
                 <input
+                  name="FirstName"
                   placeholder="First Name"
                   className="profile_input w-full sm:w-1/2"
+                  value={first.FirstName}
+                  onChange={inputHandler}
                 />
                 <input
+                  name="Surname"
                   placeholder="Surname"
                   className="profile_input w-full sm:w-1/2"
+                  value={first.Surname}
+                  onChange={inputHandler}
                 />
               </div>
               <input
+                name="Phone"
                 placeholder="Phone"
                 type="number"
                 className="profile_input w-full"
+                value={first.Phone}
+                onChange={inputHandler}
               />
               <input
+                name="Email"
                 placeholder="Email"
                 type="email"
                 className="profile_input w-full"
+                value={first.Email}
+                onChange={inputHandler}
               />
-              <input placeholder="Post Code" className="profile_input w-full" />
-              <button className="font-alata alata font-medium bg-[#DB5353] text-white rounded-[5px] py-2 mt-4 hover:bg-[#7e2727] w-auto h-auto lg:w-[120px] lg:h-[56px] xl:w-[120px] xl:h-[56px] 2xl:w-[120px] 2xl:h-[56px]">
+              <input
+                name="Postcode"
+                placeholder="Post Code"
+                className="profile_input w-full"
+                value={first.Postcode}
+                onChange={inputHandler}
+              />
+              <button className="font-alata font-medium bg-[#DB5353] text-white rounded-5 py-2 mt-4 hover:bg-[#7e2727] w-auto h-auto lg:w-30 lg:h-14 xl:w-30 xl:h-14 2xl:w-30 2xl:h-14">
                 Submit
               </button>
-            </div>
+            </form>
           </div>
         </div>
 

@@ -28,6 +28,7 @@ const EditModal = ({
     spice_level_id: "",
     chef_id: "",
     ProfileImage: "",
+    nutritional_information:"",
   });
 
   console.log(formData);
@@ -53,7 +54,7 @@ const EditModal = ({
         Dishtype_id: editData.Dishtype_id ? editData.Dishtype_id._id : "",
         Dietary_id: editData.Dietary_id ? editData.Dietary_id._id : "",
         Nutrition_id: editData.Nutrition_id ? editData.Nutrition_id._id : "",
-
+        nutritional_information:editData.nutritional_information,
         spice_level_id: editData.spice_level_id
           ? editData.spice_level_id._id
           : "",
@@ -66,15 +67,12 @@ const EditModal = ({
   useEffect(() => {
     async function fetchDishTypes() {
       try {
-        const response = await axios.get(
-          `${config.baseURL}/api/dishTypes`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const response = await axios.get(`${config.baseURL}/api/dishTypes`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
         setDishTypes(response.data);
       } catch (error) {
         console.error("Error fetching dish types:", error);
@@ -129,15 +127,12 @@ const EditModal = ({
   useEffect(() => {
     async function fetchChefs() {
       try {
-        const response = await axios.get(
-          `${config.baseURL}/api/chef/chefs`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const response = await axios.get(`${config.baseURL}/api/chef/chefs`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
         setChefs(response.data.chefs);
       } catch (error) {
         console.error("Error fetching chefs:", error);
@@ -443,6 +438,20 @@ const EditModal = ({
                   onChange={handleChange}
                   required
                 ></textarea>
+              </div>
+
+              <div className="mb-4">
+                <label className="block mb-1" htmlFor="nutritionalInformation">
+                  Nutritional Information:
+                </label>
+                <textarea
+                  id="nutritionalInformation"
+                  name="nutritional_information"
+                  value={formData.nutritional_information}
+                  onChange={handleChange}
+                  className="w-full px-3 py-2 border rounded"
+                  required
+                />
               </div>
 
               <div class="py-2">

@@ -30,6 +30,11 @@ const deliveryInfoSchema = new mongoose.Schema({
         type: String,
 
     },
+
+    Postcode:{
+        type:String
+    },
+
     Type_of_Address: {
         type: String,
         enum: ["Shipping Address", "Billing address"],
@@ -66,6 +71,11 @@ const BillingInfoSchema = new mongoose.Schema({
     LastName: {
         type: String,
     },
+    
+    Postcode:{
+        type:String
+    },
+
     Type_of_Address: {
         type: String,
         enum: ["Shipping Address", "Billing address"],
@@ -108,7 +118,7 @@ const orderSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ["pending", "preparing", "ready", "delivered", "cancelled"],
+        enum: ["pending", "preparing", "ready", "delivered", "cancelled" ,"completed"],
         default: "pending",
     },
     orderDate: {

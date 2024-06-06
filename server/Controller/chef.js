@@ -49,7 +49,7 @@ exports.upload = upload;
 
 exports.createChef = async (req, res, next) => {
   try {
-    const { name,  mobile,  specialty, bio, experience ,  Instagram_Link , Facebook_Link} = req.body;
+    const { name,  mobile,  specialty, bio, experience ,  Instagram_Link , Facebook_Link , nationality} = req.body;
 
     // Access uploaded files directly from req.files
     const images = req.files['images'];
@@ -96,6 +96,7 @@ exports.createChef = async (req, res, next) => {
       specialty,
       bio,
       experience,
+      nationality,
       Instagram_Link,
       Facebook_Link,
       images: imageUrls,
@@ -159,7 +160,7 @@ exports.getChefById = async (req, res, next) => {
   }
 };
 
-// Update a chef by ID
+//  working on Prod Update a chef by ID
 // exports.updateChefById = async (req, res, next) => {
 //   const { id } = req.params;
 //   validateMongoDbId(id);
@@ -174,61 +175,82 @@ exports.getChefById = async (req, res, next) => {
 //     const updatedChef = await Chef.findByIdAndUpdate(id, req.body, { new: true });
 
 //     if (req.files) {
-//       // Delete old images from S3 bucket
-//       await deleteImagesFromS3(chef.images);
+//       // Upload new images to S3 bucket if available
+//       if (req.files['images'] && req.files['images'].length > 0) {
+//         await deleteImagesFromS3(chef.images);
+//         const images = req.files['images'];
+//         const imageUrls = [];
+//         for (let i = 0; i < images.length; i++) {
+//           const image = images[i];
+//           const bucketName = process.env.BUCKET;
+//           const uploadParams = {
+//             Bucket: bucketName,
+//             Key: `chef-images/${chef.name}-${Date.now()}-${i}`,
+//             Body: image.buffer,
+//             ContentType: image.mimetype
+//           };
 
-//       // Upload new images to S3 bucket
-//       const images = req.files['images'];
-//       if (!images || images.length === 0) {
-//         return res.status(400).json({ error: 'No images uploaded' });
+//           const data = await s3.upload(uploadParams).promise();
+//           imageUrls.push(data.Location);
+//         }
+        
+//         // Update chef with new images
+//         updatedChef.images = imageUrls;
 //       }
 
-//       const imageUrls = [];
-//       for (let i = 0; i < images.length; i++) {
-//         const image = images[i];
+//       // Upload new banner image to S3 bucket if available
+//       if (req.files['bannerImage'] && req.files['bannerImage'].length > 0) {
+//         await deleteImagesFromS3([chef.bannerImage]);
+//         const bannerImage = req.files['bannerImage'][0];
 //         const bucketName = process.env.BUCKET;
 //         const uploadParams = {
 //           Bucket: bucketName,
-//           Key: `chef-images/${chef.name}-${Date.now()}-${i}`,
-//           Body: image.buffer,
-//           ContentType: image.mimetype
+//           Key: `chef-banner/${chef.name}-${Date.now()}`,
+//           Body: bannerImage.buffer,
+//           ContentType: bannerImage.mimetype
 //         };
 
 //         const data = await s3.upload(uploadParams).promise();
-//         imageUrls.push(data.Location);
+//         updatedChef.bannerImage = data.Location;
 //       }
-      
-//       // Update chef with new images
-//       updatedChef.images = imageUrls;
-//       await updatedChef.save();
 //     }
 
-//     // If there's a banner image, update it
-//     if (req.files && req.files['bannerImage']) { // Check if bannerImage exists in req.files
-//       // Delete old banner image from S3 bucket
-//       await deleteImagesFromS3([chef.bannerImage]);
-
-//       // Upload new banner image to S3 bucket
-//       const bannerImage = req.files['bannerImage'][0]; // Access the first file in the array
-//       const bucketName = process.env.BUCKET;
-//       const uploadParams = {
-//         Bucket: bucketName,
-//         Key: `chef-banner/${chef.name}-${Date.now()}`,
-//         Body: bannerImage.buffer,
-//         ContentType: bannerImage.mimetype
-//       };
-
-//       const data = await s3.upload(uploadParams).promise();
-//       updatedChef.bannerImage = data.Location;
-//       await updatedChef.save();
-//     }
+//     await updatedChef.save();
 
 //     res.status(200).json({ message: 'Chef updated successfully', updatedChef });
 //   } catch (error) {
 //     next(error);
 //   }
 // };
-// Update a chef by ID
+
+
+
+// Helper function to delete images from S3 bucket
+// const deleteImagesFromS3 = async (imageUrls) => {
+//   try {
+//     // Flatten the imageUrls array if necessary
+//     const flattenedImageUrls = imageUrls.flat();
+    
+//     const promises = flattenedImageUrls.map(async (imageUrl) => {
+//       const key = imageUrl.split('/').pop();
+//       const params = {
+//         Bucket: process.env.BUCKET,
+//         Key: key
+//       };
+      
+//       await s3.deleteObject(params).promise();
+//     });
+//     await Promise.all(promises);
+//   } catch (error) {
+//     console.error("Error deleting images from S3:", error);
+//     throw error;
+//   }
+// };
+
+
+
+
+
 exports.updateChefById = async (req, res, next) => {
   const { id } = req.params;
   validateMongoDbId(id);
@@ -239,13 +261,15 @@ exports.updateChefById = async (req, res, next) => {
       return res.status(404).json({ error: "Chef not found" });
     }
 
-    // Update chef details
-    const updatedChef = await Chef.findByIdAndUpdate(id, req.body, { new: true });
+    // Prepare update object with existing chef details
+    const updateData = { ...req.body };
 
     if (req.files) {
-      // Upload new images to S3 bucket if available
+      // Handle images upload
       if (req.files['images'] && req.files['images'].length > 0) {
-        await deleteImagesFromS3(chef.images);
+        if (chef.images && chef.images.length > 0) {
+          await deleteImagesFromS3(chef.images);
+        }
         const images = req.files['images'];
         const imageUrls = [];
         for (let i = 0; i < images.length; i++) {
@@ -261,14 +285,19 @@ exports.updateChefById = async (req, res, next) => {
           const data = await s3.upload(uploadParams).promise();
           imageUrls.push(data.Location);
         }
-        
-        // Update chef with new images
-        updatedChef.images = imageUrls;
+
+        // Include new images in updateData
+        updateData.images = imageUrls;
+      } else {
+        // Retain existing images if no new images are uploaded
+        updateData.images = chef.images;
       }
 
-      // Upload new banner image to S3 bucket if available
+      // Handle banner image upload
       if (req.files['bannerImage'] && req.files['bannerImage'].length > 0) {
-        await deleteImagesFromS3([chef.bannerImage]);
+        if (chef.bannerImage) {
+          await deleteImagesFromS3([chef.bannerImage]);
+        }
         const bannerImage = req.files['bannerImage'][0];
         const bucketName = process.env.BUCKET;
         const uploadParams = {
@@ -279,11 +308,20 @@ exports.updateChefById = async (req, res, next) => {
         };
 
         const data = await s3.upload(uploadParams).promise();
-        updatedChef.bannerImage = data.Location;
+        // Include new banner image in updateData
+        updateData.bannerImage = data.Location;
+      } else {
+        // Retain existing banner image if no new banner image is uploaded
+        updateData.bannerImage = chef.bannerImage;
       }
+    } else {
+      // Retain existing images and banner image if no files are uploaded
+      updateData.images = chef.images;
+      updateData.bannerImage = chef.bannerImage;
     }
 
-    await updatedChef.save();
+    // Update chef details with new data
+    const updatedChef = await Chef.findByIdAndUpdate(id, updateData, { new: true });
 
     res.status(200).json({ message: 'Chef updated successfully', updatedChef });
   } catch (error) {
@@ -291,21 +329,18 @@ exports.updateChefById = async (req, res, next) => {
   }
 };
 
-
-
 // Helper function to delete images from S3 bucket
 const deleteImagesFromS3 = async (imageUrls) => {
   try {
-    // Flatten the imageUrls array if necessary
-    const flattenedImageUrls = imageUrls.flat();
-    
+    const flattenedImageUrls = imageUrls.flat().filter(url => url); // Filter out empty or null URLs
+
     const promises = flattenedImageUrls.map(async (imageUrl) => {
       const key = imageUrl.split('/').pop();
       const params = {
         Bucket: process.env.BUCKET,
         Key: key
       };
-      
+
       await s3.deleteObject(params).promise();
     });
     await Promise.all(promises);

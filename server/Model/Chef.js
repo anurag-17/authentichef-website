@@ -28,6 +28,10 @@ const chefSchema = new mongoose.Schema({
   experience: {
     type: String
   },
+  nationality :{
+   type:String
+  },
+
   images: {
     type: Array,
   },

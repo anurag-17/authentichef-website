@@ -52,6 +52,7 @@ const menuItemSchema = new mongoose.Schema(
       type:mongoose.Schema.Types.ObjectId,
       ref:'Dietary'
     }],
+
     spice_level_id:{
       type:mongoose.Schema.Types.ObjectId,
       ref:'SpiceLevel'
@@ -64,9 +65,13 @@ const menuItemSchema = new mongoose.Schema(
 
     // Add Nutrition Id and send a Multiple //
     
-    Nutrition_id:{
+    Nutrition_id:[{
       type: mongoose.Schema.Types.ObjectId,
       ref: "Nutritional",
+    }],
+
+    nutritional_information:{
+      type:String,
     },
 
 

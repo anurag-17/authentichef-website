@@ -8,11 +8,14 @@ import { defaultHead } from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import config from "@/config";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css"; // Import the styles
 
 const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
   const router = useRouter();
   const { token } = useSelector((state) => state?.auth);
   const [cuisines, setCuisines] = useState([]);
+
   const [menuItem, setMenuItem] = useState({
     name: "",
     description: "",
@@ -24,12 +27,13 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
     List_of_Allergens: "",
     Dishtype_id: "",
     Dietary_id: [],
-    Nutrition_id: "",
+    Nutrition_id: [],
     spice_level_id: "",
     chef_id: "",
     ProfileImage: [],
     popular_dish: "",
     Cuisines_id: "",
+    nutritional_information: "",
   });
   console.log(menuItem);
 
@@ -69,7 +73,10 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
       formData.append("Ingredients", menuItem.Ingredients);
       formData.append("Heating_Instruction", menuItem.Heating_Instruction);
       formData.append("List_of_Allergens", menuItem.List_of_Allergens);
-
+      formData.append(
+        "nutritional_information",
+        menuItem.nutritional_information
+      );
       // Append dropdown values
       menuItem.Dietary_id.forEach((id) => {
         formData.append("Dietary_id[]", id);
@@ -77,7 +84,9 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
       formData.append("spice_level_id", menuItem.spice_level_id);
       formData.append("chef_id", menuItem.chef_id);
       formData.append("Cuisines_id", menuItem.Cuisines_id);
-
+      menuItem.Nutrition_id.forEach((id) => {
+        formData.append("Nutrition_id[]", id);
+      });
       // Append popular_dish
       formData.append("popular_dish", menuItem.popular_dish);
 
@@ -251,6 +260,33 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
     });
   };
 
+  const handleNutritionChange = (e) => {
+    const { value } = e.target;
+    if (value && !menuItem.Nutrition_id.includes(value)) {
+      setMenuItem((prevState) => ({
+        ...prevState,
+        Nutrition_id: [...prevState.Nutrition_id, value],
+      }));
+    }
+  };
+
+  const removeNutrition = (index) => {
+    const updatedNutrition = [...menuItem.Nutrition_id];
+    updatedNutrition.splice(index, 1);
+    setMenuItem({
+      ...menuItem,
+      Nutrition_id: updatedNutrition,
+    });
+  };
+
+  const handleNutritionalInformationChange = (value) => {
+    setMenuItem({
+      ...menuItem,
+      nutritional_information: value,
+    });
+  };
+  
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -363,6 +399,18 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
             />
           </label>
         </div>
+        <div className="mb-4">
+          <label className="block mb-1" htmlFor="nutritionalInformation">
+            Nutritional Information:
+          </label>
+          <ReactQuill
+            id="nutritionalInformation"
+            value={menuItem.nutritional_information}
+            onChange={handleNutritionalInformationChange}
+            className="w-full border rounded"
+            placeholder="Enter nutritional information"
+          />
+        </div>
       </div>
 
       {/* Right Column */}
@@ -430,6 +478,7 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
             </div>
           </div>
         </div> */}
+
         <div>
           <div className="mb-4">
             <label className="block mb-1" htmlFor="dietary">
@@ -471,25 +520,47 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
         </div>
 
         <div className="mb-4">
-          <label className="block mb-1" htmlFor="dietary">
+          <label className="block mb-1" htmlFor="nutrition">
             Nutrition:
           </label>
           <select
-            id="Nutrition"
+            id="nutrition"
             name="Nutrition_id"
-            value={menuItem.Nutrition_id}
-            onChange={handleChange}
+            value=""
+            onChange={handleNutritionChange}
             className="w-full px-3 py-2 border rounded mt-[10px]"
-            required
           >
             <option value="">Select Nutrition</option>
             {Array.isArray(nutrition) &&
-              nutrition.map((item) => (
-                <option key={item._id} value={item._id}>
+              nutrition.map((item, index) => (
+                <option key={index} value={item._id}>
                   {item.Nutritional}
                 </option>
               ))}
           </select>
+          <div className="grid md:grid-cols-2 flex-col gap-3 justify-between w-full px-2 py-2">
+            {Array.isArray(menuItem.Nutrition_id) &&
+              menuItem.Nutrition_id.length > 0 &&
+              menuItem.Nutrition_id.map((item, index) => (
+                <p className="flex gap-x-2 text-[14px]" key={index}>
+                  <span className="max-w-[150px] text-ellipsis overflow-hidden flex whitespace-nowrap capitalize">
+                    <b className="mr-2">{index + 1}.</b>{" "}
+                    {/* Assuming the item here is the nutrition value */}
+                    {
+                      nutrition.find(
+                        (nutritionItem) => nutritionItem._id === item
+                      )?.Nutritional
+                    }
+                  </span>
+                  <span
+                    className="cursor-pointer font-medium"
+                    onClick={() => removeNutrition(index)}
+                  >
+                    x
+                  </span>
+                </p>
+              ))}
+          </div>
         </div>
 
         <div className="mb-4">

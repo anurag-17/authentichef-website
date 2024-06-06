@@ -47,7 +47,8 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import "./styles.css";
 import { useRouter } from "next/navigation";
-import cheficon from "../assets/chef-icon.png";
+import cheficon from "../assets/Chef-icon.webp";
+import Loader from "../admin-module/components/admin/loader/Index";
 
 const ExploreDishes = () => {
   const [count, setCount] = useState(0);
@@ -64,6 +65,7 @@ const ExploreDishes = () => {
   const [cartId, setCartId] = useState("");
   const [shouldRefresh, setShouldRefresh] = useState(false);
   const [subtotalPrice, setSubtotalPrice] = useState(0);
+  const [isLoading, setLoading] = useState(false);
 
   // const price = item?.price?.toFixed(2);
 
@@ -84,6 +86,7 @@ const ExploreDishes = () => {
 
   const handleClearCart = () => {
     dispatch(clearCart());
+    router.push("/explore-dishes");
   };
 
   const handleDrawerOpen = () => {
@@ -112,6 +115,7 @@ const ExploreDishes = () => {
   const [getAllDish, setGetAllDish] = useState("");
 
   const defaultDish = () => {
+    setLoading(true);
     const option = {
       method: "GET",
       url: `${config.baseURL}/api/menu/menuItems`,
@@ -125,6 +129,7 @@ const ExploreDishes = () => {
       .request(option)
       .then((response) => {
         setGetAllDish(response?.data?.menuItems);
+        setLoading(false);
       })
       .catch((error) => {
         console.log(error, "Error");
@@ -226,7 +231,7 @@ const ExploreDishes = () => {
   // ========= Filter By Cuisines =======
   const [cuisinesFilter, setCuisinesFilter] = useState("");
   const handleSearchCuisines = (_id) => {
-    // setLoader(true);
+    setLoading(true);
     try {
       setCuisinesFilter(_id);
       const options = {
@@ -239,26 +244,26 @@ const ExploreDishes = () => {
           if (response.status === 200) {
             setGetAllDish(response?.data?.menuItem);
             document.getElementById("my_modal_3").close();
-            // setLoader(false);
+            setLoading(false);
           } else {
-            // setLoader(false);
+            setLoading(false);
             return;
           }
         })
         .catch(function (error) {
           console.error(error);
-          // setLoader(false);
+          setLoading(false);
         });
     } catch (error) {
       console.error(error);
-      // setLoader(false);
+      setLoading(false);
     }
   };
 
   // ========= Filter By Dietary =======
   const [dietaryFilter, setDietaryFilter] = useState("");
   const handleSearchDietary = (_id) => {
-    // setLoader(true);
+    setLoading(true);
     try {
       setDietaryFilter(_id);
       const options = {
@@ -272,19 +277,19 @@ const ExploreDishes = () => {
             setGetAllDish(response?.data?.menuItem);
             document.getElementById("my_modal_4").close();
 
-            // setLoader(false);
+            setLoading(false);
           } else {
-            // setLoader(false);
+            setLoading(false);
             return;
           }
         })
         .catch(function (error) {
           console.error(error);
-          // setLoader(false);
+          setLoading(false);
         });
     } catch {
       console.error(error);
-      // setLoader(false);
+      setLoading(false);
     }
   };
 
@@ -293,7 +298,7 @@ const ExploreDishes = () => {
   const [moreFilters, setMoreFilters] = useState("");
 
   const handleSearchMoreFilter = (_id) => {
-    // setLoader(true);
+    setLoading(true);
     try {
       setMoreFilters(_id);
       const options = {
@@ -307,26 +312,26 @@ const ExploreDishes = () => {
             setGetAllDish(response?.data?.menuItem);
             document.getElementById("my_modal_5").close();
 
-            // setLoader(false);
+            setLoading(false);
           } else {
-            // setLoader(false);
+            setLoading(false);
             return;
           }
         })
         .catch(function (error) {
           console.error(error);
-          // setLoader(false);
+          setLoading(false);
         });
     } catch {
       console.error(error);
-      // setLoader(false);
+      setLoading(false);
     }
   };
 
   // ========= Add to Cart =======
 
   // const handleAddToCart = async (id) => {
-  //   // setLoader(true);
+  //    setLoading(true);
   //   try {
   //     const response = await axios.post(
   //       `${config.baseURL}/api/Orders/AddtoCart`,
@@ -338,10 +343,10 @@ const ExploreDishes = () => {
   //     if (response.status === 200) {
   //       // toast.success("Added to Cart!");
   //       refreshData();
-  //       // setLoader(false);
+  //        setLoading(false);
   //     } else {
   //       // toast.error("Failed. Something went wrong!");
-  //       // setLoader(false);
+  //        setLoading(false);
   //     }
   //   } catch (error) {
   //     console.error(error);
@@ -370,7 +375,7 @@ const ExploreDishes = () => {
   // };
 
   const handleAllClear = async () => {
-    setLoader(true);
+    setLoading(true);
 
     try {
       const response = await axios.delete(
@@ -387,7 +392,7 @@ const ExploreDishes = () => {
       console.error(error);
       toast.error("Failed. Something went wrong!");
     } finally {
-      setLoader(false);
+      setLoading(false);
     }
   };
 
@@ -506,6 +511,7 @@ const ExploreDishes = () => {
       if (response.status >= 200 && response.status < 300) {
         toast.success("All Items Are Removed");
         refreshData();
+        router.push("/explore-dishes");
       } else {
         alert("failed");
       }
@@ -532,7 +538,7 @@ const ExploreDishes = () => {
         dispatch(setUser(res?.data?.user));
         dispatch(setSuccess(res?.data?.success));
         handleClose();
-        setLoader(false);
+        setLoading(false);
         setIsLoggedIn(true);
       } else {
         toast.error("Login failed please try later!");
@@ -679,23 +685,27 @@ const ExploreDishes = () => {
     console.log("Updated Cart Items:", updatedCartItems);
   }, [updatedCartItems]);
 
-  
-
   return (
     <>
       <ToastContainer className="mt-24" autoClose={1000} />
+      {isLoading && <Loader />}
       <section>
         <Navbar />
-        <div class="2xl:pt-[100px] xl:pt-[90px] pt-[60px] pb-[30px]">
-          <div class="main_section custom_container mt-auto mnavbar 2xl:py-[70px] xl:py-[50px] lg:py-[40px]">
+
+        <div class="2xl:pt-[130px] xl:pt-[90px] pt-[60px] ">
+          <div class="main_section 2xl:w-[1600px] xl:w-[1200px] md:w-[811px]  m-auto mt-auto mnavbar 2xl:py-[40px] xl:py-[30px] lg:py-[20px]">
             <div class="flex justify-between flex-col md:flex-row   ">
               <div class=" lg:mb-0 mb-4 lg  lg:text-[2.25rem]  md:w-[30%] xs:text-[1.875rem] sm:text-[2.25rem] md:text-[29px]">
-                <h1 className="nine_head md:mb-4 alata font-[400] 2xl:text-[55px] lg:text-left  text-center SelectCuisine">
+                <h1 className="third_head mb-4 alata font-[400] 2xl:text-[40px] lg:text-left  text-center SelectCuisine">
+
                   Select Cuisine
                 </h1>
               </div>
 
-              <div className="mnavbar sm:pt-[12px] sm:pb-[4px] 2xl:pt-[21px] md:pt-[9px] md:w-[700px]  2xl:py-[60px] xl:py-[10px] lg:pt-[7px] lg:pb-[40px]  py-[10px] xs:py-[10px] ">
+
+              <div className="mnavbar sm:pt-[12px] sm:pb-[4px] 2xl:pt-[21px] md:pt-[9px] md:w-[820px]   ">
+                {/* 2xl:py-[60px] xl:py-[10px] lg:pt-[7px] lg:pb-[40px]  py-[40px] xs:py-[10px] */}
+
                 <div className="filter_div_second">
                   <div className="select-divs flex gap-5">
                     <div className="select-1 alata">
@@ -763,6 +773,26 @@ const ExploreDishes = () => {
                     </div>
                   </div>
                   {/* =================Cuisines========================== */}
+                  <button
+                    onClick={defaultDish}
+                    className=" bt-1 alata font-[400] 2xl:text-[16px] 2xl:w-[153px] third_select flex justify-center items-center gap-3 md:text-[12px] sm:text-[12px] md:pl-2 sm:pl-2 flex"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="size-6"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"
+                      />
+                    </svg>
+                    Reset
+                  </button>
                   <button
                     className="bt-1 alata font-[400] 2xl:text-[16px] 2xl:w-[153px] third_select flex justify-center items-center gap-3 md:text-[12px] sm:text-[12px] md:pl-2 sm:pl-2"
                     onClick={() =>
@@ -1084,86 +1114,26 @@ const ExploreDishes = () => {
             </div>
 
             <div class="  flex flex-col sm:flex-row justify-center lg:justify-between  ">
-              <div class=" flex flex-wrap w-full gap-4 xl:gap-[30px] 2xl::gap-10 xs:gap-4 ">
+              {/* gap-[5px] xl:gap-[10px] 2xl::gap-[21px] xs:gap-4 */}
+              <div class=" flex flex-wrap gap-[10px] w-full justify-center md:justify-between my-5 lg:my-0 ">
                 {Array.isArray(getAllCuisines) &&
                   getAllCuisines.map((item) => (
                     <button
                       key={item._id}
                       onClick={() => handleSearchCuisines(item._id)}
-                      className="mcusinimgs"
+                      className="mcusinimgs buttonHov"
                     >
                       {" "}
                       <img
                         src={item.ProfileImage}
-                        className="rounded-[5px] 2xl:w-[202px] 2xl:h-[202px] xl:w-[144px] xl:h-[144px] lg:w-[100px] lg:h-[100px] mcusinimg"
+                        className="rounded-[5px] 2xl:w-[103px] 2xl:h-[103px] xl:w-[144px] xl:h-[144px] lg:w-[100px] lg:h-[100px] w-[65px] mcusinimg hover:opacity-[0.5] mx-auto md:mx-0"
                         alt="cuisine-india"
                       />
-                      <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm 2xl:text-[20px] xl:text-[14px] md:text-[10px] mt-3">
+                      <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-[10px] 2xl:text-[15px] xl:text-[14px] md:text-[10px] mt-1 md:mt-3">
                         {item.title}
                       </h4>
                     </button>
                   ))}
-
-                {/* <div class="">
-                  <Image
-                    alt="cuisine-american"
-                    className="rounded-[5px] w-[100%] h-auto mcusinimg"
-                    src={cuisineamerican}
-                  />
-                  <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm 2xl:text-[20px] xl:text-[14px] md:text-[10px] mt-3">
-                    American
-                  </h4>
-                </div>
-                <div class="">
-                  <Image
-                    alt="cuisine-mexican"
-                    className="rounded-[5px] w-[100%] h-auto mcusinimg"
-                    src={cuisinemexican}
-                  />
-                  <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm 2xl:text-[20px] xl:text-[14px] md:text-[10px] mt-3">
-                    Mexican
-                  </h4>
-                </div>
-                <div class="">
-                  <Image
-                    alt="cuisine-mediterranean"
-                    className="rounded-[5px] w-[100%]   h-auto mcusinimg"
-                    src={cuisinemediterranean}
-                  />
-                  <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm 2xl:text-[20px] xl:text-[14px] md:text-[10px] mt-3">
-                    Mediterranean
-                  </h4>
-                </div>
-                <div class="">
-                  <Image
-                    alt="cuisine-italian"
-                    className="rounded-[5px] w-[100%] h-auto mcusinimg"
-                    src={cuisineitalian}
-                  />
-                  <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm 2xl:text-[20px] xl:text-[14px] md:text-[10px] mt-3">
-                    Italian
-                  </h4>
-                </div>
-                <div class="">
-                  <Image
-                    alt="cuisine-middleEastern"
-                    className="rounded-[5px] w-[100%] h-auto mcusinimg"
-                    src={cuisinemiddleEastern}
-                  />
-                  <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm 2xl:text-[20px] xl:text-[14px] md:text-[10px] mt-3">
-                    Middle Eastern
-                  </h4>
-                </div>
-                <div class="">
-                  <Image
-                    alt="cuisine-middleEastern"
-                    className="rounded-[5px] w-[100%] h-auto mcusinimg"
-                    src={cuisinesoutheast}
-                  />
-                  <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-sm 2xl:text-[20px] xl:text-[14px] md:text-[10px] mt-3">
-                    Southeast Asian
-                  </h4>
-                </div> */}
               </div>
             </div>
           </div>
@@ -1172,28 +1142,17 @@ const ExploreDishes = () => {
         {/* All Dishes */}
 
         <div className="sm:col-2">
-          <div className=" bg-[#F9F2F2]">
-            <div className="mnavbar custom_container 2xl:py-[60px] xl:py-[40px] md:py-[30px] py-[20px]">
-              <div className="flex justify-center">
-                <div class="md:px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 mt-3 xs:text-center">
-                  <h4 class="nine_head text-center text-3xl sm:text-4xl md:text-55px md:pb-[10px]">
-                    Explore Dishes
-                  </h4>
-                  <p class="seven_p mt-4 text-base sm:text-lg md:text-xl lg:text-lg xl:text-xl 2xl:text-lg">
-                    Browse the world of authentic homemade dishes by our
-                    independent chef community. <br /> More chefs and dishes
-                    added every week.
-                  </p>
-                </div>
-              </div>
-              {/* 
-              <div className=" flex flex-wrap gap-[20px] xl:gap-[25px] 2xl:gap-[70px] w-full px-10 md:px-0 mx-auto "> */}
-              <div className=" grid 2xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-x-[25px] lg:gap-x-[20px] xl:gap-x-[40px]  2xl:gap-x-[70px] md:my-5 lg:my-0 md:px-5 px-0  gap-y-[15px] exploreDishesmain">
-                {Array.isArray(getAllDish) &&
-                  getAllDish.map((item) => (
+
+          <div className=" ">
+            {/* 2xl:py-[120px] xl:py-[20px] py-[50px] */}
+            <div className="mnavbar 2xl:w-[1600px] xl:w-[1200px] lg:w-[850px]  md:w-[700px] w-[90%] mx-auto">
+              {Array.isArray(getAllDish) && getAllDish.length > 0 ? (
+                <div className="grid 2xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-[25px] lg:gap-[20px] xl:gap-[45px] 2xl:gap-[20px] md:my-5 lg:my-0 md:px-5 lg:px-0 exploreDishesmain">
+                  {getAllDish.map((item) => (
                     <div
                       key={item.id}
-                      className="md:my-5 col-span-1  mx-auto sm:mx-0 relative rounded-[9.8px] mexploreD p-2 "
+                      className=" col-span-1 mx-auto sm:mx-0 relative rounded-[9.8px] mexploreD p-2"
+
                     >
                       <button className="" onClick={() => openModal(item._id)}>
                         <img
@@ -1201,7 +1160,7 @@ const ExploreDishes = () => {
                           alt={item.title}
                           width={345}
                           height={278}
-                          className=" 2xl:w-[365.5px] 2xl:h-[278px] xl:w-[280px] xl:h-[200px] lg:w-[220px] lg:h-[160px] w-[366px] h-[260px] rounded-[10px] mexplorimg"
+                          className="2xl:w-[365.5px] 2xl:h-[278px] xl:w-[280px] xl:h-[200px] lg:w-[220px] lg:h-[160px] w-[366px] h-[260px] rounded-[10px] mexplorimg"
                         />
                       </button>
                       <div className="">
@@ -1209,16 +1168,14 @@ const ExploreDishes = () => {
                           className=""
                           onClick={() => openModal(item._id)}
                         >
-                          <h4 className="alata capitalize font-[400] text-[#DB5353] 2xl:my-4 xl:my-3 my-2 2xl:text-[20px] 2xl:leading-[20px]  xl:text-[14px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[10px]">
+                          <h4 className="alata capitalize font-[400] text-[#DB5353] 2xl:my-4 xl:my-3 my-2 2xl:text-[20px] 2xl:leading-[20px] xl:text-[14px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[16px]">
                             {item.name}
                           </h4>
                         </button>
-
-                        {/* ===============Chef ============= */}
                         <Link
                           href={`/pages/chef-details/${item?.chef_id?._id}`}
                         >
-                          <div className="flex items-center 2xl:gap-3 xl:gap-2 lg:gap-2  gap-2 xl:my-3 lg:my-2 my-2">
+                          <div className="flex items-center 2xl:gap-3 xl:gap-2 lg:gap-2 gap-2 xl:my-3 lg:my-2 my-2">
                             {item?.chef_id?.images ? (
                               <img
                                 alt="image"
@@ -1238,7 +1195,6 @@ const ExploreDishes = () => {
                             </div>
                           </div>
                         </Link>
-
                         <div className="flex flex-wrap gap-5 2xl:my-[20px] xl:my-[15px] my-[12px]">
                           {item?.Dietary_id.map((dietary) => (
                             <div className="four_btn" key={dietary._id}>
@@ -1252,7 +1208,6 @@ const ExploreDishes = () => {
                               </p>
                             </div>
                           ))}
-
                           {item?.Nutrition_id?.Nutritional ? (
                             <div className="four_btn">
                               <p className="fourth_day capitalize">
@@ -1263,45 +1218,26 @@ const ExploreDishes = () => {
                             ""
                           )}
                         </div>
-                        <div className="flex items-center gap-5  2xl:my-[20px] xl:my-[15px] my-[12px]">
+                        <div className="flex items-center gap-5 2xl:my-[20px] xl:my-[15px] my-[12px]">
                           <h4 className="fourth_p">Spice level</h4>
                           <button className="four_btnn border">
                             <img
                               alt="image"
                               src={item.spice_level_id.ProfileImage}
-                              className=" w-[100%] h-auto"
+                              className="w-[100%] h-auto"
                             />
                             <p className="fourth_day capitalize">
                               {item.spice_level_id.title}
                             </p>
                           </button>
                         </div>
-
-                        <div className=" w-full bottom-0 flex justify-between items-center  2xl:my-[22px] xl:my-[18px] my-[15px]">
-                          <p className="alata font-[400] text-[#000] 2xl  :text-[20px] leading-[24px]  text-[18px]  ">
-                            Serves 1 ({item?.weight}g){" "}
+                        <div className="w-full bottom-0 flex justify-between items-center 2xl:my-[22px] xl:my-[18px] my-[15px]">
+                          <p className="alata font-[400] text-[#000] 2xl:text-[20px] leading-[24px] text-[14px]">
+                            Serves {item?.portion_Size} | ({item?.weight}g) |
                             <span className="text-[#DB5353]">
                               {item?.price && `£${item.price.toFixed(2)}`}
                             </span>
                           </p>
-                          {/* <button
-                            onClick={() => {
-                              defaultADish(item?._id);
-                            }}
-                          >
-                            <div className="drawer-content">
-                              <label
-                                htmlFor="my-drawer-4"
-                                className="drawer-button"
-                              >
-                                <Image
-                                  src={addCart}
-                                  alt={item.title}
-                                  className=" 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
-                                />
-                              </label>
-                            </div>
-                          </button> */}
                           {token ? (
                             <button
                               onClick={() => {
@@ -1346,7 +1282,14 @@ const ExploreDishes = () => {
                       </div>
                     </div>
                   ))}
-              </div>
+                  <div className="flex justify-center w-full"></div>
+                </div>
+              ) : (
+                <div className="text-center my-5">
+                  <h2 className="text-[40px] font-bold">No dishes found</h2>
+                  <div className="flex justify-center"></div>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -1602,7 +1545,8 @@ const ExploreDishes = () => {
                     <p className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[16px] 2xl:leading-[26px] xl:text-[14px] xl:leading-[20px] lg:text-[12px] lg:leading-[18px] text-center">
                       Add dishes to your cart now.
                     </p>
-                    <div className="flex 2xl:mt-12 xl:mt-6 lg:mt-5 mt-4">
+
+                    <div className="flex justify-center 2xl:mt-12 xl:mt-6 lg:mt-5 mt-4 w-full">
                       <Link href="/explore-dishes">
                         <button className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[221px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1">
                           Explore Dishes
@@ -1646,33 +1590,43 @@ const ExploreDishes = () => {
                                 <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
                                   Price: £{data.price}
                                 </h4>
-                                <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
-                                  <div className="flex justify-center 2xl:w-[103px] 2xl:h-[39px] xl:w-[60px] xl:h-[22px] lg:w-[50px] lg:h-[20px] border rounded-[5px]">
-                                    <button
-                                      className="text-[#DB5353] rounded-l w-1/3"
-                                      onClick={() => handleDecrement(item._id)}
-                                    >
-                                      <Image
-                                        src={minus}
-                                        className="2xl:w-[15px] 2xl:h-[15px] xl:w-[10px] xl:h-[10px] lg:w-[8px] lg:h-[8px] mx-auto"
-                                        alt="decrement"
-                                      />
-                                    </button>
+                                <div className="flex justify-center 2xl:w-[103px] 2xl:h-[39px] xl:w-[60px] xl:h-[22px] lg:w-[50px] lg:h-[20px] border rounded-[5px]">
+                                  {token ? (
+                                    <>
+                                      <button
+                                        className="text-[#DB5353] rounded-l w-1/3"
+                                        onClick={() =>
+                                          handleDecrement(item._id)
+                                        }
+                                      >
+                                        <Image
+                                          src={minus}
+                                          className="2xl:w-[15px] 2xl:h-[15px] xl:w-[10px] xl:h-[10px] lg:w/[8px] lg:h/[8px] mx-auto"
+                                          alt="decrement"
+                                        />
+                                      </button>
+                                      <p className="flex mx-auto items-center text-[10px] xl:text-[12px] 2xl:text-[18px] 2xl:leading-[28px]">
+                                        {item.quantity}
+                                      </p>
+                                      <button
+                                        className="text-[#DB5353] rounded-r w-1/3"
+                                        onClick={() =>
+                                          handleIncrement(item._id)
+                                        }
+                                      >
+                                        <Image
+                                          src={plus}
+                                          className="2xl:w-[15px] 2xl:h-[15px] xl:w/[10px] xl:h/[10px] lg:w/[8px] lg:h/[8px] mx-auto"
+                                          alt="increment"
+                                        />
+                                      </button>
+                                    </>
+                                  ) : (
                                     <p className="flex mx-auto items-center text-[10px] xl:text-[12px] 2xl:text-[18px] 2xl:leading-[28px]">
-                                      {item.quantity}
+                                      1
                                     </p>
-                                    <button
-                                      className="text-[#DB5353] rounded-r w-1/3"
-                                      onClick={() => handleIncrement(item._id)}
-                                    >
-                                      <Image
-                                        src={plus}
-                                        className="2xl:w-[15px] 2xl:h-[15px] xl:w/[10px] xl:h/[10px] lg:w/[8px] lg:h/[8px] mx-auto"
-                                        alt="increment"
-                                      />
-                                    </button>
-                                  </div>
-                                </h4>
+                                  )}
+                                </div>
                               </div>
                             </div>
                             <button
@@ -1722,29 +1676,41 @@ const ExploreDishes = () => {
                                     `£${item.menuItem.price.toFixed(2)}`}
                                 </h4>
                                 <div className="flex justify-center 2xl:w-[103px] 2xl:h-[39px] xl:w-[60px] xl:h-[22px] lg:w-[50px] lg:h-[20px] border rounded-[5px]">
-                                  <button
-                                    className="text-[#DB5353] rounded-l w-1/3"
-                                    onClick={() => handleDecrement(item._id)}
-                                  >
-                                    <Image
-                                      src={minus}
-                                      className="2xl:w-[15px] 2xl:h-[15px] xl:w-[10px] xl:h-[10px] lg:w-[8px] lg:h-[8px] mx-auto"
-                                      alt="decrement"
-                                    />
-                                  </button>
-                                  <p className="flex mx-auto items-center text-[10px] xl:text-[12px] 2xl:text-[18px] 2xl:leading-[28px]">
-                                    {item.quantity}
-                                  </p>
-                                  <button
-                                    className="text-[#DB5353] rounded-r w-1/3"
-                                    onClick={() => handleIncrement(item._id)}
-                                  >
-                                    <Image
-                                      src={plus}
-                                      className="2xl:w-[15px] 2xl:h-[15px] xl:w/[10px] xl:h/[10px] lg:w/[8px] lg:h/[8px] mx-auto"
-                                      alt="increment"
-                                    />
-                                  </button>
+                                  {token ? (
+                                    <>
+                                      <button
+                                        className="text-[#DB5353] rounded-l w-1/3"
+                                        onClick={() =>
+                                          handleDecrement(item._id)
+                                        }
+                                      >
+                                        <Image
+                                          src={minus}
+                                          className="2xl:w/[15px] 2xl:h/[15px] xl:w/[10px] xl:h/[10px] lg:w/[8px] lg:h/[8px] mx-auto"
+                                          alt="decrement"
+                                        />
+                                      </button>
+                                      <p className="flex mx-auto items-center text-[10px] xl:text-[12px] 2xl:text-[18px] 2xl:leading-[28px]">
+                                        {item.quantity}
+                                      </p>
+                                      <button
+                                        className="text-[#DB5353] rounded-r w-1/3"
+                                        onClick={() =>
+                                          handleIncrement(item._id)
+                                        }
+                                      >
+                                        <Image
+                                          src={plus}
+                                          className="2xl:w/[15px] 2xl:h/[15px] xl:w/[10px] xl:h/[10px] lg:w/[8px] lg:h/[8px] mx-auto"
+                                          alt="increment"
+                                        />
+                                      </button>
+                                    </>
+                                  ) : (
+                                    <p className="flex mx-auto items-center text-[10px] xl:text-[12px] 2xl:text-[18px] 2xl:leading-[28px]">
+                                      1
+                                    </p>
+                                  )}
                                 </div>
                               </div>
                             </div>
@@ -1784,7 +1750,7 @@ const ExploreDishes = () => {
                       </div>
                       <div className="flex justify-between items-center mt-20">
                         <div>
-                          <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]"></h4>
+                          <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading/[20px] lg:text/[10px] lg:leading/[18px]"></h4>
                         </div>
                         <div>
                           {token ? (
@@ -1793,18 +1759,30 @@ const ExploreDishes = () => {
                                 onClick={() => {
                                   handleAddCart();
                                 }}
-                                className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1"
+                                className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text/[20px] 2xl:leading-[27.6px] xl:text/[12px] lg:text/[10px] xl:px-[6px] xl:py-[10px] lg:px-[3px] lg:py-[1px] px-[3px] py-[1px]"
                               >
                                 Checkout
                               </button>
                             </Link>
                           ) : (
-                            <button
-                              onClick={handleLoginClick}
-                              className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1"
-                            >
-                              Checkout
-                            </button>
+                            <div>
+                              {/* {cart?.length === 0 &&
+                              getCartItems?.length === 0 ? ( */}
+                              <button
+                                onClick={handleLoginClick}
+                                className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w/[164px] 2xl:h/[56px] 2xl:text/[20px] 2xl:leading/[27.6px] xl:text/[12px] lg:text/[10px] xl:px-[6px] xl:py/[10px] lg:px/[3px] lg:py/[1px] px/[3px] py/[1px]"
+                              >
+                                Checkout
+                              </button>
+                              {/* ) : (
+                                <button
+                                  onClick={handleDrawerClose}
+                                  className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w/[164px] 2xl:h/[56px] 2xl:text/[20px] 2xl:leading/[27.6px] xl:text/[12px] lg:text/[10px] xl:px-[6px] xl:py/[10px] lg:px/[3px] lg:py/[1px] px/[3px] py/[1px]"
+                                >
+                                  Checkout
+                                </button>
+                              )} */}
+                            </div>
                           )}
                         </div>
                       </div>
@@ -1816,7 +1794,9 @@ const ExploreDishes = () => {
           </ul>
         </div>
       </div>
+
       {/* ===============PopUp=============== */}
+
       <dialog
         id="my_modal_10"
         className="2xl:w-[1000px] 2xl:h-[939px] xl:w-[720px] w-[600px] h-auto mx-auto rounded-[10px]  my-auto 2xl:px-[40px] 2xl:py-[45px] xl:px-[25px] xl:py-[30px] px-[15px] py-[20px]"
@@ -1897,10 +1877,7 @@ const ExploreDishes = () => {
                   {" "}
                   <button
                     className="   text-[#DB5353] rounded-l w-1/3"
-                    onClick={() => {
-                      handleDecrement();
-                      // alert("Removed from cart");
-                    }}
+                    onClick={() => handleDecrement(item._id)}
                   >
                     <Image
                       src={minus}
@@ -1912,7 +1889,7 @@ const ExploreDishes = () => {
                   </p>
                   <button
                     className="    text-[#DB5353] rounded-r w-1/3"
-                    onClick={() => handleIncrement()}
+                    onClick={() => handleIncrement(item._id)}
                   >
                     <Image
                       src={plus}

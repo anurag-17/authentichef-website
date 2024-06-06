@@ -511,6 +511,8 @@ exports.updatedUser = async (req, res) => {
         lastname: req?.body?.lastname,
         email: req?.body?.email,
         mobile: req?.body?.mobile,
+        BillingInfo: req?.body?.BillingInfo,
+        deliveryInfo: req?.body?.deliveryInfo,
       },
       {
         new: true,

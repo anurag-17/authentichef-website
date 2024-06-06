@@ -187,6 +187,11 @@ exports.getCartItems = async (req, res) => {
   
 
     const TotalPricePerQuntity = userCart.items.map(item => item.menuItem.price * item.quantity).reduce((a, b) => a + b, 0);
+    
+    //calculate Total Quantity of items in the cart
+
+    const TotalQuantity = userCart.items.map(item => item.quantity).reduce((a, b) => a + b, 0);
+
 
     // want to count number of items in the cart
     const userCartCount =userCart.items.length;
@@ -196,7 +201,7 @@ exports.getCartItems = async (req, res) => {
     }
    
 
-    res.status(200).json({message:'Cart',userCart,userCartCount,TotalPricePerQuntity})
+    res.status(200).json({message:'Cart',userCart,userCartCount,TotalPricePerQuntity,TotalQuantity})
   } catch (error) {
     // If an error occurs, respond with an error message
     res.status(500).json({ error: "Failed to retrieve cart items", message: error.message });
