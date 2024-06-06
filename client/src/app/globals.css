@@ -242,7 +242,7 @@ td {
 }
 
 .fourth_p {
-  @apply alata font-[400] xl:text-[16px] xl:leading-[24px] text-[14px];
+  @apply alata font-[400] xl:text-[16px] xl:leading-[24px] md:text-[14px] text-[13px] whitespace-nowrap;
 }
 
 .four_btn {
@@ -357,7 +357,7 @@ td {
 }
 
 .nine_p2 {
-  @apply alata font-[400] text-center 2xl:w-[352px] lg:text-[18px] leading-[28px] 2xl:my-5 xl:w-[280px] xl:my-5 lg:w-[230px] sm:w-[80%] mx-auto lg:my-4 sm:text-[16px] text-[15px] my-2;
+  @apply alata font-[400] text-center 2xl:w-[352px] md:text-[18px] leading-[28px] 2xl:my-5 xl:w-[280px] xl:my-5 lg:w-[240px] sm:w-[80%] mx-auto lg:my-4 sm:text-[16px] text-[15px] my-2;
 }
 
 .nine_name {

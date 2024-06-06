@@ -9,6 +9,12 @@ module.exports = {
     extend: {
       screens: {
         'xs': {'max': '640px'}, // Define custom screen size 'xs' with a maximum width of 319px
+        'lg': {'min': '1024px'}, // Define custom screen size 'xs' with a maximum width of 319px
+        'md': {'min': '768px'}, // Define custom screen size 'xs' with a maximum width of 319px
+        'xl': {'min': '1280px'}, // Define custom screen size 'xs' with a maximum width of 319px
+        '2xl': {'min': '1536px'}, // Define custom screen size 'xs' with a maximum width of 319px
+        'xss': {'max': '400px'}, // Define custom screen size 'xs' with a maximum width of 319px
+        // 'xss': {'min': '400px'}, // Define custom screen size 'xs' with a maximum width of 319px
         // 'sm': {'max': '640px'},
       },
       backgroundImage: {
