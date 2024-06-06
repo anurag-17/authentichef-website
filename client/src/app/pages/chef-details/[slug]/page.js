@@ -277,17 +277,17 @@ const ChefDetails = ({ params }) => {
               className="chefDishes-bg rounded-[15px] relative 2xl:h-[529px] xl:h-[360px] h-[280px] 2xl:pt-[295px] xl:pt-[200px] lg:pt-[155px] pt-[120px]"
               style={{ backgroundImage: `url(${bannerImage})` }}
             >
-              <div className="overflow-y-scroll border flex gap-5 2xl:w-[1414px] xl:w-[1000px] lg:w-[750px] w-[90%] h-[200px] xl:h-[250px] rounded-[15px] bg-white mx-auto 2xl:p-[50px] xl:p-[20px] p-[15px] chefdishWB">
+              <div className="overflow-y-scroll border flex gap-5 2xl:w-[1414px] xl:w-[1000px] lg:w-[750px] w-[90%] h-[200px] xl:h-[300px] rounded-[15px] bg-white mx-auto 2xl:p-[50px] xl:p-[20px] p-[15px] chefdishWB">
                 <div className="2xl:w-[154px] xl:w-[80px] w-[60px]">
-                  <div>
-                    <img src={getAChef?.images} className="w-full" />
+                  <div className="2xl:w-[154px]">
+                    <img src={getAChef?.images} className="w-full rounded-full 2xl:w-[154px] 2xl:h-[154px] object-cover" />
                   </div>
                   <div className="flex justify-center 2xl:gap-5 xl:gap-2 gap-1 2xl:my-[20px] xl:my-[10px] my-[5px]">
                     <a href={getAChef?.Facebook_Link} target="_blank">
-                      <Image src={fb} className="xl:w-[22px] w-[15px]" />
+                      <Image src={fb} className="xl:w-[35px] w-[15px]" />
                     </a>
                     <a href={getAChef?.Instagram_Link} target="_blank">
-                      <Image src={insta} className="xl:w-[22px] w-[15px]" />
+                      <Image src={insta} className="xl:w-[35px] w-[15px]" />
                     </a>
                   </div>
                 </div>

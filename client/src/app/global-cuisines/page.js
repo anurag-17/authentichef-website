@@ -40,7 +40,7 @@ const GlobalCusines = () => {
             </div>
           </div>
 
-          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] sm:w-full xs:w-full flex justify-between mx-auto 2xl:mb-[230px] xl:mb-[140px] mb-[90px] mnavbar">
+          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] sm:w-full xs:w-full flex justify-between mx-auto 2xl:mb-[80px] xl:mb-[50px] mb-[90px] mnavbar">
             <div className="w-full">
               <div className="text-center mt-[120px] 2xl:mt-[220px] xl:mt-[120px] lg:mt-[120px] md:mt-[80px] sm:mt-[50px]">
                 <h4 className="globalhead2">Popular Cuisines</h4>

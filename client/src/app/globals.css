@@ -241,7 +241,7 @@ td {
   @apply text-[#111111] alata font-[400] 2xl:text-[16px] 2xl:leading-[20px] xl:text-[12px] xl:leading-[18px] lg:text-[12px] lg:leading-[16px] text-[14px] leading-[16px];
 }
 
-.fourth_p {
+.  {
   @apply alata font-[400] xl:text-[16px] xl:leading-[24px] md:text-[14px] text-[13px] whitespace-nowrap;
 }
 
@@ -345,7 +345,7 @@ td {
 }
 
 .nine_head {
-  @apply text-center alata font-[400] 2xl:text-[55px] 2xl:leading-[75px] lg:text-[45px] lg:leading-[60px] sm:text-[35px] leading-[45px] text-[30px];
+  @apply text-center alata font-[400] 2xl:text-[45px] 2xl:leading-[55px] lg:text-[35px] lg:leading-[60px] sm:text-[30px] leading-[45px] text-[30px];
 }
 
 .nine_p {
@@ -782,7 +782,7 @@ td {
 }
 
 .faqhead {
-  @apply alata font-[400] 2xl:text-[75px] xl:text-[45px] lg:text-[30px] sm:text-[30px] text-[24px] 2xl:leading-[85px] xl:leading-[55px] lg:leading-[40px] sm:leading-[40px] leading-[normal]
+  @apply alata font-[400] 2xl:text-[55px] xl:text-[45px] lg:text-[30px] sm:text-[30px] text-[24px] 2xl:leading-[85px] xl:leading-[55px] lg:leading-[40px] sm:leading-[40px] leading-[normal]
 }
 
 .aboutHead {

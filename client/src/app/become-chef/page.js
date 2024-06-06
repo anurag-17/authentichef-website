@@ -79,7 +79,7 @@ const BecomeChef = () => {
         <div className="flex justify-center">
           <div className="flex justify-center text-center sm:text-[20px] 2xl:mt-[76px] mx-auto">
             <div className="custom_container px-4 xl:pt-[130px] pt-[90px]">
-              <h1 className="font-alata alata  text-[#111111] text-4xl font-[400] md:text-5xl lg:text-[2.7rem] lg:text-6xl xl:text-[45px] 2xl:text-[75px] leading-[1.3] md:leading-[1.2] xl:leading-[55px] 2xl:leading-[85px] mb-[10px]">
+              <h1 className="font-alata alata  text-[#111111] text-4xl font-[400] md:text-5xl lg:text-[2.7rem] lg:text-6xl xl:text-[45px] 2xl:text-[55px] leading-[1.3] md:leading-[1.2] xl:leading-[55px] 2xl:leading-[85px] mb-[10px]">
                 Our Chef Community
               </h1>
               <div className="2xl:max-w-[1098px] alata xl:max-w-[700px] lg:max-w-[600px] mx-auto text-[#111111] mb-[25px] ">
@@ -192,7 +192,7 @@ const BecomeChef = () => {
           <div className="custom_container py-[30px] lg:py-[50px] xl:py-[60px] mnavbar ">
             <div className="flex flex-col md:flex-row justify-between items-stretch mx-auto xs:px-[20px]">
               <div className="w-full md:w-3/5 lg:mr-4 xl:w-[47%] 2xl:w-[52%] flex flex-col justify-between">
-                <h2 className="font-alata alata text-[#111111] text-2xl xl:text-[2rem] sm:mt-[30px] 2xl:mt-[0px] font-[400] leading-8 lg:text-3xl xs:mt-[20px] lg:mt-[0px] lg:leading-10 xl:text-4xl xl:leading-[45px] 2xl:text-[54px] 2xl:leading-[75px]">
+                <h2 className="font-alata alata text-[#111111] text-2xl  sm:mt-[30px] 2xl:mt-[0px] font-[400] leading-8 lg:text-3xl xs:mt-[20px] lg:mt-[0px] lg:leading-10 xl:text-[35px] xl:leading-[45px] 2xl:text-[45px] 2xl:leading-[75px]">
                   Are you considering starting your own food business from home?
                 </h2>
                 <p className="font-alata alata text-[#111111] mt-4 text-lg font-[400] leading-6 lg:text-xl lg:leading-8 xl:text-2xl xl:leading-[35px] 2xl:text-[36px] 2xl:leading-[55px]">
@@ -309,7 +309,7 @@ const BecomeChef = () => {
               className="2xl:max-w-[1600px] xl:max-w-[1100px] lg:max-w-[850px] md:max-w-[800px] mx-auto text-center mnavbar"
             > */}
 
-              <h2 className="font-alata font-medium text-[#111111] text-2xl leading-8 sm:text-3xl sm:leading-9 md:text-4xl md:leading-10 xl:text-5xl xl:leading-[45px] 2xl:text-[55px] 2xl:leading-[75px]">
+              <h2 className="font-alata font-medium text-[#111111] text-2xl leading-8 sm:text-3xl sm:leading-9 md:text-[30px] md:leading-10 xl:text-[35px] xl:leading-[45px] 2xl:text-[45px] 2xl:leading-[75px]">
                 Ready to Get Started?
               </h2>
               <p className="font-alata font-medium text-[#111111] mt-6 sm:mt-4 text-sm leading-5 sm:text-base sm:leading-6 md:text-lg md:leading-7 xl:text-xl xl:leading-8 2xl:text-2xl 2xl:leading-10">
@@ -329,7 +329,7 @@ const BecomeChef = () => {
             />
           </div>
           <div className="w-full sm:w-[44%] lg:w-[57%] xl:w-[50%] 2xl:w-[46%] max-w-[720px] md:ml-[20px] h-full flex flex-col justify-center">
-            <h3 className="font-alata text-[#111111] font-[400] xl:text-[2.5rem] text-2xl sm:text-[22px] md:text-[30px] leading-8 text-center sm:text-left sm:text-3xl sm:leading-9 md:text-4xl md:leading-10 xl:text-5xl xl:leading-[45px] 2xl:text-[55px] 2xl:leading-[75px] mb-6">
+            <h3 className="font-alata text-[#111111] font-[400] xl:text-[2.5rem] text-2xl sm:text-[22px] md:text-[30px] leading-8 text-center sm:text-left sm:text-3xl sm:leading-9 md:text-[30px] md:leading-10 xl:text-[35px] xl:leading-[45px] 2xl:text-[45px] 2xl:leading-[75px] mb-6">
               Join the Chef Waiting List
             </h3>
             <form
