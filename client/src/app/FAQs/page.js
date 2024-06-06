@@ -175,12 +175,12 @@ const FAQs = () => {
     <>
       <section>
         <Navbar />
-        <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px]  mx-auto 2xl:py-[150px] xl:py-[120px] py-[70px] mnavbar">
+        <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px]  mx-auto  mnavbar">
           <div className=" mx-auto text-center ">
             <h1 className="faqhead text-[#000000] alata font-[400] 2xl:text-[55px] xl:text-[40px] lg:text-[30px] md:text-[30px] xs:text-[25px]">
               Your Questions Answered
             </h1>
-            <h2 className="pop-head 2xl:mt-[60px] 2xl:text-[30px] xl:text-[20px] xl:mt-[40px] text-[#000000] alata font-[400] lg:mt-[25px] sm:mt-[20px]  mt-[] my-3">
+            <h2 className="pop-head 2xl:mt-[120px] 2xl:text-[55px] xl:text-[45px] xl:mt-[40px] text-[#000000] alata font-[400] lg:mt-[25px] sm:mt-[20px]  mt-[] my-3">
               About Authentichef
             </h2>
           </div>
@@ -203,8 +203,9 @@ const FAQs = () => {
             </div>
           </div>
 
-          <div className="2xl:mt-[60px] xl:mt-[40px] lg:mt-[20px] sm:mt-[10px] mt-[] text-center">
-            <h2 className="pop-head 2xl:mt-[60px] text-[#000000] alata font-[400]  xl:mt-[40px] lg:mt-[25px] sm:mt-[20px] mt-[] my-3">
+         <div className="2xl:py-[60px] xl:py-[40px] lg:py-[20px] sm:py-[10px] py-[]">
+         <div className="text-center">
+            <h2 className="pop-head  text-[#000000] alata font-[400] ">
               Chef Community
             </h2>
             <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] mx-auto mnavbar">
@@ -668,6 +669,7 @@ const FAQs = () => {
               </div>
             </div>
           </div>
+         </div>
         </div>
 
         <Footer />

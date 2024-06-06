@@ -302,8 +302,11 @@ const BecomeChef = () => {
         </div>
 
         <div className="flex items-center w-full ">
-          <div className="bg-[#FFE2E2] py-24 lg:py-16 xl:py-20 xs:py-[2rem] w-full xs:px-[20px] 2xl:mt-[100px] xl:mt-[80px] md:py-[4rem] lg:mt-[60px] md:mt-[40px] xs:mt-[40px] sm:mt-[40px]">
-            <div ref={formRef} className="custom_containertext-center text-center mnavbar">
+          <div className="bg-[#FFE2E2] py-24 lg:py-16 xl:py-20 xs:py-[2rem] w-full xs:px-[20px] md:py-[4rem] ">
+            <div
+              ref={formRef}
+              className="custom_containertext-center text-center mnavbar"
+            >
               {/* <div
               ref={formRef}
               className="2xl:max-w-[1600px] xl:max-w-[1100px] lg:max-w-[850px] md:max-w-[800px] mx-auto text-center mnavbar"
@@ -320,7 +323,7 @@ const BecomeChef = () => {
           </div>
         </div>
 
-        <div className="2xl:w-[1600px] mnavbar xs:px-[20px] md:px-[0px] sm:px-[20px] lg:w-[850px] md:w-[745px] w-full mx-auto flex flex-col sm:flex-row justify-between items-center mt-12 xl:mt-20 2xl:mt-28 mb-12 xl:mb-20 2xl:mb-28 px-4 xl:w-[77%] h-full">
+        <div className="2xl:w-[1600px] mnavbar xs:px-[20px] md:px-[0px] sm:px-[20px] lg:w-[850px] md:w-[745px] w-full mx-auto flex flex-col sm:flex-row justify-between items-center  px-4 xl:w-[77%] h-full  py-[30px] lg:py-[50px] xl:py-[60px]">
           <div className="2xl:w-[45%] xl:w-[42%] md:w-[50%] sm:w-[50%] mb-8 sm:mb-0 h-full">
             <Image
               src={banner3}
@@ -329,7 +332,7 @@ const BecomeChef = () => {
             />
           </div>
           <div className="w-full sm:w-[44%] lg:w-[57%] xl:w-[50%] 2xl:w-[46%] max-w-[720px] md:ml-[20px] h-full flex flex-col justify-center">
-            <h3 className="font-alata text-[#111111] font-[400] xl:text-[2.5rem] text-2xl sm:text-[22px] md:text-[30px] leading-8 text-center sm:text-left sm:text-3xl sm:leading-9 md:text-[30px] md:leading-10 xl:text-[35px] xl:leading-[45px] 2xl:text-[45px] 2xl:leading-[75px] mb-6">
+            <h3 className="font-alata text-[#111111] font-[500] xl:text-[2.5rem] text-2xl sm:text-[22px] md:text-[30px] leading-8 text-center sm:text-left sm:text-3xl sm:leading-9 md:text-[30px] md:leading-10 xl:text-[35px] xl:leading-[45px] 2xl:text-[45px] 2xl:leading-[75px] mb-6">
               Join the Chef Waiting List
             </h3>
             <form
