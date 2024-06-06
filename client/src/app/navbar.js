@@ -624,7 +624,7 @@ const Navbar = () => {
                     aria-label="close sidebar"
                     className="drawer-overlay"
                   ></label>
-                  <ul className="menu p-[3px]  px-[20px] 2xl:w-[410px] xl:w-[320px] lg:w-[240px] sm:w-[240px] w-[240px] min-h-full bg-base-200 sidebar py-[10px]">
+                  <ul className="menu p-[3px]  px-[20px] 2xl:w-[410px] xl:w-[320px] lg:w-[240px] sm:w-[240px] w-[240px] min-h-full bg-base-200 sidebar py-[10px] font-alata font-[400] text-[14px] leading-[26px]">
                     {/* Sidebar content here */}
                     <div>
                       <div className="flex justify-between items-center 2xl:my-[10px] my-[5px]">
@@ -737,19 +737,19 @@ const Navbar = () => {
                           </div>
                         ) : (
                           <div className="md:gap-7 gap-2">
-                            <p className="text-[#555555] font-alata font-[400] 2xl:text-[14px] xl:text-[10px] lg:text-[9px] sm:text-[10px] text-[8px] 2xl:leading-[26px] xl:leading-[22px] lg:leading-[16px] sm:leading-[16px] leading-[14px]">
+                            <p className="text-[#555555] font-alata font-[400] sm:text-[15px] text-[14px] 2xl:leading-[26px] leading-[22px] ">
                               Welcome
                             </p>
                             <button
                               onClick={handleLoginClick}
-                              className="text-[#DB5353] fourth_p"
+                              className="text-[#DB5353] fourth_p font-alata font-[400] sm:text-[15px] text-[14px] 2xl:leading-[26px] leading-[22px] mt-2"
                             >
                               Log In
                             </button>
                             <br />
                             <button
                               onClick={handleSignUpClick}
-                              className="fourth_p text-[#DB5353]"
+                              className="fourth_p text-[#DB5353] font-alata font-[400] sm:text-[15px] text-[14px] 2xl:leading-[26px] leading-[22px] mt-1"
                             >
                               Sign Up
                             </button>

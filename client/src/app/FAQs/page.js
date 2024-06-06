@@ -175,14 +175,17 @@ const FAQs = () => {
     <>
       <section>
         <Navbar />
-        <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px]  mx-auto 2xl:py-[150px] xl:py-[120px] py-[70px] mnavbar">
-          <div className=" mx-auto text-center ">
-            <h1 className="faqhead text-[#000000] alata font-[400] 2xl:text-[55px] xl:text-[40px] lg:text-[30px] md:text-[30px] xs:text-[25px]">
-              Your Questions Answered
-            </h1>
-            <h2 className="pop-head 2xl:mt-[60px] 2xl:text-[30px] xl:text-[20px] xl:mt-[40px] text-[#000000] alata font-[400] lg:mt-[25px] sm:mt-[20px]  mt-[] my-3">
-              About Authentichef
-            </h2>
+        <div className="custom_container 2xl:pt-[150px] 2xl:pb-[50px] xl:pt-[120px] md:pb-[40px] pt-[70px]  mnavbar">
+          <div className="">
+
+            <div className=" mx-auto text-center ">
+              <h1 className="faqhead text-[#000000] alata font-[400] 2xl:text-[55px] xl:text-[40px] lg:text-[30px] md:text-[30px] xs:text-[25px]">
+                Your Questions Answered
+              </h1>
+              <h2 className="pop-head 2xl:mt-[30px] 2xl:text-[30px] xl:text-[20px] xl:mt-[20px] text-[#000000] alata font-[400] lg:mt-[10px] sm:mt-[20px]  mt-[] my-3">
+                About Authentichef
+              </h2>
+            </div>
           </div>
           <div className="bg-[#F38181] text-white mx-auto 2xl:w-[1129px] xl:w-[700px]  lg:w-[550px] sm:w-[] w-[] 2xl:h-[210px] flex items-center 2xl:px-[30px] xl:px-[20px] lg:px-[15px] sm:px-[10px] px-[] 2xl:mt-[30px] xl:mt-[20px] lg:mt-[10px] sm:mt-[10px] mt-[] py-[12px] xl:py-[15px] 2xl:py-0">
             <div className="">
@@ -193,7 +196,7 @@ const FAQs = () => {
               <h2 className="seven_p2 xs:text-[15px] sm:text-[15px] alata font-[400]  2xl:text-[18px] xl:text-[18px] xs:center xs:mx-5 xs:my-2 md:my-2 md:text-[18px]">
                 We believe food is not just a need; they’re journeys.
               </h2>
-              <p className="2xl:w-[981px] xl:w-[] lg:w-[]  sm:w-[] w-[] alata font-[400] seven_p2 xs:text-[15px] 2xl:text-[18px] xl:text-[18px] xs:center xs:mx-5 xs:my-2 md:my-2 md:text-[18px] xl:leading-5 2xl:leading-5 md:leading-5 sm:text-[15px]">
+              <p className="2xl:w-[981px] xl:w-[] lg:w-[]  sm:w-[] w-[] alata font-[400] seven_p2 xs:text-[15px] 2xl:text-[18px] xl:text-[18px] xs:center xs:mx-5 xs:my-2 md:my-2 md:text-[18px] xl:leading-5 2xl:leading-[30px] md:leading-5 sm:text-[15px] ">
                 We connect you with delicious, authentic dishes from around the
                 world, handcrafted by passionate independent chefs in the UK.
                 Each dish is a culinary adventure, inspired by traditional
@@ -207,13 +210,13 @@ const FAQs = () => {
             <h2 className="pop-head 2xl:mt-[60px] text-[#000000] alata font-[400]  xl:mt-[40px] lg:mt-[25px] sm:mt-[20px] mt-[] my-3">
               Chef Community
             </h2>
-            <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] mx-auto mnavbar">
+            <div className="custom_container mnavbar">
               <div className="2xl:w-[1129px] xl:w-[700px] lg:w-[550px] sm:w-[] w-[] mx-auto">
                 <div className="join join-vertical w-full text-start">
                   {/* Mapping through accordion items */}
                   {data.map((item, index) => (
                     <div
-                      className="collapse collapse-arrow join-item border-b pt-[10px] text-[#000000]  cursor-pointer"
+                      className="collapse collapse-arrow join-item border-b sm:pt-[10px] text-[#000000]  cursor-pointer"
                       key={index}
                     >
                       <input
@@ -224,7 +227,7 @@ const FAQs = () => {
                         className="cursor-pointer"
                       />
                       <div
-                        className="collapse-title 2xl:text-[25px] flex justify-between items-center xs:text-[12px] font-[400] alata"
+                        className="collapse-title 2xl:text-[25px] md:text-[18px] flex justify-between items-center xs:text-[13px] xs:p-0 font-[400] alata"
                         onClick={() => toggleAccordion(index, "delivery")}
                       >
                         {item.question}
@@ -266,7 +269,7 @@ const FAQs = () => {
                         </div>
                       </div>
                       {openIndex === `delivery-${index}` && (
-                        <div className="collapse-content">
+                        <div className="collapse-content xs:px-0">
                           <p className="faqA">{item.answer}</p>
                         </div>
                       )}
@@ -282,13 +285,13 @@ const FAQs = () => {
               Ordering
             </h2>
 
-            <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] mx-auto mnavbar">
+            <div className="custom_container  mnavbar">
               <div className="2xl:w-[1129px] xl:w-[700px] lg:w-[550px] sm:w-[] w-[] mx-auto">
                 <div className="join join-vertical w-full text-start">
                   {/* Mapping through accordion items */}
                   {data2.map((item, index) => (
                     <div
-                      className="collapse collapse-arrow join-item border-b pt-[10px] text-[#000000] "
+                      className="collapse collapse-arrow join-item border-b  sm:pt-[10px] text-[#000000] "
                       key={index}
                     >
                       <input
@@ -299,7 +302,7 @@ const FAQs = () => {
                         className="cursor-pointer"
                       />
                       <div
-                        className="collapse-title 2xl:text-[25px]  flex justify-between items-center  xs:text-[12px] font-[400] alata"
+                        className="collapse-title 2xl:text-[25px]  flex justify-between items-center   md:text-[18px] xs:text-[13px] xs:p-0 font-[400] alata gap-2"
                         onClick={() => toggleAccordion(index, "ordering")}
                       >
                         {item.question}
@@ -341,7 +344,7 @@ const FAQs = () => {
                         </div>
                       </div>
                       {openIndex === `ordering-${index}` && (
-                        <div className="collapse-content">
+                        <div className="collapse-content xs:px-0">
                           <p className="faqA">{item.answer}</p>
                         </div>
                       )}
@@ -356,13 +359,13 @@ const FAQs = () => {
             <h2 className="pop-head 2xl:mt-[60px] text-[#000000] alata font-[400] xl:mt-[40px] lg:mt-[25px] sm:mt-[20px] mt-[]">
               Dish
             </h2>
-            <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] mx-auto mnavbar">
+            <div className="custom_container mnavbar">
               <div className="2xl:w-[1129px] xl:w-[700px] lg:w-[550px] sm:w-[] w-[] mx-auto">
                 <div className="join join-vertical w-full text-start">
                   {/* Mapping through accordion items */}
                   {data3.map((item, index) => (
                     <div
-                      className="collapse collapse-arrow join-item border-b pt-[10px] text-[#000000] "
+                      className="collapse collapse-arrow join-item border-b sm:pt-[10px] text-[#000000] "
                       key={index}
                     >
                       <input
@@ -373,7 +376,7 @@ const FAQs = () => {
                         className="cursor-pointer"
                       />
                       <div
-                        className="collapse-title 2xl:text-[25px] flex justify-between items-center  xs:text-[12px] font-[400] alata"
+                        className="collapse-title 2xl:text-[25px] flex justify-between items-center md:text-[18px] xs:text-[13px] xs:p-0  font-[400] alata gap-2"
                         onClick={() => toggleAccordion(index, "dish")}
                       >
                         {item.question}
@@ -415,7 +418,7 @@ const FAQs = () => {
                         </div>
                       </div>
                       {openIndex === `dish-${index}` && (
-                        <div className="collapse-content">
+                        <div className="collapse-content xs:px-0">
                           <p className="faqA">{item.answer}</p>
                         </div>
                       )}
@@ -431,12 +434,12 @@ const FAQs = () => {
               Delivery
             </h2>
 
-            <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] mx-auto mnavbar">
+            <div className="custom_container mnavbar">
               <div className="2xl:w-[1129px] xl:w-[700px] lg:w-[550px] sm:w-[] w-[] mx-auto">
                 <div className="join join-vertical w-full text-start">
                   {data4.map((item, index) => (
                     <div
-                      className="collapse collapse-arrow join-item border-b pt-[10px] text-[#000000] "
+                      className="collapse collapse-arrow join-item border-b sm:pt-[10px] text-[#000000] "
                       key={index}
                     >
                       <input
@@ -447,7 +450,7 @@ const FAQs = () => {
                         className="cursor-pointer"
                       />
                       <div
-                        className="collapse-title 2xl:text-[25px] flex justify-between items-center  xs:text-[12px] font-[400] alata"
+                        className="collapse-title 2xl:text-[25px] flex justify-between items-center md:text-[18px] xs:text-[13px] xs:p-0  font-[400] alata gap-2"
                         onClick={() => toggleAccordion(index, "data4")}
                       >
                         {item.question}
@@ -486,7 +489,7 @@ const FAQs = () => {
                         </div>
                       </div>
                       {openIndex === `data4-${index}` && (
-                        <div className="collapse-content">
+                        <div className="collapse-content xs:px-0">
                           <p className="faqA w-[94%]">
                             {item.answer}
                             {item.question === "What days do you deliver?" && (
@@ -602,13 +605,13 @@ const FAQs = () => {
               Packaging and Sustainability
             </h2>
 
-            <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] mx-auto mnavbar">
+            <div className="custom_container mnavbar">
               <div className="2xl:w-[1129px] xl:w-[700px] lg:w-[550px] sm:w-[] w-[] mx-auto">
                 <div className="join join-vertical w-full text-start">
                   {/* Mapping through accordion items */}
                   {data5.map((item, index) => (
                     <div
-                      className="collapse collapse-arrow join-item border-b pt-[10px] text-[#000000] "
+                      className="collapse collapse-arrow join-item border-b sm:pt-[10px] text-[#000000] "
                       key={index}
                     >
                       <input
@@ -619,7 +622,7 @@ const FAQs = () => {
                         className="cursor-pointer"
                       />
                       <div
-                        className="collapse-title 2xl:text-[25px] flex justify-between items-center  xs:text-[12px] font-[400] alata"
+                        className="collapse-title 2xl:text-[25px] flex justify-between items-center md:text-[18px] xs:text-[13px] xs:p-0 font-[400] alata gap-2"
                         onClick={() => toggleAccordion(index, "data5")} // Call toggleAccordion here as well
                       >
                         {item.question}
@@ -658,7 +661,7 @@ const FAQs = () => {
                         </div>
                       </div>
                       {openIndex === `data5-${index}` && (
-                        <div className="collapse-content">
+                        <div className="collapse-content xs:px-0">
                           <p className="faqA">{item.answer}</p>
                         </div>
                       )}
