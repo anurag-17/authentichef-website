@@ -1075,15 +1075,20 @@ exports.checkDiscount = async (req, res, next) => {
 
 exports.OrderList = async (req, res, next) => {
     try {
-        const { page = 1, limit = 10, search } = req.query;
+        const { page = 1, limit = 10, search , meanusearch} = req.query;
         const currentPage = parseInt(page, 10);
         const itemsPerPage = parseInt(limit, 10);
 
         let orderQuery = Order.find({ user: req.user._id }).populate('payment'); // Filter by user_id
 
-
         if (search) {
-            orderQuery = orderQuery.where('items.menuItem').regex(new RegExp(search, 'i'));
+            const startDate = new Date(search);
+            startDate.setHours(0, 0, 0, 0); // Set start of the day
+            const endDate = new Date(search);
+            endDate.setHours(23, 59, 59, 999); // Set end of the day
+
+            orderQuery = orderQuery.where('orderDate').gte(startDate).lte(endDate);
+            
         }
 
         // Count total number of documents
@@ -1092,11 +1097,8 @@ exports.OrderList = async (req, res, next) => {
         // Calculate total number of pages
         const totalPages = Math.ceil(totalOrders / itemsPerPage);
 
-        // Calculate how many documents to skip based on pagination
-        const skip = (currentPage - 1) * itemsPerPage;
-
         // Execute the query
-        const orders = await orderQuery.skip(skip).limit(itemsPerPage).populate('items.menuItem').exec();
+        const orders = await orderQuery.limit(itemsPerPage).populate('items.menuItem').exec();
 
         // Prepare response data
         const formattedOrders = orders.map(order => ({
@@ -1114,7 +1116,8 @@ exports.OrderList = async (req, res, next) => {
             discountApplied: order.discountApplied,
             totalAmountBeforeDiscount: order.totalAmountBeforeDiscount,
             discountPercentage: order.DiscountPercentage,
-            payment: order.payment
+            payment: order.payment,
+            orderDate: order.orderDate
         }));
 
         // Send response
@@ -1128,6 +1131,9 @@ exports.OrderList = async (req, res, next) => {
         next(error);
     }
 };
+
+
+
 
 
 
