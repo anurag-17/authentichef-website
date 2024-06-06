@@ -1088,11 +1088,11 @@ exports.OrderList = async (req, res, next) => {
             endDate.setHours(23, 59, 59, 999); // Set end of the day
 
             orderQuery = orderQuery.where('orderDate').gte(startDate).lte(endDate);
-            
+
         }
 
         // Count total number of documents
-        const totalOrders = await Order.countDocuments(orderQuery);
+        const totalOrders = await Order.countDocuments(orderQuery)
 
         // Calculate total number of pages
         const totalPages = Math.ceil(totalOrders / itemsPerPage);

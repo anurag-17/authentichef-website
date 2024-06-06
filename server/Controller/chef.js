@@ -49,7 +49,7 @@ exports.upload = upload;
 
 exports.createChef = async (req, res, next) => {
   try {
-    const { name,  mobile,  specialty, bio, experience ,  Instagram_Link , Facebook_Link , nationality} = req.body;
+    const { name,  mobile,  specialty, bio, experience ,  Instagram_Link , Facebook_Link , nationality , Dietary_id , Cuisines_id} = req.body;
 
     // Access uploaded files directly from req.files
     const images = req.files['images'];
@@ -100,7 +100,10 @@ exports.createChef = async (req, res, next) => {
       Instagram_Link,
       Facebook_Link,
       images: imageUrls,
-      bannerImage: bannerImageUrl
+      bannerImage: bannerImageUrl,
+      Dietary_id,
+      Cuisines_id
+
     });
 
     await chef.save();
@@ -131,7 +134,7 @@ exports.getAllChefs = async (req, res, next) => {
     const totalPages = Math.ceil(totalItems / itemsPerPage);
 
     const skip = (currentPage - 1) * itemsPerPage;
-    const chefs = await chefQuery.skip(skip).limit(itemsPerPage);
+    const chefs = await chefQuery.skip(skip).limit(itemsPerPage).populate('Cuisines_id').populate('Dietary_id').exec();
 
     res.json({
       totalItems,
@@ -150,7 +153,7 @@ exports.getChefById = async (req, res, next) => {
   validateMongoDbId(id);
 
   try {
-    const chef = await Chef.findById(id);
+    const chef = await Chef.findById(id).populate('Cuisines_id').populate('Dietary_id').exec();
     if (!chef) {
       return res.status(404).json({ error: "Chef not found" });
     }
@@ -263,6 +266,29 @@ exports.updateChefById = async (req, res, next) => {
 
     // Prepare update object with existing chef details
     const updateData = { ...req.body };
+
+    // Ensure Fields that should be arrays are arrays
+
+    // Add extraa
+
+    const arrayFields=['Cuisines_id'];
+    arrayFields.forEach(field => {
+      if (req.body[field] && !Array.isArray(req.body[field])) {
+          req.body[field] = [req.body[field]];
+      }
+  });
+
+  const NewFields = [ 'Dietary_id'];
+  NewFields.forEach(field => {
+      if (req.body[field] && !Array.isArray(req.body[field])) {
+          req.body[field] = [req.body[field]];
+      }
+  
+  })
+
+  //  add extraa //
+
+
 
     if (req.files) {
       // Handle images upload

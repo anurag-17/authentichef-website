@@ -47,6 +47,16 @@ const chefSchema = new mongoose.Schema({
   activeToken: {
     type: String
   },
+  Dietary_id:[{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:'Dietary'
+  }],
+
+  Cuisines_id: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Cuisines"
+  }],
+
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetExpires: Date,
