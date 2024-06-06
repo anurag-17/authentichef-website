@@ -78,7 +78,7 @@ const BecomeChef = () => {
       <div className="w-full">
         <div className="flex justify-center">
           <div className="flex justify-center text-center sm:text-[20px] 2xl:mt-[76px] mx-auto">
-            <div className="max-w-[1600px] xl:max-w-[1100px] lg:max-w-[850px] md:max-w-[800px] mx-auto px-4 xl:pt-[140px] pt-[90px]">
+            <div className="custom_container px-4 xl:pt-[130px] pt-[90px]">
               <h1 className="font-alata alata  text-[#111111] text-4xl font-[400] md:text-5xl lg:text-[2.7rem] lg:text-6xl xl:text-[45px] 2xl:text-[75px] leading-[1.3] md:leading-[1.2] xl:leading-[55px] 2xl:leading-[85px] mb-[10px]">
                 Our Chef Community
               </h1>
@@ -105,9 +105,9 @@ const BecomeChef = () => {
           </div>
         </div>
 
-        <div className="bg-[#f7bda6] w-full mt-8 lg:mt-16 xl:mt-24 2xl:mt-36 my-10">
-          <div className="2xl:max-w-[1600px] xl:max-w-[1100px] lg:max-w-[850px] md:max-w-[800px] mx-auto  pb-10 lg:pb-20 2xl:pb-[55px] mnavbar">
-            <div className="flex flex-col xs:px-[20px]  lg:flex-row items-center justify-between py-10 lg:py-20">
+        <div className="bg-[#f7bda6] w-full  md:mt-[50px] 2xl:mt-[70px] mt-[20px]">
+          <div className="custom_container pb-10 lg:pb-20 2xl:pb-[55px] mnavbar">
+            <div className="flex flex-col xs:px-[20px]  lg:flex-row items-center justify-between py-[30px] lg:py-[50px] xl:py-[60px]">
               <div className="xl:w-[70%]    lg:w-[70%] mb-5 2xl:w-[76%] lg:mb-0">
                 <Image
                   src={banner1}
@@ -188,8 +188,8 @@ const BecomeChef = () => {
           </div>
         </div>
 
-        <div className="container 2xl:max-w-[1600px] mx-auto">
-          <div className="2xl:max-w-[1600px] xl:max-w-[1100px] lg:max-w-[850px] md:max-w-[800px] mx-auto mt-12 xl:mt-20 2xl:mt-24 mnavbar ">
+        <div className=" mx-auto">
+          <div className="custom_container py-[30px] lg:py-[50px] xl:py-[60px] mnavbar ">
             <div className="flex flex-col md:flex-row justify-between items-stretch mx-auto xs:px-[20px]">
               <div className="w-full md:w-3/5 lg:mr-4 xl:w-[47%] 2xl:w-[52%] flex flex-col justify-between">
                 <h2 className="font-alata alata text-[#111111] text-2xl xl:text-[2rem] sm:mt-[30px] 2xl:mt-[0px] font-[400] leading-8 lg:text-3xl xs:mt-[20px] lg:mt-[0px] lg:leading-10 xl:text-4xl xl:leading-[45px] 2xl:text-[54px] 2xl:leading-[75px]">
@@ -303,10 +303,13 @@ const BecomeChef = () => {
 
         <div className="flex items-center w-full ">
           <div className="bg-[#FFE2E2] py-24 lg:py-16 xl:py-20 xs:py-[2rem] w-full xs:px-[20px] 2xl:mt-[100px] xl:mt-[80px] md:py-[4rem] lg:mt-[60px] md:mt-[40px] xs:mt-[40px] sm:mt-[40px]">
+
+
             <div
               ref={formRef}
               className="2xl:max-w-[1600px] xl:max-w-[1100px] lg:max-w-[850px] md:max-w-[800px] mx-auto text-center mnavbar"
             >
+
               <h2 className="font-alata font-medium text-[#111111] text-2xl leading-8 sm:text-3xl sm:leading-9 md:text-4xl md:leading-10 xl:text-5xl xl:leading-[45px] 2xl:text-[55px] 2xl:leading-[75px]">
                 Ready to Get Started?
               </h2>

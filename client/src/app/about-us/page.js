@@ -18,14 +18,14 @@ const AboutUs = () => {
         <Navbar />
 
         <div className="2xl:pt-[116px] xl:pt pt-[40px] aboutusmain">
-          <div className="aboutUsBanner 2xl:h-[100%] xl:h-[100%] lg:h-[100%] md:h-[50%]  sm:h-[40%] xs:h-[400px] h-screen">
-            <div className="2xl:w-[905px] xl:w-[500px] lg:w-[330px] w-full  text-center mx-auto">
-              <h1 className="faqhead text-white 2xl:pt-[165px] xs:px-[20px] sm:px-[30px] xs:text-[18px] xl:pt-[110px] lg:pt-[80px] md:pt-[60px] sm:pt-[40px] xs:pt-[30px] pb-[80px] aboutusmaintext">
+          <div className="aboutUsBanner 2xl:h-[100%] xl:h-[100%] lg:h-[100%] md:h-[50%]  sm:h-[40%] xs:h-[400px] h-auto md:block flex flex-col justify-center items-center">
+            <div className="2xl:w-[905px] xl:w-[540px] lg:w-[390px] md:w-[400px] w-[300px] text-center mx-auto">
+              <h1 className="faqhead text-white 2xl:pt-[165px] xs:px-[20px] sm:px-[30px] xl:pt-[110px] lg:pt-[80px] md:pt-[60px] sm:pt-[40px] xs:pt-[30px] pb-[10px] aboutusmaintext">
                 At authentichef, we see homemade meals as more than just food;
                 they <span className="text-[#F38181]">journeys</span>
               </h1>
-              <div className="2xl:w-[635px] xl:w-[380px] xs:px-[10px] w-full xs:pb-[300px] sm:px-[30px] text-center mx-auto 2xl:mt-[30px] xl:mt-[15px] mt-[10px] xl:pt-[20px] pt-[10px]">
-                <p className="pop-head text-white pb-[200px]">
+              <div className="2xl:w-[635px] xl:w-[460px] xs:px-[10px] w-full  sm:px-[30px] text-center mx-auto 2xl:mt-[30px] xl:mt-[15px] mt-[10px] xl:pt-[20px] pt-[10px]">
+                <p className="pop-head text-white  2xl:pb-[300px] md:pb-[80px] pb-[20px]">
                   A journey that takes us from the comforts of our childhood
                   memories to the excitement of exploring new flavors from
                   around the world.
@@ -34,9 +34,9 @@ const AboutUs = () => {
             </div>
           </div>
 
-          <div className="bg-[#FFE8E8] 2xl:h-[937px] flex justify-center  2xl:py-[115px] xl:py-[60px]  py-[50px] sm:px-[30px] ">
-            <div className="text-center 2xl:w-[1293px] xl:w-[870px] lg:w-[600px] sm:w-[] w-[]  mx-auto xs:mx-[10px]">
-              <h4 className="aboutHead">The Ever-Growing Problem</h4>
+          <div className="bg-[#FFE8E8] 2xl:h-[937px] flex justify-center  2xl:py-[115px] xl:py-[50px]  md:py-[50px] sm:px-[30px] py-[30px]">
+            <div className="text-center 2xl:w-[1293px] xl:w-[870px] lg:w-[600px] sm:w-[] w-[]  mx-auto md:px-0 px-[20px]">
+              <h4 className=" nine_head">The Ever-Growing Problem</h4>
               <p className="aboutPara 2xl:mt-[50px] xl:mt-[30px] mt-[15px]">
                 We get it. Daily life can be hectic, making it tough to cook
                 healthy and tasty homemade meals and catering to individual food
@@ -48,7 +48,7 @@ const AboutUs = () => {
                 kitchen isn’t the only option.
               </p>
 
-              <h4 className="aboutHead 2xl:mt-[90px] xl:mt-[45px] mt-[25px]">
+              <h4 className="nine_head 2xl:mt-[90px] xl:mt-[45px] mt-[25px]">
                 Our Purpose
               </h4>
 
@@ -73,7 +73,7 @@ const AboutUs = () => {
             </div>
           </div>
 
-          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] 2xl:py-[140px] xl:py-[80px] py-[40px] md:w-[700px] xs:mx-[10px] xs:w-auto sm:w-[500px]  flex justify-between mx-auto mnavbar relative  items-center">
+          <div className="custom_container 2xl:py-[140px] xl:py-[50px]  py-[30px] flex justify-between mnavbar md:relative  items-center md:px-0 px-[20px] md:flex-row flex-col">
             {/* Ensure the container is set to flex and justify-between */}
             <div>
               <div className="2xl:w-[1031px] xl:w-[680px] lg:w-[520px]">
@@ -85,8 +85,8 @@ const AboutUs = () => {
             </div>
             {/* Overlay Div */}
             <div className="overDive ">
-              <div className="2xl:mb-[30px] xl:mb-[15px] 2xl:gap-[] flex  self-start box-sizing-border">
-                <div className="flex items-center flex-row box-sizing-border ">
+              <div className="2xl:mb-[30px] xl:mb-[15px] lg:gap-[] md:gap-[20px] flex md:flex-row flex-col md:text-start text-center md:items-normal items-center md:self-start box-sizing-border justify-between">
+                <div className="flex items-center md:flex-row flex-col box-sizing-border  ">
                   <div className="overImgDiv">
                     <div className="flex justify-center items-center w-full box-sizing-border">
                       <Image
@@ -103,8 +103,8 @@ const AboutUs = () => {
                   no need to cook!
                 </div>
               </div>
-              <div className="2xl:mb-[36px] xl:mb-[15px] 2xl:gap-[] flex  self-start box-sizing-border">
-                <div className="flex items-center flex-row box-sizing-border">
+              <div className="2xl:mb-[30px] xl:mb-[15px] lg:gap-[] md:gap-[20px] flex md:flex-row flex-col md:text-start text-center md:items-normal items-center md:self-start box-sizing-border justify-between">
+                <div className="flex items-center md:flex-row flex-col box-sizing-border  ">
                   <div className="overImgDiv">
                     <div className="flex justify-center items-center w-full box-sizing-border">
                       <Image src={profile} className="overImg" />
@@ -118,8 +118,8 @@ const AboutUs = () => {
                   mix and match your dishes
                 </div>
               </div>
-              <div className="2xl:mb-[30px] xl:mb-[15px] 2xl:gap-[] flex   box-sizing-border">
-                <div className="flex items-center flex-row box-sizing-border">
+              <div className="2xl:mb-[30px] xl:mb-[15px] lg:gap-[] md:gap-[20px] flex md:flex-row flex-col md:text-start text-center md:items-normal items-center md:self-start box-sizing-border justify-between">
+                <div className="flex items-center md:flex-row flex-col box-sizing-border  ">
                   <div className="overImgDiv">
                     <div className="flex items-center justify-center w-full box-sizing-border">
                       <Image src={hand2} className="overImg" />
@@ -133,8 +133,8 @@ const AboutUs = () => {
                   delivered directly to your door
                 </div>
               </div>
-              <div className="2xl:mb-[19px] xl:mb-[15px] 2xl:gap-[] flex   box-sizing-border">
-                <div className="2xl:m-[0_0_21px_0] flex items-center flex-row box-sizing-border">
+              <div className="2xl:mb-[30px] xl:mb-[15px] lg:gap-[] md:gap-[20px] flex md:flex-row flex-col md:text-start text-center md:items-normal items-center md:self-start box-sizing-border justify-between">
+                <div className="flex items-center md:flex-row flex-col box-sizing-border  ">
                   <div className="overImgDiv">
                     <div className="flex justify-center items-center w-full box-sizing-border">
                       <Image src={timer} className="overImg" />
@@ -151,8 +151,8 @@ const AboutUs = () => {
             </div>
           </div>
 
-          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] sm:w-[500px] w-full flex justify-between mx-auto mnavbar">
-            <div className="flex flex-col xs:mx-[10px] w-full md:flex-row md:justify-between 2xl:mb-[140px] xl:mb-[100px] mb-[60px] xs:grid xs:grid-cols-2 xs:gap-4">
+          <div className="custom_container flex justify-between  mnavbar pb-[50px]">
+            <div className="flex xs:mx-[10px] w-full gap-[15px] sm:flex-row flex-col md:justify-between gap-y-[20px] ">
               <div className="w-full md:w-[48%]">
                 <Image
                   src={aboutDishes}
@@ -179,9 +179,9 @@ const AboutUs = () => {
             </div>
           </div>
 
-          <div className="bg-[#FFE8E8] 2xl:h-[750px] xl:h-[560px] lg:h-[400px] flex justify-center 2xl:py-[115px] xl:py-[60px] sm:px-[30px] sm:mt-12 py-[50px] xs:mt-12 md:mt-12">
-            <div className="text-center 2xl:w-[1293px] xl:w-[870px] lg:w-[600px] w-full mx-auto xs:mx-[10px]">
-              <h4 className="aboutHead font-[400] text-[45px]">
+          <div className="bg-[#FFE8E8]  flex justify-center 2xl:py-[80px] xl:py-[60px] md:py-[50px] sm:px-[30px]  py-[30px] ">
+            <div className="text-center 2xl:w-[1293px] xl:w-[870px] lg:w-[600px] w-full mx-auto  md:px-0 px-[20px]">
+              <h4 className="nine_head">
                 <span>Diversity, Equity and Inclusion</span>
               </h4>
               <p className="aboutPara 2xl:mt-[50px] xl:mt-[30px] mt-[15px]">

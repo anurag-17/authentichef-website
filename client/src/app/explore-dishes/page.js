@@ -691,17 +691,21 @@ const ExploreDishes = () => {
       {isLoading && <Loader />}
       <section>
         <Navbar />
+
         <div class="2xl:pt-[130px] xl:pt-[90px] pt-[60px] ">
           <div class="main_section 2xl:w-[1600px] xl:w-[1200px] md:w-[811px]  m-auto mt-auto mnavbar 2xl:py-[40px] xl:py-[30px] lg:py-[20px]">
             <div class="flex justify-between flex-col md:flex-row   ">
               <div class=" lg:mb-0 mb-4 lg  lg:text-[2.25rem]  md:w-[30%] xs:text-[1.875rem] sm:text-[2.25rem] md:text-[29px]">
                 <h1 className="third_head mb-4 alata font-[400] 2xl:text-[40px] lg:text-left  text-center SelectCuisine">
+
                   Select Cuisine
                 </h1>
               </div>
 
+
               <div className="mnavbar sm:pt-[12px] sm:pb-[4px] 2xl:pt-[21px] md:pt-[9px] md:w-[820px]   ">
                 {/* 2xl:py-[60px] xl:py-[10px] lg:pt-[7px] lg:pb-[40px]  py-[40px] xs:py-[10px] */}
+
                 <div className="filter_div_second">
                   <div className="select-divs flex gap-5">
                     <div className="select-1 alata">
@@ -1138,6 +1142,7 @@ const ExploreDishes = () => {
         {/* All Dishes */}
 
         <div className="sm:col-2">
+
           <div className=" ">
             {/* 2xl:py-[120px] xl:py-[20px] py-[50px] */}
             <div className="mnavbar 2xl:w-[1600px] xl:w-[1200px] lg:w-[850px]  md:w-[700px] w-[90%] mx-auto">
@@ -1147,6 +1152,7 @@ const ExploreDishes = () => {
                     <div
                       key={item.id}
                       className=" col-span-1 mx-auto sm:mx-0 relative rounded-[9.8px] mexploreD p-2"
+
                     >
                       <button className="" onClick={() => openModal(item._id)}>
                         <img
@@ -1288,15 +1294,15 @@ const ExploreDishes = () => {
           </div>
         </div>
 
-        <div className="flex justify-center 2xl:py-[120px] xl:py-[80px] py-[50px]">
-          <div className="mnavbar 2xl:w-[1600px] xl:w-[1200px] lg:w-[850px]  md:w-[700px]">
+        <div className="flex justify-center 2xl:py-[100px] xl:py-[50px] md:py-[50px] py-[30px]">
+          <div className="mnavbar custom_container">
             <h4 className="nine_head">Testimonials</h4>
             <p className="nine_p text-center">
               All our chefs have fans raving about their food
             </p>
 
             <div className="lg:flex justify-around 2xl:my-10 xl:my-8 lg:my-6 my-3">
-              <div className="w-2/4 sm:w-1/3 mx-auto my-5 lg:my-0 lg:mx-0 lg:w-auto">
+              <div className="md:w-2/4 sm:w-1/3 mx-auto my-5 lg:my-0 lg:mx-0 lg:w-auto">
                 <div>
                   <div>
                     <Image
@@ -1358,7 +1364,7 @@ const ExploreDishes = () => {
                 </div>
               </div>
               <div>
-                <div className="w-2/4 sm:w-1/3 mx-auto my-5 lg:my-0 lg:mx-0 lg:w-auto">
+                <div className="md:w-2/4 sm:w-1/3 mx-auto my-5 lg:my-0 lg:mx-0 lg:w-auto">
                   <div>
                     <Image
                       alt="chef-rohit"
@@ -1419,7 +1425,7 @@ const ExploreDishes = () => {
                 </div>
               </div>
               <div>
-                <div className="w-2/4 sm:w-1/3 mx-auto my-5 lg:my-0 lg:mx-0 lg:w-auto">
+                <div className="md:w-2/4 sm:w-1/3 mx-auto my-5 lg:my-0 lg:mx-0 lg:w-auto">
                   <div>
                     <Image
                       alt="chef-shubham"

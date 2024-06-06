@@ -299,14 +299,14 @@ td {
 }
 
 .seven_p {
-  @apply alata font-[400] text-center mx-auto 2xl:text-[25px] 2xl:leading-[35px] 2xl:w-[1136px] 2xl:my-3 xl:text-[16px] xl:leading-[22px] xl:w-[720px] lg:my-1 lg:text-[12px] lg:leading-[18px] lg:w-[525px] text-[12px] leading-[18px];
+  @apply alata font-[400] text-center mx-auto 2xl:text-[25px] 2xl:leading-[35px] 2xl:w-[1136px] 2xl:my-3 xl:text-[16px] xl:leading-[22px] xl:w-[720px] lg:my-1 lg:leading-[18px] lg:w-[525px] text-[16px] leading-[normal];
 }
 
 .seven_img {
   @apply 2xl:w-[286px] 2xl:h-[323px] xl:w-[210px] h-auto lg:w-[200px] md:w-[200px] rounded-[15px];
 }
 
-.seven_name {
+.seven_name {     
   @apply alata font-[400] 2xl:text-[20px] 2xl:leading-[20px] 2xl:mt-5 xl:mt-3 xl:text-[14px] xl:leading-[16px] lg:text-[12px] lg:leading-[18px] xl:my-0 lg:my-2 2xl:mb-2 xl:mb-1;
 }
 
@@ -362,15 +362,17 @@ td {
 
 /* =================footer================= */
 .footer_text {
+
   @apply poppins font-[400] text-[#111111] 2xl:text-[16px] 2xl:leading-[30px] xl:text-[12px] xl:leading-[22px] lg:text-[10px] lg:leading-[18px] text-[12px] leading-[22px];
 }
 
 .footer_heading {
   @apply poppins font-[600] text-[#111111] 2xl:text-[18px] 2xl:leading-[27px] 2xl:mb-5 xl:mb-5 xl:text-[14px] xl:leading-[23px] lg:text-[12px] lg:leading-[18px] lg:mb-2 text-[14px] leading-[18px] mb-1;
+
 }
 
 .footer_text_b {
-  @apply alata font-[400] text-[#111111] 2xl:text-[16px] 2xl:leading-[30px] xl:text-[12px] xl:leading-[22px] lg:text-[12px] lg:leading-[18px] text-[12px] leading-[18px];
+  @apply alata font-[400] text-[#111111] md:text-[16px]  md:leading-[30px] leading-[26px] sm:text-[14px] text-[13px];
 }
 
 .dropdown-content {
@@ -435,7 +437,7 @@ td {
 }
 
 .pop-head {
-  @apply alata font-[400] 2xl:text-[30px] 2xl:leading-[40px] xl:text-[18px] xl:leading-[28px] text-[14px] leading-[20px]
+  @apply alata font-[400] 2xl:text-[30px] 2xl:leading-[40px] lg:text-[20px] md:text-[18px] xl:leading-[28px] text-[16px] leading-[24px]
 }
 
 .pop-chef {
@@ -753,9 +755,9 @@ td {
     margin: 0px !important;
   }
 
-  .croselImg {
+  /* .croselImg {
     width: ;
-  }
+  } */
 
 }
 
@@ -775,7 +777,7 @@ td {
 }
 
 .faqhead {
-  @apply alata font-[400] 2xl:text-[75px] xl:text-[45px] lg:text-[30px] sm:text-[30px] text-[] 2xl:leading-[85px] xl:leading-[55px] lg:leading-[40px] sm:leading-[40px] leading-[]
+  @apply alata font-[400] 2xl:text-[75px] xl:text-[45px] lg:text-[30px] sm:text-[30px] text-[24px] 2xl:leading-[85px] xl:leading-[55px] lg:leading-[40px] sm:leading-[40px] leading-[normal]
 }
 
 .aboutHead {
@@ -783,7 +785,7 @@ td {
 }
 
 .aboutPara {
-  @apply alata font-[400] 2xl:text-[25px] 2xl:leading-[34px] 2xl:w-auto xl:text-[16px] xl:leading-[28px] text-[12px] leading-[18px] 2xl:mt-[50px]
+  @apply alata font-[400] 2xl:text-[25px] 2xl:leading-[34px] 2xl:w-auto lg:text-[18px] lg:leading-[28px] sm:text-[16px] text-[16px] leading-[normal] 2xl:mt-[50px] text-justify sm:text-center
 }
 
 .globalhead {
@@ -966,11 +968,13 @@ td {
 /* // About-us */
 
 .overDive {
-  @apply right-0 rounded-[15px] bg-[#FFFFFF] flex flex-col 2xl:p-[61px_56px] xl:p-[25px] 2xl:w-[800px] 2xl:h-[479px] xl:w-[600px] xl:h-[50%] absolute
+  @apply lg:right-0 rounded-[15px] bg-[#FFFFFF] flex xl:gap-0 gap-y-[10px] flex-col 2xl:p-[61px_56px] xl:p-[25px] 2xl:w-[800px] 2xl:h-[479px] xl:w-[600px] xl:h-[55%] md:absolute left-[10px] md:left-auto pt-[30px] md:right-[10px]
+  lg:bottom-[unset] md:bottom-[40px] md:p-[15px] 
+  shadow-[0_0_0_rgba(0,0,0,0.08)]
 }
 
 .overImgDiv {
-  @apply rounded-[30px] bg-[#FFE8E8] relative m-[0_27px_0_0] flex 2xl:p-[15px] 2xl:w-[60px] 2xl:h-[60px] xl:w-[45px] xl:h-[45px]
+  @apply rounded-[30px] bg-[#FFE8E8] relative md:m-[0_27px_0_0] flex 2xl:p-[15px] 2xl:w-[60px] 2xl:h-[60px] xl:w-[41px] xl:h-[41px] md:mr-[27px] mr-[8px]
 }
 
 .overImg {
@@ -978,10 +982,11 @@ td {
 }
 
 .overHead {
-  @apply inline-block break-words font-['Alata'] font-normal 2xl:text-[30px] xl:text-[18px] md:text-[14px] text-[10px] 2xl:leading-[1.333] text-[#000000] 2xl:w-[290px] xl:w-[180px] lg:w-[100px] w-[100px]
+  @apply inline-block break-words font-['Alata'] font-normal 2xl:text-[30px] xl:text-[18px] md:text-[14px] text-[14px] 2xl:leading-[1.333] text-[#000000] 2xl:w-[230px] xl:w-[180px] md:w-[100px] 
 }
 
 .overTitle {
+
   @apply flex items-center break-words font-['Alata'] font-normal 2xl:text-[24px] xl:text-[16px] md:text-[10px] 2xl:leading-[1.417] text-[#000000]
 }
 
@@ -989,5 +994,6 @@ td {
 
 .buttonHov.mcusinimgs:hover h4 {
   color: #F38181;
+
 
 }
