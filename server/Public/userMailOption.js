@@ -109,10 +109,10 @@ const userMailOptions = (req, savedOrder, deliveryDate, deliveryInfo, totalAmoun
                 </tbody>
             </table>
             
-                <p><strong>Amount:</strong> $${savedOrder.totalAmountBeforeDiscount.toFixed(2)}</p>
+                <p><strong>Amount:</strong> £${savedOrder.totalAmountBeforeDiscount.toFixed(2)}</p>
                 <p><strong>Discount:</strong>${savedOrder.DiscountPercentage}%</p>
-                <p><strong>Shipping Charges:</strong> ${savedOrder.shippingCharge}</p>
-                <p><strong>Total Amount:</strong> $${savedOrder.totalAmount.toFixed(2)}</p>
+                <p><strong>Shipping Charges:</strong> £${savedOrder.shippingCharge}</p>
+                <p><strong>Total Amount:</strong> £${savedOrder.totalAmount.toFixed(2)}</p>
                 <p>We will notify you once your order has been processed and shipped.</p>
                 <p>If you have any questions or concerns, feel free to <a href="mailto:support@authentichef.com">contact us</a> at support@authentichef.com.</p>
                 <div class="menu-items">
@@ -123,7 +123,7 @@ const userMailOptions = (req, savedOrder, deliveryDate, deliveryInfo, totalAmoun
                             <div class="menu-item-details">
                                 <span><strong>${item.menuItem.name}</strong></span>
                                 <span>Quantity: ${item.quantity}</span>
-                                <span>Price Per Item: $${(item.menuItem.price ).toFixed(2)}</span>
+                                <span>Price Per Item: £${(item.menuItem.price ).toFixed(2)}</span>
                             </div>
                         </div>`).join('')}
                 </div>

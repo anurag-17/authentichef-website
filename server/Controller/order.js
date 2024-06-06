@@ -548,7 +548,7 @@ exports.PlaceOrder = async (req, res, next) => {
                 payment_method_types: ['card'],
                 line_items: cartItems.items.map(item => ({
                     price_data: {
-                        currency: 'usd',
+                        currency: 'gbp',
                         product_data: {
                             name: item.menuItem.name,
                             images: [item.menuItem.ProfileImage[0]] // Add image URL
@@ -1606,34 +1606,37 @@ exports.CancelOrder = async (req, res, next) => {
             return res.status(404).json({ message: 'Order not found' });
         }
 
-        // Check if the associated payment status is already 'refunded', 'failed', or 'cancelled'
-        if (order.payment.status === 'refunded') {
-            return res.status(400).json({ message: 'Payment associated with this order is already refunded' });
-        } else if (order.payment.status === 'failed') {
-            return res.status(400).json({ message: 'Payment associated with this order has failed' });
-        } else if (order.payment.status === 'cancelled') {
-            return res.status(400).json({ message: 'Payment associated with this order is already cancelled' });
+        if (!order.payment) {
+            return res.status(400).json({ message: 'No payment information found for this order' });
         }
 
-        console.log("Payment method type:", order.payment.payment_method_types);
-        console.log("Transaction ID:", order.payment.TransactionId);
+        // Check if the associated payment status is already 'refunded', 'failed', or 'cancelled'
+        if (['refunded', 'failed', 'cancelled'].includes(order.payment.status)) {
+            return res.status(400).json({ message: `Payment associated with this order is already ${order.payment.status}` });
+        }
 
         // Refund the payment if the payment method is 'card' and the payment status is 'completed'
-        if (order.payment.payment_method_types === 'card' && order.payment.TransactionId) {
-            console.log("Refunding payment for order:", order._id);
-            const refund = await stripe.refunds.create({
-                payment_intent: order.payment.TransactionId,
-                amount: order.totalAmount * 100, // Convert amount to cents
-            });
+        if (order.payment.paymentMethod === 'card' && order.payment.transactionId) {
+            try {
+                console.log("Refunding payment for order:", order._id);
+                const refund = await stripe.refunds.create({
+                    payment_intent: order.payment.transactionId,
+                    amount: order.totalAmount * 100, // Convert amount to cents
+                });
 
-            console.log("Refund response:", refund);
+                console.log("Refund response:", refund);
 
-            if (!refund || refund.status !== 'succeeded') {
-                // Rollback the payment status to 'completed' if refund fails
-                order.payment.status = 'completed';
-                await order.payment.save();
-                await order.save();
-                return res.status(400).json({ message: 'Refund failed' });
+                if (!refund || refund.status !== 'succeeded') {
+                    // Rollback the payment status to 'completed' if refund fails
+                    order.payment.status = 'completed';
+                    await order.payment.save();
+                    await order.save();
+                    return res.status(400).json({ message: 'Refund failed' });
+                }
+            } 
+            catch (refundError) {
+                console.error("Error processing refund:", refundError);
+                return res.status(400).json({ message: 'Refund failed', error: refundError.message });
             }
         }
 

@@ -275,22 +275,22 @@ const adminMailOptions = (
         </tr>
         <tr>
           <th>Order Value</th>
-          <td>$${savedOrder.totalAmountBeforeDiscount.toFixed(2)}</td>
+          <td>£${savedOrder.totalAmountBeforeDiscount.toFixed(2)}</td>
         </tr>
         <tr>
           <th>Discount</th>
-          <td>$${savedOrder.DiscountPercentage}%</td>
+          <td>£${savedOrder.DiscountPercentage}%</td>
         </tr>
 
         <tr>
           <th>Shipping</th>
-          <td>$${savedOrder.shippingCharge}%</td>
+          <td>£${savedOrder.shippingCharge}%</td>
         </tr>
 
 
         <tr>
           <th>Total Amount (with discount)</th>
-          <td>$${savedOrder.totalAmount.toFixed(2)}</td>
+          <td>£${savedOrder.totalAmount.toFixed(2)}</td>
         </tr>
 
       </table>
