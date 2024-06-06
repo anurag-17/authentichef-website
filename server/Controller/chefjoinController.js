@@ -5,15 +5,6 @@ const BecomeChef = require('../Model/chefjoin');
 exports.createChef = async (req, res) => {
     try {
 
-        const findchef = await BecomeChef.findOne({ Email: req.body.Email });
-
-        if (findchef) {
-            return res.status(400).json({
-                success: false,
-                error: 'Email already exists'
-            });
-        }
-
         const chef = await BecomeChef.create(req.body);
         res.status(201).json({
             success: true,
