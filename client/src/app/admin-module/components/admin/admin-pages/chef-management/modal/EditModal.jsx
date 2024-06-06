@@ -1,60 +1,124 @@
-'use client'
+"use client";
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 import Loader from "../../../loader/Index";
 import config from "@/config";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css"; // Import the styles
 
 const EditModal = ({ closeModal, editData, updateId, token, refreshData }) => {
   const [formData, setFormData] = useState({
     name: editData?.name || "",
-    specialty: editData?.specialty || "",
+    nationality: editData?.nationality || "",
     bio: editData?.bio || "",
-    images: editData?.images[0] || "", // Set the first image as default
-    bannerImage: editData?.bannerImage[0] || "", // Set the first banner image as default
+    images:
+      editData?.images && editData.images.length > 0 ? editData.images[0] : "", // Set the first image as default if available
+    bannerImage:
+      editData?.bannerImage && editData.bannerImage.length > 0
+        ? editData.bannerImage[0]
+        : "", // Set the first banner image as default if available
     Instagram_Link: editData?.Instagram_Link || "",
     Facebook_Link: editData?.Facebook_Link || "",
   });
+
   const [isLoading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const inputHandler = (e) => {
     const { name, value, files } = e.target;
-  
+
     if (name === "images" || name === "bannerImage") {
       const fileSize = files[0]?.size || 0; // in bytes
-      const maxSize = 200 * 1024; // 200KB for images
+      const maxSize = name === "bannerImage" ? 1024 * 1024 : 200 * 1024; // 1MB for bannerImage, 200KB for images
+
       if (fileSize > maxSize) {
-        toast.error(`File size exceeds the limit. Maximum allowed size is 200 KB.`);
+        setError(
+          `File size exceeds the limit. Maximum allowed size is ${
+            name === "bannerImage" ? "1 MB" : "200 KB"
+          }.`
+        );
         return;
       }
-  
+
       if (files.length === 0) {
         // No new file was selected
-        toast.info(`No new ${name === "images" ? "profile" : "banner"} image was uploaded.`);
+        setError(
+          `No new ${
+            name === "images" ? "profile" : "banner"
+          } image was uploaded.`
+        );
+
+        // Fall back to default image
+        setFormData((prevData) => ({
+          ...prevData,
+          [name]:
+            name === "images"
+              ? editData?.images && editData.images.length > 0
+                ? editData.images[0]
+                : ""
+              : editData?.bannerImage && editData.bannerImage.length > 0
+              ? editData.bannerImage[0]
+              : "",
+        }));
       } else {
         setFormData({
           ...formData,
-          [name]: files[0],
+          [name]: files,
         });
+        setError(""); // Clear error if file size is within the limit
       }
     } else {
       setFormData({
         ...formData,
         [name]: value,
       });
+      setError(""); // Clear error for other inputs
     }
+  };
+
+  const handleBioChange = (value) => {
+    setFormData({
+      ...formData,
+      bio: value,
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-  
+    setError(""); // Clear any previous errors
+
+    const maxImageSize = 200 * 1024; // 200KB
+    const maxBannerImageSize = 1024 * 1024; // 1MB
+
+    // Validate image sizes
+    if (
+      formData.images &&
+      formData.images[0] &&
+      formData.images[0].size > maxImageSize
+    ) {
+      setError("Profile image size exceeds the limit of 200 KB.");
+      setLoading(false);
+      return;
+    }
+
+    if (
+      formData.bannerImage &&
+      formData.bannerImage[0] &&
+      formData.bannerImage[0].size > maxBannerImageSize
+    ) {
+      setError("Banner image size exceeds the limit of 1 MB.");
+      setLoading(false);
+      return;
+    }
+
     try {
       const formDataToSend = new FormData();
       formDataToSend.append("name", formData.name);
-      formDataToSend.append("specialty", formData.specialty);
+      formDataToSend.append("nationality", formData.nationality);
       formDataToSend.append("bio", formData.bio);
-      
+
       // Conditionally append images and bannerImage if they exist
       if (formData.images && formData.images[0]) {
         formDataToSend.append("images", formData.images[0]);
@@ -68,15 +132,21 @@ const EditModal = ({ closeModal, editData, updateId, token, refreshData }) => {
         // Fallback to default banner image if no image is selected
         formDataToSend.append("bannerImage", editData?.bannerImage[0] || "");
       }
-  
+
       formDataToSend.append("Instagram_Link", formData.Instagram_Link);
       formDataToSend.append("Facebook_Link", formData.Facebook_Link);
-  
+
       const response = await axios.put(
         `${config.baseURL}/api/chef/chefs/${updateId}`,
-        formDataToSend
+        formDataToSend,
+        {
+          headers: {
+            authorization: `${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
-  
+
       if (response.status === 200) {
         toast.success("Details updated successfully.");
         setLoading(false);
@@ -92,7 +162,6 @@ const EditModal = ({ closeModal, editData, updateId, token, refreshData }) => {
       setLoading(false);
     }
   };
-  
 
   return (
     <>
@@ -120,24 +189,23 @@ const EditModal = ({ closeModal, editData, updateId, token, refreshData }) => {
               </span>
               <input
                 type="text"
-                name="specialty"
+                name="nationality"
                 placeholder="Enter Nationality"
                 className="login-input w-full mt-1 "
-                value={formData.specialty}
+                value={formData.nationality}
                 onChange={inputHandler}
                 required
               />
             </div>
 
-            <div className="py-2">
+            <div className="py-2 mb-8">
               <span className="login-input-label capitalize"> Bio:</span>
-              <textarea
-                name="bio"
+              <ReactQuill
+                value={formData.bio}
+                onChange={handleBioChange}
                 placeholder="Enter chef's bio"
                 className="login-input w-full mt-1"
-                value={formData.bio}
-                onChange={inputHandler}
-                required
+                style={{ height: "200px" }}
               />
             </div>
 
@@ -148,6 +216,11 @@ const EditModal = ({ closeModal, editData, updateId, token, refreshData }) => {
                 {" "}
                 Profile Image :
               </span>
+              <p className="text-sm text-red-500 mt-1">
+                Profile Image size should be width 288px and height 323px pixels
+                and maximum size 200kb.
+              </p>
+              {error && <p className="text-sm text-red-500 mt-1">{error}</p>}
               <input
                 type="file"
                 name="images"
@@ -168,6 +241,11 @@ const EditModal = ({ closeModal, editData, updateId, token, refreshData }) => {
                 {" "}
                 Banner Image :
               </span>
+              {error && <p className="text-sm text-red-500 mt-1">{error}</p>}
+              <p className="text-sm text-red-500 mt-1">
+                Banner Image size should be width 1600px and height 529px pixels
+                and maximum size 1 MB.
+              </p>
               <input
                 type="file"
                 name="bannerImage"
@@ -231,7 +309,7 @@ const EditModal = ({ closeModal, editData, updateId, token, refreshData }) => {
                 disabled={isLoading}
                 className="primary_btn w-full"
               >
-                {isLoading ? "Loading.." : "Add"}
+                {isLoading ? "Loading.." : "Update"}
               </button>
             </div>
           </div>

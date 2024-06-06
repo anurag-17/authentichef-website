@@ -3,6 +3,89 @@ const crypto = require("crypto");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+
+const deliveryInfoSchema = new mongoose.Schema({
+  phone: {
+      type: String,
+  },
+  houseNo: {
+      type: String,
+
+  },
+  buildingName: String, // Assuming a building name might not always be required
+  streetName: {
+      type: String,
+
+  },
+  City: {
+      type: String,
+
+  },
+  country: {
+      type: String,
+
+  },
+  FirstName: {
+      type: String,
+
+
+  },
+  LastName: {
+      type: String,
+
+  },
+  Postcode:{
+    type:String
+},
+  Type_of_Address: {
+      type: String,
+      enum: ["Shipping Address", "Billing address"],
+      default: "Shipping Address"
+  }
+});
+
+const BillingInfoSchema = new mongoose.Schema({
+  phone: {
+      type: String,
+  },
+  houseNo: {
+      type: String,
+
+  },
+  buildingName: String, // Assuming a building name might not always be required
+  streetName: {
+      type: String,
+
+  },
+  City: {
+      type: String,
+
+  },
+  country: {
+      type: String,
+
+  },
+  FirstName: {
+      type: String,
+
+
+  },
+  LastName: {
+      type: String,
+  },
+
+  Postcode:{
+    type:String
+ },
+  Type_of_Address: {
+      type: String,
+      enum: ["Shipping Address", "Billing address"],
+      default: "Shipping Address"
+  }
+
+})
+
+
 const UserSchema = new mongoose.Schema(
   {
 
@@ -58,6 +141,10 @@ const UserSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Order'
     }],
+
+    deliveryInfo: [deliveryInfoSchema], // Array of delivery addresses
+    BillingInfo: [BillingInfoSchema],
+    
     // Date when the password was last changed
     passwordChangedAt: {
       type: Date,

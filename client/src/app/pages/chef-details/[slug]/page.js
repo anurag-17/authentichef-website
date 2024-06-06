@@ -23,7 +23,7 @@ import {
 } from "@/app/redux/dishSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
-import cheficon from "../../../assets/chef-icon.png";
+import cheficon from "../../../assets/Chef-icon.webp";
 const ChefDetails = ({ params }) => {
   const { token } = useSelector((state) => state?.auth);
   const [isRefresh, setRefresh] = useState(false);
@@ -297,7 +297,7 @@ const ChefDetails = ({ params }) => {
                   </h4>
                   <p className="fourth_p text-[#555555]">
                     {/* Punjabi · North Indian · South Indian · Indian · Vegetarian */}
-                    {getAChef?.specialty}
+                    {getAChef?.nationality}
                   </p>
                   <div className="flex gap-3 2xl:my-[20px] xl:my-[15px] my-[10px]">
                     {/* <div className="2xl:w-[197px] 2xl:h-[37px] xl:w-[140px] xl:h-[30px] w-[130px] h-[25px] bg-[#F3F3F3] flex justify-around items-center">
@@ -315,9 +315,11 @@ Meals prepared
                   </div>
                   <div className="flex gap-[50px] 2xl:my-[30px] xl:my-[20px] my-[10px]">
                     <div className=" ">
-                      <h2 className="fourth_p text-[#555555]">
-                        {getAChef?.bio}
-                      </h2>
+                      <div className="fourth_p text-[#555555]">
+                        <h2
+                          dangerouslySetInnerHTML={{ __html: getAChef?.bio }}
+                        />
+                      </div>
                       <p className="fourth_day 2xl:my-[12px] xl:my-[8px] my-[6px]"></p>
                     </div>
                   </div>
@@ -507,9 +509,9 @@ Meals prepared
                     <p className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[16px] 2xl:leading-[26px] xl:text-[14px] xl:leading-[20px] lg:text-[12px] lg:leading-[18px] text-center">
                       Add dishes to your cart now.
                     </p>
-                    <div className="flex 2xl:mt-12 xl:mt-6 lg:mt-5 mt-4">
+                    <div className="flex justify-center 2xl:mt-12 xl:mt-6 lg:mt-5 mt-4 w-full">
                       <Link href="/explore-dishes">
-                        <button className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[221px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1">
+                        <button className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[221px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1 mx-auto">
                           Explore Dishes
                         </button>
                       </Link>

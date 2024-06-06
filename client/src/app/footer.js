@@ -18,7 +18,15 @@ const Footer = () => {
   const [isRefresh, setRefresh] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState("success");
+  const [currentUser, setCurrentUser] = useState(null);
   const { success } = useSelector((state) => state?.auth);
+  const [userDetail, setUserDetail] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: "",
+    role: "",
+  });
 
   const handleToggle = () => {
     setShowPassword(!showPassword);
@@ -108,6 +116,20 @@ const Footer = () => {
     const modal = document.getElementById("my_modal_2");
     modal.close();
   };
+
+  // useEffect(() => {
+  //   const handleKeyDown = (event) => {
+  //     if (event.key === "Escape") {
+  //       handleClose();
+  //     }
+  //   };
+
+  //   document.addEventListener("keydown", handleKeyDown);
+
+  //   return () => {
+  //     document.removeEventListener("keydown", handleKeyDown);
+  //   };
+  // }, []);
   const handleClosee = () => {
     const modal = document.getElementById("my_modal_1");
     modal.close();
@@ -125,13 +147,77 @@ const Footer = () => {
   const handleSignUpClick = () => {
     document.getElementById("my_modal_1").showModal();
   };
+  const inputHandlers = (e) => {
+    const { name, value } = e.target;
+    if (name === "firstname" || name === "lastname") {
+      if (/^[A-Za-z]*$/.test(value) && value.length <= 100) {
+        setUserDetail((prevDetails) => ({
+          ...prevDetails,
+          [name]: value,
+        }));
+      }
+    } else {
+      setUserDetail((prevDetails) => ({
+        ...prevDetails,
+        [name]: value,
+      }));
+    }
+  };
+  const handleSubmits = async (e) => {
+    e.preventDefault();
+
+    // Check if the userDetail object is empty or has default values
+    const isUserDetailEmpty =
+      !userDetail.firstname &&
+      !userDetail.lastname &&
+      !userDetail.email &&
+      !userDetail.password &&
+      !userDetail.role;
+
+    if (isUserDetailEmpty) {
+      // The userDetail object is empty, likely due to Google OAuth sign-up
+      // You can optionally log a message or return early
+      console.log("Google OAuth sign-up detected, skipping form registration.");
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        `${config.baseURL}/api/auth/register`,
+        userDetail
+      );
+      if (response.status === 201) {
+        toast.success("Registration Successful!");
+        handleClosee();
+      } else {
+        toast.error("Failed to Register. Please try again later.");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("An error occurred while registering.");
+    }
+  };
+  const handleGoogleOAuth = () => {
+    console.log("Initiating Google OAuth");
+    window.location.href = `https://server-backend-gamma.vercel.app/Google_OAuth/google`;
+
+    // After successful Google OAuth, handle the token login
+    const tokenFromUrl = new URLSearchParams(window.location.search).get(
+      "token"
+    );
+    if (tokenFromUrl) {
+      handleTokenLogin(tokenFromUrl);
+    }
+  };
+
   return (
     <>
       <footer className="bg-[#F6F6F6] flex justify-center">
-        <div className="custom_container 2xl:mt-[35px] xl:mt-[50px] lg:mt-[35px] sm:mt-[30px] mt-[20px] mnavbar">
-          <div className="flex justify-around  lg:justify-between flex-wrap md:gap-5 lg:gap-0">
 
-            <div className="lg:w-auto  sm:w-[27%] w-[50%] my-3 md:my-0">
+        <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px]  2xl:mt-[35px] xl:mt-[50px] lg:mt-[35px] sm:mt-[30px] mt-[20px] mnavbar">
+          <div className="flex justify-around  lg:justify-between flex-wrap gap-5 lg:gap-0">
+            <div className="lg:w-auto  sm:w-[45%] w-full my-3 md:my-0">
+
               <div className="lg:text-start text-center">
                 <h4 className="footer_heading">Quick Links</h4>
                 <Link href="/about-us">
@@ -247,7 +333,6 @@ const Footer = () => {
                 </div>
               </div>
             </div>
-
           </div>
           <hr className="2xl:mt-[56px] xl:mt-[25px] lg:mt-[15px] first-letter sm:mt-[15px] mt-[10px]" />
           <div>
@@ -265,12 +350,19 @@ const Footer = () => {
       <div className="">
         <dialog
           id="my_modal_1"
-          className="modal rounded-[10px] 2xl:w-[1000px] 2xl:h-[665px] xl:w-[620px] xl:h-[480px] lg:w-[480px] h-[400px] 2xl:mt-40 xl:mt-24 mt-14 p-0"
+          className="modal rounded-[10px] 2xl:w-[1000px] 2xl:h-[605px] xl:w-[620px] xl:h-[410px] lg:w-[480px] h-[400px] 2xl:mt-40 xl:mt-24 mt-14 p-0 signup"
         >
-          <form method="dialog" className=" w-full h-full mt-0">
+          <form
+            method="dialog"
+            className=" w-full h-full mt-0"
+            onSubmit={handleSubmits}
+          >
             {/* if there is a button in form, it will close the modal */}
             <div className="flex justify-center items-center border w-full 2xl:h-[80px] xl:h-[55px] h-[40px]">
-              <div className="absolute right-3" onClick={handleClosee}>
+              <div
+                className="absolute right-3 cursor-pointer"
+                onClick={handleClosee}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -286,30 +378,34 @@ const Footer = () => {
                   />
                 </svg>
               </div>
-              <h4 className="fourth_p">Sign up</h4>
+              <h4 className="fourth_p">Sign Up</h4>
             </div>
             <div className=" my-3 px-[40px]">
               <div className="flex flex-wrap justify-between 2xl:w-[775px] xl:w-[480px] mx-auto ">
                 <div className="2xl:mt-[35px] mt-[25px] 2xl:w-[368px] xl:w-[230px] w-[190px]">
                   <input
-                    type="email"
-                    name="email"
+                    type="text"
+                    name="firstname"
                     placeholder="First Name"
-                    className="alata font-[400] login-inputad  w-full"
+                    className="alata font-[400] login-inputad text-[#929292] w-full "
                     pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     title="enter valid email ex. abc@gmail.com"
-                    // onChange={InputHandler}
+                    onChange={inputHandlers}
+                    value={userDetail.firstname}
+                    maxLength={100}
                   />
                 </div>
                 <div className="2xl:mt-[35px] mt-[25px] 2xl:w-[368px] xl:w-[230px] w-[190px]">
                   <input
-                    type="email"
-                    name="email"
+                    type="text"
+                    name="lastname"
                     placeholder="Last Name"
-                    className="alata font-[400] login-inputad  w-full"
+                    className="alata font-[400] login-inputad text-[#929292] w-full"
                     pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     title="enter valid email ex. abc@gmail.com"
-                    // onChange={InputHandler}
+                    onChange={inputHandlers}
+                    value={userDetail.lastname}
+                    maxLength={100}
                   />
                 </div>
                 <div className="2xl:mt-[35px] mt-[25px] 2xl:w-[368px] xl:w-[230px] w-[190px]">
@@ -317,26 +413,28 @@ const Footer = () => {
                     type="email"
                     name="email"
                     placeholder="Email Address"
-                    className="alata font-[400] login-inputad  w-full"
+                    className="alata font-[400] login-inputad text-[#929292] w-full"
                     pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     title="enter valid email ex. abc@gmail.com"
-                    // onChange={InputHandler}
+                    onChange={inputHandlers}
+                    value={userDetail.email}
                   />
                 </div>
                 <div className="2xl:mt-[35px] mt-[25px] 2xl:w-[368px] xl:w-[230px] w-[190px]">
                   <input
-                    type="email"
-                    name="email"
+                    type="password"
+                    name="password"
                     placeholder="Password"
-                    className="alata font-[400] login-inputad  w-full"
+                    className="alata font-[400] login-inputad text-[#929292] w-full"
                     pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     title="enter valid email ex. abc@gmail.com"
-                    // onChange={InputHandler}
+                    onChange={inputHandlers}
+                    value={userDetail.password}
                   />
                 </div>
               </div>
               <div className="flex">
-                <button className="w-full mx-auto alata text-white 2xl:text-[20px] 2xl:w-[368px] xl:w-[230px] lg:w-[190px] xl:text-[16px] text-[12px] rounded-[5px] 2xl:mt-[20px] xl:mt-[15px] mt-[10px] 2xl:h-[60px] xl:h-[40px] lg:h-[32px] text-center bg-[#DB5353]">
+                <button className="w-full mx-auto alata text-white 2xl:text-[20px] 2xl:w-[368px] xl:w-[230px] lg:w-[190px] xl:text-[14px] text-[12px] rounded-[5px] 2xl:mt-[20px] xl:mt-[15px] mt-[10px] 2xl:h-[60px] xl:h-[40px] lg:h-[32px] text-center bg-[#DB5353] sign-button">
                   Create Account
                 </button>
               </div>
@@ -346,35 +444,36 @@ const Footer = () => {
                 </p>
               </div>
               <div className="flex 2xl:mt-[20px]">
-                <div className="mx-auto  2xl:w-[368px] xl:w-[230px]">
-                  <Link
-                    href="https://accounts.google.com/v3/signin/identifier?authuser=0&continue=https%3A%2F%2Fmyaccount.google.com%2F%3Futm_source%3Dmy-activity%26utm_medium%3Dhome%26utm_campaign%26hl%3Den_GB%26pli%3D1&ec=GAlAwAE&hl=en_GB&service=accountsettings&flowName=GlifWebSignIn&flowEntry=AddSession&dsh=S-1476156200%3A1712751508637500&theme=mn&ddm=0"
-                    target="_blank"
-                  >
-                    <div className=" social_div ">
-                      <div className="flex social_btn ">
-                        <Image className=" social_img " src={google} />
-                        <h4 className="checkoutlable">Continue with Google</h4>
-                      </div>
-                    </div>
-                  </Link>
+                <div className="mx-auto 2xl:w-[368px] xl:w-[230px]">
+                  <div className="menu">
+                    {isLoggedIn && currentUser ? (
+                      <>Welcome, {currentUser.firstname}</>
+                    ) : (
+                      <button onClick={handleGoogleOAuth}>
+                        Continue with Google
+                      </button>
+                    )}
+                  </div>
+
+                  {/* </a> */}
+
                   <Link href="https://www.facebook.com/login/" target="_blank">
                     <div className="my-[12px] social_div">
                       <div className="social_btn">
                         <Image className="social_img " src={fb} />
-                        <h4 className="checkoutlable">
+                        <h3 className="checkoutlable">
                           Continue with Facebook
-                        </h4>
+                        </h3>
                       </div>
                     </div>{" "}
                   </Link>
                 </div>
               </div>
-              <div className="my-[30px]">
+              {/* <div className="my-[30px]">
                 <h4 className="text-[#555555] alata font-[400] text-[14px] leading-[26px] text-center">
                   Browse as Guest
                 </h4>
-              </div>
+              </div> */}
             </div>
           </form>
         </dialog>

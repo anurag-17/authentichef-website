@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import Footer from "../footer";
 import aboutCheff from "./assets/aboutUs-f.png";
 import aboutDishes from "./assets/aboutUs-s.png";
@@ -201,9 +202,11 @@ const AboutUs = () => {
               <p className="aboutPara 2xl:mt-[50px] xl:mt-[30px] mt-[15px]">
                 Learn more about joining us…
               </p>
+              <Link href="/become-chef">
               <button className="2xl:w-[260px] 2xl:text-[20px] 2xl:h-[60px] lg:w-[220px] lg:h-[60px] lg:text-[18px] md:w-[160px] md:text-[14px] md:h-[50px] sm:w-[160px] sm:text-[14px] sm:h-[50px] xs:w-[150px] xs:text-[13px] xs:h-[40px] xl:w-[230px] xl:h-[60px] w-[200px] h-[60px] bg-[#DB5353] text-[18px] text-white rounded-[5px] mt-[20px] p-[10px] hover:bg-[#B83C3C] transition duration-300 ease-in-out">
                 Our Chef Community
               </button>
+              </Link>
             </div>
           </div>
         </div>

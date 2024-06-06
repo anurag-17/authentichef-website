@@ -234,15 +234,15 @@ td {
 }
 
 .four_img2 {
-  @apply 2xl:w-[55px] 2xl:h-[55px] xl:w-[40px] xl:h-[40px] lg:w-[30px] lg:h-[30px] w-[30px] h-[30px] rounded-full;
+  @apply 2xl:w-[55px] 2xl:h-[55px] xl:w-[40px] xl:h-[40px] lg:w-[30px] lg:h-[30px] w-[50px] h-[50px] rounded-full;
 }
 
 .fourth_name {
-  @apply text-[#111111] alata font-[400] 2xl:text-[16px] 2xl:leading-[20px] xl:text-[12px] xl:leading-[18px] lg:text-[12px] lg:leading-[16px] text-[10px] leading-[16px];
+  @apply text-[#111111] alata font-[400] 2xl:text-[16px] 2xl:leading-[20px] xl:text-[12px] xl:leading-[18px] lg:text-[12px] lg:leading-[16px] text-[14px] leading-[16px];
 }
 
 .fourth_p {
-  @apply alata font-[400] xl:text-[16px] xl:leading-[24px] text-[12px];
+  @apply alata font-[400] xl:text-[16px] xl:leading-[24px] text-[14px];
 }
 
 .four_btn {
@@ -362,11 +362,13 @@ td {
 
 /* =================footer================= */
 .footer_text {
-  @apply poppins font-[400] text-[#111111] md:text-[16px]  md:leading-[30px] leading-[26px] text-[14px];
+
+  @apply poppins font-[400] text-[#111111] 2xl:text-[16px] 2xl:leading-[30px] xl:text-[12px] xl:leading-[22px] lg:text-[10px] lg:leading-[18px] text-[12px] leading-[22px];
 }
 
 .footer_heading {
-  @apply poppins font-[600] text-[#111111] md:text-[18px] md:leading-[27px] 2xl:mb-5 xl:mb-5 mb-2 text-[16px] leading-[24px];
+  @apply poppins font-[600] text-[#111111] 2xl:text-[18px] 2xl:leading-[27px] 2xl:mb-5 xl:mb-5 xl:text-[14px] xl:leading-[23px] lg:text-[12px] lg:leading-[18px] lg:mb-2 text-[14px] leading-[18px] mb-1;
+
 }
 
 .footer_text_b {
@@ -581,7 +583,7 @@ td {
   }
 
   .mcusinimgs {
-    width: 12.4% !important;
+    width: 6.4% !important;
 
   }
 
@@ -984,9 +986,14 @@ td {
 }
 
 .overTitle {
-  @apply flex items-center break-words font-['Alata'] font-normal 2xl:text-[24px] xl:text-[16px]  text-[15px] 2xl:leading-[1.417] text-[#000000]
+
+  @apply flex items-center break-words font-['Alata'] font-normal 2xl:text-[24px] xl:text-[16px] md:text-[10px] 2xl:leading-[1.417] text-[#000000]
 }
 
-.custom_container {
-  @apply 2xl:w-[1600px] xl:w-[1200px] lg:w-[80%] md:w-[90%] w-full mx-auto md:px-0 px-[20px]
+
+
+.buttonHov.mcusinimgs:hover h4 {
+  color: #F38181;
+
+
 }
