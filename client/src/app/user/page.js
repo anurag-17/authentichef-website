@@ -304,7 +304,7 @@ const LandingPage = () => {
 
           <div className=" ">
             <Image
-              src="/images/poster-bg-m.webp"
+              src="/images/mobile _image.png"
               height="400"
               width="500"
               objectFit="cover"
@@ -341,7 +341,7 @@ const LandingPage = () => {
                     key={item.id}
                     className=" my-5 2xl:w-[345px] 2xl:h-[560px] lg:w-[23%] sm:w-[45%] md:w-[48%]   relative rounded-[9.8px] mexploreD  "
                   >
-                    {console.log("ssss",item?.chef_id?.images)}
+                    {console.log("ssss", item?.chef_id?.images)}
                     <div>
                       <button className="" onClick={() => openModal(item._id)}>
                         <img
@@ -419,7 +419,7 @@ const LandingPage = () => {
 
                       <div className=" w-full bottom-0 flex justify-between items-center  2xl:my-[22px] xl:my-[18px] my-[15px]">
                         <p className="alata font-[400] text-[#000] 2xl:text-[20px] 2xl:leading-[24px] xl:text-[14px] xl:leading-[18px] lg:text-[12px] lg:leading-[16px] text-[12px] leading-[16px] ">
-                          Serves {item?.portion_Size} |({item?.weight}g){" "}|
+                          Serves {item?.portion_Size} |({item?.weight}g) |
                           <span className="text-[#DB5353]">
                             {item?.price && `£${item.price.toFixed(2)}`}
                           </span>
@@ -481,9 +481,7 @@ const LandingPage = () => {
             <div className=" flex justify-center ">
               <div className="mx-5 sm:mx-0">
                 <div className="mx-auto">
-                  <h2 className=" nine_head">
-                    How it Works?
-                  </h2>
+                  <h2 className=" nine_head">How it Works?</h2>
                   <p className="five_pp 2xl:pt-[35px] xl:pt-2 lg:pt-2 pt-2">
                     We understand the demands of busy lives without compromising
                     on the quality of personalised meal choices on a daily
