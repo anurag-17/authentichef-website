@@ -771,7 +771,7 @@ const Navbar = () => {
               <div className="flex justify-end md:gap-0 gap-2 ">
                 {isLoggedIn === success ? (
                   <div className="flex justify-end 2xl:gap-7 md:gap-5  gap-1 w-1/3">
-                   
+
                     <div className="nav_login1 md:flex items-center  gap-1 lg:gap-2 hidden sm:block">
                       Welcome <p>{userDetails?.firstname}!</p>
                     </div>
@@ -820,8 +820,8 @@ const Navbar = () => {
             className="drawer-overlay"
             onClick={handleDrawerClose}
           ></label>
-          <ul className=" min-h-full text-base-content max-w-calc bg-white">
-            <div className="flex flex-col p-[10px]  md:p-[20px]  h-[100vh]">
+          <ul className=" min-h-full text-base-content max-w-[310px] sm:max-w-[350px] md:max-w-calc bg-white">
+            <div className="flex flex-col p-[15px]  md:p-[20px]  h-[100vh]">
               <div className="flex justify-between items-center">
                 {/* <button
                     onClick={handleDrawerClose}
@@ -879,8 +879,8 @@ const Navbar = () => {
                         All Clear
                       </button>
                     </div> */}
-                  <div className="pt-[2rem] flex-1">
-                    <div className="flex justify-between items-center">
+                  <div className="pt-[2rem] flex-1 overflow-auto">
+                    <div className="flex justify-between">
                       <h4 className="alata font-[400] text-[#111] my-0 md:text-[18px] text-[16px] leading-[25px]">
                         ITEMS
                       </h4>
@@ -888,15 +888,11 @@ const Navbar = () => {
                         TOTAL
                       </h4>
                     </div>
-                    <div className="">
-
+                    <div className="pt-[1rem]">
                       {cart?.map((item, index) => {
                         const { data } = item;
                         return (
-                          <div
-                            key={index}
-                            className="my-5 flex w-full border rounded-md"
-                          >
+                          <div key={index} className="my-5 flex w-full border rounded-md" >
                             <div className="flex items-center gap-2 w-full">
                               <div>
                                 <img
@@ -911,33 +907,6 @@ const Navbar = () => {
                                 </h4>
                                 <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
                                   Price: £{data.price}
-                                </h4>
-                                <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
-                                  <div className="flex justify-center 2xl:w-[103px] 2xl:h-[39px] xl:w-[60px] xl:h-[22px] lg:w-[50px] lg:h-[20px] border rounded-[5px]">
-                                    <button
-                                      className="text-[#DB5353] rounded-l w-1/3"
-                                      onClick={() => handleDecrement(item._id)}
-                                    >
-                                      <Image
-                                        src={minus}
-                                        className="2xl:w-[15px] 2xl:h-[15px] xl:w-[10px] xl:h-[10px] lg:w-[8px] lg:h-[8px] mx-auto"
-                                        alt="decrement"
-                                      />
-                                    </button>
-                                    <p className="flex mx-auto items-center text-[10px] xl:text-[12px] 2xl:text-[18px] 2xl:leading-[28px]">
-                                      {item.quantity}
-                                    </p>
-                                    <button
-                                      className="text-[#DB5353] rounded-r w-1/3"
-                                      onClick={() => handleIncrement(item._id)}
-                                    >
-                                      <Image
-                                        src={plus}
-                                        className="2xl:w-[15px] 2xl:h-[15px] xl:w/[10px] xl:h/[10px] lg:w/[8px] lg:h/[8px] mx-auto"
-                                        alt="increment"
-                                      />
-                                    </button>
-                                  </div>
                                 </h4>
                               </div>
                             </div>
@@ -967,64 +936,63 @@ const Navbar = () => {
                       {Array.isArray(getCartItems) &&
                         getCartItems.map((item, index) => (
                           <>
-                            <div key={index} className="my-5 flex w-full rounded-md" >
-                              <div className="flex items-center gap-2 md:gap-6 w-full">
-                                <div className="w-[40%] md:w-auto">
+                            <div key={index} className="mt-3 md:mt-0 md:my-5 flex w-full gap-1 md:gap-6" >
+                              <div className="flex  gap-2 md:gap-4 w-full">
+                                <div className="w-[45%] md:w-auto">
                                   <img
                                     src={item.menuItem.ProfileImage}
                                     alt={item.menuItem.name}
-                                    className="md:w-[150px] h-auto w-[100%]"
+                                    className="md:w-[100px] h-auto w-[100%]"
                                   />
                                 </div>
-                                <div className="flex flex-col md:gap-2">
-                                  <p className="alata font-[400] text-[#111111] my-0 md:text-[15px] text-[13px] sm:text-[14px] md:leading-[28px]">
+                                <div className="flex flex-col">
+                                  <p className="alata font-[400] text-[#111111] my-0 md:text-[15px] text-[13px] sm:text-[14px] md:leading-[22px] text-ellipsis whitespace-nowrap overflow-hidden max-w-[100px]">
                                     {item.menuItem.name}
                                   </p>
-                                  <p className="alata font-[400] text-[#111111] my-0  md:text-[15px] text-[13px] sm:text-[14px] md:leading-[28px]">
+                                  <p className="alata font-[400] text-[#111111] my-0 xl:text-[15px] text-[13px] sm:text-[14px] md:leading-[22px]">
                                     Price.{" "}
                                     {item?.menuItem?.price &&
                                       `£${item.menuItem.price.toFixed(2)}`}
                                   </p>
-
+                                  <div className="flex gap-1 md:gap-2 items-center">
+                                    <div className="flex  md:gap-1  justify-center border-[#111111] border mt-1">
+                                      <button
+                                        className="text-[#111111] px-2 md:px-3 py-1"
+                                        onClick={() => handleDecrement(item._id)}
+                                      >
+                                        <MinusIcon />
+                                      </button>
+                                      <p className="px-2 md:px-2 py-1 flex mx-auto items-center 2xl:text-[16px] md:text-[14px] text-[13px] 2xl:leading-[22px]">
+                                        {item.quantity}
+                                      </p>
+                                      <button className="text-[#111111] px-2 md:px-2 py-1"
+                                        onClick={() => handleIncrement(item._id)}>
+                                        <PlusIcon />
+                                      </button>
+                                    </div>
+                                    {/* <button className="px-2 md:px-4 md:text-[13px] text-[12] h-[20px] md:h-[25px]" onClick={() => handleItemRemove(item.menuItem._id)}>
+                                      <DeleteIcon />
+                                    </button> */}
+                                  </div>
                                 </div>
                               </div>
-                              <h4 className="alata font-[600] 2xl:my-0 md:text-[16px] t text-[13px] sm:text-[14px]leading-[28px]     text-right">
-                                Price{" "}
-                                £{subtotalPrice.toFixed(2)}
-                              </h4>
-
-                            </div>
-                            <div className="flex gap-1 md:gap-2 items-center sm:justify-center justify-end">
-                              <div className="flex  md:gap-2  justify-center border-[#111111] border mt-1">
-                                <button
-                                  className="text-[#111111] p-2 md:p-3"
-                                  onClick={() => handleDecrement(item._id)}
-                                >
-                                  {/* <Image
-                                src={minus}
-                                className="2xl:w-[15px] 2xl:h-[15px] xl:w-[10px] xl:h-[10px] lg:w-[8px] lg:h-[8px] mx-auto"
-                                alt="decrement"
-                              /> */}
-                                  <MinusIcon />
-                                </button>
-                                <p className="p-2 md:p-3 flex mx-auto items-center xl:text-[16px] 2xl:text-[18px] text-[15px] 2xl:leading-[28px]">
-                                  {item.quantity}
+                              <div className="flex flex-col justify-between md:pb-[2px] md:py-0 pb-[10px]">
+                                <p className="alata font-[600] 2xl:my-0 xl:text-[15px] text-[13px] sm:text-[14px] xl:leading-[28px]     text-right">
+                                  {/* Price{" "}  */}
+                                  £{subtotalPrice.toFixed(2)}
                                 </p>
-                                <button className="text-[#111111] p-2 md:p-3" 
-                                onClick={() => handleIncrement(item._id)}>
-                                  <PlusIcon />
+                                <button className="px-2 md:px-4 md:text-[13px] text-[12] h-[20px] md:h-[25px]" onClick={() => handleItemRemove(item.menuItem._id)}>
+                                  <DeleteIcon />
                                 </button>
                               </div>
-                              <button className="px-2 md:px-4 md:text-[13px] text-[12] h-[20px] md:h-[25px]" onClick={() => handleItemRemove(item.menuItem._id)}>
-                                <DeleteIcon />
-                              </button>
                             </div>
+                          
                           </>
                         ))}
                     </div>
 
                   </div>
-                  <div className="flex flex-col justify-between items-center w-full">
+                  <div className="flex flex-col justify-between items-center w-full pt-[1.5rem]">
 
                     {token ? (
                       <div className="w-full ">
@@ -1040,7 +1008,7 @@ const Navbar = () => {
 
                             </Link> */}
 
-                        <div className="flex justify-between mt-4">
+                        <div className="flex justify-between">
                           <h4 className="alata font-[400] 2xl:my-0 xl:text-[18px] 2xl:leading-[28px] text-[16px] lg:leading-[24px]">
                             Subtotal :
                           </h4>
