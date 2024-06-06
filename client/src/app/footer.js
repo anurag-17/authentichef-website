@@ -213,11 +213,13 @@ const Footer = () => {
   return (
     <>
       <footer className="bg-[#F6F6F6] flex justify-center">
-
+        {/* 
         <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px]  2xl:mt-[35px] xl:mt-[50px] lg:mt-[35px] sm:mt-[30px] mt-[20px] mnavbar">
           <div className="flex justify-around  lg:justify-between flex-wrap gap-5 lg:gap-0">
-            <div className="lg:w-auto  sm:w-[45%] w-full my-3 md:my-0">
-
+            <div className="lg:w-auto  sm:w-[45%] w-full my-3 md:my-0"> */}
+        <div className="custom_container 2xl:mt-[35px] xl:mt-[50px] lg:mt-[35px] sm:mt-[30px] mt-[20px] mnavbar">
+          <div className="flex justify-around  lg:justify-between flex-wrap md:gap-5 lg:gap-0">
+            <div className="lg:w-auto  sm:w-[27%] w-[50%] my-3 md:my-0">
               <div className="lg:text-start text-center">
                 <h4 className="footer_heading">Quick Links</h4>
                 <Link href="/about-us">
