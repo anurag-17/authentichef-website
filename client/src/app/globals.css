@@ -989,11 +989,8 @@ td {
   @apply flex items-center break-words font-['Alata'] font-normal 2xl:text-[24px] xl:text-[16px] md:text-[10px] 2xl:leading-[1.417] text-[#000000]
 } */
 
-
-
 .buttonHov.mcusinimgs:hover h4 {
   color: #F38181;
-}
 
 .overTitle {
   @apply flex items-center break-words font-['Alata'] font-normal 2xl:text-[24px] xl:text-[16px] text-[15px] 2xl:leading-[1.417] text-[#000000]
@@ -1007,4 +1004,5 @@ td {
 
 .footer_heading {
   @apply poppins font-[600] text-[#111111] md:text-[18px] md:leading-[27px] 2xl:mb-5 xl:mb-5 mb-2 text-[16px] leading-[24px];
+
 }

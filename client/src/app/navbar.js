@@ -32,6 +32,10 @@ import plus from "../../public/images/plus.svg";
 import minus from "../../public/images/minus.svg";
 import { removeItemFromCart, clearCart } from "./redux/dishSlice";
 import config from "@/config";
+import CloseIcon from "./user/svg/CloseIcon";
+import { MinusIcon } from "./user/svg/MinusIcon";
+import PlusIcon from "./user/svg/PlusIcon";
+import DeleteIcon from "./user/svg/DeleteIcon";
 
 const Navbar = () => {
   const [userDetail, setUserDetail] = useState({
@@ -517,10 +521,10 @@ const Navbar = () => {
       const updatedCartItems = prevCartItems.map((item) =>
         item._id === itemId
           ? {
-              ...item,
-              quantity: item.quantity + 1,
-              totalPrice: item.menuItem.price * (item.quantity + 1),
-            }
+            ...item,
+            quantity: item.quantity + 1,
+            totalPrice: item.menuItem.price * (item.quantity + 1),
+          }
           : item
       );
       setUpdatedCartItems(updatedCartItems);
@@ -556,10 +560,10 @@ const Navbar = () => {
       const updatedCartItems = prevCartItems.map((item) =>
         item._id === itemId && item.quantity > 1
           ? {
-              ...item,
-              quantity: item.quantity - 1,
-              totalPrice: item.menuItem.price * (item.quantity - 1),
-            }
+            ...item,
+            quantity: item.quantity - 1,
+            totalPrice: item.menuItem.price * (item.quantity - 1),
+          }
           : item
       );
       setUpdatedCartItems(updatedCartItems);
@@ -807,7 +811,7 @@ const Navbar = () => {
           type="checkbox"
           className="drawer-toggle"
           checked={isDrawerOpen}
-          onChange={() => {}}
+          onChange={() => { }}
         />
         <div className="drawer-side">
           <label
@@ -816,11 +820,10 @@ const Navbar = () => {
             className="drawer-overlay"
             onClick={handleDrawerClose}
           ></label>
-          <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content 2xl:w-[505px] xl:w-[350px] lg:w-[290px] bg-white 2xl:mt-[116px] xl:mt-[80px] lg:mt-[50px] sm:mt-[45px] mt-12">
-            <div className="bg-white hidden lg:block rounded-s-[15px]">
-              <div>
-                <div className="">
-                  <button
+          <ul className=" min-h-full text-base-content max-w-calc bg-white">
+            <div className="flex flex-col p-[10px]  md:p-[20px]  h-[100vh]">
+              <div className="flex justify-between items-center">
+                {/* <button
                     onClick={handleDrawerClose}
                     className="border rounded-md"
                   >
@@ -838,32 +841,34 @@ const Navbar = () => {
                         d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"
                       />
                     </svg>
-                  </button>
-                  <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[22px] text-[22px] 2xl:leading-[32px] xl:text-[18px] xl:leading-[24px] lg:text-[14px] lg:leading-[20px]">
-                    My Basket
-                  </h4>
-                </div>
+                  </button> */}
+                <h4 className="alata font-[500] text-[#111111] 2xl:text-[25px] sm:text-[20px] text-[18px] 2xl:leading-[32px] md:text-[25px] leading-[24px] ">
+                  My Basket
+                </h4>
+                <div onClick={handleDrawerClose} className="cursor-pointer">  <CloseIcon /></div>
 
-                {cart?.length === 0 && getCartItems?.length === 0 ? (
-                  <div>
-                    <div className="2xl:mt-40"></div>
-                    <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[25px] 2xl:leading-[35px] xl:text-[20px] xl:leading-[28px] lg:text-[16px] lg:leading-[24px] text-center 2xl:mt-24">
-                      Explore a World of Deliciousness
-                    </h4>
-                    <p className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[16px] 2xl:leading-[26px] xl:text-[14px] xl:leading-[20px] lg:text-[12px] lg:leading-[18px] text-center">
-                      Add dishes to your cart now.
-                    </p>
-                    <div className="flex justify-center 2xl:mt-12 xl:mt-6 lg:mt-5 mt-4 w-full">
-                      <Link href="/explore-dishes">
-                        <button className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[221px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1 mx-auto">
-                          Explore Dishes
-                        </button>
-                      </Link>
-                    </div>
+              </div>
+
+              {cart?.length === 0 && getCartItems?.length === 0 ? (
+                <div>
+                  <div className="2xl:mt-40"></div>
+                  <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[25px] 2xl:leading-[35px] xl:text-[20px] xl:leading-[28px] lg:text-[16px] lg:leading-[24px] text-center 2xl:mt-24">
+                    Explore a World of Deliciousness
+                  </h4>
+                  <p className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[16px] 2xl:leading-[26px] xl:text-[14px] xl:leading-[20px] lg:text-[12px] lg:leading-[18px] text-center">
+                    Add dishes to your cart now.
+                  </p>
+                  <div className="flex 2xl:mt-12 xl:mt-6 lg:mt-5 mt-4">
+                    <Link href="/explore-dishes">
+                      <button className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[221px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1">
+                        Explore Dishes
+                      </button>
+                    </Link>
                   </div>
-                ) : (
-                  <div>
-                    <div className="flex justify-end mt-10 md:mr-5">
+                </div>
+              ) : (
+                <>
+                  {/* <div className="flex justify-end mt-10 md:mr-5">
                       <button
                         className="alata font-[400] rounded-[5px] p-2 text-[20px] bg-[#DB5353] text-white 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px]"
                         onClick={() => {
@@ -873,8 +878,18 @@ const Navbar = () => {
                       >
                         All Clear
                       </button>
+                    </div> */}
+                  <div className="pt-[2rem] flex-1">
+                    <div className="flex justify-between items-center">
+                      <h4 className="alata font-[400] text-[#111] my-0 md:text-[18px] text-[16px] leading-[25px]">
+                        ITEMS
+                      </h4>
+                      <h4 className="alata font-[400] text-[#111] my-0 md:text-[18px] text-[16px] leading-[25px]  ">
+                        TOTAL
+                      </h4>
                     </div>
-                    <div>
+                    <div className="">
+
                       {cart?.map((item, index) => {
                         const { data } = item;
                         return (
@@ -951,95 +966,69 @@ const Navbar = () => {
 
                       {Array.isArray(getCartItems) &&
                         getCartItems.map((item, index) => (
-                          <div
-                            key={index}
-                            className="my-5 flex w-full border rounded-md"
-                          >
-                            <div className="flex items-center gap-2 w-full">
-                              <div>
-                                <img
-                                  src={item.menuItem.ProfileImage}
-                                  alt={item.menuItem.name}
-                                  className="w-[90px] h-auto rounded-[5.8px]"
-                                />
-                              </div>
-                              <div>
-                                <h4 className="alata font-[400] text-[#111] my-0 text-[18px] leading-[28px]">
-                                  {item.menuItem.name}
-                                </h4>
-                                <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
-                                  Price:{" "}
-                                  {item?.menuItem?.price &&
-                                    `£${item.menuItem.price.toFixed(2)}`}
-                                </h4>
-                                <div className="flex justify-center 2xl:w-[103px] 2xl:h-[39px] xl:w-[60px] xl:h-[22px] lg:w-[50px] lg:h-[20px] border rounded-[5px]">
-                                  <button
-                                    className="text-[#DB5353] rounded-l w-1/3"
-                                    onClick={() => handleDecrement(item._id)}
-                                  >
-                                    <Image
-                                      src={minus}
-                                      className="2xl:w-[15px] 2xl:h-[15px] xl:w-[10px] xl:h-[10px] lg:w-[8px] lg:h-[8px] mx-auto"
-                                      alt="decrement"
-                                    />
-                                  </button>
-                                  <p className="flex mx-auto items-center text-[10px] xl:text-[12px] 2xl:text-[18px] 2xl:leading-[28px]">
-                                    {item.quantity}
+                          <>
+                            <div key={index} className="my-5 flex w-full rounded-md" >
+                              <div className="flex items-center gap-2 md:gap-6 w-full">
+                                <div className="w-[40%] md:w-auto">
+                                  <img
+                                    src={item.menuItem.ProfileImage}
+                                    alt={item.menuItem.name}
+                                    className="md:w-[150px] h-auto w-[100%]"
+                                  />
+                                </div>
+                                <div className="flex flex-col md:gap-2">
+                                  <p className="alata font-[400] text-[#111111] my-0 md:text-[15px] text-[13px] sm:text-[14px] md:leading-[28px]">
+                                    {item.menuItem.name}
                                   </p>
-                                  <button
-                                    className="text-[#DB5353] rounded-r w-1/3"
-                                    onClick={() => handleIncrement(item._id)}
-                                  >
-                                    <Image
-                                      src={plus}
-                                      className="2xl:w-[15px] 2xl:h-[15px] xl:w/[10px] xl:h/[10px] lg:w/[8px] lg:h/[8px] mx-auto"
-                                      alt="increment"
-                                    />
-                                  </button>
+                                  <p className="alata font-[400] text-[#111111] my-0  md:text-[15px] text-[13px] sm:text-[14px] md:leading-[28px]">
+                                    Price.{" "}
+                                    {item?.menuItem?.price &&
+                                      `£${item.menuItem.price.toFixed(2)}`}
+                                  </p>
+
                                 </div>
                               </div>
+                              <h4 className="alata font-[600] 2xl:my-0 md:text-[16px] t text-[13px] sm:text-[14px]leading-[28px]     text-right">
+                                Price{" "}
+                                £{subtotalPrice.toFixed(2)}
+                              </h4>
+
                             </div>
-                            <button
-                              className="px-4 text-[13px] border rounded h-[25px] text-red hover:bg-[#efb3b38a]"
-                              onClick={() =>
-                                handleItemRemove(item.menuItem._id)
-                              }
-                            >
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth="1.5"
-                                stroke="currentColor"
-                                className="w-6 h-6"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M6 18L18 6M6 6l12 12"
-                                />
-                              </svg>
-                            </button>
-                          </div>
+                            <div className="flex gap-1 md:gap-2 items-center sm:justify-center justify-end">
+                              <div className="flex  md:gap-2  justify-center border-[#111111] border mt-1">
+                                <button
+                                  className="text-[#111111] p-2 md:p-3"
+                                  onClick={() => handleDecrement(item._id)}
+                                >
+                                  {/* <Image
+                                src={minus}
+                                className="2xl:w-[15px] 2xl:h-[15px] xl:w-[10px] xl:h-[10px] lg:w-[8px] lg:h-[8px] mx-auto"
+                                alt="decrement"
+                              /> */}
+                                  <MinusIcon />
+                                </button>
+                                <p className="p-2 md:p-3 flex mx-auto items-center xl:text-[16px] 2xl:text-[18px] text-[15px] 2xl:leading-[28px]">
+                                  {item.quantity}
+                                </p>
+                                <button className="text-[#111111] p-2 md:p-3" 
+                                onClick={() => handleIncrement(item._id)}>
+                                  <PlusIcon />
+                                </button>
+                              </div>
+                              <button className="px-2 md:px-4 md:text-[13px] text-[12] h-[20px] md:h-[25px]" onClick={() => handleItemRemove(item.menuItem._id)}>
+                                <DeleteIcon />
+                              </button>
+                            </div>
+                          </>
                         ))}
-                      <p className="font-[500] text-[16px]">
-                        FREE delivery on orders over £55{" "}
-                      </p>
-                      <div className="flex justify-between mt-4">
-                        <h4 className="alata font-[400] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
-                          Total :
-                        </h4>
-                        <h4 className="alata font-[400] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
-                          £{subtotalPrice.toFixed(2)}
-                        </h4>
-                      </div>
-                      <div className="flex justify-between items-center mt-20">
-                        <div>
-                          <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]"></h4>
-                        </div>
-                        <div>
-                          {token ? (
-                            <Link href="/checkout">
+                    </div>
+
+                  </div>
+                  <div className="flex flex-col justify-between items-center w-full">
+
+                    {token ? (
+                      <div className="w-full ">
+                        {/* <Link href="/checkout">
                               <button
                                 onClick={() => {
                                   handleAddCart();
@@ -1048,21 +1037,39 @@ const Navbar = () => {
                               >
                                 Checkout
                               </button>
-                            </Link>
-                          ) : (
-                            <button
-                              onClick={handleLoginClick}
-                              className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1"
-                            >
-                              Checkout
-                            </button>
-                          )}
+
+                            </Link> */}
+
+                        <div className="flex justify-between mt-4">
+                          <h4 className="alata font-[400] 2xl:my-0 xl:text-[18px] 2xl:leading-[28px] text-[16px] lg:leading-[24px]">
+                            Subtotal :
+                          </h4>
+                          <h4 className="alata font-[400] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
+                            £{subtotalPrice.toFixed(2)}
+                          </h4>
                         </div>
+                        <p className="font-[500] text-[16px] py-[1rem]"> FREE delivery on orders over £55{" "} </p>
+                        <button
+                          onClick={() => handleAddCart()}
+                          className="alata font-[400] bg-[#DB5353] text-white mx-auto  2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[15px] lg:text-[14px] w-full py-2  lg:h-[47px] h-[42px] flex flex-col items-center justify-center"
+                        >
+                          Checkout
+                        </button>
                       </div>
-                    </div>
+                    ) : (
+                      <div className="w-full ">
+                        <button
+                          onClick={handleLoginClick}
+                          className="alata font-[400] bg-[#DB5353] text-white mx-auto  2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[15px] text-[14px] w-full py-2 lg:h-[47px] flex flex-col items-center justify-center"
+                        >
+                          Checkout
+                        </button>
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
+
+                </>
+              )}
             </div>
           </ul>
         </div>
