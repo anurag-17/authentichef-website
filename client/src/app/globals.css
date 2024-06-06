@@ -59,7 +59,7 @@ body {
   background-image: url("../../public/images/global-banner.png");
   background-size: cover;
   background-position: center;
-  height: 100vh;
+  /* height: 100vh; */
 }
 
 .offer-bg {
@@ -242,7 +242,7 @@ td {
 }
 
 .fourth_p {
-  @apply alata font-[400] xl:text-[16px] xl:leading-[24px] text-[14px];
+  @apply alata font-[400] xl:text-[16px] xl:leading-[24px] md:text-[14px] text-[13px] whitespace-nowrap;
 }
 
 .four_btn {
@@ -311,11 +311,15 @@ td {
 }
 
 .seven_p2 {
-  @apply alata font-[400] 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[16px] lg:text-[10px] lg:leading-[14px];
+  @apply alata font-[400] 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[16px] text-[11px] leading-[16px];
 }
 
 .seven_h2 {
   @apply alata font-[400] 2xl:text-[18px] xl:text-[12px] lg:text-[10px]
+}
+
+.faqA {
+  @apply  2xl:text-[18px] xl:text-[12px] lg:text-[10px]
 }
 
 .seven_btn {
@@ -353,7 +357,7 @@ td {
 }
 
 .nine_p2 {
-  @apply alata font-[400] text-center 2xl:w-[352px] lg:text-[18px] leading-[28px] 2xl:my-5 xl:w-[280px] xl:my-5 lg:w-[230px] sm:w-[80%] mx-auto lg:my-4 sm:text-[16px] text-[15px] my-2;
+  @apply alata font-[400] text-center 2xl:w-[352px] md:text-[18px] leading-[28px] 2xl:my-5 xl:w-[280px] xl:my-5 lg:w-[240px] sm:w-[80%] mx-auto lg:my-4 sm:text-[16px] text-[15px] my-2;
 }
 
 .nine_name {
@@ -364,7 +368,7 @@ td {
 .footer_text {
 
   @apply poppins font-[400] text-[#111111] md:text-[16px] md:leading-[30px] leading-[26px] text-[14px];
-  
+
 }
 
 .footer_heading {
@@ -793,6 +797,10 @@ td {
   @apply alata font-[400] 2xl:text-[55px] 2xl:leading-[65px] xl:text-[40px] xl:leading-[50px] text-[25px] leading-[35px]
 }
 
+.globalhead2 {
+  @apply alata font-[400] 2xl:text-[45px] 2xl:leading-[55px] xl:text-[30px] xl:leading-[40px] text-[20px] leading-[30px]
+}
+
 .global_h {
   @apply alata font-[400] 2xl:text-[24px] 2xl:leading-[34px] xl:text-[18px] xl:leading-[28px] lg:text-[14px] lg:leading-[20px] text-[10px] leading-[18px]
 }
@@ -992,6 +1000,7 @@ td {
 .buttonHov.mcusinimgs:hover h4 {
   color: #F38181;
 }
+
 .overTitle {
   @apply flex items-center break-words font-['Alata'] font-normal 2xl:text-[24px] xl:text-[16px] text-[15px] 2xl:leading-[1.417] text-[#000000]
 }
@@ -1006,6 +1015,7 @@ td {
   @apply poppins font-[600] text-[#111111] md:text-[18px] md:leading-[27px] 2xl:mb-5 xl:mb-5 mb-2 text-[16px] leading-[24px];
 
 }
+
 @layer utilities {
   .max-w-calc {
     max-width: calc(100vw - 2rem);

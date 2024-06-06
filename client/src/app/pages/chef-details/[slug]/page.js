@@ -277,7 +277,7 @@ const ChefDetails = ({ params }) => {
               className="chefDishes-bg rounded-[15px] relative 2xl:h-[529px] xl:h-[360px] h-[280px] 2xl:pt-[295px] xl:pt-[200px] lg:pt-[155px] pt-[120px]"
               style={{ backgroundImage: `url(${bannerImage})` }}
             >
-              <div className="overflow-y-scroll border flex gap-5 2xl:w-[1414px] xl:w-[1000px] lg:w-[750px] w-[90%] h-[200px] xl:h-[250px]  rounded-[15px] bg-white mx-auto 2xl:p-[50px] xl:p-[20px] p-[15px] chefdishWB">
+              <div className="overflow-y-scroll border flex gap-5 2xl:w-[1414px] xl:w-[1000px] lg:w-[750px] w-[90%] h-[200px] xl:h-[250px] rounded-[15px] bg-white mx-auto 2xl:p-[50px] xl:p-[20px] p-[15px] chefdishWB">
                 <div className="2xl:w-[154px] xl:w-[80px] w-[60px]">
                   <div>
                     <img src={getAChef?.images} className="w-full" />

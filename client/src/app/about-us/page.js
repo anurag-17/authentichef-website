@@ -79,7 +79,7 @@ const AboutUs = () => {
               <div className="2xl:w-[1031px] xl:w-[680px] lg:w-[520px]">
                 <Image
                   src={aboutCheff}
-                  className="2xl:w-[1031px] 2xl:h-[617px] xl:w-[100%] h-auto rounded-[15px]"
+                  className="2xl:w-[1031px] 2xl:h-[617px] xl:w-[100%] h-auto rounded-[15px] "
                 />
               </div>
             </div>
@@ -118,7 +118,7 @@ const AboutUs = () => {
                   mix and match your dishes
                 </div>
               </div>
-              <div className="2xl:mb-[30px] xl:mb-[15px] lg:gap-[] md:gap-[20px] flex md:flex-row flex-col md:text-start text-center md:items-normal items-center md:self-start box-sizing-border justify-between">
+              <div className="2xl:mb-[30px] xl:mb-[15px] lg:gap-[] md:gap-[20px] flex md:flex-row flex-col md:text-start text-center md:items-normal items-center md:self-start box-sizing-border justify-between ">
                 <div className="flex items-center md:flex-row flex-col box-sizing-border  ">
                   <div className="overImgDiv">
                     <div className="flex items-center justify-center w-full box-sizing-border">
@@ -203,7 +203,7 @@ const AboutUs = () => {
                 Learn more about joining us…
               </p>
               <Link href="/become-chef">
-              <button className="2xl:w-[260px] 2xl:text-[20px] 2xl:h-[60px] lg:w-[220px] lg:h-[60px] lg:text-[18px] md:w-[160px] md:text-[14px] md:h-[50px] sm:w-[160px] sm:text-[14px] sm:h-[50px] xs:w-[150px] xs:text-[13px] xs:h-[40px] xl:w-[230px] xl:h-[60px] w-[200px] h-[60px] bg-[#DB5353] text-[18px] text-white rounded-[5px] mt-[20px] p-[10px] hover:bg-[#B83C3C] transition duration-300 ease-in-out">
+              <button className="2xl:w-[260px] 2xl:text-[20px] 2xl:h-[60px] lg:w-[220px] lg:h-[60px] lg:text-[18px] md:w-[160px] md:text-[14px] md:h-[50px] sm:w-[160px] sm:text-[14px] sm:h-[50px] xs:w-[150px] xs:text-[13px] xs:h-[40px] xl:w-[180px] xl:h-[45px] xl:text-[14px] w-[200px] h-[60px] bg-[#DB5353] text-[18px] text-white rounded-[5px] mt-[20px] p-[10px] hover:bg-[#B83C3C] transition duration-300 ease-in-out">
                 Our Chef Community
               </button>
               </Link>

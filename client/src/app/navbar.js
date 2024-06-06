@@ -821,37 +821,10 @@ const Navbar = () => {
             onClick={handleDrawerClose}
           ></label>
           <ul className=" min-h-full text-base-content max-w-[310px] sm:max-w-[350px] md:w-[400px] bg-white">
-            <div className="flex flex-col p-[15px]  md:p-[20px]  h-[100vh]">
-              <div className="flex justify-between items-center">
-                {/* <button
-                    onClick={handleDrawerClose}
-                    className="border rounded-md"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      className="w-10 h-10"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"
-                      />
-                    </svg>
-                  </button> */}
-                <h4 className="alata font-[500] text-[#111111] 2xl:text-[25px] sm:text-[20px] text-[18px] 2xl:leading-[32px] md:text-[25px] leading-[24px] ">
-                  My Basket
-                </h4>
-                <div onClick={handleDrawerClose} className="cursor-pointer">  <CloseIcon /></div>
-
-              </div>
-
+            <div className="flex flex-col  justify-center items-center p-[15px]  md:p-[20px]  h-[100vh]">
+            
               {cart?.length === 0 && getCartItems?.length === 0 ? (
-                <div className="flex-1 flex flex-col justify-center items-center">
-                  <div className="2xl:mt-40"></div>
+                <div className="flex flex-col justify-center items-center">
                   <h4 className="alata font-[400] text-[#111]  text-[24px] mb-[1rem]">
                  Your Basket is empty!
                   </h4>
@@ -882,6 +855,33 @@ const Navbar = () => {
                         All Clear
                       </button>
                     </div> */}
+                      <div className="flex justify-between items-center">
+                {/* <button
+                    onClick={handleDrawerClose}
+                    className="border rounded-md"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      className="w-10 h-10"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"
+                      />
+                    </svg>
+                  </button> */}
+                <h4 className="alata font-[500] text-[#111111] 2xl:text-[25px] sm:text-[20px] text-[18px] 2xl:leading-[32px] md:text-[25px] leading-[24px] ">
+                  My Basket
+                </h4>
+                <div onClick={handleDrawerClose} className="cursor-pointer">  <CloseIcon /></div>
+
+              </div>
+
                   <div className="pt-[2rem] flex-1 overflow-auto">
                     <div className="flex justify-between">
                       <h4 className="alata font-[400] text-[#111] my-0 md:text-[18px] text-[16px] leading-[25px]">

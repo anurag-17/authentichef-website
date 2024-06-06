@@ -612,10 +612,10 @@ const ExploreDishes = () => {
       const updatedCartItems = prevCartItems.map((item) =>
         item._id === itemId
           ? {
-              ...item,
-              quantity: item.quantity + 1,
-              totalPrice: item.menuItem.price * (item.quantity + 1),
-            }
+            ...item,
+            quantity: item.quantity + 1,
+            totalPrice: item.menuItem.price * (item.quantity + 1),
+          }
           : item
       );
       setUpdatedCartItems(updatedCartItems);
@@ -651,10 +651,10 @@ const ExploreDishes = () => {
       const updatedCartItems = prevCartItems.map((item) =>
         item._id === itemId && item.quantity > 1
           ? {
-              ...item,
-              quantity: item.quantity - 1,
-              totalPrice: item.menuItem.price * (item.quantity - 1),
-            }
+            ...item,
+            quantity: item.quantity - 1,
+            totalPrice: item.menuItem.price * (item.quantity - 1),
+          }
           : item
       );
       setUpdatedCartItems(updatedCartItems);
@@ -692,10 +692,10 @@ const ExploreDishes = () => {
       <section>
         <Navbar />
         <div class="2xl:pt-[100px] xl:pt-[90px] pt-[60px] pb-[30px]">
-          <div class="main_section custom_container mt-auto mnavbar 2xl:py-[70px] xl:py-[50px] lg:py-[40px]">
-            <div class="flex justify-between flex-col md:flex-row   ">
-              <div class=" lg:mb-0 mb-4 lg  lg:text-[2.25rem]  md:w-[30%] xs:text-[1.875rem] sm:text-[2.25rem] md:text-[29px]">
-                <h1 className="nine_head md:mb-4 alata font-[400] 2xl:text-[55px] lg:text-left  text-center SelectCuisine">
+          <div class="main_section custom_container mt-auto mnavbar xl:py-[40px] lg:py-[40px]">
+            <div class="flex justify-between flex-col lg:flex-row   ">
+              <div class=" lg:mb-0 md:mb-4 lg  lg:text-[2.25rem]  md:w-[30%] xs:text-[1.875rem] sm:text-[2.25rem] md:text-[29px]">
+                <h1 className="nine_head lg:mb-4 alata font-[400] 2xl:text-[55px] lg:text-left  text-center whitespace-nowrap SelectCuisine">
                   {/* 
         <div class="2xl:pt-[130px] xl:pt-[90px] pt-[60px] ">
           <div class="main_section 2xl:w-[1600px] xl:w-[1200px] md:w-[811px]  m-auto mt-auto mnavbar 2xl:py-[40px] xl:py-[30px] lg:py-[20px]">
@@ -797,7 +797,7 @@ const ExploreDishes = () => {
                     Reset
                   </button>
                   <button
-                    className="bt-1 alata font-[400] 2xl:text-[16px] 2xl:w-[153px] third_select flex justify-center items-center gap-3 md:text-[12px] sm:text-[12px] md:pl-2 sm:pl-2"
+                    className="bt-1 alata font-[400] 2xl:text-[16px] 2xl:w-[153px] third_select flex justify-center items-center gap-3 md:text-[12px] sm:text-[12px] md:pl-2 sm:pl-2 whitespace-nowrap"
                     onClick={() =>
                       document.getElementById("my_modal_3").showModal()
                     }
@@ -851,7 +851,7 @@ const ExploreDishes = () => {
                         <div className="dropbox all_cuisines">
                           <Image
                             src={allCuisines}
-                            className="optionimg bt-1 rounded-[5px] 2xl:w-[74px] 2xl:h-[74px] h-auto xl:w-[50px] lg:w-[] sm:w-[] w-[]"
+                            className="optionimg bt-1 rounded-[5px] 2xl:w-[74px] 2xl:h-[74px] h-auto xl:w-[50px] lg:w-[] sm:w-[] w-[] whitespace-nowrap"
                           />
                           <h4>All Cuisines</h4>
                         </div>
@@ -867,7 +867,7 @@ const ExploreDishes = () => {
                             <div className="dropbox">
                               <img
                                 src={item.ProfileImage}
-                                className="optionimg rounded-[5px] 2xl:w-[74px] 2xl:h-[74px] h-auto xl:w-[50px] lg:w-[] sm:w-[] w-[]  "
+                                className="optionimg whitespace-nowrap rounded-[5px] 2xl:w-[74px] 2xl:h-[74px] h-auto xl:w-[50px] lg:w-[] sm:w-[] w-[]  "
                               />
                               <h4 className="capitalize">{item.title}</h4>
                             </div>
@@ -880,7 +880,7 @@ const ExploreDishes = () => {
 
                   {/* =================Dietary========================== */}
                   <button
-                    className="bt-1 2xl:w-[153px] alata font-[400] 2xl:text-[16px] third_select flex justify-center items-center gap-2 md:text-[12px] sm:text-[12px] md:pl-2 sm:pl-2"
+                    className="bt-1 2xl:w-[153px] alata font-[400] 2xl:text-[16px] third_select flex justify-center items-center gap-2 md:text-[12px] sm:text-[12px] md:pl-2 sm:pl-2 whitespace-nowrap"
                     onClick={() =>
                       document.getElementById("my_modal_4").showModal()
                     }
@@ -966,7 +966,7 @@ const ExploreDishes = () => {
 
                   {/* =================More Filter========================== */}
                   <button
-                    className="bt-1 2xl:w-[153px] third_select alata font-[400] 2xl:text-[16px] flex justify-center items-center gap-2 md:text-[12px] sm:text-[12px] md:pl-2 sm:pl-2"
+                    className="bt-1 2xl:w-[153px] third_select alata font-[400] 2xl:text-[16px] flex justify-center items-center gap-2 md:text-[12px] sm:text-[12px] md:pl-2 sm:pl-2 whitespace-nowrap"
                     onClick={() =>
                       document.getElementById("my_modal_5").showModal()
                     }
@@ -1116,9 +1116,9 @@ const ExploreDishes = () => {
               </div>
             </div>
 
-            <div class="  flex flex-col sm:flex-row justify-center lg:justify-between  ">
+            <div class="  flex flex-col sm:flex-row lg:justify-between  ">
               {/* gap-[5px] xl:gap-[10px] 2xl::gap-[21px] xs:gap-4 */}
-              <div class=" flex flex-wrap gap-[10px] w-full justify-center md:justify-between my-5 lg:my-0 ">
+              <div class=" flex flex-wrap gap-[8px] xss:gap-[10px] w-full    my-5 lg:my-0 mb-0">
                 {Array.isArray(getAllCuisines) &&
                   getAllCuisines.map((item) => (
                     <button
@@ -1129,7 +1129,7 @@ const ExploreDishes = () => {
                       {" "}
                       <img
                         src={item.ProfileImage}
-                        className="rounded-[5px] 2xl:w-[103px] 2xl:h-[103px] xl:w-[144px] xl:h-[144px] lg:w-[100px] lg:h-[100px] w-[65px] mcusinimg hover:opacity-[0.5] mx-auto md:mx-0"
+                        className="rounded-[5px] 2xl:w-[103px] 2xl:h-[103px] xl:w-[100%] xl:h-[100px] lg:w-[100px] lg:h-[100px] w-[65px] xss:w-[60px] mcusinimg hover:opacity-[0.5] mx-auto md:mx-0"
                         alt="cuisine-india"
                       />
                       <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-[10px] 2xl:text-[15px] xl:text-[14px] md:text-[10px] mt-1 md:mt-3">
@@ -1155,7 +1155,7 @@ const ExploreDishes = () => {
                       key={item.id}
                       className=" col-span-1 mx-auto sm:mx-0 relative rounded-[9.8px] mexploreD p-2" */}
           <div className=" bg-[#F9F2F2]">
-            <div className="mnavbar custom_container 2xl:py-[60px] xl:py-[40px] md:py-[30px] py-[20px]">
+            <div className="mnavbar custom_container 2xl:py-[50px] xl:py-[40px] md:py-[30px] py-[20px]">
               {/* <div className="flex justify-center">
                 <div class="md:px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 mt-3 xs:text-center">
                   <h4 class="nine_head text-center text-3xl sm:text-4xl md:text-55px md:pb-[10px]">
@@ -1170,12 +1170,12 @@ const ExploreDishes = () => {
               </div> */}
               {/* 
               <div className=" flex flex-wrap gap-[20px] xl:gap-[25px] 2xl:gap-[70px] w-full px-10 md:px-0 mx-auto "> */}
-              <div className=" grid 2xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-x-[25px] lg:gap-x-[20px] xl:gap-x-[40px]  2xl:gap-x-[70px] md:my-5 lg:my-0 md:px-5 px-0  gap-y-[15px] exploreDishesmain">
+              <div className=" grid grid-cols-2 lg:grid-cols-4 sm:grid-cols-3  xss:grid-cols-1 xss:gap-x-[25px] lg:gap-x-[20px] xl:gap-x-[40px]  2xl:gap-x-[30px] md:my-5 lg:my-0 md:px-5 px-0  gap-y-[15px] exploreDishesmain">
                 {Array.isArray(getAllDish) &&
                   getAllDish.map((item) => (
                     <div
                       key={item.id}
-                      className="md:my-5 col-span-1  mx-auto sm:mx-0 relative rounded-[9.8px] mexploreD p-2 "
+                      className="md:my-2 col-span-1  mx-auto sm:mx-0 relative rounded-[9.8px] mexploreD p-2 "
                     >
                       <button className="" onClick={() => openModal(item._id)}>
                         <img
@@ -1183,7 +1183,7 @@ const ExploreDishes = () => {
                           alt={item.title}
                           width={345}
                           height={278}
-                          className="2xl:w-[365.5px] 2xl:h-[278px] xl:w-[280px] xl:h-[200px] lg:w-[220px] lg:h-[160px] w-[366px] h-[260px] rounded-[10px] mexplorimg"
+                          className="2xl:w-[365.5px] 2xl:h-[278px] xl:w-[280px] xl:h-[200px] lg:w-[220px] lg:h-[160px] object-cover xss:h-[200px] w-full h-[183px] rounded-[10px] mexplorimg"
                         />
                       </button>
                       <div className="">
@@ -1218,7 +1218,7 @@ const ExploreDishes = () => {
                             </div>
                           </div>
                         </Link>
-                        <div className="flex flex-wrap gap-5 2xl:my-[20px] xl:my-[15px] my-[12px]">
+                        <div className="flex flex-wrap gap-[5px] md:gap-5 2xl:my-[20px] xl:my-[15px] my-[5px] md:my-[12px]">
                           {item?.Dietary_id.map((dietary) => (
                             <div className="four_btn" key={dietary._id}>
                               <img
@@ -1241,7 +1241,7 @@ const ExploreDishes = () => {
                             ""
                           )}
                         </div>
-                        <div className="flex items-center gap-5 2xl:my-[20px] xl:my-[15px] my-[12px]">
+                        <div className="flex items-center gap-5 2xl:my-[20px] xl:my-[15px] my-[5px] md:my-[12px]">
                           <h4 className="fourth_p">Spice level</h4>
                           <button className="four_btnn border">
                             <img
@@ -1254,7 +1254,7 @@ const ExploreDishes = () => {
                             </p>
                           </button>
                         </div>
-                        <div className="w-full bottom-0 flex justify-between items-center 2xl:my-[22px] xl:my-[18px] my-[15px]">
+                        <div className="w-full bottom-0 flex justify-between items-center 2xl:my-[22px] xl:my-[18px] my-[5px] md:my-[12px]">
                           <p className="alata font-[400] text-[#000] 2xl:text-[20px] leading-[24px] text-[14px]">
                             Serves {item?.portion_Size} | ({item?.weight}g) |
                             <span className="text-[#DB5353]">
@@ -1317,15 +1317,15 @@ const ExploreDishes = () => {
           </div>
         </div>
 
-        <div className="flex justify-center 2xl:py-[100px] xl:py-[50px] md:py-[50px] py-[30px]">
+        <div className="flex justify-center 2xl:py-[50px]  md:py-[40px] py-[30px]">
           <div className="mnavbar custom_container">
             <h4 className="nine_head">Testimonials</h4>
             <p className="nine_p text-center">
               All our chefs have fans raving about their food
             </p>
 
-            <div className="lg:flex justify-around 2xl:my-10 xl:my-8 lg:my-6 my-3">
-              <div className="md:w-2/4 sm:w-1/3 mx-auto my-5 lg:my-0 lg:mx-0 lg:w-auto">
+            <div className="grid md:grid-cols-3 grid-cols-2 xss:grid-cols-1 justify-center 2xl:my-10 xl:my-8 lg:my-6 my-3 flex-wrap lg:flex-nowrap gap-4 xss:gap-0">
+              <div className="xss:my-2 my-3 lg:my-0 lg:mx-0">
                 <div>
                   <div>
                     <Image
@@ -1386,127 +1386,123 @@ const ExploreDishes = () => {
                   <p className="nine_name">Mayank Jaiswal</p>
                 </div>
               </div>
-              <div>
-                <div className="md:w-2/4 sm:w-1/3 mx-auto my-5 lg:my-0 lg:mx-0 lg:w-auto">
-                  <div>
-                    <Image
-                      alt="chef-rohit"
-                      src={review2}
-                      className="nine_img"
-                    />
-                  </div>
-                  <div className="rating flex justify-center nine_start">
-                    <label for="star1">
-                      <input
-                        type="radio"
-                        id="star1"
-                        name="rating-3"
-                        className="mask mask-star-2 bg-[#DB5353]"
-                      />
-                    </label>
-                    <label for="star2">
-                      <input
-                        type="radio"
-                        id="star2"
-                        name="rating-3"
-                        className="mask mask-star-2 bg-[#DB5353]"
-                      />
-                    </label>
-                    <label for="star3">
-                      <input
-                        type="radio"
-                        id="star3"
-                        name="rating-3"
-                        className="mask mask-star-2 bg-[#DB5353]"
-                      />
-                    </label>
-                    <label for="star4">
-                      <input
-                        type="radio"
-                        id="star4"
-                        name="rating-3"
-                        className="mask mask-star-2 bg-[#DB5353]"
-                      />
-                    </label>
-                    <label for="star5">
-                      <input
-                        type="radio"
-                        id="star5"
-                        name="rating-3"
-                        className="mask mask-star-2 bg-[#DB5353]"
-                        checked
-                      />
-                    </label>
-                  </div>
-
-                  <p className="nine_p2">
-                    Lorem ipsum dolor sit amet. Ut maxime necessitatibus rem
-                    odio Quis 33 galisum molestias ut voluptas fuga et quia
-                    voluptate ut pariatur aperiam.
-                  </p>
-                  <p className="nine_name">Rohit Thakur</p>
+              <div className="xss:my-2 my-3 lg:my-0 lg:mx-0 ">
+                <div>
+                  <Image
+                    alt="chef-rohit"
+                    src={review2}
+                    className="nine_img"
+                  />
                 </div>
+                <div className="rating flex justify-center nine_start">
+                  <label for="star1">
+                    <input
+                      type="radio"
+                      id="star1"
+                      name="rating-3"
+                      className="mask mask-star-2 bg-[#DB5353]"
+                    />
+                  </label>
+                  <label for="star2">
+                    <input
+                      type="radio"
+                      id="star2"
+                      name="rating-3"
+                      className="mask mask-star-2 bg-[#DB5353]"
+                    />
+                  </label>
+                  <label for="star3">
+                    <input
+                      type="radio"
+                      id="star3"
+                      name="rating-3"
+                      className="mask mask-star-2 bg-[#DB5353]"
+                    />
+                  </label>
+                  <label for="star4">
+                    <input
+                      type="radio"
+                      id="star4"
+                      name="rating-3"
+                      className="mask mask-star-2 bg-[#DB5353]"
+                    />
+                  </label>
+                  <label for="star5">
+                    <input
+                      type="radio"
+                      id="star5"
+                      name="rating-3"
+                      className="mask mask-star-2 bg-[#DB5353]"
+                      checked
+                    />
+                  </label>
+                </div>
+
+                <p className="nine_p2">
+                  Lorem ipsum dolor sit amet. Ut maxime necessitatibus rem
+                  odio Quis 33 galisum molestias ut voluptas fuga et quia
+                  voluptate ut pariatur aperiam.
+                </p>
+                <p className="nine_name">Rohit Thakur</p>
               </div>
-              <div>
-                <div className="md:w-2/4 sm:w-1/3 mx-auto my-5 lg:my-0 lg:mx-0 lg:w-auto">
-                  <div>
-                    <Image
-                      alt="chef-shubham"
-                      src={review3}
-                      className="nine_img"
-                    />
-                  </div>
-                  <div className="rating flex justify-center nine_start">
-                    <label for="star1">
-                      <input
-                        type="radio"
-                        id="star1"
-                        name="rating-4"
-                        className="mask mask-star-2 bg-[#DB5353]"
-                      />
-                    </label>
-                    <label for="star2">
-                      <input
-                        type="radio"
-                        id="star2"
-                        name="rating-4"
-                        className="mask mask-star-2 bg-[#DB5353]"
-                      />
-                    </label>
-                    <label for="star3">
-                      <input
-                        type="radio"
-                        id="star3"
-                        name="rating-4"
-                        className="mask mask-star-2 bg-[#DB5353]"
-                      />
-                    </label>
-                    <label for="star4">
-                      <input
-                        type="radio"
-                        id="star4"
-                        name="rating-4"
-                        className="mask mask-star-2 bg-[#DB5353]"
-                      />
-                    </label>
-                    <label for="star5">
-                      <input
-                        type="radio"
-                        id="star5"
-                        name="rating-4"
-                        className="mask mask-star-2 bg-[#DB5353]"
-                        checked
-                      />
-                    </label>
-                  </div>
-
-                  <p className="nine_p2">
-                    Lorem ipsum dolor sit amet. Ut maxime necessitatibus rem
-                    odio Quis 33 galisum molestias ut voluptas fuga et quia
-                    voluptate ut pariatur aperiam.
-                  </p>
-                  <p className="nine_name">Shubham Sharma</p>
+              <div className="xss:my-2 my-3 lg:my-0 lg:mx-0 ">
+                <div>
+                  <Image
+                    alt="chef-shubham"
+                    src={review3}
+                    className="nine_img"
+                  />
                 </div>
+                <div className="rating flex justify-center nine_start">
+                  <label for="star1">
+                    <input
+                      type="radio"
+                      id="star1"
+                      name="rating-4"
+                      className="mask mask-star-2 bg-[#DB5353]"
+                    />
+                  </label>
+                  <label for="star2">
+                    <input
+                      type="radio"
+                      id="star2"
+                      name="rating-4"
+                      className="mask mask-star-2 bg-[#DB5353]"
+                    />
+                  </label>
+                  <label for="star3">
+                    <input
+                      type="radio"
+                      id="star3"
+                      name="rating-4"
+                      className="mask mask-star-2 bg-[#DB5353]"
+                    />
+                  </label>
+                  <label for="star4">
+                    <input
+                      type="radio"
+                      id="star4"
+                      name="rating-4"
+                      className="mask mask-star-2 bg-[#DB5353]"
+                    />
+                  </label>
+                  <label for="star5">
+                    <input
+                      type="radio"
+                      id="star5"
+                      name="rating-4"
+                      className="mask mask-star-2 bg-[#DB5353]"
+                      checked
+                    />
+                  </label>
+                </div>
+
+                <p className="nine_p2">
+                  Lorem ipsum dolor sit amet. Ut maxime necessitatibus rem
+                  odio Quis 33 galisum molestias ut voluptas fuga et quia
+                  voluptate ut pariatur aperiam.
+                </p>
+                <p className="nine_name">Shubham Sharma</p>
               </div>
             </div>
           </div>
@@ -1522,7 +1518,7 @@ const ExploreDishes = () => {
           type="checkbox"
           className="drawer-toggle"
           checked={isDrawerOpen}
-          onChange={() => {}}
+          onChange={() => { }}
         />
         <div className="drawer-side">
           <label
@@ -2005,7 +2001,7 @@ const ExploreDishes = () => {
       </dialog>
 
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={() => {}}>
+        <Dialog as="div" className="relative z-10" onClose={() => { }}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
