@@ -612,10 +612,10 @@ const ExploreDishes = () => {
       const updatedCartItems = prevCartItems.map((item) =>
         item._id === itemId
           ? {
-            ...item,
-            quantity: item.quantity + 1,
-            totalPrice: item.menuItem.price * (item.quantity + 1),
-          }
+              ...item,
+              quantity: item.quantity + 1,
+              totalPrice: item.menuItem.price * (item.quantity + 1),
+            }
           : item
       );
       setUpdatedCartItems(updatedCartItems);
@@ -651,10 +651,10 @@ const ExploreDishes = () => {
       const updatedCartItems = prevCartItems.map((item) =>
         item._id === itemId && item.quantity > 1
           ? {
-            ...item,
-            quantity: item.quantity - 1,
-            totalPrice: item.menuItem.price * (item.quantity - 1),
-          }
+              ...item,
+              quantity: item.quantity - 1,
+              totalPrice: item.menuItem.price * (item.quantity - 1),
+            }
           : item
       );
       setUpdatedCartItems(updatedCartItems);
@@ -1118,7 +1118,7 @@ const ExploreDishes = () => {
 
             <div class="  flex flex-col sm:flex-row lg:justify-between  ">
               {/* gap-[5px] xl:gap-[10px] 2xl::gap-[21px] xs:gap-4 */}
-              <div class=" flex flex-wrap gap-[8px] xss:gap-[10px] w-full    my-5 lg:my-0 mb-0">
+              <div class=" flex flex-wrap justify-center gap-[8px] xss:gap-[10px] w-full    my-5 lg:my-0 mb-0">
                 {Array.isArray(getAllCuisines) &&
                   getAllCuisines.map((item) => (
                     <button
@@ -1129,7 +1129,7 @@ const ExploreDishes = () => {
                       {" "}
                       <img
                         src={item.ProfileImage}
-                        className="rounded-[5px] 2xl:w-[103px] 2xl:h-[103px] xl:w-[100%] xl:h-[100px] lg:w-[100px] lg:h-[100px] w-[65px] xss:w-[60px] mcusinimg hover:opacity-[0.5] mx-auto md:mx-0"
+                        className="rounded-[5px] 2xl:w-[103px] 2xl:h-[103px] xl:w-[80px] xl:h-[80px] lg:w-[70px] lg:h-[70px] w-[65px] xss:w-[60px] mcusinimg hover:opacity-[0.5] mx-auto md:mx-0"
                         alt="cuisine-india"
                       />
                       <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-[10px] 2xl:text-[15px] xl:text-[14px] md:text-[10px] mt-1 md:mt-3">
@@ -1170,12 +1170,12 @@ const ExploreDishes = () => {
               </div> */}
               {/* 
               <div className=" flex flex-wrap gap-[20px] xl:gap-[25px] 2xl:gap-[70px] w-full px-10 md:px-0 mx-auto "> */}
-              <div className=" grid grid-cols-2 lg:grid-cols-4 sm:grid-cols-3  xss:grid-cols-1 xss:gap-x-[25px] lg:gap-x-[20px] xl:gap-x-[40px]  2xl:gap-x-[30px] md:my-5 lg:my-0 md:px-5 px-0  gap-y-[15px] exploreDishesmain">
-                {Array.isArray(getAllDish) &&
-                  getAllDish.map((item) => (
+              {Array.isArray(getAllDish) && getAllDish.length > 0 ? (
+                <div className="grid grid-cols-2 lg:grid-cols-4 sm:grid-cols-3 xss:grid-cols-1 xss:gap-x-[25px] lg:gap-x-[20px] xl:gap-x-[40px] 2xl:gap-x-[30px] md:my-5 lg:my-0 md:px-5 px-0 gap-y-[15px] exploreDishesmain">
+                  {getAllDish.map((item) => (
                     <div
                       key={item.id}
-                      className="md:my-2 col-span-1  mx-auto sm:mx-0 relative rounded-[9.8px] mexploreD p-2 "
+                      className="md:my-2 col-span-1 mx-auto sm:mx-0 relative rounded-[9.8px] mexploreD p-2"
                     >
                       <button className="" onClick={() => openModal(item._id)}>
                         <img
@@ -1203,7 +1203,7 @@ const ExploreDishes = () => {
                               <img
                                 alt="image"
                                 src={item.chef_id.images}
-                                className="four_img2 border-[2px] border-[#DB5353]"
+                                className="four_img2 border-[2px] border-[#DB5353] object-cover"
                               />
                             ) : (
                               <Image src={cheficon} className="four_img2" />
@@ -1305,14 +1305,14 @@ const ExploreDishes = () => {
                       </div>
                     </div>
                   ))}
-                <div className="flex justify-center w-full"></div>
-              </div>
-              {/* ) : (
-              <div className="text-center my-5">
-                <h2 className="text-[40px] font-bold">No dishes found</h2>
-                <div className="flex justify-center"></div>
-              </div>
-              )} */}
+                  <div className="flex justify-center w-full"></div>
+                </div>
+              ) : (
+                <div className="text-center my-5">
+                  <h2 className="text-[40px] font-bold">No dishes found</h2>
+                  <div className="flex justify-center"></div>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -1388,11 +1388,7 @@ const ExploreDishes = () => {
               </div>
               <div className="xss:my-2 my-3 lg:my-0 lg:mx-0 ">
                 <div>
-                  <Image
-                    alt="chef-rohit"
-                    src={review2}
-                    className="nine_img"
-                  />
+                  <Image alt="chef-rohit" src={review2} className="nine_img" />
                 </div>
                 <div className="rating flex justify-center nine_start">
                   <label for="star1">
@@ -1439,9 +1435,9 @@ const ExploreDishes = () => {
                 </div>
 
                 <p className="nine_p2">
-                  Lorem ipsum dolor sit amet. Ut maxime necessitatibus rem
-                  odio Quis 33 galisum molestias ut voluptas fuga et quia
-                  voluptate ut pariatur aperiam.
+                  Lorem ipsum dolor sit amet. Ut maxime necessitatibus rem odio
+                  Quis 33 galisum molestias ut voluptas fuga et quia voluptate
+                  ut pariatur aperiam.
                 </p>
                 <p className="nine_name">Rohit Thakur</p>
               </div>
@@ -1498,9 +1494,9 @@ const ExploreDishes = () => {
                 </div>
 
                 <p className="nine_p2">
-                  Lorem ipsum dolor sit amet. Ut maxime necessitatibus rem
-                  odio Quis 33 galisum molestias ut voluptas fuga et quia
-                  voluptate ut pariatur aperiam.
+                  Lorem ipsum dolor sit amet. Ut maxime necessitatibus rem odio
+                  Quis 33 galisum molestias ut voluptas fuga et quia voluptate
+                  ut pariatur aperiam.
                 </p>
                 <p className="nine_name">Shubham Sharma</p>
               </div>
@@ -1518,7 +1514,7 @@ const ExploreDishes = () => {
           type="checkbox"
           className="drawer-toggle"
           checked={isDrawerOpen}
-          onChange={() => { }}
+          onChange={() => {}}
         />
         <div className="drawer-side">
           <label
@@ -2001,7 +1997,7 @@ const ExploreDishes = () => {
       </dialog>
 
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={() => { }}>
+        <Dialog as="div" className="relative z-10" onClose={() => {}}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
