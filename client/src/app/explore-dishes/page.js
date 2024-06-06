@@ -691,19 +691,22 @@ const ExploreDishes = () => {
       {isLoading && <Loader />}
       <section>
         <Navbar />
-
+        <div class="2xl:pt-[100px] xl:pt-[90px] pt-[60px] pb-[30px]">
+          <div class="main_section custom_container mt-auto mnavbar 2xl:py-[70px] xl:py-[50px] lg:py-[40px]">
+            <div class="flex justify-between flex-col md:flex-row   ">
+              <div class=" lg:mb-0 mb-4 lg  lg:text-[2.25rem]  md:w-[30%] xs:text-[1.875rem] sm:text-[2.25rem] md:text-[29px]">
+                <h1 className="nine_head md:mb-4 alata font-[400] 2xl:text-[55px] lg:text-left  text-center SelectCuisine">
+                  {/* 
         <div class="2xl:pt-[130px] xl:pt-[90px] pt-[60px] ">
           <div class="main_section 2xl:w-[1600px] xl:w-[1200px] md:w-[811px]  m-auto mt-auto mnavbar 2xl:py-[40px] xl:py-[30px] lg:py-[20px]">
             <div class="flex justify-between flex-col md:flex-row   ">
               <div class=" lg:mb-0 mb-4 lg  lg:text-[2.25rem]  md:w-[30%] xs:text-[1.875rem] sm:text-[2.25rem] md:text-[29px]">
-                <h1 className="third_head mb-4 alata font-[400] 2xl:text-[40px] lg:text-left  text-center SelectCuisine">
-
+                <h1 className="third_head mb-4 alata font-[400] 2xl:text-[40px] lg:text-left  text-center SelectCuisine"> */}
                   Select Cuisine
                 </h1>
               </div>
-
-
-              <div className="mnavbar sm:pt-[12px] sm:pb-[4px] 2xl:pt-[21px] md:pt-[9px] md:w-[820px]   ">
+              <div className="mnavbar sm:pt-[12px] sm:pb-[4px] 2xl:pt-[21px] md:pt-[9px] md:w-[700px]  2xl:py-[60px] xl:py-[10px] lg:pt-[7px] lg:pb-[40px]  py-[10px] xs:py-[10px] ">
+                {/* <div className="mnavbar sm:pt-[12px] sm:pb-[4px] 2xl:pt-[21px] md:pt-[9px] md:w-[820px]   "> */}
                 {/* 2xl:py-[60px] xl:py-[10px] lg:pt-[7px] lg:pb-[40px]  py-[40px] xs:py-[10px] */}
 
                 <div className="filter_div_second">
@@ -1142,17 +1145,37 @@ const ExploreDishes = () => {
         {/* All Dishes */}
 
         <div className="sm:col-2">
-
-          <div className=" ">
-            {/* 2xl:py-[120px] xl:py-[20px] py-[50px] */}
+          {/* <div className=" ">
+            2xl:py-[120px] xl:py-[20px] py-[50px]
             <div className="mnavbar 2xl:w-[1600px] xl:w-[1200px] lg:w-[850px]  md:w-[700px] w-[90%] mx-auto">
               {Array.isArray(getAllDish) && getAllDish.length > 0 ? (
                 <div className="grid 2xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-[25px] lg:gap-[20px] xl:gap-[45px] 2xl:gap-[20px] md:my-5 lg:my-0 md:px-5 lg:px-0 exploreDishesmain">
                   {getAllDish.map((item) => (
                     <div
                       key={item.id}
-                      className=" col-span-1 mx-auto sm:mx-0 relative rounded-[9.8px] mexploreD p-2"
-
+                      className=" col-span-1 mx-auto sm:mx-0 relative rounded-[9.8px] mexploreD p-2" */}
+          <div className=" bg-[#F9F2F2]">
+            <div className="mnavbar custom_container 2xl:py-[60px] xl:py-[40px] md:py-[30px] py-[20px]">
+              {/* <div className="flex justify-center">
+                <div class="md:px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 mt-3 xs:text-center">
+                  <h4 class="nine_head text-center text-3xl sm:text-4xl md:text-55px md:pb-[10px]">
+                    Explore Dishes
+                  </h4>
+                  <p class="seven_p mt-4 text-base sm:text-lg md:text-xl lg:text-lg xl:text-xl 2xl:text-lg">
+                    Browse the world of authentic homemade dishes by our
+                    independent chef community. <br /> More chefs and dishes
+                    added every week.
+                  </p>
+                </div>
+              </div> */}
+              {/* 
+              <div className=" flex flex-wrap gap-[20px] xl:gap-[25px] 2xl:gap-[70px] w-full px-10 md:px-0 mx-auto "> */}
+              <div className=" grid 2xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-x-[25px] lg:gap-x-[20px] xl:gap-x-[40px]  2xl:gap-x-[70px] md:my-5 lg:my-0 md:px-5 px-0  gap-y-[15px] exploreDishesmain">
+                {Array.isArray(getAllDish) &&
+                  getAllDish.map((item) => (
+                    <div
+                      key={item.id}
+                      className="md:my-5 col-span-1  mx-auto sm:mx-0 relative rounded-[9.8px] mexploreD p-2 "
                     >
                       <button className="" onClick={() => openModal(item._id)}>
                         <img
@@ -1282,14 +1305,14 @@ const ExploreDishes = () => {
                       </div>
                     </div>
                   ))}
-                  <div className="flex justify-center w-full"></div>
-                </div>
-              ) : (
-                <div className="text-center my-5">
-                  <h2 className="text-[40px] font-bold">No dishes found</h2>
-                  <div className="flex justify-center"></div>
-                </div>
-              )}
+                <div className="flex justify-center w-full"></div>
+              </div>
+              {/* ) : (
+              <div className="text-center my-5">
+                <h2 className="text-[40px] font-bold">No dishes found</h2>
+                <div className="flex justify-center"></div>
+              </div>
+              )} */}
             </div>
           </div>
         </div>

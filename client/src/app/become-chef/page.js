@@ -303,12 +303,11 @@ const BecomeChef = () => {
 
         <div className="flex items-center w-full ">
           <div className="bg-[#FFE2E2] py-24 lg:py-16 xl:py-20 xs:py-[2rem] w-full xs:px-[20px] 2xl:mt-[100px] xl:mt-[80px] md:py-[4rem] lg:mt-[60px] md:mt-[40px] xs:mt-[40px] sm:mt-[40px]">
-
-
-            <div
+            <div ref={formRef} className="custom_containertext-center text-center mnavbar">
+              {/* <div
               ref={formRef}
               className="2xl:max-w-[1600px] xl:max-w-[1100px] lg:max-w-[850px] md:max-w-[800px] mx-auto text-center mnavbar"
-            >
+            > */}
 
               <h2 className="font-alata font-medium text-[#111111] text-2xl leading-8 sm:text-3xl sm:leading-9 md:text-4xl md:leading-10 xl:text-5xl xl:leading-[45px] 2xl:text-[55px] 2xl:leading-[75px]">
                 Ready to Get Started?
