@@ -97,7 +97,7 @@ const OrderList = () => {
               </thead>
               <tbody>
                 {Array.isArray(getOrders) &&
-                  getOrders.map((order, orderIndex) => (
+                  getOrders.slice().reverse().map((order, orderIndex) => (
                     <React.Fragment key={orderIndex}>
                       {/* <tr>
                         <td className="table_data">{orderIndex + 1}</td>

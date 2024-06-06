@@ -241,11 +241,16 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
   };
 
   const handleDietaryChange = (e) => {
-    const value = e.target.value;
-    if (value && !menuItem.Dietary_id.includes(value)) {
+    const { value } = e.target;
+    const selectedDietary = dietaries.find((dietary) => dietary._id === value);
+
+    if (
+      selectedDietary &&
+      !menuItem.Dietary_id.includes(selectedDietary.title)
+    ) {
       setMenuItem((prevState) => ({
         ...prevState,
-        Dietary_id: [...prevState.Dietary_id, value],
+        Dietary_id: [...prevState.Dietary_id, selectedDietary.title],
       }));
     }
   };
@@ -285,7 +290,6 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
       nutritional_information: value,
     });
   };
-  
 
   return (
     <form

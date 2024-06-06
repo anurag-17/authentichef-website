@@ -5,6 +5,8 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import Loader from "@/app/admin-module/components/admin/loader/Index";
 import config from "@/config";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css"; // Import the styles
 
 const EditModal = ({
   closeEditPopup,
@@ -28,7 +30,7 @@ const EditModal = ({
     spice_level_id: "",
     chef_id: "",
     ProfileImage: "",
-    nutritional_information:"",
+    nutritional_information: "",
   });
 
   console.log(formData);
@@ -54,7 +56,7 @@ const EditModal = ({
         Dishtype_id: editData.Dishtype_id ? editData.Dishtype_id._id : "",
         Dietary_id: editData.Dietary_id ? editData.Dietary_id._id : "",
         Nutrition_id: editData.Nutrition_id ? editData.Nutrition_id._id : "",
-        nutritional_information:editData.nutritional_information,
+        nutritional_information: editData.nutritional_information,
         spice_level_id: editData.spice_level_id
           ? editData.spice_level_id._id
           : "",
@@ -194,6 +196,12 @@ const EditModal = ({
     }
   };
 
+  const handleNutritionalChange = (value) => {
+    setFormData({
+      nutritional_information: value,
+    });
+  };
+
   useEffect(() => {
     async function fetchDishTypes() {
       try {
@@ -217,7 +225,7 @@ const EditModal = ({
   }, []);
   const defaultNutrition = () => {
     const option = {
-      mrthod: "GET",
+      method: "GET",
       url: `${config.baseURL}/api/Nutritional/nutritional`,
     };
     axios
@@ -229,7 +237,7 @@ const EditModal = ({
         console.log(error, "Error");
       });
   };
-
+  
   return (
     <>
       <ToastContainer autoClose={1000} />
@@ -444,13 +452,12 @@ const EditModal = ({
                 <label className="block mb-1" htmlFor="nutritionalInformation">
                   Nutritional Information:
                 </label>
-                <textarea
-                  id="nutritionalInformation"
-                  name="nutritional_information"
+                <ReactQuill
                   value={formData.nutritional_information}
-                  onChange={handleChange}
-                  className="w-full px-3 py-2 border rounded"
-                  required
+                  onChange={handleNutritionalChange}
+                  placeholder="Enter chef's bio"
+                  className="login-input w-full mt-1"
+                  style={{ height: "200px" }}
                 />
               </div>
 
