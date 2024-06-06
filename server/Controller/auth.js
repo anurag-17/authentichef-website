@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken");
 const uploadOnS3 = require("../Utils/uploadImage");
 const Chef = require("../Model/Chef");
 const crypto = require("crypto");
+const Order=require("../Model/order")
 
 exports.uploadImage = async (req, res, next) => {
   try {
@@ -526,21 +527,21 @@ exports.updatedUser = async (req, res) => {
 
 exports.getallUser = async (req, res) => {
   try {
-    const { page = 1, limit = 10 } = req.query;
-    const searchQuery = req.query.search;
+    const { page = 1, limit = 10, search } = req.query;
 
     const currentPage = parseInt(page, 10);
     const itemsPerPage = parseInt(limit, 10);
 
-    const userQuery = User.find();
+    // Build the user query
+    const userQuery = {};
 
-    if (searchQuery) {
-      userQuery.or([
-        { firstname: { $regex: new RegExp(searchQuery, "i") } },
-        { lastname: { $regex: new RegExp(searchQuery, "i") } },
-        { email: { $regex: new RegExp(searchQuery, "i") } },
-        { mobile: { $regex: new RegExp(searchQuery, "i") } },
-      ]);
+    if (search) {
+      userQuery.$or = [
+        { firstname: { $regex: new RegExp(search, "i") } },
+        { lastname: { $regex: new RegExp(search, "i") } },
+        { email: { $regex: new RegExp(search, "i") } },
+        { mobile: { $regex: new RegExp(search, "i") } },
+      ];
     }
 
     // Count total items
@@ -550,23 +551,44 @@ exports.getallUser = async (req, res) => {
     const totalPages = Math.ceil(totalItems / itemsPerPage);
 
     const skip = (currentPage - 1) * itemsPerPage;
-    const users = await userQuery
+
+    // Get the users
+    const users = await User.find(userQuery)
       .sort({ firstname: 1 })
       .skip(skip)
       .limit(itemsPerPage)
       .exec();
 
+    // Get the order count for each user
+    const userIds = users.map(user => user._id);
+    const orderCounts = await Order.aggregate([
+      { $match: { user: { $in: userIds } } },
+      { $group: { _id: "$user", orderCount: { $count: {} } } }
+    ]);
+
+    // Merge order counts into users
+    const userOrderCounts = {};
+    orderCounts.forEach(item => {
+      userOrderCounts[item._id] = item.orderCount;
+    });
+
+    const formattedUsers = users.map(user => ({
+      ...user.toObject(),
+      orderCount: userOrderCounts[user._id] || 0,
+    }));
+
     res.json({
       totalItems,
       totalPages,
       currentPage,
-      users,
+      users: formattedUsers,
     });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
 
 exports.getaUser = async (req, res) => {
   const { _id } = req.user;
