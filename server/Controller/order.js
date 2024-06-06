@@ -10,7 +10,7 @@ const userMailOptions = require("../Public/userMailOption")
 const adminMailOptions = require("../Public/adminMailOption")
 const sendEmail = require('../Utils/SendEmail');
 const Coupon = require("../Model/Coupon");
-const User =require("../Model/User")
+const User = require("../Model/User")
 require('dotenv').config(); // Import dotenv to use environment variables
 
 // Define your email credentials and configuration
@@ -401,13 +401,13 @@ exports.PlaceOrder = async (req, res, next) => {
                 if (coupon) {
                     // Apply discount if conditions are met
                     if (totalAmount > 0) {
-                        console.log("Total amount is above $0. Proceed with applying promo code.",totalAmount)
+                        console.log("Total amount is above $0. Proceed with applying promo code.", totalAmount)
                         if (coupon.discountType === 'percentage') {
                             console.log("Discount value:", coupon.discountValue)
                             discountApplied = (coupon.discountValue / 100) * totalAmount;
                             console.log("Discount Applied:", discountApplied)
                             DiscountPercentage = coupon.discountValue;
-                         
+
                             console.log("Discount Percentage:", DiscountPercentage)
                             console.log("Total Amount Before Discount:", totalAmount)
                         } else if (coupon.discountType === 'fixed') {
@@ -502,7 +502,7 @@ exports.PlaceOrder = async (req, res, next) => {
             const user = await User.findById(req.user._id);
             user.BillingInfo = BillingInfo;
             user.deliveryInfo = deliveryInfo;
-            
+
             user.save();
 
             if (!savedOrder) {
@@ -572,7 +572,7 @@ exports.PlaceOrder = async (req, res, next) => {
                     totalAmountBeforeDiscount: totalAmountBeforeDiscount,
                     discountApplied: discountApplied,
                     DiscountPercentage: DiscountPercentage,
-                    status: status,
+
                 }
             });
 
@@ -581,7 +581,7 @@ exports.PlaceOrder = async (req, res, next) => {
                 sessionId: session.id,
                 sessionUrl: session.url,
                 // Include the session URL in the response
-    
+
             });
         }
 
@@ -646,13 +646,18 @@ exports.BookOrder = async (req, res) => {
             totalAmountBeforeDiscount,
             DiscountPercentage,
             Type_of_Address: Type_of_Address || 'Shipping Address',
-            status: 'completed',
             payment: null,
             TransactionId: session.payment_intent,
             payment_method_types: 'card',
             TotalAmount: session.amount_total / 100,
             // Include the transaction ID in the order
         });
+
+
+        // check if Trascation id is null then show 400 error
+        if (!session.payment_intent) {
+            return res.status(400).json({ message: 'Complete Your Payment Process' });
+        }
 
         const savedOrder = await newOrder.save();
 
@@ -707,31 +712,38 @@ exports.BookOrder = async (req, res) => {
 }
 
 
+// Make a api to cancel the order //
+
+
+
+
+
+
 
 // exports.PlaceOrder = async (req, res, next) => {
 //     try {
 //       const { deliveryDate, deliveryInfo, BillingInfo, status, paymentMethodToken, payment_method_types = 'COD', Type_of_Address, Delivery_instruction, Promo_code } = req.body;
-  
+
 //       // Get the cart items
 //       const cartItems = await Cart.findOne({ user: req.user._id }).populate('items.menuItem');
-  
+
 //       if (!cartItems || cartItems.items.length === 0) {
 //         return res.status(404).json({ message: "Cart is empty" });
 //       }
-  
+
 //       // Calculate total amount from updated cart items
 //       let totalAmount = cartItems.items.reduce((total, item) => {
 //         return total + (item.menuItem.price * item.quantity);
 //       }, 0);
-  
+
 //       console.log("Total amount before discount:", totalAmount);
-  
+
 //       let discountApplied = 0;
 //       let DiscountPercentage = 0;
-  
+
 //       // Check if this is the user's first order and a promo code is provided
 //       const userOrder = await Order.find({ user: req.user._id });
-  
+
 //       if (userOrder.length === 0) {
 //         if (Promo_code) {
 //           console.log("First Order with Promo Code");
@@ -766,42 +778,42 @@ exports.BookOrder = async (req, res) => {
 //         console.log("Not the first order. Promo code cannot be applied.");
 //         return res.status(400).json({ message: 'You have already used the promo code' });
 //       }
-  
+
 //       // Calculate total amount after applying discount
 //       const totalAmountBeforeDiscount = totalAmount;
 //       totalAmount -= discountApplied;
-  
+
 //       console.log("Total amount after discount:", totalAmount);
-  
+
 //       // Determine the shipping cost based on the total amount after discount
 //       let shippingCost = cartItems.Shipping_cost;
 //       if (totalAmount > 55) {
 //         shippingCost = 0; // Free shipping for orders above £55
 //       }
 //       totalAmount += shippingCost; // Add shipping cost
-  
+
 //       // Format totalAmount to two decimal places
 //       totalAmount = parseFloat(totalAmount.toFixed(2));
-  
+
 //       let payment, transactionId;
-  
+
 //       if (payment_method_types === 'COD') {
 //         // Handle Cash on Delivery
 //         transactionId = 'COD-' + new Date().getTime(); // Generate a unique transaction ID for COD
-  
+
 //         payment = new Payment({
 //           amount: totalAmount,
 //           paymentMethod: 'COD',
 //           status: 'pending',
 //           transactionId: transactionId
 //         });
-  
+
 //         const savedPayment = await payment.save();
-  
+
 //         if (!savedPayment) {
 //           return res.status(400).json({ message: 'Payment details could not be saved' });
 //         }
-  
+
 //         // Extract menu items from cart
 //         const items = cartItems.items.map(item => ({
 //           menuItem: item.menuItem._id,
@@ -811,7 +823,7 @@ exports.BookOrder = async (req, res) => {
 //           ProfileImage: item.menuItem.ProfileImage,
 //           name: item.menuItem.name
 //         }));
-  
+
 //         // Create an order with delivery information
 //         const newOrder = new Order({
 //           items,
@@ -831,20 +843,20 @@ exports.BookOrder = async (req, res) => {
 //           payment: payment._id,
 //           TransactionId: transactionId // Include the transaction ID in the order
 //         });
-  
+
 //         const savedOrder = await newOrder.save();
-  
+
 //         if (!savedOrder) {
 //           return res.status(400).json({ message: 'Order creation failed' });
 //         }
-  
+
 //         // Update the payment with the order ID
 //         payment.order = savedOrder._id;
 //         await payment.save();
-  
+
 //         // Delete the cart after placing the order
 //         await Cart.deleteOne({ _id: cartItems._id });
-  
+
 //         // Send confirmation email to the user
 //         const emailOptions = userMailOptions(req, savedOrder, deliveryDate, deliveryInfo, totalAmount, cartItems, payment_method_types);
 //         transporter.sendMail(emailOptions, (error, info) => {
@@ -854,7 +866,7 @@ exports.BookOrder = async (req, res) => {
 //             console.log('Email sent to user:', info.response);
 //           }
 //         });
-  
+
 //         // Send notification email to the admin
 //         const adminoptions = adminMailOptions(req, savedOrder, deliveryDate, deliveryInfo, payment_method_types, totalAmount, cartItems);
 //         transporter.sendMail(adminoptions, (error, info) => {
@@ -864,13 +876,13 @@ exports.BookOrder = async (req, res) => {
 //             console.log('Email sent to admin:', info.response);
 //           }
 //         });
-  
+
 //         // Send response with order and applied discount
 //         res.status(201).json({
 //           message: 'Order created successfully',
 //           order: savedOrder
 //         });
-  
+
 //       } else {
 //         // Payment with Stripe Checkout Session
 //         const session = await stripe.checkout.sessions.create({
@@ -903,12 +915,12 @@ exports.BookOrder = async (req, res) => {
 //             status: status,
 //           }
 //         });
-  
+
 //         // Extract transaction ID from payment intent
 //         transactionId = session.payment_intent;
 
 //         console.log("Transaction ID:", transactionId);
-  
+
 //         // Create a new payment entry
 //         payment = new Payment({
 //           amount: totalAmount,
@@ -916,13 +928,13 @@ exports.BookOrder = async (req, res) => {
 //           status: 'pending',
 //           transactionId: transactionId
 //         });
-  
+
 //         const savedPayment = await payment.save();
-  
+
 //         if (!savedPayment) {
 //           return res.status(400).json({ message: 'Payment details could not be saved' });
 //         }
-  
+
 //         // Extract menu items from cart
 //         const items = cartItems.items.map(item => ({
 //           menuItem: item.menuItem._id,
@@ -932,7 +944,7 @@ exports.BookOrder = async (req, res) => {
 //           ProfileImage: item.menuItem.ProfileImage,
 //           name: item.menuItem.name
 //         }));
-  
+
 //         // Create an order with delivery information
 //         const newOrder = new Order({
 //           items,
@@ -952,20 +964,20 @@ exports.BookOrder = async (req, res) => {
 //           payment: payment._id,
 //           TransactionId: transactionId // Include the transaction ID in the order
 //         });
-  
+
 //         const savedOrder = await newOrder.save();
-  
+
 //         if (!savedOrder) {
 //           return res.status(400).json({ message: 'Order creation failed' });
 //         }
-  
+
 //         // Update the payment with the order ID
 //         payment.order = savedOrder._id;
 //         await payment.save();
-  
+
 //         // Delete the cart after placing the order
 //         await Cart.deleteOne({ _id: cartItems._id });
-  
+
 //         // Send response with order and applied discount
 //         res.status(200).json({
 //           message: 'Checkout session created successfully',
@@ -974,7 +986,7 @@ exports.BookOrder = async (req, res) => {
 //           order: savedOrder
 //         });
 //       }
-  
+
 //     } catch (error) {
 //       console.error(error);
 //       res.status(500).json({ message: 'Internal server error' });
@@ -1067,8 +1079,8 @@ exports.OrderList = async (req, res, next) => {
         const currentPage = parseInt(page, 10);
         const itemsPerPage = parseInt(limit, 10);
 
-        let orderQuery = Order.find({ user: req.user._id })
-            .populate('payment'); // Filter by user_id
+        let orderQuery = Order.find({ user: req.user._id }).populate('payment'); // Filter by user_id
+
 
         if (search) {
             orderQuery = orderQuery.where('items.menuItem').regex(new RegExp(search, 'i'));
@@ -1101,7 +1113,8 @@ exports.OrderList = async (req, res, next) => {
             totalAmount: order.totalAmount,
             discountApplied: order.discountApplied,
             totalAmountBeforeDiscount: order.totalAmountBeforeDiscount,
-            discountPercentage: order.DiscountPercentage
+            discountPercentage: order.DiscountPercentage,
+            payment: order.payment
         }));
 
         // Send response
@@ -1165,7 +1178,8 @@ exports.AllOrderList = async (req, res, next) => {
             totalAmount: order.totalAmount,
             discountApplied: order.discountApplied,
             totalAmountBeforeDiscount: order.totalAmountBeforeDiscount,
-            discountPercentage: order.DiscountPercentage
+            discountPercentage: order.DiscountPercentage,
+            payment: order.payment
 
         }));
 
@@ -1573,4 +1587,63 @@ exports.getChefAndOrderCounts = async (req, res, next) => {
         next(error);
     }
 };
+
+
+// Make a Api to Cancel the order
+
+exports.CancelOrder = async (req, res, next) => {
+    const { orderId } = req.body;
+    try {
+        const order = await Order.findOne({ _id: orderId, user: req.user._id }).populate('payment').populate('items.menuItem');
+
+        if (!order) {
+            return res.status(404).json({ message: 'Order not found' });
+        }
+
+        // Check if the associated payment status is already 'refunded', 'failed', or 'cancelled'
+        if (order.payment.status === 'refunded') {
+            return res.status(400).json({ message: 'Payment associated with this order is already refunded' });
+        } else if (order.payment.status === 'failed') {
+            return res.status(400).json({ message: 'Payment associated with this order has failed' });
+        } else if (order.payment.status === 'cancelled') {
+            return res.status(400).json({ message: 'Payment associated with this order is already cancelled' });
+        }
+
+        console.log("Payment method type:", order.payment.payment_method_types);
+        console.log("Transaction ID:", order.payment.TransactionId);
+
+        // Refund the payment if the payment method is 'card' and the payment status is 'completed'
+        if (order.payment.payment_method_types === 'card' && order.payment.TransactionId) {
+            console.log("Refunding payment for order:", order._id);
+            const refund = await stripe.refunds.create({
+                payment_intent: order.payment.TransactionId,
+                amount: order.totalAmount * 100, // Convert amount to cents
+            });
+
+            console.log("Refund response:", refund);
+
+            if (!refund || refund.status !== 'succeeded') {
+                // Rollback the payment status to 'completed' if refund fails
+                order.payment.status = 'completed';
+                await order.payment.save();
+                await order.save();
+                return res.status(400).json({ message: 'Refund failed' });
+            }
+        }
+
+        // Update the payment status to 'cancelled'
+        order.payment.status = 'cancelled';
+        await order.payment.save();
+
+        // Send email notification to the user
+        // Implement email sending logic here
+
+        res.status(200).json({ message: 'Order cancelled successfully', order });
+
+    } catch (error) {
+        console.error("Error in cancel order:", error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+}
+
 

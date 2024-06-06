@@ -1,6 +1,6 @@
 const express=require('express')
 const { isAuthenticatedUser,isAuthenticatedUserForAddtocard,authorizeRoles} = require('../middleware/auth')
-const {PlaceOrder,OrderList,getOrderById,UpdateOrder,DeleteOrder,  getChefAndOrderCounts , AllOrderList ,checkDiscount,BookOrder} = require("../Controller/order")
+const {PlaceOrder,OrderList,getOrderById,UpdateOrder,DeleteOrder,  getChefAndOrderCounts , AllOrderList ,checkDiscount,BookOrder,CancelOrder} = require("../Controller/order")
 const {handleWebhook}=require("../Controller/handlehookcontroller")
 const router=express.Router()
 const bodyParser = require('body-parser');
@@ -24,4 +24,5 @@ router.delete("/deleteOrder/:id",isAuthenticatedUser , DeleteOrder)
 router.get("/getChefAndOrderCounts", isAuthenticatedUser, authorizeRoles("admin"),  getChefAndOrderCounts)
 router.get("/allOrderList", isAuthenticatedUser, authorizeRoles("admin"), AllOrderList)
 router.get("/checkDiscount", isAuthenticatedUser, checkDiscount)
+router.post("/cancelOrder", isAuthenticatedUser, CancelOrder)
 module.exports=router

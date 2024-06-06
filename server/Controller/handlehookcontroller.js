@@ -5,7 +5,7 @@ const Payment = require('../Model/payment');
 const userMailOptions = require("../Public/userMailOption");
 const adminMailOptions = require("../Public/adminMailOption");
 
-const endpointSecret = 'whsec_qMXtPRdcNaw7Th2iLUqaIzHs9a6VNzWx';
+const endpointSecret = 'whsec_kcOaFwGKtjbTXHCtafkCzHSCZuY72f3Z';
 
 exports.handleWebhook = async (req, res) => {
     const sig = req.headers['stripe-signature'];

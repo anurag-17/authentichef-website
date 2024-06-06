@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const moment = require('moment-timezone');
 
 const deliveryInfoSchema = new mongoose.Schema({
     phone: {
@@ -121,10 +122,14 @@ const orderSchema = new mongoose.Schema({
         enum: ["pending", "preparing", "ready", "delivered", "cancelled" ,"completed"],
         default: "pending",
     },
+
+
     orderDate: {
         type: Date,
-        default: Date.now
+        default: () => moment.tz(Date.now(), "Europe/London").toDate()
     },
+
+
     deliveryInfo: [deliveryInfoSchema], // Array of delivery addresses
     BillingInfo: [BillingInfoSchema],
     deliveryDate: {
@@ -159,8 +164,6 @@ const orderSchema = new mongoose.Schema({
     totalAmountBeforeDiscount: { type: Number, default: 0 },
     // Add totalAmountBeforeDiscount field
 
-    // Add the shipping Cost
-
 
     payment: {
         type: mongoose.Schema.Types.ObjectId,
@@ -169,6 +172,8 @@ const orderSchema = new mongoose.Schema({
     TransactionId: {
         type: String
     }
+},{
+    timestamps:true
 });
 
 const Order = mongoose.model("Order", orderSchema);
