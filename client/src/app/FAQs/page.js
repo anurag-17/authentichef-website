@@ -177,7 +177,7 @@ const FAQs = () => {
         <Navbar />
         <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px]  mx-auto 2xl:py-[150px] xl:py-[120px] py-[70px] mnavbar">
           <div className=" mx-auto text-center ">
-            <h1 className="faqhead text-[#000000] alata font-[400] 2xl:text-[75px] xl:text-[60px] lg:text-[50px] md:text-[30px] xs:text-[25px]">
+            <h1 className="faqhead text-[#000000] alata font-[400] 2xl:text-[55px] xl:text-[40px] lg:text-[30px] md:text-[30px] xs:text-[25px]">
               Your Questions Answered
             </h1>
             <h2 className="pop-head 2xl:mt-[60px] 2xl:text-[30px] xl:text-[20px] xl:mt-[40px] text-[#000000] alata font-[400] lg:mt-[25px] sm:mt-[20px]  mt-[] my-3">
@@ -186,7 +186,7 @@ const FAQs = () => {
           </div>
           <div className="bg-[#F38181] text-white mx-auto 2xl:w-[1129px] xl:w-[700px]  lg:w-[550px] sm:w-[] w-[] 2xl:h-[210px] flex items-center 2xl:px-[30px] xl:px-[20px] lg:px-[15px] sm:px-[10px] px-[] 2xl:mt-[30px] xl:mt-[20px] lg:mt-[10px] sm:mt-[10px] mt-[] py-[12px] xl:py-[15px] 2xl:py-0">
             <div className="">
-              <h4 className="nine_p xs:text-[15px] alata font-[400] xs:center xs:mx-5 2xl:text-[20px] xl:text-[20px] md:text-[18px] sm:text-[15px]">
+              <h4 className=" xs:text-[15px] alata font-[400] xs:center xs:mx-5 2xl:text-[20px] xl:text-[20px] md:text-[18px] sm:text-[15px]">
                 What makes authentichef different from other food delivery
                 companies?
               </h4>
@@ -213,7 +213,7 @@ const FAQs = () => {
                   {/* Mapping through accordion items */}
                   {data.map((item, index) => (
                     <div
-                      className="collapse collapse-arrow join-item border-b xs:text-[12px] pt-[10px] text-[#000000] font-[400] alata cursor-pointer"
+                      className="collapse collapse-arrow join-item border-b pt-[10px] text-[#000000]  cursor-pointer"
                       key={index}
                     >
                       <input
@@ -224,7 +224,7 @@ const FAQs = () => {
                         className="cursor-pointer"
                       />
                       <div
-                        className="collapse-title text-xl font-medium flex justify-between items-center nine_p xs:text-[12px]"
+                        className="collapse-title 2xl:text-[25px] flex justify-between items-center xs:text-[12px] font-[400] alata"
                         onClick={() => toggleAccordion(index, "delivery")}
                       >
                         {item.question}
@@ -267,7 +267,7 @@ const FAQs = () => {
                       </div>
                       {openIndex === `delivery-${index}` && (
                         <div className="collapse-content">
-                          <p className="seven_h2">{item.answer}</p>
+                          <p className="faqA">{item.answer}</p>
                         </div>
                       )}
                     </div>
@@ -288,7 +288,7 @@ const FAQs = () => {
                   {/* Mapping through accordion items */}
                   {data2.map((item, index) => (
                     <div
-                      className="collapse collapse-arrow join-item border-b xs:text-[12px] pt-[10px] text-[#000000] font-[400] alata"
+                      className="collapse collapse-arrow join-item border-b pt-[10px] text-[#000000] "
                       key={index}
                     >
                       <input
@@ -299,7 +299,7 @@ const FAQs = () => {
                         className="cursor-pointer"
                       />
                       <div
-                        className="collapse-title text-xl font-medium flex justify-between items-center nine_p xs:text-[12px]"
+                        className="collapse-title 2xl:text-[25px]  flex justify-between items-center  xs:text-[12px] font-[400] alata"
                         onClick={() => toggleAccordion(index, "ordering")}
                       >
                         {item.question}
@@ -342,7 +342,7 @@ const FAQs = () => {
                       </div>
                       {openIndex === `ordering-${index}` && (
                         <div className="collapse-content">
-                          <p className="seven_h2">{item.answer}</p>
+                          <p className="faqA">{item.answer}</p>
                         </div>
                       )}
                     </div>
@@ -362,7 +362,7 @@ const FAQs = () => {
                   {/* Mapping through accordion items */}
                   {data3.map((item, index) => (
                     <div
-                      className="collapse collapse-arrow join-item border-b xs:text-[12px] pt-[10px] text-[#000000] font-[400] alata"
+                      className="collapse collapse-arrow join-item border-b pt-[10px] text-[#000000] "
                       key={index}
                     >
                       <input
@@ -373,7 +373,7 @@ const FAQs = () => {
                         className="cursor-pointer"
                       />
                       <div
-                        className="collapse-title text-xl font-medium flex justify-between items-center nine_p xs:text-[12px]"
+                        className="collapse-title 2xl:text-[25px] flex justify-between items-center  xs:text-[12px] font-[400] alata"
                         onClick={() => toggleAccordion(index, "dish")}
                       >
                         {item.question}
@@ -416,7 +416,7 @@ const FAQs = () => {
                       </div>
                       {openIndex === `dish-${index}` && (
                         <div className="collapse-content">
-                          <p className="seven_h2">{item.answer}</p>
+                          <p className="faqA">{item.answer}</p>
                         </div>
                       )}
                     </div>
@@ -436,7 +436,7 @@ const FAQs = () => {
                 <div className="join join-vertical w-full text-start">
                   {data4.map((item, index) => (
                     <div
-                      className="collapse collapse-arrow join-item border-b xs:text-[12px] pt-[10px] text-[#000000] font-[400] alata"
+                      className="collapse collapse-arrow join-item border-b pt-[10px] text-[#000000] "
                       key={index}
                     >
                       <input
@@ -447,7 +447,7 @@ const FAQs = () => {
                         className="cursor-pointer"
                       />
                       <div
-                        className="collapse-title text-xl font-medium flex justify-between items-center nine_p xs:text-[12px]"
+                        className="collapse-title 2xl:text-[25px] flex justify-between items-center  xs:text-[12px] font-[400] alata"
                         onClick={() => toggleAccordion(index, "data4")}
                       >
                         {item.question}
@@ -487,7 +487,7 @@ const FAQs = () => {
                       </div>
                       {openIndex === `data4-${index}` && (
                         <div className="collapse-content">
-                          <p className="seven_h2 w-[94%]">
+                          <p className="faqA w-[94%]">
                             {item.answer}
                             {item.question === "What days do you deliver?" && (
                               <div className="overflow-x-auto mt-4">
@@ -608,7 +608,7 @@ const FAQs = () => {
                   {/* Mapping through accordion items */}
                   {data5.map((item, index) => (
                     <div
-                      className="collapse collapse-arrow join-item border-b xs:text-[12px] pt-[10px] text-[#000000] font-[400] alata"
+                      className="collapse collapse-arrow join-item border-b pt-[10px] text-[#000000] "
                       key={index}
                     >
                       <input
@@ -619,7 +619,7 @@ const FAQs = () => {
                         className="cursor-pointer"
                       />
                       <div
-                        className="collapse-title text-xl font-medium flex justify-between items-center nine_p xs:text-[12px]"
+                        className="collapse-title 2xl:text-[25px] flex justify-between items-center  xs:text-[12px] font-[400] alata"
                         onClick={() => toggleAccordion(index, "data5")} // Call toggleAccordion here as well
                       >
                         {item.question}
@@ -659,7 +659,7 @@ const FAQs = () => {
                       </div>
                       {openIndex === `data5-${index}` && (
                         <div className="collapse-content">
-                          <p className="seven_h2">{item.answer}</p>
+                          <p className="faqA">{item.answer}</p>
                         </div>
                       )}
                     </div>

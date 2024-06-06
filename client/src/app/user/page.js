@@ -657,19 +657,20 @@ const LandingPage = () => {
                       <img
                         alt="person1"
                         src={item?.images}
-                        className="rounded-full"
+                        className="rounded-full "
                       />
                       <h2 className="seven_name">Chef {item?.name}</h2>
                       <p className="seven_p2">
                         Lorem ipsum dolor sit amet. Non quos sunt et provident
+                        {/* {item?.bio} */}
                         <Link href={`/pages/chef-details/${item?._id}`}>
                           <span className="text-[#DB5353]">...more</span>
                         </Link>
                       </p>
                       <h3 className="seven_h2 text-[#DB5353] 2xl:mt-[20px] xl:mt-[10px] lg:mt-[8px]">
-                        Thai
+                      {item?.name}
                       </h3>
-                      <h4 className="seven_h2">Vegetarian, Dairy Free</h4>
+                      <h4 className="seven_h2">{item?.name}</h4>
                     </div>
                   </div>
                 ))}

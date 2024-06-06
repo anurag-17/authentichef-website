@@ -11,32 +11,39 @@ const GlobalCusines = () => {
         <Navbar />
 
         <div className="2xl:pt-[116px] xl:pt pt-[50px]">
-          <div className="2xl:w-[859px]  xl:text-[50px] lg:text-[60px] lg:w-[] sm:w-[] w-[] text-center mx-auto 2xl:pt-[90px] xl:pt pt-[70px]">
+          <div className="2xl:w-[859px]  xl:text-[50px] lg:text-[60px] lg:w-[] sm:w-[] w-[] text-center mx-auto 2xl:pt-[90px] xl:pt-[60px] pt-[30px]">
             <h1 className="globalhead lg:text-[30px] 2xl:text-[55px] xl:text-[40px]">
               Homemade. Authentic Flavours,
               <br></br>
               Expertly Delivered.
             </h1>
           </div>
-          <div className=" flex justify-center 2xl:mt-[40px] xl:mt-[25px] mt-[10px] global-bg 2xl:w-[1219px] 2xl:h-[604px] h-auto xl:w-[800px] lg:w-[700px] md:w-[600px] sm:w-[600px] xs:w-[90%] w-[] mx-auto rounded-[15px] relative">
-            <div className="absolute bottom-0 2xl:w-[1057px] 2xl:h-[244px] bg-white flex justify-center border mx-auto rounded-[15px] 2http://localhost:4000/api/auth/edit-user">
-              <div className="flex ">
-                <Image src={couma} className="align-top" />
-                <p className="seven_p2 2xl:w-[734px] text-center">
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industries
-                  standard dummy text ever since the 1500s, when an unknown
-                  printer took a galley of type and scrambled it to make a type
-                  specimen book.
-                </p>
+          <div className="global-bg flex justify-center 2xl:mt-[40px] xl:mt-[25px] mt-[10px] 2xl:w-[1219px] 2xl:h-[604px] xl:h-[360px] xl:w-[800px] lg:w-[700px] sm:w-[80%] h-[200px] xs:w-[90%] w-[] mx-auto rounded-[15px] relative">
+            <div className=" bottom-0 2xl:w-[1057px] 2xl:h-[244px] xl:w-[700px] xl:h-[140px] w-[90%] h-[140px] bg-white flex justify-center border mx-auto rounded-[15px]  2xl:py-[40px] 2xl:mt-[500px] xl:mt-[300px] lg:mt-[140px] mt-[110px]">
+              <div className="flex items-center px-[6%] lg:px-[12%] 2xl:px-0 ">
+                <div className="flex gap-3 items-start ">
+                  <Image src={couma} className="align-top 2xl:w-[34px] 2xl:h-[34px] w-[25px] h-[25px]" />
+                  <div>
+                    <p className="seven_p2 2xl:w-[734px] text-center">
+                      Lorem Ipsum is simply dummy text of the printing and
+                      typesetting industry. Lorem Ipsum has been the industries
+                      standard dummy text ever since the 1500s, when an unknown
+                      printer took a galley of type and scrambled it to make a
+                      type specimen book.
+                    </p>
+                    <p className="seven_p2 text-center 2xl:mt-[30px] xl:mt-[15px] mt-[10px]">
+                      - Jordan Huff
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
           <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] sm:w-full xs:w-full flex justify-between mx-auto 2xl:mb-[230px] xl:mb-[140px] mb-[90px] mnavbar">
             <div className="w-full">
-              <div className="text-center mt-[120px] xl:mt-[80px] lg:mt-[80px] md:mt-[80px] sm:mt-[50px]">
-                <h4 className="globalhead">Popular Cuisines</h4>
+              <div className="text-center mt-[120px] 2xl:mt-[220px] xl:mt-[120px] lg:mt-[120px] md:mt-[80px] sm:mt-[50px]">
+                <h4 className="globalhead2">Popular Cuisines</h4>
                 <div className="flex justify-center mt-[60px] xl:mt-[80px] lg:mt-[50px] md:mt-[40px] sm:mt-[30px] xs:flex-col xs:items-center">
                   <div className="lg:w-[320px] 2xl:w-[500px] md:w-[230px] sm:w-[20%] xs:w-full my-3 md:my-0">
                     <div className="text-center border-e-[2px] 2xl:w-[400px] xl:pr-[0px] pr-[0px]">
@@ -85,7 +92,7 @@ const GlobalCusines = () => {
                 </div>
               </div>
               <div className="text-center mt-[120px] xl:mt-[80px] lg:mt-[80px] md:mt-[80px] sm:mt-[50px]">
-                <h4 className="globalhead">Popular Dishes</h4>
+                <h4 className="globalhead2">Popular Dishes</h4>
                 <div className="flex justify-center mt-[60px] xl:mt-[80px] lg:mt-[50px] md:mt-[40px] sm:mt-[30px]  xs:flex-col xs:items-center">
                   <div className="lg:w-[320px] md:w-[230px] 2xl:w-[500px] sm:w-[20%] xs:w-full my-3 md:my-0">
                     <div className="text-center border-e-[2px] 2xl:w-[400px] xl:pr-[0px] pr-[0px]">
