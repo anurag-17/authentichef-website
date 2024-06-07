@@ -41,15 +41,14 @@ import {
   setDish,
   addItemToCart,
   handleClearCart,
-  removeItemFromCart,
-  clearCart,
 } from "../redux/dishSlice";
 import { useDispatch, useSelector } from "react-redux";
 import "./styles.css";
 import { useRouter } from "next/navigation";
 import cheficon from "../assets/Chef-icon.webp";
 import Loader from "../admin-module/components/admin/loader/Index";
-import { incrementCartItemQuantity } from "../redux/dishSlice";
+import { incrementCartItemQuantity,decrementQuantity,removeItemFromCart,clearCart } from '../redux/dishSlice'; // Import the action from the slice
+
 
 const ExploreDishes = () => {
   const [count, setCount] = useState(0);
@@ -613,10 +612,10 @@ const ExploreDishes = () => {
       const updatedCartItems = prevCartItems.map((item) =>
         item._id === itemId
           ? {
-              ...item,
-              quantity: item.quantity + 1,
-              totalPrice: item.menuItem.price * (item.quantity + 1),
-            }
+            ...item,
+            quantity: item.quantity + 1,
+            totalPrice: item.menuItem.price * (item.quantity + 1),
+          }
           : item
       );
       setUpdatedCartItems(updatedCartItems);
@@ -652,10 +651,10 @@ const ExploreDishes = () => {
       const updatedCartItems = prevCartItems.map((item) =>
         item._id === itemId && item.quantity > 1
           ? {
-              ...item,
-              quantity: item.quantity - 1,
-              totalPrice: item.menuItem.price * (item.quantity - 1),
-            }
+            ...item,
+            quantity: item.quantity - 1,
+            totalPrice: item.menuItem.price * (item.quantity - 1),
+          }
           : item
       );
       setUpdatedCartItems(updatedCartItems);
@@ -686,20 +685,22 @@ const ExploreDishes = () => {
     console.log("Updated Cart Items:", updatedCartItems);
   }, [updatedCartItems]);
 
-  const handleQuantityIncrement = (id) => {
-    dispatch(incrementCartItemQuantity(id));
-  };
-  const handleQuantityDecrement = (id) => {
-    dispatch(decrementQuantity(id));
-  };
 
-  const handleItemRemove1 = (id) => {
-    dispatch(removeItemFromCart(id));
-  };
+    const handleQuantityIncrement = (id) => {
+      dispatch(incrementCartItemQuantity(id));
+    };
+    const handleQuantityDecrement = (id) => {
+      dispatch(decrementQuantity(id));
+    };
 
-  const handleCartClear1 = () => {
-    dispatch(clearCart());
-  };
+    const handleItemRemove1 = (id) => {
+      dispatch(removeItemFromCart(id));
+    };
+
+    const handleCartClear1 = () => {
+      dispatch(clearCart());
+    };
+
   return (
     <>
       <ToastContainer className="mt-24" autoClose={1000} />
@@ -709,9 +710,9 @@ const ExploreDishes = () => {
         <div class="2xl:pt-[100px] xl:pt-[90px] pt-[60px] pb-[30px]">
           <div class="main_section custom_container mt-auto mnavbar xl:py-[40px] lg:py-[40px]">
             <div class="flex justify-between flex-col lg:flex-row   ">
-              <div class=" flex items-center lg:mb-0 lg:text-[2.25rem]  md:w-[30%] xs:text-[1.875rem] sm:text-[2.25rem] md:text-[29px]">
-                <h1 className="nine_head  alata font-[400] 2xl:text-[45px] lg:text-left  text-center whitespace-nowrap SelectCuisine">
-                  {/* 
+              <div class=" lg:mb-0 md:mb-4 lg  lg:text-[2.25rem]  md:w-[30%] xs:text-[1.875rem] sm:text-[2.25rem] md:text-[29px]">
+                <h1 className="nine_head lg:mb-4 alata font-[400] 2xl:text-[55px] lg:text-left  text-center whitespace-nowrap SelectCuisine">
+                  {/*
         <div class="2xl:pt-[130px] xl:pt-[90px] pt-[60px] ">
           <div class="main_section 2xl:w-[1600px] xl:w-[1200px] md:w-[811px]  m-auto mt-auto mnavbar 2xl:py-[40px] xl:py-[30px] lg:py-[20px]">
             <div class="flex justify-between flex-col md:flex-row   ">
@@ -720,7 +721,7 @@ const ExploreDishes = () => {
                   Select Cuisine
                 </h1>
               </div>
-              <div className="mnavbar md:w-[700px]  2xl:py-[20px] xl:py-[10px] lg:py-[7px] py-[10px] ">
+              <div className="mnavbar sm:pt-[12px] sm:pb-[4px] 2xl:pt-[21px] md:pt-[9px] md:w-[700px]  2xl:py-[60px] xl:py-[10px] lg:pt-[7px] lg:pb-[40px]  py-[10px] xs:py-[10px] ">
                 {/* <div className="mnavbar sm:pt-[12px] sm:pb-[4px] 2xl:pt-[21px] md:pt-[9px] md:w-[820px]   "> */}
                 {/* 2xl:py-[60px] xl:py-[10px] lg:pt-[7px] lg:pb-[40px]  py-[40px] xs:py-[10px] */}
 
@@ -1141,12 +1142,13 @@ const ExploreDishes = () => {
                       onClick={() => handleSearchCuisines(item._id)}
                       className="mcusinimgs buttonHov"
                     >
+                      {" "}
                       <img
                         src={item.ProfileImage}
-                        className="rounded-[5px] 2xl:w-[103px] 2xl:h-[103px] xl:w-[73px] xl:h-[73px] lg:w-[70px] lg:h-[70px] w-[65px] xss:w-[60px] mcusinimg hover:opacity-[0.5] mx-auto "
+                        className="rounded-[5px] 2xl:w-[103px] 2xl:h-[103px] xl:w-[80px] xl:h-[80px] lg:w-[70px] lg:h-[70px] w-[65px] xss:w-[60px] mcusinimg hover:opacity-[0.5] mx-auto md:mx-0"
                         alt="cuisine-india"
                       />
-                      <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-[10px] 2xl:text-[15px] xl:text-[12px] text-[10px] mt-1 md:mt-3">
+                      <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-[10px] 2xl:text-[15px] xl:text-[14px] md:text-[10px] mt-1 md:mt-3">
                         {item.title}
                       </h4>
                     </button>
@@ -1182,7 +1184,7 @@ const ExploreDishes = () => {
                   </p>
                 </div>
               </div> */}
-              {/* 
+              {/*
               <div className=" flex flex-wrap gap-[20px] xl:gap-[25px] 2xl:gap-[70px] w-full px-10 md:px-0 mx-auto "> */}
               {Array.isArray(getAllDish) && getAllDish.length > 0 ? (
                 <div className="grid grid-cols-2 lg:grid-cols-4 sm:grid-cols-3 xss:grid-cols-1 xss:gap-x-[25px] lg:gap-x-[20px] xl:gap-x-[40px] 2xl:gap-x-[30px] md:my-5 lg:my-0 md:px-5 px-0 gap-y-[15px] exploreDishesmain">
@@ -1528,7 +1530,7 @@ const ExploreDishes = () => {
           type="checkbox"
           className="drawer-toggle"
           checked={isDrawerOpen}
-          onChange={() => {}}
+          onChange={() => { }}
         />
         <div className="drawer-side">
           <label
@@ -1621,9 +1623,7 @@ const ExploreDishes = () => {
                                 <div className="flex justify-center 2xl:w-[103px] 2xl:h-[39px] xl:w-[60px] xl:h-[22px] lg:w-[50px] lg:h-[20px] border rounded-[5px]">
                                   <button
                                     className="text-[#DB5353] rounded-l w-1/3"
-                                    onClick={() =>
-                                      handleQuantityDecrement(item.data._id)
-                                    }
+                                    onClick={() => handleQuantityDecrement(item.data._id)}
                                   >
                                     <Image
                                       src={minus}
@@ -1636,9 +1636,7 @@ const ExploreDishes = () => {
                                   </p>
                                   <button
                                     className="text-[#DB5353] rounded-r w-1/3"
-                                    onClick={() =>
-                                      handleQuantityIncrement(item.data._id)
-                                    }
+                                    onClick={() => handleQuantityIncrement(item.data._id)}
                                   >
                                     <Image
                                       src={plus}
@@ -1680,14 +1678,7 @@ const ExploreDishes = () => {
                           Total :
                         </h4>
                         <h4 className="alata font-[400] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
-                          £
-                          {cart
-                            .reduce(
-                              (acc, item) =>
-                                acc + item.data.price * item.quantity,
-                              0
-                            )
-                            .toFixed(2)}
+                          £{cart.reduce((acc, item) => acc + item.data.price * item.quantity, 0).toFixed(2)}
                         </h4>
                       </div>
                       <div className="flex justify-between items-center mt-20">
@@ -1912,7 +1903,7 @@ const ExploreDishes = () => {
       </dialog>
 
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={() => {}}>
+        <Dialog as="div" className="relative z-10" onClose={() => { }}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
