@@ -220,10 +220,12 @@ const EditModal = ({
   }, []);
 
   const [nutrition, setNutrition] = useState({});
+
   useEffect(() => {
     defaultNutrition();
   }, []);
-  const defaultNutrition = () => {
+  
+  const defaultNutrition = () => {  
     const option = {
       method: "GET",
       url: `${config.baseURL}/api/Nutritional/nutritional`,

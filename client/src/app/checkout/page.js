@@ -194,6 +194,36 @@ const Checkout = () => {
         const { sessionId, sessionUrl } = response.data;
         setSessionId(sessionId);
         console.log("Session ID:", sessionId);
+
+        // Send the session ID to the second API
+        try {
+          const bookOrderResponse = await axios.post(
+            "http://localhost:4000/api/order/bookOrder",
+            {
+              sessionId,
+            },
+            {
+              headers: {
+                authorization: token,
+              },
+            }
+          );
+
+          if (
+            bookOrderResponse.status >= 200 &&
+            bookOrderResponse.status < 300
+          ) {
+            console.log("Session ID sent successfully");
+          } else {
+            console.error(
+              "Failed to send session ID",
+              bookOrderResponse.data.message
+            );
+          }
+        } catch (error) {
+          console.error("Error sending session ID:", error);
+        }
+
         if (paymentMethod === "card") {
           window.location.href = sessionUrl;
         } else {
@@ -208,6 +238,7 @@ const Checkout = () => {
       console.log("Error:", error);
     }
   };
+
   console.log("Session ID:", sessionId);
 
   const defaultCartItems = () => {
@@ -455,7 +486,7 @@ const Checkout = () => {
     }
   };
 
-  useEffect(() => { 
+  useEffect(() => {
     if (subtotalPrice >= shippingThreshold) {
       // Order meets the free delivery threshold
       setRefresh(true);
@@ -870,7 +901,7 @@ const Checkout = () => {
                                     {item?.menuItem?.name}
                                   </h4>
                                   <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[20px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
-                                    £{item?.menuItem?.price}
+                                    £{item?.menuItem?.price &&  `${item?.menuItem?.price.toFixed(2)}` }
                                   </h4>
                                 </div>
                               </div>

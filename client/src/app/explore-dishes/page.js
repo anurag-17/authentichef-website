@@ -1922,7 +1922,7 @@ const ExploreDishes = () => {
             <div className="2xl:my-[20px] xl:my-[12px] my-[10px]">
               <div className="flex justify-between">
                 <div>
-                  <p className="fourth_p text-[#555555]">Ingredients</p>{" "}
+                  <p className="fourth_p text-[#555555]">Main Ingredients</p>{" "}
                   <p className="fourth_p ">Chicken, Egg, Tomato, etc</p>
                 </div>
                 <div className="2xl:w-[578px] xl:w-[430px] w-[360px]">

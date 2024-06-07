@@ -181,7 +181,7 @@ const DishDetails = ({ dishID, defaultADish, handleAddCart, setItemId }) => {
                 <p className="pop-chef">by Chef {getADish?.chef_id?.name}</p>
               </div>
               <div className="flex justify-between pop-detail">
-                <h3>Price: £{getADish?.price}</h3>
+                <h3>Price: £{getADish?.price && ` ${getADish.price.toFixed(2)}`}</h3>
                 <h3>Weight: {getADish?.weight}g</h3>
                 <h3>Portion Size: Serves {getADish?.portion_Size}</h3>
               </div>
@@ -286,7 +286,7 @@ const DishDetails = ({ dishID, defaultADish, handleAddCart, setItemId }) => {
           <div className="2xl:my-[20px] xl:my-[12px] my-[10px]">
             <div className="">
               <div>
-                <p className="fourth_p text-[#555555]">Ingredients</p>{" "}
+                <p className="fourth_p text-[#555555]">Main Ingredients</p>{" "}
                 <p className="fourth_p "> {getADish?.Ingredients}</p>
               </div>
               <div className="2xl:my-[20px] xl:my-[12px] my-[10px]">
