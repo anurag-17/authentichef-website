@@ -1,10 +1,14 @@
+'use client';
 import React from "react";
 import thanku from "../assets/thankyou.svg";
 import Image from "next/image";
 import Navbar from "../navbar";
 import Footer from "../footer";
+import { useSelector } from "react-redux";
+
 
 const ThankU = () => {
+  const { token } = useSelector((state) => state?.auth);
   return (
     <>
       <section className="">
