@@ -667,7 +667,7 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
           name="ProfileImages"
           onChange={handleImageChange}
           accept="image/*"
-          multiple // Allow multiple file selection
+          multiple 
           required
           className="mx-2"
         />
@@ -676,7 +676,6 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
         </p>
       </div>
 
-      {/* Submit button */}
       <div className="w-full px-4 mt-4">
         <button type="submit" className=" px-4 py-2 rounded primary_btn">
           Submit
