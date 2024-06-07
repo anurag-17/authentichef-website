@@ -839,7 +839,7 @@ const LandingPage = () => {
                   </div>
 
                   <p className="nine_p2">
-                  AuthenticHef's homemade food delivery is a lifesaver for me. It's like having my own chef make yummy dishes that make my taste buds happy.
+                  AuthenticHefs homemade food delivery is a lifesaver for me. Its like having my own chef make yummy dishes that make my taste buds happy.
 
                   </p>
                   <p className="nine_name">Rohit Thakur</p>
@@ -899,7 +899,7 @@ const LandingPage = () => {
                   </div>
 
                   <p className="nine_p2">
-                  AuthenticHef sends me delicious homemade meals that take me on a food adventure. It's awesome to enjoy different flavors and cuisines without leaving home.
+                  AuthenticHef sends me delicious homemade meals that take me on a food adventure. Its awesome to enjoy different flavors and cuisines without leaving home.
                   </p>
                   <p className="nine_name">Shubham Sharma</p>
                 </div>
