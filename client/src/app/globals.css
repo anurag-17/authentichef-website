@@ -444,6 +444,9 @@ td {
 .pop-head {
   @apply alata font-[400] 2xl:text-[45px] 2xl:leading-[55px] lg:text-[30px] md:text-[25px] xl:text-[30px] xl:leading-[40px] text-[16px] leading-[24px]
 }
+.pop-heads {
+  @apply alata font-[400] 2xl:text-[30px] 2xl:leading-[40px] lg:text-[16px] md:text-[22px] xl:text-[22px] xl:leading-[30px] text-[16px] leading-[24px]
+}
 
 .pop-chef {
   @apply alata font-[400] text-[#555555] 2xl:text-[14px] 2xl:leading-[22px] xl:text-[10px] xl:leading-[16px] text-[9px] leading-[14px] 2xl:my-[2px]

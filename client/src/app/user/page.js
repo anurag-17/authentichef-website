@@ -376,7 +376,7 @@ const LandingPage = () => {
                               {item?.chef_id?.name}
                             </h4>
                             <p className="fourth_p text-[#6765EB]">
-                              {item?.Cuisines_id?.title}
+                              {item?.chef_id?.nationality}
                             </p>
                           </div>
                         </div>
@@ -780,7 +780,9 @@ const LandingPage = () => {
                   </div>
 
                   <p className="nine_p2">
-                  Thanks to AuthenticHef, I get to enjoy amazing homemade food without cooking. Every dish is like a taste of home-cooked goodness, making my meals super satisfying.
+                    Thanks to AuthenticHef, I get to enjoy amazing homemade food
+                    without cooking. Every dish is like a taste of home-cooked
+                    goodness, making my meals super satisfying.
                   </p>
                   <p className="nine_name">Mayank Jaiswal</p>
                 </div>
@@ -839,8 +841,9 @@ const LandingPage = () => {
                   </div>
 
                   <p className="nine_p2">
-                  AuthenticHefs homemade food delivery is a lifesaver for me. Its like having my own chef make yummy dishes that make my taste buds happy.
-
+                    AuthenticHefs homemade food delivery is a lifesaver for me.
+                    Its like having my own chef make yummy dishes that make my
+                    taste buds happy.
                   </p>
                   <p className="nine_name">Rohit Thakur</p>
                 </div>
@@ -899,7 +902,9 @@ const LandingPage = () => {
                   </div>
 
                   <p className="nine_p2">
-                  AuthenticHef sends me delicious homemade meals that take me on a food adventure. Its awesome to enjoy different flavors and cuisines without leaving home.
+                    AuthenticHef sends me delicious homemade meals that take me
+                    on a food adventure. Its awesome to enjoy different flavors
+                    and cuisines without leaving home.
                   </p>
                   <p className="nine_name">Shubham Sharma</p>
                 </div>
@@ -1059,7 +1064,9 @@ const LandingPage = () => {
                                   {item.menuItem.name}
                                 </h4>
                                 <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
-                                  Price: £{item.menuItem.price}
+                                  Price:
+                                  {item.menuItem?.price &&
+                                    `£${item.menuItem.price.toFixed(2)}`}
                                 </h4>
                                 <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
                                   Quantity: {item.quantity}
