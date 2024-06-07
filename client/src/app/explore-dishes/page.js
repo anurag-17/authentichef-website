@@ -474,6 +474,7 @@ const ExploreDishes = () => {
   ];
 
   const defaultADish = (_id) => {
+    setLoading(true);
     const option = {
       method: "GET",
       url: `${config.baseURL}/api/menu/menuItems/${_id}`,
@@ -484,6 +485,7 @@ const ExploreDishes = () => {
         setGetADish(response?.data);
         dispatch(addItemToCart(response));
         handleDrawerOpen();
+        setLoading(false);
       })
       .catch((error) => {
         console.log(error, "Error");
@@ -502,6 +504,8 @@ const ExploreDishes = () => {
   };
 
   const handleAddCart = async (id) => {
+    setLoading(true);
+
     try {
       // Ensure id is an array
       let ids = Array.isArray(id) ? id : [id];
@@ -529,6 +533,7 @@ const ExploreDishes = () => {
       if (response.status >= 200 && response.status < 300) {
         toast.success("Items added to cart successfully");
         handleDrawerOpen();
+        setLoading(false);
         refreshData();
       } else {
         toast.error("Failed to add items to cart. Please try again.");

@@ -16,7 +16,6 @@ const loadState = () => {
   }
 };
 
-// Function to post cart data to the API
 const postCartToApi = async (menuItem, token, cartId) => {
   try {
     const response = await fetch(`${config.baseURL}/api/Orders/AddtoCart`, {

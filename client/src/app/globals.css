@@ -78,7 +78,7 @@ body {
   background-image: url("../../public/images/yellow-bg.svg");
   background-size: cover;
   background-position: center;
-  height: 100vh;
+  /* height: 100vh; */
 
 }
 
@@ -462,7 +462,7 @@ td {
 }
 
 .profile_input {
-  @apply w-full bg-[#F3F3F3] text-black font-[400] 2xl:h-[60px] md:h-[48px] h-[40px] lg:text-[16px] md:text-[15px] text-[14px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px] placeholder:text-[12px]
+  @apply w-full bg-[#F3F3F3] text-black font-[400] 2xl:h-[60px] md:h-[48px] h-[40px] lg:text-[14px] 2xl:text-[16px] md:text-[15px] text-[14px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px] placeholder:text-[14px] 2xl:placeholder:text-[16px]
 }
 
 .become-no {

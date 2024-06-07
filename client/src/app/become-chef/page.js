@@ -348,7 +348,7 @@ const BecomeChef = () => {
                 />
                 <input
                   name="Surname"
-                  placeholder="Surname"
+                  placeholder="Last Name"
                   className="profile_input w-full sm:w-1/2"
                   value={first.Surname}
                   onChange={inputHandler}
@@ -387,12 +387,28 @@ const BecomeChef = () => {
                 value={first.Email}
                 onChange={inputHandler}
               />
-              <input
+              {/* <input
                 name="Postcode"
                 placeholder="Post Code"
                 className="profile_input w-full"
                 value={first.Postcode}
                 onChange={inputHandler}
+              /> */}
+              <input
+                name="Postcode"
+                placeholder="Post Code"
+                type="text"
+                className="profile_input w-full"
+                value={first.Postcode}
+                onChange={(e) => {
+                  const input = e.target.value;
+                  // Accept only numbers and limit to 15 characters
+                  const filteredInput = input.replace(/\D/g, "").slice(0, 10);
+                  // Update state with the filtered input
+                  inputHandler({
+                    target: { name: "Postcode", value: filteredInput },
+                  });
+                }}
               />
               <button className="font-alata font-medium bg-[#DB5353] text-white rounded-5 py-2 mt-4 hover:bg-[#7e2727] w-auto h-auto lg:w-30 lg:h-14 xl:w-30 xl:h-14 2xl:w-30 2xl:h-14">
                 Submit
