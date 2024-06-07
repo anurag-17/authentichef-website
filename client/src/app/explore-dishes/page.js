@@ -37,18 +37,18 @@ import DishDetails from "./dish-details/page";
 import Slider from "react-slick";
 import Carousel from "react-elastic-carousel";
 import config from "@/config";
-import {
-  setDish,
-  addItemToCart,
-  handleClearCart,
-} from "../redux/dishSlice";
+import { setDish, addItemToCart, handleClearCart } from "../redux/dishSlice";
 import { useDispatch, useSelector } from "react-redux";
 import "./styles.css";
 import { useRouter } from "next/navigation";
 import cheficon from "../assets/Chef-icon.webp";
 import Loader from "../admin-module/components/admin/loader/Index";
-import { incrementCartItemQuantity,decrementQuantity,removeItemFromCart,clearCart } from '../redux/dishSlice'; // Import the action from the slice
-
+import {
+  incrementCartItemQuantity,
+  decrementQuantity,
+  removeItemFromCart,
+  clearCart,
+} from "../redux/dishSlice"; // Import the action from the slice
 
 const ExploreDishes = () => {
   const [count, setCount] = useState(0);
@@ -80,8 +80,75 @@ const ExploreDishes = () => {
     console.log(_id, "iggg");
     dispatch(removeItemFromCart({ _id }));
   };
-  const handleLoginClick = () => {
-    document.getElementById("my_modal_2").showModal();
+
+  const postCartToApi = async (menuItem, token, cartId) => {
+    try {
+      const response = await axios.post(
+        `${config.baseURL}/api/Orders/AddtoCart`,
+        menuItem,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error posting cart data:", error);
+      throw error;
+    }
+  };
+
+  // Helper function to save state to localStorage and post to API
+  const saveState = async (state) => {
+    try {
+      const stateToSave = {
+        message: "Cart",
+        userCart: {
+          items: state.cart.map((item) => ({
+            menuItem: item.data._id, // Use item ID here
+            quantity: item.quantity,
+          })),
+          totalQuantity: state.totalQuantity,
+          totalAmount: state.totalAmount,
+        },
+      };
+      const serializedState = JSON.stringify(stateToSave);
+      localStorage.setItem("cart", serializedState);
+
+      // Post the cart data to the API if the token is available
+      if (state.token) {
+        const cartData = {
+          items: state.cart.map((item) => ({
+            menuItem: item.data._id, // Use item ID here
+            quantity: item.quantity,
+          })),
+        };
+        const response = await postCartToApi(
+          cartData,
+          state.token,
+          state.cartId
+        );
+        return response;
+      }
+    } catch (err) {
+      console.error("Error saving state:", err);
+      // Ignore write errors.
+    }
+  };
+
+  // Function to handle login click
+  const handleLoginClick = async (state) => {
+    try {
+      // Save state and post to API before showing the modal
+      await saveState(state);
+
+      // Open the modal after saving the state
+      document.getElementById("my_modal_2").showModal();
+    } catch (error) {
+      console.error("Error handling login click:", error);
+    }
   };
 
   const handleClearCart = () => {
@@ -612,10 +679,10 @@ const ExploreDishes = () => {
       const updatedCartItems = prevCartItems.map((item) =>
         item._id === itemId
           ? {
-            ...item,
-            quantity: item.quantity + 1,
-            totalPrice: item.menuItem.price * (item.quantity + 1),
-          }
+              ...item,
+              quantity: item.quantity + 1,
+              totalPrice: item.menuItem.price * (item.quantity + 1),
+            }
           : item
       );
       setUpdatedCartItems(updatedCartItems);
@@ -651,10 +718,10 @@ const ExploreDishes = () => {
       const updatedCartItems = prevCartItems.map((item) =>
         item._id === itemId && item.quantity > 1
           ? {
-            ...item,
-            quantity: item.quantity - 1,
-            totalPrice: item.menuItem.price * (item.quantity - 1),
-          }
+              ...item,
+              quantity: item.quantity - 1,
+              totalPrice: item.menuItem.price * (item.quantity - 1),
+            }
           : item
       );
       setUpdatedCartItems(updatedCartItems);
@@ -685,21 +752,20 @@ const ExploreDishes = () => {
     console.log("Updated Cart Items:", updatedCartItems);
   }, [updatedCartItems]);
 
+  const handleQuantityIncrement = (id) => {
+    dispatch(incrementCartItemQuantity(id));
+  };
+  const handleQuantityDecrement = (id) => {
+    dispatch(decrementQuantity(id));
+  };
 
-    const handleQuantityIncrement = (id) => {
-      dispatch(incrementCartItemQuantity(id));
-    };
-    const handleQuantityDecrement = (id) => {
-      dispatch(decrementQuantity(id));
-    };
+  const handleItemRemove1 = (id) => {
+    dispatch(removeItemFromCart(id));
+  };
 
-    const handleItemRemove1 = (id) => {
-      dispatch(removeItemFromCart(id));
-    };
-
-    const handleCartClear1 = () => {
-      dispatch(clearCart());
-    };
+  const handleCartClear1 = () => {
+    dispatch(clearCart());
+  };
 
   return (
     <>
@@ -1530,7 +1596,7 @@ const ExploreDishes = () => {
           type="checkbox"
           className="drawer-toggle"
           checked={isDrawerOpen}
-          onChange={() => { }}
+          onChange={() => {}}
         />
         <div className="drawer-side">
           <label
@@ -1623,7 +1689,9 @@ const ExploreDishes = () => {
                                 <div className="flex justify-center 2xl:w-[103px] 2xl:h-[39px] xl:w-[60px] xl:h-[22px] lg:w-[50px] lg:h-[20px] border rounded-[5px]">
                                   <button
                                     className="text-[#DB5353] rounded-l w-1/3"
-                                    onClick={() => handleQuantityDecrement(item.data._id)}
+                                    onClick={() =>
+                                      handleQuantityDecrement(item.data._id)
+                                    }
                                   >
                                     <Image
                                       src={minus}
@@ -1636,7 +1704,9 @@ const ExploreDishes = () => {
                                   </p>
                                   <button
                                     className="text-[#DB5353] rounded-r w-1/3"
-                                    onClick={() => handleQuantityIncrement(item.data._id)}
+                                    onClick={() =>
+                                      handleQuantityIncrement(item.data._id)
+                                    }
                                   >
                                     <Image
                                       src={plus}
@@ -1678,7 +1748,14 @@ const ExploreDishes = () => {
                           Total :
                         </h4>
                         <h4 className="alata font-[400] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
-                          £{cart.reduce((acc, item) => acc + item.data.price * item.quantity, 0).toFixed(2)}
+                          £
+                          {cart
+                            .reduce(
+                              (acc, item) =>
+                                acc + item.data.price * item.quantity,
+                              0
+                            )
+                            .toFixed(2)}
                         </h4>
                       </div>
                       <div className="flex justify-between items-center mt-20">
@@ -1903,7 +1980,7 @@ const ExploreDishes = () => {
       </dialog>
 
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={() => { }}>
+        <Dialog as="div" className="relative z-10" onClose={() => {}}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
