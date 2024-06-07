@@ -833,14 +833,16 @@ const validateAndParseJson = (jsonString, fieldName) => {
     try {
         if (!jsonString) {
             console.error(`${fieldName} is undefined or empty.`);
-            return {};
+            return null;
         }
         return JSON.parse(jsonString);
     } catch (error) {
         console.error(`Error parsing JSON for ${fieldName}:`, error);
-        throw new Error(`Invalid JSON format for ${fieldName}`);
+        return null;
     }
 };
+
+
 
 
 
