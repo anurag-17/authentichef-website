@@ -9,7 +9,6 @@ import {
   removeItemFromCart,
   clearCart,
   addItemToCart,
-  setCartData,
 } from "@/app/redux/dishSlice";
 import config from "@/config";
 
@@ -106,16 +105,7 @@ const DishDetails = ({ dishID, defaultADish, handleAddCart, setItemId }) => {
       });
   };
 
-  const defaultCartItems = (
-    token,
-    setGetCartItems,
-    setUpdatedCartItems,
-    setSubtotalPrice,
-    setShippingCost,
-    setCartId
-  ) => {
-    const dispatch = useDispatch();
-
+  const defaultCartItems = () => {
     const option = {
       method: "GET",
       url: `${config.baseURL}/api/Orders/getCartItem`,
@@ -123,7 +113,6 @@ const DishDetails = ({ dishID, defaultADish, handleAddCart, setItemId }) => {
         Authorization: token,
       },
     };
-
     axios
       .request(option)
       .then(async (response) => {
@@ -138,24 +127,7 @@ const DishDetails = ({ dishID, defaultADish, handleAddCart, setItemId }) => {
         setSubtotalPrice(
           cartItems.reduce((sum, item) => sum + item.totalPrice, 0)
         );
-        setShippingCost(userCart.Shipping_cost ?? 0); // Set the shipping cost
         setCartId(userCart._id); // Set the cart ID inside the .then callback
-
-        // Dispatch action to set cart data in Redux state
-        dispatch(
-          setCartData({
-            cartItems: userCart.items,
-            totalQuantity: userCart.items.reduce(
-              (sum, item) => sum + item.quantity,
-              0
-            ),
-            totalAmount: userCart.items.reduce(
-              (sum, item) => sum + item.menuItem.price * item.quantity,
-              0
-            ),
-            cartId: userCart._id,
-          })
-        );
 
         // Update quantities for default cart items
         for (const item of cartItems) {
@@ -170,6 +142,7 @@ const DishDetails = ({ dishID, defaultADish, handleAddCart, setItemId }) => {
         console.log(error, "Error");
       });
   };
+
   useEffect(() => {
     if (shouldRefresh) {
       getCartItems.forEach((item) => {
