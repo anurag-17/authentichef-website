@@ -319,7 +319,7 @@ td {
 }
 
 .faqA {
-  @apply  2xl:text-[18px] xl:text-[12px] lg:text-[10px]
+  @apply alata font-[400]  2xl:text-[18px] md:text-[16px] text-[14px]
 }
 
 .seven_btn {
@@ -462,19 +462,19 @@ td {
 }
 
 .profile_input {
-  @apply w-full bg-[#F3F3F3] text-black 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]
+  @apply w-full bg-[#F3F3F3] text-black font-[400] 2xl:h-[60px] md:h-[48px] h-[40px] lg:text-[16px] md:text-[15px] text-[14px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px] placeholder:text-[12px]
 }
 
 .become-no {
-  @apply alata font-[400] 2xl:text-[25px] 2xl:leading-[35px] xl:text-[16px] xl:leading-[24px] text-[12px] leading-[18px]
+  @apply alata font-[400] 2xl:text-[25px] 2xl:leading-[35px] xl:text-[16px] xl:leading-[24px] text-[13px] leading-[18px]
 }
 
 .become-head {
-  @apply alata font-[400] 2xl:text-[30px] 2xl:leading-[40px] xl:text-[16px] xl:leading-[28px] text-[14px] leading-[20px]
+  @apply alata font-[400] 2xl:text-[30px] 2xl:leading-[40px] xl:text-[16px] xl:leading-[28px] text-[15px] leading-[20px]
 }
 
 .become-para {
-  @apply alata font-[400] 2xl:text-[22px] 2xl:leading-[32px] xl:text-[14px] xl:leading-[20px] text-[11px] leading-[14px]
+  @apply alata font-[400] 2xl:text-[22px] 2xl:leading-[32px] xl:text-[14px] xl:leading-[20px] text-[14px] leading-[20px]
 }
 
 .privacyText {
@@ -491,7 +491,7 @@ td {
 
 @media (min-width: 1536px) and (max-width: 1750px) {
   .mnavbar {
-    width: 93% !important;
+    width: 90% !important;
   }
 
   .exploreDishesmain {
@@ -778,7 +778,7 @@ td {
 }
 
 .sidebar {
-  @apply alata font-[400] text-[#161616] 2xl:text-[16px] xl:text-[12px] lg:text-[10px] sm:text-[10px] text-[] 2xl:leading-[26px] xl:leading-[22px] lg:leading-[16px] sm:leading-[16px] leading-[]
+  @apply alata font-[400] text-[#161616] xl:text-[16px] md:text-[15px] text-[15px] 2xl:leading-[26px] leading-[22px] 
 }
 
 .faqhead {
