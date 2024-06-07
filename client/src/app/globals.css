@@ -241,7 +241,7 @@ td {
   @apply text-[#111111] alata font-[400] 2xl:text-[16px] 2xl:leading-[20px] xl:text-[12px] xl:leading-[18px] lg:text-[12px] lg:leading-[16px] text-[14px] leading-[16px];
 }
 
-.  {
+. {
   @apply alata font-[400] xl:text-[16px] xl:leading-[24px] md:text-[14px] text-[13px] whitespace-nowrap;
 }
 
@@ -319,7 +319,7 @@ td {
 }
 
 .faqA {
-  @apply alata font-[400]  2xl:text-[18px] md:text-[16px] text-[14px]
+  @apply  2xl:text-[18px] md:text-[16px] text-[14px]
 }
 
 .seven_btn {
@@ -442,7 +442,7 @@ td {
 }
 
 .pop-head {
-  @apply alata font-[400] 2xl:text-[45px] 2xl:leading-[55px] lg:text-[30px] md:text-[25px] xl:text-[45px] xl:leading-[55px] text-[16px] leading-[24px]
+  @apply alata font-[400] 2xl:text-[45px] 2xl:leading-[55px] lg:text-[30px] md:text-[25px] xl:text-[30px] xl:leading-[40px] text-[16px] leading-[24px]
 }
 
 .pop-chef {
@@ -778,7 +778,7 @@ td {
 }
 
 .sidebar {
-  @apply alata font-[400] text-[#161616] xl:text-[16px] md:text-[15px] text-[15px] 2xl:leading-[26px] leading-[22px] 
+  @apply alata font-[400] text-[#161616] xl:text-[16px] md:text-[15px] text-[15px] 2xl:leading-[26px] leading-[22px]
 }
 
 .faqhead {
@@ -798,7 +798,7 @@ td {
 }
 
 .globalhead2 {
-  @apply alata font-[400] 2xl:text-[45px] 2xl:leading-[55px] xl:text-[30px] xl:leading-[40px] text-[20px] leading-[30px]
+  @apply alata font-[400] 2xl:text-[45px] 2xl:leading-[55px] xl:text-[30px] xl:leading-[40px] text-[20px] leading-[30px] mb-2 2xl:mb-4
 }
 
 .global_h {
@@ -1022,6 +1022,6 @@ td {
   }
 }
 
-.collapse-content{
+.collapse-content {
   @apply w-[93%]
 }

@@ -8,10 +8,11 @@ const RefundPolicy = () => {
     <>
       <section>
         <Navbar />
-        <div className="2xl:w-[1600px] mnavbar alata xl:w-[1100px] lg:w-[850px]  md:w-[747px] xs:w-[90%] sm:w-[93%]  mx-auto 2xl:pt-[120px]  xl:pt-[100px] lg:pt-[80px] md:pt-[60px] xs:pt-[60px] sm:pt-[60px] mnavbar">
-          <div>
-          <h1 className="third_head mb-7 alata 2xl:pt-[30px]  2xl:mb-7   xl:mb-6 lg:mb-5 md:mb-4 sm:mb-4 xs:mb-4 xs:items-center xs:justify-center">
-              REFUND POLICY
+        <div className="2xl:w-[1600px] mnavbar alata xl:w-[1100px] lg:w-[850px]  md:w-[747px] xs:w-[90%] sm:w-[93%]  mx-auto 2xl:pt-[160px] xl:pt-[120px] md:pt-[90px] pt-[75px] mnavbar">
+        <div className="pb-[10px] 2xl:pb-[30px]">
+
+          <h1 className="third_head capitalize mb-7 alata 2xl:mb-7 xl:mb-6 lg:mb-5 md:mb-4 sm:mb-4 xs:mb-4 xs:items-center xs:justify-center">
+              Refund Policy
             </h1>
 
             <p className="footer_text mb-7 2xl:mb-10 alata  ">
@@ -22,8 +23,9 @@ const RefundPolicy = () => {
               terms and conditions for processing refund requests.
             </p>
 
-            <h2 className="mb-2 privacyHead font-[400] alata">
-              1. ELIGIBILITY FOR REFUND
+            <h2 className="mb-2 privacyHead font-[400] alata capitalize">
+              1. 
+              Eligibility for Refund
             </h2>
 
             <p className="footer_text mb-7 2xl:mb-10 flex items-center justify-center">
@@ -82,7 +84,8 @@ const RefundPolicy = () => {
 
             {/* Add more sections as needed */}
 
-            <h2 className="mb-2 privacyHead font-[400]">2. REFUND PROCESS</h2>
+            <h2 className="mb-2 privacyHead font-[400] capitalize">2.
+            refund process</h2>
 
             <p className="footer_text mb-7 2xl:mb-10">
               To request a refund, you must contact our customer support team at
@@ -98,8 +101,9 @@ const RefundPolicy = () => {
               typically perishable in nature.
             </p>
 
-            <h2 className="mb-2 privacyHead font-[400]">
-              3. DISPUTE RESOLUTION
+            <h2 className="mb-2 privacyHead font-[400] capitalize">
+              3.
+              Dispute resolution
             </h2>
 
             <p className="footer_text mb-7 2xl:mb-10">

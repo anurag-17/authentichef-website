@@ -9,7 +9,7 @@ import vegetarian from "./assets/vegetarian.svg";
 import fb from "./assets/fb.svg";
 import insta from "./assets/instagram.svg";
 import cook from "./assets/fi_4767107.svg";
-import cook2 from "./assets/fi_4718655.svg";
+import cook2 from "./assets/certified-svgrepo-com.svg";
 import addCart from "../../../../../public/images/addCart.svg";
 import DishDetails from "@/app/explore-dishes/dish-details/page";
 import { Dialog, Transition } from "@headlessui/react";
@@ -277,17 +277,17 @@ const ChefDetails = ({ params }) => {
               className="chefDishes-bg rounded-[15px] relative 2xl:h-[529px] xl:h-[360px] h-[280px] 2xl:pt-[295px] xl:pt-[200px] lg:pt-[155px] pt-[120px]"
               style={{ backgroundImage: `url(${bannerImage})` }}
             >
-              <div className="overflow-y-scroll border flex gap-5 2xl:w-[1414px] xl:w-[1000px] lg:w-[750px] w-[90%] h-[200px] xl:h-[300px] rounded-[15px] bg-white mx-auto 2xl:p-[50px] xl:p-[20px] p-[15px] chefdishWB">
+              <div className="overflow-y-scroll border flex gap-5 2xl:w-[1414px] xl:w-[1000px] lg:w-[750px] w-[90%] h-[200px] xl:h-[220px] 2xl:h-[300px] rounded-[15px] bg-white mx-auto 2xl:p-[50px] xl:p-[20px] p-[15px] chefdishWB">
                 <div className="2xl:w-[154px] xl:w-[80px] w-[60px]">
-                  <div className="2xl:w-[154px]">
+                  <div className="2xl:w-[154px] xl:w-[80px] w-[60px]">
                     <img src={getAChef?.images} className="w-full rounded-full 2xl:w-[154px] 2xl:h-[154px] object-cover" />
                   </div>
                   <div className="flex justify-center 2xl:gap-5 xl:gap-2 gap-1 2xl:my-[20px] xl:my-[10px] my-[5px]">
                     <a href={getAChef?.Facebook_Link} target="_blank">
-                      <Image src={fb} className="xl:w-[35px] w-[15px]" />
+                      <Image src={fb} className="2xl:w-[35px] xl:w-[30px] w-[15px]" />
                     </a>
                     <a href={getAChef?.Instagram_Link} target="_blank">
-                      <Image src={insta} className="xl:w-[35px] w-[15px]" />
+                      <Image src={insta} className="2xl:w-[35px] xl:w-[30px] w-[15px]" />
                     </a>
                   </div>
                 </div>
@@ -307,7 +307,7 @@ const ChefDetails = ({ params }) => {
 Meals prepared
 </p>
 </div> */}
-                    <div className="2xl:w-[197px] 2xl:h-[37px] xl:w-[140px] xl:h-[30px] w-[130px] h-[25px bg-[#F3F3F3] flex justify-around items-center">
+                    <div className="2xl:w-[120px] 2xl:h-[37px] xl:w-[110px] xl:h-[30px] w-[90px] h-[25px bg-[#F3F3F3] flex justify-center gap-1 xl:gap-2 items-center py-1 ">
                       <Image src={cook2} className="w-[17px]" />
                       <p className="fourth_day">Certified</p>
                       {/* <p className="fourth_day text-[#838383]">Food safety</p> */}
@@ -315,7 +315,7 @@ Meals prepared
                   </div>
                   <div className="flex gap-[50px] 2xl:my-[30px] xl:my-[20px] my-[10px]">
                     <div className=" ">
-                      <div className="fourth_p text-[#555555]">
+                      <div className="checkoutlable text-[#555555]">
                         <h2
                           dangerouslySetInnerHTML={{ __html: getAChef?.bio }}
                         />

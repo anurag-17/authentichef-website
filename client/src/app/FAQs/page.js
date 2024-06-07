@@ -176,7 +176,7 @@ const FAQs = () => {
       <section>
         <Navbar />
 
-        <div className="custom_container 2xl:pt-[150px]  xl:pt-[120px]  pt-[70px]  mnavbar">
+        <div className="custom_container 2xl:pt-[160px] xl:pt-[120px] md:pt-[90px] pt-[75px]  mnavbar">
           <div className="">
             <div className=" mx-auto text-center ">
               <h1 className="faqhead text-[#000000] alata font-[400] 2xl:text-[55px] xl:text-[40px] lg:text-[30px] md:text-[30px] xs:text-[25px]">
@@ -189,14 +189,14 @@ const FAQs = () => {
           </div>
           <div className="bg-[#F38181] text-white mx-auto 2xl:w-[1129px] xl:w-[700px]  lg:w-[550px] sm:w-[] w-[] 2xl:h-[210px] flex items-center 2xl:px-[30px] xl:px-[20px] lg:px-[15px] sm:px-[10px] px-[] 2xl:mt-[30px] xl:mt-[20px] lg:mt-[10px] sm:mt-[10px] mt-[] py-[12px] xl:py-[15px] 2xl:py-0">
             <div className="">
-              <h4 className=" xs:text-[15px] alata font-[400] xs:center xs:mx-5 2xl:text-[20px] xl:text-[20px] md:text-[18px] sm:text-[15px]">
+              <h4 className=" xs:text-[15px] alata font-[400] xs:center xs:mx-5 2xl:text-[20px] xl:text-[20px] md:text-[14px] sm:text-[15px]">
                 What makes authentichef different from other food delivery
                 companies?
               </h4>
-              <h2 className="seven_p2 xs:text-[15px] sm:text-[15px] alata font-[400]  2xl:text-[18px] xl:text-[18px] xs:center xs:mx-5 xs:my-2 md:my-2 md:text-[18px]">
+              <h2 className="seven_p2 xs:text-[15px] sm:text-[15px] alata font-[400]  2xl:text-[18px] xl:text-[14px] xs:center xs:mx-5 xs:my-2 md:my-2 md:text-[18px]">
                 We believe food is not just a need; they’re journeys.
               </h2>
-              <p className="2xl:w-[981px] xl:w-[] lg:w-[]  sm:w-[] w-[] alata font-[400] seven_p2 xs:text-[15px] 2xl:text-[18px] xl:text-[18px] xs:center xs:mx-5 xs:my-2 md:my-2 md:text-[18px] xl:leading-5 2xl:leading-[30px] md:leading-5 sm:text-[15px] ">
+              <p className="2xl:w-[981px] xl:w-[] lg:w-[]  sm:w-[] w-[] alata font-[400] seven_p2 xs:text-[15px] 2xl:text-[18px] xl:text-[14px] xs:center xs:mx-5 xs:my-2 md:my-2 md:text-[14px] xl:leading-5 2xl:leading-[30px] md:leading-5 sm:text-[15px] ">
                 We connect you with delicious, authentic dishes from around the
                 world, handcrafted by passionate independent chefs in the UK.
                 Each dish is a culinary adventure, inspired by traditional
@@ -275,7 +275,7 @@ const FAQs = () => {
                         </div>
                         {openIndex === `delivery-${index}` && (
                           <div className="collapse-content xs:px-0">
-                            <p className="faqA">{item.answer}</p>
+                            <p className="fourth_p">{item.answer}</p>
                           </div>
                         )}
                       </div>
@@ -354,7 +354,7 @@ const FAQs = () => {
                         </div>
                         {openIndex === `ordering-${index}` && (
                           <div className="collapse-content xs:px-0">
-                            <p className="faqA">{item.answer}</p>
+                            <p className="fourth_p">{item.answer}</p>
                           </div>
                         )}
                       </div>
@@ -428,7 +428,7 @@ const FAQs = () => {
                         </div>
                         {openIndex === `dish-${index}` && (
                           <div className="collapse-content xs:px-0">
-                            <p className="faqA">{item.answer}</p>
+                            <p className="fourth_p">{item.answer}</p>
                           </div>
                         )}
                       </div>
@@ -499,7 +499,7 @@ const FAQs = () => {
                         </div>
                         {openIndex === `data4-${index}` && (
                           <div className="collapse-content xs:px-0">
-                            <p className="faqA w-[94%]">
+                            <p className="fourth_p w-[94%]">
                               {item.answer}
                               {item.question ===
                                 "What days do you deliver?" && (
@@ -672,7 +672,7 @@ const FAQs = () => {
                         </div>
                         {openIndex === `data5-${index}` && (
                           <div className="collapse-content xs:px-0">
-                            <p className="faqA">{item.answer}</p>
+                            <p className="fourth_p">{item.answer}</p>
                           </div>
                         )}
                       </div>

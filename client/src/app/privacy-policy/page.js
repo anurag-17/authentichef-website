@@ -5,13 +5,13 @@ import Navbar from "../navbar";
 
 const PrivacyPolicy = () => {
   return (
-    <>  
+    <>
       <section>
         <Navbar />
-        <div className="2xl:w-[1600px] mnavbar alata xl:w-[1100px] lg:w-[850px]  md:w-[747px] xs:w-[90%] sm:w-[93%]  mx-auto 2xl:pt-[120px]  xl:pt-[100px] lg:pt-[80px] md:pt-[60px] xs:pt-[60px] sm:pt-[60px] mnavbar">
-          <div>
-          <h1 className="third_head mb-7 alata 2xl:pt-[30px]  2xl:mb-7   xl:mb-6 lg:mb-5 md:mb-4 sm:mb-4 xs:mb-4 xs:items-center xs:justify-center">
-              PRIVACY POLICY
+        <div className="2xl:w-[1600px] mnavbar alata xl:w-[1100px] lg:w-[850px]  md:w-[747px] xs:w-[90%] sm:w-[93%]  mx-auto 2xl:pt-[160px] xl:pt-[120px] md:pt-[90px] pt-[75px] mnavbar">
+          <div className="pb-[10px] 2xl:pb-[30px]">
+            <h1 className="third_head mb-7 alata  2xl:mb-7   xl:mb-6 lg:mb-5 md:mb-4 sm:mb-4 xs:mb-4 xs:items-center xs:justify-center">
+              Privacy Policy
             </h1>
 
             <p className="footer_text mb-7 2xl:mb-10">
@@ -45,8 +45,8 @@ const PrivacyPolicy = () => {
               NOT TO CONTINUE USING THE WEBSITE ANY LONGER.
             </p>
 
-            <h3 className="mb-2 privacyHead font-[400]">
-              1. TYPES OF PERSONAL DATA WE COLLECT
+            <h3 className="mb-2 privacyHead font-[400] capitalize">
+              1. Types of personal data we collect
             </h3>
 
             <p className="footer_text mb-7 2xl:mb-10">
@@ -112,7 +112,8 @@ const PrivacyPolicy = () => {
               <li className="footer_text mb-7 2xl:mb-10">
                 {" "}
                 <span className="font-semibold">
-                  Marketing and Communications Data </span>   
+                  Marketing and Communications Data{" "}
+                </span>
                 which includes your preferences in receiving marketing from us
                 and our third parties including information about the kind of
                 adverts that we believe you are most likely to be interested in.
@@ -158,9 +159,10 @@ const PrivacyPolicy = () => {
               or about a child under 13 years, please email us at
               support@authentichef.com
             </p>
-            <h3 className="mb-2 privacyHead font-[400]">
-              2. HOW WE USE YOUR PERSONAL DATA
+            <h3 className="mb-2 privacyHead font-[400] capitalize">
+              How we use your personal data
             </h3>
+
             <p className="footer_text mb-7 2xl:mb-10">
               Having accurate information about you permits us to provide you
               with a smooth, efficient, and customised service. In this section,
@@ -317,8 +319,8 @@ const PrivacyPolicy = () => {
               </div>
             </div>
 
-            <h3 className="mb-2 privacyHead font-[400] mt-10">
-              3. HOW WE SHARE YOUR PERSONAL DATA
+            <h3 className="mb-2 privacyHead font-[400]  mt-10 capitalize">
+              3.How we share your personal data
             </h3>
             <p className="footer_text mb-7 2xl:mb-10">
               We may share certain personal data that we have collected about
@@ -333,9 +335,7 @@ const PrivacyPolicy = () => {
               data analysis, email delivery, hosting services, customer service,
               and marketing assistance.
             </p>
-            <h4 className="privacyHead mb-2">
-              b. Third-Party Advertisers
-            </h4>
+            <h4 className="privacyHead mb-2">b. Third-Party Advertisers</h4>
             <p className="footer_text mb-7 2xl:mb-10">
               We may use third-party advertising companies to serve ads when you
               visit the Website. These companies may use information about your
@@ -343,9 +343,7 @@ const PrivacyPolicy = () => {
               cookies in order to provide advertisements about goods and
               services that may be of interest to you.
             </p>
-            <h4 className="privacyHead mb-2 ">
-              c. Marketing Communications
-            </h4>
+            <h4 className="privacyHead mb-2 ">c. Marketing Communications</h4>
             <p className="footer_text mb-7 2xl:mb-10">
               With your informed consent (opt-in) we may share your information
               with third parties for marketing purposes, as permitted by law.
@@ -372,15 +370,14 @@ const PrivacyPolicy = () => {
               so we can ensure that there are adequate controls in place in
               accordance with applicable laws.
             </p>
-            <h3 className="mb-2 privacyHead font-[400]">
-              4. USE OF COOKIES
-            </h3>
+            <h3 className="mb-2 privacyHead font-[400] capitalize">4. Use of cookies</h3>
             <p className="footer_text mb-7 2xl:mb-10">
               Please go through our Cookies Policy to know more about our usage
               of cookies and other tracking technologies in the Website.
             </p>
-            <h3 className="mb-2 privacyHead font-[400]">
-              5. PERSONAL DATA STORAGE AND SECURITY
+            <h3 className="mb-2 privacyHead font-[400] capitalize">
+              5. Personal data storage and security
+
             </h3>
             <p className="footer_text mb-7 2xl:mb-10">
               The personal data which we hold will be held securely in
@@ -397,8 +394,9 @@ const PrivacyPolicy = () => {
               you to serious risk. We will never collect sensitive information
               about you without your explicit and informed consent.
             </p>
-            <h3 className="mb-2 privacyHead font-[400]">
-              6. PERSONAL DATA RETENTION AND TRANSFER
+            <h3 className="mb-2 privacyHead font-[400] capitalize">
+              6. Personal data retention and transfer
+
             </h3>
             <p className="footer_text mb-7 2xl:mb-10">
               Our retention periods for personal data are based on business
@@ -424,7 +422,8 @@ const PrivacyPolicy = () => {
               protection that is at least comparable to that provided under the
               applicable laws.
             </p>
-            <h3 className="mb-2 privacyHead font-[400]">7. YOUR RIGHTS</h3>
+            <h3 className="mb-2 privacyHead font-[400] capitalize">7. Your rights
+</h3>
             <p className="footer_text mb-7 2xl:mb-2">
               Under the applicable privacy laws including GDPR, you possess a
               number of rights in relation to your personal data. These rights
@@ -532,8 +531,8 @@ const PrivacyPolicy = () => {
               </li>
             </ul>
 
-            <h3 className="font-semibold my-5 2xl:mt-10 2xl:mb-1 2xl:text-[35px]">
-              COOKIES POLICY
+            <h3 className="font-semibold my-5 2xl:mt-10 2xl:mb-1 2xl:text-[35px] capitalize">
+              Cookies Policy
             </h3>
 
             <p className="footer_text mb-7 2xl:mb-10">
@@ -547,9 +546,8 @@ const PrivacyPolicy = () => {
               informed of updates.
             </p>
 
-            <h3 className="mb-2 privacyHead font-[400]">
-              1. WHAT ARE COOKIES
-            </h3>
+            <h3 className="mb-2 privacyHead font-[400] capitalize">1. What are cookies
+</h3>
             <p className="footer_text mb-7 2xl:mb-10">
               Cookies are text files containing small amounts of information
               which are downloaded to your computer or mobile device when you
@@ -605,8 +603,9 @@ const PrivacyPolicy = () => {
               button.
             </p>
 
-            <h3 className="mb-2 privacyHead font-[400]">
-              2. THE TYPES OF COOKIES WE USE
+            <h3 className="mb-2 privacyHead font-[400] capitalize">
+            2. The types of cookies we use
+
             </h3>
             <p className="footer_text mb-7 2xl:mb-10">
               Below is a list of the main cookies we use on our Website and a
@@ -653,17 +652,17 @@ const PrivacyPolicy = () => {
               identifying your browser and internet device.
             </p>
 
-            <h3 className="mb-2 privacyHead font-[400]">
-              3. OTHER TRACKING TECHNOLOGIES
+            <h3 className="mb-2 privacyHead font-[400] capitalize">
+              3. Other tracking technologies
             </h3>
             <p className="footer_text mb-7 2xl:mb-10">
               In addition to the different types of cookies mentioned above, we
               may use other, similar technologies from time to time, like web
-              beacons (sometimes called tracking pixels or clear gifs).
-              These are tiny graphics files that contain a unique identifier
-              that enable us to recognise when someone has visited our Website
-              or opened an e-mail including them. This allows us, for example,
-              to monitor the traffic patterns of users from one page within the
+              beacons (sometimes called tracking pixels or clear gifs). These
+              are tiny graphics files that contain a unique identifier that
+              enable us to recognise when someone has visited our Website or
+              opened an e-mail including them. This allows us, for example, to
+              monitor the traffic patterns of users from one page within the
               Website to another, to deliver or communicate with cookies, to
               understand whether you have come to the Website from an online
               advertisement displayed on a third-party website, to improve
@@ -673,8 +672,9 @@ const PrivacyPolicy = () => {
               will impair their functioning.
             </p>
 
-            <h3 className="mb-2 privacyHead font-[400]    ">
-              4. HOW TO CONTROL OR DELETE COOKIES
+            <h3 className="mb-2 privacyHead font-[400] capitalize   ">
+              4. How to control or delete cookies
+
             </h3>
             <p className="footer_text mb-7 2xl:mb-10">
               If you do not want to receive cookies, you can modify your browser
@@ -703,7 +703,7 @@ const PrivacyPolicy = () => {
               websites which may be linked to or accessible through our Website.
             </p>
             <p className="footer_text mb-7 2xl:mb-10">
-              If you have any further questions, comments or requests regarding 
+              If you have any further questions, comments or requests regarding
               this Cookies Policy, please email us at support@authentic
               chef.com.
             </p>

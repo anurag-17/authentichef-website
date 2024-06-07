@@ -10,8 +10,8 @@ const GlobalCusines = () => {
       <section>
         <Navbar />
 
-        <div className="2xl:pt-[116px] xl:pt pt-[50px]">
-          <div className="2xl:w-[859px]  xl:text-[50px] lg:text-[60px] lg:w-[] sm:w-[] w-[] text-center mx-auto 2xl:pt-[90px] xl:pt-[60px] pt-[30px]">
+        <div className="">
+          <div className="2xl:w-[859px]  xl:text-[50px] lg:text-[60px] lg:w-[] sm:w-[] w-[] text-center mx-auto 2xl:pt-[160px] xl:pt-[120px] md:pt-[90px] pt-[75px]">
             <h1 className="globalhead lg:text-[30px] 2xl:text-[55px] xl:text-[40px]">
               Homemade. Authentic Flavours,
               <br></br>
