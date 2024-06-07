@@ -668,7 +668,7 @@ const LandingPage = () => {
                         </Link>
                       </p>
                       <h3 className="seven_h2 text-[#DB5353] 2xl:mt-[20px] xl:mt-[10px] lg:mt-[8px]">
-                      {item?.name}
+                        {item?.name}
                       </h3>
                       <h4 className="seven_h2">{item?.name}</h4>
                     </div>

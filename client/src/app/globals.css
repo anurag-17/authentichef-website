@@ -442,7 +442,7 @@ td {
 }
 
 .pop-head {
-  @apply alata font-[400] 2xl:text-[30px] 2xl:leading-[40px] lg:text-[20px] md:text-[18px] xl:leading-[28px] text-[16px] leading-[24px]
+  @apply alata font-[400] 2xl:text-[45px] 2xl:leading-[55px] lg:text-[30px] md:text-[25px] xl:text-[45px] xl:leading-[55px] text-[16px] leading-[24px]
 }
 
 .pop-chef {
@@ -782,7 +782,7 @@ td {
 }
 
 .faqhead {
-  @apply alata font-[400] 2xl:text-[55px] xl:text-[45px] lg:text-[30px] sm:text-[30px] text-[24px] 2xl:leading-[85px] xl:leading-[55px] lg:leading-[40px] sm:leading-[40px] leading-[normal]
+  @apply alata font-[400] 2xl:text-[55px] xl:text-[45px] lg:text-[30px] sm:text-[30px] text-[24px] 2xl:leading-[65px] xl:leading-[55px] lg:leading-[40px] sm:leading-[40px] leading-[normal]
 }
 
 .aboutHead {
@@ -1020,4 +1020,8 @@ td {
   .max-w-calc {
     max-width: calc(100vw - 2rem);
   }
+}
+
+.collapse-content{
+  @apply w-[93%]
 }

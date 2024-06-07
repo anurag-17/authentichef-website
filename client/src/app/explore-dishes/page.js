@@ -694,8 +694,8 @@ const ExploreDishes = () => {
         <div class="2xl:pt-[100px] xl:pt-[90px] pt-[60px] pb-[30px]">
           <div class="main_section custom_container mt-auto mnavbar xl:py-[40px] lg:py-[40px]">
             <div class="flex justify-between flex-col lg:flex-row   ">
-              <div class=" lg:mb-0 md:mb-4 lg  lg:text-[2.25rem]  md:w-[30%] xs:text-[1.875rem] sm:text-[2.25rem] md:text-[29px]">
-                <h1 className="nine_head lg:mb-4 alata font-[400] 2xl:text-[55px] lg:text-left  text-center whitespace-nowrap SelectCuisine">
+              <div class=" flex items-center lg:mb-0 lg:text-[2.25rem]  md:w-[30%] xs:text-[1.875rem] sm:text-[2.25rem] md:text-[29px]">
+                <h1 className="nine_head  alata font-[400] 2xl:text-[45px] lg:text-left  text-center whitespace-nowrap SelectCuisine">
                   {/* 
         <div class="2xl:pt-[130px] xl:pt-[90px] pt-[60px] ">
           <div class="main_section 2xl:w-[1600px] xl:w-[1200px] md:w-[811px]  m-auto mt-auto mnavbar 2xl:py-[40px] xl:py-[30px] lg:py-[20px]">
@@ -705,7 +705,7 @@ const ExploreDishes = () => {
                   Select Cuisine
                 </h1>
               </div>
-              <div className="mnavbar sm:pt-[12px] sm:pb-[4px] 2xl:pt-[21px] md:pt-[9px] md:w-[700px]  2xl:py-[60px] xl:py-[10px] lg:pt-[7px] lg:pb-[40px]  py-[10px] xs:py-[10px] ">
+              <div className="mnavbar md:w-[700px]  2xl:py-[20px] xl:py-[10px] lg:py-[7px] py-[10px] ">
                 {/* <div className="mnavbar sm:pt-[12px] sm:pb-[4px] 2xl:pt-[21px] md:pt-[9px] md:w-[820px]   "> */}
                 {/* 2xl:py-[60px] xl:py-[10px] lg:pt-[7px] lg:pb-[40px]  py-[40px] xs:py-[10px] */}
 
@@ -1126,13 +1126,12 @@ const ExploreDishes = () => {
                       onClick={() => handleSearchCuisines(item._id)}
                       className="mcusinimgs buttonHov"
                     >
-                      {" "}
                       <img
                         src={item.ProfileImage}
-                        className="rounded-[5px] 2xl:w-[103px] 2xl:h-[103px] xl:w-[80px] xl:h-[80px] lg:w-[70px] lg:h-[70px] w-[65px] xss:w-[60px] mcusinimg hover:opacity-[0.5] mx-auto md:mx-0"
+                        className="rounded-[5px] 2xl:w-[103px] 2xl:h-[103px] xl:w-[73px] xl:h-[73px] lg:w-[70px] lg:h-[70px] w-[65px] xss:w-[60px] mcusinimg hover:opacity-[0.5] mx-auto "
                         alt="cuisine-india"
                       />
-                      <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-[10px] 2xl:text-[15px] xl:text-[14px] md:text-[10px] mt-1 md:mt-3">
+                      <h4 class="alata font-[400] sm:text-[11px] text-center text-[#000] text-[10px] 2xl:text-[15px] xl:text-[12px] text-[10px] mt-1 md:mt-3">
                         {item.title}
                       </h4>
                     </button>
