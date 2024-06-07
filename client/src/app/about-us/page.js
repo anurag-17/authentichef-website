@@ -20,12 +20,12 @@ const AboutUs = () => {
         <div className="2xl:pt-[116px] xl:pt pt-[40px] aboutusmain">
           <div className="aboutUsBanner lg:h-[100%] md:h-[50%]  sm:h-[40%] xs:h-[400px] h-auto md:block flex flex-col justify-center items-center">
             <div className="2xl:w-[905px] xl:w-[540px] lg:w-[390px] md:w-[400px] w-[300px] text-center mx-auto">
-              <h1 className="faqhead text-white 2xl:pt-[165px] xs:px-[20px] sm:px-[30px] xl:pt-[110px] lg:pt-[80px] md:pt-[60px] sm:pt-[40px] xs:pt-[30px] pb-[10px] aboutusmaintext">
+              <h1 className="faqhead capitalize text-white 2xl:pt-[165px] xs:px-[20px] sm:px-[30px] xl:pt-[110px] lg:pt-[80px] md:pt-[60px] sm:pt-[40px] xs:pt-[30px] pb-[10px] aboutusmaintext">
                 At authentichef, we see homemade meals as more than just food;
                 they <span className="text-[#F38181]">journeys</span>
               </h1>
               <div className="2xl:w-[635px] xl:w-[460px] xs:px-[10px] w-full  sm:px-[30px] text-center mx-auto 2xl:mt-[30px] xl:mt-[15px] mt-[10px] xl:pt-[20px] pt-[10px]">
-                <p className="pop-head text-white  2xl:pb-[300px] md:pb-[80px] pb-[20px]">
+                <p className="become-head  text-white  2xl:pb-[300px] md:pb-[80px] pb-[20px] 2xl:w-[635px] xl:w-[85%] mx-auto">
                   A journey that takes us from the comforts of our childhood
                   memories to the excitement of exploring new flavors from
                   around the world.
@@ -34,7 +34,7 @@ const AboutUs = () => {
             </div>
           </div>
 
-          <div className="bg-[#FFE8E8] 2xl:h-[937px] flex items-center justify-center ">
+          <div className="bg-[#FFE8E8] 2xl:h-[937px] flex items-center justify-center 2xl:py-[0px] xl:py-[50px] py-[40px] ">
             <div className="text-center 2xl:w-[1293px] xl:w-[870px] lg:w-[600px] sm:w-[] w-[]  mx-auto md:px-0 px-[20px]">
               <h4 className=" nine_head">The Ever-Growing Problem</h4>
               <p className="aboutPara 2xl:mt-[50px] xl:mt-[30px] mt-[15px]">
@@ -181,7 +181,7 @@ const AboutUs = () => {
 
           <div className="bg-[#FFE8E8]  flex justify-center 2xl:py-[80px] xl:py-[60px] md:py-[50px] sm:px-[30px]  py-[30px] ">
             <div className="text-center 2xl:w-[1293px] xl:w-[870px] lg:w-[600px] w-full mx-auto  md:px-0 px-[20px]">
-              <h4 className="nine_head">
+              <h4 className="nine_head capitalize">
                 <span>Diversity, Equity and Inclusion</span>
               </h4>
               <p className="aboutPara 2xl:mt-[50px] xl:mt-[30px] mt-[15px]">

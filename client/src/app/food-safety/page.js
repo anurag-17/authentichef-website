@@ -15,10 +15,10 @@ const FoodSefty = () => {
       <section>
         <Navbar />
 
-        <div className="flex justify-center xl:pt-28 lg:pt-14 md:pt-8 pt-5 border-b-[1px] border-[#B1B1B1]">
-          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[800px] w-full flex items-center flex-col-reverse lg:flex-row mnavbar 2xl:py-[135px] xl:py-[80px] py-[40px]">
+        <div className="flex justify-center 2xl:pt-[110px] xl:pt-[80px] lg:pt-[50px] sm:pt-[45px] pt-12 border-b-[1px] border-[#B1B1B1]">
+          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[800px] w-full flex items-center flex-col-reverse lg:flex-row mnavbar 2xl:py-[60px] xl:py-[40px] py-[40px]">
             <div className="mx-4 sm:w-1/2 sm:mx-auto lg:mx-0">
-              <h1 className="alata font-[400] 2xl:text-[45px] 2xl:leading-[55px] 2xl:w-[695px] xl:text-[30px] xl:leading-[35px] xl:w-[450px] lg:text-[22px] lg:leading-[30px] lg:w-[340px] sm:text-[16px] text:[12px] sm:leading-[24px]">
+              <h1 className="alata capitalize font-[400] 2xl:text-[45px] 2xl:leading-[55px] 2xl:w-[695px] xl:text-[30px] xl:leading-[35px] xl:w-[450px] lg:text-[22px] lg:leading-[30px] lg:w-[340px] sm:text-[16px] text:[12px] sm:leading-[24px]">
                 The safety and well-being of our chef community and customers
                 are our top priority
               </h1>
