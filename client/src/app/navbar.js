@@ -286,6 +286,27 @@ const Navbar = () => {
     }
   }, [cartId, getCartItems]);
 
+
+  const postCartToApi = async (menuItem, token, cartId) => {
+    try {
+      const response = await fetch(`${config.baseURL}/api/Orders/AddtoCart`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+        body: JSON.stringify(menuItem),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to post cart data");
+      }
+      return await response.json();
+    } catch (error) {
+      console.error("Error posting cart data:", error);
+      throw error;
+    }
+  };
+
   const defaultCartItems = () => {
     const option = {
       method: "GET",

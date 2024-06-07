@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import axios from 'axios';
+import axios from "axios";
+import config from "@/config";
+import { useSelector } from "react-redux";
 
 // Helper function to load state from localStorage
 const loadState = () => {
@@ -15,27 +17,28 @@ const loadState = () => {
 };
 
 // Function to post cart data to the API
-const postCartToApi = async (cartData, cartId) => {
+const postCartToApi = async (menuItem, token, cartId) => {
   try {
-    const response = await fetch(`http://localhost:4000/api/Orders/AddtoCart`, {
-      method: 'POST',
+    const response = await fetch(`${config.baseURL}/api/Orders/AddtoCart`, {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
+        Authorization: token,
       },
-      body: JSON.stringify(cartData),
+      body: JSON.stringify(menuItem),
     });
     if (!response.ok) {
-      throw new Error('Failed to post cart data');
+      throw new Error("Failed to post cart data");
     }
     return await response.json();
   } catch (error) {
-    console.error('Error posting cart data:', error);
+    console.error("Error posting cart data:", error);
     throw error;
   }
 };
 
 // Helper function to save state to localStorage and post to API
-const saveState = async (state, cartId) => {
+const saveState = async (state) => {
   try {
     const stateToSave = {
       message: "Cart",
@@ -51,16 +54,19 @@ const saveState = async (state, cartId) => {
     const serializedState = JSON.stringify(stateToSave);
     localStorage.setItem("cart", serializedState);
 
-    // Post the cart data to the API
-    const cartData = {
-      items: state.cart.map((item) => ({
-        menuItem: item.data._id, // Use item ID here
-        quantity: item.quantity,
-      })),
-    };
-    await postCartToApi(cartData, cartId);
+    // Post the cart data to the API if the token is available
+    if (state.token) {
+      const cartData = {
+        items: state.cart.map((item) => ({
+          menuItem: item.data._id, // Use item ID here
+          quantity: item.quantity,
+        })),
+      };
+      const response = await postCartToApi(cartData, state.token, state.cartId);
+      return response;
+    }
   } catch (err) {
-    console.error('Error saving state:', err);
+    console.error("Error saving state:", err);
     // Ignore write errors.
   }
 };
@@ -69,6 +75,8 @@ const initialState = loadState()?.userCart || {
   cart: [],
   totalQuantity: 0,
   totalAmount: 0,
+  token: null,
+  cartId: null,
 };
 
 const dishSlice = createSlice({
@@ -94,7 +102,7 @@ const dishSlice = createSlice({
         state.totalAmount += (itemToAdd.quantity || 1) * itemToAdd.data.price;
       }
 
-      saveState(state, state.cartId);
+      saveState(state);
     },
     incrementCartItemQuantity: (state, action) => {
       const itemId = action.payload;
@@ -103,7 +111,7 @@ const dishSlice = createSlice({
         item.quantity += 1;
         state.totalQuantity += 1;
         state.totalAmount += item.data.price;
-        saveState(state, state.cartId);
+        saveState(state);
       }
     },
     decrementQuantity: (state, action) => {
@@ -113,12 +121,12 @@ const dishSlice = createSlice({
         item.quantity -= 1;
         state.totalQuantity -= 1;
         state.totalAmount -= item.data.price;
-        saveState(state, state.cartId);
+        saveState(state);
       } else if (item && item.quantity === 1) {
         state.cart = state.cart.filter((item) => item.data._id !== itemId);
         state.totalQuantity -= 1;
         state.totalAmount -= item.data.price;
-        saveState(state, state.cartId);
+        saveState(state);
       }
     },
     removeItemFromCart: (state, action) => {
@@ -135,20 +143,24 @@ const dishSlice = createSlice({
       state.cart = state.cart.filter(
         (item) => item.data._id !== itemIdToRemove
       );
-      saveState(state, state.cartId);
+      saveState(state);
     },
     clearCart: (state) => {
       state.cart = [];
       state.totalQuantity = 0;
       state.totalAmount = 0;
-      saveState(state, state.cartId);
+      saveState(state);
     },
     setCartData: (state, action) => {
       state.cart = action.payload.cartItems;
       state.totalQuantity = action.payload.totalQuantity;
       state.totalAmount = action.payload.totalAmount;
       state.cartId = action.payload.cartId;
-      saveState(state, state.cartId);
+      saveState(state);
+    },
+    setToken: (state, action) => {
+      state.token = action.payload;
+      saveState(state);
     },
   },
 });
@@ -161,6 +173,7 @@ export const {
   removeItemFromCart,
   clearCart,
   setCartData,
+  setToken,
 } = dishSlice.actions;
 
 export default dishSlice.reducer;
