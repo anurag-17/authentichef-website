@@ -8,10 +8,11 @@ const TermCondition = () => {
     <>
       <section>
         <Navbar />
-        <div className="2xl:w-[1600px] mnavbar alata xl:w-[1100px] lg:w-[850px]  md:w-[747px] xs:w-[90%] sm:w-[93%]  mx-auto 2xl:pt-[120px]  xl:pt-[100px] lg:pt-[80px] md:pt-[60px] xs:pt-[60px] sm:pt-[60px] mnavbar">
-          <div>
-          <h1 className="third_head mb-7 alata 2xl:pt-[30px]  2xl:mb-7   xl:mb-6 lg:mb-5 md:mb-4 sm:mb-4 xs:mb-4 xs:items-center xs:justify-center">
-            TERMS AND CONDITIONS
+        <div className="2xl:w-[1600px] mnavbar alata xl:w-[1100px] lg:w-[850px] md:w-[747px] xs:w-[90%] sm:w-[93%] mx-auto 2xl:pt-[160px] xl:pt-[120px] md:pt-[90px] pt-[75px] mnavbar">
+        <div className="pb-[10px] 2xl:pb-[30px]">
+
+          <h1 className="third_head mb-7 alata ]  2xl:mb-7   xl:mb-6 lg:mb-5 md:mb-4 sm:mb-4 xs:mb-4 xs:items-center xs:justify-center capitalize">
+          Terms and Conditions
             </h1>
             <p className="footer_text mb-7 2xl:mb-10">
               The Website www.authentichef.com and/or any other URL which
@@ -30,7 +31,14 @@ const TermCondition = () => {
               CONDITIONS, YOU ARE ADVICED NOT TO CONTINUE USING THIS WEBSITE ANY
               LONGER.
             </p>
-            <h3 className=" mb-2 privacyHead font-[400]">1. ABOUT AUTHENTICHEF</h3>
+            <h3 className=" mb-2 privacyHead font-[400]">1. About AuthentiChef
+
+
+
+
+
+
+</h3>
             <p className=" footer_text mb-7 2xl:mb-10 ">
               Authentichef is an online platform which connects independent
               chefs (hereinafter referred to as “Chefs”) with consumers
@@ -45,9 +53,10 @@ const TermCondition = () => {
               options, personalised recommendations, and a seamless ordering and
               payment process to enhance user experience, as per the terms and
               conditions mentioned below.
-            </p>
-            <h3 className=" mb-2 privacyHead font-[400]">
-              2. REGISTRATION OF USER ACCOUNT
+            </p> 
+            <h3 className=" mb-2 privacyHead font-[400] capitalize">
+              2. 
+              Registration of user account
             </h3>
             <p className="footer_text mb-7 2xl:mb-10">
               In order to successfully use Authentichef as a Customer, you must
@@ -69,8 +78,9 @@ const TermCondition = () => {
               cannot and will not be liable for any loss or damage arising from
               your failure to comply with the above requirements.
             </p>
-            <h3 className=" mb-2 privacyHead font-[400]">
-              3. DUTIES AND OBLIGATIONS OF CUSTOMERS
+            <h3 className=" mb-2 privacyHead font-[400] capitalize">
+              3. 
+              Duties and Obligations of Customers
             </h3>
             <p className="footer_text mb-7 2xl:mb-10">
               By using the Authentichef Website, the Customers agree that they
@@ -81,9 +91,9 @@ const TermCondition = () => {
               delivery address, and any special instructions, are accurately
               provided to Authentichef during the ordering process
             </p>
-            <h3 className=" mb-2 privacyHead font-[400]">
+            <h3 className=" mb-2 privacyHead font-[400] capitalize">
               {" "}
-              4. PAYMENT AND SUBSCRIPTION OPTIONS
+              4. Payment and Subscription Options
             </h3>
             <p className="footer_text mb-7 2xl:mb-10">
               Authentichef adheres to strict industry security standards for
@@ -99,8 +109,9 @@ const TermCondition = () => {
               for any error in any third-party payment gateway under any
               circumstances whatsoever.{" "}
             </p>
-            <h3 className=" mb-2 privacyHead font-[400]">
-              5. FOOD SAFETY AND HYGIENE POLICY
+            <h3 className=" mb-2 privacyHead font-[400] capitalize">
+              5.
+              Food Safety and Hygiene Policy
             </h3>
             <p className="footer_text mb-7 2xl:mb-10">
               At Authentichef, we are committed to upholding the highest
@@ -122,7 +133,7 @@ const TermCondition = () => {
               with the regulatory authorities and law enforcement agencies in
               the event of any food safety incidents or investigation.
             </p>
-            <h3 className=" mb-2 privacyHead font-[400]">6. FOOD DELIVERY POLICY</h3>
+            <h3 className=" mb-2 privacyHead font-[400] capitalize">6. Food Delivery Policy</h3>
             <p className="footer_text mb-7 2xl:mb-10">
               Authentichef is committed to ensuring that your order is safely
               delivered to you in a timely manner. We operate on a dynamic
@@ -138,14 +149,15 @@ const TermCondition = () => {
               work with you and the delivery partner to resolve any issues in a
               fair and timely manner.
             </p>
-            <h3 className=" mb-2 privacyHead ">
-              7. CANCELLATION AND REFUND POLICY
+            <h3 className=" mb-2 privacyHead  capitalize">
+              7.
+              Cancellation and Refund Policy
             </h3>
             <p className="footer_text mb-7 2xl:mb-10">
               Please go through our Refund Policy to know more about
               cancellation and refunds.
             </p>
-            <h3 className=" mb-2 privacyHead font-[400]">8. PERSONAL DATA POLICY</h3>
+            <h3 className=" mb-2 privacyHead font-[400] capitalize">8. Personal Data Policy</h3>
             <p className="footer_text mb-7 2xl:mb-10">
               When you choose to register yourself at the Authentichef Website
               as a Customer or a Chef, or otherwise communicate with us via the
@@ -156,7 +168,8 @@ const TermCondition = () => {
               about how and why Authentichef collects, stores and processes such
               personal data and what are your legal rights regarding the same.
             </p>{" "}
-            <h3 className=" mb-2 privacyHead font-[400]">9. CONTENT POLICY</h3>
+            <h3 className=" mb-2 privacyHead font-[400] capitalize">9. 
+            Content Policy</h3>
             <p className="footer_text mb-7 2xl:mb-10">
               Certain features of the Authentichef Website allow Customers to
               post, link, share, make available certain alphanumeric and textual
@@ -179,8 +192,9 @@ const TermCondition = () => {
               other users, who may also use such User Content subject to these
               Terms and Conditions.
             </p>
-            <h3 className=" mb-2 privacyHead font-[400]">
-              10. ACCEPTABLE USE OF WEBSITE{" "}
+            <h3 className=" mb-2 privacyHead font-[400] capitalize">
+              10.
+              Acceptable Use Of Website
             </h3>
             <p className="footer_text mb-7 2xl:mb-10">
               In order to maximise your user experience in using the Website,
@@ -250,7 +264,8 @@ const TermCondition = () => {
               RISK AND RESPONSIBILITY. By continuing to use and access the
               Website you hereby acknowledge and agree with all of the above.{" "}
             </p>{" "}
-            <h3 className=" mb-2 privacyHead font-[400]">13. DISCLAIMER OF WARRANTIES</h3>
+            <h3 className=" mb-2 privacyHead font-[400] capitalize">13. 
+            Disclaimer of Warranties</h3>
             <p className="footer_text mb-7 2xl:mb-10">
               To the maximum extent permitted by applicable law, Authentichef is
               provided on an as is and as available basis without warranties of
@@ -266,7 +281,7 @@ const TermCondition = () => {
               communication offered by Authentichef will create any warranty for
               this purpose.
             </p>
-            <h3 className=" mb-2 privacyHead font-[400]">14. LIMITATION OF LIABILITY</h3>
+            <h3 className=" mb-2 privacyHead font-[400] capitalize">14. Limitation of Liability</h3>
             <p className="footer_text mb-7 2xl:mb-10">
               Under no circumstances will Authentichef any of its directors,
               shareholders, employees and agents be liable for any incidental,
@@ -283,7 +298,8 @@ const TermCondition = () => {
               Conditions will limit or exclude any liabilities that may not be
               excluded under applicable law.
             </p>
-            <h3 className=" mb-2 privacyHead font-[400]">15. INDEMNIFICATION</h3>
+            <h3 className=" mb-2 privacyHead font-[400] capitalize">15.
+            Indemnification</h3>
             <p className="footer_text mb-7 2xl:mb-10">
               You agree to indemnify, defend and hold harmless Authentichef, its
               officers, directors, employees, agents, licensors, consultants,
@@ -299,8 +315,9 @@ const TermCondition = () => {
               in which event you will offer complete cooperation with
               Authentichef in asserting any available defenses.
             </p>{" "}
-            <h3 className=" mb-2 privacyHead font-[400]">
-              16. THIRD PARTY LINKS AND ADVERTISEMENTS{" "}
+            <h3 className=" mb-2 privacyHead font-[400] capitalize">
+              16. 
+              Third Party Links and Advertisements
             </h3>
             <p className="footer_text mb-7 2xl:mb-10">
               Authentichef may occasionally provide external links and
@@ -319,7 +336,8 @@ const TermCondition = () => {
               own risk and these Terms and Conditions remains no longer
               applicable.{" "}
             </p>
-            <h3 className=" mb-2 privacyHead font-[400]">17. SUSPENSION OF SERVICE</h3>
+            <h3 className=" mb-2 privacyHead font-[400] capitalize">17. 
+            Suspension of Service</h3>
             <p className="footer_text mb-7 2xl:mb-10">
               Authentichef reserves the right to suspend, discontinue or
               otherwise cease providing their service through the Website,
@@ -331,8 +349,9 @@ const TermCondition = () => {
               limitation, intellectual property ownership, warranty disclaimers,
               indemnity and limitations of liability.
             </p>
-            <h3 className=" mb-2 privacyHead font-[400]">
-              18. ELECTRONIC COMMUNICATIONS
+            <h3 className=" mb-2 privacyHead font-[400] capitalize">
+              18. 
+              Electronic Communications
             </h3>
             <p className="footer_text mb-7 2xl:mb-10">
               The communications between you and Authentichef use electronic
@@ -349,7 +368,8 @@ const TermCondition = () => {
               are compliant with the applicable laws including GDPR and the Data
               Protection Act 2018.
             </p>
-            <h3 className=" mb-2 privacyHead font-[400]">19. GENERAL INFORMATION</h3>
+            <h3 className=" mb-2 privacyHead font-[400] capitalize">19. 
+            General Information</h3>
             <p className="footer_text mb-7 2xl:mb-10">
               These Terms and Conditions shall be governed by and construed in
               accordance with the laws of England and Wales. If any provision of

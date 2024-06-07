@@ -248,8 +248,11 @@ const Footer = () => {
                 <Link href="/contact-us">
                   <p className="footer_text">Contact us</p>
                 </Link>
-                <Link href="/chef-radha">
+                {/* <Link href="/chef-radha">
                   <p className="footer_text">Chef Dishes</p>
+                </Link> */}
+                <Link href="/refund-policy">
+                  <p className="footer_text">Refund Policy</p>
                 </Link>
               </div>
             </div>
@@ -286,9 +289,7 @@ const Footer = () => {
                 <Link href="/term-condition">
                   <p className="footer_text">Terms of Service</p>
                 </Link>
-                <Link href="/refund-policy">
-                  <p className="footer_text">Refund Policy</p>
-                </Link>
+              
               </div>
             </div>
             <div className="lg:w-auto  sm:w-[27%] w-[50%] my-3 md:my-4 lg:my-0">

@@ -637,7 +637,7 @@ const LandingPage = () => {
 
         {/* ===================Seven================== */}
 
-        <div className="yellow-bg 2xl:h-[1050px] md:w-full lg:flex justify-center 2xl:pt-[75px] 2xl:pb-[100px] xl:pt-[60px] pt-[25px] xl:pb-[60px] hidden lg:block">
+        <div className="yellow-bg  md:w-full lg:flex justify-center 2xl:pt-[75px] 2xl:pb-[100px] xl:pt-[60px] pt-[25px] xl:pb-[60px] hidden lg:block">
           <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px] mnavbar ">
             <h2 className="seven_head nine_head">Our Chef Community</h2>
             <p className="seven_p">
@@ -668,7 +668,7 @@ const LandingPage = () => {
                         </Link>
                       </p>
                       <h3 className="seven_h2 text-[#DB5353] 2xl:mt-[20px] xl:mt-[10px] lg:mt-[8px]">
-                      {item?.name}
+                        {item?.name}
                       </h3>
                       <h4 className="seven_h2">{item?.name}</h4>
                     </div>
@@ -780,9 +780,7 @@ const LandingPage = () => {
                   </div>
 
                   <p className="nine_p2">
-                    Lorem ipsum dolor sit amet. Ut maxime necessitatibus rem
-                    odio Quis 33 galisum molestias ut voluptas fuga et quia
-                    voluptate ut pariatur aperiam.
+                  Thanks to AuthenticHef, I get to enjoy amazing homemade food without cooking. Every dish is like a taste of home-cooked goodness, making my meals super satisfying.
                   </p>
                   <p className="nine_name">Mayank Jaiswal</p>
                 </div>
@@ -841,9 +839,8 @@ const LandingPage = () => {
                   </div>
 
                   <p className="nine_p2">
-                    Lorem ipsum dolor sit amet. Ut maxime necessitatibus rem
-                    odio Quis 33 galisum molestias ut voluptas fuga et quia
-                    voluptate ut pariatur aperiam.
+                  AuthenticHef's homemade food delivery is a lifesaver for me. It's like having my own chef make yummy dishes that make my taste buds happy.
+
                   </p>
                   <p className="nine_name">Rohit Thakur</p>
                 </div>
@@ -902,9 +899,7 @@ const LandingPage = () => {
                   </div>
 
                   <p className="nine_p2">
-                    Lorem ipsum dolor sit amet. Ut maxime necessitatibus rem
-                    odio Quis 33 galisum molestias ut voluptas fuga et quia
-                    voluptate ut pariatur aperiam.
+                  AuthenticHef sends me delicious homemade meals that take me on a food adventure. It's awesome to enjoy different flavors and cuisines without leaving home.
                   </p>
                   <p className="nine_name">Shubham Sharma</p>
                 </div>
