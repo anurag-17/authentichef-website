@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import Footer from "../footer";
@@ -12,7 +13,6 @@ import order from "./assets/order.svg";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import config from "@/config";
-import { useRouter } from "next/navigation";
 
 const Checkout = () => {
   const { token } = useSelector((state) => state?.auth);
@@ -55,8 +55,9 @@ const Checkout = () => {
   const [discountInfo, setDiscountInfo] = useState(null);
   const [shippingCost, setShippingCost] = useState(0);
   const shippingThreshold = 55;
+  const [paymentMethod, setPaymentMethod] = useState("COD");
+  const [sessionId, setSessionId] = useState("");
 
-  // Define today's date in the format YYYY-MM-DD
   const today = new Date().toISOString().split("T")[0];
 
   const handleInputChange = (e, setInfo, updateBilling = false) => {
@@ -94,6 +95,8 @@ const Checkout = () => {
       return newState;
     });
   };
+
+  const handlePaymentMethodChange = (e) => setPaymentMethod(e.target.value);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -178,6 +181,7 @@ const Checkout = () => {
           Promo_code,
           Delivery_instruction,
           cartItems: updatedCartItems.length ? updatedCartItems : getCartItems,
+          payment_method_types: paymentMethod,
         },
         {
           headers: {
@@ -187,7 +191,14 @@ const Checkout = () => {
       );
       if (response.status >= 200 && response.status < 300) {
         toast.success("Order Placed");
-        router.push("/explore-dishes");
+        const { sessionId, sessionUrl } = response.data;
+        setSessionId(sessionId);
+        console.log("Session ID:", sessionId);
+        if (paymentMethod === "card") {
+          window.location.href = sessionUrl;
+        } else {
+          router.push("/explore-dishes");
+        }
       } else {
         toast.error(response.data.message || "Order Failed");
         console.log("Unexpected response status:", response.status);
@@ -197,6 +208,7 @@ const Checkout = () => {
       console.log("Error:", error);
     }
   };
+  console.log("Session ID:", sessionId);
 
   const defaultCartItems = () => {
     const option = {
@@ -443,7 +455,7 @@ const Checkout = () => {
     }
   };
 
-  useEffect(() => {
+  useEffect(() => { 
     if (subtotalPrice >= shippingThreshold) {
       // Order meets the free delivery threshold
       setRefresh(true);
@@ -840,220 +852,233 @@ const Checkout = () => {
                   </div>
                 </div>
                 {/* =========Right ============ */}
-                <div>
-                  <div className="mx-auto 2xl:w-[597px] xl:w-[395px] lg:w-[350px] md:w-full w-[100%] p-5 border 2xl:mt-[35px] mt-10 lg:mt-0">
-                    <div className="">
-                      <div className="max-h-[250px] overflow-y-scroll">
-                        {Array.isArray(getCartItems) &&
-                          getCartItems.map((item) => (
-                            <div key={item._id}>
-                              <div className="flex justify-between items-center 2xl:my-6 my-2">
-                                <div className="flex items-center gap-2 2xl:gap-4 xl:h-[70px]">
-                                  <img
-                                    src={item?.menuItem?.ProfileImage}
-                                    alt={item?.menuItem?.name}
-                                    className="2xl:w-[83px] 2xl:h-[83px] xl:w-[65px] lg:w-[50px] rounded-[10px]"
+                <div className="mx-auto 2xl:w-[597px] xl:w-[395px] lg:w-[350px] md:w-full w-[100%] p-5 border 2xl:mt-[35px] mt-10 lg:mt-0">
+                  <div className="">
+                    <div className="max-h-[250px] overflow-y-scroll">
+                      {Array.isArray(getCartItems) &&
+                        getCartItems.map((item) => (
+                          <div key={item._id}>
+                            <div className="flex justify-between items-center 2xl:my-6 my-2">
+                              <div className="flex items-center gap-2 2xl:gap-4 xl:h-[70px]">
+                                <img
+                                  src={item?.menuItem?.ProfileImage}
+                                  alt={item?.menuItem?.name}
+                                  className="2xl:w-[83px] 2xl:h-[83px] xl:w-[65px] lg:w-[50px] rounded-[10px]"
+                                />
+                                <div>
+                                  <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[24px] 2xl:leading-[34px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
+                                    {item?.menuItem?.name}
+                                  </h4>
+                                  <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[20px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
+                                    £{item?.menuItem?.price}
+                                  </h4>
+                                </div>
+                              </div>
+                              <div className="flex justify-center 2xl:w-[103px] 2xl:h-[39px] xl:w-[60px] xl:h-[22px] lg:w-[50px] lg:h-[20px] border rounded-[5px]">
+                                <button
+                                  className="text-[#DB5353] rounded-l w-1/3"
+                                  onClick={() => handleDecrement(item._id)}
+                                >
+                                  <Image
+                                    src={minus}
+                                    className="2xl:w-[15px] 2xl:h-[15px] xl:w-[10px] xl:h-[10px] lg:w/[8px] lg:h-[8px] mx-auto"
+                                    alt="decrement"
                                   />
-                                  <div>
-                                    <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[24px] 2xl:leading-[34px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
-                                      {item?.menuItem?.name}
-                                    </h4>
-                                    <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[20px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
-                                      £{item?.menuItem?.price}
-                                    </h4>
-                                  </div>
-                                </div>
-                                <div className="flex justify-center 2xl:w-[103px] 2xl:h-[39px] xl:w-[60px] xl:h-[22px] lg:w-[50px] lg:h-[20px] border rounded-[5px]">
-                                  <button
-                                    className="text-[#DB5353] rounded-l w-1/3"
-                                    onClick={() => handleDecrement(item._id)}
-                                  >
-                                    <Image
-                                      src={minus}
-                                      className="2xl:w-[15px] 2xl:h-[15px] xl:w-[10px] xl:h-[10px] lg:w-[8px] lg:h-[8px] mx-auto"
-                                      alt="decrement"
-                                    />
-                                  </button>
-                                  <p className="flex mx-auto items-center text-[10px] xl:text-[12px] 2xl:text-[18px] 2xl:leading-[28px]">
-                                    {item.quantity}
-                                  </p>
-                                  <button
-                                    className="text-[#DB5353] rounded-r w-1/3"
-                                    onClick={() => handleIncrement(item._id)}
-                                  >
-                                    <Image
-                                      src={plus}
-                                      className="2xl:w-[15px] 2xl:h-[15px] xl:w/[10px] xl:h/[10px] lg:w/[8px] lg:h/[8px] mx-auto"
-                                      alt="increment"
-                                    />
-                                  </button>
-                                </div>
+                                </button>
+                                <p className="flex mx-auto items-center text-[10px] xl:text-[12px] 2xl:text-[18px] 2xl:leading-[28px]">
+                                  {item.quantity}
+                                </p>
+                                <button
+                                  className="text-[#DB5353] rounded-r w-1/3"
+                                  onClick={() => handleIncrement(item._id)}
+                                >
+                                  <Image
+                                    src={plus}
+                                    className="2xl:w-[15px] 2xl:h-[15px] xl:w/[10px] xl:h/[10px] lg:w/[8px] lg:h-[8px] mx-auto"
+                                    alt="increment"
+                                  />
+                                </button>
                               </div>
                             </div>
-                          ))}
-                      </div>
+                          </div>
+                        ))}
+                    </div>
 
-                      <div className="flex justify-between">
+                    <div className="flex justify-between">
+                      <h4 className="alata font-[400] text-[#555555] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
+                        Subtotal
+                      </h4>
+                      <h4 className="alata font-[400] text-[#555555] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
+                        £{subtotalPrice.toFixed(2)}
+                      </h4>
+                    </div>
+                    <div className="flex justify-between 2xl:my-[25px] xl:my-[15px] my-[10px]">
+                      <div>
                         <h4 className="alata font-[400] text-[#555555] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
-                          Subtotal
+                          Shipping
                         </h4>
-                        <h4 className="alata font-[400] text-[#555555] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
-                          £{subtotalPrice.toFixed(2)}
-                        </h4>
+                        <p>Spend over £55 for FREE delivery</p>
                       </div>
-                      <div className="flex justify-between 2xl:my-[25px] xl:my-[15px] my-[10px]">
-                        <div>
-                          <h4 className="alata font-[400] text-[#555555] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
-                            Shipping
-                          </h4>
-                          <p>Spend over £55 for FREE delivery</p>
-                        </div>
-                        <h4 className="alata font-[400] text-[#555555] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
-                          £{shippingCost.toFixed(2)}
-                        </h4>
-                      </div>
+                      <h4 className="alata font-[400] text-[#555555] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
+                        £{shippingCost.toFixed(2)}
+                      </h4>
+                    </div>
 
-                      <div className="2xl:my-[30px] xl:my-[20px] my-[15px]">
-                        <label className="seven_p2 text-[#555555]">
-                          Promo code or Gift card
-                        </label>
-                        <div className="flex items-center">
-                          <input
-                            type="text"
-                            name="promoCode"
-                            placeholder="Promo Code"
-                            maxLength="15" // Enforce maximum length
-                            className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
-                            value={Promo_code}
-                            onChange={handlePromoCodeChange}
-                          />
-                          <button
-                            className="ml-2 bg-[#DB5353] alata text-white 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] px-4 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
-                            onClick={applyPromoCode}
-                          >
-                            Apply
-                          </button>
-                        </div>
-                      </div>
-
-                      <div className="flex justify-between">
-                        <h4 className="alata font-[400] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
-                          Total
-                        </h4>
-                        <h4 className="alata font-[400] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
-                          £
-                          {discountInfo
-                            ? (
-                                discountInfo.totalAmountAfterDiscount +
-                                shippingCost
-                              ).toFixed(2)
-                            : (subtotalPrice + shippingCost).toFixed(2)}
-                        </h4>
-                      </div>
-
-                      <div className="flex justify-between 2xl:gap-[20px] xl:gap-[15px] gap-[10px] xl:my-[10px] my-[8px] 2xl:my-[15px]">
-                        <div className="2xl:w-[388px] w-full">
-                          <form onSubmit={handleSubmit}>
-                            <label className="checkoutlable">
-                              Delivery date
-                              <span className="text-[#DB1414]">*</span>
-                            </label>
-                            <input
-                              type="date"
-                              name="deliveryDate"
-                              placeholder="Enter"
-                              className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
-                              min={today}
-                              value={deliveryDate}
-                              onChange={handleDateChange}
-                              required
-                            />
-                            {/* {deliveryMessage && (
-                              <div className="text-[#555555] mt-2">
-                                {deliveryMessage}
-                              </div>
-                            )} */}
-                          </form>
-                        </div>
-                        <div className="pop-chef flex items-end">
-                          Order will arrive on day selected between 8am and 6pm
-                        </div>
-                      </div>
-                      <div className="2xl:my-[30px] xl:my-[20px] my-[15px]">
-                        <label className="seven_p2 text-[#555555]">
-                          Delivery instruction
-                        </label>
+                    <div className="2xl:my-[30px] xl:my-[20px] my-[15px]">
+                      <label className="seven_p2 text-[#555555]">
+                        Promo code or Gift card
+                      </label>
+                      <div className="flex items-center">
                         <input
                           type="text"
-                          name="deliveryInstruction"
-                          placeholder="Enter"
+                          name="promoCode"
+                          placeholder="Promo Code"
+                          maxLength="15" // Enforce maximum length
                           className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
-                          value={Delivery_instruction}
-                          onChange={handleDeliveryInstructionChange}
+                          value={Promo_code}
+                          onChange={handlePromoCodeChange}
                         />
+                        <button
+                          className="ml-2 bg-[#DB5353] alata text-white 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] px-4 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
+                          onClick={applyPromoCode}
+                        >
+                          Apply
+                        </button>
                       </div>
-                      <div className="2xl:my-[30px] xl:my-[20px] my-[15px]">
-                        <label className="seven_p2 text-[#555555]">
-                          Delivery instruction
-                        </label>
-                        <p className="fourth_p text-[#555555]">
-                          Your personal data only be used to process your order
-                          and support your experience. We do not sell or rent
-                          your data. See our{" "}
-                          <Link href={"/privacy-policy"} target="_blank">
-                            <span className="text-[#FF0000] underline">
-                              {" "}
-                              privacy policy
-                            </span>
-                          </Link>
-                        </p>
-                      </div>
-                      <div className="form-control flex flex-row gap-5 items-center 2xl:mt-[30px] xl:mt-[20px] mt-[15px]">
-                        <label className="label cursor-pointer w-[15px] h-[15px]">
-                          <input
-                            type="checkbox"
-                            checked={isChecked}
-                            className="checkbox checkbox-info rounded-none w-[20px] h-[20px]"
-                            onChange={handleCheckboxChange}
-                          />
-                        </label>
-                        <span className="seven_p2 text-[#555555]">
-                          I have read and agree to the website
-                          <Link href={"/term-condition"} target="_blank">
-                            <span className="text-[#FF0000] underline">
-                              {" "}
-                              terms and conditions*
-                            </span>
-                          </Link>
-                        </span>
-                      </div>
-                      <button
-                        onClick={handleSubmit}
-                        disabled={!isChecked}
-                        className={`flex justify-center 2xl:gap-3 xl:gap-2 gap-1 items-center w-full alata font-[400] ${
-                          isChecked
-                            ? "bg-[#DB5353] cursor-pointer"
-                            : "bg-[#DB5353] opacity-50 cursor-not-allowed"
-                        } text-white mx-auto rounded-[5px] 2xl:text-[20px] xl:text-[14px] text-[10px] leading-[27.6px] px-3 py-1 2xl:h-[45px] xl:h-[30px] lg:h-[25px] 2xl:mt-[60px] xl:mt-[40px] mt-[30px]`}
+                    </div>
+
+                    <div className="flex justify-between">
+                      <h4 className="alata font-[400] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading/[20px] lg:text-[10px] lg:leading-[18px]">
+                        Total
+                      </h4>
+                      <h4 className="alata font-[400] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading/[20px] lg:text-[10px] lg:leading/[18px]">
+                        £
+                        {discountInfo
+                          ? (
+                              discountInfo.totalAmountAfterDiscount +
+                              shippingCost
+                            ).toFixed(2)
+                          : (subtotalPrice + shippingCost).toFixed(2)}
+                      </h4>
+                    </div>
+
+                    <div className="2xl:my-[30px] xl:my-[20px] my-[15px]">
+                      <label className="seven_p2 text-[#555555]">
+                        Select Payment Method
+                      </label>
+                      <select
+                        name="paymentMethod"
+                        className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
+                        value={paymentMethod}
+                        onChange={handlePaymentMethodChange}
                       >
-                        <Image
-                          src={order}
-                          className="2xl:w-[30px] xl:w-[22px] lg:w-[18px] sm:w-[] w-[]"
-                          alt="Place Order"
+                        <option value="COD">COD</option>
+                        <option value="card">Online Payment</option>
+                      </select>
+                      <form onSubmit={handleSubmit}>
+                        {/* form fields for delivery and billing info */}
+                        <button type="submit">Submit Order</button>
+                      </form>
+                    </div>
+
+                    <div className="flex justify-between 2xl:gap-[20px] xl:gap-[15px] gap-[10px] xl:my-[10px] my-[8px] 2xl:my/[15px]">
+                      <div className="2xl:w-[388px] w-full">
+                        <form onSubmit={handleSubmit}>
+                          <label className="checkoutlable">
+                            Delivery date
+                            <span className="text-[#DB1414]">*</span>
+                          </label>
+                          <input
+                            type="date"
+                            name="deliveryDate"
+                            placeholder="Enter"
+                            className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h/[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p/[10px] p-[8px] 2xl:mt/[10px] xl:mt/[5px] mt-[3px]"
+                            min={today}
+                            value={deliveryDate}
+                            onChange={handleDateChange}
+                            required
+                          />
+                          {/* {deliveryMessage && (
+            <div className="text-[#555555] mt-2">{deliveryMessage}</div>
+          )} */}
+                        </form>
+                      </div>
+                      <div className="pop-chef flex items-end">
+                        Order will arrive on day selected between 8am and 6pm
+                      </div>
+                    </div>
+                    <div className="2xl:my-[30px] xl:my-[20px] my-[15px]">
+                      <label className="seven_p2 text-[#555555]">
+                        Delivery instruction
+                      </label>
+                      <input
+                        type="text"
+                        name="deliveryInstruction"
+                        placeholder="Enter"
+                        className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h/[40px] h/[30px] 2xl:text-[16px] xl:text/[12px] text/[9px] 2xl:p/[20px] xl:p/[10px] p/[8px] 2xl:mt/[10px] xl:mt/[5px] mt/[3px]"
+                        value={Delivery_instruction}
+                        onChange={handleDeliveryInstructionChange}
+                      />
+                    </div>
+                    <div className="2xl:my/[30px] xl:my/[20px] my/[15px]">
+                      <label className="seven_p2 text-[#555555]">
+                        Delivery instruction
+                      </label>
+                      <p className="fourth_p text-[#555555]">
+                        Your personal data only be used to process your order
+                        and support your experience. We do not sell or rent your
+                        data. See our{" "}
+                        <Link href={"/privacy-policy"} target="_blank">
+                          <span className="text-[#FF0000] underline">
+                            privacy policy
+                          </span>
+                        </Link>
+                      </p>
+                    </div>
+                    <div className="form-control flex flex-row gap-5 items-center 2xl:mt/[30px] xl:mt/[20px] mt/[15px]">
+                      <label className="label cursor-pointer w/[15px] h/[15px]">
+                        <input
+                          type="checkbox"
+                          checked={isChecked}
+                          className="checkbox checkbox-info rounded-none w/[20px] h/[20px]"
+                          onChange={handleCheckboxChange}
                         />
-                        Place Order
-                      </button>
-                      <div className="flex justify-between items-center mt-20">
-                        <div>
-                          <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
-                            {/* {subtotalPrice} */}
-                          </h4>
-                        </div>
-                        <div>
-                          {/* <button className=" alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1 ">
-Checkout
-</button> */}
-                        </div>
+                      </label>
+                      <span className="seven_p2 text-[#555555]">
+                        I have read and agree to the website
+                        <Link href={"/term-condition"} target="_blank">
+                          <span className="text-[#FF0000] underline">
+                            terms and conditions*
+                          </span>
+                        </Link>
+                      </span>
+                    </div>
+                    <button
+                      onClick={handleSubmit}
+                      disabled={!isChecked}
+                      className={`flex justify-center 2xl:gap-3 xl:gap-2 gap-1 items-center w-full alata font-[400] ${
+                        isChecked
+                          ? "bg-[#DB5353] cursor-pointer"
+                          : "bg-[#DB5353] opacity-50 cursor-not-allowed"
+                      } text-white mx-auto rounded-[5px] 2xl:text/[20px] xl:text/[14px] text/[10px] leading/[27.6px] px-3 py-1 2xl:h/[45px] xl:h/[30px] lg:h/[25px] 2xl:mt/[60px] xl:mt/[40px] mt/[30px]`}
+                    >
+                      <Image
+                        src={order}
+                        className="2xl:w/[30px] xl:w/[22px] lg:w/[18px] sm:w-[] w-[]"
+                        alt="Place Order"
+                      />
+                      Place Order
+                    </button>
+                    <div className="flex justify-between items-center mt-20">
+                      <div>
+                        <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text/[18px] 2xl:leading/[28px] xl:text/[12px] xl:leading/[20px] lg:text/[10px] lg:leading/[18px]">
+                          {/* {subtotalPrice} */}
+                        </h4>
+                      </div>
+                      <div>
+                        {/* <button className=" alata font/[400] bg-[#DB5353] text-white mx-auto rounded/[5px] 2xl:w/[164px] 2xl:h/[56px] 2xl:text/[20px] 2xl:leading/[27.6px] xl:text/[12px] lg:text/[10px] xl:px-6 xl:py/[10px] lg:px-3 lg:py-1 px-3 py-1 ">
+          Checkout
+        </button> */}
                       </div>
                     </div>
                   </div>
