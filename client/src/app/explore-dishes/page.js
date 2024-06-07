@@ -49,6 +49,7 @@ import "./styles.css";
 import { useRouter } from "next/navigation";
 import cheficon from "../assets/Chef-icon.webp";
 import Loader from "../admin-module/components/admin/loader/Index";
+import { incrementCartItemQuantity } from "../redux/dishSlice";
 
 const ExploreDishes = () => {
   const [count, setCount] = useState(0);
@@ -685,6 +686,20 @@ const ExploreDishes = () => {
     console.log("Updated Cart Items:", updatedCartItems);
   }, [updatedCartItems]);
 
+  const handleQuantityIncrement = (id) => {
+    dispatch(incrementCartItemQuantity(id));
+  };
+  const handleQuantityDecrement = (id) => {
+    dispatch(decrementQuantity(id));
+  };
+
+  const handleItemRemove1 = (id) => {
+    dispatch(removeItemFromCart(id));
+  };
+
+  const handleCartClear1 = () => {
+    dispatch(clearCart());
+  };
   return (
     <>
       <ToastContainer className="mt-24" autoClose={1000} />
@@ -1534,14 +1549,14 @@ const ExploreDishes = () => {
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="currentColor"
                       className="w-10 h-10"
                     >
                       <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
                       />
                     </svg>
                   </button>
@@ -1550,7 +1565,7 @@ const ExploreDishes = () => {
                   </h4>
                 </div>
 
-                {cart?.length === 0 && getCartItems?.length === 0 ? (
+                {cart.length === 0 ? (
                   <div>
                     <div className="2xl:mt-40"></div>
                     <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[25px] 2xl:leading-[35px] xl:text-[20px] xl:leading-[28px] lg:text-[16px] lg:leading-[24px] text-center 2xl:mt-24">
@@ -1574,16 +1589,15 @@ const ExploreDishes = () => {
                       <button
                         className="alata font-[400] rounded-[5px] p-2 text-[20px] bg-[#DB5353] text-white 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px]"
                         onClick={() => {
-                          handleClearCart();
-                          handleCartClear();
+                          handleCartClear1();
                         }}
                       >
                         All Clear
                       </button>
                     </div>
                     <div>
-                      {cart?.map((item, index) => {
-                        const { data } = item;
+                      {cart.map((item, index) => {
+                        const { data, quantity } = item;
                         return (
                           <div
                             key={index}
@@ -1605,47 +1619,39 @@ const ExploreDishes = () => {
                                   Price: £{data.price}
                                 </h4>
                                 <div className="flex justify-center 2xl:w-[103px] 2xl:h-[39px] xl:w-[60px] xl:h-[22px] lg:w-[50px] lg:h-[20px] border rounded-[5px]">
-                                  {token ? (
-                                    <>
-                                      <button
-                                        className="text-[#DB5353] rounded-l w-1/3"
-                                        onClick={() =>
-                                          handleDecrement(item._id)
-                                        }
-                                      >
-                                        <Image
-                                          src={minus}
-                                          className="2xl:w-[15px] 2xl:h-[15px] xl:w-[10px] xl:h-[10px] lg:w/[8px] lg:h/[8px] mx-auto"
-                                          alt="decrement"
-                                        />
-                                      </button>
-                                      <p className="flex mx-auto items-center text-[10px] xl:text-[12px] 2xl:text-[18px] 2xl:leading-[28px]">
-                                        {item.quantity}
-                                      </p>
-                                      <button
-                                        className="text-[#DB5353] rounded-r w-1/3"
-                                        onClick={() =>
-                                          handleIncrement(item._id)
-                                        }
-                                      >
-                                        <Image
-                                          src={plus}
-                                          className="2xl:w-[15px] 2xl:h-[15px] xl:w/[10px] xl:h/[10px] lg:w/[8px] lg:h/[8px] mx-auto"
-                                          alt="increment"
-                                        />
-                                      </button>
-                                    </>
-                                  ) : (
-                                    <p className="flex mx-auto items-center text-[10px] xl:text-[12px] 2xl:text-[18px] 2xl:leading-[28px]">
-                                      1
-                                    </p>
-                                  )}
+                                  <button
+                                    className="text-[#DB5353] rounded-l w-1/3"
+                                    onClick={() =>
+                                      handleQuantityDecrement(item.data._id)
+                                    }
+                                  >
+                                    <Image
+                                      src={minus}
+                                      className="2xl:w-[15px] 2xl:h-[15px] xl:w-[10px] xl:h-[10px] lg:w/[8px] lg:h/[8px] mx-auto"
+                                      alt="decrement"
+                                    />
+                                  </button>
+                                  <p className="flex mx-auto items-center text-[10px] xl:text-[12px] 2xl:text-[18px] 2xl:leading-[28px]">
+                                    {quantity}
+                                  </p>
+                                  <button
+                                    className="text-[#DB5353] rounded-r w-1/3"
+                                    onClick={() =>
+                                      handleQuantityIncrement(item.data._id)
+                                    }
+                                  >
+                                    <Image
+                                      src={plus}
+                                      className="2xl:w-[15px] 2xl:h-[15px] xl:w/[10px] xl:h/[10px] lg:w/[8px] lg:h/[8px] mx-auto"
+                                      alt="increment"
+                                    />
+                                  </button>
                                 </div>
                               </div>
                             </div>
                             <button
                               className="px-4 text-[13px] border rounded h-[25px] text-red hover:bg-[#efb3b38a]"
-                              onClick={() => handleRemoveItem(data._id)}
+                              onClick={() => handleItemRemove1(item.data._id)}
                             >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -1666,100 +1672,22 @@ const ExploreDishes = () => {
                         );
                       })}
 
-                      {Array.isArray(getCartItems) &&
-                        getCartItems.map((item, index) => (
-                          <div
-                            key={index}
-                            className="my-5 flex w-full border rounded-md"
-                          >
-                            <div className="flex items-center gap-2 w-full">
-                              <div>
-                                <img
-                                  src={item.menuItem.ProfileImage}
-                                  alt={item.menuItem.name}
-                                  className="w-[90px] h-auto rounded-[5.8px]"
-                                />
-                              </div>
-                              <div>
-                                <h4 className="alata font-[400] text-[#111] my-0 text-[18px] leading-[28px]">
-                                  {item.menuItem.name}
-                                </h4>
-                                <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
-                                  Price:{" "}
-                                  {item?.menuItem?.price &&
-                                    `£${item.menuItem.price.toFixed(2)}`}
-                                </h4>
-                                <div className="flex justify-center 2xl:w-[103px] 2xl:h-[39px] xl:w-[60px] xl:h-[22px] lg:w-[50px] lg:h-[20px] border rounded-[5px]">
-                                  {token ? (
-                                    <>
-                                      <button
-                                        className="text-[#DB5353] rounded-l w-1/3"
-                                        onClick={() =>
-                                          handleDecrement(item._id)
-                                        }
-                                      >
-                                        <Image
-                                          src={minus}
-                                          className="2xl:w/[15px] 2xl:h/[15px] xl:w/[10px] xl:h/[10px] lg:w/[8px] lg:h/[8px] mx-auto"
-                                          alt="decrement"
-                                        />
-                                      </button>
-                                      <p className="flex mx-auto items-center text-[10px] xl:text-[12px] 2xl:text-[18px] 2xl:leading-[28px]">
-                                        {item.quantity}
-                                      </p>
-                                      <button
-                                        className="text-[#DB5353] rounded-r w-1/3"
-                                        onClick={() =>
-                                          handleIncrement(item._id)
-                                        }
-                                      >
-                                        <Image
-                                          src={plus}
-                                          className="2xl:w/[15px] 2xl:h/[15px] xl:w/[10px] xl:h/[10px] lg:w/[8px] lg:h/[8px] mx-auto"
-                                          alt="increment"
-                                        />
-                                      </button>
-                                    </>
-                                  ) : (
-                                    <p className="flex mx-auto items-center text-[10px] xl:text-[12px] 2xl:text-[18px] 2xl:leading-[28px]">
-                                      1
-                                    </p>
-                                  )}
-                                </div>
-                              </div>
-                            </div>
-                            <button
-                              className="px-4 text-[13px] border rounded h-[25px] text-red hover:bg-[#efb3b38a]"
-                              onClick={() =>
-                                handleItemRemove(item.menuItem._id)
-                              }
-                            >
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth="1.5"
-                                stroke="currentColor"
-                                className="w-6 h-6"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M6 18L18 6M6 6l12 12"
-                                />
-                              </svg>
-                            </button>
-                          </div>
-                        ))}
                       <p className="font-[500] text-[16px]">
-                        FREE delivery on orders over £55{" "}
+                        FREE delivery on orders over £55
                       </p>
                       <div className="flex justify-between mt-4">
                         <h4 className="alata font-[400] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
                           Total :
                         </h4>
                         <h4 className="alata font-[400] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
-                          £{subtotalPrice.toFixed(2)}
+                          £
+                          {cart
+                            .reduce(
+                              (acc, item) =>
+                                acc + item.data.price * item.quantity,
+                              0
+                            )
+                            .toFixed(2)}
                         </h4>
                       </div>
                       <div className="flex justify-between items-center mt-20">
@@ -1771,32 +1699,20 @@ const ExploreDishes = () => {
                             <Link href="/checkout">
                               <button
                                 onClick={() => {
-                                  handleAddCart();
+                                  // handleAddCart logic if needed
                                 }}
-                                className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text/[20px] 2xl:leading-[27.6px] xl:text/[12px] lg:text/[10px] xl:px-[6px] xl:py-[10px] lg:px-[3px] lg:py-[1px] px-[3px] py-[1px]"
+                                className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text/[20px] 2xl:leading/[27.6px] xl:text/[12px] lg:text/[10px] xl:px/[6px] xl:py/[10px] lg:px/[3px] lg:py/[1px] px/[3px] py/[1px]"
                               >
                                 Checkout
                               </button>
                             </Link>
                           ) : (
-                            <div>
-                              {/* {cart?.length === 0 &&
-                              getCartItems?.length === 0 ? ( */}
-                              <button
-                                onClick={handleLoginClick}
-                                className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w/[164px] 2xl:h/[56px] 2xl:text/[20px] 2xl:leading/[27.6px] xl:text/[12px] lg:text/[10px] xl:px-[6px] xl:py/[10px] lg:px/[3px] lg:py/[1px] px/[3px] py/[1px]"
-                              >
-                                Checkout
-                              </button>
-                              {/* ) : (
-                                <button
-                                  onClick={handleDrawerClose}
-                                  className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w/[164px] 2xl:h/[56px] 2xl:text/[20px] 2xl:leading/[27.6px] xl:text/[12px] lg:text/[10px] xl:px-[6px] xl:py/[10px] lg:px/[3px] lg:py/[1px] px/[3px] py/[1px]"
-                                >
-                                  Checkout
-                                </button>
-                              )} */}
-                            </div>
+                            <button
+                              onClick={handleLoginClick}
+                              className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w/[164px] 2xl:h/[56px] 2xl:text/[20px] 2xl:leading/[27.6px] xl:text/[12px] lg:text/[10px] xl:px/[6px] xl:py/[10px] lg:px/[3px] lg:py/[1px] px/[3px] py/[1px]"
+                            >
+                              Checkout
+                            </button>
                           )}
                         </div>
                       </div>

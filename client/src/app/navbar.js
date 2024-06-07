@@ -521,10 +521,10 @@ const Navbar = () => {
       const updatedCartItems = prevCartItems.map((item) =>
         item._id === itemId
           ? {
-            ...item,
-            quantity: item.quantity + 1,
-            totalPrice: item.menuItem.price * (item.quantity + 1),
-          }
+              ...item,
+              quantity: item.quantity + 1,
+              totalPrice: item.menuItem.price * (item.quantity + 1),
+            }
           : item
       );
       setUpdatedCartItems(updatedCartItems);
@@ -560,10 +560,10 @@ const Navbar = () => {
       const updatedCartItems = prevCartItems.map((item) =>
         item._id === itemId && item.quantity > 1
           ? {
-            ...item,
-            quantity: item.quantity - 1,
-            totalPrice: item.menuItem.price * (item.quantity - 1),
-          }
+              ...item,
+              quantity: item.quantity - 1,
+              totalPrice: item.menuItem.price * (item.quantity - 1),
+            }
           : item
       );
       setUpdatedCartItems(updatedCartItems);
@@ -771,7 +771,6 @@ const Navbar = () => {
               <div className="flex justify-end md:gap-0 gap-2 ">
                 {isLoggedIn === success ? (
                   <div className="flex justify-end 2xl:gap-7 md:gap-5  gap-1 w-1/3">
-
                     <div className="nav_login1 md:flex items-center  gap-1 lg:gap-2 hidden sm:block">
                       Welcome <p>{userDetails?.firstname}!</p>
                     </div>
@@ -811,7 +810,7 @@ const Navbar = () => {
           type="checkbox"
           className="drawer-toggle"
           checked={isDrawerOpen}
-          onChange={() => { }}
+          onChange={() => {}}
         />
         <div className="drawer-side">
           <label
@@ -822,11 +821,10 @@ const Navbar = () => {
           ></label>
           <ul className=" min-h-full text-base-content max-w-[310px] sm:max-w-[350px] md:w-[400px] md:max-w-[400px] 2xl:w-[450px] 2xl:max-w-[450px] bg-white">
             <div className="flex flex-col  justify-center items-center p-[15px]  md:p-[20px]  h-[100vh]">
-            
               {cart?.length === 0 && getCartItems?.length === 0 ? (
                 <div className="flex flex-col justify-center items-center">
                   <h4 className="alata font-[400] text-[#111]  text-[24px] mb-[1rem]">
-                 Your Basket is empty!
+                    Your Basket is empty!
                   </h4>
                   <h4 className="alata font-[400] text-[#111] lg:text-[18px]">
                     Explore a World of Deliciousness
@@ -855,8 +853,8 @@ const Navbar = () => {
                         All Clear
                       </button>
                     </div> */}
-                      <div className="w-full flex justify-between items-center">
-                {/* <button
+                  <div className="w-full flex justify-between items-center">
+                    {/* <button
                     onClick={handleDrawerClose}
                     className="border rounded-md"
                   >
@@ -875,12 +873,14 @@ const Navbar = () => {
                       />
                     </svg>
                   </button> */}
-                <h4 className="alata font-[500] text-[#111111] 2xl:text-[25px] sm:text-[20px] text-[18px] 2xl:leading-[32px] md:text-[25px] leading-[24px] ">
-                  My Basket
-                </h4>
-                <div onClick={handleDrawerClose} className="cursor-pointer">  <CloseIcon /></div>
-
-              </div>
+                    <h4 className="alata font-[500] text-[#111111] 2xl:text-[25px] sm:text-[20px] text-[18px] 2xl:leading-[32px] md:text-[25px] leading-[24px] ">
+                      My Basket
+                    </h4>
+                    <div onClick={handleDrawerClose} className="cursor-pointer">
+                      {" "}
+                      <CloseIcon />
+                    </div>
+                  </div>
 
                   <div className="pt-[2rem] flex-1 overflow-auto w-full">
                     <div className="flex justify-between">
@@ -895,7 +895,10 @@ const Navbar = () => {
                       {cart?.map((item, index) => {
                         const { data } = item;
                         return (
-                          <div key={index} className="my-5 flex w-full border rounded-md" >
+                          <div
+                            key={index}
+                            className="my-5 flex w-full border rounded-md"
+                          >
                             <div className="flex items-center gap-2 w-full">
                               <div>
                                 <img
@@ -939,7 +942,10 @@ const Navbar = () => {
                       {Array.isArray(getCartItems) &&
                         getCartItems.map((item, index) => (
                           <>
-                            <div key={index} className="mt-3 md:mt-0 md:my-5 flex w-full gap-1 md:gap-6" >
+                            <div
+                              key={index}
+                              className="mt-3 md:mt-0 md:my-5 flex w-full gap-1 md:gap-6"
+                            >
                               <div className="flex  gap-2 md:gap-4 w-full">
                                 <div className="w-[45%] md:w-auto">
                                   <img
@@ -963,15 +969,21 @@ const Navbar = () => {
                                     <div className="flex justify-center border-[#111111] border mt-1">
                                       <button
                                         className="text-[#111111] px-[10px] py-[5px]"
-                                        onClick={() => handleDecrement(item._id)}
+                                        onClick={() =>
+                                          handleDecrement(item._id)
+                                        }
                                       >
                                         <MinusIcon />
                                       </button>
                                       <p className=" px-[5px] py-[5px] flex mx-auto items-center 2xl:text-[16px] md:text-[14px] text-[13px] 2xl:leading-[22px]">
                                         {item.quantity}
                                       </p>
-                                      <button className="text-[#111111]  px-[10px] py-[5px]"
-                                        onClick={() => handleIncrement(item._id)}>
+                                      <button
+                                        className="text-[#111111]  px-[10px] py-[5px]"
+                                        onClick={() =>
+                                          handleIncrement(item._id)
+                                        }
+                                      >
                                         <PlusIcon />
                                       </button>
                                     </div>
@@ -983,36 +995,25 @@ const Navbar = () => {
                               </div>
                               <div className="flex flex-col justify-between">
                                 <p className="alata font-[600] 2xl:my-0 text-[13px] sm:text-[14px] xl:leading-[28px]     text-right">
-                                  {/* Price{" "}  */}
-                                  £{subtotalPrice.toFixed(2)}
+                                  {/ Price{" "}  /}£{subtotalPrice.toFixed(2)}
                                 </p>
-                                <button className="text-center mx-auto" onClick={() => handleItemRemove(item.menuItem._id)}>
+                                <button
+                                  className="text-center mx-auto"
+                                  onClick={() =>
+                                    handleItemRemove(item.menuItem._id)
+                                  }
+                                >
                                   <DeleteIcon />
                                 </button>
                               </div>
                             </div>
-
                           </>
                         ))}
                     </div>
-
                   </div>
                   <div className="flex flex-col justify-between items-center w-full pt-[1.5rem]">
-
                     {token ? (
                       <div className="w-full ">
-                        {/* <Link href="/checkout">
-                              <button
-                                onClick={() => {
-                                  handleAddCart();
-                                }}
-                                className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1"
-                              >
-                                Checkout
-                              </button>
-
-                            </Link> */}
-
                         <div className="flex justify-between">
                           <h4 className="alata font-[400] 2xl:my-0 xl:text-[18px] 2xl:leading-[28px] text-[16px] lg:leading-[24px]">
                             Subtotal :
@@ -1021,13 +1022,27 @@ const Navbar = () => {
                             £{subtotalPrice.toFixed(2)}
                           </h4>
                         </div>
-                        <p className="font-[500] text-[16px] py-[1rem]"> FREE delivery on orders over £55{" "} </p>
-                        <button
+                        <Link href="/checkout">
+                          <button
+                            onClick={() => {
+                              handleAddCart();
+                            }}
+                            className="alata font-[400] bg-[#DB5353] text-white mx-auto  2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[15px] lg:text-[14px] w-full py-2  lg:h-[47px] h-[42px] flex flex-col items-center justify-center"
+                          >
+                            Checkout
+                          </button>
+                        </Link>
+
+                        <p className="font-[500] text-[16px] py-[1rem]">
+                          {" "}
+                          FREE delivery on orders over £55{" "}
+                        </p>
+                        {/* <button
                           onClick={() => handleAddCart()}
                           className="alata font-[400] bg-[#DB5353] text-white mx-auto  2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[15px] lg:text-[14px] w-full py-2  lg:h-[47px] h-[42px] flex flex-col items-center justify-center"
                         >
                           Checkout
-                        </button>
+                        </button> */}
                       </div>
                     ) : (
                       <div className="w-full ">
@@ -1040,7 +1055,6 @@ const Navbar = () => {
                       </div>
                     )}
                   </div>
-
                 </>
               )}
             </div>
@@ -1048,7 +1062,7 @@ const Navbar = () => {
         </div>
       </div>
       {/* =======Signup popup======= */}
-      <div className="" >
+      <div className="">
         <dialog
           id="my_modal_1"
           className="modal rounded-[10px] 2xl:w-[1000px] 2xl:h-[605px] xl:w-[620px] xl:h-[410px] lg:w-[480px] h-[400px] 2xl:mt-40 xl:mt-24 mt-14 p-0 signup"
@@ -1180,7 +1194,7 @@ const Navbar = () => {
         </dialog>
       </div>
       {/* =======Login======= */}
-      <div className="" >
+      <div className="">
         <dialog
           id="my_modal_2"
           className="modal rounded-[10px] 2xl:w-[1000px] 2xl:h-[551px] xl:w-[620px] xl:h-[400px] lg:w-[480px] h-[350px] 2xl:mt-40 xl:mt-24 mt-14 p-0 loginpop"
