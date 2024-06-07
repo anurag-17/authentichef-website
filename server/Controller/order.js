@@ -592,6 +592,127 @@ exports.PlaceOrder = async (req, res, next) => {
 };
 
 
+// Working
+
+// exports.BookOrder = async (req, res) => {
+//     const { sessionId } = req.body;
+
+//     try {
+//         // Retrieve the checkout session from Stripe
+//         const session = await stripe.checkout.sessions.retrieve(sessionId);
+
+//         // Ensure the session is valid and belongs to the authenticated user
+//         if (!session || session.metadata.userId !== req.user._id.toString()) {
+//             return res.status(403).json({ message: 'Unauthorized' });
+//         }
+
+//         const userId = session.metadata.userId;
+//         const deliveryDate = session.metadata.deliveryDate;
+//         const deliveryInfo = JSON.parse(session.metadata.deliveryInfo);
+//         const BillingInfo = JSON.parse(session.metadata.BillingInfo);
+//         const Type_of_Address = session.metadata.Type_of_Address;
+//         const Delivery_instruction = session.metadata.Delivery_instruction;
+//         const Promo_code = session.metadata.Promo_code;
+//         const totalAmountBeforeDiscount = parseFloat(session.metadata.totalAmountBeforeDiscount);
+//         const discountApplied = parseFloat(session.metadata.discountApplied);
+//         const DiscountPercentage = parseFloat(session.metadata.DiscountPercentage);
+
+//         // Get the cart items
+//         const cartItems = await Cart.findOne({ user: userId }).populate('items.menuItem');
+
+//         if (!cartItems || cartItems.items.length === 0) {
+//             return res.status(404).json({ message: "Cart is empty or not found" });
+//         }
+
+//         // Extract menu items from cart
+//         const items = cartItems.items.map(item => ({
+//             menuItem: item.menuItem._id,
+//             quantity: item.quantity,
+//             customization: item.customization,
+//             price: item.menuItem.price,
+//             ProfileImage: item.menuItem.ProfileImage,
+//             name: item.menuItem.name
+//         }));
+
+//         // Create an order
+//         const newOrder = new Order({
+//             items,
+//             user: userId,
+//             deliveryDate,
+//             Delivery_instruction,
+//             Promo_code,
+//             deliveryInfo,
+//             BillingInfo,
+//             totalAmount: session.amount_total / 100,
+//             discountApplied,
+//             totalAmountBeforeDiscount,
+//             DiscountPercentage,
+//             Type_of_Address: Type_of_Address || 'Shipping Address',
+//             payment: null,
+//             TransactionId: session.payment_intent,
+//             payment_method_types: 'card',
+//             TotalAmount: session.amount_total / 100,
+//             // Include the transaction ID in the order
+//         });
+
+
+//         // check if Trascation id is null then show 400 error
+//         if (!session.payment_intent) {
+//             return res.status(400).json({ message: 'Complete Your Payment Process' });
+//         }
+
+//         const savedOrder = await newOrder.save();
+
+//         if (!savedOrder) {
+//             return res.status(400).json({ message: 'Order creation failed' });
+//         }
+
+//         // Create a payment record
+//         const payment = new Payment({
+//             amount: session.amount_total / 100,
+//             paymentMethod: 'card',
+//             status: 'completed',
+//             transactionId: session.payment_intent,
+//             order: savedOrder._id
+//         });
+
+//         await payment.save();
+
+//         // Link the payment to the order
+//         savedOrder.payment = payment._id;
+//         await savedOrder.save();
+
+//         // Delete the cart after placing the order
+//         await Cart.deleteOne({ _id: cartItems._id });
+
+//         // Send confirmation email to the user
+//         const emailOptions = userMailOptions(req, savedOrder, deliveryDate, deliveryInfo, session.amount_total / 100, cartItems, session.payment_method_types);
+//         transporter.sendMail(emailOptions, (error, info) => {
+//             if (error) {
+//                 console.error('Error sending email to user:', error);
+//             } else {
+//                 console.log('Email sent to user:', info.response);
+//             }
+//         });
+
+//         // Send notification email to the admin
+//         const adminoptions = adminMailOptions(req, savedOrder, deliveryDate, deliveryInfo, session.payment_method_types, session.amount_total / 100, cartItems);
+//         transporter.sendMail(adminoptions, (error, info) => {
+//             if (error) {
+//                 console.error('Error sending email to admin:', error);
+//             } else {
+//                 console.log('Email sent to admin:', info.response);
+//             }
+//         });
+
+//         res.status(200).json({ message: 'Order placed successfully' });
+//     } catch (error) {
+//         console.error('Error placing order:', error);
+//         res.status(500).json({ error: 'Internal Server Error' });
+//     }
+
+// }
+
 exports.BookOrder = async (req, res) => {
     const { sessionId } = req.body;
 
@@ -604,16 +725,17 @@ exports.BookOrder = async (req, res) => {
             return res.status(403).json({ message: 'Unauthorized' });
         }
 
+        // Validate and parse session metadata
         const userId = session.metadata.userId;
         const deliveryDate = session.metadata.deliveryDate;
-        const deliveryInfo = JSON.parse(session.metadata.deliveryInfo);
-        const BillingInfo = JSON.parse(session.metadata.BillingInfo);
-        const Type_of_Address = session.metadata.Type_of_Address;
-        const Delivery_instruction = session.metadata.Delivery_instruction;
-        const Promo_code = session.metadata.Promo_code;
-        const totalAmountBeforeDiscount = parseFloat(session.metadata.totalAmountBeforeDiscount);
-        const discountApplied = parseFloat(session.metadata.discountApplied);
-        const DiscountPercentage = parseFloat(session.metadata.DiscountPercentage);
+        const deliveryInfo = validateAndParseJson(session.metadata.deliveryInfo, 'deliveryInfo');
+        const BillingInfo = validateAndParseJson(session.metadata.BillingInfo, 'BillingInfo');
+        const Type_of_Address = session.metadata.Type_of_Address || 'Shipping Address';
+        const Delivery_instruction = session.metadata.Delivery_instruction || '';
+        const Promo_code = session.metadata.Promo_code || '';
+        const totalAmountBeforeDiscount = parseFloat(session.metadata.totalAmountBeforeDiscount) || 0;
+        const discountApplied = parseFloat(session.metadata.discountApplied) || 0;
+        const DiscountPercentage = parseFloat(session.metadata.DiscountPercentage) || 0;
 
         // Get the cart items
         const cartItems = await Cart.findOne({ user: userId }).populate('items.menuItem');
@@ -645,16 +767,13 @@ exports.BookOrder = async (req, res) => {
             discountApplied,
             totalAmountBeforeDiscount,
             DiscountPercentage,
-            Type_of_Address: Type_of_Address || 'Shipping Address',
+            Type_of_Address,
             payment: null,
             TransactionId: session.payment_intent,
-            payment_method_types: 'card',
-            TotalAmount: session.amount_total / 100,
-            // Include the transaction ID in the order
+            payment_method_types: 'card'
         });
 
-
-        // check if Trascation id is null then show 400 error
+        // Check if transaction ID is null
         if (!session.payment_intent) {
             return res.status(400).json({ message: 'Complete Your Payment Process' });
         }
@@ -708,8 +827,21 @@ exports.BookOrder = async (req, res) => {
         console.error('Error placing order:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
+};
 
-}
+const validateAndParseJson = (jsonString, fieldName) => {
+    try {
+        if (!jsonString) {
+            console.error(`${fieldName} is undefined or empty.`);
+            return {};
+        }
+        return JSON.parse(jsonString);
+    } catch (error) {
+        console.error(`Error parsing JSON for ${fieldName}:`, error);
+        throw new Error(`Invalid JSON format for ${fieldName}`);
+    }
+};
+
 
 
 // Make a api to cancel the order //
