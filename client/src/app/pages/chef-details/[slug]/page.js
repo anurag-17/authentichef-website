@@ -277,17 +277,26 @@ const ChefDetails = ({ params }) => {
               className="chefDishes-bg rounded-[15px] relative 2xl:h-[529px] xl:h-[360px] h-[280px] 2xl:pt-[295px] xl:pt-[200px] lg:pt-[155px] pt-[120px]"
               style={{ backgroundImage: `url(${bannerImage})` }}
             >
-              <div className="overflow-y-scroll border flex gap-5 2xl:w-[1414px] xl:w-[1000px] lg:w-[750px] w-[90%] h-[200px] xl:h-[220px] 2xl:h-[300px] rounded-[15px] bg-white mx-auto 2xl:p-[50px] xl:p-[20px] p-[15px] chefdishWB">
+              <div className=" border flex gap-5 2xl:w-[1414px] xl:w-[1000px] lg:w-[750px] w-[90%]  rounded-[15px] bg-white mx-auto 2xl:p-[50px] xl:p-[20px] p-[15px] chefdishWB">
                 <div className="2xl:w-[154px] xl:w-[80px] w-[60px]">
                   <div className="2xl:w-[154px] xl:w-[80px] w-[60px]">
-                    <img src={getAChef?.images} className="w-full rounded-full 2xl:w-[154px] 2xl:h-[154px] object-cover" />
+                    <img
+                      src={getAChef?.images}
+                      className="w-full rounded-full 2xl:w-[154px] 2xl:h-[154px] object-cover"
+                    />
                   </div>
                   <div className="flex justify-center 2xl:gap-5 xl:gap-2 gap-1 2xl:my-[20px] xl:my-[10px] my-[5px]">
                     <a href={getAChef?.Facebook_Link} target="_blank">
-                      <Image src={fb} className="2xl:w-[35px] xl:w-[30px] w-[15px]" />
+                      <Image
+                        src={fb}
+                        className="2xl:w-[35px] xl:w-[30px] w-[15px]"
+                      />
                     </a>
                     <a href={getAChef?.Instagram_Link} target="_blank">
-                      <Image src={insta} className="2xl:w-[35px] xl:w-[30px] w-[15px]" />
+                      <Image
+                        src={insta}
+                        className="2xl:w-[35px] xl:w-[30px] w-[15px]"
+                      />
                     </a>
                   </div>
                 </div>
@@ -300,16 +309,16 @@ const ChefDetails = ({ params }) => {
                     {getAChef?.nationality}
                   </p>
                   <div className="flex gap-3 2xl:my-[20px] xl:my-[15px] my-[10px]">
-                    {/* <div className="2xl:w-[197px] 2xl:h-[37px] xl:w-[140px] xl:h-[30px] w-[130px] h-[25px] bg-[#F3F3F3] flex justify-around items-center">
+                    {/* <div className="2xl:w-[130px] 2xl:h-[37px] xl:w-[115px] xl:h-[30px] w-[90px] h-[25px] bg-[#F3F3F3] flex justify-around items-center">
 <Image src={cook} className="w-[17px]" />
-<p className="fourth_day">1.1k+</p>
-<p className=" fourth_day text-[#838383]">
-Meals prepared
+
+<p className=" fourth_day capitalize">
+Food Safety
 </p>
 </div> */}
-                    <div className="2xl:w-[120px] 2xl:h-[37px] xl:w-[110px] xl:h-[30px] w-[90px] h-[25px bg-[#F3F3F3] flex justify-center gap-1 xl:gap-2 items-center py-1 ">
+                    <div className="2xl:w-[200px] 2xl:h-[37px] xl:w-[200px] xl:h-[30px] w-[120px] h-[25px bg-[#F3F3F3] flex justify-center gap-1 xl:gap-2 items-center py-1 ">
                       <Image src={cook2} className="w-[17px]" />
-                      <p className="fourth_day">Certified</p>
+                      <p className="fourth_day">Food Safety Certified</p>
                       {/* <p className="fourth_day text-[#838383]">Food safety</p> */}
                     </div>
                   </div>
@@ -371,7 +380,7 @@ Meals prepared
                             {item?.chef_id?.name}
                           </h4>
                           <p className="fourth_p text-[#6765EB]">
-                            {item?.Cuisines_id?.title}
+                            {item?.chef_id?.nationality}
                           </p>
                         </div>
                       </div>
