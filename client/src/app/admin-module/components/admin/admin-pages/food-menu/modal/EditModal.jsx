@@ -25,8 +25,8 @@ const EditModal = ({
     Heating_Instruction: "",
     List_of_Allergens: "",
     Dishtype_id: "",
-    Dietary_id: "",
-    Nutrition_id: "",
+    Dietary_id: [],
+    Nutrition_id: [],
     spice_level_id: "",
     chef_id: "",
     ProfileImage: "",
@@ -54,8 +54,8 @@ const EditModal = ({
         Heating_Instruction: editData.Heating_Instruction || "",
         List_of_Allergens: editData.List_of_Allergens || "",
         Dishtype_id: editData.Dishtype_id ? editData.Dishtype_id._id : "",
-        Dietary_id: editData.Dietary_id ? editData.Dietary_id._id : "",
-        Nutrition_id: editData.Nutrition_id ? editData.Nutrition_id._id : "",
+        Dietary_id: editData.Dietary_id ? editData.Dietary_id.map(d => d._id) : [],
+        Nutrition_id: editData.Nutrition_id ? editData.Nutrition_id.map(n => n._id) : [],
         nutritional_information: editData.nutritional_information,
         spice_level_id: editData.spice_level_id
           ? editData.spice_level_id._id
@@ -145,30 +145,72 @@ const EditModal = ({
   }, [token]);
 
   const handleChange = (e) => {
-    if (e.target.name === "ProfileImage") {
-      // Handle file input separately
+    const { name, value } = e.target;
+    if (name === "Dietary_id" || name === "Nutrition_id") {
+      if (value && !formData[name].includes(value)) {
+        setFormData(prevState => ({
+          ...prevState,
+          [name]: [...prevState[name], value]
+        }));
+      }
+    } else if (name === "ProfileImage") {
       const file = e.target.files[0];
-      setFormData({ ...formData, ProfileImage: file });
+      setFormData(prevState => ({ ...prevState, ProfileImage: file }));
     } else {
-      const { name, value } = e.target;
-      setFormData({ ...formData, [name]: value });
+      setFormData(prevState => ({ ...prevState, [name]: value }));
     }
+  };
+
+  const removeDietary = (index) => {
+    setFormData({
+      ...formData,
+      Dietary_id: formData.Dietary_id.filter((_, i) => i !== index),
+    });
+  };
+
+  const removeNutrition = (index) => {
+    setFormData({
+      ...formData,
+      Nutrition_id: formData.Nutrition_id.filter((_, i) => i !== index),
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
+  
     try {
       const formDataToSend = new FormData();
-      Object.entries(formData).forEach(([key, value]) => {
-        if (key === "ProfileImage") {
-          formDataToSend.append("ProfileImage", value);
-        } else {
-          formDataToSend.append(key, value);
-        }
+  
+      // Append other form data
+      formDataToSend.append("name", formData.name);
+      formDataToSend.append("price", formData.price);
+      formDataToSend.append("description", formData.description);
+      formDataToSend.append("weight", formData.weight);
+      formDataToSend.append("portion_Size", formData.portion_Size);
+      formDataToSend.append("Ingredients", formData.Ingredients);
+      formDataToSend.append("Heating_Instruction", formData.Heating_Instruction);
+      formDataToSend.append("List_of_Allergens", formData.List_of_Allergens);
+      formDataToSend.append("Dishtype_id", formData.Dishtype_id);
+      formDataToSend.append("spice_level_id", formData.spice_level_id);
+      formDataToSend.append("chef_id", formData.chef_id);
+      formDataToSend.append("nutritional_information", formData.nutritional_information);
+  
+      // Append each Dietary_id
+      formData.Dietary_id.forEach((id, index) => {
+        formDataToSend.append(`Dietary_id[${index}]`, id);
       });
-
+  
+      // Append each Nutrition_id
+      formData.Nutrition_id.forEach((id, index) => {
+        formDataToSend.append(`Nutrition_id[${index}]`, id);
+      });
+  
+      // Append ProfileImage if available
+      if (formData.ProfileImage) {
+        formDataToSend.append("ProfileImage", formData.ProfileImage);
+      }
+  
       const response = await axios.put(
         `${config.baseURL}/api/menu/menuItems/${updateId}`,
         formDataToSend,
@@ -179,10 +221,9 @@ const EditModal = ({
           },
         }
       );
-
+  
       if (response.status === 200) {
         toast.success("Item updated successfully");
-        // Perform any additional actions needed after successful update
         refreshData();
         closeEditPopup();
       } else {
@@ -195,7 +236,6 @@ const EditModal = ({
       setLoading(false);
     }
   };
-
   const handleNutritionalChange = (value) => {
     setFormData({
       nutritional_information: value,
@@ -219,13 +259,13 @@ const EditModal = ({
     fetchDishTypes();
   }, []);
 
-  const [nutrition, setNutrition] = useState({});
+  const [nutrition, setNutrition] = useState([]);
 
   useEffect(() => {
     defaultNutrition();
   }, []);
-  
-  const defaultNutrition = () => {  
+
+  const defaultNutrition = () => {
     const option = {
       method: "GET",
       url: `${config.baseURL}/api/Nutritional/nutritional`,
@@ -239,7 +279,7 @@ const EditModal = ({
         console.log(error, "Error");
       });
   };
-  
+
   return (
     <>
       <ToastContainer autoClose={1000} />
@@ -348,13 +388,13 @@ const EditModal = ({
                 </select>
               </div>
 
-              <div class="py-2">
-                <span class="login-input-label capitalize"> Dietary :</span>
+              <div className="py-2">
+                <span className="login-input-label capitalize">Dietary:</span>
                 <select
                   name="Dietary_id"
-                  value={formData.Dietary_id}
+                  value={formData.Dietary_id[formData.Dietary_id.length - 1] || ""}
                   onChange={handleChange}
-                  class="login-input w-full mt-1"
+                  className="login-input w-full mt-1"
                   required
                 >
                   <option value="">Select Dietary</option>
@@ -365,25 +405,61 @@ const EditModal = ({
                       </option>
                     ))}
                 </select>
+                <div className="grid md:grid-cols-2 flex-col gap-3 justify-between w-full px-2 py-2">
+                  {formData.Dietary_id.map((dietaryId, index) => {
+                    const dietary = dietaries.find(d => d._id === dietaryId);
+                    return dietary ? (
+                      <p className="flex gap-x-2 text-[14px]" key={index}>
+                        <span className="max-w-[150px] text-ellipsis overflow-hidden flex whitespace-nowrap capitalize">
+                          <b className="mr-2">{index + 1}.</b> {dietary.title}
+                        </span>
+                        <span
+                          className="cursor-pointer font-medium"
+                          onClick={() => removeDietary(index)}
+                        >
+                          x
+                        </span>
+                      </p>
+                    ) : null;
+                  })}
+                </div>
               </div>
 
-              <div class="py-2">
-                <span class="login-input-label capitalize"> Nutrition :</span>
+              <div className="py-2">
+                <span className="login-input-label capitalize">Nutrition:</span>
                 <select
                   name="Nutrition_id"
-                  value={formData.Nutrition_id}
+                  value={formData.Nutrition_id[formData.Nutrition_id.length - 1] || ""}
                   onChange={handleChange}
-                  class="login-input w-full mt-1"
+                  className="login-input w-full mt-1"
                   required
                 >
                   <option value="">Select Nutrition</option>
                   {Array.isArray(nutrition) &&
                     nutrition.map((item) => (
                       <option key={item._id} value={item._id}>
-                        {item?.Nutritional}
+                        {item.Nutritional}
                       </option>
                     ))}
                 </select>
+                <div className="grid md:grid-cols-2 flex-col gap-3 justify-between w-full px-2 py-2">
+                  {formData.Nutrition_id.map((nutritionId, index) => {
+                    const nutritionItem = nutrition.find(n => n._id === nutritionId);
+                    return nutritionItem ? (
+                      <p className="flex gap-x-2 text-[14px]" key={index}>
+                        <span className="max-w-[150px] text-ellipsis overflow-hidden flex whitespace-nowrap capitalize">
+                          <b className="mr-2">{index + 1}.</b> {nutritionItem.Nutritional}
+                        </span>
+                        <span
+                          className="cursor-pointer font-medium"
+                          onClick={() => removeNutrition(index)}
+                        >
+                          x
+                        </span>
+                      </p>
+                    ) : null;
+                  })}
+                </div>
               </div>
 
               <div class="py-2">
@@ -487,9 +563,8 @@ const EditModal = ({
                   <img
                     src={formData.ProfileImage}
                     alt="Selected Profile"
-                    className={`login-input w-full mt-1 ${
-                      formData.ProfileImage ? "" : "hidden"
-                    }`}
+                    className={`login-input w-full mt-1 ${formData.ProfileImage ? "" : "hidden"
+                      }`}
                     style={{
                       width: "100%",
                       height: "auto",
