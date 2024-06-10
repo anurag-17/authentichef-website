@@ -295,7 +295,18 @@ const DishDetails = ({ dishID, defaultADish, handleAddCart, setItemId }) => {
               </div>
               <div className="2xl:my-[20px] xl:my-[12px] my-[10px]">
                 <p className="fourth_p text-[#555555]">Heating instructions</p>{" "}
-                <p className="fourth_p ">{getADish?.Heating_Instruction}</p>
+                <p className="fourth_p ">
+                
+                {/* {getADish?.Heating_Instruction} */}
+                {getADish?.Heating_Instruction && (
+                  <span
+                    dangerouslySetInnerHTML={{
+                      __html: getADish?.Heating_Instruction,
+                    }}
+                  />
+                )}
+                
+                </p>
               </div>
               <div>
                 <p className="fourth_p text-[#555555]">

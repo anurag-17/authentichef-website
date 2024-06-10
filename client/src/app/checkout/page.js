@@ -19,6 +19,11 @@ const Checkout = () => {
   const { cart } = useSelector((state) => state?.userCart);
   const { user } = useSelector((state) => state?.auth);
   const router = useRouter();
+  const [refreshKey, setRefreshKey] = useState(0);
+  const [isRefresh, setRefresh] = useState(false);
+  const refreshData = () => {
+    setRefresh(!isRefresh);
+  };
   const [Promo_code, setPromoCode] = useState("");
   const [isSameAsShippingAddress, setIsSameAsShippingAddress] = useState(true);
   const [deliveryInfo, setDeliveryInfo] = useState({
@@ -49,7 +54,6 @@ const Checkout = () => {
   const [getCartItems, setGetCartItems] = useState([]);
   const [updatedCartItems, setUpdatedCartItems] = useState([]);
   const [subtotalPrice, setSubtotalPrice] = useState(0);
-  const [isRefresh, setRefresh] = useState(false);
   const [cartId, setCartId] = useState("");
   const [isChecked, setIsChecked] = useState(false);
   const [deliveryMessage, setDeliveryMessage] = useState("");
@@ -379,9 +383,6 @@ const Checkout = () => {
     }
   }, [getCartItems]);
 
-  const refreshData = () => {
-    setRefresh(!isRefresh);
-  };
 
   const updateCartItemQuantity = async (cartId, menuId, quantity) => {
     try {
@@ -431,6 +432,7 @@ const Checkout = () => {
 
     const item = getCartItems.find((item) => item._id === itemId);
     updateCartItemQuantity(cartId, item.menuItem._id, item.quantity + 1);
+    setRefreshKey((prevKey) => prevKey + 1);
   };
 
   const handleDecrement = (itemId) => {
@@ -461,6 +463,8 @@ const Checkout = () => {
     const item = getCartItems.find((item) => item._id === itemId);
     if (item.quantity > 1) {
       updateCartItemQuantity(cartId, item.menuItem._id, item.quantity - 1);
+      setRefreshKey((prevKey) => prevKey + 1);
+
     }
   };
 
