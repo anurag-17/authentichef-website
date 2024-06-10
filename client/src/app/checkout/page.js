@@ -40,10 +40,10 @@ const Checkout = () => {
   const [billingInfo, setBillingInfo] = useState({
     phone: "",
     houseNo: "",
-    buildingName: " ",
-    streetName: " ",
-    City: " ",
-    country: " ",
+    buildingName: "",
+    streetName: "",
+    City: "",
+    country: "",
     FirstName: "",
     LastName: "",
     Postcode: "",
@@ -366,6 +366,18 @@ const Checkout = () => {
   useEffect(() => {
     if (isSameAsShippingAddress) {
       setBillingInfo(deliveryInfo);
+    } else {
+      setBillingInfo({
+        phone: "",
+        houseNo: "",
+        buildingName: "",
+        streetName: "",
+        City: "",
+        country: "",
+        FirstName: "",
+        LastName: "",
+        Postcode: "",
+      });
     }
   }, [isSameAsShippingAddress, deliveryInfo]);
 
