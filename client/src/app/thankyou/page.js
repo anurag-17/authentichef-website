@@ -5,6 +5,7 @@ import Image from "next/image";
 import Navbar from "../navbar";
 import Footer from "../footer";
 import { useSelector } from "react-redux";
+import axios from "axios";
 
 const ThankU = () => {
   const { token } = useSelector((state) => state?.auth);
