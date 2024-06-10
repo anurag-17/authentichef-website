@@ -101,7 +101,6 @@ const Checkout = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validate required fields
     const requiredFields = [
       { value: deliveryInfo.phone, name: "Mobile Number" },
       { value: deliveryInfo.houseNo, name: "House No." },
@@ -189,43 +188,13 @@ const Checkout = () => {
           },
         }
       );
+
       if (response.status >= 200 && response.status < 300) {
         toast.success("Order Placed");
-        const { sessionId, sessionUrl } = response.data;
-        setSessionId(sessionId);
-        console.log("Session ID:", sessionId);
-
-        // Send the session ID to the second API
-        try {
-          const bookOrderResponse = await axios.post(
-            "http://localhost:4000/api/order/bookOrder",
-            {
-              sessionId,
-            },
-            {
-              headers: {
-                authorization: token,
-              },
-            }
-          );
-
-          if (
-            bookOrderResponse.status >= 200 &&
-            bookOrderResponse.status < 300
-          ) {
-            console.log("Session ID sent successfully");
-          } else {
-            console.error(
-              "Failed to send session ID",
-              bookOrderResponse.data.message
-            );
-          }
-        } catch (error) {
-          console.error("Error sending session ID:", error);
-        }
 
         if (paymentMethod === "card") {
-          window.location.href = sessionUrl;
+          const { sessionId, sessionUrl } = response.data;
+          window.location.href = sessionUrl; // Redirect to Stripe payment page
         } else {
           router.push("/explore-dishes");
         }
@@ -237,6 +206,77 @@ const Checkout = () => {
       toast.error("Order Failed");
       console.log("Error:", error);
     }
+  };
+
+  // This function should be called once the Stripe payment is successful
+  const pollForSessionId = async () => {
+    const pollInterval = 5000; // Poll every 5 seconds
+    const maxAttempts = 40; // Stop polling after 20 attempts (or adjust as needed)
+
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      try {
+        const sessionIdResponse = await axios.get(
+          "http://13.43.174.21:4000/api/order/getSessionId",
+          {
+            headers: {
+              authorization: token,
+            },
+          }
+        );
+
+        if (sessionIdResponse.status >= 200 && sessionIdResponse.status < 300) {
+          const { sessionId, successUrl } = sessionIdResponse.data.success;
+          console.log("Session ID:", sessionId);
+
+          // Send the session ID to the second API
+          try {
+            const bookOrderResponse = await axios.post(
+              "http://localhost:4000/api/order/bookOrder",
+              {
+                sessionId,
+              },
+              {
+                headers: {
+                  authorization: token,
+                },
+              }
+            );
+
+            if (
+              bookOrderResponse.status >= 200 &&
+              bookOrderResponse.status < 300
+            ) {
+              console.log("Session ID sent successfully");
+              // Redirect to success URL
+              window.location.href = successUrl.replace(
+                "{CHECKOUT_SESSION_ID}",
+                sessionId
+              );
+              return; // Stop polling once successful
+            } else {
+              console.error(
+                "Failed to send session ID",
+                bookOrderResponse.data.message
+              );
+            }
+          } catch (error) {
+            console.error("Error sending session ID:", error);
+          }
+        } else {
+          console.log("Session ID not available yet, retrying...");
+        }
+      } catch (error) {
+        console.error("Error getting session ID:", error);
+      }
+
+      await new Promise((resolve) => setTimeout(resolve, pollInterval)); // Wait for the poll interval before retrying
+    }
+
+    toast.error("Failed to get session ID after multiple attempts.");
+  };
+
+  const handleStripePaymentSuccess = async () => {
+    pollForSessionId(); 
   };
 
   console.log("Session ID:", sessionId);
@@ -901,7 +941,9 @@ const Checkout = () => {
                                     {item?.menuItem?.name}
                                   </h4>
                                   <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[20px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
-                                    £{item?.menuItem?.price &&  `${item?.menuItem?.price.toFixed(2)}` }
+                                    £
+                                    {item?.menuItem?.price &&
+                                      `${item?.menuItem?.price.toFixed(2)}`}
                                   </h4>
                                 </div>
                               </div>
