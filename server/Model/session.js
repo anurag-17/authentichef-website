@@ -7,14 +7,21 @@ const sessionSchema = new Schema({
         ref: 'User',
         required: true
     },
+
+
+
     sessionId:{
         type: String,
         required: true
     },
+
+
     successUrl:{
         type: String,
         required: true
     }
+
+    
     })
 
 module.exports = mongoose.model('Session', sessionSchema);

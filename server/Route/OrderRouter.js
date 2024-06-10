@@ -1,14 +1,8 @@
 const express=require('express')
 const { isAuthenticatedUser,isAuthenticatedUserForAddtocard,authorizeRoles} = require('../middleware/auth')
-const {PlaceOrder,OrderList,getOrderById,UpdateOrder,DeleteOrder,  getChefAndOrderCounts , AllOrderList ,checkDiscount,BookOrder,CancelOrder,GetSessionId} = require("../Controller/order")
+const {PlaceOrder,OrderList,getOrderById,UpdateOrder,DeleteOrder,  getChefAndOrderCounts , AllOrderList ,checkDiscount,BookOrder,CancelOrder,GetSessionId } = require("../Controller/order")
 const {handleWebhook}=require("../Controller/handlehookcontroller")
 const router=express.Router()
-const bodyParser = require('body-parser');
-
-// Creata  a  order //
-
-// Middleware to parse raw request body for webhook
-router.use(bodyParser.raw({ type: 'application/json' }));
 
 router.post("/createOrder", isAuthenticatedUser , PlaceOrder)
 
@@ -28,5 +22,6 @@ router.get("/getChefAndOrderCounts", isAuthenticatedUser, authorizeRoles("admin"
 router.get("/allOrderList", isAuthenticatedUser, authorizeRoles("admin"), AllOrderList)
 router.get("/checkDiscount", isAuthenticatedUser, checkDiscount)
 router.post("/cancelOrder", isAuthenticatedUser, CancelOrder)
+
 router.get("/getSessionId", isAuthenticatedUser, GetSessionId)
 module.exports=router

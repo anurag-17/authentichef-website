@@ -864,6 +864,7 @@ const validateAndParseJson = (jsonString, fieldName) => {
 // Make a api to get a session id//
 
 exports.GetSessionId = async (req, res) => {
+
     try{
 
         const userId = req.user._id; 
