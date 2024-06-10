@@ -446,6 +446,11 @@ exports.PlaceOrder = async (req, res, next) => {
         // Format totalAmount to two decimal places
         totalAmount = parseFloat(totalAmount.toFixed(2));
 
+        // if (totalAmount < 30) {
+        //     return res.status(400).json({ message: 'Order cannot be placed. Minimum order amount is £30.' });
+        // }
+
+
         let payment, transactionId;
 
         if (payment_method_types === 'COD') {
