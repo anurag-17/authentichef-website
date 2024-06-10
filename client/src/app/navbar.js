@@ -106,7 +106,7 @@ const Navbar = () => {
   const handleToggle = () => {
     setShowPassword(!showPassword);
   };
-  const [loginDetails, setLoginDetails] = useState({
+  const [loginDetail, setLoginDetail] = useState({
     email: "",
     password: "",
   });
@@ -220,7 +220,7 @@ const Navbar = () => {
   };
 
   const InputHandler = (e) => {
-    setLoginDetails({ ...loginDetails, [e.target.name]: e.target.value });
+    setLoginDetail({ ...loginDetail, [e.target.name]: e.target.value });
   };
   const refreshData = () => {
     setRefresh(!isRefresh);
@@ -232,7 +232,7 @@ const Navbar = () => {
     try {
       const res = await axios.post(
         `${config.baseURL}/api/auth/login`,
-        loginDetails,
+        loginDetail,
         {
           headers: {
             "Content-Type": "application/json",
@@ -255,7 +255,7 @@ const Navbar = () => {
         setLoading(false);
       }
     } catch (error) {
-      console.error("Error during login:", error);
+      toast.error(error.response.data);
       setLoading(false);
     }
   };
