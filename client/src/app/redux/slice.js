@@ -1,4 +1,3 @@
-"use client";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -13,26 +12,24 @@ export const authSlice = createSlice({
     setToken: (state, action) => {
       state.token = action.payload;
     },
-    removeToken: (state, action) => {
-      state.token = action.null;
+    removeToken: (state) => {
+      state.token = null;
     },
     setUser: (state, action) => {
       state.user = action.payload;
     },
-    removeUser: (state, action) => {
-      state.user = action.null;
+    removeUser: (state) => {
+      state.user = null;
     },
     setUserId: (state, action) => {
       state._id = action.payload;
     },
-
     setSuccess: (state, action) => {
       state.success = action.payload;
     },
-    removeSuccess: (state, action) => {
-      state.success = action.null;
+    removeSuccess: (state) => {
+      state.success = null;
     },
-  
     superAdminDetails: (state, action) => {
       state.superAdminDetails = action.payload;
     },
@@ -44,9 +41,7 @@ export const {
   setToken,
   removeToken,
   setUser,
-  adDetails,
   superAdminDetails,
-  rem_AdDetails,
   removeUser,
   setSuccess,
   removeSuccess,

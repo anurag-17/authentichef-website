@@ -1,7 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 import config from "@/config";
-import { useSelector } from "react-redux";
 
 // Helper function to load state from localStorage
 const loadState = () => {
@@ -159,6 +157,7 @@ const dishSlice = createSlice({
     },
     setToken: (state, action) => {
       state.token = action.payload;
+      localStorage.setItem("token", action.payload); // Save token to local storage
       saveState(state);
     },
   },
