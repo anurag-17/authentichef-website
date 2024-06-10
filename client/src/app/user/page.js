@@ -659,18 +659,18 @@ const LandingPage = () => {
                         src={item?.images}
                         className="rounded-full 2xl:w-[180px] 2xl:h-[180px] xl:w-[120px] xl:h-[120px] lg:w-[100px] lg:h-[100px] object-cover"
                       />
+                      <Link href={`/pages/chef-details/${item?._id}`}>
                       <h2 className="seven_name">Chef {item?.name}</h2>
-                      <p className="seven_p2">
-                        Lorem ipsum dolor sit amet. Non quos sunt et provident
-                        {/* {item?.bio} */}
-                        <Link href={`/pages/chef-details/${item?._id}`}>
+                      <p className="seven_p2 h-[30px] overflow-hidden"   dangerouslySetInnerHTML={{ __html: item?.bio }}
+                      
+                      />
+                        
                           <span className="text-[#DB5353]">...more</span>
                         </Link>
-                      </p>
                       <h3 className="seven_h2 text-[#DB5353] 2xl:mt-[20px] xl:mt-[10px] lg:mt-[8px]">
-                        {item?.name}
+                        {item?.nationality}
                       </h3>
-                      <h4 className="seven_h2">{item?.name}</h4>
+                      <h4 className="seven_h2">{item?.nationality}</h4>
                     </div>
                   </div>
                 ))}
@@ -935,7 +935,7 @@ const LandingPage = () => {
             onClick={handleDrawerClose}
           ></label>
           <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content 2xl:w-[505px] xl:w-[350px] lg:w-[290px] bg-white 2xl:mt-[116px] xl:mt-[80px] lg:mt-[50px] sm:mt-[45px] mt-12">
-            <div className="bg-white hidden lg:block rounded-s-[15px]">
+            <div className="bg-white rounded-s-[15px]">
               <div>
                 <div className="">
                   <button
