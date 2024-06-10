@@ -57,14 +57,16 @@ const LandingPage = () => {
   const [dishID, setDishID] = useState("");
   const closeModal = () => setOpen(false);
   const dispatch = useDispatch();
-  const { cart } = useSelector((state) => state?.userCart);
   const [subtotalPrice, setSubtotalPrice] = useState(0);
   const [updatedCartItems, setUpdatedCartItems] = useState([]);
   const [shouldRefresh, setShouldRefresh] = useState(false);
-  cart.forEach((item, index) => {
-    const { data } = item;
-    console.log(data, `data from item ${index + 1}`);
-  });
+  const { cart } = useSelector((state) => state?.userCart);
+  const cartData = cart[0]?.data?._id;
+  const quantity = cart[0]?.quantity;
+    cart.forEach((item, index) => {
+      const { data } = item;
+      console.log(data, `data from item ${index + 1}`);
+    });
 
   const handleIncrement = (itemId) => {
     setGetCartItems((prevCartItems) => {
@@ -249,7 +251,7 @@ const LandingPage = () => {
       .request(option)
       .then((response) => {
         setGetCartItems(response?.data?.userCart?.items);
-        console.log(response?.data?.userCart?.items, "data");
+        refreshData();
       })
       .catch((error) => {
         console.log(error, "Error");
@@ -748,7 +750,6 @@ const LandingPage = () => {
                       <h3 className="seven_h2 text-[#DB5353] 2xl:mt-[20px] xl:mt-[10px] lg:mt-[8px]">
                         {item?.nationality}
                       </h3>
-                    
                     </div>
                   </div>
                 ))}
