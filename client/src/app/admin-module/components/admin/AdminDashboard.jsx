@@ -29,24 +29,20 @@ const AdminDashboard = () => {
           "Content-Type": "application/json",
         },
       });
-      // console.log(res);
       if (res?.data?.success) {
-        toast.success("Logout successfully !");
-        router.push("/admin-module/admin/sign-in");
-        dispatch(removeToken());
-        router.push("/admin-module/admin/sign-in");
-        dispatch(rem_AdDetails());
+        toast.success("Logout successfully!");
       } else {
-        dispatch(removeToken());
-        dispatch(rem_AdDetails());
-        // toast.error("Logout failed try again !");
+        toast.error("Logout failed, please try again!");
       }
-    } catch (error) {
-      router.push("/admin-module/admin/sign-in");
       dispatch(removeToken());
       dispatch(rem_AdDetails());
+      router.push("/admin-module/admin/sign-in");
+    } catch (error) {
       console.error("Error occurred:", error);
-      // toast.error(error?.response?.data?.error || "Invalid token !");
+      toast.error(error?.response?.data?.error || "Invalid token!");
+      dispatch(removeToken());
+      dispatch(rem_AdDetails());
+      router.push("/admin-module/admin/sign-in");
     }
   };
 

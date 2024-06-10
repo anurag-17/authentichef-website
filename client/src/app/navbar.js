@@ -216,9 +216,9 @@ const Navbar = () => {
         handleClose();
         setLoading(false);
         setIsLoggedIn(true);
-        setTimeout(() => {
-          postCartToApi();
-        }, 3000);
+        // setTimeout(() => {
+        //   postCartToApi();
+        // }, 3000);
       } else {
         toast.error("Login failed please try later!");
         setLoading(false);
@@ -273,37 +273,38 @@ const Navbar = () => {
   const { cart } = useSelector((state) => state?.userCart);
   const cartData = cart[0]?.data?._id;
   const quantity = cart[0]?.quantity;
-  const postCartToApi = async () => {
-    try {
-      const response = await axios.post(
-        `${config.baseURL}/api/Orders/AddtoCart`,
-        {
-          items: [
-            {
-              menuItem: cartData,
-              quantity: quantity,
-            },
-          ],
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: token, // Assuming token is defined somewhere
-          },
-        }
-      );
+  // const postCartToApi = async () => {
+  //   try {
+  //     const response = await axios.post(
+  //       `${config.baseURL}/api/Orders/AddtoCart`,
+  //       {
+  //         items: [
+  //           {
+  //             menuItem: cartData,
+  //             quantity: quantity,
+  //           },
+  //         ],
+  //       },
+  //       {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: token, // Assuming token is defined somewhere
+  //         },
+  //       }
+  //     );
 
-      if (response.status !== 200) {
-        throw new Error("Failed to post cart data");
-      }
+  //     if (response.status !== 200) {
+  //       throw new Error("Failed to post cart data");
+  //     }
 
-      return response.data;
-    } catch (error) {
-      console.error("Error posting cart data:", error);
-      throw error;
-    }
-  };
+  //     return response.data;
+  //   } catch (error) {
+  //     console.error("Error posting cart data:", error);
+  //     throw error;
+  //   }
+  // };
 
+  
   // Helper function to save state to localStorage and post to API
   const saveState = async (state) => {
     try {

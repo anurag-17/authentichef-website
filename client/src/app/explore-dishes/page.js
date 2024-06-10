@@ -1466,9 +1466,9 @@ const ExploreDishes = () => {
                   </div>
 
                   <p className="nine_p2">
-                    Lorem ipsum dolor sit amet. Ut maxime necessitatibus rem
-                    odio Quis 33 galisum molestias ut voluptas fuga et quia
-                    voluptate ut pariatur aperiam.
+                    Thanks to AuthenticHef, I get to enjoy amazing homemade food
+                    without cooking. Every dish is like a taste of home-cooked
+                    goodness, making my meals super satisfying.
                   </p>
                   <p className="nine_name">Mayank Jaiswal</p>
                 </div>
@@ -1522,9 +1522,9 @@ const ExploreDishes = () => {
                 </div>
 
                 <p className="nine_p2">
-                  Lorem ipsum dolor sit amet. Ut maxime necessitatibus rem odio
-                  Quis 33 galisum molestias ut voluptas fuga et quia voluptate
-                  ut pariatur aperiam.
+                  AuthenticHefs homemade food delivery is a lifesaver for me.
+                  Its like having my own chef make yummy dishes that make my
+                  taste buds happy.
                 </p>
                 <p className="nine_name">Rohit Thakur</p>
               </div>
@@ -1581,9 +1581,9 @@ const ExploreDishes = () => {
                 </div>
 
                 <p className="nine_p2">
-                  Lorem ipsum dolor sit amet. Ut maxime necessitatibus rem odio
-                  Quis 33 galisum molestias ut voluptas fuga et quia voluptate
-                  ut pariatur aperiam.
+                  AuthenticHef sends me delicious homemade meals that take me on
+                  a food adventure. Its awesome to enjoy different flavors and
+                  cuisines without leaving home.
                 </p>
                 <p className="nine_name">Shubham Sharma</p>
               </div>
@@ -1922,7 +1922,7 @@ const ExploreDishes = () => {
             <div className="2xl:my-[20px] xl:my-[12px] my-[10px]">
               <div className="flex justify-between">
                 <div>
-                  <p className="fourth_p text-[#555555]">Ingredients</p>{" "}
+                  <p className="fourth_p text-[#555555]">Main Ingredients</p>{" "}
                   <p className="fourth_p ">Chicken, Egg, Tomato, etc</p>
                 </div>
                 <div className="2xl:w-[578px] xl:w-[430px] w-[360px]">

@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css"; // Import the styles
+// import ReactQuill from "react-quill";
+// import "react-quill/dist/quill.snow.css"; // Import the styles
 import Loader from "../../../loader/Index";
 import config from "@/config";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css"; // Import the styles
 
 const AddModal = ({ closeModal, refreshData }) => {
   const token = JSON.parse(localStorage.getItem("admin_token"));
