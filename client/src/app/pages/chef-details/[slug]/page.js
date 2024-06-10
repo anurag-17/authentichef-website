@@ -482,7 +482,7 @@ Food Safety
             onClick={handleDrawerClose}
           ></label>
           <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content 2xl:w-[505px] xl:w-[350px] lg:w-[290px] bg-white 2xl:mt-[116px] xl:mt-[80px] lg:mt-[50px] sm:mt-[45px] mt-12">
-            <div className="bg-white hidden lg:block rounded-s-[15px]">
+            <div className="bg-white rounded-s-[15px]">
               <div>
                 <div className="">
                   <button

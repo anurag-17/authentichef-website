@@ -319,7 +319,7 @@ td {
 }
 
 .faqA {
-  @apply  2xl:text-[18px] md:text-[16px] text-[14px]
+  @apply 2xl:text-[18px] md:text-[16px] text-[14px]
 }
 
 .seven_btn {
@@ -444,6 +444,7 @@ td {
 .pop-head {
   @apply alata font-[400] 2xl:text-[45px] 2xl:leading-[55px] lg:text-[30px] md:text-[25px] xl:text-[30px] xl:leading-[40px] text-[16px] leading-[24px]
 }
+
 .pop-heads {
   @apply alata font-[400] 2xl:text-[30px] 2xl:leading-[40px] lg:text-[16px] md:text-[22px] xl:text-[22px] xl:leading-[30px] text-[16px] leading-[24px]
 }
@@ -1026,5 +1027,5 @@ td {
 }
 
 .collapse-content {
-  @apply w-[93%]
+  @apply w-[93%] text-[#555555]
 }

@@ -79,13 +79,11 @@ const Setting = () => {
       } else {
         console.log("Logout failed");
         router.push("/explore-dishes");
-
       }
     } catch (error) {
       console.error("Error logging out:", error);
       toast.error("Logout failed");
       router.push("/explore-dishes");
-
     }
   };
 

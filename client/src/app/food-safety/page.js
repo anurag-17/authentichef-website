@@ -39,7 +39,7 @@ const FoodSefty = () => {
           </div>
         </div>
 
-        <div className="bg-[#F7BFA5] 2xl:py-[120px] xl:py-[80px] sm:py-[50px] py-[30px]">
+        <div className="bg-[#F7BFA5] 2xl:py-[50px] xl:py-[35px] sm:py-[30px] py-[20px]">
           <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[750px] w-full mx-auto mnavbar">
             <div>
               <h2 className="alata font-[400] mx-auto 2xl:text-[25px] 2xl:leading-[37px] xl:text-[16px] xl:leading-[30px] sm:text-[16px] text-[12px] sm:leading-[24px] 2xl:w-[831px] xl:w-[550px] w-full text-center">
@@ -111,7 +111,7 @@ const FoodSefty = () => {
           </div>
         </div>
 
-        <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[80%] w-full flex items-center mx-auto flex-col-reverse lg:flex-row mnavbar 2xl:py-[115px] xl:py-[80px] py-[50px]">
+        <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[80%] w-full flex items-center mx-auto flex-col-reverse lg:flex-row mnavbar 2xl:py-[50px] xl:py-[35px] sm:py-[30px] py-[20px]">
           <h4 className="alata font-[400] mx-auto 2xl:text-[25px] 2xl:leading-[37px] xl:text-[16px] xl:leading-[30px] sm:text-[14px] text-[10px] sm:leading-[22px] 2xl:w-[831px] xl:w-[550px] w-full text-center">
             We value your feedback and would love to hear about your experience.
             <br />

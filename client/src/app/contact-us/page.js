@@ -97,20 +97,20 @@ const ContactUS = () => {
                 <div className=" w-full">
                   <form
                     onSubmit={handleSubmit}
-                    className="flex flex-col alata gap-3 lg:gap-5 xs:gap-2"
+                    className="flex flex-col alata gap-x-3 lg:gap-x-5 xs:gap-x-2"
                   >
                     <div className="flex flex-col sm:flex-row gap-4 xs:gap-2">
                       <input
                         name="FirstName"
                         placeholder="First Name"
-                        className="profile_input w-full sm:w-1/3"
+                        className="profile_input mt-3 lg:mt-[17px] xs:mt-2 w-full sm:w-1/3"
                         value={first.FirstName}
                         onChange={inputHandler}
                       />
                       <input
                         name="Surname"
                         placeholder="Last Name"
-                        className="profile_input w-full sm:w-1/3"
+                        className="profile_input mt-3 lg:mt-[17px] xs:mt-2 w-full sm:w-1/3"
                         value={first.Surname}
                         onChange={inputHandler}
                       />
@@ -118,7 +118,7 @@ const ContactUS = () => {
                         name="Phone"
                         placeholder="Phone"
                         type="text"
-                        className="profile_input w-full sm:w-1/3"
+                        className="profile_input mt-3 lg:mt-[17px] xs:mt-2 w-full sm:w-1/3"
                         value={first.Phone}
                         onChange={(e) => {
                           const input = e.target.value;
@@ -137,7 +137,7 @@ const ContactUS = () => {
                 name="Phone"
                 placeholder="Phone"
                 type="number"
-                className="profile_input w-full"
+                className="profile_input mt-3 lg:mt-[17px] xs:mt-2 w-full"
                 value={first.Phone}
                 onChange={inputHandler}
               /> */}
@@ -146,14 +146,14 @@ const ContactUS = () => {
                         name="Email"
                         placeholder="Email"
                         type="email"
-                        className="profile_input w-full sm:w-1/3"
+                        className="profile_input mt-3 lg:mt-[17px] xs:mt-2 w-full sm:w-1/3"
                         value={first.Email}
                         onChange={inputHandler}
                       />
                       {/* <input
                 name="Postcode"
                 placeholder="Post Code"
-                className="profile_input w-full"
+                className="profile_input mt-3 lg:mt-[17px] xs:mt-2 w-full"
                 value={first.Postcode}
                 onChange={inputHandler}
               /> */}
@@ -161,7 +161,7 @@ const ContactUS = () => {
                         name="Postcode"
                         placeholder="Post Code"
                         type="text"
-                        className="profile_input w-full sm:w-1/3"
+                        className="profile_input mt-3 lg:mt-[17px] xs:mt-2 w-full sm:w-1/3"
                         value={first.Postcode}
                         onChange={(e) => {
                           const input = e.target.value;
@@ -175,7 +175,7 @@ const ContactUS = () => {
                           });
                         }}
                       />
-                      <button className="font-alata font-medium bg-[#DB5353] text-white rounded-5 py-2 mt-[10px] hover:bg-[#7e2727]  h-auto lg:w-30 lg:h-14  xl:h-14 2xl:h-14 w-1/3">
+                      <button className="font-alata font-medium bg-[#DB5353] text-white rounded-5 py-2  mt-3 lg:mt-[17px] xs:mt-2 hover:bg-[#7e2727]  h-auto lg:w-30 lg:h-14  xl:h-14 2xl:h-14 w-1/3">
                         Submit
                       </button>
                     </div>
@@ -200,14 +200,14 @@ const ContactUS = () => {
                 <input
                   name="FirstName"
                   placeholder="First Name"
-                  className="profile_input w-full sm:w-1/2"
+                  className="profile_input mt-3 lg:mt-[17px] xs:mt-2 w-full sm:w-1/2"
                   value={first.FirstName}
                   onChange={inputHandler}
                 />
                 <input
                   name="Surname"
                   placeholder="Last Name"
-                  className="profile_input w-full sm:w-1/2"
+                  className="profile_input mt-3 lg:mt-[17px] xs:mt-2 w-full sm:w-1/2"
                   value={first.Surname}
                   onChange={inputHandler}
                 />
@@ -217,7 +217,7 @@ const ContactUS = () => {
                 name="Phone"
                 placeholder="Phone"
                 type="text"
-                className="profile_input w-full"
+                className="profile_input mt-3 lg:mt-[17px] xs:mt-2 w-full"
                 value={first.Phone}
                 onChange={(e) => {
                   const input = e.target.value;
@@ -232,7 +232,7 @@ const ContactUS = () => {
                 name="Email"
                 placeholder="Email"
                 type="email"
-                className="profile_input w-full"
+                className="profile_input mt-3 lg:mt-[17px] xs:mt-2 w-full"
                 value={first.Email}
                 onChange={inputHandler}
               />
@@ -241,7 +241,7 @@ const ContactUS = () => {
                 name="Postcode"
                 placeholder="Post Code"
                 type="text"
-                className="profile_input w-full"
+                className="profile_input mt-3 lg:mt-[17px] xs:mt-2 w-full"
                 value={first.Postcode}
                 onChange={(e) => {
                   const input = e.target.value;
