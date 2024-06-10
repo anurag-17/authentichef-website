@@ -300,6 +300,9 @@ const Navbar = () => {
   const handleSignUpClick = () => {
     document.getElementById("my_modal_1").showModal();
   };
+  const handleCartClear1 = () => {
+    dispatch(clearCart());
+  };
 
   const { cart } = useSelector((state) => state?.userCart);
   const cartData = cart[0]?.data?._id;
@@ -378,6 +381,7 @@ const Navbar = () => {
     const { data } = item;
   });
   const [getCartItems, setGetCartItems] = useState({});
+  console.log(getCartItems, "getCartItems");
   useEffect(() => {
     if (token) {
       defaultCartItems(isRefresh);
@@ -408,6 +412,7 @@ const Navbar = () => {
           ...item,
           totalPrice: item.menuItem.price * item.quantity,
         }));
+        refreshData();
         setGetCartItems(cartItems);
         setUpdatedCartItems(cartItems);
         setSubtotalPrice(
@@ -524,7 +529,9 @@ const Navbar = () => {
       if (response.status >= 200 && response.status < 300) {
         toast.success("Items added to cart successfully");
         handleDrawerOpen();
+
         refreshData();
+        handleCartClear1();
       } else {
         toast.error("Failed to add items to cart. Please try again.");
         refreshData();
@@ -597,7 +604,6 @@ const Navbar = () => {
           localStorage.setItem("authToken", tokenFromUrl);
           toast.success("Logged in successfully!");
 
-          // Update the isLoggedIn and userDetails state variables
           setIsLoggedIn(true);
           setCurrentUser(data.user);
 
@@ -705,10 +711,7 @@ const Navbar = () => {
 
   const handleItemRemove1 = (id) => {
     dispatch(removeItemFromCart(id));
-  };
-
-  const handleCartClear1 = () => {
-    dispatch(clearCart());
+    toast.success("Item Removed From Cart");
   };
 
   return (
@@ -884,6 +887,7 @@ const Navbar = () => {
                 <Image alt="logo" src={logo} className="nav_logo" />
               </a>
             </div>
+
             <div className="w-1/3 flex justify-end ">
               <div className="flex justify-end md:gap-0 gap-2 ">
                 {isLoggedIn === success ? (
@@ -938,7 +942,7 @@ const Navbar = () => {
           ></label>
           <ul className="min-h-full text-base-content max-w-[310px] sm:max-w-[350px] md:w-[400px] md:max-w-[400px] 2xl:w-[450px] 2xl:max-w-[450px] bg-white">
             <div className="flex flex-col justify-center items-center p-[15px] md:p-[20px] h-[100vh]">
-              {cart?.length === 0 && getCartItems?.length === 0 ? (
+              {!cart || getCartItems.length === 0 ? (
                 <div className="flex flex-col justify-center items-center">
                   <h4 className="alata font-[400] text-[#111] text-[24px] mb-[1rem]">
                     Your Basket is empty!
@@ -951,7 +955,10 @@ const Navbar = () => {
                   </p>
                   <div className="flex 2xl:mt-12 xl:mt-6 lg:mt-5 mt-4">
                     <Link href="/explore-dishes">
-                      <button className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[221px] 2xl:h-[56px] xl:text-[20px] md:text-[16px] text-[15px] px-6 py-3">
+                      <button
+                        onClick={handleDrawerClose}
+                        className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[221px] 2xl:h-[56px] xl:text-[20px] md:text-[16px] text-[15px] px-6 py-3"
+                      >
                         Explore Dishes
                       </button>
                     </Link>
@@ -1009,11 +1016,7 @@ const Navbar = () => {
                                     <button
                                       className="text-[#111111] px-[10px] py-[5px]"
                                       onClick={() =>
-                                        token
-                                          ? handleDecrement(item._id)
-                                          : handleQuantityDecrement(
-                                              item.data._id
-                                            )
+                                        handleQuantityDecrement(item.data._id)
                                       }
                                     >
                                       <MinusIcon />
@@ -1024,11 +1027,7 @@ const Navbar = () => {
                                     <button
                                       className="text-[#111111] px-[10px] py-[5px]"
                                       onClick={() =>
-                                        token
-                                          ? handleIncrement(item._id)
-                                          : handleQuantityIncrement(
-                                              item.data._id
-                                            )
+                                        handleQuantityIncrement(item.data._id)
                                       }
                                     >
                                       <PlusIcon />
@@ -1043,11 +1042,7 @@ const Navbar = () => {
                               </p>
                               <button
                                 className="text-center mx-auto"
-                                onClick={() =>
-                                  token
-                                    ? handleItemRemove(item.menuItem._id)
-                                    : handleItemRemove1(item.data._id)
-                                }
+                                onClick={() => handleItemRemove1(item.data._id)}
                               >
                                 <DeleteIcon />
                               </button>
@@ -1116,7 +1111,9 @@ const Navbar = () => {
                                 <button
                                   className="text-center mx-auto"
                                   onClick={() =>
-                                    token ? handleRemoveItem(item._id) : ""
+                                    token
+                                      ? handleRemoveItem(item.menuItem._id)
+                                      : ""
                                   }
                                 >
                                   <DeleteIcon />
