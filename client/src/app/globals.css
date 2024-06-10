@@ -462,7 +462,7 @@ td {
 }
 
 .checkoutlable {
-  @apply alata font-[400] 2xl:text-[14px] 2xl:leading-[26px] xl:text-[10px] xl:leading-[20px] text-[9px] leading-[18px]
+  @apply alata font-[400] 2xl:text-[14px] 2xl:leading-[26px] xl:text-[10px] xl:leading-[20px] text-[12px] leading-[18px]
 }
 
 .profile_input {

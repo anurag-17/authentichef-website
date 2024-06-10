@@ -350,13 +350,13 @@ const ChefDetails = ({ params }) => {
       <section>
         <Navbar />
         <div className=" ">
-          <div className="2xl:w-[1600px] xl:w-[1200px] lg:w-[850px] md:w-[750px] w-[90%] px-5 sm:px-0 mnavbar 2xl:pt-[220px] xl:pt-[140px] pt-[100px] 2xl:py-[100px] xl:py-[50px] py-[40px] mx-auto ">
+          <div className="2xl:w-[1600px] xl:w-[1200px] lg:w-[850px] md:w-[750px] w-[90%] sm:px-0 mnavbar 2xl:pt-[220px] xl:pt-[140px] pt-[60px] 2xl:py-[100px] xl:py-[50px] py-[40px] mx-auto ">
             <div
               className="chefDishes-bg rounded-[15px] relative 2xl:h-[529px] xl:h-[360px] h-[280px] 2xl:pt-[295px] xl:pt-[200px] lg:pt-[155px] pt-[120px]"
               style={{ backgroundImage: `url(${bannerImage})` }}
             >
-              <div className=" border flex gap-5 2xl:w-[1414px] xl:w-[1000px] lg:w-[750px] w-[90%]  rounded-[15px] bg-white mx-auto 2xl:p-[50px] xl:p-[20px] p-[15px] chefdishWB">
-                <div className="2xl:w-[154px] xl:w-[80px] w-[60px]">
+              <div className=" border sm:flex gap-5 2xl:w-[1414px] xl:w-[1000px] lg:w-[750px] w-[100%]  rounded-[15px] bg-white mx-auto 2xl:p-[50px] xl:p-[20px] p-[10px] chefdishWB">
+                <div className="2xl:w-[154px] xl:w-[80px] w-[60px] mx-auto">
                   <div className="2xl:w-[154px] xl:w-[80px] w-[60px]">
                     <img
                       src={getAChef?.images}
@@ -379,14 +379,14 @@ const ChefDetails = ({ params }) => {
                   </div>
                 </div>
                 <div>
-                  <h4 className="alata font-[400] 2xl:text-[35px] 2xl:leading-[45px] xl:text-[20px] xl:leading-[35px] lg:text-[16px] lg:leading-[24px]">
+                  <h4 className="alata font-[400] 2xl:text-[35px] 2xl:leading-[45px] xl:text-[20px] xl:leading-[35px] lg:text-[16px] lg:leading-[24px] text-center sm:text-start">
                     Chef {getAChef?.name}
                   </h4>
-                  <p className="fourth_p text-[#555555]">
+                  <p className="fourth_p text-[#555555] text-center sm:text-start">
                     {/* Punjabi · North Indian · South Indian · Indian · Vegetarian */}
                     {getAChef?.nationality}
                   </p>
-                  <div className="flex gap-3 2xl:my-[20px] xl:my-[15px] my-[10px]">
+                  <div className="flex justify-center sm:justify-start gap-3 2xl:my-[20px] xl:my-[15px] my-[10px]">
                     {/* <div className="2xl:w-[130px] 2xl:h-[37px] xl:w-[115px] xl:h-[30px] w-[90px] h-[25px] bg-[#F3F3F3] flex justify-around items-center">
 <Image src={cook} className="w-[17px]" />
 
@@ -394,15 +394,17 @@ const ChefDetails = ({ params }) => {
 Food Safety
 </p>
 </div> */}
-                    <div className="2xl:w-[200px] 2xl:h-[37px] xl:w-[200px] xl:h-[30px] w-[120px] h-[25px bg-[#F3F3F3] flex justify-center gap-1 xl:gap-2 items-center py-1 ">
-                      <Image src={cook2} className="w-[17px]" />
-                      <p className="fourth_day">Food Safety Certified</p>
-                      {/* <p className="fourth_day text-[#838383]">Food safety</p> */}
-                    </div>
+                  
+                      <div className="2xl:w-[200px] 2xl:h-[37px] xl:w-[200px] xl:h-[30px] w-[160px] h-[30px] bg-[#F3F3F3] flex justify-center gap-1 xl:gap-2 items-center py-1 ">
+                        <Image src={cook2} className="w-[17px]" />
+                        <p className="fourth_day">Food Safety Certified</p>
+                        {/* <p className="fourth_day text-[#838383]">Food safety</p> */}
+                      </div>
+                  
                   </div>
                   <div className="flex gap-[50px] 2xl:my-[30px] xl:my-[20px] my-[10px]">
                     <div className=" ">
-                      <div className="checkoutlable text-[#555555]">
+                      <div className="checkoutlable text-[#555555] text-center sm:text-start">
                         <h2
                           dangerouslySetInnerHTML={{ __html: getAChef?.bio }}
                         />
@@ -415,7 +417,7 @@ Food Safety
             </div>
           </div>
         </div>
-        <div className="2xl:py-[140px] xl:py-[100px] py-[80px] ">
+        <div className="2xl:py-[140px] xl:py-[100px] py-[50px] mt-[140px] sm:mt-0 ">
           <div className="2xl:w-[1600px] xl:w-[1200px] lg:w-[850px] md:w-[750px] w-[90%] mx-auto mnavbar">
             <div className="">
               <div>
