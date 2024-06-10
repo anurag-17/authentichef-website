@@ -21,7 +21,7 @@ const Dashboard = () => {
   const handleSignout = async () => {
     try {
       const res = await axios.get(
-        "http://www.authentichef.com/api/auth/logout",
+        `${config.baseURL}/api/auth/logout`,
         {
           headers: {
             Authorization: token,
