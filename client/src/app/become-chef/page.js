@@ -96,7 +96,7 @@ const BecomeChef = () => {
               <div className="flex justify-center">
                 <button
                   onClick={handleButtonClick}
-                  className="font-alata font-medium bg-[#DB5353] text-white rounded-[5px]  2xl:w-[240px] py-1 xl:py-[12px] lg:py-[10px] px-4 lg:px-6 md:mt-[20px] xs:py-[12px] xs:mx-auto text-[14px] md:text-[15px] xl:text-[16px] 2xl:text-[20px] whitespace-nowrap"
+                  className="font-alata hover:bg-[#7e2727]  font-medium bg-[#DB5353] text-white rounded-[5px]  2xl:w-[240px] py-1 xl:py-[12px] lg:py-[10px] px-4 lg:px-6 md:mt-[20px] xs:py-[12px] xs:mx-auto text-[14px] md:text-[15px] xl:text-[16px] 2xl:text-[20px] whitespace-nowrap"
                 >
                   Join the Waiting List
                 </button>
