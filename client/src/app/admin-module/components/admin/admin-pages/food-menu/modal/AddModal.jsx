@@ -9,7 +9,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import config from "@/config";
 import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css"; // Import the styles
+import "react-quill/dist/quill.snow.css"; 
 
 const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
   const router = useRouter();
@@ -36,11 +36,6 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
     nutritional_information: "",
   });
   console.log(menuItem);
-
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setMenuItem({ ...menuItem, [name]: value });
-  // };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -133,7 +128,7 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
           if (cuisines.length > 0) {
             setMenuItem((prevState) => ({
               ...prevState,
-              Cuisines_id: cuisines[0].Cuisines_id,
+              Cuisines_id: cuisines[0]._id,
             }));
           }
         } else {
@@ -147,13 +142,13 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
     fetchCuisines();
   }, []);
 
-  const [nutrition, setNutrition] = useState({});
+  const [nutrition, setNutrition] = useState([]);
   useEffect(() => {
     defaultNutrition();
   }, []);
   const defaultNutrition = () => {
     const option = {
-      mrthod: "GET",
+      method: "GET",
       url: `${config.baseURL}/api/Nutritional/nutritional`,
     };
     axios
@@ -177,15 +172,13 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
         setDishTypes(response.data.dishTypes);
       } catch (error) {
         console.error("Error fetching dish types:", error);
-      } finally {
-        // setLoading(false);
       }
     }
 
     fetchDishTypes();
   }, []);
 
-  const [dietaries, setDietaries] = useState();
+  const [dietaries, setDietaries] = useState([]);
 
   useEffect(() => {
     async function fetchDietaries() {
@@ -242,15 +235,10 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
 
   const handleDietaryChange = (e) => {
     const { value } = e.target;
-    const selectedDietary = dietaries.find((dietary) => dietary._id === value);
-
-    if (
-      selectedDietary &&
-      !menuItem.Dietary_id.includes(selectedDietary.title)
-    ) {
+    if (value && !menuItem.Dietary_id.includes(value)) {
       setMenuItem((prevState) => ({
         ...prevState,
-        Dietary_id: [...prevState.Dietary_id, selectedDietary.title],
+        Dietary_id: [...prevState.Dietary_id, value],
       }));
     }
   };
@@ -285,10 +273,10 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
   };
 
   const handleNutritionalInformationChange = (value) => {
-    setMenuItem({
-      ...menuItem,
+    setMenuItem((prevState) => ({
+      ...prevState,
       nutritional_information: value,
-    });
+    }));
   };
 
   return (
@@ -483,45 +471,49 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
           </div>
         </div> */}
 
-        <div>
-          <div className="mb-4">
-            <label className="block mb-1" htmlFor="dietary">
-              Dietary:
-            </label>
-            <select
-              id="dietary"
-              name="Dietary_id"
-              value=""
-              onChange={handleDietaryChange}
-              className="w-full px-3 py-2 border rounded mt-[10px]"
-            >
-              <option value="">Select Dietary</option>
-              {Array.isArray(dietaries) &&
-                dietaries.map((dietary, index) => (
-                  <option key={index} value={dietary._id}>
-                    {dietary.title}
-                  </option>
-                ))}
-            </select>
-            <div className="grid md:grid-cols-2 flex-col gap-3 justify-between w-full px-2 py-2">
-              {Array.isArray(menuItem.Dietary_id) &&
-                menuItem.Dietary_id.length > 0 &&
-                menuItem.Dietary_id.map((item, index) => (
-                  <p className="flex gap-x-2 text-[14px]" key={index}>
-                    <span className="max-w-[150px] text-ellipsis overflow-hidden flex whitespace-nowrap capitalize">
-                      <b className="mr-2">{index + 1}.</b> {item}
-                    </span>
-                    <span
-                      className="cursor-pointer font-medium"
-                      onClick={() => removeDietary(index)}
-                    >
-                      x
-                    </span>
-                  </p>
-                ))}
-            </div>
+        <div className="mb-4">
+          <label className="block mb-1" htmlFor="dietary">
+            Dietary:
+          </label>
+          <select
+            id="dietary"
+            name="Dietary_id"
+            value=""
+            onChange={handleDietaryChange}
+            className="w-full px-3 py-2 border rounded mt-[10px]"
+          >
+            <option value="">Select Dietary</option>
+            {Array.isArray(dietaries) &&
+              dietaries.map((dietary, index) => (
+                <option key={index} value={dietary._id}>
+                  {dietary.title}
+                </option>
+              ))}
+          </select>
+          <div className="grid md:grid-cols-2 flex-col gap-3 justify-between w-full px-2 py-2">
+            {Array.isArray(menuItem.Dietary_id) &&
+              menuItem.Dietary_id.length > 0 &&
+              menuItem.Dietary_id.map((item, index) => (
+                <p className="flex gap-x-2 text-[14px]" key={index}>
+                  <span className="max-w-[150px] text-ellipsis overflow-hidden flex whitespace-nowrap capitalize">
+                    <b className="mr-2">{index + 1}.</b>{" "}
+                    {
+                      dietaries.find(
+                        (dietaryItem) => dietaryItem._id === item
+                      )?.title
+                    }
+                  </span>
+                  <span
+                    className="cursor-pointer font-medium"
+                    onClick={() => removeDietary(index)}
+                  >
+                    x
+                  </span>
+                </p>
+              ))}
           </div>
         </div>
+
 
         <div className="mb-4">
           <label className="block mb-1" htmlFor="nutrition">
@@ -667,7 +659,7 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
           name="ProfileImages"
           onChange={handleImageChange}
           accept="image/*"
-          multiple 
+          multiple
           required
           className="mx-2"
         />
