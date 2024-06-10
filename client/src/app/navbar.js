@@ -44,7 +44,7 @@ import {
 } from "@/app/redux/dishSlice"; // Import the action from the slice
 
 const Navbar = () => {
-  useIdleTimeout();
+  // useIdleTimeout();
   const [userDetail, setUserDetail] = useState({
     firstname: "",
     lastname: "",
@@ -81,11 +81,10 @@ const Navbar = () => {
       if (response.status >= 200 && response.status < 300) {
         toast.success("Item Removed From Cart");
 
-        // Update the local state only if the backend confirms the deletion
         setGetCartItems((prevCartItems) =>
           prevCartItems.filter((item) => item.menuItem._id !== itemId)
         );
-        setShouldRefresh(true); // Trigger any necessary refresh actions
+        setShouldRefresh(true);
       } else {
         alert("Failed to remove item");
       }

@@ -279,6 +279,13 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
     }));
   };
 
+  const handleHeatingInstructionChange = (value) => {
+    setMenuItem((prevState) => ({
+      ...prevState,
+      Heating_Instruction: value,
+    }));
+  };
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -626,12 +633,20 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
           <label className="block mb-1" htmlFor="heatingInstructions">
             Heating Instructions:
           </label>
-          <textarea
+          {/* <textarea
             id="heatingInstructions"
             name="Heating_Instruction"
             value={menuItem.Heating_Instruction}
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded"
+            required
+          /> */}
+          <ReactQuill
+            id="heatingInstructions"
+            value={menuItem.Heating_Instruction}
+            onChange={handleHeatingInstructionChange}
+            className="w-full border rounded"
+            placeholder="Enter Heating Instruction"
             required
           />
         </div>
