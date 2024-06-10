@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 
 const ThankU = () => {
   const { token } = useSelector((state) => state?.auth);
+  const [sessionId, setSessionId] = useState("");
 
   const pollForSessionId = async () => {
     const pollInterval = 5000; 
