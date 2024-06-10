@@ -6,6 +6,7 @@ import Navbar from "../navbar";
 import Footer from "../footer";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import config from "@/config";
 
 const ThankU = () => {
   const { token } = useSelector((state) => state?.auth);
@@ -18,7 +19,7 @@ const ThankU = () => {
     for (let attempt = 1; attempt <= maxAttempts; attempt++) {
       try {
         const sessionIdResponse = await axios.get(
-          "http://13.43.174.21:4000/api/order/getSessionId",
+          `${config.baseURL}/api/order/getSessionId`,
           {
             headers: {
               authorization: token,
@@ -33,7 +34,7 @@ const ThankU = () => {
           // Send the session ID to the second API
           try {
             const bookOrderResponse = await axios.post(
-              "http://localhost:4000/api/order/bookOrder",
+              `${config.baseURL}/api/order/bookOrder`,
               {
                 sessionId,
               },
