@@ -12,7 +12,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="light">
-      <link rel="icon" href="/client/src/app/favicon.ico" sizes="any" />
+      <link rel="icon" href="https://authimages.s3.eu-west-2.amazonaws.com/Fav+icon+(1).png" sizes="any" />
       <body className={inter.className}></body>
       <Providers >{children}</Providers>
     </html>
