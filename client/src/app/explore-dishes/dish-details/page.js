@@ -261,12 +261,12 @@ const DishDetails = ({ dishID, defaultADish, handleAddCart, setItemId }) => {
                       );
                     }
                   }}
-                  className="pop-btn"
+                  className="pop-btn hover:bg-[#7e2727] "
                 >
                   <div className="drawer-content">
                     <label
                       htmlFor="my-drawer-4"
-                      className="drawer-button cursor-pointer"
+                      className="drawer-button cursor-pointer "
                     >
                       Add to basket
                     </label>
