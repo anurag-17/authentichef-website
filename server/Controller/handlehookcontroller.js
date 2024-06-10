@@ -11,7 +11,7 @@ exports.handleWebhook = async (req, res) => {
     const sig = req.headers['stripe-signature'];
 
     try {
-        event = stripe.webhooks.constructEvent(request.rawBody, sig, endpointSecret);
+        const event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
 
         console.log("Request received", event.type)
         console.log("Request received", event.data.object)

@@ -11,6 +11,7 @@ const adminMailOptions = require("../Public/adminMailOption")
 const sendEmail = require('../Utils/SendEmail');
 const Coupon = require("../Model/Coupon");
 const User = require("../Model/User")
+const sessionData = require("../Model/session")
 require('dotenv').config(); // Import dotenv to use environment variables
 
 // Define your email credentials and configuration
@@ -581,6 +582,18 @@ exports.PlaceOrder = async (req, res, next) => {
                 }
             });
 
+            // Send the session ID in the response-----------
+
+            const sessionDetails = await sessionData.findOneAndUpdate(
+                { userId: req.user._id },
+                { sessionId: session.id, successUrl: session.success_url },
+                { new: true, upsert: true }
+            )
+
+            console.log("Session Details", sessionDetails)
+
+          //------------------------
+
             res.status(200).json({
                 message: 'Checkout session created successfully',
                 sessionId: session.id,
@@ -847,6 +860,27 @@ const validateAndParseJson = (jsonString, fieldName) => {
     }
 };
 
+
+// Make a api to get a session id//
+
+exports.GetSessionId = async (req, res) => {
+    try{
+
+        const userId = req.user._id; 
+        const sessionDetails = await sessionData.findOne({ userId });
+        if (!sessionDetails) {
+            return res.status(404).json({ message: 'Session not found' });
+        }
+        res.status(200).json({
+            message: 'Success URL retrieved successfully',
+            success: sessionDetails
+        });
+
+    }
+    catch(error){
+      res.status(500).json({ message: 'Internal server error' });
+    }
+}
 
 
 
