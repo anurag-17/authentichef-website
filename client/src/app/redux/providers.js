@@ -1,8 +1,8 @@
-//provider.js
 "use client";
+
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-import { store, persistor } from "./store";
+import { store, persistor } from "./store"; // Adjust the import path
 
 export function Providers({ children }) {
   return (
@@ -13,4 +13,3 @@ export function Providers({ children }) {
     </Provider>
   );
 }
-  

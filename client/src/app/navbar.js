@@ -36,8 +36,12 @@ import CloseIcon from "./user/svg/CloseIcon";
 import { MinusIcon } from "./user/svg/MinusIcon";
 import PlusIcon from "./user/svg/PlusIcon";
 import DeleteIcon from "./user/svg/DeleteIcon";
+import useIdleTimeout from "./redux/useIdleTimeout";
+
+
 
 const Navbar = () => {
+  useIdleTimeout();
   const [userDetail, setUserDetail] = useState({
     firstname: "",
     lastname: "",
@@ -304,7 +308,7 @@ const Navbar = () => {
   //   }
   // };
 
-  
+
   // Helper function to save state to localStorage and post to API
   const saveState = async (state) => {
     try {
@@ -593,10 +597,10 @@ const Navbar = () => {
       const updatedCartItems = prevCartItems.map((item) =>
         item._id === itemId
           ? {
-              ...item,
-              quantity: item.quantity + 1,
-              totalPrice: item.menuItem.price * (item.quantity + 1),
-            }
+            ...item,
+            quantity: item.quantity + 1,
+            totalPrice: item.menuItem.price * (item.quantity + 1),
+          }
           : item
       );
       setUpdatedCartItems(updatedCartItems);
@@ -632,10 +636,10 @@ const Navbar = () => {
       const updatedCartItems = prevCartItems.map((item) =>
         item._id === itemId && item.quantity > 1
           ? {
-              ...item,
-              quantity: item.quantity - 1,
-              totalPrice: item.menuItem.price * (item.quantity - 1),
-            }
+            ...item,
+            quantity: item.quantity - 1,
+            totalPrice: item.menuItem.price * (item.quantity - 1),
+          }
           : item
       );
       setUpdatedCartItems(updatedCartItems);
@@ -786,7 +790,7 @@ const Navbar = () => {
                     <hr className="mx-auto 2xl:w-[345px] xl:w-[260px] lg:w-[180px] sm:w-[140px] w-[80%] 2xl:mt-[75px] xl:mt-[40px] lg:mt-[20px] sm:mt-[15px] mt-[10px] text-[#D8D8D8]" />
                     <div className="text-center 2xl:mt-[35px] xl:mt-[15px] lg:mt-[10px] sm:mt-[8px] mt-[5px]">
                       <div className="flex justify-center md:gap-11 gap-2 md:ml-6 lg:ml-0">
-                        {isLoggedIn === success ? (
+                        {isLoggedIn ? (
                           <div>
                             <p className="text-[#000000] font-alata font-[400] 2xl:text-[20px] md:text-[18px] text-[16px] leading-[30px] py-[3px]">
                               {userDetails?.firstname} {userDetails?.lastname}
@@ -829,6 +833,7 @@ const Navbar = () => {
                         )}
                       </div>
                     </div>
+
                   </ul>
                 </div>
               </div>
@@ -882,7 +887,7 @@ const Navbar = () => {
           type="checkbox"
           className="drawer-toggle"
           checked={isDrawerOpen}
-          onChange={() => {}}
+          onChange={() => { }}
         />
         <div className="drawer-side">
           <label
@@ -899,7 +904,7 @@ const Navbar = () => {
                     Your Basket is empty!
                   </h4>
                   <h4 className="alata font-[400] text-[#111] lg:text-[18px]">
-                    Explore a World of Deliciousness
+                    Explore a World of Deliciousness 
                   </h4>
                   <p className="alata font-[400] text-[#111] lg:text-[16px] text-[15px] text-center">
                     Add dishes to your cart now.

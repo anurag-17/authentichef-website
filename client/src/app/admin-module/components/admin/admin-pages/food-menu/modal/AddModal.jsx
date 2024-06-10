@@ -9,7 +9,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import config from "@/config";
 import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css"; // Import the styles
+import "react-quill/dist/quill.snow.css"; 
 
 const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
   const router = useRouter();
@@ -278,7 +278,7 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
       nutritional_information: value,
     }));
   };
-  
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -471,48 +471,48 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
           </div>
         </div> */}
 
-<div className="mb-4">
-  <label className="block mb-1" htmlFor="dietary">
-    Dietary:
-  </label>
-  <select
-    id="dietary"
-    name="Dietary_id"
-    value=""
-    onChange={handleDietaryChange}
-    className="w-full px-3 py-2 border rounded mt-[10px]"
-  >
-    <option value="">Select Dietary</option>
-    {Array.isArray(dietaries) &&
-      dietaries.map((dietary, index) => (
-        <option key={index} value={dietary._id}>
-          {dietary.title}
-        </option>
-      ))}
-  </select>
-  <div className="grid md:grid-cols-2 flex-col gap-3 justify-between w-full px-2 py-2">
-    {Array.isArray(menuItem.Dietary_id) &&
-      menuItem.Dietary_id.length > 0 &&
-      menuItem.Dietary_id.map((item, index) => (
-        <p className="flex gap-x-2 text-[14px]" key={index}>
-          <span className="max-w-[150px] text-ellipsis overflow-hidden flex whitespace-nowrap capitalize">
-            <b className="mr-2">{index + 1}.</b>{" "}
-            {
-              dietaries.find(
-                (dietaryItem) => dietaryItem._id === item
-              )?.title
-            }
-          </span>
-          <span
-            className="cursor-pointer font-medium"
-            onClick={() => removeDietary(index)}
+        <div className="mb-4">
+          <label className="block mb-1" htmlFor="dietary">
+            Dietary:
+          </label>
+          <select
+            id="dietary"
+            name="Dietary_id"
+            value=""
+            onChange={handleDietaryChange}
+            className="w-full px-3 py-2 border rounded mt-[10px]"
           >
-            x
-          </span>
-        </p>
-      ))}
-  </div>
-</div>
+            <option value="">Select Dietary</option>
+            {Array.isArray(dietaries) &&
+              dietaries.map((dietary, index) => (
+                <option key={index} value={dietary._id}>
+                  {dietary.title}
+                </option>
+              ))}
+          </select>
+          <div className="grid md:grid-cols-2 flex-col gap-3 justify-between w-full px-2 py-2">
+            {Array.isArray(menuItem.Dietary_id) &&
+              menuItem.Dietary_id.length > 0 &&
+              menuItem.Dietary_id.map((item, index) => (
+                <p className="flex gap-x-2 text-[14px]" key={index}>
+                  <span className="max-w-[150px] text-ellipsis overflow-hidden flex whitespace-nowrap capitalize">
+                    <b className="mr-2">{index + 1}.</b>{" "}
+                    {
+                      dietaries.find(
+                        (dietaryItem) => dietaryItem._id === item
+                      )?.title
+                    }
+                  </span>
+                  <span
+                    className="cursor-pointer font-medium"
+                    onClick={() => removeDietary(index)}
+                  >
+                    x
+                  </span>
+                </p>
+              ))}
+          </div>
+        </div>
 
 
         <div className="mb-4">
