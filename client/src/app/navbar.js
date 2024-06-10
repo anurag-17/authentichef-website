@@ -529,15 +529,15 @@ const Navbar = () => {
         toast.success("Items added to cart successfully");
         handleDrawerOpen();
 
-        refreshData();
+        // refreshData();
         handleCartClear1();
       } else {
         toast.error("Failed to add items to cart. Please try again.");
-        refreshData();
+        // refreshData();
       }
     } catch (error) {
       console.error("Error adding items to cart:", error);
-      refreshData();
+      // refreshData();
     }
   };
 
