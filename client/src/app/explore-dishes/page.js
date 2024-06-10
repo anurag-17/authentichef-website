@@ -1643,7 +1643,7 @@ const ExploreDishes = () => {
           ></label>
           <ul className="min-h-full text-base-content max-w-[310px] sm:max-w-[350px] md:w-[400px] md:max-w-[400px] 2xl:w-[450px] 2xl:max-w-[450px] bg-white">
             <div className="flex flex-col justify-center items-center p-[15px] md:p-[20px] h-[100vh]">
-              {!cart || getCartItems.length === 0 ? (
+              {/* {!cart || getCartItems.length === 0 ? (
                 <div className="flex flex-col justify-center items-center">
                   <h4 className="alata font-[400] text-[#111] text-[24px] mb-[1rem]">
                     Your Basket is empty!
@@ -1665,7 +1665,7 @@ const ExploreDishes = () => {
                     </Link>
                   </div>
                 </div>
-              ) : (
+              ) : ( */}
                 <>
                   <div className="w-full flex justify-between items-center">
                     <h4 className="alata font-[500] text-[#111111] 2xl:text-[25px] sm:text-[20px] text-[18px] 2xl:leading-[32px] md:text-[25px] leading-[24px] ">
@@ -1862,7 +1862,7 @@ const ExploreDishes = () => {
                     )}
                   </div>
                 </>
-              )}
+              {/* )} */}
             </div>
           </ul>
         </div>

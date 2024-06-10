@@ -942,7 +942,7 @@ const Navbar = () => {
           ></label>
           <ul className="min-h-full text-base-content max-w-[310px] sm:max-w-[350px] md:w-[400px] md:max-w-[400px] 2xl:w-[450px] 2xl:max-w-[450px] bg-white">
             <div className="flex flex-col justify-center items-center p-[15px] md:p-[20px] h-[100vh]">
-              {!cart || getCartItems.length === 0 ? (
+              {/* {!cart || getCartItems.length === 0 ? (
                 <div className="flex flex-col justify-center items-center">
                   <h4 className="alata font-[400] text-[#111] text-[24px] mb-[1rem]">
                     Your Basket is empty!
@@ -964,40 +964,107 @@ const Navbar = () => {
                     </Link>
                   </div>
                 </div>
-              ) : (
-                <>
-                  <div className="w-full flex justify-between items-center">
-                    <h4 className="alata font-[500] text-[#111111] 2xl:text-[25px] sm:text-[20px] text-[18px] 2xl:leading-[32px] md:text-[25px] leading-[24px] ">
-                      My Basket
-                    </h4>
-                    <div onClick={handleDrawerClose} className="cursor-pointer">
-                      <CloseIcon />
-                    </div>
+              ) : ( */}
+              <>
+                <div className="w-full flex justify-between items-center">
+                  <h4 className="alata font-[500] text-[#111111] 2xl:text-[25px] sm:text-[20px] text-[18px] 2xl:leading-[32px] md:text-[25px] leading-[24px] ">
+                    My Basket
+                  </h4>
+                  <div onClick={handleDrawerClose} className="cursor-pointer">
+                    <CloseIcon />
                   </div>
+                </div>
 
-                  <div className="pt-[2rem] flex-1 overflow-auto w-full">
-                    <div className="flex justify-between">
-                      <h4 className="alata font-[400] text-[#111] my-0 md:text-[18px] text-[16px] leading-[25px]">
-                        Items
-                      </h4>
-                      <h4 className="alata font-[400] text-[#111] my-0 md:text-[18px] text-[16px] leading-[25px]">
-                        Total
-                      </h4>
-                    </div>
-                    <div className="pt-[1rem]">
-                      {cart?.map((item, index) => {
-                        const { data } = item;
-                        const itemSubtotal = data.price * item.quantity;
+                <div className="pt-[2rem] flex-1 overflow-auto w-full">
+                  <div className="flex justify-between">
+                    <h4 className="alata font-[400] text-[#111] my-0 md:text-[18px] text-[16px] leading-[25px]">
+                      Items
+                    </h4>
+                    <h4 className="alata font-[400] text-[#111] my-0 md:text-[18px] text-[16px] leading-[25px]">
+                      Total
+                    </h4>
+                  </div>
+                  <div className="pt-[1rem]">
+                    {cart?.map((item, index) => {
+                      const { data } = item;
+                      const itemSubtotal = data.price * item.quantity;
+                      return (
+                        <div
+                          key={index}
+                          className="my-5 flex w-full border rounded-md"
+                        >
+                          <div className="flex gap-2 md:gap-4 w-full">
+                            <div className="w-[45%] md:w-auto">
+                              <img
+                                src={data.ProfileImage}
+                                alt={data.name}
+                                className="md:w-[100px] h-[97px] object-cover w-[100%]"
+                              />
+                            </div>
+
+                            <div className="flex flex-col justify-between">
+                              <div className="flex flex-col">
+                                <p className="alata font-[400] text-[#111111] my-0 text-[13px] sm:text-[14px] xl:text-[15px] leading-[22px] text-ellipsis whitespace-nowrap overflow-hidden max-w-[100px]">
+                                  {data.name}
+                                </p>
+                                <p className="alata font-[400] text-[#111111] my-0 md:text-[14px] text-[13px] xl:text-[15px] leading-[20px]">
+                                  Price: £{data.price.toFixed(2)}
+                                </p>
+                              </div>
+                              <div className="flex gap-1 md:gap-2 items-center">
+                                <div className="flex justify-center border-[#111111] border mt-1">
+                                  <button
+                                    className="text-[#111111] px-[10px] py-[5px]"
+                                    onClick={() =>
+                                      handleQuantityDecrement(item.data._id)
+                                    }
+                                  >
+                                    <MinusIcon />
+                                  </button>
+                                  <p className="px-[5px] py-[5px] flex mx-auto items-center 2xl:text-[16px] md:text-[14px] text-[13px] 2xl:leading-[22px]">
+                                    {item.quantity}
+                                  </p>
+                                  <button
+                                    className="text-[#111111] px-[10px] py-[5px]"
+                                    onClick={() =>
+                                      handleQuantityIncrement(item.data._id)
+                                    }
+                                  >
+                                    <PlusIcon />
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="flex flex-col justify-between">
+                            <p className="alata font-[600] 2xl:my-0 text-[13px] sm:text-[14px] xl:leading-[28px] text-right">
+                              £{itemSubtotal.toFixed(2)}
+                            </p>
+                            <button
+                              className="text-center mx-auto"
+                              onClick={() => handleItemRemove1(item.data._id)}
+                            >
+                              <DeleteIcon />
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    })}
+
+                    {Array.isArray(getCartItems) &&
+                      getCartItems.map((item, index) => {
+                        const itemSubtotal =
+                          item.menuItem.price * item.quantity;
                         return (
                           <div
                             key={index}
-                            className="my-5 flex w-full border rounded-md"
+                            className="mt-3 md:mt-0 md:my-5 flex w-full gap-1 md:gap-6"
                           >
                             <div className="flex gap-2 md:gap-4 w-full">
                               <div className="w-[45%] md:w-auto">
                                 <img
-                                  src={data.ProfileImage}
-                                  alt={data.name}
+                                  src={item.menuItem.ProfileImage}
+                                  alt={item.menuItem.name}
                                   className="md:w-[100px] h-[97px] object-cover w-[100%]"
                                 />
                               </div>
@@ -1005,19 +1072,17 @@ const Navbar = () => {
                               <div className="flex flex-col justify-between">
                                 <div className="flex flex-col">
                                   <p className="alata font-[400] text-[#111111] my-0 text-[13px] sm:text-[14px] xl:text-[15px] leading-[22px] text-ellipsis whitespace-nowrap overflow-hidden max-w-[100px]">
-                                    {data.name}
+                                    {item.menuItem.name}
                                   </p>
                                   <p className="alata font-[400] text-[#111111] my-0 md:text-[14px] text-[13px] xl:text-[15px] leading-[20px]">
-                                    Price: £{data.price.toFixed(2)}
+                                    Price: £{item.menuItem.price.toFixed(2)}
                                   </p>
                                 </div>
                                 <div className="flex gap-1 md:gap-2 items-center">
                                   <div className="flex justify-center border-[#111111] border mt-1">
                                     <button
                                       className="text-[#111111] px-[10px] py-[5px]"
-                                      onClick={() =>
-                                        handleQuantityDecrement(item.data._id)
-                                      }
+                                      onClick={() => handleDecrement(item._id)}
                                     >
                                       <MinusIcon />
                                     </button>
@@ -1026,9 +1091,7 @@ const Navbar = () => {
                                     </p>
                                     <button
                                       className="text-[#111111] px-[10px] py-[5px]"
-                                      onClick={() =>
-                                        handleQuantityIncrement(item.data._id)
-                                      }
+                                      onClick={() => handleIncrement(item._id)}
                                     >
                                       <PlusIcon />
                                     </button>
@@ -1036,13 +1099,18 @@ const Navbar = () => {
                                 </div>
                               </div>
                             </div>
+
                             <div className="flex flex-col justify-between">
                               <p className="alata font-[600] 2xl:my-0 text-[13px] sm:text-[14px] xl:leading-[28px] text-right">
                                 £{itemSubtotal.toFixed(2)}
                               </p>
                               <button
                                 className="text-center mx-auto"
-                                onClick={() => handleItemRemove1(item.data._id)}
+                                onClick={() =>
+                                  token
+                                    ? handleRemoveItem(item.menuItem._id)
+                                    : ""
+                                }
                               >
                                 <DeleteIcon />
                               </button>
@@ -1050,118 +1118,46 @@ const Navbar = () => {
                           </div>
                         );
                       })}
-
-                      {Array.isArray(getCartItems) &&
-                        getCartItems.map((item, index) => {
-                          const itemSubtotal =
-                            item.menuItem.price * item.quantity;
-                          return (
-                            <div
-                              key={index}
-                              className="mt-3 md:mt-0 md:my-5 flex w-full gap-1 md:gap-6"
-                            >
-                              <div className="flex gap-2 md:gap-4 w-full">
-                                <div className="w-[45%] md:w-auto">
-                                  <img
-                                    src={item.menuItem.ProfileImage}
-                                    alt={item.menuItem.name}
-                                    className="md:w-[100px] h-[97px] object-cover w-[100%]"
-                                  />
-                                </div>
-
-                                <div className="flex flex-col justify-between">
-                                  <div className="flex flex-col">
-                                    <p className="alata font-[400] text-[#111111] my-0 text-[13px] sm:text-[14px] xl:text-[15px] leading-[22px] text-ellipsis whitespace-nowrap overflow-hidden max-w-[100px]">
-                                      {item.menuItem.name}
-                                    </p>
-                                    <p className="alata font-[400] text-[#111111] my-0 md:text-[14px] text-[13px] xl:text-[15px] leading-[20px]">
-                                      Price: £{item.menuItem.price.toFixed(2)}
-                                    </p>
-                                  </div>
-                                  <div className="flex gap-1 md:gap-2 items-center">
-                                    <div className="flex justify-center border-[#111111] border mt-1">
-                                      <button
-                                        className="text-[#111111] px-[10px] py-[5px]"
-                                        onClick={() =>
-                                          handleDecrement(item._id)
-                                        }
-                                      >
-                                        <MinusIcon />
-                                      </button>
-                                      <p className="px-[5px] py-[5px] flex mx-auto items-center 2xl:text-[16px] md:text-[14px] text-[13px] 2xl:leading-[22px]">
-                                        {item.quantity}
-                                      </p>
-                                      <button
-                                        className="text-[#111111] px-[10px] py-[5px]"
-                                        onClick={() =>
-                                          handleIncrement(item._id)
-                                        }
-                                      >
-                                        <PlusIcon />
-                                      </button>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div className="flex flex-col justify-between">
-                                <p className="alata font-[600] 2xl:my-0 text-[13px] sm:text-[14px] xl:leading-[28px] text-right">
-                                  £{itemSubtotal.toFixed(2)}
-                                </p>
-                                <button
-                                  className="text-center mx-auto"
-                                  onClick={() =>
-                                    token
-                                      ? handleRemoveItem(item.menuItem._id)
-                                      : ""
-                                  }
-                                >
-                                  <DeleteIcon />
-                                </button>
-                              </div>
-                            </div>
-                          );
-                        })}
-                    </div>
                   </div>
-                  <div className="flex flex-col justify-between items-center w-full pt-[1.5rem]">
-                    {token ? (
-                      <div className="w-full">
-                        <div className="flex justify-between">
-                          <h4 className="alata font-[400] 2xl:my-0 xl:text-[18px] 2xl:leading-[28px] text-[16px] lg:leading-[24px]">
-                            Subtotal:
-                          </h4>
-                          <h4 className="alata font-[400] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
-                            £{subtotalPrice.toFixed(2)}
-                          </h4>
-                        </div>
-                        <Link href="/checkout">
-                          <button
-                            onClick={() => {
-                              handleAddCart();
-                            }}
-                            className="alata font-[400] bg-[#DB5353] text-white mx-auto 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[15px] lg:text-[14px] w-full py-2 lg:h-[47px] h-[42px] flex flex-col items-center justify-center"
-                          >
-                            Checkout
-                          </button>
-                        </Link>
-                        <p className="font-[500] text-[16px] py-[1rem]">
-                          FREE delivery on orders over £55
-                        </p>
+                </div>
+                <div className="flex flex-col justify-between items-center w-full pt-[1.5rem]">
+                  {token ? (
+                    <div className="w-full">
+                      <div className="flex justify-between">
+                        <h4 className="alata font-[400] 2xl:my-0 xl:text-[18px] 2xl:leading-[28px] text-[16px] lg:leading-[24px]">
+                          Subtotal:
+                        </h4>
+                        <h4 className="alata font-[400] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
+                          £{subtotalPrice.toFixed(2)}
+                        </h4>
                       </div>
-                    ) : (
-                      <div className="w-full">
+                      <Link href="/checkout">
                         <button
-                          onClick={handleLoginClick}
-                          className="alata font-[400] bg-[#DB5353] text-white mx-auto 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[15px] text-[14px] w-full py-2 lg:h-[47px] flex flex-col items-center justify-center"
+                          onClick={() => {
+                            handleAddCart();
+                          }}
+                          className="alata font-[400] bg-[#DB5353] text-white mx-auto 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[15px] lg:text-[14px] w-full py-2 lg:h-[47px] h-[42px] flex flex-col items-center justify-center"
                         >
                           Checkout
                         </button>
-                      </div>
-                    )}
-                  </div>
-                </>
-              )}
+                      </Link>
+                      <p className="font-[500] text-[16px] py-[1rem]">
+                        FREE delivery on orders over £55
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="w-full">
+                      <button
+                        onClick={handleLoginClick}
+                        className="alata font-[400] bg-[#DB5353] text-white mx-auto 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[15px] text-[14px] w-full py-2 lg:h-[47px] flex flex-col items-center justify-center"
+                      >
+                        Checkout
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </>
+              {/* )} */}
             </div>
           </ul>
         </div>
