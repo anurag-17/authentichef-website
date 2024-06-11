@@ -166,24 +166,24 @@ const DishDetails = ({ dishID, defaultADish, handleAddCart, setItemId }) => {
     <>
       <section>
         <div>
-          <div className="flex 2xl:gap-[60px] xl:gap-[40px] gap-[20px] justify-between ">
-            <div className="2xl:w-[459px] xl:w-[280px] w-[180px] ">
+          <div className="sm:flex 2xl:gap-[60px] xl:gap-[40px] gap-[20px] justify-between 2xl:px-[40px] xl:px-[25px] px-[15px] 2xl:py-[45px] xl:py-[30px] py-[30px]  ">
+            <div className="2xl:w-[459px] xl:w-[280px] w-full ">
               <img
                 src={getADish?.ProfileImage}
                 className="rounded-[15px] 2xl:w-[459px] 2xl:h-[339px] xl:w-[280px] xl:h-[200px]"
               />
             </div>
-            <div className="2xl:w-[400px] xl:w-[359px] w-[300px]">
+            <div className="2xl:w-[400px] xl:w-[359px] sm:w-[300px]">
               <div>
                 <h1 className="pop-head capitalize">{getADish?.name}</h1>
                 <p className="pop-chef">by Chef {getADish?.chef_id?.name}</p>
               </div>
-              <div className="flex justify-between pop-detail">
-                <h3>
+              <div className="sm:flex justify-between pop-detail">
+                <p>
                   Price: £{getADish?.price && ` ${getADish.price.toFixed(2)}`}
-                </h3>
-                <h3>Weight: {getADish?.weight}g</h3>
-                <h3>Portion Size: Serves {getADish?.portion_Size}</h3>
+                </p>
+                <p>Weight: {getADish?.weight}g</p>
+                <p>Portion Size: Serves {getADish?.portion_Size}</p>
               </div>
               <div className="flex flex-wrap 2xl:gap-[10px] xl:gap-[8px] gap-[6px]  2xl:my-[15px] xl:my-[12px] my-[8px]">
                 {getADish?.Dietary_id?.title ? (
@@ -192,7 +192,7 @@ const DishDetails = ({ dishID, defaultADish, handleAddCart, setItemId }) => {
                       src={getADish?.Dietary_id?.ProfileImage}
                       className="2xl:[18px] xl:w-[14px] w-[12px]"
                     />
-                    <h3>{getADish?.Dietary_id?.title}</h3>
+                    <p>{getADish?.Dietary_id?.title}</p>
                   </div>
                 ) : (
                   ""
@@ -201,7 +201,7 @@ const DishDetails = ({ dishID, defaultADish, handleAddCart, setItemId }) => {
                 <button className="four_btnn border">
                   <img
                     src={getADish?.spice_level_id?.ProfileImage}
-                    className="2xl:[100%] h-auto"
+                    className="2xl:[100%] h-auto "
                   />
                   <h3>{getADish?.spice_level_id?.title}</h3>
                 </button>
@@ -217,7 +217,7 @@ const DishDetails = ({ dishID, defaultADish, handleAddCart, setItemId }) => {
                     </div>
                   )}
               </div>
-              <div className="flex justify-center 2xl:w-[103px] 2xl:h-[39px] xl:w-[60px] xl:h-[22px] lg:w-[50px] lg:h-[20px] border rounded-[5px] 2xl:mt-[25px] xl:mt-[20px] mt-[15px]">
+              <div className="flex justify-center 2xl:w-[103px] 2xl:h-[39px] xl:w-[60px] xl:h-[22px] lg:w-[50px] lg:h-[20px] border rounded-[5px] 2xl:mt-[25px] xl:mt-[20px] mt-[15px] w-[30%]">
                 <button
                   className="text-[#DB5353] rounded-l w-1/3"
                   onClick={() => {
@@ -275,6 +275,7 @@ const DishDetails = ({ dishID, defaultADish, handleAddCart, setItemId }) => {
               </div>
             </div>
           </div>
+          <div className="2xl:px-[40px] xl:px-[25px] px-[15px]">
           <div className="2xl:my-[15px] xl:my-[10px] my-[8px]">
             <div className="">
               <p className="fourth_p text-[#555555]">Description</p>{" "}
@@ -296,16 +297,14 @@ const DishDetails = ({ dishID, defaultADish, handleAddCart, setItemId }) => {
               <div className="2xl:my-[20px] xl:my-[12px] my-[10px]">
                 <p className="fourth_p text-[#555555]">Heating instructions</p>{" "}
                 <p className="fourth_p ">
-                
-                {/* {getADish?.Heating_Instruction} */}
-                {getADish?.Heating_Instruction && (
-                  <span
-                    dangerouslySetInnerHTML={{
-                      __html: getADish?.Heating_Instruction,
-                    }}
-                  />
-                )}
-                
+                  {/* {getADish?.Heating_Instruction} */}
+                  {getADish?.Heating_Instruction && (
+                    <span
+                      dangerouslySetInnerHTML={{
+                        __html: getADish?.Heating_Instruction,
+                      }}
+                    />
+                  )}
                 </p>
               </div>
               <div>
@@ -322,6 +321,8 @@ const DishDetails = ({ dishID, defaultADish, handleAddCart, setItemId }) => {
               </div>
             </div>
           </div>
+          </div>
+         
         </div>
       </section>
     </>

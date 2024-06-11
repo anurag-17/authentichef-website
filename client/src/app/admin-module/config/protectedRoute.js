@@ -17,7 +17,7 @@ const protectedRoute = (WrappedComponent) => {
     useEffect(() => {
       const checkAuth = async () => {
         if (!token) {
-          router.push(`${config.baseURL}/admin-module/admin/sign-in`);
+          router.push("/admin-module/admin/sign-in");
           return;
         }
         verify();

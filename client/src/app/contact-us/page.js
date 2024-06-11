@@ -7,6 +7,7 @@ import Navbar from "../navbar";
 import mail from "./assets/mail.svg";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
 
 const ContactUS = () => {
   const { token } = useSelector((state) => state?.auth);
@@ -69,7 +70,7 @@ const ContactUS = () => {
     <>
       <section>
         <Navbar />
-
+        <ToastContainer autoClose={1000} />
         <section>
           <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[800px] w-full px-10 md:px-0 text-center mx-auto 2xl:pt-[160px] xl:pt-[120px] md:pt-[90px] pt-[75px] mnavbar">
             <h1 className="globalhead">Get In Touch</h1>
@@ -90,7 +91,7 @@ const ContactUS = () => {
                 </h3>
               </div>
 
-              <div className="w-[70%] px-10 md:px-0 text-center mr-040px 2xl:py-[40px] xl:py py-[30px] mnavbar">
+              <div className="w-[70%] px-10 md:px-0 text-center mr-040px 2xl:py-[40px] xl:py py-[30px] ">
                 <h1 className="globalhead2 capitalize">
                   We would love to hear from you
                 </h1>
@@ -106,6 +107,7 @@ const ContactUS = () => {
                         className="profile_input mt-3 lg:mt-[17px] xs:mt-2 w-full sm:w-1/3"
                         value={first.FirstName}
                         onChange={inputHandler}
+                        required
                       />
                       <input
                         name="Surname"
@@ -113,6 +115,7 @@ const ContactUS = () => {
                         className="profile_input mt-3 lg:mt-[17px] xs:mt-2 w-full sm:w-1/3"
                         value={first.Surname}
                         onChange={inputHandler}
+                        required
                       />
                       <input
                         name="Phone"
@@ -120,6 +123,7 @@ const ContactUS = () => {
                         type="text"
                         className="profile_input mt-3 lg:mt-[17px] xs:mt-2 w-full sm:w-1/3"
                         value={first.Phone}
+                        required
                         onChange={(e) => {
                           const input = e.target.value;
                           // Accept only numbers and limit to 15 characters
@@ -149,6 +153,7 @@ const ContactUS = () => {
                         className="profile_input mt-3 lg:mt-[17px] xs:mt-2 w-full sm:w-1/3"
                         value={first.Email}
                         onChange={inputHandler}
+                        required
                       />
                       {/* <input
                 name="Postcode"
@@ -163,6 +168,7 @@ const ContactUS = () => {
                         type="text"
                         className="profile_input mt-3 lg:mt-[17px] xs:mt-2 w-full sm:w-1/3"
                         value={first.Postcode}
+                        required
                         onChange={(e) => {
                           const input = e.target.value;
                           // Accept only numbers and limit to 15 characters
@@ -175,7 +181,7 @@ const ContactUS = () => {
                           });
                         }}
                       />
-                      <button className="font-alata font-medium bg-[#DB5353] text-white rounded-5 py-2  mt-3 lg:mt-[17px] xs:mt-2 hover:bg-[#7e2727]  h-auto lg:w-30 lg:h-14  xl:h-14 2xl:h-14 w-1/3">
+                      <button className=" bntform font-alata font-medium bg-[#DB5353] text-white rounded-5 py-2  mt-3 lg:mt-[17px] xs:mt-2 hover:bg-[#7e2727]  h-auto lg:w-30 lg:h-14  xl:h-14 2xl:h-14 w-1/3">
                         Submit
                       </button>
                     </div>

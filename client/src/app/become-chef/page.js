@@ -342,6 +342,8 @@ const BecomeChef = () => {
                   className="profile_input w-full sm:w-1/2"
                   value={first.FirstName}
                   onChange={inputHandler}
+                  required
+
                 />
                 <input
                   name="Surname"
@@ -349,6 +351,8 @@ const BecomeChef = () => {
                   className="profile_input w-full sm:w-1/2"
                   value={first.Surname}
                   onChange={inputHandler}
+                  required
+
                 />
               </div>
               {/* <input
@@ -365,6 +369,8 @@ const BecomeChef = () => {
                 type="text"
                 className="profile_input w-full"
                 value={first.Phone}
+                required
+
                 onChange={(e) => {
                   const input = e.target.value;
                   // Accept only numbers and limit to 15 characters
@@ -383,6 +389,8 @@ const BecomeChef = () => {
                 className="profile_input w-full"
                 value={first.Email}
                 onChange={inputHandler}
+                required
+
               />
               {/* <input
                 name="Postcode"
@@ -397,6 +405,8 @@ const BecomeChef = () => {
                 type="text"
                 className="profile_input w-full"
                 value={first.Postcode}
+                required
+
                 onChange={(e) => {
                   const input = e.target.value;
                   // Accept only numbers and limit to 15 characters
