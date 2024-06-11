@@ -687,6 +687,10 @@ td {
   .aboutusimg {
     height: auto !important;
   }
+  .cartCount{
+    top: 10px !important;
+    padding: 0px 8px !important;
+  }
 }
 
 @media (min-width: 1536px) and (max-width: 1800px) {
