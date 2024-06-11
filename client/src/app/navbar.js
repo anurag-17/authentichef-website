@@ -308,8 +308,8 @@ const Navbar = () => {
   console.log(cart, "cart");
   const cartData = cart[0]?.data?._id;
   const quantity = cart[0]?.quantity;
-  const lengths = cart.length;
-  console.log(lengths, "lengths");
+  // const lengths = cart.length;
+
 
   // const postCartToApi = async () => {
   //   try {
@@ -386,7 +386,7 @@ const Navbar = () => {
   });
   const [getCartItems, setGetCartItems] = useState({});
 
-  const cartIt = getCartItems.length;
+  // const cartIt = getCartItems.length;
 
   useEffect(() => {
     if (token) {
@@ -920,9 +920,9 @@ const Navbar = () => {
                   </div>
                 )}
                 <button onClick={handleDrawerOpen} className="relative">
-                  <p className="absolute 2xl:right-[-25px] 2xl:text-[20px] xl:right-[-13px] 2xl:top-6 xl:top-4 bg-white text-[#F38181] border rounded-full 2xl:px-2 xl:px-1 lg:right-[-15px] lg:top-1 lg:px-[5px] text-[12px] xl:text-[14x] md:right-[-15px] md:top-1 md:px-[5px] sm:right-[-15px] sm:top-1 sm:px-[5px] right-[-15px] top-1 px-[5px] cartCount">
+                  {/* <p className="absolute 2xl:right-[-25px] 2xl:text-[20px] xl:right-[-13px] 2xl:top-6 xl:top-4 bg-white text-[#F38181] border rounded-full 2xl:px-2 xl:px-1 lg:right-[-15px] lg:top-1 lg:px-[5px] text-[12px] xl:text-[14x] md:right-[-15px] md:top-1 md:px-[5px] sm:right-[-15px] sm:top-1 sm:px-[5px] right-[-15px] top-1 px-[5px] cartCount">
                     {token ? lengths + cartIt : lengths}
-                  </p>
+                  </p> */}
 
                   <Image src={beg} className="2xl:w-10 2xl:h-10 " />
                 </button>
