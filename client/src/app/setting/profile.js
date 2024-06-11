@@ -108,9 +108,11 @@ const Profile = () => {
         }
       );
       if (response.status >= 200 && response.status < 300) {
-        alert("Success");
+        toast.success("Password Change Successfully");
+
       } else {
-        alert("Failed");
+        toast.error("Password Change Failed");
+
       }
     } catch (error) {
       alert(error?.response?.data?.message || "Server error");
@@ -151,6 +153,7 @@ const Profile = () => {
                   />
                 </div>
               </div>
+              <div className="flex 2xl:gap-[20px] xl:gap-[15px] gap-[10px]">
               <div className="2xl:w-[375px] xl:w-[280px] w-[200px] 2xl:mt-[15px] xl:mt-[10px] mt-[8px]">
                 <input
                   name="email"
@@ -160,7 +163,7 @@ const Profile = () => {
                   onChange={inputHandler}
                 />
               </div>
-              <div className="my-5">
+              <div className="2xl:w-[375px] xl:w-[280px] w-[200px] 2xl:mt-[15px] xl:mt-[10px] mt-[8px]">
                 <input
                   placeholder="Enter phone number"
                   type="number"
@@ -172,9 +175,22 @@ const Profile = () => {
                   required
                 />
               </div>
+              </div>
             </div>
+
+            <div className="2xl:my-[30px] xl:my-[20px] my-[10px]">
+              <button
+                type="submit"
+                className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[120px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] text-[10px] xl:w-[80px] xl:py-[8px] lg:py-[6px] lg:px-4 px-3 py-1 hover:bg-[#7e2727]"
+              >
+                Update
+              </button>
+            </div>
+          </form>
+
+          <form onSubmit={handlePasswordUpdate}>
             <label className="checkoutlable">
-              Password Update <span className="text-[#DB1414]">*</span>
+              Password Change <span className="text-[#DB1414]">*</span>
             </label>
             <div className="flex 2xl:gap-[20px] xl:gap-[15px] gap-[10px]">
               <div className="2xl:w-[375px] xl:w-[280px] w-[200px]">
@@ -197,14 +213,14 @@ const Profile = () => {
                   className="profile_input"
                 />
               </div>
-            </div>
-            <div className="2xl:mt-[50px] xl:mt-[30px] mt-[20px]">
-              <button
-                type="submit"
-                className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[120px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] text-[10px] xl:w-[80px] xl:py-[8px] lg:py-[6px] lg:px-4 px-3 py-1 hover:bg-[#7e2727]"
-              >
-                Update
-              </button>
+              <div className=" flex flex-col justify-end">
+                <button
+                  type="submit"
+                  className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[120px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] text-[10px] xl:w-[80px] xl:py-[8px] lg:py-[6px] lg:px-4 px-3 py-1 hover:bg-[#7e2727]"
+                >
+                  Update
+                </button>
+              </div>
             </div>
           </form>
         </div>
