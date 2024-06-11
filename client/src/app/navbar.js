@@ -274,7 +274,7 @@ const Navbar = () => {
         dispatch(removeSuccess());
         router.push("/explore-dishes");
         setIsLoggedIn(false);
-        refreshData();
+        // refreshData();
       } else {
         toast.error("Logout failed");
       }
