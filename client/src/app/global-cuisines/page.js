@@ -30,7 +30,7 @@ const GlobalCusines = () => {
                     <p className="seven_p2 2xl:w-[734px] text-center">
                      <span className="font-semibold"> Homemade. Authentic Flavours. Expertly Delivered.</span> <br/>No more
                       takeout guilt! Authentichef delivers delicious, homemade
-                      food from around the world. It's like having a personal
+                      food from around the world. It is like having a personal
                       chef, with options for everyone. We love the fresh
                       flavours and restaurant quality, minus the cooking time.
                       Family dinners just got easier (and tastier!)

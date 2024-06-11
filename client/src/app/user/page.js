@@ -730,13 +730,12 @@ const LandingPage = () => {
                     className="flex justify-between md:mt-5 lg:mt-10"
                   >
                     <div className="w-[160px] 2xl:w-[286px] xl:w-[200px]">
-                    <Link href={`/pages/chef-details/${item?._id}`}>
-
-                      <img
-                        alt="person1"
-                        src={item?.images}
-                        className="rounded-full 2xl:w-[180px] 2xl:h-[180px] xl:w-[120px] xl:h-[120px] lg:w-[100px] lg:h-[100px] object-cover mx-auto"
-                      />
+                      <Link href={`/pages/chef-details/${item?._id}`}>
+                        <img
+                          alt="person1"
+                          src={item?.images}
+                          className="rounded-full 2xl:w-[180px] 2xl:h-[180px] xl:w-[120px] xl:h-[120px] lg:w-[100px] lg:h-[100px] object-cover mx-auto"
+                        />
                       </Link>
                       <Link href={`/pages/chef-details/${item?._id}`}>
                         <h2 className="seven_name">Chef {item?.name}</h2>
@@ -859,7 +858,9 @@ const LandingPage = () => {
                   </div>
 
                   <p className="nine_p2">
-                  Simply amazing food. Feels like home away from home. No compromise on quality and pretty decent quantity. Worth every single penny.
+                    Simply amazing food. Feels like home away from home. No
+                    compromise on quality and pretty decent quantity. Worth
+                    every single penny.
                   </p>
                   <p className="nine_name">Mayank Jaiswal</p>
                 </div>
@@ -918,8 +919,9 @@ const LandingPage = () => {
                   </div>
 
                   <p className="nine_p2">
-                  Where eating truly is BELIEVING!
-                  Elisabeth’s delicious food leaves your tastebuds in tantalising raptures... wanting more. You'll want to order again & again.
+                    Where eating truly is BELIEVING! Elisabeths delicious food
+                    leaves your tastebuds in tantalising raptures... wanting
+                    more. You will want to order again & again.
                   </p>
                   <p className="nine_name">Rohit Thakur</p>
                 </div>
@@ -978,7 +980,8 @@ const LandingPage = () => {
                   </div>
 
                   <p className="nine_p2">
-                  The food is always amazing whenever we order from Chef Jack. Everything on the menu taste delicious!
+                    The food is always amazing whenever we order from Chef Jack.
+                    Everything on the menu taste delicious!
                   </p>
                   <p className="nine_name">Jack Ho</p>
                 </div>
