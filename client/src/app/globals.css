@@ -250,9 +250,7 @@ td {
 }
 
 .four_btnn {
-
-  @apply flex items-center rounded-[3px] px-[15px] py-[5px] gap-2 h-[34px] text-[16px] leading-[24px];
-
+  @apply flex items-center rounded-[3px] px-[15px] py-[5px] gap-2 h-[34px] 2xl:text-[16px] xl:text-[14px] text-[12px] 2xl:leading-[24px];
 }
 
 .fourth_day {
@@ -353,7 +351,11 @@ td {
 }
 
 .nine_img {
-  @apply 2xl:w-[92px] 2xl:h-[92px] mx-auto xl:w-[55px] xl:h-[55px] lg:w-[50px] lg:h-[50px] w-[50px] h-[50px];
+  @apply 2xl:w-[92px] 2xl:h-[92px] xl:w-[55px] xl:h-[55px] lg:w-[50px] lg:h-[50px] w-[50px] h-[50px];
+}
+
+.testi-img {
+  @apply mx-auto 2xl:w-[154px] xl:w-[80px] w-[60px] 2xl:h-[154px] xl:h-[80px] h-[60px] object-cover rounded-full
 }
 
 .nine_p2 {
@@ -450,7 +452,7 @@ td {
 }
 
 .pop-chef {
-  @apply alata font-[400] text-[#555555] 2xl:text-[14px] 2xl:leading-[22px] xl:text-[10px] xl:leading-[16px] text-[9px] leading-[14px] 2xl:my-[2px]
+  @apply alata font-[400] text-[#555555] 2xl:text-[14px] 2xl:leading-[22px] xl:text-[10px] xl:leading-[16px] text-[12px] leading-[14px] 2xl:my-[2px]
 }
 
 .pop-detail {
@@ -616,6 +618,13 @@ td {
 
   }
 
+  .profile_input {
+    height: 50px !important;
+  }
+
+  .bntform {
+    height: 50px !important;
+  }
 
   /* ===============Become a chef======= */
 
@@ -687,7 +696,8 @@ td {
   .aboutusimg {
     height: auto !important;
   }
-  .cartCount{
+
+  .cartCount {
     top: 10px !important;
     padding: 0px 8px !important;
   }

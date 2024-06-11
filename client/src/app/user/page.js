@@ -5,19 +5,11 @@ import Image from "next/image";
 import maggie from "../assets/maggie.png";
 import calen from "../assets/calender.png";
 import microweb from "../assets/microweb.png";
-import person1 from "../assets/chef-roger-hendrics.png";
-import person2 from "../assets/chef-jason-bosh.png";
-import person3 from "../assets/chef-mathew-kaymer.png";
-import person4 from "../assets/chef-scarlet-carter.png";
-import person5 from "../assets/chef-karan-malhotra.png";
 import eightPoster from "../assets/food-safety.png";
 import plate1 from "../assets/ourcommitment-1st.png";
 import plate2 from "../assets/ourcommitment-2nd.png";
 import plate3 from "../assets/ourcommitment-3rd.png";
 import plate4 from "../assets/ourcommitment-4rt.png";
-import review1 from "../assets/testimonials-chef-mayank.png";
-import review2 from "../assets/testimonials-chef-rohit.png";
-import review3 from "../assets/testimonials-chef-shubham.png";
 import "@splidejs/react-splide/css/core";
 import Link from "next/link";
 import Navbar from "../navbar";
@@ -326,6 +318,25 @@ const LandingPage = () => {
   const handleItemRemove1 = (id) => {
     dispatch(removeItemFromCart(id));
     toast.success("Item Removed From Cart");
+  };
+  const [testimonials, setTestimonials] = useState("");
+  useEffect(() => {
+    defaultTestimonial();
+  }, []);
+  const defaultTestimonial = () => {
+    const option = {
+      method: "GET",
+      url: `${config.baseURL}/api/Testimonial/testimonals`,
+    };
+    axios
+      .request(option)
+      .then((response) => {
+        setTestimonials(response?.data);
+        console.log(response?.data, "testi");
+      })
+      .catch((error) => {
+        console.log(error, "Error");
+      });
   };
 
   return (
@@ -804,188 +815,73 @@ const LandingPage = () => {
             </p>
 
             <div className="lg:flex justify-around 2xl:mt-10 xl:mt-8 lg:mt-6 mt-3">
-              <div className="w-[90%] sm:w-[60%] mx-auto my-5 lg:my-0 lg:mx-0 lg:w-auto">
-                <div>
-                  <div>
-                    <Image
-                      alt="chef-mayank"
-                      src={review1}
-                      className="nine_img"
-                    />
-                  </div>
-                  <div className="rating flex justify-center nine_start">
-                    <label for="star1">
-                      <input
-                        type="radio"
-                        id="star1"
-                        name="rating-2"
-                        className="mask mask-star-2 bg-[#DB5353]"
-                      />
-                    </label>
-                    <label for="star2">
-                      <input
-                        type="radio"
-                        id="star2"
-                        name="rating-2"
-                        className="mask mask-star-2 bg-[#DB5353]"
-                      />
-                    </label>
-                    <label for="star3">
-                      <input
-                        type="radio"
-                        id="star3"
-                        name="rating-2"
-                        className="mask mask-star-2 bg-[#DB5353]"
-                      />
-                    </label>
-                    <label for="star4">
-                      <input
-                        type="radio"
-                        id="star4"
-                        name="rating-2"
-                        className="mask mask-star-2 bg-[#DB5353]"
-                      />
-                    </label>
-                    <label for="star5">
-                      <input
-                        type="radio"
-                        id="star5"
-                        name="rating-2"
-                        className="mask mask-star-2 bg-[#DB5353]"
-                        checked
-                      />
-                    </label>
-                  </div>
+              {Array.isArray(testimonials) &&
+                testimonials.map((item, index) => (
+                  <div
+                    key={index}
+                    className="w-[90%] sm:w-[60%] mx-auto my-5 lg:my-0 lg:mx-0 lg:w-auto"
+                  >
+                    <div>
+                      <div>
+                        <img
+                          alt="chef-mayank"
+                          src={item?.Profile_Image}
+                          className=" testi-img"
+                        />
+                      </div>
+                      <div className="rating flex justify-center nine_start">
+                        <label for="star1">
+                          <input
+                            type="radio"
+                            id="star1"
+                            name="rating-2"
+                            className="mask mask-star-2 bg-[#DB5353]"
+                          />
+                        </label>
+                        <label for="star2">
+                          <input
+                            type="radio"
+                            id="star2"
+                            name="rating-2"
+                            className="mask mask-star-2 bg-[#DB5353]"
+                          />
+                        </label>
+                        <label for="star3">
+                          <input
+                            type="radio"
+                            id="star3"
+                            name="rating-2"
+                            className="mask mask-star-2 bg-[#DB5353]"
+                          />
+                        </label>
+                        <label for="star4">
+                          <input
+                            type="radio"
+                            id="star4"
+                            name="rating-2"
+                            className="mask mask-star-2 bg-[#DB5353]"
+                          />
+                        </label>
+                        <label for="star5">
+                          <input
+                            type="radio"
+                            id="star5"
+                            name="rating-2"
+                            className="mask mask-star-2 bg-[#DB5353]"
+                            checked
+                          />
+                        </label>
+                      </div>
 
-                  <p className="nine_p2">
-                    Simply amazing food. Feels like home away from home. No
-                    compromise on quality and pretty decent quantity. Worth
-                    every single penny.
-                  </p>
-                  <p className="nine_name">Mayank Jaiswal</p>
-                </div>
-              </div>
-              <div>
-                <div className="w-[90%] sm:w-[60%] mx-auto my-5 lg:my-0 lg:mx-0 lg:w-auto">
-                  <div>
-                    <Image
-                      alt="chef-rohit"
-                      src={review2}
-                      className="nine_img"
-                    />
-                  </div>
-                  <div className="rating flex justify-center nine_start">
-                    <label for="star1">
-                      <input
-                        type="radio"
-                        id="star1"
-                        name="rating-3"
-                        className="mask mask-star-2 bg-[#DB5353]"
+                      <p
+                        className="nine_p2"
+                        dangerouslySetInnerHTML={{ __html: item?.Description }}
                       />
-                    </label>
-                    <label for="star2">
-                      <input
-                        type="radio"
-                        id="star2"
-                        name="rating-3"
-                        className="mask mask-star-2 bg-[#DB5353]"
-                      />
-                    </label>
-                    <label for="star3">
-                      <input
-                        type="radio"
-                        id="star3"
-                        name="rating-3"
-                        className="mask mask-star-2 bg-[#DB5353]"
-                      />
-                    </label>
-                    <label for="star4">
-                      <input
-                        type="radio"
-                        id="star4"
-                        name="rating-3"
-                        className="mask mask-star-2 bg-[#DB5353]"
-                      />
-                    </label>
-                    <label for="star5">
-                      <input
-                        type="radio"
-                        id="star5"
-                        name="rating-3"
-                        className="mask mask-star-2 bg-[#DB5353]"
-                        checked
-                      />
-                    </label>
-                  </div>
 
-                  <p className="nine_p2">
-                    Where eating truly is BELIEVING! Elisabeths delicious food
-                    leaves your tastebuds in tantalising raptures... wanting
-                    more. You will want to order again & again.
-                  </p>
-                  <p className="nine_name">Rohit Thakur</p>
-                </div>
-              </div>
-              <div>
-                <div className="w-[90%] sm:w-[60%] mx-auto my-5 lg:my-0 lg:mx-0 lg:w-auto">
-                  <div>
-                    <Image
-                      alt="chef-shubham"
-                      src={review3}
-                      className="nine_img"
-                    />
+                      <p className="nine_name">{item?.Name}</p>
+                    </div>
                   </div>
-                  <div className="rating flex justify-center nine_start">
-                    <label for="star1">
-                      <input
-                        type="radio"
-                        id="star1"
-                        name="rating-4"
-                        className="mask mask-star-2 bg-[#DB5353]"
-                      />
-                    </label>
-                    <label for="star2">
-                      <input
-                        type="radio"
-                        id="star2"
-                        name="rating-4"
-                        className="mask mask-star-2 bg-[#DB5353]"
-                      />
-                    </label>
-                    <label for="star3">
-                      <input
-                        type="radio"
-                        id="star3"
-                        name="rating-4"
-                        className="mask mask-star-2 bg-[#DB5353]"
-                      />
-                    </label>
-                    <label for="star4">
-                      <input
-                        type="radio"
-                        id="star4"
-                        name="rating-4"
-                        className="mask mask-star-2 bg-[#DB5353]"
-                      />
-                    </label>
-                    <label for="star5">
-                      <input
-                        type="radio"
-                        id="star5"
-                        name="rating-4"
-                        className="mask mask-star-2 bg-[#DB5353]"
-                        checked
-                      />
-                    </label>
-                  </div>
-
-                  <p className="nine_p2">
-                    The food is always amazing whenever we order from Chef Jack.
-                    Everything on the menu taste delicious!
-                  </p>
-                  <p className="nine_name">Jack Ho</p>
-                </div>
-              </div>
+                ))}
             </div>
           </div>
         </div>
@@ -1261,11 +1157,11 @@ const LandingPage = () => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="2xl:w-[1000px]  xl:w-[720px] w-[600px]  mx-auto rounded-[10px]  my-auto 2xl:px-[40px] 2xl:py-[45px] xl:px-[25px] xl:py-[30px] px-[15px] py-[20px] transform overflow-hidden  bg-white text-left align-middle shadow-xl transition-all 2xl:mt-[125px] xl:mt-[85px] lg:mt-[55px] sm:mt-[50px] mt-14  ">
+                <Dialog.Panel className="2xl:w-[1000px] z-50 xl:w-[720px] w-[600px]  mx-auto rounded-[20px] px-[5px] my-auto transform overflow-hidden  bg-white text-left align-middle shadow-xl transition-all 2xl:mt-[125px] xl:mt-[85px] lg:mt-[55px] sm:mt-[50px] mt-14 ">
                   <Dialog.Title
                     as="h3"
                     onClick={closeModal}
-                    className="cursor-pointer custom_heading_text font-semibold leading-6 text-gray-900 mt lg:mt-0 absolute right-5 text-[30px]"
+                    className="cursor-pointer relative custom_heading_text font-semibold leading-6 text-gray-900 mt lg:mt-0  right-5 text-[30px]"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -1273,7 +1169,7 @@ const LandingPage = () => {
                       viewBox="0 0 24 24"
                       stroke-width="1.5"
                       stroke="currentColor"
-                      class="w-8 h-8"
+                      className="absolute right-0 lg:w-8 lg:h-8 w-[20px] h-[20px]"
                     >
                       <path
                         stroke-linecap="round"

@@ -796,6 +796,27 @@ const ExploreDishes = () => {
     dispatch(clearCart());
   };
 
+  const [testimonials, setTestimonials] = useState("");
+  useEffect(() => {
+    defaultTestimonial();
+  }, []);
+  const defaultTestimonial = () => {
+    const option = {
+      method: "GET",
+      url: `${config.baseURL}/api/Testimonial/testimonals`,
+    };
+    axios
+      .request(option)
+      .then((response) => {
+        setTestimonials(response?.data);
+        console.log(response?.data, "testi");
+      })
+      .catch((error) => {
+        console.log(error, "Error");
+      });
+  };
+
+
   return (
     <>
       <ToastContainer className="mt-24" autoClose={1000} />
@@ -1440,177 +1461,74 @@ const ExploreDishes = () => {
               All our chefs have fans raving about their food
             </p>
 
-            <div className="grid md:grid-cols-3 grid-cols-2 xss:grid-cols-1 justify-center 2xl:my-10 xl:my-8 lg:my-6 my-3 flex-wrap lg:flex-nowrap gap-4 xss:gap-0">
-              <div className="xss:my-2 my-3 lg:my-0 lg:mx-0">
-                <div>
-                  <div>
-                    <Image
-                      alt="chef-mayank"
-                      src={review1}
-                      className="nine_img"
-                    />
+            <div className="lg:flex justify-around 2xl:mt-10 xl:mt-8 lg:mt-6 mt-3">
+              {Array.isArray(testimonials) &&
+                testimonials.map((item, index) => (
+                  <div
+                    key={index}
+                    className="w-[90%] sm:w-[60%] mx-auto my-5 lg:my-0 lg:mx-0 lg:w-auto"
+                  >
+                    <div>
+                      <div>
+                        <img
+                          alt="chef-mayank"
+                          src={item?.Profile_Image}
+                          className=" testi-img"
+                        />
+                      </div>
+                      <div className="rating flex justify-center nine_start">
+                        <label for="star1">
+                          <input
+                            type="radio"
+                            id="star1"
+                            name="rating-2"
+                            className="mask mask-star-2 bg-[#DB5353]"
+                          />
+                        </label>
+                        <label for="star2">
+                          <input
+                            type="radio"
+                            id="star2"
+                            name="rating-2"
+                            className="mask mask-star-2 bg-[#DB5353]"
+                          />
+                        </label>
+                        <label for="star3">
+                          <input
+                            type="radio"
+                            id="star3"
+                            name="rating-2"
+                            className="mask mask-star-2 bg-[#DB5353]"
+                          />
+                        </label>
+                        <label for="star4">
+                          <input
+                            type="radio"
+                            id="star4"
+                            name="rating-2"
+                            className="mask mask-star-2 bg-[#DB5353]"
+                          />
+                        </label>
+                        <label for="star5">
+                          <input
+                            type="radio"
+                            id="star5"
+                            name="rating-2"
+                            className="mask mask-star-2 bg-[#DB5353]"
+                            checked
+                          />
+                        </label>
+                      </div>
+
+                      <p
+                        className="nine_p2"
+                        dangerouslySetInnerHTML={{ __html: item?.Description }}
+                      />
+
+                      <p className="nine_name">{item?.Name}</p>
+                    </div>
                   </div>
-                  <div className="rating flex justify-center nine_start">
-                    <label for="star1">
-                      <input
-                        type="radio"
-                        id="star1"
-                        name="rating-2"
-                        className="mask mask-star-2 bg-[#DB5353]"
-                      />
-                    </label>
-                    <label for="star2">
-                      <input
-                        type="radio"
-                        id="star2"
-                        name="rating-2"
-                        className="mask mask-star-2 bg-[#DB5353]"
-                      />
-                    </label>
-                    <label for="star3">
-                      <input
-                        type="radio"
-                        id="star3"
-                        name="rating-2"
-                        className="mask mask-star-2 bg-[#DB5353]"
-                      />
-                    </label>
-                    <label for="star4">
-                      <input
-                        type="radio"
-                        id="star4"
-                        name="rating-2"
-                        className="mask mask-star-2 bg-[#DB5353]"
-                      />
-                    </label>
-                    <label for="star5">
-                      <input
-                        type="radio"
-                        id="star5"
-                        name="rating-2"
-                        className="mask mask-star-2 bg-[#DB5353]"
-                        checked
-                      />
-                    </label>
-                  </div>
-
-                  <p className="nine_p2">
-                  Simply amazing food. Feels like home away from home. No compromise on quality and pretty decent quantity. Worth every single penny.
-                  </p>
-                  <p className="nine_name">Mayank Jaiswal</p>
-                </div>
-              </div>
-              <div className="xss:my-2 my-3 lg:my-0 lg:mx-0 ">
-                <div>
-                  <Image alt="chef-rohit" src={review2} className="nine_img" />
-                </div>
-                <div className="rating flex justify-center nine_start">
-                  <label for="star1">
-                    <input
-                      type="radio"
-                      id="star1"
-                      name="rating-3"
-                      className="mask mask-star-2 bg-[#DB5353]"
-                    />
-                  </label>
-                  <label for="star2">
-                    <input
-                      type="radio"
-                      id="star2"
-                      name="rating-3"
-                      className="mask mask-star-2 bg-[#DB5353]"
-                    />
-                  </label>
-                  <label for="star3">
-                    <input
-                      type="radio"
-                      id="star3"
-                      name="rating-3"
-                      className="mask mask-star-2 bg-[#DB5353]"
-                    />
-                  </label>
-                  <label for="star4">
-                    <input
-                      type="radio"
-                      id="star4"
-                      name="rating-3"
-                      className="mask mask-star-2 bg-[#DB5353]"
-                    />
-                  </label>
-                  <label for="star5">
-                    <input
-                      type="radio"
-                      id="star5"
-                      name="rating-3"
-                      className="mask mask-star-2 bg-[#DB5353]"
-                      checked
-                    />
-                  </label>
-                </div>
-
-                <p className="nine_p2">
-                Where eating truly is BELIEVING!
-                Elisabeths delicious food leaves your tastebuds in tantalising raptures... wanting more. You will want to order again & again.
-                </p>
-                <p className="nine_name">Rohit Thakur</p>
-              </div>
-              <div className="xss:my-2 my-3 lg:my-0 lg:mx-0 ">
-                <div>
-                  <Image
-                    alt="chef-shubham"
-                    src={review3}
-                    className="nine_img"
-                  />
-                </div>
-                <div className="rating flex justify-center nine_start">
-                  <label for="star1">
-                    <input
-                      type="radio"
-                      id="star1"
-                      name="rating-4"
-                      className="mask mask-star-2 bg-[#DB5353]"
-                    />
-                  </label>
-                  <label for="star2">
-                    <input
-                      type="radio"
-                      id="star2"
-                      name="rating-4"
-                      className="mask mask-star-2 bg-[#DB5353]"
-                    />
-                  </label>
-                  <label for="star3">
-                    <input
-                      type="radio"
-                      id="star3"
-                      name="rating-4"
-                      className="mask mask-star-2 bg-[#DB5353]"
-                    />
-                  </label>
-                  <label for="star4">
-                    <input
-                      type="radio"
-                      id="star4"
-                      name="rating-4"
-                      className="mask mask-star-2 bg-[#DB5353]"
-                    />
-                  </label>
-                  <label for="star5">
-                    <input
-                      type="radio"
-                      id="star5"
-                      name="rating-4"
-                      className="mask mask-star-2 bg-[#DB5353]"
-                      checked
-                    />
-                  </label>
-                </div>
-
-                <p className="nine_p2">
-                The food is always amazing whenever we order from Chef Jack. Everything on the menu taste delicious!
-                </p>
-                <p className="nine_name">Jack Ho</p>
-              </div>
+                ))}
             </div>
           </div>
         </div>
@@ -1861,191 +1779,7 @@ const ExploreDishes = () => {
         </div>
       </div>
 
-      {/* ===============PopUp=============== */}
-
-      <dialog
-        id="my_modal_10"
-        className="2xl:w-[1000px] 2xl:h-[939px] xl:w-[720px] w-[600px] h-auto mx-auto rounded-[10px]  my-auto 2xl:px-[40px] 2xl:py-[45px] xl:px-[25px] xl:py-[30px] px-[15px] py-[20px]"
-      >
-        <button
-          onClick={() => document.getElementById("my_modal_10").close()}
-          className="absolute right-4 "
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] w-[14px]"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M6 18 18 6M6 6l12 12"
-            />
-          </svg>
-        </button>
-        <div className="w-full">
-          <div method="dialog">
-            <div className="flex 2xl:gap-[60px] xl:gap-[40px] gap-[20px] justify-between">
-              <div className="2xl:w-[459px] xl:w-[360px] w-[260px] ">
-                <Image src={popimg} className="rounded-[15px]" />
-              </div>
-              <div className="2xl:w-[400px] xl:w-[359px] w-[300px]">
-                <div>
-                  <h4 className="pop-head">Chicken kabab</h4>
-                  <p className="pop-chef">by Chef Radha</p>
-                </div>
-                <div className="flex justify-between pop-detail">
-                  <h3>Price: £8.50</h3>
-                  <h3>Weight: 400g</h3>
-                  <h3>Portion Size: Serves 1</h3>
-                </div>
-                <div className="flex flex-wrap 2xl:gap-[10px] xl:gap-[8px] gap-[6px]  2xl:my-[15px] xl:my-[12px] my-[8px]">
-                  <div className="pop">
-                    <Image
-                      src={nonveg}
-                      className="2xl:[18px] xl:w-[14px] w-[12px]"
-                    />
-                    <h3>Non-Veg</h3>
-                  </div>
-                  <div className="pop">
-                    <Image
-                      src={glutenfree}
-                      className="2xl:[18px] xl:w-[14px] w-[12px]"
-                    />
-                    <h3>Gulten Free</h3>
-                  </div>{" "}
-                  <div className="pop">
-                    <Image
-                      src={organic}
-                      className="2xl:[18px] xl:w-[14px] w-[12px]"
-                    />
-                    <h3>Organic</h3>
-                  </div>{" "}
-                  <div className="pop">
-                    <Image
-                      src={dairyfree}
-                      className="2xl:[18px] xl:w-[14px] w-[12px]"
-                    />
-                    <h3>Dairy Free</h3>
-                  </div>{" "}
-                  <div className="pop">
-                    <Image
-                      src={spicemedium}
-                      className="2xl:[18px] xl:w-[14px] w-[12px]"
-                    />
-                    <h3>Medium</h3>
-                  </div>
-                </div>
-                <div className="flex justify-center 2xl:w-[103px] 2xl:h-[39px] xl:w-[60px] xl:h-[22px] lg:w-[50px] lg:h-[20px] border rounded-[5px] 2xl:mt-[25px] xl:mt-[20px] mt-[15px]">
-                  {" "}
-                  <button
-                    className="   text-[#DB5353] rounded-l w-1/3"
-                    onClick={() => handleDecrement(item._id)}
-                  >
-                    <Image
-                      src={minus}
-                      className="2xl:w-[15px] 2xl:h-[15px] xl:w-[10px] xl:h-[10px] lg:w-[8px] lg:h-[8px] mx-auto "
-                    />
-                  </button>
-                  <p className=" flex mx-auto items-center text-[10px] xl:text-[12px] 2xl:text-[18px]  2xl:leading-[28px] ">
-                    {count}
-                  </p>
-                  <button
-                    className="    text-[#DB5353] rounded-r w-1/3"
-                    onClick={() => handleIncrement(item._id)}
-                  >
-                    <Image
-                      src={plus}
-                      className="2xl:w-[15px] 2xl:h-[15px] xl:w-[10px] xl:h-[10px] lg:w-[8px] lg:h-[8px] mx-auto "
-                    />
-                  </button>
-                </div>
-                <div>
-                  <button className="pop-btn" onClick={updateCartItemQuantity}>
-                    Add to basket
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="2xl:my-[15px] xl:my-[10px] my-[8px]">
-              <div className="">
-                <p className="fourth_p text-[#555555]">Description</p>{" "}
-                <p className="fourth_p 2xl:w-[890px] xl:w-[660px] w-[550px]">
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industrys
-                  standard dummy text ever since the 1500s, when an unknown
-                  printer took a galley of type and scrambled it to make a type
-                  specimen book.
-                </p>
-              </div>
-            </div>
-            <div className="2xl:my-[20px] xl:my-[12px] my-[10px]">
-              <div className="flex justify-between">
-                <div>
-                  <p className="fourth_p text-[#555555]">Main Ingredients</p>{" "}
-                  <p className="fourth_p ">Chicken, Egg, Tomato, etc</p>
-                </div>
-                <div className="2xl:w-[578px] xl:w-[430px] w-[360px]">
-                  <p className="fourth_p text-[#555555]">
-                    Heating instructions
-                  </p>{" "}
-                  <p className="fourth_p ">
-                    As our food is hand-made by our chefs, these reheating
-                    instructions are a guide. Check your food is piping hot
-                    throughout before serving.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="2xl:my-[20px] xl:my-[12px] my-[10px]">
-              <div className="flex justify-between">
-                <div>
-                  <p className="fourth_p text-[#555555]">List of Allergens</p>{" "}
-                  <p className="fourth_p ">Dish contains i.e Celery, Egg</p>
-                </div>
-                <div className="2xl:w-[578px] xl:w-[430px] w-[360px]">
-                  <p className="fourth_p text-[#555555]">
-                    Best Cooked directly from FROZEN
-                  </p>{" "}
-                  <p className="fourth_p ">
-                    OVEN: Preheat oven to 180°C (Gas Mark 5). Remove lid and any
-                    outer packaging. Place on a baking tray at the top of oven
-                    for 20 minutes or until piping hot.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="2xl:my-[20px] xl:my-[12px] my-[10px]">
-              <div className="flex justify-between">
-                <div>
-                  <p className="fourth_p text-[#555555]">Storage</p>{" "}
-                  <p className="fourth_p 2xl:w-[270px] xl:w-[200px] w-[160px]">
-                    Store immediately in freezer on delivery.
-                  </p>
-                  <p className="fourth_p ">Keep frozen at -18℃.</p>
-                  <p className="fourth_p 2xl:w-[270px] xl:w-[200px] w-[180px]">
-                    Should this product defrost, keep refrigerated, heat and eat
-                    within 48 hours.
-                  </p>
-                </div>
-                <div className="2xl:w-[578px] xl:w-[430px] w-[360px]">
-                  <p className="fourth_p ">
-                    MICROWAVE: Remove lid and place loosely on the container.
-                    Place on a microwaveable plate and heat on full power for
-                    7-8 minutes. Halfway through heating, add 2 tablespoons of
-                    water to rice and stir contents together. Re-cover and
-                    continue heating. Heat until piping hot and stand for 1
-                    minute.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </dialog>
+    
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={() => {}}>
@@ -2072,7 +1806,7 @@ const ExploreDishes = () => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="2xl:w-[1000px] z-50 xl:w-[720px] w-[600px]  mx-auto rounded-[20px]  my-auto 2xl:px-[40px] 2xl:py-[45px] xl:px-[25px] xl:py-[30px] px-[15px] py-[20px] transform overflow-hidden  bg-white text-left align-middle shadow-xl transition-all 2xl:mt-[125px] xl:mt-[85px] lg:mt-[55px] sm:mt-[50px] mt-14 ">
+                <Dialog.Panel className="2xl:w-[1000px] z-50 xl:w-[720px] w-[600px]  mx-auto rounded-[20px] px-[5px] my-auto transform overflow-hidden  bg-white text-left align-middle shadow-xl transition-all 2xl:mt-[125px] xl:mt-[85px] lg:mt-[55px] sm:mt-[50px] mt-14 ">
                   <Dialog.Title
                     as="h3"
                     onClick={closeModal}
@@ -2085,7 +1819,7 @@ const ExploreDishes = () => {
                       viewBox="0 0 24 24"
                       stroke-width="1.5"
                       stroke="currentColor"
-                      class="w-8 h-8"
+                      className="absolute  lg:w-8 lg:h-8 w-[20px] h-[20px]"
                     >
                       <path
                         stroke-linecap="round"
@@ -2112,3 +1846,188 @@ const ExploreDishes = () => {
 };
 
 export default ExploreDishes;
+  {/* ===============PopUp=============== */}
+
+//   <dialog
+//   id="my_modal_10"
+//   className="2xl:w-[1000px] 2xl:h-[939px] xl:w-[720px] w-[600px] h-auto mx-auto rounded-[10px]  my-auto 2xl:px-[40px] 2xl:py-[45px] xl:px-[25px] xl:py-[30px] px-[15px] py-[20px]"
+// >
+//   <button
+//     onClick={() => document.getElementById("my_modal_10").close()}
+//     className="absolute right-4 "
+//   >
+//     <svg
+//       xmlns="http://www.w3.org/2000/svg"
+//       fill="none"
+//       viewBox="0 0 24 24"
+//       strokeWidth={1.5}
+//       stroke="currentColor"
+//       className="2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] w-[14px]"
+//     >
+//       <path
+//         strokeLinecap="round"
+//         strokeLinejoin="round"
+//         d="M6 18 18 6M6 6l12 12"
+//       />
+//     </svg>
+//   </button>
+//   <div className="w-full">
+//     <div method="dialog">
+//       <div className="flex 2xl:gap-[60px] xl:gap-[40px] gap-[20px] justify-between">
+//         <div className="2xl:w-[459px] xl:w-[360px] w-[260px] ">
+//           <Image src={popimg} className="rounded-[15px]" />
+//         </div>
+//         <div className="2xl:w-[400px] xl:w-[359px] w-[300px]">
+//           <div>
+//             <h4 className="pop-head">Chicken kabab</h4>
+//             <p className="pop-chef">by Chef Radha</p>
+//           </div>
+//           <div className="flex justify-between pop-detail">
+//             <h3>Price: £8.50</h3>
+//             <h3>Weight: 400g</h3>
+//             <h3>Portion Size: Serves 1</h3>
+//           </div>
+//           <div className="flex flex-wrap 2xl:gap-[10px] xl:gap-[8px] gap-[6px]  2xl:my-[15px] xl:my-[12px] my-[8px]">
+//             <div className="pop">
+//               <Image
+//                 src={nonveg}
+//                 className="2xl:[18px] xl:w-[14px] w-[12px]"
+//               />
+//               <h3>Non-Veg</h3>
+//             </div>
+//             <div className="pop">
+//               <Image
+//                 src={glutenfree}
+//                 className="2xl:[18px] xl:w-[14px] w-[12px]"
+//               />
+//               <h3>Gulten Free</h3>
+//             </div>{" "}
+//             <div className="pop">
+//               <Image
+//                 src={organic}
+//                 className="2xl:[18px] xl:w-[14px] w-[12px]"
+//               />
+//               <h3>Organic</h3>
+//             </div>{" "}
+//             <div className="pop">
+//               <Image
+//                 src={dairyfree}
+//                 className="2xl:[18px] xl:w-[14px] w-[12px]"
+//               />
+//               <h3>Dairy Free</h3>
+//             </div>{" "}
+//             <div className="pop">
+//               <Image
+//                 src={spicemedium}
+//                 className="2xl:[18px] xl:w-[14px] w-[12px]"
+//               />
+//               <h3>Medium</h3>
+//             </div>
+//           </div>
+//           <div className="flex justify-center 2xl:w-[103px] 2xl:h-[39px] xl:w-[60px] xl:h-[22px] lg:w-[50px] lg:h-[20px] border rounded-[5px] 2xl:mt-[25px] xl:mt-[20px] mt-[15px]">
+//             {" "}
+//             <button
+//               className="   text-[#DB5353] rounded-l w-1/3"
+//               onClick={() => handleDecrement(item._id)}
+//             >
+//               <Image
+//                 src={minus}
+//                 className="2xl:w-[15px] 2xl:h-[15px] xl:w-[10px] xl:h-[10px] lg:w-[8px] lg:h-[8px] mx-auto "
+//               />
+//             </button>
+//             <p className=" flex mx-auto items-center text-[10px] xl:text-[12px] 2xl:text-[18px]  2xl:leading-[28px] ">
+//               {count}
+//             </p>
+//             <button
+//               className="    text-[#DB5353] rounded-r w-1/3"
+//               onClick={() => handleIncrement(item._id)}
+//             >
+//               <Image
+//                 src={plus}
+//                 className="2xl:w-[15px] 2xl:h-[15px] xl:w-[10px] xl:h-[10px] lg:w-[8px] lg:h-[8px] mx-auto "
+//               />
+//             </button>
+//           </div>
+//           <div>
+//             <button className="pop-btn" onClick={updateCartItemQuantity}>
+//               Add to basket
+//             </button>
+//           </div>
+//         </div>
+//       </div>
+//       <div className="2xl:my-[15px] xl:my-[10px] my-[8px]">
+//         <div className="">
+//           <p className="fourth_p text-[#555555]">Description</p>{" "}
+//           <p className="fourth_p 2xl:w-[890px] xl:w-[660px] w-[550px]">
+//             Lorem Ipsum is simply dummy text of the printing and
+//             typesetting industry. Lorem Ipsum has been the industrys
+//             standard dummy text ever since the 1500s, when an unknown
+//             printer took a galley of type and scrambled it to make a type
+//             specimen book.
+//           </p>
+//         </div>
+//       </div>
+//       <div className="2xl:my-[20px] xl:my-[12px] my-[10px]">
+//         <div className="flex justify-between">
+//           <div>
+//             <p className="fourth_p text-[#555555]">Main Ingredients</p>{" "}
+//             <p className="fourth_p ">Chicken, Egg, Tomato, etc</p>
+//           </div>
+//           <div className="2xl:w-[578px] xl:w-[430px] w-[360px]">
+//             <p className="fourth_p text-[#555555]">
+//               Heating instructions
+//             </p>{" "}
+//             <p className="fourth_p ">
+//               As our food is hand-made by our chefs, these reheating
+//               instructions are a guide. Check your food is piping hot
+//               throughout before serving.
+//             </p>
+//           </div>
+//         </div>
+//       </div>
+//       <div className="2xl:my-[20px] xl:my-[12px] my-[10px]">
+//         <div className="flex justify-between">
+//           <div>
+//             <p className="fourth_p text-[#555555]">List of Allergens</p>{" "}
+//             <p className="fourth_p ">Dish contains i.e Celery, Egg</p>
+//           </div>
+//           <div className="2xl:w-[578px] xl:w-[430px] w-[360px]">
+//             <p className="fourth_p text-[#555555]">
+//               Best Cooked directly from FROZEN
+//             </p>{" "}
+//             <p className="fourth_p ">
+//               OVEN: Preheat oven to 180°C (Gas Mark 5). Remove lid and any
+//               outer packaging. Place on a baking tray at the top of oven
+//               for 20 minutes or until piping hot.
+//             </p>
+//           </div>
+//         </div>
+//       </div>
+//       <div className="2xl:my-[20px] xl:my-[12px] my-[10px]">
+//         <div className="flex justify-between">
+//           <div>
+//             <p className="fourth_p text-[#555555]">Storage</p>{" "}
+//             <p className="fourth_p 2xl:w-[270px] xl:w-[200px] w-[160px]">
+//               Store immediately in freezer on delivery.
+//             </p>
+//             <p className="fourth_p ">Keep frozen at -18℃.</p>
+//             <p className="fourth_p 2xl:w-[270px] xl:w-[200px] w-[180px]">
+//               Should this product defrost, keep refrigerated, heat and eat
+//               within 48 hours.
+//             </p>
+//           </div>
+//           <div className="2xl:w-[578px] xl:w-[430px] w-[360px]">
+//             <p className="fourth_p ">
+//               MICROWAVE: Remove lid and place loosely on the container.
+//               Place on a microwaveable plate and heat on full power for
+//               7-8 minutes. Halfway through heating, add 2 tablespoons of
+//               water to rice and stir contents together. Re-cover and
+//               continue heating. Heat until piping hot and stand for 1
+//               minute.
+//             </p>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   </div>
+// </dialog>
