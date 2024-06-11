@@ -276,7 +276,7 @@ const Checkout = () => {
         console.error("Error getting session ID:", error);
       }
 
-      await new Promise((resolve) => setTimeout(resolve, pollInterval)); // Wait for the poll interval before retrying
+      await new Promise((resolve) => setTimeout(resolve, pollInterval)); 
     }
 
     toast.error("Failed to get session ID after multiple attempts.");

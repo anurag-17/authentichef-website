@@ -590,36 +590,36 @@ const Navbar = () => {
 
   const handleOAuthCallback = async (code) => {
     try {
-      const tokenFromUrl = new URLSearchParams(window.location.search).get(
-        "token"
-      );
-      if (tokenFromUrl) {
-        const response = await axios.get(`${config.baseURL}/api/auth/me`, {
+      const response = await axios.post(
+        "https://server-backend-gamma.vercel.app/Google_OAuth/google/get-token",
+        { code },
+        {
           headers: {
-            Authorization: `Bearer ${tokenFromUrl}`,
+            "Content-Type": "application/json",
           },
-        });
-        const data = response.data;
-        if (data.success) {
-          dispatch(setToken(tokenFromUrl));
-          dispatch(setUser(data.user));
-          dispatch(setSuccess(true));
-          localStorage.setItem("authToken", tokenFromUrl);
-          toast.success("Logged in successfully!");
-
-          setIsLoggedIn(true);
-          setCurrentUser(data.user);
-
-          router.push("/");
-        } else {
-          toast.error("Token verification failed");
         }
+      );
+  
+      const { token } = response.data;
+  
+      if (token) {
+        dispatch(setToken(token));
+        dispatch(setUser(data.user));
+        dispatch(setSuccess(true));
+        localStorage.setItem("authToken", token);
+        toast.success("Logged in successfully!");
+        setIsLoggedIn(true);
+        setCurrentUser(data.user);
+        router.push("/");
+      } else {
+        toast.error("Token verification failed");
       }
     } catch (error) {
       console.error("Error verifying token:", error);
       toast.error("An error occurred during token verification.");
     }
   };
+  
   useEffect(() => {
     const code = new URLSearchParams(window.location.search).get("code");
     if (code) {
