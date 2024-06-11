@@ -1,6 +1,7 @@
 const express=require('express')
 const { isAuthenticatedUser,isAuthenticatedUserForAddtocard,authorizeRoles} = require('../middleware/auth')
 const {PlaceOrder,OrderList,getOrderById,UpdateOrder,DeleteOrder,  getChefAndOrderCounts , AllOrderList ,checkDiscount,BookOrder,CancelOrder,GetSessionId } = require("../Controller/order")
+const {getAllShipment}=require("../Controller/ShiptheoryController")
 const {handleWebhook}=require("../Controller/handlehookcontroller")
 const router=express.Router()
 
@@ -22,6 +23,7 @@ router.get("/getChefAndOrderCounts", isAuthenticatedUser, authorizeRoles("admin"
 router.get("/allOrderList", isAuthenticatedUser, authorizeRoles("admin"), AllOrderList)
 router.get("/checkDiscount", isAuthenticatedUser, checkDiscount)
 router.post("/cancelOrder", isAuthenticatedUser, CancelOrder)
+router.get("/", isAuthenticatedUser, getAllShipment)
 
 router.get("/getSessionId", isAuthenticatedUser, GetSessionId)
 module.exports=router

@@ -479,8 +479,11 @@ exports.PlaceOrder = async (req, res, next) => {
                 customization: item.customization,
                 price: item.menuItem.price,
                 ProfileImage: item.menuItem.ProfileImage,
-                name: item.menuItem.name
+                name: item.menuItem.name,
+                weight:item.menuItem.weight
             }));
+
+            console.log("Items", items)
 
             // Create an order with delivery information
             const newOrder = new Order({
@@ -521,7 +524,7 @@ exports.PlaceOrder = async (req, res, next) => {
             await payment.save();
 
             // save the order in Shiptheory
-            await createShipment(savedOrder);
+            await createShipment(savedOrder , user);
             // Delete the cart after placing the order
 
             await Cart.deleteOne({ _id: cartItems._id });

@@ -14,7 +14,7 @@ router.post('/createTestimonal', upload ,isAuthenticatedUser, authorizeRoles('ad
 
 // Get all Testimonals
 
-router.get('/testimonals', isAuthenticatedUser, authorizeRoles('admin'), findAll);
+router.get('/testimonals',findAll);
 
 // Get a single Testimonal by ID
 
