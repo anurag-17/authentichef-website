@@ -8,6 +8,8 @@ import OrderList from "../components/admin/admin-pages/order-management/page";
 import SpiceLevel from "../components/admin/admin-pages/spice-level/page";
 import User from "../components/admin/admin-pages/user/User";
 import FAQs from "../components/admin/admin-pages/FAQ/page";
+import Testimonial from "../components/admin/admin-pages/Testimonial/page";
+import { Component } from "react";
 
 export const sideMenus = [
   {
@@ -67,4 +69,9 @@ export const sideMenus = [
     label:"FAQS",
     component : <FAQs />
   },
+  {
+    id: 10,
+    label: "Testimonial",
+    component : <Testimonial />
+  }
 ];
