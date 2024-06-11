@@ -312,7 +312,6 @@ const Checkout = () => {
         );
         setShippingCost(userCart.Shipping_cost ?? 0); // Set the shipping cost
         setCartId(userCart._id); // Set the cart ID
-        console.log(response?.data, "data");
       })
       .catch((error) => {
         console.log(error, "Error");

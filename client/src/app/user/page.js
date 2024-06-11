@@ -63,10 +63,10 @@ const LandingPage = () => {
   const { cart } = useSelector((state) => state?.userCart);
   const cartData = cart[0]?.data?._id;
   const quantity = cart[0]?.quantity;
-    cart.forEach((item, index) => {
-      const { data } = item;
-      console.log(data, `data from item ${index + 1}`);
-    });
+  cart.forEach((item, index) => {
+    const { data } = item;
+    console.log(data, `data from item ${index + 1}`);
+  });
 
   const handleIncrement = (itemId) => {
     setGetCartItems((prevCartItems) => {
@@ -219,8 +219,8 @@ const LandingPage = () => {
       );
       if (response.status >= 200 && response.status < 300) {
         toast.success("Items added to cart successfully");
-        handleDrawerOpen();
         refreshData();
+        handleDrawerOpen();
       } else {
         toast.error("Failed to add items to cart. Please try again.");
       }
@@ -233,10 +233,8 @@ const LandingPage = () => {
   };
   const [getCartItems, setGetCartItems] = useState({});
   useEffect(() => {
-    if (token) {
-      defaultCartItems();
-    }
-  }, [token, isRefresh]);
+    defaultCartItems();
+  }, [!isRefresh]);
 
   const defaultCartItems = () => {
     const option = {
@@ -251,7 +249,6 @@ const LandingPage = () => {
       .request(option)
       .then((response) => {
         setGetCartItems(response?.data?.userCart?.items);
-        refreshData();
       })
       .catch((error) => {
         console.log(error, "Error");
