@@ -63,10 +63,10 @@ const LandingPage = () => {
   const { cart } = useSelector((state) => state?.userCart);
   const cartData = cart[0]?.data?._id;
   const quantity = cart[0]?.quantity;
-    cart.forEach((item, index) => {
-      const { data } = item;
-      console.log(data, `data from item ${index + 1}`);
-    });
+  cart.forEach((item, index) => {
+    const { data } = item;
+    console.log(data, `data from item ${index + 1}`);
+  });
 
   const handleIncrement = (itemId) => {
     setGetCartItems((prevCartItems) => {
@@ -219,8 +219,8 @@ const LandingPage = () => {
       );
       if (response.status >= 200 && response.status < 300) {
         toast.success("Items added to cart successfully");
-        handleDrawerOpen();
         refreshData();
+        handleDrawerOpen();
       } else {
         toast.error("Failed to add items to cart. Please try again.");
       }
@@ -233,10 +233,8 @@ const LandingPage = () => {
   };
   const [getCartItems, setGetCartItems] = useState({});
   useEffect(() => {
-    if (token) {
-      defaultCartItems();
-    }
-  }, [token, isRefresh]);
+    defaultCartItems();
+  }, [!isRefresh]);
 
   const defaultCartItems = () => {
     const option = {
@@ -251,7 +249,6 @@ const LandingPage = () => {
       .request(option)
       .then((response) => {
         setGetCartItems(response?.data?.userCart?.items);
-        refreshData();
       })
       .catch((error) => {
         console.log(error, "Error");
@@ -1014,7 +1011,7 @@ const LandingPage = () => {
           ></label>
           <ul className="min-h-full text-base-content max-w-[310px] sm:max-w-[350px] md:w-[400px] md:max-w-[400px] 2xl:w-[450px] 2xl:max-w-[450px] bg-white">
             <div className="flex flex-col justify-center items-center p-[15px] md:p-[20px] h-[100vh]">
-              {/* {!cart || getCartItems.length === 0 ? (
+              {!cart || getCartItems.length === 0 ? (
                 <div className="flex flex-col justify-center items-center">
                   <h4 className="alata font-[400] text-[#111] text-[24px] mb-[1rem]">
                     Your Basket is empty!
@@ -1036,7 +1033,7 @@ const LandingPage = () => {
                     </Link>
                   </div>
                 </div>
-              ) : ( */}
+              ) : (
                 <>
                   <div className="w-full flex justify-between items-center">
                     <h4 className="alata font-[500] text-[#111111] 2xl:text-[25px] sm:text-[20px] text-[18px] 2xl:leading-[32px] md:text-[25px] leading-[24px] ">
@@ -1233,7 +1230,7 @@ const LandingPage = () => {
                     )}
                   </div>
                 </>
-              {/* )} */}
+              )}
             </div>
           </ul>
         </div>

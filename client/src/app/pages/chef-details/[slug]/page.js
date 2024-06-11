@@ -227,10 +227,8 @@ const ChefDetails = ({ params }) => {
   };
   const [getCartItems, setGetCartItems] = useState({});
   useEffect(() => {
-    if (token) {
-      defaultCartItems();
-    }
-  }, [token, isRefresh]);
+    defaultCartItems();
+  }, [!isRefresh]);
   const defaultCartItems = () => {
     const option = {
       method: "GET",
@@ -394,13 +392,12 @@ const ChefDetails = ({ params }) => {
 Food Safety
 </p>
 </div> */}
-                  
-                      <div className="2xl:w-[200px] 2xl:h-[37px] xl:w-[200px] xl:h-[30px] w-[160px] h-[30px] bg-[#F3F3F3] flex justify-center gap-1 xl:gap-2 items-center py-1 ">
-                        <Image src={cook2} className="w-[17px]" />
-                        <p className="fourth_day">Food Safety Certified</p>
-                        {/* <p className="fourth_day text-[#838383]">Food safety</p> */}
-                      </div>
-                  
+
+                    <div className="2xl:w-[200px] 2xl:h-[37px] xl:w-[200px] xl:h-[30px] w-[160px] h-[30px] bg-[#F3F3F3] flex justify-center gap-1 xl:gap-2 items-center py-1 ">
+                      <Image src={cook2} className="w-[17px]" />
+                      <p className="fourth_day">Food Safety Certified</p>
+                      {/* <p className="fourth_day text-[#838383]">Food safety</p> */}
+                    </div>
                   </div>
                   <div className="flex gap-[50px] 2xl:my-[30px] xl:my-[20px] my-[10px]">
                     <div className=" ">
@@ -563,7 +560,7 @@ Food Safety
           ></label>
           <ul className="min-h-full text-base-content max-w-[310px] sm:max-w-[350px] md:w-[400px] md:max-w-[400px] 2xl:w-[450px] 2xl:max-w-[450px] bg-white">
             <div className="flex flex-col justify-center items-center p-[15px] md:p-[20px] h-[100vh]">
-              {/* {!cart || getCartItems.length === 0 ? (
+              {!cart || getCartItems.length === 0 ? (
                 <div className="flex flex-col justify-center items-center">
                   <h4 className="alata font-[400] text-[#111] text-[24px] mb-[1rem]">
                     Your Basket is empty!
@@ -585,7 +582,7 @@ Food Safety
                     </Link>
                   </div>
                 </div>
-              ) : ( */}
+              ) : (
                 <>
                   <div className="w-full flex justify-between items-center">
                     <h4 className="alata font-[500] text-[#111111] 2xl:text-[25px] sm:text-[20px] text-[18px] 2xl:leading-[32px] md:text-[25px] leading-[24px] ">
@@ -794,7 +791,7 @@ Food Safety
                     )}
                   </div>
                 </>
-              {/* )} */}
+              )}
             </div>
           </ul>
         </div>
