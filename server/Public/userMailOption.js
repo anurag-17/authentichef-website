@@ -2,7 +2,7 @@
 const moment = require('moment');
 
 const userMailOptions = (req, savedOrder, deliveryDate, deliveryInfo, totalAmount, cartItems , payment_method_types) => {
-    const formattedDeliveryDate = moment(deliveryDate).format('YYYY-MM-DD')
+    const formattedDeliveryDate = moment(deliveryDate).format("D MMMM YYYY");
     return {
         from: process.env.CLIENT_EMAIL,
         to: req.user.email,
@@ -110,7 +110,7 @@ const userMailOptions = (req, savedOrder, deliveryDate, deliveryInfo, totalAmoun
             </table>
             
                 <p><strong>Amount:</strong> £${savedOrder.totalAmountBeforeDiscount.toFixed(2)}</p>
-                <p><strong>Discount:</strong>${savedOrder.DiscountPercentage}%</p>
+                <p><strong>Discount:</strong>${savedOrder.DiscountPercentage}</p>
                 <p><strong>Shipping Charges:</strong> £${savedOrder.shippingCharge}</p>
                 <p><strong>Total Amount:</strong> £${savedOrder.totalAmount.toFixed(2)}</p>
                 <p>We will notify you once your order has been processed and shipped.</p>

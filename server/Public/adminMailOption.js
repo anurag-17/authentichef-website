@@ -149,7 +149,7 @@ const adminMailOptions = (
   totalAmount,
   cartItems
 ) => {
-  const formattedDeliveryDate = moment(deliveryDate).format("YYYY-MM-DD");
+  const formattedDeliveryDate = moment(deliveryDate).format("D MMMM YYYY");
   return {
     from: process.env.CLIENT_EMAIL, // Your email address
     to: process.env.CLIENT_EMAIL, // Admin email address
@@ -239,8 +239,7 @@ const adminMailOptions = (
       <img src="https://authimages.s3.eu-west-2.amazonaws.com/logo.png" alt="authentichef">
     </div>
     <div class="header">
-      <h2>New Order Received</h2>
-      <p>Thank you for your order. Please find details of your order below.</p>
+      <p>Thank you for your Order</p>
       <table class="order-details">
         <tr>
           <th>Order Number</th>
@@ -271,7 +270,7 @@ const adminMailOptions = (
 
         <tr>
           <th>Payment Method</th>
-          <td>${payment_method_types}</td>
+          <td>${payment_method_types }(Stripe)</td>
         </tr>
         <tr>
           <th>Order Value</th>
@@ -279,12 +278,12 @@ const adminMailOptions = (
         </tr>
         <tr>
           <th>Discount</th>
-          <td>£${savedOrder.DiscountPercentage}%</td>
+          <td>£${savedOrder.DiscountPercentage}</td>
         </tr>
 
         <tr>
           <th>Shipping</th>
-          <td>£${savedOrder.shippingCharge}%</td>
+          <td>£${savedOrder.shippingCharge}</td>
         </tr>
 
 
@@ -365,9 +364,14 @@ const adminMailOptions = (
     <p class="header">Authentichef Ltd Registered office 167-169, Great Portland Street, 5th Floor, London W1W 5PF.
       Registered in
       England. Company registration number 15236453. VAT number 465 112 412</p>
-    <p class="header">This order is subject to Authentichef Terms and Conditions and Privacy and Cookie, and Refund
-      Policy.</p>
-  </div>
+  <a href="http://www.authentichef.com/" class="header">
+    <p>
+        This order is subject to Authentichef Terms and Conditions and Privacy and Cookie, and Refund Policy.
+    </p>
+</a>
+
+  </div style="text-align: center;">
+ <p class="policy> © 2024 Authentichef | All Rights Reserved  </p>
 </body>
 
 </html>

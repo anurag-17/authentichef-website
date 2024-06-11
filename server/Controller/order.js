@@ -12,6 +12,7 @@ const sendEmail = require('../Utils/SendEmail');
 const Coupon = require("../Model/Coupon");
 const User = require("../Model/User")
 const sessionData = require("../Model/session")
+const{createShipment}=require("./ShiptheoryController")
 require('dotenv').config(); // Import dotenv to use environment variables
 
 // Define your email credentials and configuration
@@ -519,7 +520,10 @@ exports.PlaceOrder = async (req, res, next) => {
             payment.order = savedOrder._id;
             await payment.save();
 
+            // save the order in Shiptheory
+            await createShipment(savedOrder);
             // Delete the cart after placing the order
+
             await Cart.deleteOne({ _id: cartItems._id });
 
             // Send confirmation email to the user
@@ -591,6 +595,9 @@ exports.PlaceOrder = async (req, res, next) => {
             )
 
             console.log("Session Details", sessionDetails)
+
+            // send session in Shiptheory
+
 
           //------------------------
 
@@ -816,6 +823,10 @@ exports.BookOrder = async (req, res) => {
         // Link the payment to the order
         savedOrder.payment = payment._id;
         await savedOrder.save();
+
+        // save the order in Shiptheory
+        const shipmentCart = await createShipment(savedOrder);
+        console.log("Shipment Cart", shipmentCart);
 
         // Delete the cart after placing the order
         await Cart.deleteOne({ _id: cartItems._id });
