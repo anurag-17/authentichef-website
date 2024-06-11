@@ -22,14 +22,18 @@ const GlobalCusines = () => {
             <div className=" bottom-0 2xl:w-[1057px] 2xl:h-[244px] xl:w-[700px] xl:h-[140px] w-[90%] h-[140px] bg-white flex justify-center border mx-auto rounded-[15px]  2xl:py-[40px] 2xl:mt-[500px] xl:mt-[300px] lg:mt-[140px] mt-[110px]">
               <div className="flex items-center px-[6%] lg:px-[12%] 2xl:px-0 ">
                 <div className="flex gap-3 items-start ">
-                  <Image src={couma} className="align-top 2xl:w-[34px] 2xl:h-[34px] w-[25px] h-[25px]" />
+                  <Image
+                    src={couma}
+                    className="align-top 2xl:w-[34px] 2xl:h-[34px] w-[25px] h-[25px]"
+                  />
                   <div>
                     <p className="seven_p2 2xl:w-[734px] text-center">
-                      Lorem Ipsum is simply dummy text of the printing and
-                      typesetting industry. Lorem Ipsum has been the industries
-                      standard dummy text ever since the 1500s, when an unknown
-                      printer took a galley of type and scrambled it to make a
-                      type specimen book.
+                     <span className="font-semibold"> Homemade. Authentic Flavours. Expertly Delivered.</span> <br/>No more
+                      takeout guilt! Authentichef delivers delicious, homemade
+                      food from around the world. It's like having a personal
+                      chef, with options for everyone. We love the fresh
+                      flavours and restaurant quality, minus the cooking time.
+                      Family dinners just got easier (and tastier!)
                     </p>
                     <p className="seven_p2 text-center 2xl:mt-[30px] xl:mt-[15px] mt-[10px]">
                       - Jordan Huff

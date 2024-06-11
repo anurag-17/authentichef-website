@@ -19,14 +19,10 @@ const FoodSefty = () => {
           <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[800px] w-full flex items-center flex-col-reverse lg:flex-row mnavbar 2xl:py-[60px] xl:py-[40px] py-[40px]">
             <div className="mx-4 sm:w-1/2 sm:mx-auto lg:mx-0">
               <h1 className="alata capitalize font-[400] 2xl:text-[45px] 2xl:leading-[55px] 2xl:w-[695px] xl:text-[30px] xl:leading-[35px] xl:w-[450px] lg:text-[22px] lg:leading-[30px] lg:w-[340px] sm:text-[16px] text:[12px] sm:leading-[24px]">
-                The safety and well-being of our chef community and customers
-                are our top priority
+              The <span className="text-[#F38181]">Safety</span> And <span className="text-[#F38181]">Well-Being</span> Of Our Chef Community And Customers Are Our Top Priority
               </h1>
               <p className="alata font-[400] 2xl:text-[25px] 2xl:leading-[37px] 2xl:w-[695px] xl:text-[16px] xl:leading-[28px] xl:w-[450px] lg:text-[12px] lg:leading-[18px] lg:w-[340px] sm:text-[14px] sm:leading-[22px] text-[10px] 2xl:mt-[25px] xl:mt-[15px] mt-[10px]">
-                We understand the importance of maintaining the highest
-                standards of food safety and hygiene, and our chef community are
-                dedicated to upholding these principles in every dish they
-                prepare.
+              We understand the importance of maintaining the highest standards of food safety and hygiene, and our chefs are dedicated to upholding these principles in every dish they prepare.
               </p>
             </div>
             <div className="mx-4 sm:w-1/2 flex justify-end sm:mx-auto my-5 lg:my-0 lg:flex-none">
