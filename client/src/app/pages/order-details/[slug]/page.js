@@ -1,4 +1,6 @@
 "use client";
+import Footer from "@/app/footer";
+import Navbar from "@/app/navbar";
 import config from "@/config";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -31,16 +33,17 @@ const OrderDetails = ({ params }) => {
   };
   return (
     <>
+      <Navbar />
       <section>
-        <div className="flex justify-center py-10">
-          <div className="w-full lg:w-1/2 border rounded-lg ">
-            <h1 className="inter font-[600] text-[40px] text-center">
+        <div className="flex justify-center py-10 2xl:pt-[180px] xl:pt-[130px] md:pt-[100px] pt-[80px]">
+          <div className=" lg:w-1/2 border rounded-lg py-[20px] sm:w-[75%] w-[95%]">
+            <h1 className="inter font-[600] 2xl:text-[40px] xl:text-[25px] text-[20px] text-center">
               Order Details
             </h1>
 
             <div className="flex flex-col items-center w-full px-[40px]">
               {/* Displaying total amount */}
-              <h1 className="text-xl font-bold">
+              <h1 className="2xl:text-[25px] xl:text-[16px] text-[12px] ">
                 Total Amount: {getOrders.totalAmount}
               </h1>
 
@@ -54,59 +57,62 @@ const OrderDetails = ({ params }) => {
                     <div className="w-1/2">
                       <img
                         src={item.ProfileImage[0]}
-                        className="rounded-[15px] 2xl:w-[459px] 2xl:h-[339px] xl:w-[280px] xl:h-[200px]"
+                        className="rounded-[15px] 2xl:w-[320px]  xl:w-[180px] h-auto w-[70%]"
                         alt={item.name}
                       />
                     </div>
                     <div className="flex flex-col items-start w-1/2 pop-detail">
                       <h2 className="pop-head capitalize">{item.name}</h2>
-                      <p>Quantity: {item.quantity}</p>
-                      <p>Price: ${item.price}</p>
+                      <p>Quantity : {item.quantity}</p>
+                      <p>Price : ${item.price}</p>
                     </div>
                   </div>
                 ))}
-              <div className="flex justify-around w-full">
-                <div className="w-1/2">
+              <div className="sm:flex justify-around w-full">
+                <div className="sm:w-1/2">
                   {/* Displaying delivery info */}
                   {Array.isArray(getOrders.deliveryInfo) &&
                     getOrders.deliveryInfo.map((info, index) => (
                       <div key={index} className="mt-5">
-                        <h2 className="text-lg font-semibold">
+                        <h2 className="font-semibold 2xl:text-[25px] xl:text-[16px] text-[16px]">
                           Delivery Information:
                         </h2>
-                        <p>Phone: {info.phone}</p>
-                        <p>House No: {info.houseNo}</p>
-                        <p>Building: {info.buildingName}</p>
-                        <p>Street: {info.streetName}</p>
-                        <p>City: {info.City}</p>
-                        <p>Country: {info.country}</p>
-                        <p>First Name: {info.FirstName}</p>
-                        <p>Last Name: {info.LastName}</p>
-                        <p>Type of Address: {info.Type_of_Address}</p>
+                        <p className="footer_text flex w-full">Phone : {info.phone}</p>
+                        <p className="footer_text flex w-full">House No : {info.houseNo}</p>
+                        <p className="footer_text flex w-full">Building : {info.buildingName}</p>
+                        <p className="footer_text flex w-full">Street : {info.streetName}</p>
+                        <p className="footer_text flex w-full">City : {info.City}</p>
+                        <p className="footer_text flex w-full">Country : {info.country}</p>
+                        <p className="footer_text flex w-full">First Name : {info.FirstName}</p>
+                        <p className="footer_text flex w-full">Last Name : {info.LastName}</p>
+                        <p className="footer_text flex w-full">Type of Address : {info.Type_of_Address}</p>
                       </div>
                     ))}
                 </div>
 
                 {/* Displaying other order details */}
-                <div className=" w-1/2 mt-5">
-                  <h2 className="text-lg font-semibold">Order Details:</h2>
-                  <p>Status: {getOrders.status}</p>
-                  <p>
-                    Delivery Date:{" "}
+                <div className=" sm:w-1/2 mt-5">
+                  <h2 className="2xl:text-[25px] xl:text-[16px] text-[16px] font-semibold">
+                    Order Details:
+                  </h2>
+                  <p className="footer_text flex w-full">Status : {getOrders.status}</p>
+                  <p className="footer_text flex w-full">
+                    Delivery Date :{" "}
                     {new Date(getOrders.deliveryDate).toLocaleDateString()}
                   </p>
-                  <p>Promo Code: {getOrders.Promo_code}</p>
-                  <p>Discount Applied: ${getOrders.discountApplied}</p>
-                  <p>Discount Percentage: {getOrders.DiscountPercentage}%</p>
-                  <p>Shipping Charge: ${getOrders.shippingCharge}</p>
-                  <p>
-                    Total Before Discount: $
+                  <p className="footer_text flex w-full">Promo Code : {getOrders.Promo_code}</p>
+                  <p className="footer_text flex w-full">Discount Applied : ${getOrders.discountApplied}</p>
+                  <p className="footer_text flex w-full">Discount Percentage : {getOrders.DiscountPercentage}%</p>
+                  <p className="footer_text flex w-full">Shipping Charge : ${getOrders.shippingCharge}</p>
+                  <p className="footer_text flex w-full">
+                    Total Before Discount : $
                     {getOrders.totalAmountBeforeDiscount}
                   </p>
-                  <p>Payment ID: {getOrders.payment}</p>
-                  <p>Transaction ID: {getOrders.TransactionId}</p>
-                  <p>
-                    Order Date: {new Date(getOrders.orderDate).toLocaleString()}
+                  <p className="footer_text flex w-full">Payment ID : {getOrders.payment}</p>
+                  <p className="footer_text flex w-full">Transaction ID : {getOrders.TransactionId}</p>
+                  <p className="footer_text flex w-full">
+                    Order Date :{" "}
+                    {new Date(getOrders.orderDate).toLocaleString()}
                   </p>
                 </div>
               </div>
@@ -114,6 +120,7 @@ const OrderDetails = ({ params }) => {
           </div>
         </div>
       </section>
+      <Footer />
     </>
   );
 };

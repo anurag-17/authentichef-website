@@ -243,6 +243,7 @@ const Navbar = () => {
         dispatch(setToken(res?.data?.token));
         dispatch(setUser(res?.data?.user));
         dispatch(setSuccess(res?.data?.success));
+        // refreshData();
         handleClose();
         setLoading(false);
         setIsLoggedIn(true);
@@ -273,7 +274,7 @@ const Navbar = () => {
         dispatch(removeSuccess());
         router.push("/explore-dishes");
         setIsLoggedIn(false);
-        refreshData();
+        // refreshData();
       } else {
         toast.error("Logout failed");
       }
@@ -304,8 +305,12 @@ const Navbar = () => {
   };
 
   const { cart } = useSelector((state) => state?.userCart);
+  console.log(cart, "cart");
   const cartData = cart[0]?.data?._id;
   const quantity = cart[0]?.quantity;
+  // const lengths = cart.length;
+
+
   // const postCartToApi = async () => {
   //   try {
   //     const response = await axios.post(
@@ -380,12 +385,14 @@ const Navbar = () => {
     const { data } = item;
   });
   const [getCartItems, setGetCartItems] = useState({});
-  console.log(getCartItems, "getCartItems");
+
+  // const cartIt = getCartItems.length;
+
   useEffect(() => {
     if (token) {
       defaultCartItems(isRefresh);
     }
-  }, [isRefresh, token]);
+  }, [!isRefresh, token]);
 
   useEffect(() => {
     if (cartId && getCartItems.length > 0) {
@@ -411,7 +418,6 @@ const Navbar = () => {
           ...item,
           totalPrice: item.menuItem.price * item.quantity,
         }));
-        refreshData();
         setGetCartItems(cartItems);
         setUpdatedCartItems(cartItems);
         setSubtotalPrice(
@@ -528,8 +534,6 @@ const Navbar = () => {
       if (response.status >= 200 && response.status < 300) {
         toast.success("Items added to cart successfully");
         handleDrawerOpen();
-
-        refreshData();
         handleCartClear1();
       } else {
         toast.error("Failed to add items to cart. Please try again.");
@@ -887,7 +891,7 @@ const Navbar = () => {
               </a>
             </div>
 
-            <div className="w-1/3 flex justify-end ">
+            <div className="w-1/3 flex justify-end h-full ">
               <div className="flex justify-end md:gap-0 gap-2 ">
                 {isLoggedIn === success ? (
                   <div className="flex justify-end 2xl:gap-7 md:gap-5  gap-1 w-1/3">
@@ -902,7 +906,7 @@ const Navbar = () => {
                     </button>
                   </div>
                 ) : (
-                  <div className="flex justify-end md:gap-7 gap-2 xs:hidden">
+                  <div className="flex items-center justify-end md:gap-7 gap-2 xs:hidden">
                     <button onClick={handleLoginClick} className="nav_login1">
                       Log In
                     </button>
@@ -915,8 +919,12 @@ const Navbar = () => {
                     <button>{/* Add your Image component here */}</button>
                   </div>
                 )}
-                <button onClick={handleDrawerOpen}>
-                  <Image src={beg} className="2xl:w-10 2xl:h-10" />
+                <button onClick={handleDrawerOpen} className="relative">
+                  {/* <p className="absolute 2xl:right-[-25px] 2xl:text-[20px] xl:right-[-13px] 2xl:top-6 xl:top-4 bg-white text-[#F38181] border rounded-full 2xl:px-2 xl:px-1 lg:right-[-15px] lg:top-1 lg:px-[5px] text-[12px] xl:text-[14x] md:right-[-15px] md:top-1 md:px-[5px] sm:right-[-15px] sm:top-1 sm:px-[5px] right-[-15px] top-1 px-[5px] cartCount">
+                    {token ? lengths + cartIt : lengths}
+                  </p> */}
+
+                  <Image src={beg} className="2xl:w-10 2xl:h-10 " />
                 </button>
               </div>
             </div>
@@ -941,7 +949,10 @@ const Navbar = () => {
           ></label>
           <ul className="min-h-full text-base-content max-w-[310px] sm:max-w-[350px] md:w-[400px] md:max-w-[400px] 2xl:w-[450px] 2xl:max-w-[450px] bg-white">
             <div className="flex flex-col justify-center items-center p-[15px] md:p-[20px] h-[100vh]">
-            {!cart || cart.length === 0 || !getCartItems || getCartItems.length === 0 ? (
+              {!cart ||
+              cart.length === 0 ||
+              !getCartItems ||
+              getCartItems.length === 0 ? (
                 <div className="flex flex-col justify-center items-center">
                   <h4 className="alata font-[400] text-[#111] text-[24px] mb-[1rem]">
                     Your Basket is empty!

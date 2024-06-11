@@ -1,10 +1,25 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Navbar from "../navbar";
 import Footer from "../footer";
+import axios from "axios";
+import config from "@/config";
 
 const FAQs = () => {
+  const [faqs, setFaqs] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`${config.baseURL}/api/faq/all`)
+      .then((response) => {
+        setFaqs(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching FAQs:", error);
+      });
+  }, []);
+
   const data = [
     {
       question: "How do you support your independent chefs?",
@@ -166,9 +181,8 @@ const FAQs = () => {
 
   const [openIndex, setOpenIndex] = useState(null);
 
-  const toggleAccordion = (index, section) => {
-    const key = `${section}-${index}`;
-    setOpenIndex((prevIndex) => (prevIndex === key ? null : key));
+  const toggleAccordion = (index) => {
+    setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
@@ -207,85 +221,94 @@ const FAQs = () => {
           </div>
 
           <div className="2xl:py-[60px] xl:py-[40px] lg:py-[20px] sm:py-[10px] py-[]">
-            <div className="text-center">
-              <h2 className="pop-head  text-[#000000] alata font-[400] ">
-                Chef Community
-              </h2>
-              <div className="custom_container mnavbar">
-                <div className="2xl:w-[1129px] xl:w-[700px] lg:w-[550px] sm:w-[] w-[] mx-auto">
-                  <div className="join join-vertical w-full text-start">
-                    {/* Mapping through accordion items */}
-                    {data.map((item, index) => (
-                      <div
-                        className="collapse collapse-arrow join-item border-b sm:pt-[10px] text-[#000000]  cursor-pointer"
-                        key={index}
-                      >
-                        <input
-                          type="radio"
-                          name="my-accordion-4"
-                          checked={openIndex === `delivery-${index}`}
-                          onClick={() => toggleAccordion(index, "delivery")}
-                          className="cursor-pointer"
-                        />
-                        <div
-                          className="collapse-title 2xl:text-[25px] md:text-[18px] flex justify-between items-center xs:text-[13px] xs:p-0 font-[400] alata"
-                          onClick={() => toggleAccordion(index, "delivery")}
-                        >
-                          {item.question}
+            {faqs.map((category, catIndex) => (
+              <div className="2xl:mt-[60px] xl:mt-[40px] lg:mt-[20px] sm:mt-[10px] mt-[] text-center my-4">
+                <div key={catIndex}>
+                  <h2 className="pop-head text-[#000000] alata font-[400]">
+                    {category.title}
+                  </h2>
+                  <div className="custom_container mnavbar">
+                    <div className="2xl:w-[1129px] xl:w-[700px] lg:w-[550px] sm:w-[] w-[] mx-auto">
+                      <div className="join join-vertical w-full text-start">
+                        {category.Queries.map((item, index) => (
                           <div
-                            className={`rounded-full bg-[#F38181] 2xl:w-[32px] 2xl:h-[32px] xl:w-[25px] xl:h-[25px] lg:w-[16px] sm:w-[16px] flex items-center justify-center xs:text-[12px]`}
-                            onClick={() => toggleAccordion(index, "delivery")}
+                            className="collapse collapse-arrow join-item border-b sm:pt-[10px] text-[#000000] cursor-pointer"
+                            key={item._id}
                           >
-                            {openIndex === `delivery-${index}` ? (
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                strokeWidth="1.5"
-                                stroke="currentColor"
-                                className="text-white 2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] xl:h-[18px] w-[12px] h-[12px] xs:text-[12px] cursor-pointer"
+                            <input
+                              type="radio"
+                              name={`my-accordion-${catIndex}`}
+                              checked={openIndex === `${catIndex}-${index}`}
+                              onChange={() =>
+                                toggleAccordion(`${catIndex}-${index}`)
+                              }
+                              className="cursor-pointer"
+                            />
+                            <div
+                              className="collapse-title 2xl:text-[25px] md:text-[18px] flex justify-between items-center xs:text-[13px] xs:p-0 font-[400] alata"
+                              onClick={() =>
+                                toggleAccordion(`${catIndex}-${index}`)
+                              }
+                            >
+                              {item.question}
+                              <div
+                                className={`rounded-full bg-[#F38181] 2xl:w-[32px] 2xl:h-[32px] xl:w-[25px] xl:h-[25px] lg:w-[16px] sm:w-[16px] flex items-center justify-center xs:text-[12px]`}
                                 onClick={() =>
-                                  toggleAccordion(index, "delivery")
+                                  toggleAccordion(`${catIndex}-${index}`)
                                 }
                               >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M18 12H6"
-                                />
-                              </svg>
-                            ) : (
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                strokeWidth="1.5"
-                                stroke="currentColor"
-                                className="text-white 2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] xl:h-[18px] w-[12px] h-[12px] xs:text-[12px] cursor-pointer"
-                                onClick={() =>
-                                  toggleAccordion(index, "delivery")
-                                }
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M12 4.5v15m7.5-7.5h-15"
-                                />
-                              </svg>
+                                {openIndex === `${catIndex}-${index}` ? (
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth="1.5"
+                                    stroke="currentColor"
+                                    className="text-white 2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] xl:h-[18px] w-[12px] h-[12px] xs:text-[12px] cursor-pointer"
+                                    onClick={() =>
+                                      toggleAccordion(`${catIndex}-${index}`)
+                                    }
+                                  >
+                                    <path
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      d="M18 12H6"
+                                    />
+                                  </svg>
+                                ) : (
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth="1.5"
+                                    stroke="currentColor"
+                                    className="text-white 2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] xl:h-[18px] w-[12px] h-[12px] xs:text-[12px] cursor-pointer"
+                                    onClick={() =>
+                                      toggleAccordion(`${catIndex}-${index}`)
+                                    }
+                                  >
+                                    <path
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      d="M12 4.5v15m7.5-7.5h-15"
+                                    />
+                                  </svg>
+                                )}
+                              </div>
+                            </div>
+                            {openIndex === `${catIndex}-${index}` && (
+                              <div className="collapse-content xs:px-0">
+                                <p className="fourth_p">{item.answer}</p>
+                              </div>
                             )}
                           </div>
-                        </div>
-                        {openIndex === `delivery-${index}` && (
-                          <div className="collapse-content xs:px-0">
-                            <p className="fourth_p">{item.answer}</p>
-                          </div>
-                        )}
+                        ))}
                       </div>
-                    ))}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            ))}
 
-            <div className="2xl:mt-[60px] xl:mt-[40px] lg:mt-[20px] sm:mt-[10px] mt-[] text-center my-3">
+            {/* <div className="2xl:mt-[60px] xl:mt-[40px] lg:mt-[20px] sm:mt-[10px] mt-[] text-center my-3">
               <h2 className="pop-head 2xl:mt-[60px] text-[#000000] alata font-[400] xl:mt-[40px] lg:mt-[25px] sm:mt-[20px] mt-[]">
                 Ordering
               </h2>
@@ -293,7 +316,6 @@ const FAQs = () => {
               <div className="custom_container  mnavbar">
                 <div className="2xl:w-[1129px] xl:w-[700px] lg:w-[550px] sm:w-[] w-[] mx-auto">
                   <div className="join join-vertical w-full text-start">
-                    {/* Mapping through accordion items */}
                     {data2.map((item, index) => (
                       <div
                         className="collapse collapse-arrow join-item border-b  sm:pt-[10px] text-[#000000] "
@@ -362,325 +384,7 @@ const FAQs = () => {
                   </div>
                 </div>
               </div>
-            </div>
-
-            <div className="2xl:mt-[60px] xl:mt-[40px] lg:mt-[20px] sm:mt-[10px] mt-[] text-center my-4">
-              <h2 className="pop-head 2xl:mt-[60px] text-[#000000] alata font-[400] xl:mt-[40px] lg:mt-[25px] sm:mt-[20px] mt-[]">
-                Dish
-              </h2>
-              <div className="custom_container mnavbar">
-                <div className="2xl:w-[1129px] xl:w-[700px] lg:w-[550px] sm:w-[] w-[] mx-auto">
-                  <div className="join join-vertical w-full text-start">
-                    {/* Mapping through accordion items */}
-                    {data3.map((item, index) => (
-                      <div
-                        className="collapse collapse-arrow join-item border-b sm:pt-[10px] text-[#000000] "
-                        key={index}
-                      >
-                        <input
-                          type="radio"
-                          name="my-accordion-4"
-                          checked={openIndex === `dish-${index}`}
-                          onClick={() => toggleAccordion(index, "dish")}
-                          className="cursor-pointer"
-                        />
-                        <div
-                          className="collapse-title 2xl:text-[25px] flex justify-between items-center md:text-[18px] xs:text-[13px] xs:p-0  font-[400] alata gap-2"
-                          onClick={() => toggleAccordion(index, "dish")}
-                        >
-                          {item.question}
-                          <div
-                            className={`rounded-full bg-[#F38181] 2xl:w-[32px] 2xl:h-[32px] xl:w-[25px] xl:h-[25px] lg:w-[16px] sm:w-[16px] flex items-center justify-center xs:text-[12px]`}
-                            onClick={() => toggleAccordion(index, "dish")}
-                          >
-                            {openIndex === `dish-${index}` ? (
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                strokeWidth="1.5"
-                                stroke="currentColor"
-                                className="text-white 2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] xl:h-[18px] w-[12px] h-[12px] xs:text-[12px]"
-                                onClick={() => toggleAccordion(index, "dish")}
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M18 12H6"
-                                />
-                              </svg>
-                            ) : (
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                strokeWidth="1.5"
-                                stroke="currentColor"
-                                className="text-white 2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] xl:h-[18px] w-[12px] h-[12px] xs:text-[12px]"
-                                onClick={() => toggleAccordion(index, "dish")}
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M12 4.5v15m7.5-7.5h-15"
-                                />
-                              </svg>
-                            )}
-                          </div>
-                        </div>
-                        {openIndex === `dish-${index}` && (
-                          <div className="collapse-content xs:px-0">
-                            <p className="fourth_p">{item.answer}</p>
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="2xl:mt-[60px] xl:mt-[40px] lg:mt-[20px] sm:mt-[10px] mt-[] text-center my-4">
-              <h2 className="pop-head 2xl:mt-[60px] xl:mt-[40px] text-[#000000] alata font-[400] lg:mt-[25px] sm:mt-[20px] mt-[]">
-                Delivery
-              </h2>
-
-              <div className="custom_container mnavbar">
-                <div className="2xl:w-[1129px] xl:w-[700px] lg:w-[550px] sm:w-[] w-[] mx-auto">
-                  <div className="join join-vertical w-full text-start">
-                    {data4.map((item, index) => (
-                      <div
-                        className="collapse collapse-arrow join-item border-b sm:pt-[10px] text-[#000000] "
-                        key={index}
-                      >
-                        <input
-                          type="radio"
-                          name="my-accordion-4"
-                          checked={openIndex === `data4-${index}`}
-                          onClick={() => toggleAccordion(index, "data4")}
-                          className="cursor-pointer"
-                        />
-                        <div
-                          className="collapse-title 2xl:text-[25px] flex justify-between items-center md:text-[18px] xs:text-[13px] xs:p-0  font-[400] alata gap-2"
-                          onClick={() => toggleAccordion(index, "data4")}
-                        >
-                          {item.question}
-                          <div
-                            className={`rounded-full bg-[#F38181] 2xl:w-[32px] 2xl:h-[32px] xl:w-[25px] xl:h-[25px] lg:w-[16px] sm:w-[16px] flex items-center justify-center xs:text-[12px]`}
-                          >
-                            {openIndex === `data4-${index}` ? (
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                strokeWidth="1.5"
-                                stroke="currentColor"
-                                className="text-white 2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] xl:h-[18px] w-[12px] h-[12px] xs:text-[12px]"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M18 12H6"
-                                />
-                              </svg>
-                            ) : (
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                strokeWidth="1.5"
-                                stroke="currentColor"
-                                className="text-white 2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] xl:h-[18px] w-[12px] h-[12px] xs:text-[12px]"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M12 4.5v15m7.5-7.5h-15"
-                                />
-                              </svg>
-                            )}
-                          </div>
-                        </div>
-                        {openIndex === `data4-${index}` && (
-                          <div className="collapse-content xs:px-0">
-                            <p className="fourth_p w-[94%]">
-                              {item.answer}
-                              {item.question ===
-                                "What days do you deliver?" && (
-                                <div className="overflow-x-auto mt-4">
-                                  <table className="min-w-full border-collapse table-auto bg-white text-black border border-black">
-                                    <thead>
-                                      <tr className="border border-black">
-                                        <th className="bg-white p-2 text-black font-bold border border-black">
-                                          Order Day
-                                        </th>
-                                        <th className="bg-white p-2 text-black font-bold border border-black text-center">
-                                          Delivery Day if order in BEFORE 8am
-                                        </th>
-                                        <th className="bg-white p-2 text-black font-bold border border-black text-center">
-                                          Delivery Day if order in AFTER 8am
-                                        </th>
-                                      </tr>
-                                    </thead>
-                                    <tbody className="text-center">
-                                      <tr className="bg-white border border-black">
-                                        <td className="p-2 border border-black">
-                                          Monday
-                                        </td>
-                                        <td className="p-2 border border-black text-center">
-                                          Tuesday
-                                        </td>
-                                        <td className="p-2 border border-black text-center">
-                                          Wednesday
-                                        </td>
-                                      </tr>
-                                      <tr className="bg-gray-100 border border-black">
-                                        <td className="p-2 border border-black">
-                                          Tuesday
-                                        </td>
-                                        <td className="p-2 border border-black text-center">
-                                          Wednesday
-                                        </td>
-                                        <td className="p-2 border border-black text-center">
-                                          Thursday
-                                        </td>
-                                      </tr>
-                                      <tr className="bg-white border border-black">
-                                        <td className="p-2 border border-black">
-                                          Wednesday
-                                        </td>
-                                        <td className="p-2 border border-black text-center">
-                                          Thursday
-                                        </td>
-                                        <td className="p-2 border border-black text-center">
-                                          Friday
-                                        </td>
-                                      </tr>
-                                      <tr className="bg-gray-100 border border-black">
-                                        <td className="p-2 border border-black">
-                                          Thursday
-                                        </td>
-                                        <td className="p-2 border border-black text-center">
-                                          Friday
-                                        </td>
-                                        <td className="p-2 border border-black text-center">
-                                          Monday
-                                        </td>
-                                      </tr>
-                                      <tr className="bg-white border border-black">
-                                        <td className="p-2 border border-black">
-                                          Friday
-                                        </td>
-                                        <td className="p-2 border border-black text-center">
-                                          Monday
-                                        </td>
-                                        <td className="p-2 border border-black text-center">
-                                          Tuesday
-                                        </td>
-                                      </tr>
-                                      <tr className="bg-gray-100 border border-black">
-                                        <td className="p-2 border border-black">
-                                          Saturday
-                                        </td>
-                                        <td className="p-2 border border-black text-center">
-                                          Tuesday
-                                        </td>
-                                        <td className="p-2 border border-black text-center">
-                                          Tuesday
-                                        </td>
-                                      </tr>
-                                      <tr className="bg-white border border-black">
-                                        <td className="p-2 border border-black">
-                                          Sunday
-                                        </td>
-                                        <td className="p-2 border border-black text-center">
-                                          Tuesday
-                                        </td>
-                                        <td className="p-2 border border-black text-center">
-                                          Tuesday
-                                        </td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
-                                </div>
-                              )}
-                            </p>
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="2xl:mt-[60px] xl:mt-[40px] lg:mt-[20px] sm:mt-[10px] mt-[] text-center my-4">
-              <h2 className="pop-head 2xl:mt-[60px] xl:mt-[40px] text-[#000000] alata font-[400] lg:mt-[25px] sm:mt-[20px] mt-[]">
-                Packaging and Sustainability
-              </h2>
-
-              <div className="custom_container mnavbar">
-                <div className="2xl:w-[1129px] xl:w-[700px] lg:w-[550px] sm:w-[] w-[] mx-auto">
-                  <div className="join join-vertical w-full text-start">
-                    {/* Mapping through accordion items */}
-                    {data5.map((item, index) => (
-                      <div
-                        className="collapse collapse-arrow join-item border-b sm:pt-[10px] text-[#000000] "
-                        key={index}
-                      >
-                        <input
-                          type="radio"
-                          name="my-accordion-4"
-                          checked={openIndex === `data5-${index}`}
-                          onClick={() => toggleAccordion(index, "data5")} // Add onClick handler here
-                          className="cursor-pointer"
-                        />
-                        <div
-                          className="collapse-title 2xl:text-[25px] flex justify-between items-center md:text-[18px] xs:text-[13px] xs:p-0 font-[400] alata gap-2"
-                          onClick={() => toggleAccordion(index, "data5")} // Call toggleAccordion here as well
-                        >
-                          {item.question}
-                          <div
-                            className={`rounded-full bg-[#F38181] 2xl:w-[32px] 2xl:h-[32px] xl:w-[25px] xl:h-[25px] lg:w-[16px] sm:w-[16px] flex items-center justify-center xs:text-[12px]`}
-                          >
-                            {openIndex === `data5-${index}` ? (
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                strokeWidth="1.5"
-                                stroke="currentColor"
-                                className="text-white 2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] xl:h-[18px] w-[12px] h-[12px] xs:text-[12px]"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M18 12H6"
-                                />
-                              </svg>
-                            ) : (
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                strokeWidth="1.5"
-                                stroke="currentColor"
-                                className="text-white 2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] xl:h-[18px] w-[12px] h-[12px] xs:text-[12px]"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M12 4.5v15m7.5-7.5h-15"
-                                />
-                              </svg>
-                            )}
-                          </div>
-                        </div>
-                        {openIndex === `data5-${index}` && (
-                          <div className="collapse-content xs:px-0">
-                            <p className="fourth_p">{item.answer}</p>
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
+            </div> */}
           </div>
         </div>
 

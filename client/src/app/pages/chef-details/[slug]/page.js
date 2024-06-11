@@ -227,10 +227,8 @@ const ChefDetails = ({ params }) => {
   };
   const [getCartItems, setGetCartItems] = useState({});
   useEffect(() => {
-    if (token) {
-      defaultCartItems();
-    }
-  }, [token, isRefresh]);
+    defaultCartItems();
+  }, [!isRefresh]);
   const defaultCartItems = () => {
     const option = {
       method: "GET",
@@ -394,13 +392,12 @@ const ChefDetails = ({ params }) => {
 Food Safety
 </p>
 </div> */}
-                  
-                      <div className="2xl:w-[200px] 2xl:h-[37px] xl:w-[200px] xl:h-[30px] w-[160px] h-[30px] bg-[#F3F3F3] flex justify-center gap-1 xl:gap-2 items-center py-1 ">
-                        <Image src={cook2} className="w-[17px]" />
-                        <p className="fourth_day">Food Safety Certified</p>
-                        {/* <p className="fourth_day text-[#838383]">Food safety</p> */}
-                      </div>
-                  
+
+                    <div className="2xl:w-[200px] 2xl:h-[37px] xl:w-[200px] xl:h-[30px] w-[160px] h-[30px] bg-[#F3F3F3] flex justify-center gap-1 xl:gap-2 items-center py-1 ">
+                      <Image src={cook2} className="w-[17px]" />
+                      <p className="fourth_day">Food Safety Certified</p>
+                      {/* <p className="fourth_day text-[#838383]">Food safety</p> */}
+                    </div>
                   </div>
                   <div className="flex gap-[50px] 2xl:my-[30px] xl:my-[20px] my-[10px]">
                     <div className=" ">

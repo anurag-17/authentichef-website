@@ -29,10 +29,8 @@ const DishDetails = ({ dishID, defaultADish, handleAddCart, setItemId }) => {
   }, []);
 
   useEffect(() => {
-    if (token) {
-      defaultCartItems();
-    }
-  }, [token, isRefresh]);
+    defaultCartItems();
+  }, [!isRefresh]);
 
   const defaultDish = () => {
     const option = {
@@ -121,7 +119,7 @@ const DishDetails = ({ dishID, defaultADish, handleAddCart, setItemId }) => {
           ...item,
           totalPrice: item.menuItem.price * item.quantity,
         }));
-        console.log("User cart is -------------->>>>>>>>>>>>>", userCart._id);
+        // console.log("User cart is -------------->>>>>>>>>>>>>", userCart._id);
         setGetCartItems(cartItems);
         setUpdatedCartItems(cartItems); // Initializing updatedCartItems with fetched data
         setSubtotalPrice(
@@ -181,7 +179,9 @@ const DishDetails = ({ dishID, defaultADish, handleAddCart, setItemId }) => {
                 <p className="pop-chef">by Chef {getADish?.chef_id?.name}</p>
               </div>
               <div className="flex justify-between pop-detail">
-                <h3>Price: £{getADish?.price && ` ${getADish.price.toFixed(2)}`}</h3>
+                <h3>
+                  Price: £{getADish?.price && ` ${getADish.price.toFixed(2)}`}
+                </h3>
                 <h3>Weight: {getADish?.weight}g</h3>
                 <h3>Portion Size: Serves {getADish?.portion_Size}</h3>
               </div>

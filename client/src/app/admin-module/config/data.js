@@ -7,7 +7,7 @@ import FoodMenu from "../components/admin/admin-pages/food-menu/FoodMenu";
 import OrderList from "../components/admin/admin-pages/order-management/page";
 import SpiceLevel from "../components/admin/admin-pages/spice-level/page";
 import User from "../components/admin/admin-pages/user/User";
-
+import FAQs from "../components/admin/admin-pages/FAQ/page";
 
 export const sideMenus = [
   {
@@ -61,5 +61,10 @@ export const sideMenus = [
     id: 8,
     label: "Spice Level",
     component : <SpiceLevel />,
+  },
+  {
+    id:9,
+    label:"FAQS",
+    component : <FAQs />
   },
 ];

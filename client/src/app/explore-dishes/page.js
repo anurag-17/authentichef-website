@@ -559,8 +559,8 @@ const ExploreDishes = () => {
       if (response.status >= 200 && response.status < 300) {
         toast.success("Items added to cart successfully");
         handleDrawerOpen();
-        setLoading(false);
         refreshData();
+        setLoading(false);
       } else {
         toast.error("Failed to add items to cart. Please try again.");
       }
@@ -571,10 +571,8 @@ const ExploreDishes = () => {
 
   const [getCartItems, setGetCartItems] = useState({});
   useEffect(() => {
-    if (token) {
-      defaultCartItems();
-    }
-  }, [token, isRefresh]);
+    defaultCartItems();
+  }, [!isRefresh]);
 
   const handleItemRemove = async (id) => {
     try {

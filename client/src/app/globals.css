@@ -454,7 +454,7 @@ td {
 }
 
 .pop-detail {
-  @apply alata font-[400] 2xl:text-[16px] 2xl:leading-[34px] xl:text-[12px] xl:leading-[18px] text-[10px] leading-[16px] my-1 2xl:my-0
+  @apply alata font-[400] 2xl:text-[16px] 2xl:leading-[34px] xl:text-[12px] xl:leading-[18px] text-[12px] leading-[16px] my-2 2xl:my-0
 }
 
 .pop-btn {
@@ -686,6 +686,10 @@ td {
 
   .aboutusimg {
     height: auto !important;
+  }
+  .cartCount{
+    top: 10px !important;
+    padding: 0px 8px !important;
   }
 }
 
