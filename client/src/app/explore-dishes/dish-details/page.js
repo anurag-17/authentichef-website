@@ -261,12 +261,12 @@ const DishDetails = ({ dishID, defaultADish, handleAddCart, setItemId }) => {
                       );
                     }
                   }}
-                  className="pop-btn hover:bg-[#7e2727] "
+                  className="pop-btn"
                 >
                   <div className="drawer-content">
                     <label
                       htmlFor="my-drawer-4"
-                      className="drawer-button cursor-pointer "
+                      className="drawer-button cursor-pointer"
                     >
                       Add to basket
                     </label>
@@ -295,7 +295,18 @@ const DishDetails = ({ dishID, defaultADish, handleAddCart, setItemId }) => {
               </div>
               <div className="2xl:my-[20px] xl:my-[12px] my-[10px]">
                 <p className="fourth_p text-[#555555]">Heating instructions</p>{" "}
-                <p className="fourth_p ">{getADish?.Heating_Instruction}</p>
+                <p className="fourth_p ">
+                
+                {/* {getADish?.Heating_Instruction} */}
+                {getADish?.Heating_Instruction && (
+                  <span
+                    dangerouslySetInnerHTML={{
+                      __html: getADish?.Heating_Instruction,
+                    }}
+                  />
+                )}
+                
+                </p>
               </div>
               <div>
                 <p className="fourth_p text-[#555555]">

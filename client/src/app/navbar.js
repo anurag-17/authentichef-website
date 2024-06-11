@@ -30,18 +30,21 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import plus from "../../public/images/plus.svg";
 import minus from "../../public/images/minus.svg";
-import { removeItemFromCart, clearCart } from "./redux/dishSlice";
 import config from "@/config";
 import CloseIcon from "./user/svg/CloseIcon";
 import { MinusIcon } from "./user/svg/MinusIcon";
 import PlusIcon from "./user/svg/PlusIcon";
 import DeleteIcon from "./user/svg/DeleteIcon";
 import useIdleTimeout from "./redux/useIdleTimeout";
-
-
+import {
+  incrementCartItemQuantity,
+  decrementQuantity,
+  removeItemFromCart,
+  clearCart,
+} from "@/app/redux/dishSlice"; // Import the action from the slice
 
 const Navbar = () => {
-  useIdleTimeout();
+  // useIdleTimeout();
   const [userDetail, setUserDetail] = useState({
     firstname: "",
     lastname: "",
@@ -64,9 +67,32 @@ const Navbar = () => {
   const [shouldRefresh, setShouldRefresh] = useState(false);
   const [updatedCartItems, setUpdatedCartItems] = useState([]);
 
-  const handleRemoveItem = (_id) => {
-    dispatch(removeItemFromCart({ _id }));
+  const handleRemoveItem = async (itemId) => {
+    try {
+      const response = await axios.delete(
+        `${config.baseURL}/api/Orders/deleteCartItem/${itemId}`,
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+
+      if (response.status >= 200 && response.status < 300) {
+        toast.success("Item Removed From Cart");
+
+        setGetCartItems((prevCartItems) =>
+          prevCartItems.filter((item) => item.menuItem._id !== itemId)
+        );
+        setShouldRefresh(true);
+      } else {
+        alert("Failed to remove item");
+      }
+    } catch (error) {
+      alert(error?.response?.data?.message || "Server error");
+    }
   };
+
   const handleClearCart = () => {
     dispatch(clearCart());
   };
@@ -79,7 +105,7 @@ const Navbar = () => {
   const handleToggle = () => {
     setShowPassword(!showPassword);
   };
-  const [loginDetails, setLoginDetails] = useState({
+  const [loginDetail, setLoginDetail] = useState({
     email: "",
     password: "",
   });
@@ -193,7 +219,7 @@ const Navbar = () => {
   };
 
   const InputHandler = (e) => {
-    setLoginDetails({ ...loginDetails, [e.target.name]: e.target.value });
+    setLoginDetail({ ...loginDetail, [e.target.name]: e.target.value });
   };
   const refreshData = () => {
     setRefresh(!isRefresh);
@@ -205,7 +231,7 @@ const Navbar = () => {
     try {
       const res = await axios.post(
         `${config.baseURL}/api/auth/login`,
-        loginDetails,
+        loginDetail,
         {
           headers: {
             "Content-Type": "application/json",
@@ -228,7 +254,7 @@ const Navbar = () => {
         setLoading(false);
       }
     } catch (error) {
-      console.error("Error during login:", error);
+      toast.error(error.response.data);
       setLoading(false);
     }
   };
@@ -273,6 +299,9 @@ const Navbar = () => {
   const handleSignUpClick = () => {
     document.getElementById("my_modal_1").showModal();
   };
+  const handleCartClear1 = () => {
+    dispatch(clearCart());
+  };
 
   const { cart } = useSelector((state) => state?.userCart);
   const cartData = cart[0]?.data?._id;
@@ -307,7 +336,6 @@ const Navbar = () => {
   //     throw error;
   //   }
   // };
-
 
   // Helper function to save state to localStorage and post to API
   const saveState = async (state) => {
@@ -352,6 +380,7 @@ const Navbar = () => {
     const { data } = item;
   });
   const [getCartItems, setGetCartItems] = useState({});
+  console.log(getCartItems, "getCartItems");
   useEffect(() => {
     if (token) {
       defaultCartItems(isRefresh);
@@ -382,6 +411,7 @@ const Navbar = () => {
           ...item,
           totalPrice: item.menuItem.price * item.quantity,
         }));
+        refreshData();
         setGetCartItems(cartItems);
         setUpdatedCartItems(cartItems);
         setSubtotalPrice(
@@ -498,14 +528,16 @@ const Navbar = () => {
       if (response.status >= 200 && response.status < 300) {
         toast.success("Items added to cart successfully");
         handleDrawerOpen();
+
         refreshData();
+        handleCartClear1();
       } else {
         toast.error("Failed to add items to cart. Please try again.");
-        refreshData();
+        // refreshData();
       }
     } catch (error) {
       console.error("Error adding items to cart:", error);
-      refreshData();
+      // refreshData();
     }
   };
 
@@ -571,7 +603,6 @@ const Navbar = () => {
           localStorage.setItem("authToken", tokenFromUrl);
           toast.success("Logged in successfully!");
 
-          // Update the isLoggedIn and userDetails state variables
           setIsLoggedIn(true);
           setCurrentUser(data.user);
 
@@ -597,10 +628,10 @@ const Navbar = () => {
       const updatedCartItems = prevCartItems.map((item) =>
         item._id === itemId
           ? {
-            ...item,
-            quantity: item.quantity + 1,
-            totalPrice: item.menuItem.price * (item.quantity + 1),
-          }
+              ...item,
+              quantity: item.quantity + 1,
+              totalPrice: item.menuItem.price * (item.quantity + 1),
+            }
           : item
       );
       setUpdatedCartItems(updatedCartItems);
@@ -636,10 +667,10 @@ const Navbar = () => {
       const updatedCartItems = prevCartItems.map((item) =>
         item._id === itemId && item.quantity > 1
           ? {
-            ...item,
-            quantity: item.quantity - 1,
-            totalPrice: item.menuItem.price * (item.quantity - 1),
-          }
+              ...item,
+              quantity: item.quantity - 1,
+              totalPrice: item.menuItem.price * (item.quantity - 1),
+            }
           : item
       );
       setUpdatedCartItems(updatedCartItems);
@@ -669,6 +700,18 @@ const Navbar = () => {
   useEffect(() => {
     console.log("Updated Cart Items:", updatedCartItems);
   }, [updatedCartItems]);
+
+  const handleQuantityIncrement = (id) => {
+    dispatch(incrementCartItemQuantity(id));
+  };
+  const handleQuantityDecrement = (id) => {
+    dispatch(decrementQuantity(id));
+  };
+
+  const handleItemRemove1 = (id) => {
+    dispatch(removeItemFromCart(id));
+    toast.success("Item Removed From Cart");
+  };
 
   return (
     <>
@@ -833,7 +876,6 @@ const Navbar = () => {
                         )}
                       </div>
                     </div>
-
                   </ul>
                 </div>
               </div>
@@ -844,6 +886,7 @@ const Navbar = () => {
                 <Image alt="logo" src={logo} className="nav_logo" />
               </a>
             </div>
+
             <div className="w-1/3 flex justify-end ">
               <div className="flex justify-end md:gap-0 gap-2 ">
                 {isLoggedIn === success ? (
@@ -887,7 +930,7 @@ const Navbar = () => {
           type="checkbox"
           className="drawer-toggle"
           checked={isDrawerOpen}
-          onChange={() => { }}
+          onChange={() => {}}
         />
         <div className="drawer-side">
           <label
@@ -896,22 +939,25 @@ const Navbar = () => {
             className="drawer-overlay"
             onClick={handleDrawerClose}
           ></label>
-          <ul className=" min-h-full text-base-content max-w-[310px] sm:max-w-[350px] md:w-[400px] md:max-w-[400px] 2xl:w-[450px] 2xl:max-w-[450px] bg-white">
-            <div className="flex flex-col  justify-center items-center p-[15px]  md:p-[20px]  h-[100vh]">
-              {cart?.length === 0 && getCartItems?.length === 0 ? (
+          <ul className="min-h-full text-base-content max-w-[310px] sm:max-w-[350px] md:w-[400px] md:max-w-[400px] 2xl:w-[450px] 2xl:max-w-[450px] bg-white">
+            <div className="flex flex-col justify-center items-center p-[15px] md:p-[20px] h-[100vh]">
+            {!cart || cart.length === 0 || !getCartItems || getCartItems.length === 0 ? (
                 <div className="flex flex-col justify-center items-center">
-                  <h4 className="alata font-[400] text-[#111]  text-[24px] mb-[1rem]">
+                  <h4 className="alata font-[400] text-[#111] text-[24px] mb-[1rem]">
                     Your Basket is empty!
                   </h4>
                   <h4 className="alata font-[400] text-[#111] lg:text-[18px]">
-                    Explore a World of Deliciousness 
+                    Explore a World of Deliciousness
                   </h4>
                   <p className="alata font-[400] text-[#111] lg:text-[16px] text-[15px] text-center">
                     Add dishes to your cart now.
                   </p>
                   <div className="flex 2xl:mt-12 xl:mt-6 lg:mt-5 mt-4">
                     <Link href="/explore-dishes">
-                      <button className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[221px] 2xl:h-[56px] xl:text-[20px] md:text-[16px] text-[15px] px-6 py-3">
+                      <button
+                        onClick={handleDrawerClose}
+                        className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[221px] 2xl:h-[56px] xl:text-[20px] md:text-[16px] text-[15px] px-6 py-3"
+                      >
                         Explore Dishes
                       </button>
                     </Link>
@@ -919,42 +965,11 @@ const Navbar = () => {
                 </div>
               ) : (
                 <>
-                  {/* <div className="flex justify-end mt-10 md:mr-5">
-                      <button
-                        className="alata font-[400] rounded-[5px] p-2 text-[20px] bg-[#DB5353] text-white 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px]"
-                        onClick={() => {
-                          handleClearCart();
-                          handleCartClear();
-                        }}
-                      >
-                        All Clear
-                      </button>
-                    </div> */}
                   <div className="w-full flex justify-between items-center">
-                    {/* <button
-                    onClick={handleDrawerClose}
-                    className="border rounded-md"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      className="w-10 h-10"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"
-                      />
-                    </svg>
-                  </button> */}
                     <h4 className="alata font-[500] text-[#111111] 2xl:text-[25px] sm:text-[20px] text-[18px] 2xl:leading-[32px] md:text-[25px] leading-[24px] ">
                       My Basket
                     </h4>
                     <div onClick={handleDrawerClose} className="cursor-pointer">
-                      {" "}
                       <CloseIcon />
                     </div>
                   </div>
@@ -964,19 +979,20 @@ const Navbar = () => {
                       <h4 className="alata font-[400] text-[#111] my-0 md:text-[18px] text-[16px] leading-[25px]">
                         Items
                       </h4>
-                      <h4 className="alata font-[400] text-[#111] my-0 md:text-[18px] text-[16px] leading-[25px]  ">
+                      <h4 className="alata font-[400] text-[#111] my-0 md:text-[18px] text-[16px] leading-[25px]">
                         Total
                       </h4>
                     </div>
                     <div className="pt-[1rem]">
                       {cart?.map((item, index) => {
                         const { data } = item;
+                        const itemSubtotal = data.price * item.quantity;
                         return (
                           <div
                             key={index}
                             className="my-5 flex w-full border rounded-md"
                           >
-                            <div className="flex  gap-2 md:gap-4 w-full">
+                            <div className="flex gap-2 md:gap-4 w-full">
                               <div className="w-[45%] md:w-auto">
                                 <img
                                   src={data.ProfileImage}
@@ -991,41 +1007,41 @@ const Navbar = () => {
                                     {data.name}
                                   </p>
                                   <p className="alata font-[400] text-[#111111] my-0 md:text-[14px] text-[13px] xl:text-[15px] leading-[20px]">
-                                    Price:
-                                    {data.price && `£${data.price.toFixed(2)}`}
+                                    Price: £{data.price.toFixed(2)}
                                   </p>
                                 </div>
                                 <div className="flex gap-1 md:gap-2 items-center">
                                   <div className="flex justify-center border-[#111111] border mt-1">
                                     <button
                                       className="text-[#111111] px-[10px] py-[5px]"
-                                      onClick={() => handleDecrement(item._id)}
+                                      onClick={() =>
+                                        handleQuantityDecrement(item.data._id)
+                                      }
                                     >
                                       <MinusIcon />
                                     </button>
-                                    <p className=" px-[5px] py-[5px] flex mx-auto items-center 2xl:text-[16px] md:text-[14px] text-[13px] 2xl:leading-[22px]">
+                                    <p className="px-[5px] py-[5px] flex mx-auto items-center 2xl:text-[16px] md:text-[14px] text-[13px] 2xl:leading-[22px]">
                                       {item.quantity}
                                     </p>
                                     <button
-                                      className="text-[#111111]  px-[10px] py-[5px]"
-                                      onClick={() => handleIncrement(item._id)}
+                                      className="text-[#111111] px-[10px] py-[5px]"
+                                      onClick={() =>
+                                        handleQuantityIncrement(item.data._id)
+                                      }
                                     >
                                       <PlusIcon />
                                     </button>
                                   </div>
-                                  {/* <button className="px-2 md:px-4 md:text-[13px] text-[12] h-[20px] md:h-[25px]" onClick={() => handleItemRemove(item.menuItem._id)}>
-                                      <DeleteIcon />
-                                    </button> */}
                                 </div>
                               </div>
                             </div>
                             <div className="flex flex-col justify-between">
-                              <p className="alata font-[600] 2xl:my-0 text-[13px] sm:text-[14px] xl:leading-[28px]     text-right">
-                                {/* Price{" "}  */}£{data.price.toFixed(2)}
+                              <p className="alata font-[600] 2xl:my-0 text-[13px] sm:text-[14px] xl:leading-[28px] text-right">
+                                £{itemSubtotal.toFixed(2)}
                               </p>
                               <button
                                 className="text-center mx-auto"
-                                onClick={() => handleRemoveItem(data._id)}
+                                onClick={() => handleItemRemove1(item.data._id)}
                               >
                                 <DeleteIcon />
                               </button>
@@ -1035,13 +1051,15 @@ const Navbar = () => {
                       })}
 
                       {Array.isArray(getCartItems) &&
-                        getCartItems.map((item, index) => (
-                          <>
+                        getCartItems.map((item, index) => {
+                          const itemSubtotal =
+                            item.menuItem.price * item.quantity;
+                          return (
                             <div
                               key={index}
                               className="mt-3 md:mt-0 md:my-5 flex w-full gap-1 md:gap-6"
                             >
-                              <div className="flex  gap-2 md:gap-4 w-full">
+                              <div className="flex gap-2 md:gap-4 w-full">
                                 <div className="w-[45%] md:w-auto">
                                   <img
                                     src={item.menuItem.ProfileImage}
@@ -1056,9 +1074,7 @@ const Navbar = () => {
                                       {item.menuItem.name}
                                     </p>
                                     <p className="alata font-[400] text-[#111111] my-0 md:text-[14px] text-[13px] xl:text-[15px] leading-[20px]">
-                                      Price.{" "}
-                                      {item?.menuItem?.price &&
-                                        `£${item.menuItem.price.toFixed(2)}`}
+                                      Price: £{item.menuItem.price.toFixed(2)}
                                     </p>
                                   </div>
                                   <div className="flex gap-1 md:gap-2 items-center">
@@ -1071,11 +1087,11 @@ const Navbar = () => {
                                       >
                                         <MinusIcon />
                                       </button>
-                                      <p className=" px-[5px] py-[5px] flex mx-auto items-center 2xl:text-[16px] md:text-[14px] text-[13px] 2xl:leading-[22px]">
+                                      <p className="px-[5px] py-[5px] flex mx-auto items-center 2xl:text-[16px] md:text-[14px] text-[13px] 2xl:leading-[22px]">
                                         {item.quantity}
                                       </p>
                                       <button
-                                        className="text-[#111111]  px-[10px] py-[5px]"
+                                        className="text-[#111111] px-[10px] py-[5px]"
                                         onClick={() =>
                                           handleIncrement(item._id)
                                         }
@@ -1083,37 +1099,36 @@ const Navbar = () => {
                                         <PlusIcon />
                                       </button>
                                     </div>
-                                    {/* <button className="px-2 md:px-4 md:text-[13px] text-[12] h-[20px] md:h-[25px]" onClick={() => handleItemRemove(item.menuItem._id)}>
-                                      <DeleteIcon />
-                                    </button> */}
                                   </div>
                                 </div>
                               </div>
 
                               <div className="flex flex-col justify-between">
-                                <p className="alata font-[600] 2xl:my-0 text-[13px] sm:text-[14px] xl:leading-[28px]     text-right">
-                                  {/* Price{" "}  */}£{subtotalPrice.toFixed(2)}
+                                <p className="alata font-[600] 2xl:my-0 text-[13px] sm:text-[14px] xl:leading-[28px] text-right">
+                                  £{itemSubtotal.toFixed(2)}
                                 </p>
                                 <button
                                   className="text-center mx-auto"
                                   onClick={() =>
-                                    handleItemRemove(item.menuItem._id)
+                                    token
+                                      ? handleRemoveItem(item.menuItem._id)
+                                      : ""
                                   }
                                 >
                                   <DeleteIcon />
                                 </button>
                               </div>
                             </div>
-                          </>
-                        ))}
+                          );
+                        })}
                     </div>
                   </div>
                   <div className="flex flex-col justify-between items-center w-full pt-[1.5rem]">
                     {token ? (
-                      <div className="w-full ">
+                      <div className="w-full">
                         <div className="flex justify-between">
                           <h4 className="alata font-[400] 2xl:my-0 xl:text-[18px] 2xl:leading-[28px] text-[16px] lg:leading-[24px]">
-                            Subtotal :
+                            Subtotal:
                           </h4>
                           <h4 className="alata font-[400] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
                             £{subtotalPrice.toFixed(2)}
@@ -1124,28 +1139,20 @@ const Navbar = () => {
                             onClick={() => {
                               handleAddCart();
                             }}
-                            className="alata font-[400] bg-[#DB5353] text-white mx-auto  2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[15px] lg:text-[14px] w-full py-2  lg:h-[47px] h-[42px] flex flex-col items-center justify-center"
+                            className="alata font-[400] bg-[#DB5353] text-white mx-auto 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[15px] lg:text-[14px] w-full py-2 lg:h-[47px] h-[42px] flex flex-col items-center justify-center"
                           >
                             Checkout
                           </button>
                         </Link>
-
                         <p className="font-[500] text-[16px] py-[1rem]">
-                          {" "}
-                          FREE delivery on orders over £55{" "}
+                          FREE delivery on orders over £55
                         </p>
-                        {/* <button
-                          onClick={() => handleAddCart()}
-                          className="alata font-[400] bg-[#DB5353] text-white mx-auto  2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[15px] lg:text-[14px] w-full py-2  lg:h-[47px] h-[42px] flex flex-col items-center justify-center"
-                        >
-                          Checkout
-                        </button> */}
                       </div>
                     ) : (
-                      <div className="w-full ">
+                      <div className="w-full">
                         <button
                           onClick={handleLoginClick}
-                          className="alata font-[400] bg-[#DB5353] text-white mx-auto  2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[15px] text-[14px] w-full py-2 lg:h-[47px] flex flex-col items-center justify-center"
+                          className="alata font-[400] bg-[#DB5353] text-white mx-auto 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[15px] text-[14px] w-full py-2 lg:h-[47px] flex flex-col items-center justify-center"
                         >
                           Checkout
                         </button>
@@ -1158,6 +1165,7 @@ const Navbar = () => {
           </ul>
         </div>
       </div>
+
       {/* =======Signup popup======= */}
       <div className="">
         <dialog

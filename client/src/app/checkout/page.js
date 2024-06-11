@@ -17,7 +17,13 @@ import config from "@/config";
 const Checkout = () => {
   const { token } = useSelector((state) => state?.auth);
   const { cart } = useSelector((state) => state?.userCart);
+  const { user } = useSelector((state) => state?.auth);
   const router = useRouter();
+  const [refreshKey, setRefreshKey] = useState(0);
+  const [isRefresh, setRefresh] = useState(false);
+  const refreshData = () => {
+    setRefresh(!isRefresh);
+  };
   const [Promo_code, setPromoCode] = useState("");
   const [isSameAsShippingAddress, setIsSameAsShippingAddress] = useState(true);
   const [deliveryInfo, setDeliveryInfo] = useState({
@@ -34,10 +40,10 @@ const Checkout = () => {
   const [billingInfo, setBillingInfo] = useState({
     phone: "",
     houseNo: "",
-    buildingName: " ",
-    streetName: " ",
-    City: " ",
-    country: " ",
+    buildingName: "",
+    streetName: "",
+    City: "",
+    country: "",
     FirstName: "",
     LastName: "",
     Postcode: "",
@@ -48,7 +54,6 @@ const Checkout = () => {
   const [getCartItems, setGetCartItems] = useState([]);
   const [updatedCartItems, setUpdatedCartItems] = useState([]);
   const [subtotalPrice, setSubtotalPrice] = useState(0);
-  const [isRefresh, setRefresh] = useState(false);
   const [cartId, setCartId] = useState("");
   const [isChecked, setIsChecked] = useState(false);
   const [deliveryMessage, setDeliveryMessage] = useState("");
@@ -70,17 +75,14 @@ const Checkout = () => {
       name === "City" ||
       name === "country"
     ) {
-      // Allow only alphabetic characters and spaces, and limit to 100 characters
       newValue = value.replace(/[^A-Za-z\s]/g, "").slice(0, 100);
     }
 
     if (name === "Postcode") {
-      // Basic validation: Allow only alphanumeric characters and limit to 8 characters
       newValue = value.replace(/[^A-Z0-9]/g, "").slice(0, 8);
     }
 
     if (name === "phone") {
-      // Basic validation: Allow only numeric characters and limit to 15 characters
       newValue = value.replace(/[^0-9]/g, "").slice(0, 15);
     }
 
@@ -101,7 +103,11 @@ const Checkout = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validate required fields
+    if (subtotalPrice < 30) {
+      toast.info("Minimum order value must be $30 or more.");
+      return;
+    }
+
     const requiredFields = [
       { value: deliveryInfo.phone, name: "Mobile Number" },
       { value: deliveryInfo.houseNo, name: "House No." },
@@ -189,43 +195,13 @@ const Checkout = () => {
           },
         }
       );
+
       if (response.status >= 200 && response.status < 300) {
         toast.success("Order Placed");
-        const { sessionId, sessionUrl } = response.data;
-        setSessionId(sessionId);
-        console.log("Session ID:", sessionId);
-
-        // Send the session ID to the second API
-        try {
-          const bookOrderResponse = await axios.post(
-            "http://localhost:4000/api/order/bookOrder",
-            {
-              sessionId,
-            },
-            {
-              headers: {
-                authorization: token,
-              },
-            }
-          );
-
-          if (
-            bookOrderResponse.status >= 200 &&
-            bookOrderResponse.status < 300
-          ) {
-            console.log("Session ID sent successfully");
-          } else {
-            console.error(
-              "Failed to send session ID",
-              bookOrderResponse.data.message
-            );
-          }
-        } catch (error) {
-          console.error("Error sending session ID:", error);
-        }
 
         if (paymentMethod === "card") {
-          window.location.href = sessionUrl;
+          const { sessionId, sessionUrl } = response.data;
+          window.location.href = sessionUrl; // Redirect to Stripe payment page
         } else {
           router.push("/explore-dishes");
         }
@@ -237,6 +213,77 @@ const Checkout = () => {
       toast.error("Order Failed");
       console.log("Error:", error);
     }
+  };
+
+  // This function should be called once the Stripe payment is successful
+  const pollForSessionId = async () => {
+    const pollInterval = 5000; // Poll every 5 seconds
+    const maxAttempts = 40; // Stop polling after 20 attempts (or adjust as needed)
+
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      try {
+        const sessionIdResponse = await axios.get(
+          "http://13.43.174.21:4000/api/order/getSessionId",
+          {
+            headers: {
+              authorization: token,
+            },
+          }
+        );
+
+        if (sessionIdResponse.status >= 200 && sessionIdResponse.status < 300) {
+          const { sessionId, successUrl } = sessionIdResponse.data.success;
+          console.log("Session ID:", sessionId);
+
+          // Send the session ID to the second API
+          try {
+            const bookOrderResponse = await axios.post(
+              "http://localhost:4000/api/order/bookOrder",
+              {
+                sessionId,
+              },
+              {
+                headers: {
+                  authorization: token,
+                },
+              }
+            );
+
+            if (
+              bookOrderResponse.status >= 200 &&
+              bookOrderResponse.status < 300
+            ) {
+              console.log("Session ID sent successfully");
+              // Redirect to success URL
+              window.location.href = successUrl.replace(
+                "{CHECKOUT_SESSION_ID}",
+                sessionId
+              );
+              return; // Stop polling once successful
+            } else {
+              console.error(
+                "Failed to send session ID",
+                bookOrderResponse.data.message
+              );
+            }
+          } catch (error) {
+            console.error("Error sending session ID:", error);
+          }
+        } else {
+          console.log("Session ID not available yet, retrying...");
+        }
+      } catch (error) {
+        console.error("Error getting session ID:", error);
+      }
+
+      await new Promise((resolve) => setTimeout(resolve, pollInterval)); // Wait for the poll interval before retrying
+    }
+
+    toast.error("Failed to get session ID after multiple attempts.");
+  };
+
+  const handleStripePaymentSuccess = async () => {
+    pollForSessionId();
   };
 
   console.log("Session ID:", sessionId);
@@ -319,6 +366,18 @@ const Checkout = () => {
   useEffect(() => {
     if (isSameAsShippingAddress) {
       setBillingInfo(deliveryInfo);
+    } else {
+      setBillingInfo({
+        phone: "",
+        houseNo: "",
+        buildingName: "",
+        streetName: "",
+        City: "",
+        country: "",
+        FirstName: "",
+        LastName: "",
+        Postcode: "",
+      });
     }
   }, [isSameAsShippingAddress, deliveryInfo]);
 
@@ -336,9 +395,6 @@ const Checkout = () => {
     }
   }, [getCartItems]);
 
-  const refreshData = () => {
-    setRefresh(!isRefresh);
-  };
 
   const updateCartItemQuantity = async (cartId, menuId, quantity) => {
     try {
@@ -388,6 +444,7 @@ const Checkout = () => {
 
     const item = getCartItems.find((item) => item._id === itemId);
     updateCartItemQuantity(cartId, item.menuItem._id, item.quantity + 1);
+    setRefreshKey((prevKey) => prevKey + 1);
   };
 
   const handleDecrement = (itemId) => {
@@ -418,6 +475,8 @@ const Checkout = () => {
     const item = getCartItems.find((item) => item._id === itemId);
     if (item.quantity > 1) {
       updateCartItemQuantity(cartId, item.menuItem._id, item.quantity - 1);
+      setRefreshKey((prevKey) => prevKey + 1);
+
     }
   };
 
@@ -447,21 +506,6 @@ const Checkout = () => {
   const handleCheckboxChange = (e) => {
     setIsChecked(e.target.checked);
   };
-
-  // const getDeliveryDay = (orderDay, orderTime) => {
-  //   const dayMap = {
-  //     1: ["Tuesday", "Wednesday"],
-  //     2: ["Wednesday", "Thursday"],
-  //     3: ["Thursday", "Friday"],
-  //     4: ["Friday", "Monday"],
-  //     5: ["Monday", "Tuesday"],
-  //     6: ["Tuesday", "Tuesday"],
-  //     0: ["Tuesday", "Tuesday"], // For Sunday
-  //   };
-
-  //   const before8am = orderTime < 8;
-  //   return dayMap[orderDay][before8am ? 0 : 1];
-  // };
 
   const applyPromoCode = async () => {
     try {
@@ -494,6 +538,61 @@ const Checkout = () => {
       setRefresh(false);
     }
   }, [subtotalPrice]);
+
+  const defaultUser = async () => {
+    try {
+      const response = await axios.post(
+        `${config.baseURL}/api/auth/getUserById`,
+        { _id: user._id },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+
+      if (response.status >= 200 && response.status < 300) {
+        const userData = response.data.user;
+        console.log("User data from API:", userData);
+
+        // Check if deliveryInfo is an array and has at least one item
+        if (
+          Array.isArray(userData.deliveryInfo) &&
+          userData.deliveryInfo.length > 0
+        ) {
+          const defaultDeliveryInfo = userData.deliveryInfo[0];
+          setDeliveryInfo((prevState) => ({
+            ...prevState,
+            FirstName: userData.firstname || "",
+            LastName: userData.lastname || "",
+            phone: defaultDeliveryInfo.phone || "",
+            houseNo: defaultDeliveryInfo.houseNo || "",
+            buildingName: defaultDeliveryInfo.buildingName || "",
+            streetName: defaultDeliveryInfo.streetName || "",
+            City: defaultDeliveryInfo.City || "",
+            country: defaultDeliveryInfo.country || "",
+            Postcode: defaultDeliveryInfo.Postcode || "",
+          }));
+        } else {
+          // If no delivery info, set only firstname, lastname, and mobile
+          setDeliveryInfo((prevState) => ({
+            ...prevState,
+            FirstName: userData.firstname || "",
+            LastName: userData.lastname || "",
+            phone: userData.mobile || "",
+          }));
+        }
+      } else {
+        toast.error("Failed to fetch user data");
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Server error");
+    }
+  };
+
+  useEffect(() => {
+    defaultUser();
+  }, []);
 
   return (
     <>
@@ -901,7 +1000,9 @@ const Checkout = () => {
                                     {item?.menuItem?.name}
                                   </h4>
                                   <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[20px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
-                                    £{item?.menuItem?.price &&  `${item?.menuItem?.price.toFixed(2)}` }
+                                    £
+                                    {item?.menuItem?.price &&
+                                      `${item?.menuItem?.price.toFixed(2)}`}
                                   </h4>
                                 </div>
                               </div>
@@ -1084,22 +1185,28 @@ const Checkout = () => {
                         </Link>
                       </span>
                     </div>
+                    {subtotalPrice < 30 && (
+                      <p className="text-red-500 text-[18px] text-center mb-2 pt-4">
+                        Minimum order value must be $30 or more.
+                      </p>
+                    )}
                     <button
                       onClick={handleSubmit}
-                      disabled={!isChecked}
+                      disabled={!isChecked || subtotalPrice < 30}
                       className={`flex justify-center 2xl:gap-3 xl:gap-2 gap-1 items-center w-full alata font-[400] ${
                         isChecked
                           ? "bg-[#DB5353] cursor-pointer"
-                          : "bg-[#DB5353] opacity-50 cursor-not-allowed"
-                      } text-white mx-auto rounded-[5px] 2xl:text/[20px] xl:text/[14px] text/[10px] leading/[27.6px] px-3 py-1 2xl:h/[45px] xl:h/[30px] lg:h/[25px] 2xl:mt/[60px] xl:mt/[40px] mt/[30px]`}
+                          : "bg-[#DB5353] opacity-50 cursor-not-allowed pointer-events-none"
+                      } text-white mx-auto rounded-[5px] 2xl:text-[20px] xl:text-[14px] text-[10px] leading-[27.6px] px-3 py-1 2xl:h-[45px] xl:h-[30px] lg:h-[25px] 2xl:mt-[60px] xl:mt-[40px] mt-[30px]`}
                     >
                       <Image
                         src={order}
-                        className="2xl:w/[30px] xl:w/[22px] lg:w/[18px] sm:w-[] w-[]"
+                        className="2xl:w-[30px] xl:w-[22px] lg:w-[18px] sm:w-[20px] w-[20px]"
                         alt="Place Order"
                       />
                       Place Order
                     </button>
+
                     <div className="flex justify-between items-center mt-20">
                       <div>
                         <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text/[18px] 2xl:leading/[28px] xl:text/[12px] xl:leading/[20px] lg:text/[10px] lg:leading/[18px]">

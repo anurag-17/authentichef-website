@@ -49,6 +49,10 @@ import {
   removeItemFromCart,
   clearCart,
 } from "../redux/dishSlice"; // Import the action from the slice
+import DeleteIcon from "../user/svg/DeleteIcon";
+import CloseIcon from "../user/svg/CloseIcon";
+import { MinusIcon } from "../user/svg/MinusIcon";
+import PlusIcon from "../user/svg/PlusIcon";
 
 const ExploreDishes = () => {
   const [count, setCount] = useState(0);
@@ -76,9 +80,31 @@ const ExploreDishes = () => {
     console.log(data, `data from item ${index + 1}`);
   });
 
-  const handleRemoveItem = (_id) => {
-    console.log(_id, "iggg");
-    dispatch(removeItemFromCart({ _id }));
+  const handleRemoveItem = async (itemId) => {
+    try {
+      const response = await axios.delete(
+        `${config.baseURL}/api/Orders/deleteCartItem/${itemId}`,
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+
+      if (response.status >= 200 && response.status < 300) {
+        toast.success("Item Removed From Cart");
+
+        // Update the local state only if the backend confirms the deletion
+        setGetCartItems((prevCartItems) =>
+          prevCartItems.filter((item) => item.menuItem._id !== itemId)
+        );
+        setShouldRefresh(true); // Trigger any necessary refresh actions
+      } else {
+        alert("Failed to remove item");
+      }
+    } catch (error) {
+      alert(error?.response?.data?.message || "Server error");
+    }
   };
 
   const postCartToApi = async (menuItem, token, cartId) => {
@@ -889,7 +915,12 @@ const ExploreDishes = () => {
                       document.getElementById("my_modal_3").showModal()
                     }
                   >
-                    All Cuisines{" "}
+                    All Cuisines
+                    {/* {getAllDish.map((item , index)=>(
+                  <p>
+                  {item.Cuisines_id.title}
+                  </p>
+                  ))} */}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -1610,189 +1641,228 @@ const ExploreDishes = () => {
             className="drawer-overlay"
             onClick={handleDrawerClose}
           ></label>
-          <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content 2xl:w-[505px] xl:w-[350px] lg:w-[290px] bg-white 2xl:mt-[116px] xl:mt-[80px] lg:mt-[50px] sm:mt-[45px] mt-12">
-            <div className="bg-white hidden lg:block rounded-s-[15px]">
-              <div>
-                <div className="">
-                  <button
-                    onClick={handleDrawerClose}
-                    className="border rounded-md"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth="1.5"
-                      stroke="currentColor"
-                      className="w-10 h-10"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-                      />
-                    </svg>
-                  </button>
-                  <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[22px] text-[22px] 2xl:leading-[32px] xl:text-[18px] xl:leading-[24px] lg:text-[14px] lg:leading-[20px]">
-                    My Basket
+          <ul className="min-h-full text-base-content max-w-[310px] sm:max-w-[350px] md:w-[400px] md:max-w-[400px] 2xl:w-[450px] 2xl:max-w-[450px] bg-white">
+            <div className="flex flex-col justify-center items-center p-[15px] md:p-[20px] h-[100vh]">
+              {!cart || getCartItems.length === 0 ? (
+                <div className="flex flex-col justify-center items-center">
+                  <h4 className="alata font-[400] text-[#111] text-[24px] mb-[1rem]">
+                    Your Basket is empty!
                   </h4>
+                  <h4 className="alata font-[400] text-[#111] lg:text-[18px]">
+                    Explore a World of Deliciousness
+                  </h4>
+                  <p className="alata font-[400] text-[#111] lg:text-[16px] text-[15px] text-center">
+                    Add dishes to your cart now.
+                  </p>
+                  <div className="flex 2xl:mt-12 xl:mt-6 lg:mt-5 mt-4">
+                    <Link href="/explore-dishes">
+                      <button
+                        onClick={handleDrawerClose}
+                        className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[221px] 2xl:h-[56px] xl:text-[20px] md:text-[16px] text-[15px] px-6 py-3"
+                      >
+                        Explore Dishes
+                      </button>
+                    </Link>
+                  </div>
                 </div>
-
-                {cart.length === 0 ? (
-                  <div>
-                    <div className="2xl:mt-40"></div>
-                    <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[25px] 2xl:leading-[35px] xl:text-[20px] xl:leading-[28px] lg:text-[16px] lg:leading-[24px] text-center 2xl:mt-24">
-                      Explore a World of Deliciousness
+              ) : (
+                <>
+                  <div className="w-full flex justify-between items-center">
+                    <h4 className="alata font-[500] text-[#111111] 2xl:text-[25px] sm:text-[20px] text-[18px] 2xl:leading-[32px] md:text-[25px] leading-[24px] ">
+                      My Basket
                     </h4>
-                    <p className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[16px] 2xl:leading-[26px] xl:text-[14px] xl:leading-[20px] lg:text-[12px] lg:leading-[18px] text-center">
-                      Add dishes to your cart now.
-                    </p>
-
-                    <div className="flex justify-center 2xl:mt-12 xl:mt-6 lg:mt-5 mt-4 w-full">
-                      <Link href="/explore-dishes">
-                        <button className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[221px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] xl:px-6 xl:py-[10px] lg:px-3 lg:py-1 px-3 py-1">
-                          Explore Dishes
-                        </button>
-                      </Link>
+                    <div onClick={handleDrawerClose} className="cursor-pointer">
+                      <CloseIcon />
                     </div>
                   </div>
-                ) : (
-                  <div>
-                    <div className="flex justify-end mt-10 md:mr-5">
-                      <button
-                        className="alata font-[400] rounded-[5px] p-2 text-[20px] bg-[#DB5353] text-white 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] lg:text-[10px]"
-                        onClick={() => {
-                          handleCartClear1();
-                        }}
-                      >
-                        All Clear
-                      </button>
+
+                  <div className="pt-[2rem] flex-1 overflow-auto w-full">
+                    <div className="flex justify-between">
+                      <h4 className="alata font-[400] text-[#111] my-0 md:text-[18px] text-[16px] leading-[25px]">
+                        Items
+                      </h4>
+                      <h4 className="alata font-[400] text-[#111] my-0 md:text-[18px] text-[16px] leading-[25px]">
+                        Total
+                      </h4>
                     </div>
-                    <div>
-                      {cart.map((item, index) => {
-                        const { data, quantity } = item;
+                    <div className="pt-[1rem]">
+                      {cart?.map((item, index) => {
+                        const { data } = item;
+                        const itemSubtotal = data.price * item.quantity;
                         return (
                           <div
                             key={index}
                             className="my-5 flex w-full border rounded-md"
                           >
-                            <div className="flex items-center gap-2 w-full">
-                              <div>
+                            <div className="flex gap-2 md:gap-4 w-full">
+                              <div className="w-[45%] md:w-auto">
                                 <img
                                   src={data.ProfileImage}
                                   alt={data.name}
-                                  className="w-[90px] h-auto rounded-[5.8px]"
+                                  className="md:w-[100px] h-[97px] object-cover w-[100%]"
                                 />
                               </div>
-                              <div>
-                                <h4 className="alata font-[400] text-[#111] my-0 text-[18px] leading-[28px]">
-                                  {data.name}
-                                </h4>
-                                <h4 className="alata font-[400] text-[#111] my-0 text-[16px] leading-[22px]">
-                                  Price: £{data.price}
-                                </h4>
-                                <div className="flex justify-center 2xl:w-[103px] 2xl:h-[39px] xl:w-[60px] xl:h-[22px] lg:w-[50px] lg:h-[20px] border rounded-[5px]">
-                                  <button
-                                    className="text-[#DB5353] rounded-l w-1/3"
-                                    onClick={() =>
-                                      handleQuantityDecrement(item.data._id)
-                                    }
-                                  >
-                                    <Image
-                                      src={minus}
-                                      className="2xl:w-[15px] 2xl:h-[15px] xl:w-[10px] xl:h-[10px] lg:w/[8px] lg:h/[8px] mx-auto"
-                                      alt="decrement"
-                                    />
-                                  </button>
-                                  <p className="flex mx-auto items-center text-[10px] xl:text-[12px] 2xl:text-[18px] 2xl:leading-[28px]">
-                                    {quantity}
+
+                              <div className="flex flex-col justify-between">
+                                <div className="flex flex-col">
+                                  <p className="alata font-[400] text-[#111111] my-0 text-[13px] sm:text-[14px] xl:text-[15px] leading-[22px] text-ellipsis whitespace-nowrap overflow-hidden max-w-[100px]">
+                                    {data.name}
                                   </p>
-                                  <button
-                                    className="text-[#DB5353] rounded-r w-1/3"
-                                    onClick={() =>
-                                      handleQuantityIncrement(item.data._id)
-                                    }
-                                  >
-                                    <Image
-                                      src={plus}
-                                      className="2xl:w-[15px] 2xl:h-[15px] xl:w/[10px] xl:h/[10px] lg:w/[8px] lg:h/[8px] mx-auto"
-                                      alt="increment"
-                                    />
-                                  </button>
+                                  <p className="alata font-[400] text-[#111111] my-0 md:text-[14px] text-[13px] xl:text-[15px] leading-[20px]">
+                                    Price: £{data.price.toFixed(2)}
+                                  </p>
+                                </div>
+                                <div className="flex gap-1 md:gap-2 items-center">
+                                  <div className="flex justify-center border-[#111111] border mt-1">
+                                    <button
+                                      className="text-[#111111] px-[10px] py-[5px]"
+                                      onClick={() =>
+                                        handleQuantityDecrement(item.data._id)
+                                      }
+                                    >
+                                      <MinusIcon />
+                                    </button>
+                                    <p className="px-[5px] py-[5px] flex mx-auto items-center 2xl:text-[16px] md:text-[14px] text-[13px] 2xl:leading-[22px]">
+                                      {item.quantity}
+                                    </p>
+                                    <button
+                                      className="text-[#111111] px-[10px] py-[5px]"
+                                      onClick={() =>
+                                        handleQuantityIncrement(item.data._id)
+                                      }
+                                    >
+                                      <PlusIcon />
+                                    </button>
+                                  </div>
                                 </div>
                               </div>
                             </div>
-                            <button
-                              className="px-4 text-[13px] border rounded h-[25px] text-red hover:bg-[#efb3b38a]"
-                              onClick={() => handleItemRemove1(item.data._id)}
-                            >
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth="1.5"
-                                stroke="currentColor"
-                                className="w-6 h-6"
+                            <div className="flex flex-col justify-between">
+                              <p className="alata font-[600] 2xl:my-0 text-[13px] sm:text-[14px] xl:leading-[28px] text-right">
+                                £{itemSubtotal.toFixed(2)}
+                              </p>
+                              <button
+                                className="text-center mx-auto"
+                                onClick={() => handleItemRemove1(item.data._id)}
                               >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M6 18L18 6M6 6l12 12"
-                                />
-                              </svg>
-                            </button>
+                                <DeleteIcon />
+                              </button>
+                            </div>
                           </div>
                         );
                       })}
 
-                      <p className="font-[500] text-[16px]">
-                        FREE delivery on orders over £55
-                      </p>
-                      <div className="flex justify-between mt-4">
-                        <h4 className="alata font-[400] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
-                          Total :
-                        </h4>
-                        <h4 className="alata font-[400] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
-                          £
-                          {cart
-                            .reduce(
-                              (acc, item) =>
-                                acc + item.data.price * item.quantity,
-                              0
-                            )
-                            .toFixed(2)}
-                        </h4>
-                      </div>
-                      <div className="flex justify-between items-center mt-20">
-                        <div>
-                          <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[12px] xl:leading/[20px] lg:text/[10px] lg:leading/[18px]"></h4>
-                        </div>
-                        <div>
-                          {token ? (
-                            <Link href="/checkout">
-                              <button
-                                onClick={() => {
-                                  // handleAddCart logic if needed
-                                }}
-                                className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[164px] 2xl:h-[56px] 2xl:text/[20px] 2xl:leading/[27.6px] xl:text/[12px] lg:text/[10px] xl:px/[6px] xl:py/[10px] lg:px/[3px] lg:py/[1px] px/[3px] py/[1px]"
-                              >
-                                Checkout
-                              </button>
-                            </Link>
-                          ) : (
-                            <button
-                              onClick={handleLoginClick}
-                              className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w/[164px] 2xl:h/[56px] 2xl:text/[20px] 2xl:leading/[27.6px] xl:text/[12px] lg:text/[10px] xl:px/[6px] xl:py/[10px] lg:px/[3px] lg:py/[1px] px/[3px] py/[1px]"
+                      {Array.isArray(getCartItems) &&
+                        getCartItems.map((item, index) => {
+                          const itemSubtotal =
+                            item.menuItem.price * item.quantity;
+                          return (
+                            <div
+                              key={index}
+                              className="mt-3 md:mt-0 md:my-5 flex w-full gap-1 md:gap-6"
                             >
-                              Checkout
-                            </button>
-                          )}
-                        </div>
-                      </div>
+                              <div className="flex gap-2 md:gap-4 w-full">
+                                <div className="w-[45%] md:w-auto">
+                                  <img
+                                    src={item.menuItem.ProfileImage}
+                                    alt={item.menuItem.name}
+                                    className="md:w-[100px] h-[97px] object-cover w-[100%]"
+                                  />
+                                </div>
+
+                                <div className="flex flex-col justify-between">
+                                  <div className="flex flex-col">
+                                    <p className="alata font-[400] text-[#111111] my-0 text-[13px] sm:text-[14px] xl:text-[15px] leading-[22px] text-ellipsis whitespace-nowrap overflow-hidden max-w-[100px]">
+                                      {item.menuItem.name}
+                                    </p>
+                                    <p className="alata font-[400] text-[#111111] my-0 md:text-[14px] text-[13px] xl:text-[15px] leading-[20px]">
+                                      Price: £{item.menuItem.price.toFixed(2)}
+                                    </p>
+                                  </div>
+                                  <div className="flex gap-1 md:gap-2 items-center">
+                                    <div className="flex justify-center border-[#111111] border mt-1">
+                                      <button
+                                        className="text-[#111111] px-[10px] py-[5px]"
+                                        onClick={() =>
+                                          handleDecrement(item._id)
+                                        }
+                                      >
+                                        <MinusIcon />
+                                      </button>
+                                      <p className="px-[5px] py-[5px] flex mx-auto items-center 2xl:text-[16px] md:text-[14px] text-[13px] 2xl:leading-[22px]">
+                                        {item.quantity}
+                                      </p>
+                                      <button
+                                        className="text-[#111111] px-[10px] py-[5px]"
+                                        onClick={() =>
+                                          handleIncrement(item._id)
+                                        }
+                                      >
+                                        <PlusIcon />
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div className="flex flex-col justify-between">
+                                <p className="alata font-[600] 2xl:my-0 text-[13px] sm:text-[14px] xl:leading-[28px] text-right">
+                                  £{itemSubtotal.toFixed(2)}
+                                </p>
+                                <button
+                                  className="text-center mx-auto"
+                                  onClick={() =>
+                                    token
+                                      ? handleRemoveItem(item.menuItem._id)
+                                      : ""
+                                  }
+                                >
+                                  <DeleteIcon />
+                                </button>
+                              </div>
+                            </div>
+                          );
+                        })}
                     </div>
                   </div>
-                )}
-              </div>
+                  <div className="flex flex-col justify-between items-center w-full pt-[1.5rem]">
+                    {token ? (
+                      <div className="w-full">
+                        <div className="flex justify-between">
+                          <h4 className="alata font-[400] 2xl:my-0 xl:text-[18px] 2xl:leading-[28px] text-[16px] lg:leading-[24px]">
+                            Subtotal:
+                          </h4>
+                          <h4 className="alata font-[400] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
+                            £{subtotalPrice.toFixed(2)}
+                          </h4>
+                        </div>
+                        <Link href="/checkout">
+                          <button
+                            onClick={() => {
+                              handleAddCart();
+                            }}
+                            className="alata font-[400] bg-[#DB5353] text-white mx-auto 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[15px] lg:text-[14px] w-full py-2 lg:h-[47px] h-[42px] flex flex-col items-center justify-center"
+                          >
+                            Checkout
+                          </button>
+                        </Link>
+                        <p className="font-[500] text-[16px] py-[1rem]">
+                          FREE delivery on orders over £55
+                        </p>
+                      </div>
+                    ) : (
+                      <div className="w-full">
+                        <button
+                          onClick={handleLoginClick}
+                          className="alata font-[400] bg-[#DB5353] text-white mx-auto 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[15px] text-[14px] w-full py-2 lg:h-[47px] flex flex-col items-center justify-center"
+                        >
+                          Checkout
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </>
+              )}
             </div>
           </ul>
         </div>
