@@ -243,6 +243,7 @@ const Navbar = () => {
         dispatch(setToken(res?.data?.token));
         dispatch(setUser(res?.data?.user));
         dispatch(setSuccess(res?.data?.success));
+        refreshData();
         handleClose();
         setLoading(false);
         setIsLoggedIn(true);
