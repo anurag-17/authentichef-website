@@ -1550,7 +1550,7 @@ const ExploreDishes = () => {
 
                 <p className="nine_p2">
                 Where eating truly is BELIEVING!
-                Elisabeth’s delicious food leaves your tastebuds in tantalising raptures... wanting more. You'll want to order again & again.
+                Elisabeths delicious food leaves your tastebuds in tantalising raptures... wanting more. You will want to order again & again.
                 </p>
                 <p className="nine_name">Rohit Thakur</p>
               </div>
