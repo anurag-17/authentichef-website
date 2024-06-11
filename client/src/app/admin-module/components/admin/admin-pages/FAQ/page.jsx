@@ -186,7 +186,7 @@ const FAQs = () => {
             className="fixed inset-0 bg-black opacity-50"
             onClick={closeModal}
           ></div>
-          <div className="bg-white rounded-lg p-8 shadow-lg z-10 w-full max-w-lg">
+          <div className="bg-white rounded-lg p-8 shadow-lg z-10 w-full max-w-2xl">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-semibold">Add New FAQ</h2>
               <button onClick={closeModal} className="text-gray-500">
@@ -256,7 +256,7 @@ const FAQs = () => {
             className="fixed inset-0 bg-black opacity-50"
             onClick={closeEditModal}
           ></div>
-          <div className="bg-white rounded-lg p-8 shadow-lg z-10 w-full max-w-lg">
+          <div className="bg-white rounded-lg p-8 shadow-lg z-10 w-full max-w-[1000px]">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-semibold">Edit FAQ</h2>
               <button onClick={closeEditModal} className="text-gray-500">
