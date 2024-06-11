@@ -243,7 +243,7 @@ const Navbar = () => {
         dispatch(setToken(res?.data?.token));
         dispatch(setUser(res?.data?.user));
         dispatch(setSuccess(res?.data?.success));
-        refreshData();
+        // refreshData();
         handleClose();
         setLoading(false);
         setIsLoggedIn(true);
@@ -415,12 +415,12 @@ const Navbar = () => {
           ...item,
           totalPrice: item.menuItem.price * item.quantity,
         }));
-        refreshData();
         setGetCartItems(cartItems);
         setUpdatedCartItems(cartItems);
         setSubtotalPrice(
           cartItems.reduce((sum, item) => sum + item.totalPrice, 0)
         );
+        // refreshData();
         setShippingCost(userCart.Shipping_cost ?? 0);
         setCartId(userCart._id);
         for (const item of cartItems) {
