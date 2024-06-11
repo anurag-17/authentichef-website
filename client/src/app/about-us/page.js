@@ -38,14 +38,15 @@ const AboutUs = () => {
             <div className="text-center 2xl:w-[1293px] xl:w-[870px] lg:w-[600px] sm:w-[] w-[]  mx-auto md:px-0 px-[20px]">
               <h4 className=" nine_head">The Ever-Growing Problem</h4>
               <p className="aboutPara 2xl:mt-[50px] xl:mt-[30px] mt-[15px]">
-                We get it. Daily life can be hectic, making it tough to cook
-                healthy and tasty homemade meals and catering to individual food
-                choices and specific dietary requirements.
+                We get it. <br/> Hectic daily life makes it difficult to cook healthy,
+                delicious homemade meals. Catering to individual tastes and
+                dietary needs just add to the pressure.
               </p>
               <p className="aboutPara 2xl:mt-[30px]  xl:mt-[15px] mt-[8px] 2xl:w-[1063px] xl:w-[670px] lg:w-[520px] sm:w-[] w-[] mx-auto">
-                Busy schedules, hard-to-find ingredients and cooking from
-                scratch can all stand in the way. But spending hours in the
-                kitchen isn’t the only option.
+              Busy schedules, hard-to-find ingredients, and time-consuming recipes often stand in the way. While, ordering takeout can be tempting, it often leads to feelings of guilt.
+              </p>
+              <p className="aboutPara 2xl:mt-[30px]  xl:mt-[15px] mt-[8px] 2xl:w-[1063px] xl:w-[670px] lg:w-[520px] sm:w-[] w-[] mx-auto">
+              But spending hours in the kitchen and ordering unhealthy takeout isn’t the only option.
               </p>
 
               <h4 className="nine_head 2xl:mt-[90px] xl:mt-[45px] mt-[25px]">
@@ -53,22 +54,19 @@ const AboutUs = () => {
               </h4>
 
               <p className="aboutPara 2xl:mt-[50px] xl:mt-[30px] mt-[15px] 2xl:w-[1103px] xl:w-[680px] lg:w-[550px] sm:w-[] w-[] mx-auto">
-                Our journey began with a simple yet profound vision – to bring
-                authentic, homemade dishes inspired by flavours from around the
-                world -{" "}
+              Our journey began with a simple yet profound mission: to deliver delicious, authentic homemade dishes from around the world 
                 <span style={{ color: "#F38181" }}>
-                  delivered straight to your home.
+                straight to your doorstep.
                 </span>
               </p>
               <p className="aboutPara 2xl:mt-[30px]  xl:mt-[15px] mt-[8px] 2xl:w-[1259px] xl:w-[800px] lg:w-[600px] sm:w-[] w-[] mx-auto">
-                With a wide range of dishes catering to individual dietary
-                preferences across various global cuisines, you can now sit back
-                and enjoy a unique culinary experience without the hassle of
-                cooking from scratch.
+              With a wide range of dishes catering to different dietary needs, there’s something for everyone.
+              </p>
+              <p className="aboutPara 2xl:mt-[30px]  xl:mt-[15px] mt-[8px] 2xl:w-[1259px] xl:w-[800px] lg:w-[600px] sm:w-[] w-[] mx-auto">
+              Sit back and enjoy a unique culinary experience without spending hours in the kitchen.
               </p>
               <p className="aboutPara 2xl:mt-[30px]  xl:mt-[15px] mt-[8px] 2xl:w-[723px] xl:w-[450px] lg:w-[350px] sm:w-[] w-[] mx-auto">
-                Each chef and dish tells a story of tradition, love, and care,
-                fostering a deep sense of connection with food.
+              Explore our menu, where each chef and dish tells a story of tradition, love, and care, fostering a deep connection with food.
               </p>
             </div>
           </div>
@@ -89,19 +87,12 @@ const AboutUs = () => {
                 <div className="flex items-center md:flex-row flex-col box-sizing-border  ">
                   <div className="overImgDiv">
                     <div className="flex justify-center items-center w-full box-sizing-border">
-                      <Image
-                        src={dummy}
-                        className="overImg"
-                      />
+                      <Image src={dummy} className="overImg" />
                     </div>
                   </div>
-                  <div className="overHead">
-                    No Hassle
-                  </div>
+                  <div className="overHead">No Hassle</div>
                 </div>
-                <div className=" overTitle">
-                  no need to cook!
-                </div>
+                <div className=" overTitle">No need to cook!</div>
               </div>
               <div className="2xl:mb-[30px] xl:mb-[15px] lg:gap-[] md:gap-[20px] flex md:flex-row flex-col md:text-start text-center md:items-normal items-center md:self-start box-sizing-border justify-between">
                 <div className="flex items-center md:flex-row flex-col box-sizing-border  ">
@@ -110,13 +101,9 @@ const AboutUs = () => {
                       <Image src={profile} className="overImg" />
                     </div>
                   </div>
-                  <div className="overHead">
-                    Personalisation
-                  </div>
+                  <div className="overHead">Personalisation</div>
                 </div>
-                <div className="overTitle">
-                  mix and match your dishes
-                </div>
+                <div className="overTitle">Mix and match your favourite dishes</div>
               </div>
               <div className="2xl:mb-[30px] xl:mb-[15px] lg:gap-[] md:gap-[20px] flex md:flex-row flex-col md:text-start text-center md:items-normal items-center md:self-start box-sizing-border justify-between ">
                 <div className="flex items-center md:flex-row flex-col box-sizing-border  ">
@@ -125,13 +112,9 @@ const AboutUs = () => {
                       <Image src={hand2} className="overImg" />
                     </div>
                   </div>
-                  <div className="overHead">
-                    Convenient
-                  </div>
+                  <div className="overHead">Convenient</div>
                 </div>
-                <div className="overTitle">
-                  delivered directly to your door
-                </div>
+                <div className="overTitle">Delivered directly to your door</div>
               </div>
               <div className="2xl:mb-[30px] xl:mb-[15px] lg:gap-[] md:gap-[20px] flex md:flex-row flex-col md:text-start text-center md:items-normal items-center md:self-start box-sizing-border justify-between">
                 <div className="flex items-center md:flex-row flex-col box-sizing-border  ">
@@ -145,7 +128,7 @@ const AboutUs = () => {
                   </div>
                 </div>
                 <div className="overTitle">
-                  heat your homemade meals <br></br> within 20 minutes
+                Enjoy homemade meals ready to heat in just 20 minutes
                 </div>
               </div>
             </div>
@@ -203,9 +186,9 @@ const AboutUs = () => {
                 Learn more about joining us…
               </p>
               <Link href="/become-chef">
-              <button className="2xl:w-[260px] 2xl:text-[20px] 2xl:h-[60px] lg:w-[220px] lg:h-[60px] lg:text-[18px] md:w-[160px] md:text-[14px] md:h-[50px] sm:w-[160px] sm:text-[14px] sm:h-[50px] xs:w-[150px] xs:text-[13px] xs:h-[40px] xl:w-[180px] xl:h-[45px] xl:text-[14px] w-[200px] h-[60px] bg-[#DB5353] text-[18px] text-white rounded-[5px] mt-[20px] p-[10px] hover:bg-[#B83C3C] transition duration-300 ease-in-out">
-                Our Chef Community
-              </button>
+                <button className="2xl:w-[260px] 2xl:text-[20px] 2xl:h-[60px] lg:w-[220px] lg:h-[60px] lg:text-[18px] md:w-[160px] md:text-[14px] md:h-[50px] sm:w-[160px] sm:text-[14px] sm:h-[50px] xs:w-[150px] xs:text-[13px] xs:h-[40px] xl:w-[180px] xl:h-[45px] xl:text-[14px] w-[200px] h-[60px] bg-[#DB5353] text-[18px] text-white rounded-[5px] mt-[20px] p-[10px] hover:bg-[#B83C3C] transition duration-300 ease-in-out">
+                  Our Chef Community
+                </button>
               </Link>
             </div>
           </div>

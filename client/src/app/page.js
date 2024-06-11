@@ -11,7 +11,7 @@ const Page = () => {
     <>
       <section>
         <div>
-          <section>
+          {/* <section>
             <nav className="z-50 flex justify-center bg-[#F38181] 2xl:h-[116px] xl:h-[80px] lg:h-[50px] sm:h-[45px] h-12 w-full mnavbar-h fixed">
               <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px] w-full px-10 md:px-0  flex justify-between items-center mnavbar">
                 <div className="w-1/3 flex justify-center mx-auto">
@@ -27,9 +27,9 @@ const Page = () => {
               </h1>
               <h2 className="mt-[20px]">(Coming Soon!)</h2>
             </div>
-          </section>
+          </section> */}
 
-          {/* <LandingPage /> */}
+          <LandingPage />
         </div>
       </section>
     </>

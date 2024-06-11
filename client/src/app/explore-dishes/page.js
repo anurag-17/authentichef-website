@@ -1495,9 +1495,7 @@ const ExploreDishes = () => {
                   </div>
 
                   <p className="nine_p2">
-                    Thanks to AuthenticHef, I get to enjoy amazing homemade food
-                    without cooking. Every dish is like a taste of home-cooked
-                    goodness, making my meals super satisfying.
+                  Simply amazing food. Feels like home away from home. No compromise on quality and pretty decent quantity. Worth every single penny.
                   </p>
                   <p className="nine_name">Mayank Jaiswal</p>
                 </div>
@@ -1551,9 +1549,8 @@ const ExploreDishes = () => {
                 </div>
 
                 <p className="nine_p2">
-                  AuthenticHefs homemade food delivery is a lifesaver for me.
-                  Its like having my own chef make yummy dishes that make my
-                  taste buds happy.
+                Where eating truly is BELIEVING!
+                Elisabeth’s delicious food leaves your tastebuds in tantalising raptures... wanting more. You'll want to order again & again.
                 </p>
                 <p className="nine_name">Rohit Thakur</p>
               </div>
@@ -1610,11 +1607,9 @@ const ExploreDishes = () => {
                 </div>
 
                 <p className="nine_p2">
-                  AuthenticHef sends me delicious homemade meals that take me on
-                  a food adventure. Its awesome to enjoy different flavors and
-                  cuisines without leaving home.
+                The food is always amazing whenever we order from Chef Jack. Everything on the menu taste delicious!
                 </p>
-                <p className="nine_name">Shubham Sharma</p>
+                <p className="nine_name">Jack Ho</p>
               </div>
             </div>
           </div>

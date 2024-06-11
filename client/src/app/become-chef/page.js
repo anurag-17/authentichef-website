@@ -84,13 +84,10 @@ const BecomeChef = () => {
               </h1>
               <div className="2xl:max-w-[1098px] alata xl:max-w-[700px] lg:max-w-[600px] mx-auto text-[#111111] mb-[25px] ">
                 <p className="font-alata text-[15px] md:text-lg 2xl:mt-[16px] lg:text-xl font-[400] xl:text-[16px]  2xl:text-[25px] leading-[1.5] md:leading-[1.4] xl:leading-[30px] 2xl:leading-[50px] mb-[3px]">
-                  Our diverse chef community is at the heart of the food we
-                  serve.
+                Our <span className="text-[#F38181]">diverse chef community </span>is at the heart of the food we serve.
                 </p>
                 <p className="font-alata alata  text-[15px] md:text-lg lg:text-xl 2xl:mt-[12px] font-[400] xl:text-[16px] 2xl:text-[25px] leading-[1.5] md:leading-[1.4] xl:leading-[22px] 2xl:leading-[35px]">
-                  We help new and established chefs start and grow their food
-                  business and showcase their passion for creating culinary
-                  experiences.
+                We help <span className="text-[#F38181]"> new and established chefs to start and grow </span> their food business and showcase their passion for creating culinary experiences
                 </p>
               </div>
               <div className="flex justify-center">
