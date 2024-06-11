@@ -1,8 +1,9 @@
-'use client';
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import config from "@/config";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css"; // Import the styles
 
 const Testimonial = () => {
   const [testimonials, setTestimonials] = useState([]);
@@ -23,13 +24,18 @@ const Testimonial = () => {
 
   const fetchTestimonials = () => {
     axios
-      .get("http://13.43.174.21:4000/api/Testimonial/testimonals")
+      .get(`${config.baseURL}/api/Testimonial/testimonals`)
       .then((response) => setTestimonials(response.data))
       .catch((error) => console.error("Error fetching testimonials:", error));
   };
 
   const openModal = () => {
-    setCurrentTestimonial({ Name: "", Description: "", Profile_Image: "", Rating: 1 });
+    setCurrentTestimonial({
+      Name: "",
+      Description: "",
+      Profile_Image: "",
+      Rating: 1,
+    });
     setSelectedFile(null);
     setIsModalOpen(true);
   };
@@ -56,29 +62,17 @@ const Testimonial = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    let profileImageUrl = currentTestimonial.Profile_Image;
-
+    const formData = new FormData();
+    formData.append("Name", currentTestimonial.Name);
+    formData.append("Description", currentTestimonial.Description);
+    formData.append("Rating", currentTestimonial.Rating);
     if (selectedFile) {
-      const formData = new FormData();
-      formData.append("file", selectedFile);
-
-      try {
-        const uploadResponse = await axios.post(`${config.baseURL}/api/Testimonial/createTestimonal`, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `${token}`,
-          },
-        });
-        profileImageUrl = uploadResponse.data.url; // Assuming the response contains the uploaded file's URL
-      } catch (error) {
-        console.error("Error uploading file:", error);
-        return;
-      }
+      formData.append("Profile_Image", selectedFile);
     }
 
     const url = isEditModalOpen
       ? `${config.baseURL}/api/Testimonial/testimonals/${currentTestimonial._id}`
-      : `${config.baseURL}/api/Testimonial/testimonals`;
+      : `${config.baseURL}/api/Testimonial/createTestimonal`;
 
     const method = isEditModalOpen ? "PUT" : "POST";
 
@@ -86,15 +80,19 @@ const Testimonial = () => {
       method,
       url,
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+        Authorization: ` ${token}`,
       },
-      data: { ...currentTestimonial, Profile_Image: profileImageUrl },
+      data: formData,
     })
       .then((response) => {
         const data = response.data;
         if (isEditModalOpen) {
-          setTestimonials(testimonials.map((testimonial) => (testimonial._id === data._id ? data : testimonial)));
+          setTestimonials(
+            testimonials.map((testimonial) =>
+              testimonial._id === data._id ? data : testimonial
+            )
+          );
         } else {
           setTestimonials([...testimonials, data]);
         }
@@ -106,31 +104,48 @@ const Testimonial = () => {
 
   const handleDeleteTestimonial = (testimonialId) => {
     axios
-      .delete(`${config.baseURL}/api/Testimonial/testimonals/${testimonialId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .delete(
+        `${config.baseURL}/api/Testimonial/testimonals/${testimonialId}`,
+        {
+          headers: {
+            Authorization: ` ${token}`,
+          },
+        }
+      )
       .then(() => {
-        setTestimonials(testimonials.filter((testimonial) => testimonial._id !== testimonialId));
+        setTestimonials(
+          testimonials.filter(
+            (testimonial) => testimonial._id !== testimonialId
+          )
+        );  
       })
       .catch((error) => console.error("Error deleting testimonial:", error));
   };
 
+  const handleDescriptionChange = (value) => {
+    setCurrentTestimonial({
+      ...currentTestimonial,
+      Description: value,
+    });
+  };
+
   return (
     <div className="w-full mx-auto mt-10 px-5">
-      <div className="bg-white rounded-lg shadow-lg p-5" style={{ maxHeight: "90vh", overflowY: "auto" }}>
+      <div
+        className="bg-white rounded-lg shadow-lg p-5"
+        style={{ maxHeight: "90vh", overflowY: "auto" }}
+      >
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-semibold">Testimonials</h2>
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded"
             onClick={openModal}
           >
             Add New Testimonial
           </button>
         </div>
         {testimonials.length > 0 ? (
-          <table className="min-w-full bg-white">
+          <table className="min-w-full bg-white text-center">
             <thead>
               <tr>
                 <th className="px-4 py-2">#</th>
@@ -146,21 +161,31 @@ const Testimonial = () => {
                 <tr key={testimonial._id} className="border-t">
                   <td className="px-4 py-2">{index + 1}</td>
                   <td className="px-4 py-2">{testimonial.Name}</td>
-                  <td className="px-4 py-2">{testimonial.Description}</td>
                   <td className="px-4 py-2">
-                    <img src={testimonial.Profile_Image} alt={testimonial.Name} className="w-16 h-16 rounded-full" />
+                  
+                  {/* {testimonial.Description} */}
+                  <div dangerouslySetInnerHTML={{ __html: testimonial?.Description }}  >
+
+                  </div>
+                  </td>
+                  <td className="px-4 py-2">
+                    <img
+                      src={testimonial.Profile_Image}
+                      alt={testimonial.Name}
+                      className="w-16 h-16 rounded-full mx-auto"
+                    />
                   </td>
                   <td className="px-4 py-2">{testimonial.Rating}</td>
                   <td className="px-4 py-2 space-y-2">
                     <div className="flex flex-col space-y-2">
                       <button
-                        className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-4 rounded"
+                        className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-3 rounded mx-auto"
                         onClick={() => openEditModal(testimonial)}
                       >
                         Edit
                       </button>
                       <button
-                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-4 rounded"
+                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded mx-auto"
                         onClick={() => handleDeleteTestimonial(testimonial._id)}
                       >
                         Delete
@@ -178,11 +203,16 @@ const Testimonial = () => {
 
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="fixed inset-0 bg-black opacity-50" onClick={closeModal}></div>
+          <div
+            className="fixed inset-0 bg-black opacity-50"
+            onClick={closeModal}
+          ></div>
           <div className="bg-white rounded-lg p-8 shadow-lg z-10 w-full max-w-lg">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-semibold">Add New Testimonial</h2>
-              <button onClick={closeModal} className="text-gray-500">&times;</button>
+              <button onClick={closeModal} className="text-gray-500">
+                &times;
+              </button>
             </div>
             <form onSubmit={handleFormSubmit}>
               <div className="mb-4">
@@ -198,16 +228,16 @@ const Testimonial = () => {
               </div>
               <div className="mb-4">
                 <label className="block mb-2">Description</label>
-                <textarea
-                  name="Description"
+                <ReactQuill
                   value={currentTestimonial.Description}
-                  onChange={handleInputChange}
-                  className="w-full p-2 border border-gray-300 rounded"
-                  required
+                  onChange={handleDescriptionChange}
+                  placeholder="Enter chef's bio"
+                  className="login-input w-full mt-1"   
+                  style={{ height: "200px" }} 
                 />
               </div>
-              <div className="mb-4">
-                <label className="block mb-2">Profile Image</label>
+              <div className="mb-4 mt-11">
+                <label className="block mb-2 ">Profile Image</label>
                 <input
                   type="file"
                   onChange={handleFileChange}
@@ -228,7 +258,12 @@ const Testimonial = () => {
                   required
                 />
               </div>
-              <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Save Testimonial</button>
+              <button
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              >
+                Save Testimonial
+              </button>
             </form>
           </div>
         </div>
@@ -236,11 +271,16 @@ const Testimonial = () => {
 
       {isEditModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="fixed inset-0 bg-black opacity-50" onClick={closeEditModal}></div>
+          <div
+            className="fixed inset-0 bg-black opacity-50"
+            onClick={closeEditModal}
+          ></div>
           <div className="bg-white rounded-lg p-8 shadow-lg z-10 w-full max-w-lg">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-semibold">Edit Testimonial</h2>
-              <button onClick={closeEditModal} className="text-gray-500">&times;</button>
+              <button onClick={closeEditModal} className="text-gray-500">
+                &times;
+              </button>
             </div>
             <form onSubmit={handleFormSubmit}>
               <div className="mb-4">
@@ -256,12 +296,12 @@ const Testimonial = () => {
               </div>
               <div className="mb-4">
                 <label className="block mb-2">Description</label>
-                <textarea
-                  name="Description"
+                <ReactQuill
                   value={currentTestimonial.Description}
-                  onChange={handleInputChange}
-                  className="w-full p-2 border border-gray-300 rounded" 
-                  required
+                  onChange={handleDescriptionChange}
+                  placeholder="Enter chef's bio"
+                  className="login-input w-full mt-1"
+                  style={{ height: "200px" }} 
                 />
               </div>
               <div className="mb-4">
@@ -285,7 +325,12 @@ const Testimonial = () => {
                   required
                 />
               </div>
-              <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Save Testimonial</button>
+              <button
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              >
+                Save Testimonial
+              </button>
             </form>
           </div>
         </div>
