@@ -387,9 +387,12 @@ const Navbar = () => {
   const [getCartItems, setGetCartItems] = useState({});
 
   const cartIt = getCartItems.length;
+
   useEffect(() => {
-    defaultCartItems(isRefresh);
-  }, [!isRefresh]);
+    if (token) {
+      defaultCartItems(isRefresh);
+    }
+  }, [!isRefresh, token]);
 
   useEffect(() => {
     if (cartId && getCartItems.length > 0) {
@@ -420,7 +423,6 @@ const Navbar = () => {
         setSubtotalPrice(
           cartItems.reduce((sum, item) => sum + item.totalPrice, 0)
         );
-        // refreshData();
         setShippingCost(userCart.Shipping_cost ?? 0);
         setCartId(userCart._id);
         for (const item of cartItems) {
@@ -531,7 +533,6 @@ const Navbar = () => {
 
       if (response.status >= 200 && response.status < 300) {
         toast.success("Items added to cart successfully");
-        refreshData();
         handleDrawerOpen();
         handleCartClear1();
       } else {
