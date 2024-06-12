@@ -61,6 +61,7 @@ const ExploreDishes = () => {
   const [dishID, setDishID] = useState("");
   const closeModal = () => setOpen(false);
   const [getADish, setGetADish] = useState("");
+  
   const dispatch = useDispatch();
   const [updatedCartItems, setUpdatedCartItems] = useState([]);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -125,7 +126,7 @@ const ExploreDishes = () => {
       throw error;
     }
   };
-
+  const [updatedCart, setUpdatedCart] = useState(cart);
   // Helper function to save state to localStorage and post to API
   const saveState = async (state) => {
     try {
@@ -815,6 +816,10 @@ const ExploreDishes = () => {
         console.log(error, "Error");
       });
   };
+
+  useEffect(() => {
+    setUpdatedCart(cart);
+  }, [cart]);
 
   return (
     <>
@@ -1528,7 +1533,7 @@ const ExploreDishes = () => {
           ></label>
           <ul className="min-h-full text-base-content max-w-[310px] sm:max-w-[350px] md:w-[400px] md:max-w-[400px] 2xl:w-[450px] 2xl:max-w-[450px] bg-white">
             <div className="flex flex-col justify-center items-center p-[15px] md:p-[20px] h-[100vh]">
-              {!cart || getCartItems.length === 0 ? (
+              {!updatedCart || getCartItems.length === 0 ? (
                 <div className="flex flex-col justify-center items-center">
                   <h4 className="alata font-[400] text-[#111] text-[24px] mb-[1rem]">
                     Your Basket is empty!
@@ -1571,7 +1576,7 @@ const ExploreDishes = () => {
                       </h4>
                     </div>
                     <div className="pt-[1rem]">
-                      {cart?.map((item, index) => {
+                      {updatedCart?.map((item, index) => {
                         const { data } = item;
                         const itemSubtotal = data.price * item.quantity;
                         return (

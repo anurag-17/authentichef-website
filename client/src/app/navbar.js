@@ -66,6 +66,7 @@ const Navbar = () => {
   const [subtotalPrice, setSubtotalPrice] = useState(0);
   const [shouldRefresh, setShouldRefresh] = useState(false);
   const [updatedCartItems, setUpdatedCartItems] = useState([]);
+  const [totalCartItems, setTotalCartItems] = useState(0);
 
   const handleRemoveItem = async (itemId) => {
     try {
@@ -274,7 +275,7 @@ const Navbar = () => {
         dispatch(removeSuccess());
         router.push("/explore-dishes");
         setIsLoggedIn(false);
-        // refreshData();
+        refreshData();
       } else {
         toast.error("Logout failed");
       }
@@ -308,7 +309,11 @@ const Navbar = () => {
   console.log(cart, "cart");
   const cartData = cart[0]?.data?._id;
   const quantity = cart[0]?.quantity;
-  // const lengths = cart.length;
+
+ 
+
+  const lengths = 0;
+
 
   // const postCartToApi = async () => {
   //   try {
@@ -383,9 +388,9 @@ const Navbar = () => {
   cart.forEach((item, index) => {
     const { data } = item;
   });
-  const [getCartItems, setGetCartItems] = useState({});
+  const [getCartItems, setGetCartItems] = useState(token ? [] : {});
 
-  const cartIt = getCartItems.length;
+  // const cartIt = getCartItems.length;
 
   useEffect(() => {
     if (token) {
@@ -500,6 +505,7 @@ const Navbar = () => {
   }, [itemIds]);
 
   const [itemId, setItemId] = useState([]);
+  const [updatedCart, setUpdatedCart] = useState(cart);
 
   const handleAddCart = async () => {
     try {
@@ -716,6 +722,18 @@ const Navbar = () => {
     toast.success("Item Removed From Cart");
   };
 
+  useEffect(() => {
+    let totalItems = 0;
+    if (cart && cart.length > 0) {
+      totalItems += cart.reduce((acc, item) => acc + item.quantity, 0);
+    }
+    if (getCartItems && getCartItems.length > 0) {
+      totalItems += getCartItems.reduce((acc, item) => acc + item.quantity, 0);
+    }
+    setTotalCartItems(totalItems);
+    refreshData();
+  }, [cart, getCartItems]);
+
   return (
     <>
       {/* <ToastContainer className="mt-24" autoClose={1000} /> */}
@@ -920,7 +938,7 @@ const Navbar = () => {
                 )}
                 <button onClick={handleDrawerOpen} className="relative">
                   <p className="absolute 2xl:right-[-25px] 2xl:text-[20px] xl:right-[-13px] 2xl:top-6 xl:top-4 bg-white text-[#F38181] border rounded-full 2xl:px-2 xl:px-1 lg:right-[-15px] lg:top-1 lg:px-[5px] text-[12px] xl:text-[14x] md:right-[-15px] md:top-1 md:px-[5px] sm:right-[-15px] sm:top-1 sm:px-[5px] right-[-15px] top-1 px-[5px] cartCount">
-                    {/* {token ? lengths + cartIt : lengths} */}
+                    {token ? totalCartItems : totalCartItems}
                   </p>
                   <Image
                     src={beg}
@@ -950,10 +968,8 @@ const Navbar = () => {
           ></label>
           <ul className="min-h-full text-base-content max-w-[310px] sm:max-w-[350px] md:w-[400px] md:max-w-[400px] 2xl:w-[450px] 2xl:max-w-[450px] bg-white">
             <div className="flex flex-col justify-center items-center p-[15px] md:p-[20px] h-[100vh]">
-              {!cart ||
-              cart.length === 0 ||
-              !getCartItems ||
-              getCartItems.length === 0 ? (
+              {!updatedCart ||
+              (Array.isArray(getCartItems) && getCartItems.length === 0) ? (
                 <div className="flex flex-col justify-center items-center">
                   <h4 className="alata font-[400] text-[#111] text-[24px] mb-[1rem]">
                     Your Basket is empty!
@@ -996,7 +1012,7 @@ const Navbar = () => {
                       </h4>
                     </div>
                     <div className="pt-[1rem]">
-                      {cart?.map((item, index) => {
+                      {updatedCart?.map((item, index) => {
                         const { data } = item;
                         const itemSubtotal = data.price * item.quantity;
                         return (

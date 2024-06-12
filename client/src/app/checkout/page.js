@@ -203,7 +203,7 @@ const Checkout = () => {
           Promo_code,
           Delivery_instruction,
           cartItems: updatedCartItems.length ? updatedCartItems : getCartItems,
-          payment_method_types: paymentMethod,
+          payment_method_types: "card", // Hardcoded to 'card'
         },
         {
           headers: {
@@ -215,14 +215,8 @@ const Checkout = () => {
       if (response.status >= 200 && response.status < 300) {
         toast.success("Order Placed");
 
-        if (paymentMethod === "card") {
-          const { sessionId, sessionUrl } = response.data;
-          window.location.href = sessionUrl; // Redirect to Stripe payment page
-        } else if (paymentMethod === "COD") {
-          router.push("/thankyou"); // Redirect to Thank You page for COD
-        } else {
-          router.push("/explore-dishes");
-        }
+        const { sessionId, sessionUrl } = response.data;
+        window.location.href = sessionUrl; // Redirect to Stripe payment page
       } else {
         toast.error(response.data.message || "Order Failed");
         console.log("Unexpected response status:", response.status);
@@ -462,8 +456,8 @@ const Checkout = () => {
     const item = getCartItems.find((item) => item._id === itemId);
     updateCartItemQuantity(cartId, item.menuItem._id, item.quantity + 1);
     setRefreshKey((prevKey) => prevKey + 1);
+    calculateSubtotal(updatedCartItems);
   };
-
   const handleDecrement = (itemId) => {
     setGetCartItems((prevCartItems) =>
       prevCartItems.map((item) =>
@@ -493,11 +487,32 @@ const Checkout = () => {
     if (item.quantity > 1) {
       updateCartItemQuantity(cartId, item.menuItem._id, item.quantity - 1);
       setRefreshKey((prevKey) => prevKey + 1);
+      calculateSubtotal(updatedCartItems);
     }
   };
 
+  const calculateSubtotal = (cartItems) => {
+    const newSubtotal = cartItems.reduce(
+      (sum, item) => sum + item.totalPrice,
+      0
+    );
+    setSubtotalPrice(newSubtotal);
+  };
+
+  useEffect(() => {
+    const newSubtotal = updatedCartItems.reduce(
+      (sum, item) => sum + item.totalPrice,
+      0
+    );
+    setSubtotalPrice(newSubtotal);
+  }, [updatedCartItems]);
+
   useEffect(() => {
     console.log("Updated Cart Items:", updatedCartItems);
+  }, [updatedCartItems]);
+
+  useEffect(() => {
+    calculateSubtotal(updatedCartItems);
   }, [updatedCartItems]);
 
   const [phone, setPhone] = useState("");
@@ -537,6 +552,7 @@ const Checkout = () => {
         const data = response.data;
         setDiscountInfo(data);
         toast.success(data.message);
+        calculateSubtotal(updatedCartItems); // Call calculateSubtotal after applying discount
       } else {
         toast.error("Failed to apply discount.");
       }
@@ -1119,13 +1135,18 @@ const Checkout = () => {
                         className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
                         value={paymentMethod}
                         onChange={handlePaymentMethodChange}
+                        style={{
+                          appearance: "none",
+                          WebkitAppearance: "none",
+                          MozAppearance: "none",
+                        }}
                       >
                         {/* <option value="COD">COD</option> */}
                         <option value="card">Online Payment</option>
                       </select>
                       <form onSubmit={handleSubmit}>
                         {/* form fields for delivery and billing info */}
-                        <button type="submit">Submit Order</button>
+                        {/* <button type="submit">Submit Order</button> */}
                       </form>
                     </div>
 
@@ -1139,9 +1160,9 @@ const Checkout = () => {
                           <DatePicker
                             selected={deliveryDate}
                             onChange={handleDateChange}
-                            minDate={minDate} 
+                            minDate={minDate}
                             maxDate={maxDate}
-                            placeholderText="Enter"
+                            placeholderText="Select"
                             className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h/[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p/[10px] p-[8px] 2xl:mt/[10px] xl:mt/[5px] mt-[3px]"
                             filterDate={(date) => {
                               const day = date.getDay();
@@ -1156,7 +1177,12 @@ const Checkout = () => {
                         </form>
                       </div>
                       <div className="pop-chef flex items-end">
-                      Delivery days within 2-3 working days
+                        <span>
+                          Delivery days within 2-3 working days{" "}
+                          <Link href={"/FAQs"} target="_blank" className="ml-2">
+                            <span className="text-[#FF0000]">Read more</span>
+                          </Link>
+                        </span>
                       </div>
                     </div>
                     <div className="2xl:my-[30px] xl:my-[20px] my-[15px]">
