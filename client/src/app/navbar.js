@@ -798,7 +798,7 @@ const Navbar = () => {
                     </div>
                     <li className="2xl:mt-[90px] xl:mt-[50px] lg:mt-[40px] sm:mt-[30px] mt-[20px]">
                       {token ? (
-                        <Link href="/setting">
+                        <Link className="pl-0" href="/setting">
                           <Image
                             src={profile}
                             className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] w-[16px]"

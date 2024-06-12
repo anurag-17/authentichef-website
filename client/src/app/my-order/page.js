@@ -43,44 +43,47 @@ const MyOrder = () => {
           {Array.isArray(getAllOrders) && getAllOrders.length > 0 ? (
             <div>
               {Array.isArray(getAllOrders) &&
-                getAllOrders.map((order, orderIndex) => (
-                  <div key={orderIndex}>
-                    <ul>
-                      <li className="fourth_p text-[#787878]">
-                        {/* Delivered on {order.deliveryDate} */}
-                      </li>
-                    </ul>
-                    {order.items.map((item, itemIndex) => (
-                      <div
-                        key={itemIndex}
-                        className=" flex justify-between items-center 2xl:mt-[20px] xl:mt-[10px] mt-[8px] border rounded-[10px] 2xl:p-[30px] xl:p-[20px] p-[15px] "
-                      >
+                getAllOrders
+                  .slice()
+                  .reverse()
+                  .map((order, orderIndex) => (
+                    <div key={orderIndex}>
+                      <ul>
+                        <li className="fourth_p text-[#787878]">
+                          {/* Delivered on {order.deliveryDate} */}
+                        </li>
+                      </ul>
+                      {order.items.map((item, itemIndex) => (
                         <div
                           key={itemIndex}
-                          className="flex items-center 2xl:gap-[15px] xl:gap-[10px] gap-[8px]"
+                          className="flex justify-between items-center 2xl:mt-[20px] xl:mt-[10px] mt-[8px] border rounded-[10px] 2xl:p-[30px] xl:p-[20px] p-[15px]"
                         >
-                          <img
-                            src={item.menuItem.ProfileImage[0]}
-                            className="rounded-[5.8px] 2xl:w-[95px] 2xl:h-[95px] xl:w-[70px] w-[50px] h-auto"
-                            alt={item.menuItem.name}
-                          />
-                          <div>
-                            <h4 className="alata font-[400] 2xl:text-[24px] 2xl:leading-[34px] xl:text-[14px] xl:leading-[24px] lg:text-[14px] lg:leading-[20px]">
-                              {item.menuItem.name}
-                            </h4>
+                          <div
+                            key={itemIndex}
+                            className="flex items-center 2xl:gap-[15px] xl:gap-[10px] gap-[8px]"
+                          >
+                            <img
+                              src={item.menuItem.ProfileImage[0]}
+                              className="rounded-[5.8px] 2xl:w-[95px] 2xl:h-[95px] xl:w-[70px] w-[50px] h-auto"
+                              alt={item.menuItem.name}
+                            />
+                            <div>
+                              <h4 className="alata font-[400] 2xl:text-[24px] 2xl:leading-[34px] xl:text-[14px] xl:leading-[24px] lg:text-[14px] lg:leading-[20px]">
+                                {item.menuItem.name}
+                              </h4>
+                            </div>
+                          </div>
+                          <div className="">
+                            <Link href={`/pages/order-details/${order?._id}`}>
+                              <button className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[257px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] text-[10px] xl:w-[150px] xl:py-[10px] lg:px-3 lg:py-[6px] px-3 py-1 hover:bg-[#7e2727]">
+                                View Order Details
+                              </button>
+                            </Link>
                           </div>
                         </div>
-                        <div className="">
-                          <Link href={`/pages/order-details/${order?._id}`}>
-                            <button className=" alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[257px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] text-[10px] xl:w-[150px] xl:py-[10px] lg:px-3 lg:py-[6px] px-3 py-1 hover:bg-[#7e2727]  ">
-                              View Order Details
-                            </button>
-                          </Link>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                ))}
+                      ))}
+                    </div>
+                  ))}
             </div>
           ) : (
             <div className="text-center my-5">
