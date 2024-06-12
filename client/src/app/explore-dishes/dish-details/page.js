@@ -12,7 +12,13 @@ import {
 } from "@/app/redux/dishSlice";
 import config from "@/config";
 
-const DishDetails = ({ dishID, defaultADish, handleAddCart, setItemId }) => {
+const DishDetails = ({
+  closeModal,
+  dishID,
+  defaultADish,
+  handleAddCart,
+  setItemId,
+}) => {
   const { token } = useSelector((state) => state?.auth);
   const dispatch = useDispatch();
   const [count, setCount] = useState(1);
@@ -165,25 +171,47 @@ const DishDetails = ({ dishID, defaultADish, handleAddCart, setItemId }) => {
   return (
     <>
       <section>
+        <div className="flex justify-end 2xl:py-[20px] xl:py-[10px] py-[10px] 2xl:px-[10px] xl:px-[7px] px-[5px]">
+          <button onClick={closeModal}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              className="  lg:w-8 lg:h-8 w-[30px] h-[30px]"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6 18 18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+
         <div>
-          <div className="sm:flex 2xl:gap-[60px] xl:gap-[40px] gap-[20px] justify-between 2xl:px-[40px] xl:px-[25px] px-[15px] 2xl:py-[45px] xl:py-[30px] py-[30px]  ">
-            <div className="2xl:w-[459px] xl:w-[280px] w-full ">
+          <div className="sm:flex 2xl:gap-[60px] xl:gap-[40px] lg:gap-[20px] gap-[10px] justify-between 2xl:px-[40px] xl:px-[25px] px-[15px]   ">
+            <div className="2xl:w-[459px] xl:w-[280px] w-full md:w-1/2 ">
               <img
                 src={getADish?.ProfileImage}
-                className="rounded-[15px] 2xl:w-[459px] 2xl:h-[339px] xl:w-[280px] xl:h-[200px]"
+                className="rounded-[15px] object-cover 2xl:w-[459px] 2xl:h-[339px] xl:w-[280px] xl:h-[200px] w-[100%]"
               />
             </div>
-            <div className="2xl:w-[400px] xl:w-[359px] sm:w-[300px]">
-              <div>
+            <div className="2xl:w-[400px] xl:w-[359px] sm:w-[300px] md:w-1/2">
+              <div className="my-4">
                 <h1 className="pop-head capitalize">{getADish?.name}</h1>
                 <p className="pop-chef">by Chef {getADish?.chef_id?.name}</p>
               </div>
-              <div className="sm:flex justify-between pop-detail">
-                <p>
+              <div className="flex flex-wrap gap-2  pop-detail my-3">
+                <p className="">
                   Price: £{getADish?.price && ` ${getADish.price.toFixed(2)}`}
+                </p> 
+                | 
+                <p className="">Weight: {getADish?.weight}g</p> | 
+                <p className="">
+                  Portion Size: Serves {getADish?.portion_Size}
                 </p>
-                <p>Weight: {getADish?.weight}g</p>
-                <p>Portion Size: Serves {getADish?.portion_Size}</p>
               </div>
               <div className="flex flex-wrap 2xl:gap-[10px] xl:gap-[8px] gap-[6px]  2xl:my-[15px] xl:my-[12px] my-[8px]">
                 {getADish?.Dietary_id?.title ? (
@@ -217,69 +245,74 @@ const DishDetails = ({ dishID, defaultADish, handleAddCart, setItemId }) => {
                     </div>
                   )}
               </div>
-              <div className="flex justify-center 2xl:w-[103px] 2xl:h-[39px] xl:w-[60px] xl:h-[22px] lg:w-[50px] lg:h-[20px] border rounded-[5px] 2xl:mt-[25px] xl:mt-[20px] mt-[15px] w-[30%]">
-                <button
-                  className="text-[#DB5353] rounded-l w-1/3"
-                  onClick={() => {
-                    handleDecrement(getADish?._id, getCartItems);
-                  }}
-                >
-                  -
-                </button>
-                <p className="flex mx-auto items-center text-[10px] xl:text-[12px] 2xl:text-[18px]  2xl:leading-[28px] ">
-                  {count}
-                </p>
-                <button
-                  className="text-[#DB5353] rounded-r w-1/3"
-                  onClick={() => handleIncrement(getADish?._id, getCartItems)}
-                >
-                  +
-                </button>
-              </div>
 
-              <div>
-                <button
-                  onClick={() => {
-                    if (token) {
-                      // If user is logged in, dispatch the addItemToCart action
-                      const itemToAdd = {
-                        data: getADish,
-                        quantity: 1, // Assuming quantity is initially set to 1
-                      };
-                      dispatch(addItemToCart(itemToAdd)); // Dispatch the action
-                      setItemId(getADish?._id);
-                      handleAddCart(getADish?._id);
-                    } else {
-                      // If user is not logged in, update the quantity in local storage
-                      const updatedDish = {
-                        ...getADish,
-                        quantity: (getADish.quantity || 0) + 1,
-                      };
-                      localStorage.setItem(
-                        getADish._id,
-                        JSON.stringify(updatedDish)
-                      );
-                    }
-                  }}
-                  className="pop-btn"
-                >
-                  <div className="drawer-content">
-                    <label
-                      htmlFor="my-drawer-4"
-                      className="drawer-button cursor-pointer"
-                    >
-                      Add to basket
-                    </label>
-                  </div>
-                </button>
+              <div className="flex justify-between ">
+
+              
+                <div className="flex justify-center 2xl:w-[103px] 2xl:h-[56px] xl:w-[80px] xl:h-[35px]  lg:h-[40px] h-[50px] border rounded-[5px] 2xl:mt-[25px] xl:mt-[20px] mt-[15px] w-[25%]">
+                  <button
+                    className="text-[#DB5353] rounded-l w-1/3 text-[25px]"
+                    onClick={() => {
+                      handleDecrement(getADish?._id, getCartItems);
+                    }}
+                  >
+                    -
+                  </button>
+                  <p className="flex mx-auto items-center text-[16px] leading-[25px] xl:text-[12px] 2xl:text-[18px]  2xl:leading-[28px] ">
+                    {count}
+                  </p>
+                  <button
+                    className="text-[#DB5353] rounded-r w-1/3 text-[25px]"
+                    onClick={() => handleIncrement(getADish?._id, getCartItems)}
+                  >
+                    +
+                  </button>
+                </div>
+
+                <div className="w-[70%]">
+                  <button
+                    onClick={() => {
+                      if (token) {
+                        // If user is logged in, dispatch the addItemToCart action
+                        const itemToAdd = {
+                          data: getADish,
+                          quantity: 1, // Assuming quantity is initially set to 1
+                        };
+                        dispatch(addItemToCart(itemToAdd)); // Dispatch the action
+                        setItemId(getADish?._id);
+                        handleAddCart(getADish?._id);
+                      } else {
+                        // If user is not logged in, update the quantity in local storage
+                        const updatedDish = {
+                          ...getADish,
+                          quantity: (getADish.quantity || 0) + 1,
+                        };
+                        localStorage.setItem(
+                          getADish._id,
+                          JSON.stringify(updatedDish)
+                        );
+                      }
+                    }}
+                    className="pop-btn w-full"
+                  >
+                    <div className="drawer-content">
+                      <label
+                        htmlFor="my-drawer-4"
+                        className="drawer-button cursor-pointer"
+                      >
+                        Add to basket
+                      </label>
+                    </div>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-          <div className="2xl:px-[40px] xl:px-[25px] px-[15px]">
+          <div className="2xl:px-[40px] xl:px-[25px] px-[15px] ">
             <div className="2xl:my-[15px] xl:my-[10px] my-[8px]">
               <div className="">
                 <p className="fourth_p text-[#555555] alata">Description</p>{" "}
-                <p className="fourth_p 2xl:w-[890px] xl:w-[660px] w-[550px]">
+                <p className="fourth_p 2xl:w-[890px] xl:w-[660px] sm:w-[550px]">
                   {/* {getADish?.description} */}
                   {getADish?.description && (
                     <span
@@ -346,7 +379,7 @@ const DishDetails = ({ dishID, defaultADish, handleAddCart, setItemId }) => {
                     <span
                       dangerouslySetInnerHTML={{
                         __html: getADish?.nutritional_information,
-                      }} 
+                      }}
                       className="alata"
                     />
                   )}
