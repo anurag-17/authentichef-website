@@ -346,7 +346,7 @@ const LandingPage = () => {
       <section className="">
         {/* ===================Second================== */}
 
-        <div className="hidden md:block 2xl:h-screen">
+        <div className="hidden lg:block 2xl:h-screen">
           <div className="poster-bg flex justify-center ">
             <div className="">
               <h1 className="alata font-[400] text-white 2xl:text-[65px] 2xl:leading-[70px] xl:text-[46px] xl:leading-[55px] 2xl:pt-[54%] xl:pt-[45%] lg:text-[35px] lg:leading-[30px] md:text-[35px] lg:pt-[50%] pt-[50%] mx-auto mdestination">
@@ -370,9 +370,9 @@ const LandingPage = () => {
             </div>
           </div>
         </div>
-        <div className="md:hidden block pt-[70px] pb-[20px]">
+        <div className="lg:hidden block pt-[70px] pb-[20px]">
           <div className=" pb-[25px] px-[20px]">
-            <h4 className="alata font-[400] text-black mx-auto text-[30px] text-center">
+            <h4 className="alata font-[400] text-black mx-auto text-[30px] leading-[40px] text-center">
               Where’s your next food destination?
             </h4>
             <div className="flex justify-center mt-4">
@@ -417,30 +417,30 @@ const LandingPage = () => {
         {/* ===================Four================== */}
 
         <div className="flex justify-center 2xl:py-[100px] xl:py-[70px]  lg:py-10 py-10 bg-[#F9F2F2]">
-          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px] mnavbar">
+          <div className="custom_container mnavbar">
             <div className="flex">
               <h2 className="four_head nine_head">Popular Dishes</h2>
             </div>
-            <div className="flex flex-col sm:flex-row  flex-wrap  md:gap-[25px] lg:gap-[21px] xl:gap-[25px] 2xl:gap-[35px] md:my-5 lg:my-0 px-3 sm:px-0  exploreDishesmain ">
+            <div className="flex flex-col sm:flex-row flex-wrap md:gap-[25px] lg:gap-[21px] xl:gap-[32px] 2xl:gap-[35px] md:my-5 lg:my-0  sm:px-0  exploreDishesmain ">
               {Array.isArray(getAllDish) &&
                 getAllDish.map((item, index) => (
                   <div
                     key={item.id}
-                    className=" my-5 2xl:w-[345px] 2xl:h-[560px] lg:w-[23%] sm:w-[45%] md:w-[48%]   relative rounded-[9.8px] mexploreD  "
+                    className=" mt-5 2xl:w-[371px] 2xl:h-[560px] lg:w-[23%] sm:w-[45%] md:w-[48%] w-full relative rounded-[9.8px] mexploreD  "
                   >
                     {console.log("ssss", item?.chef_id?.images)}
-                    <div>
-                      <button className="" onClick={() => openModal(item._id)}>
+                    <div className="w-full flex justify-center">
+                      <button className="w-full" onClick={() => openModal(item._id)}>
                         <img
                           alt="spaghetti"
                           src={item?.ProfileImage[0]}
-                          className="2xl:w-[365.5px] 2xl:h-[278px] xl:w-[280px] xl:h-[200px] lg:w-[220px] lg:h-[160px] w-[366px] h-[260px] rounded-[10px] mexplorimg"
+                          className="2xl:w-[365.5px] 2xl:h-[278px] xl:w-[280px] xl:h-[200px] lg:w-[220px] lg:h-[160px] w-[100%] h-[283px] object-cover rounded-[10px] mexplorimg"
                         />
                       </button>
                     </div>
                     <div className="">
                       <button className="" onClick={() => openModal(item._id)}>
-                        <h4 className="alata cursor-pointer capitalize font-[400] text-[#DB5353] 2xl:my-4 xl:my-3 my-2 2xl:text-[20px] 2xl:leading-[20px]  xl:text-[14px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[14px]">
+                        <h4 className="alata cursor-pointer capitalize font-[400] text-[#DB5353] 2xl:my-4 xl:my-3 my-2 2xl:text-[20px] 2xl:leading-[20px]  xl:text-[14px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[18px]">
                           {item.name}
                         </h4>
                       </button>
@@ -462,7 +462,7 @@ const LandingPage = () => {
                             <h4 className="fourth_name ">
                               {item?.chef_id?.name}
                             </h4>
-                            <p className="fourth_p text-[#6765EB]">
+                            <p className=" text-[#6765EB] alata font-[400] 2xl:text-[20px] 2xl:leading-[20px] xl:text-[14px] xl:leading-[18px] lg:text-[12px] lg:leading-[18px] text-[12px] leading-[18px]">
                               {item?.chef_id?.nationality}
                             </p>
                           </div>
@@ -476,13 +476,13 @@ const LandingPage = () => {
                             src={item?.Dietary_id[0]?.ProfileImage}
                             className="2xl:w-[13px] 2xl:h-[13px] lg:w-[10px] lg:h-[10px] w-[10px] h-auto"
                           />
-                          <p className="fourth_day capitalize">
+                          <p className="fourth_title capitalize">
                             {item?.Dietary_id[0]?.title}
                           </p>
                         </button>
                         {item?.Nutrition_id?.Nutritional ? (
                           <div className="four_btn">
-                            <p className="fourth_day capitalize">
+                            <p className="fourth_title capitalize">
                               {item?.Nutrition_id?.Nutritional}
                             </p>
                           </div>
@@ -491,21 +491,21 @@ const LandingPage = () => {
                         )}
                       </div>
                       <div className="flex items-center gap-5  2xl:my-[20px] xl:my-[15px] my-[12px]">
-                        <h4 className="fourth_p">Spice level</h4>
+                        <h4 className="fourth_title">Spice level</h4>
                         <button className="four_btnn border">
                           <img
                             alt="image"
                             src={item.spice_level_id.ProfileImage}
                             className=" w-[100%] h-auto"
                           />
-                          <p className="fourth_day capitalize">
+                          <p className="fourth_title capitalize">
                             {item.spice_level_id.title}
                           </p>
                         </button>
                       </div>
 
                       <div className=" w-full bottom-0 flex justify-between items-center  2xl:my-[22px] xl:my-[18px] my-[15px]">
-                        <p className="alata font-[400] text-[#000] 2xl:text-[20px] 2xl:leading-[24px] xl:text-[14px] xl:leading-[18px] lg:text-[12px] lg:leading-[16px] text-[12px] leading-[16px] ">
+                        <p className="alata font-[400] text-[#000] 2xl:text-[20px] 2xl:leading-[24px] xl:text-[14px] xl:leading-[18px] lg:text-[12px] lg:leading-[16px] text-[16px] leading-[16px] ">
                           Serves {item?.portion_Size} |({item?.weight}g) |
                           <span className="text-[#DB5353]">
                             {item?.price && `£${item.price.toFixed(2)}`}
@@ -563,13 +563,13 @@ const LandingPage = () => {
 
         {/* ===================Five================== */}
 
-        <div className=" flex justify-center bg-white 2xl:py-[120px] xl:py-[70px] lg:py-10 py-10">
-          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px] w-[95%]  mx-auto mnavbar">
+        <div className=" flex justify-center bg-white 2xl:py-[100px] xl:py-[70px]  lg:py-10 py-10">
+          <div className="custom_container w-[95%]  mx-auto mnavbar">
             <div className=" flex justify-center ">
-              <div className="mx-5 sm:mx-0">
+              <div className="">
                 <div className="mx-auto">
                   <h2 className=" nine_head">How it Works?</h2>
-                  <p className="five_pp 2xl:pt-[35px] xl:pt-2 lg:pt-2 pt-2">
+                  <p className="five_p 2xl:pt-[35px] xl:pt-2 lg:pt-2 pt-2">
                     We understand the demands of busy lives without compromising
                     on the quality of personalised meal choices on a daily
                     basis.
@@ -644,7 +644,7 @@ const LandingPage = () => {
             </div>
             <div className="flex justify-center">
               <Link href="/about-us">
-                <button className=" 2xl:w-[218px] alata font-[400] hover:bg-[#7e2727] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:h-[60px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:w-[160px] xl:h-[40px] xl:text-[14px] xl:leading-[25px] lg:w-[160px] lg:h-[30px] lg:text-[10px] lg:leading-[25px] 2xl:mt-[50px] xl:mt-[30px] mt-[20px] px-3 p-1">
+                <button className=" 2xl:w-[218px] alata font-[400] hover:bg-[#7e2727] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:h-[60px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:w-[160px] xl:h-[40px] xl:text-[14px] xl:leading-[25px] lg:w-[160px] w-[120px]  h-[35px] lg:h-[30px] lg:text-[10px] lg:leading-[25px] 2xl:mt-[50px] xl:mt-[30px] mt-[20px] px-3 p-1">
                   About Us
                 </button>
               </Link>
@@ -654,16 +654,16 @@ const LandingPage = () => {
 
         {/* ===================Six================== */}
 
-        <div className="flex justify-center 2xl:py-[70px] xl:py-14 lg:py-10 py-10 bg-[#F9F2F2]">
-          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  flex flex-wrap  mnavbar">
+        <div className="flex justify-center 2xl:py-[100px] xl:py-[70px] px-[15px] lg:py-10 py-10 bg-[#F9F2F2]">
+          <div className="custom_container flex flex-wrap  mnavbar">
             <div className=" sm:mx-auto">
               <div className="flex justify-center lg:justify-start">
-                <h2 className="six_head nine_head mx-auto">Our Commitment</h2>
+                <h2 className="six_head  mx-auto mb-2">Our Commitment</h2>
               </div>
               <div className="w-full flex flex-col md:flex-row justify-center md:justify-around lg:justify-between flex-wrap">
                 {" "}
-                <div className="lg:w-1/2 flex 2xl:mt-[30px] xl:mt-[15px] mt-[10px] ">
-                  <div className=" lg:flex items-center">
+                <div className="md:w-1/2 flex 2xl:mt-[30px] xl:mt-[15px] mt-[10px] ">
+                  <div className=" lg:flex items-center ">
                     <Image
                       alt="ourcommitmentimg"
                       src={plate1}
@@ -676,8 +676,8 @@ const LandingPage = () => {
                     </p>
                   </div>
                 </div>
-                <div className="lg:w-1/2 flex 2xl:mt-[30px] xl:mt-[15px] mt-[10px] ">
-                  <div className=" lg:flex items-center">
+                <div className="md:w-1/2 flex 2xl:mt-[30px] xl:mt-[15px] mt-[10px] ">
+                  <div className=" lg:flex items-center ">
                     <Image
                       alt="ourcommitmentimg"
                       src={plate2}
@@ -690,8 +690,8 @@ const LandingPage = () => {
                     </p>
                   </div>
                 </div>
-                <div className="lg:w-1/2 flex 2xl:mt-[30px] xl:mt-[15px] mt-[10px] ">
-                  <div className=" lg:flex items-center">
+                <div className="md:w-1/2 flex 2xl:mt-[30px] xl:mt-[15px] mt-[10px] ">
+                  <div className=" lg:flex items-center ">
                     <Image
                       alt="ourcommitmentimg"
                       src={plate3}
@@ -704,8 +704,8 @@ const LandingPage = () => {
                     </p>
                   </div>
                 </div>
-                <div className="lg:w-1/2 flex 2xl:mt-[30px] xl:mt-[15px] mt-[10px] ">
-                  <div className=" lg:flex items-center">
+                <div className="md:w-1/2 flex 2xl:mt-[30px] xl:mt-[15px] mt-[10px] ">
+                  <div className=" lg:flex items-center ">
                     <Image
                       alt="ourcommitmentimg"
                       src={plate4}
@@ -724,8 +724,8 @@ const LandingPage = () => {
 
         {/* ===================Seven================== */}
 
-        <div className="yellow-bg  md:w-full lg:flex justify-center 2xl:pt-[75px] 2xl:pb-[100px] xl:pt-[60px] pt-[25px] xl:pb-[60px] hidden lg:block">
-          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px] mnavbar ">
+        <div className="yellow-bg  md:w-full lg:flex justify-center 2xl:py-[100px] xl:py-[70px]  lg:py-10 py-10 hidden lg:block">
+          <div className="custom_container mnavbar ">
             <h2 className="seven_head nine_head">Our Chef Community</h2>
             <p className="seven_p">
               Our independent chefs, create dishes born from their passion for
@@ -775,9 +775,9 @@ const LandingPage = () => {
 
         {/* ===================Eight================== */}
 
-        <div className="flex justify-center 2xl:py-[70px] xl:py-28 lg:py-14 md:py-8 py-5 border-b-[1px] border-[#B1B1B1]">
-          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px] flex flex-col-reverse lg:flex-row mnavbar">
-            <div className="mx-10 sm:w-1/2 sm:mx-auto lg:mx-0">
+        <div className="flex justify-center 2xl:py-[100px] xl:py-[70px]  lg:py-10 py-10 border-b-[1px] border-[#B1B1B1]">
+          <div className="custom_container flex flex-col-reverse md:flex-row mnavbar">
+            <div className="sm:mx-10 sm:w-1/2 sm:mx-auto lg:mx-0">
               <h2 className=" eight_head ">Food Safety</h2>
               <p className="eight_p">
                 Our chef community takes great care and affection in preparing
@@ -795,11 +795,11 @@ const LandingPage = () => {
                 </Link>
               </div>
             </div>
-            <div className="mx-10 sm:w-1/2 flex sm:mx-auto my-5 lg:my-0 lg:flex-none">
+            <div className="lg:mx-10 sm:w-1/2 flex sm:mx-auto my-5 lg:my-0 lg:flex-none">
               <Image
                 alt="image"
                 src={eightPoster}
-                className="2xl:w-[724px] 2xl:h-[507px] w-auto h-auto mx-auto rounded-[15px] meightPoster"
+                className="2xl:w-[724px] 2xl:h-[507px] w-auto md:w-[80%] h-auto mx-auto rounded-[15px] meightPoster"
               />{" "}
             </div>
           </div>
@@ -807,8 +807,8 @@ const LandingPage = () => {
 
         {/* ===================Nine================== */}
 
-        <div className="flex justify-center lg:py-14 2xl:py-[70px] xl:py-28 py-10">
-          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px] mnavbar">
+        <div className="flex justify-center 2xl:py-[100px] xl:py-[70px]  lg:py-10 py-10">
+          <div className="custom_container mnavbar">
             <h2 className="nine_head">Testimonials</h2>
             <p className="nine_p text-center">
               All our chefs have fans raving about their food
