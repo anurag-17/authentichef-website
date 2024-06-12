@@ -61,7 +61,7 @@ const ExploreDishes = () => {
   const [dishID, setDishID] = useState("");
   const closeModal = () => setOpen(false);
   const [getADish, setGetADish] = useState("");
-  
+
   const dispatch = useDispatch();
   const [updatedCartItems, setUpdatedCartItems] = useState([]);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
