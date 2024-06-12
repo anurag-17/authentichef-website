@@ -903,7 +903,7 @@ const Navbar = () => {
             </div>
 
             <div className="w-1/3 flex justify-center ">
-              <a href="/">
+              <a href="http://www.authentichef.com/user">
                 <Image alt="logo" src={logo} className="nav_logo" />
               </a>
             </div>
