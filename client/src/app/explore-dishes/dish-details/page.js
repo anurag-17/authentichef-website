@@ -278,7 +278,7 @@ const DishDetails = ({ dishID, defaultADish, handleAddCart, setItemId }) => {
           <div className="2xl:px-[40px] xl:px-[25px] px-[15px]">
             <div className="2xl:my-[15px] xl:my-[10px] my-[8px]">
               <div className="">
-                <p className="fourth_p text-[#555555]">Description</p>{" "}
+                <p className="fourth_p text-[#555555] alata">Description</p>{" "}
                 <p className="fourth_p 2xl:w-[890px] xl:w-[660px] w-[550px]">
                   {/* {getADish?.description} */}
                   {getADish?.description && (
@@ -286,6 +286,7 @@ const DishDetails = ({ dishID, defaultADish, handleAddCart, setItemId }) => {
                       dangerouslySetInnerHTML={{
                         __html: getADish?.description,
                       }}
+                      className="alata"
                     />
                   )}
                 </p>
@@ -295,32 +296,34 @@ const DishDetails = ({ dishID, defaultADish, handleAddCart, setItemId }) => {
               <div className="">
                 <div>
                   <p className="fourth_p text-[#555555]">Main Ingredients</p>{" "}
-                  <p className="fourth_p ">
+                  <p className="alata fourth_p ">
                     {/* {getADish?.Ingredients} */}
                     {getADish?.Ingredients && (
                       <span
                         dangerouslySetInnerHTML={{
                           __html: getADish?.Ingredients,
                         }}
+                        className="alata"
                       />
                     )}
                   </p>
                 </div>
                 <div className="2xl:my-[20px] xl:my-[12px] my-[10px]">
                   <p className="fourth_p text-[#555555] ">List of Allergens</p>{" "}
-                  <p className="fourth_p ">
+                  <p className="alata fourth_p ">
                     {/* {getADish?.List_of_Allergens} */}
                     {getADish?.List_of_Allergens && (
                       <span
                         dangerouslySetInnerHTML={{
                           __html: getADish?.List_of_Allergens,
                         }}
+                        className="alata"
                       />
                     )}
                   </p>
                 </div>
                 <div className="2xl:my-[20px] xl:my-[12px] my-[10px]">
-                  <p className="fourth_p text-[#555555]">
+                  <p className="alata fourth_p text-[#555555]">
                     Heating instructions
                   </p>{" "}
                   <p className="fourth_p ">
@@ -330,19 +333,21 @@ const DishDetails = ({ dishID, defaultADish, handleAddCart, setItemId }) => {
                         dangerouslySetInnerHTML={{
                           __html: getADish?.Heating_Instruction,
                         }}
+                        className="alata"
                       />
                     )}
                   </p>
                 </div>
                 <div>
-                  <p className="fourth_p text-[#555555]">
+                  <p className="alata fourth_p text-[#555555]">
                     Nutritional Information:
                   </p>
                   {getADish?.nutritional_information && (
                     <span
                       dangerouslySetInnerHTML={{
                         __html: getADish?.nutritional_information,
-                      }}
+                      }} 
+                      className="alata"
                     />
                   )}
                 </div>

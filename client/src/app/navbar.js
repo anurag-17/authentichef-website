@@ -924,7 +924,7 @@ const Navbar = () => {
                     {token ? lengths + cartIt : lengths}
                   </p> */}
 
-                  <Image src={beg} className="2xl:w-10 2xl:h-10 " />
+                  <Image src={beg} className="2xl:w-10 2xl:h-10  w-[25px] h-[25px]" />
                 </button>
               </div>
             </div>
