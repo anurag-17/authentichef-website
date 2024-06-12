@@ -310,7 +310,6 @@ const Navbar = () => {
   const quantity = cart[0]?.quantity;
   // const lengths = cart.length;
 
-
   // const postCartToApi = async () => {
   //   try {
   //     const response = await axios.post(
@@ -599,9 +598,9 @@ const Navbar = () => {
           },
         }
       );
-  
+
       const { token } = response.data;
-  
+
       if (token) {
         dispatch(setToken(token));
         dispatch(setUser(data.user));
@@ -619,7 +618,7 @@ const Navbar = () => {
       toast.error("An error occurred during token verification.");
     }
   };
-  
+
   useEffect(() => {
     const code = new URLSearchParams(window.location.search).get("code");
     if (code) {
@@ -789,7 +788,7 @@ const Navbar = () => {
                           Profile
                         </Link>
                       ) : (
-                        <button onClick={handleLoginClick}>
+                        <button onClick={handleLoginClick} className="pl-0">
                           <Image
                             src={profile}
                             className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] w-[16px]"
@@ -798,8 +797,8 @@ const Navbar = () => {
                         </button>
                       )}
                     </li>
-                    <li className="2xl:mt-[5px] xl:mt-[2px] lg:mt-[0px] sm:mt-[8px] mt-[5px]">
-                      <Link href="about-us">
+                    <li className="2xl:mt-[5px] xl:mt-[2px] lg:mt-[0px] sm:mt-[8px] mt-[5px] pl-0">
+                      <Link  className="pl-0" href="about-us">
                         <Image
                           src={aboutauthentichef}
                           className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] w-[16px]"
@@ -807,8 +806,8 @@ const Navbar = () => {
                         About Authentichef
                       </Link>
                     </li>
-                    <li className="2xl:mt-[5px] xl:mt-[2px] lg:mt-[0px] sm:mt-[8px] mt-[5px]">
-                      <Link href="/explore-dishes">
+                    <li className="2xl:mt-[5px] xl:mt-[2px] lg:mt-[0px] sm:mt-[8px] mt-[5px] ">
+                      <Link  className="pl-0" href="/explore-dishes">
                         <Image
                           src={exploredish}
                           className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] w-[16px]"
@@ -816,8 +815,8 @@ const Navbar = () => {
                         Explore Dishes
                       </Link>
                     </li>
-                    <li className="2xl:mt-[5px] xl:mt-[2px] lg:mt-[0px] sm:mt-[8px] mt-[5px]">
-                      <Link href="/become-chef">
+                    <li className="2xl:mt-[5px] xl:mt-[2px] lg:mt-[0px] sm:mt-[8px] mt-[5px] ">
+                      <Link  className="pl-0" href="/become-chef">
                         <Image
                           src={beacomechef}
                           className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] w-[16px]"
@@ -825,8 +824,8 @@ const Navbar = () => {
                         Become a Chef
                       </Link>
                     </li>
-                    <li className="2xl:mt-[5px] xl:mt-[2px] lg:mt-[0px] sm:mt-[8px] mt-[5px]">
-                      <a href="/FAQs">
+                    <li className="2xl:mt-[5px] xl:mt-[2px] lg:mt-[0px] sm:mt-[8px] mt-[5px] ">
+                      <a className="pl-0" href="/FAQs">
                         <Image
                           src={faq}
                           className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] w-[16px]"
@@ -923,7 +922,10 @@ const Navbar = () => {
                   <p className="absolute 2xl:right-[-25px] 2xl:text-[20px] xl:right-[-13px] 2xl:top-6 xl:top-4 bg-white text-[#F38181] border rounded-full 2xl:px-2 xl:px-1 lg:right-[-15px] lg:top-1 lg:px-[5px] text-[12px] xl:text-[14x] md:right-[-15px] md:top-1 md:px-[5px] sm:right-[-15px] sm:top-1 sm:px-[5px] right-[-15px] top-1 px-[5px] cartCount">
                     {/* {token ? lengths + cartIt : lengths} */}
                   </p>
-                  <Image src={beg} className="2xl:w-10 2xl:h-10  w-[25px] h-[25px]" />
+                  <Image
+                    src={beg}
+                    className="2xl:w-10 2xl:h-10  w-[25px] h-[25px]"
+                  />
                 </button>
               </div>
             </div>
@@ -1180,15 +1182,15 @@ const Navbar = () => {
       <div className="">
         <dialog
           id="my_modal_1"
-          className="modal rounded-[10px] 2xl:w-[1000px] 2xl:h-[605px] xl:w-[620px] xl:h-[410px] lg:w-[480px] h-[400px] 2xl:mt-40 xl:mt-24 mt-14 p-0 signup"
+          className="modal rounded-[10px] 2xl:w-[1000px] 2xl:h-[605px] xl:w-[620px] xl:h-[440px] lg:w-[480px] md:h-[550px] h-[550px] w-[90%] 2xl:mt-40 xl:mt-24 mt-14 p-0 signup"
         >
           <form
             method="dialog"
-            className=" w-full h-full mt-0"
+            className="  h-full mt-0 w-[90%] md:w-[70%]"
             onSubmit={handleSubmits}
           >
             {/* if there is a button in form, it will close the modal */}
-            <div className="flex justify-center items-center border w-full 2xl:h-[80px] xl:h-[55px] h-[40px]">
+            <div className="flex justify-center items-center  w-full 2xl:h-[80px] xl:h-[55px] h-[40px]">
               <div
                 className="absolute right-3 cursor-pointer"
                 onClick={handleClosee}
@@ -1210,14 +1212,14 @@ const Navbar = () => {
               </div>
               <h4 className="fourth_p">Sign Up</h4>
             </div>
-            <div className=" my-3 px-[40px]">
-              <div className="flex flex-wrap justify-between 2xl:w-[775px] xl:w-[480px] mx-auto ">
-                <div className="2xl:mt-[35px] mt-[25px] 2xl:w-[368px] xl:w-[230px] w-[190px]">
+            <div className=" my-3 ">
+              <div className="flex flex-wrap justify-between 2xl:w-[775px] xl:w-[480px] mx-auto w-full">
+                <div className="2xl:mt-[35px] mt-[25px] 2xl:w-[368px] xl:w-[230px] w-full">
                   <input
                     type="text"
                     name="firstname"
                     placeholder="First Name"
-                    className="alata font-[400] login-inputad text-[#929292] w-full "
+                    className="alata font-[400] login-inputad text-[#929292] w-full h-[40px] "
                     pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     title="enter valid email ex. abc@gmail.com"
                     onChange={inputHandlers}
@@ -1225,12 +1227,12 @@ const Navbar = () => {
                     maxLength={100}
                   />
                 </div>
-                <div className="2xl:mt-[35px] mt-[25px] 2xl:w-[368px] xl:w-[230px] w-[190px]">
+                <div className="2xl:mt-[35px] mt-[25px] 2xl:w-[368px] xl:w-[230px] w-full">
                   <input
                     type="text"
                     name="lastname"
                     placeholder="Last Name"
-                    className="alata font-[400] login-inputad text-[#929292] w-full"
+                    className="alata font-[400] login-inputad text-[#929292] w-full h-[40px]"
                     pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     title="enter valid email ex. abc@gmail.com"
                     onChange={inputHandlers}
@@ -1238,24 +1240,24 @@ const Navbar = () => {
                     maxLength={100}
                   />
                 </div>
-                <div className="2xl:mt-[35px] mt-[25px] 2xl:w-[368px] xl:w-[230px] w-[190px]">
+                <div className="2xl:mt-[35px] mt-[25px] 2xl:w-[368px] xl:w-[230px] w-full">
                   <input
                     type="email"
                     name="email"
                     placeholder="Email Address"
-                    className="alata font-[400] login-inputad text-[#929292] w-full"
+                    className="alata font-[400] login-inputad text-[#929292] w-full h-[40px]"
                     pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     title="enter valid email ex. abc@gmail.com"
                     onChange={inputHandlers}
                     value={userDetail.email}
                   />
                 </div>
-                <div className="2xl:mt-[35px] mt-[25px] 2xl:w-[368px] xl:w-[230px] w-[190px]">
+                <div className="2xl:mt-[35px] mt-[25px] 2xl:w-[368px] xl:w-[230px] w-full">
                   <input
                     type="password"
                     name="password"
                     placeholder="Password"
-                    className="alata font-[400] login-inputad text-[#929292] w-full"
+                    className="alata font-[400] login-inputad text-[#929292] w-full h-[40px]"
                     pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     title="enter valid email ex. abc@gmail.com"
                     onChange={inputHandlers}
@@ -1264,7 +1266,7 @@ const Navbar = () => {
                 </div>
               </div>
               <div className="flex">
-                <button className="w-full mx-auto alata text-white 2xl:text-[20px] 2xl:w-[368px] xl:w-[230px] lg:w-[190px] xl:text-[14px] text-[12px] rounded-[5px] 2xl:mt-[20px] xl:mt-[15px] mt-[10px] 2xl:h-[60px] xl:h-[40px] lg:h-[32px] text-center bg-[#DB5353] sign-button">
+                <button className="w-full mx-auto alata text-white 2xl:text-[20px] 2xl:w-[368px] xl:w-[230px] lg:w-[190px] xl:text-[14px] text-[12px] rounded-[5px] 2xl:mt-[30px] xl:mt-[15px] mt-[25px] 2xl:h-[60px] xl:h-[40px] lg:h-[32px] h-[40px] text-center bg-[#DB5353] sign-button">
                   Create Account
                 </button>
               </div>
@@ -1274,8 +1276,8 @@ const Navbar = () => {
                 </p>
               </div>
               <div className="flex 2xl:mt-[20px]">
-                <div className="mx-auto 2xl:w-[368px] xl:w-[230px]">
-                  <div className="menu">
+                <div className="mx-auto 2xl:w-[368px] xl:w-[230px] w-full md:w-[50%]">
+                  {/* <div className="menu">
                     {isLoggedIn && currentUser ? (
                       <>Welcome, {currentUser.firstname}</>
                     ) : (
@@ -1283,18 +1285,24 @@ const Navbar = () => {
                         Continue with Google
                       </button>
                     )}
-                  </div>
-
+                  </div> */}
+                  <div className="my-[12px] social_div social_btn h-[40px] gap-3 w-full ">
+                    <Image className="social_img " src={google} />
+                    <h3 className="checkoutlable menu">
+                      {isLoggedIn && currentUser ? (
+                        <>Welcome, {currentUser.firstname}</>
+                      ) : (
+                        <button onClick={handleGoogleOAuth}>
+                          Continue with Google
+                        </button>
+                      )}
+                    </h3>
+                  </div>{" "}
                   {/* </a> */}
-
                   <Link href="https://www.facebook.com/login/" target="_blank">
-                    <div className="my-[12px] social_div">
-                      <div className="social_btn">
-                        <Image className="social_img " src={fb} />
-                        <h3 className="checkoutlable">
-                          Continue with Facebook
-                        </h3>
-                      </div>
+                    <div className="my-[12px] social_div social_btn h-[40px] gap-3 w-full">
+                      <Image className="social_img " src={fb} />
+                      <h3 className="checkoutlable">Continue with Facebook</h3>
                     </div>{" "}
                   </Link>
                 </div>
@@ -1312,10 +1320,14 @@ const Navbar = () => {
       <div className="">
         <dialog
           id="my_modal_2"
-          className="modal rounded-[10px] 2xl:w-[1000px] 2xl:h-[551px] xl:w-[620px] xl:h-[400px] lg:w-[480px] h-[350px] 2xl:mt-40 xl:mt-24 mt-14 p-0 loginpop"
+          className="modal rounded-[10px] 2xl:w-[1000px] 2xl:h-[551px] xl:w-[620px] xl:h-[400px] lg:w-[480px] h-[350px] w-[90%] 2xl:mt-40 xl:mt-24 mt-14 p-0 loginpop"
         >
-          <form method="dialog" className=" mt-0" onSubmit={handleSubmit}>
-            <div className=" ">
+          <form
+            method="dialog"
+            className=" mt-0 w-[90%] md:w-[50%] lg:w-[490px]"
+            onSubmit={handleSubmit}
+          >
+            <div className="w-full ">
               <div className="flex justify-center items-center w-full ">
                 <div
                   className="absolute right-3 cursor-pointer"
@@ -1338,14 +1350,14 @@ const Navbar = () => {
                 </div>
                 <h4 className="fourth_p">Login</h4>
               </div>
-              <div className="2xl:w-[368px] xl:w-[280px] lg:w-[220px] sm:w-[] w-[]">
+              <div className="2xl:w-[368px] xl:w-[280px] lg:w-[490px] w-full mx-auto">
                 <div className="2xl:mt-[35px] mt-[25px]">
                   <input
                     type="email"
                     name="email"
                     onChange={InputHandler}
                     placeholder="Enter your mail id"
-                    className="alata font-[400] login-inputad w-full"
+                    className="alata font-[400] login-inputad w-full h-[40px]"
                     pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     title="enter valid email ex. abc@gmail.com"
                   />
@@ -1359,7 +1371,7 @@ const Navbar = () => {
                     name="password"
                     onChange={InputHandler}
                     placeholder="Enter your Password"
-                    className="alata font-[400] login-inputad w-full"
+                    className="alata font-[400] login-inputad w-full h-[40px]"
                     pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     title="enter valid email ex. abc@gmail.com"
                   />
@@ -1370,7 +1382,7 @@ const Navbar = () => {
                 <div className="flex">
                   <button
                     type="submit"
-                    className="w-full mx-auto alata text-white 2xl:text-[20px] 2xl:w-[368px] xl:w-[280px] lg:w-[220px] xl:text-[16px] text-[12px] rounded-[5px] 2xl:mt-[40px] xl:mt-[25px] mt-[20px] 2xl:h-[60px] xl:h-[40px] lg:h-[32px] text-center bg-[#DB5353] login-button"
+                    className="w-full mx-auto alata text-white 2xl:text-[20px] 2xl:w-[368px] xl:w-[280px] lg:w-[220px] xl:text-[16px] text-[12px] rounded-[5px] 2xl:mt-[40px] xl:mt-[25px] mt-[20px] 2xl:h-[60px] xl:h-[40px] lg:h-[32px] h-[40px] text-center bg-[#DB5353] login-button"
                   >
                     Login
                   </button>
@@ -1380,14 +1392,14 @@ const Navbar = () => {
                     or
                   </p>
                 </div>
-                <div className="my-[30px] flex justify-center">
+                <div className="lg:my-[30px] flex justify-center my-[10px]">
                   <button
                     onClick={() =>
                       document.getElementById("my_modal_1").showModal()
                     }
                     className="nav_login1"
                   >
-                    <h4 className="text-[#DB5353] alata font-[400] text-[14px] leading-[26px] text-center mx-auto">
+                    <h4 className="text-[#DB5353] alata font-[400] text-[14px] leading-[26px] text-center mx-auto ">
                       Sign Up
                     </h4>
                   </button>

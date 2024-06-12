@@ -354,30 +354,30 @@ const ChefDetails = ({ params }) => {
               style={{ backgroundImage: `url(${bannerImage})` }}
             >
               <div className=" border sm:flex gap-5 2xl:w-[1414px] xl:w-[1000px] lg:w-[750px] w-[100%]  rounded-[15px] bg-white mx-auto 2xl:p-[50px] xl:p-[20px] p-[10px] chefdishWB">
-                <div className="2xl:w-[154px] xl:w-[80px] w-[60px] mx-auto">
-                  <div className="2xl:w-[154px] xl:w-[80px] w-[60px]">
+                <div className="2xl:w-[154px] xl:w-[80px] w-[100px] mx-auto">
+                  <div className="2xl:w-[154px] xl:w-[80px] w-[100px]">
                     <img
                       src={getAChef?.images}
                       className="w-full rounded-full 2xl:w-[154px] 2xl:h-[154px] object-cover"
                     />
                   </div>
-                  <div className="flex justify-center 2xl:gap-5 xl:gap-2 gap-1 2xl:my-[20px] xl:my-[10px] my-[5px]">
+                  <div className="flex justify-center 2xl:gap-5 xl:gap-2 gap-3 2xl:my-[20px] xl:my-[10px] my-[5px]">
                     <a href={getAChef?.Facebook_Link} target="_blank">
                       <Image
                         src={fb}
-                        className="2xl:w-[35px] xl:w-[30px] w-[15px]"
+                        className="2xl:w-[35px] xl:w-[30px] w-[30px]"
                       />
                     </a>
                     <a href={getAChef?.Instagram_Link} target="_blank">
                       <Image
                         src={insta}
-                        className="2xl:w-[35px] xl:w-[30px] w-[15px]"
+                        className="2xl:w-[35px] xl:w-[30px] w-[30px]"
                       />
                     </a>
                   </div>
                 </div>
                 <div>
-                  <h4 className="alata font-[400] 2xl:text-[35px] 2xl:leading-[45px] xl:text-[20px] xl:leading-[35px] lg:text-[16px] lg:leading-[24px] text-center sm:text-start">
+                  <h4 className="alata font-[400] 2xl:text-[35px] 2xl:leading-[45px] xl:text-[20px] xl:leading-[35px] lg:text-[16px] lg:leading-[24px] text-center sm:text-start text-[18px]">
                     Chef {getAChef?.name}
                   </h4>
                   <p className="fourth_p text-[#555555] text-center sm:text-start">
@@ -414,7 +414,7 @@ Food Safety
             </div>
           </div>
         </div>
-        <div className="2xl:py-[140px] xl:py-[100px] py-[50px] mt-[140px] sm:mt-0 ">
+        <div className="2xl:py-[140px] xl:py-[100px] md:py-[50px] py-[100px] mt-[140px] sm:mt-0 ">
           <div className="2xl:w-[1600px] xl:w-[1200px] lg:w-[850px] md:w-[750px] w-[90%] mx-auto mnavbar">
             <div className="">
               <div>
@@ -438,7 +438,7 @@ Food Safety
                       />
                     </button>
                     <div className="">
-                      <h4 className="alata font-[400] text-[#DB5353] 2xl:my-4 xl:my-3 my-2 2xl:text-[20px] 2xl:leading-[20px] xl:text-[14px] xl:leading-[18px] lg:text-[14px] lg:leading-[16px] text-[10px]">
+                    <h4 className="alata cursor-pointer capitalize font-[400] text-[#DB5353] 2xl:my-4 xl:my-3 my-2 2xl:text-[20px] 2xl:leading-[20px]  xl:text-[14px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[18px]">
                         {item?.name}
                       </h4>
                       <div className="flex items-center 2xl:gap-3 xl:gap-2 lg:gap-2 gap-2 xl:my-3 lg:my-2 my-2">
@@ -473,28 +473,30 @@ Food Safety
                           </button>
                         ))}
                       </div>
-                      <div className="flex items-center gap-5 2xl:my-[20px] xl:my-[15px] my-[12px]">
-                        <h4 className="fourth_p">Spice Level</h4>
-                        <button className="four_btn">
+                   
+                      <div className="flex items-center gap-5  2xl:my-[20px] xl:my-[15px] my-[12px]">
+                        <h4 className="fourth_title">Spice level</h4>
+                        <button className="four_btnn border">
                           <img
                             alt="image"
-                            src={item?.spice_level_id?.ProfileImage}
-                            className="2xl:w-[13px] 2xl:h-[13px] lg:w-[10px] lg:h-[10px] w-[10px] h-auto"
+                            src={item.spice_level_id.ProfileImage}
+                            className=" w-[100%] h-auto"
                           />
-                          <p className="fourth_day">
-                            {item?.spice_level_id?.title}
+                          <p className="fourth_title capitalize">
+                            {item.spice_level_id.title}
                           </p>
                         </button>
                       </div>
-                      <div className=" w-full bottom-0 flex justify-between items-center 2xl:my-[22px] xl:my-[18px] my-[15px]">
-                        <p className="alata font-[400] text-[#000] 2xl:text-[20px] 2xl:leading-[24px] xl:text-[14px] xl:leading-[18px] lg:text-[12px] lg:leading-[16px] text-[12px] leading-[16px] ">
-                          Serves {item?.portion_Size} | {item?.weight}g |
+                      <div className=" w-full bottom-0 flex justify-between items-center  2xl:my-[22px] xl:my-[18px] my-[15px]">
+                        <p className="alata font-[400] text-[#000] 2xl:text-[20px] 2xl:leading-[24px] xl:text-[14px] xl:leading-[18px] lg:text-[12px] lg:leading-[16px] text-[16px] leading-[16px] ">
+                          Serves {item?.portion_Size} |({item?.weight}g) |
                           <span className="text-[#DB5353]">
                             {item?.price && `£${item.price.toFixed(2)}`}
                           </span>
                         </p>
                         {token ? (
                           <button
+                            className="cursor-pointer"
                             onClick={() => {
                               setItemId(item?._id);
                               handleAddCart(item?._id);
@@ -508,13 +510,14 @@ Food Safety
                                 <Image
                                   src={addCart}
                                   alt={item.title}
-                                  className="cursor-pointer 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
+                                  className="cursor-pointer flex justify-center 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
                                 />
                               </label>
                             </div>
                           </button>
                         ) : (
                           <button
+                            className="cursor-pointer"
                             onClick={() => {
                               defaultADish(item?._id);
                             }}
@@ -527,7 +530,7 @@ Food Safety
                                 <Image
                                   src={addCart}
                                   alt={item.title}
-                                  className="cursor-pointer 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
+                                  className=" cursor-pointer flex justify-center 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
                                 />
                               </label>
                             </div>
