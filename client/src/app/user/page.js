@@ -416,6 +416,7 @@ const LandingPage = () => {
 
         {/* ===================Four================== */}
 
+      
         <div className="flex justify-center 2xl:py-[100px] xl:py-[70px]  lg:py-10 py-10 bg-[#F9F2F2]">
           <div className="custom_container mnavbar">
             <div className="flex">
@@ -430,7 +431,10 @@ const LandingPage = () => {
                   >
                     {console.log("ssss", item?.chef_id?.images)}
                     <div className="w-full flex justify-center">
-                      <button className="w-full" onClick={() => openModal(item._id)}>
+                      <button
+                        className="w-full"
+                        onClick={() => openModal(item._id)}
+                      >
                         <img
                           alt="spaghetti"
                           src={item?.ProfileImage[0]}
@@ -459,10 +463,10 @@ const LandingPage = () => {
                           )}
 
                           <div>
-                            <h4 className="fourth_name ">
+                            <h4 className="fourth_name capitalize ">
                               {item?.chef_id?.name}
                             </h4>
-                            <p className=" text-[#6765EB] alata font-[400] 2xl:text-[20px] 2xl:leading-[20px] xl:text-[14px] xl:leading-[18px] lg:text-[12px] lg:leading-[18px] text-[12px] leading-[18px]">
+                            <p className="capitalize text-[#6765EB] alata font-[400] 2xl:text-[16px] 2xl:leading-[20px] xl:text-[14px] xl:leading-[18px] lg:text-[12px] lg:leading-[18px] md:text-[14px] md:leading-[22px] text-[12px] leading-[18px]">
                               {item?.chef_id?.nationality}
                             </p>
                           </div>
@@ -561,6 +565,7 @@ const LandingPage = () => {
           </div>
         </div>
 
+
         {/* ===================Five================== */}
 
         <div className=" flex justify-center bg-white 2xl:py-[100px] xl:py-[70px]  lg:py-10 py-10">
@@ -601,7 +606,7 @@ const LandingPage = () => {
                   <h4 className="five_head2 2xl:w-auto xl:w-[302px] lg:w-[250px]">
                     Select dishes based on your dietary preferences
                   </h4>
-                  <p className="five_p2 text-center  mx-auto  ">
+                  <p className="five_ps text-center  mx-auto lg:mx-0 ">
                     Mix and match from a range of global dishes
                   </p>
                 </div>
@@ -618,7 +623,7 @@ const LandingPage = () => {
                   <h4 className="five_head2">
                     Choose your preferred delivery date
                   </h4>
-                  <p className="five_p2 text-center  mx-auto">
+                  <p className="five_ps text-center  mx-auto">
                     We deliver all your dishes in sustainable recyclable
                     packaging, without compromising on dish quality
                   </p>
@@ -635,7 +640,7 @@ const LandingPage = () => {
                     />
                   </div>
                   <h4 className="five_head2">Heat and enjoy the experience</h4>
-                  <p className="five_p2 text-center  mx-auto 2xl:w-[392px] xl:w-[302px] lg:w-[260px]">
+                  <p className="five_ps text-center  mx-auto 2xl:w-[392px] xl:w-[302px] lg:w-[260px]">
                     Dishes delivered frozen ready to heat and eat, or store in
                     your freezer, whenever you need
                   </p>
@@ -789,7 +794,7 @@ const LandingPage = () => {
                 their local councils, providing you with an additional layer of
                 assurance and peace of mind.
               </p>
-              <div className="flex justify-center lg:justify-start">
+              <div className="flex justify-center md:justify-start">
                 <Link href="/food-safety">
                   <button className=" eight_btn ">Food Safety</button>
                 </Link>
