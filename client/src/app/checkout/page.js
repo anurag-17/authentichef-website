@@ -203,7 +203,7 @@ const Checkout = () => {
           Promo_code,
           Delivery_instruction,
           cartItems: updatedCartItems.length ? updatedCartItems : getCartItems,
-          payment_method_types: paymentMethod,
+          payment_method_types: "card", // Hardcoded to 'card'
         },
         {
           headers: {
@@ -215,14 +215,8 @@ const Checkout = () => {
       if (response.status >= 200 && response.status < 300) {
         toast.success("Order Placed");
 
-        if (paymentMethod === "card") {
-          const { sessionId, sessionUrl } = response.data;
-          window.location.href = sessionUrl; // Redirect to Stripe payment page
-        } else if (paymentMethod === "COD") {
-          router.push("/thankyou"); // Redirect to Thank You page for COD
-        } else {
-          router.push("/explore-dishes");
-        }
+        const { sessionId, sessionUrl } = response.data;
+        window.location.href = sessionUrl; // Redirect to Stripe payment page
       } else {
         toast.error(response.data.message || "Order Failed");
         console.log("Unexpected response status:", response.status);
@@ -1141,7 +1135,11 @@ const Checkout = () => {
                         className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
                         value={paymentMethod}
                         onChange={handlePaymentMethodChange}
-                        style={{ appearance: 'none', WebkitAppearance: 'none', MozAppearance: 'none' }}
+                        style={{
+                          appearance: "none",
+                          WebkitAppearance: "none",
+                          MozAppearance: "none",
+                        }}
                       >
                         {/* <option value="COD">COD</option> */}
                         <option value="card">Online Payment</option>
@@ -1164,7 +1162,7 @@ const Checkout = () => {
                             onChange={handleDateChange}
                             minDate={minDate}
                             maxDate={maxDate}
-                            placeholderText="Enter"
+                            placeholderText="Select"
                             className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h/[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p/[10px] p-[8px] 2xl:mt/[10px] xl:mt/[5px] mt-[3px]"
                             filterDate={(date) => {
                               const day = date.getDay();
