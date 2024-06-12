@@ -286,6 +286,27 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
     }));
   };
 
+  const handleDescriptionChange = (value) => {
+    setMenuItem((prevState) => ({
+      ...prevState,
+      description: value,
+    }));
+  };
+
+  const handleIngredientsChange = (value) => {
+    setMenuItem((prevState) => ({
+      ...prevState,
+      Ingredients: value,
+    }));
+  };
+
+  const handleChangeListofAllergens = (value) => {
+    setMenuItem((prevState) => ({
+      ...prevState,
+      List_of_Allergens: value,
+    }));
+  };
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -363,11 +384,11 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
           <label className="block mb-1" htmlFor="description">
             Description:
           </label>
-          <textarea
+          <ReactQuill
             id="description"
             name="description"
             value={menuItem.description}
-            onChange={handleChange}
+            onChange={handleDescriptionChange}
             className="w-full px-3 py-2 border rounded"
             required
           />
@@ -376,11 +397,11 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
           <label className="block mb-1" htmlFor="ingredients">
             Ingredients:
           </label>
-          <textarea
+          <ReactQuill
             id="ingredients"
             name="Ingredients"
             value={menuItem.Ingredients}
-            onChange={handleChange}
+            onChange={handleIngredientsChange}
             className="w-full px-3 py-2 border rounded"
             required
           />
@@ -654,11 +675,19 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
           <label className="block mb-1" htmlFor="ingredientsList">
             List of Allergens:
           </label>
-          <textarea
+          {/* <textarea
             id="ingredientsList"
             name="List_of_Allergens"
             value={menuItem.List_of_Allergens}
             onChange={handleChange}
+            className="w-full px-3 py-2 border rounded"
+            required
+          /> */}
+          <ReactQuill
+             id="ingredientsList"
+            name="List_of_Allergens"
+            value={menuItem.List_of_Allergens}
+            onChange={handleChangeListofAllergens}
             className="w-full px-3 py-2 border rounded"
             required
           />

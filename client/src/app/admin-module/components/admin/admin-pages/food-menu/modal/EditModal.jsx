@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import axios from "axios";
-import { useSelector } from "react-redux";
 import Loader from "@/app/admin-module/components/admin/loader/Index";
 import config from "@/config";
 import ReactQuill from "react-quill";
@@ -32,8 +31,6 @@ const EditModal = ({
     ProfileImage: "",
     nutritional_information: "",
   });
-
-  console.log(formData);
 
   const [isLoading, setLoading] = useState(false);
   const [dishTypes, setDishTypes] = useState([]);
@@ -162,17 +159,17 @@ const EditModal = ({
   };
 
   const removeDietary = (index) => {
-    setFormData({
-      ...formData,
-      Dietary_id: formData.Dietary_id.filter((_, i) => i !== index),
-    });
+    setFormData(prevState => ({
+      ...prevState,
+      Dietary_id: prevState.Dietary_id.filter((_, i) => i !== index),
+    }));
   };
 
   const removeNutrition = (index) => {
-    setFormData({
-      ...formData,
-      Nutrition_id: formData.Nutrition_id.filter((_, i) => i !== index),
-    });
+    setFormData(prevState => ({
+      ...prevState,
+      Nutrition_id: prevState.Nutrition_id.filter((_, i) => i !== index),
+    }));
   };
 
   const handleSubmit = async (e) => {
@@ -236,10 +233,12 @@ const EditModal = ({
       setLoading(false);
     }
   };
+
   const handleNutritionalChange = (value) => {
-    setFormData({
+    setFormData(prevState => ({
+      ...prevState,
       nutritional_information: value,
-    });
+    }));
   };
 
   useEffect(() => {
@@ -251,8 +250,6 @@ const EditModal = ({
         setDishTypes(response.data.dishTypes);
       } catch (error) {
         console.error("Error fetching dish types:", error);
-      } finally {
-        // setLoading(false);
       }
     }
 
@@ -278,6 +275,41 @@ const EditModal = ({
       .catch((error) => {
         console.log(error, "Error");
       });
+  };
+
+  const handleDescriptionChange = (value) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      description: value,
+    }));
+  };
+
+  const handleIngredientsChange = (value) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      Ingredients: value,
+    }));
+  };
+
+  const handleChangeListofAllergens = (value) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      List_of_Allergens: value,
+    }));
+  };
+
+  const handleNutritionalInformationChange = (value) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      nutritional_information: value,
+    }));
+  };
+
+  const handleHeatingInstructionChange = (value) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      Heating_Instruction: value,
+    }));
   };
 
   return (
@@ -347,26 +379,42 @@ const EditModal = ({
 
               <div class="py-2">
                 <span class="login-input-label capitalize"> Description :</span>
-                <textarea
+                {/* <textarea
                   name="description"
                   placeholder="Enter description"
                   class="login-input w-full mt-1"
                   value={formData.description}
                   onChange={handleChange}
                   required
-                ></textarea>
+                ></textarea> */}
+                <ReactQuill
+                  name="description"
+                  placeholder="Enter description"
+                  class="login-input w-full mt-1"
+                  value={formData.description}
+                  onChange={handleDescriptionChange}
+                  required
+                />
               </div>
 
               <div class="py-2">
                 <span class="login-input-label capitalize"> Ingredients :</span>
-                <textarea
+                {/* <textarea
                   name="Ingredients"
                   placeholder="Enter ingredients"
                   class="login-input w-full mt-1"
                   value={formData.Ingredients}
                   onChange={handleChange}
                   required
-                ></textarea>
+                ></textarea> */}
+                <ReactQuill
+                  name="Ingredients"
+                  placeholder="Enter ingredients"
+                  class="login-input w-full mt-1"
+                  value={formData.Ingredients}
+                  onChange={handleIngredientsChange}
+                  required
+                />
               </div>
 
               <div class="py-2">
@@ -392,7 +440,11 @@ const EditModal = ({
                 <span className="login-input-label capitalize">Dietary:</span>
                 <select
                   name="Dietary_id"
-                  value={formData.Dietary_id[formData.Dietary_id.length - 1] || ""}
+                  value={
+                    formData.Dietary_id && formData.Dietary_id.length > 0
+                      ? formData.Dietary_id[formData.Dietary_id.length - 1]
+                      : ""
+                  }
                   onChange={handleChange}
                   className="login-input w-full mt-1"
                   required
@@ -405,9 +457,10 @@ const EditModal = ({
                       </option>
                     ))}
                 </select>
+
                 <div className="grid md:grid-cols-2 flex-col gap-3 justify-between w-full px-2 py-2">
                   {formData.Dietary_id.map((dietaryId, index) => {
-                    const dietary = dietaries.find(d => d._id === dietaryId);
+                    const dietary = dietaries.find((d) => d._id === dietaryId);
                     return dietary ? (
                       <p className="flex gap-x-2 text-[14px]" key={index}>
                         <span className="max-w-[150px] text-ellipsis overflow-hidden flex whitespace-nowrap capitalize">
@@ -429,7 +482,10 @@ const EditModal = ({
                 <span className="login-input-label capitalize">Nutrition:</span>
                 <select
                   name="Nutrition_id"
-                  value={formData.Nutrition_id[formData.Nutrition_id.length - 1] || ""}
+                  value={
+                    formData.Nutrition_id[formData.Nutrition_id.length - 1] ||
+                    ""
+                  }
                   onChange={handleChange}
                   className="login-input w-full mt-1"
                   required
@@ -444,11 +500,14 @@ const EditModal = ({
                 </select>
                 <div className="grid md:grid-cols-2 flex-col gap-3 justify-between w-full px-2 py-2">
                   {formData.Nutrition_id.map((nutritionId, index) => {
-                    const nutritionItem = nutrition.find(n => n._id === nutritionId);
+                    const nutritionItem = nutrition.find(
+                      (n) => n._id === nutritionId
+                    );
                     return nutritionItem ? (
                       <p className="flex gap-x-2 text-[14px]" key={index}>
                         <span className="max-w-[150px] text-ellipsis overflow-hidden flex whitespace-nowrap capitalize">
-                          <b className="mr-2">{index + 1}.</b> {nutritionItem.Nutritional}
+                          <b className="mr-2">{index + 1}.</b>{" "}
+                          {nutritionItem.Nutritional}
                         </span>
                         <span
                           className="cursor-pointer font-medium"
@@ -502,28 +561,44 @@ const EditModal = ({
                 <span class="login-input-label capitalize">
                   Heating Instructions :
                 </span>
-                <textarea
+                {/* <textarea
                   name="Heating_Instruction"
                   placeholder="Enter heating instructions"
                   class="login-input w-full mt-1"
                   value={formData.Heating_Instruction}
                   onChange={handleChange}
                   required
-                ></textarea>
+                ></textarea> */}
+                <ReactQuill
+                  name="Heating_Instruction"
+                  placeholder="Enter heating instructions"
+                  class="login-input w-full mt-1"
+                  value={formData.Heating_Instruction}
+                  onChange={handleHeatingInstructionChange}
+                  required
+                />
               </div>
 
               <div class="py-2">
                 <span class="login-input-label capitalize">
                   List of Allergens :
                 </span>
-                <textarea
+                {/* <textarea
                   name="List_of_Allergens"
                   placeholder="Enter list of ingredients"
                   class="login-input w-full mt-1"
                   value={formData.List_of_Allergens}
                   onChange={handleChange}
                   required
-                ></textarea>
+                ></textarea> */}
+                <ReactQuill
+                   name="List_of_Allergens"
+                  placeholder="Enter list of ingredients"
+                  class="login-input w-full mt-1"
+                  value={formData.List_of_Allergens}
+                  onChange={handleChangeListofAllergens}
+                  required
+                />
               </div>
 
               <div className="mb-4">
@@ -563,8 +638,9 @@ const EditModal = ({
                   <img
                     src={formData.ProfileImage}
                     alt="Selected Profile"
-                    className={`login-input w-full mt-1 ${formData.ProfileImage ? "" : "hidden"
-                      }`}
+                    className={`login-input w-full mt-1 ${
+                      formData.ProfileImage ? "" : "hidden"
+                    }`}
                     style={{
                       width: "100%",
                       height: "auto",
