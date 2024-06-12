@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import config from "@/config";
 import { useSelector } from "react-redux";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const FAQs = () => {
   const [faqs, setFaqs] = useState([]);
@@ -22,7 +24,7 @@ const FAQs = () => {
     axios
       .get(`${config.baseURL}/api/faq/all`, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `${token}`,
         },
       })
       .then((response) => setFaqs(response.data))
@@ -45,22 +47,23 @@ const FAQs = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setCurrentFaq({ ...currentFaq, [name]: value });
+    setCurrentFaq((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const handleQueryChange = (index, e) => {
-    const { name, value } = e.target;
-    const updatedQueries = currentFaq.Queries.map((query, i) =>
-      i === index ? { ...query, [name]: value } : query
-    );
-    setCurrentFaq({ ...currentFaq, Queries: updatedQueries });
+  const handleQueryChange = (index, value, field) => {
+    setCurrentFaq((prevState) => {
+      const updatedQueries = prevState.Queries.map((query, i) =>
+        i === index ? { ...query, [field]: value } : query
+      );
+      return { ...prevState, Queries: updatedQueries };
+    });
   };
 
   const handleAddQuery = () => {
-    setCurrentFaq({
-      ...currentFaq,
-      Queries: [...currentFaq.Queries, { question: "", answer: "" }],
-    });
+    setCurrentFaq((prevState) => ({
+      ...prevState,
+      Queries: [...prevState.Queries, { question: "", answer: "" }],
+    }));
   };
 
   const handleFormSubmit = (e) => {
@@ -83,9 +86,11 @@ const FAQs = () => {
       .then((response) => {
         const data = response.data;
         if (isEditModalOpen) {
-          setFaqs(faqs.map((faq) => (faq._id === data._id ? data : faq)));
+          setFaqs((prevFaqs) =>
+            prevFaqs.map((faq) => (faq._id === data._id ? data : faq))
+          );
         } else {
-          setFaqs([...faqs, data]);
+          setFaqs((prevFaqs) => [...prevFaqs, data]);
         }
         closeModal();
         closeEditModal();
@@ -101,7 +106,7 @@ const FAQs = () => {
         },
       })
       .then(() => {
-        setFaqs(faqs.filter((faq) => faq._id !== questionId));
+        setFaqs((prevFaqs) => prevFaqs.filter((faq) => faq._id !== questionId));
       })
       .catch((error) => console.error("Error deleting question:", error));
   };
@@ -113,6 +118,16 @@ const FAQs = () => {
     const calculatedMaxHeight = screenHeight * 0.9;
     setMaxHeight(`${calculatedMaxHeight}px`);
   }, []);
+
+  // Function to handle ReactQuill change for adding new FAQs
+  const handleNewFaqQuillChange = (index, value) => {
+    handleQueryChange(index, value, "answer");
+  };
+
+  // Function to handle ReactQuill change for editing existing FAQs
+  const handleEditFaqQuillChange = (index, value) => {
+    handleQueryChange(index, value, "answer");
+  };
 
   return (
     <div className="w-full mx-auto mt-10 px-5">
@@ -152,7 +167,17 @@ const FAQs = () => {
                       </td>
                       <td className="px-4 py-2">{faq.title}</td>
                       <td className="px-4 py-2">{query.question}</td>
-                      <td className="px-4 py-2">{query.answer}</td>
+                      <td className="px-4 py-2">
+                        {/* {query.answer} */}
+                        {query?.answer && (
+                          <span
+                            dangerouslySetInnerHTML={{
+                              __html: query?.answer,
+                            }}
+                            className=""
+                          />
+                        )}
+                      </td>
                       <td className="px-4 py-2 space-y-2">
                         <div className="flex flex-col space-y-2">
                           <button
@@ -178,7 +203,7 @@ const FAQs = () => {
             <p>No FAQs available.</p>
           )}
         </div>
-      </div>    
+      </div>
 
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-50">
@@ -217,15 +242,18 @@ const FAQs = () => {
                       type="text"
                       name="question"
                       value={query.question}
-                      onChange={(e) => handleQueryChange(index, e)}
+                      onChange={(e) =>
+                        handleQueryChange(index, e.target.value, "question")
+                      }
                       className="w-full p-2 border border-gray-300 rounded"
                       required
                     />
                     <label className="block mb-2 mt-2">Answer</label>
-                    <textarea
-                      name="answer"
+                    <ReactQuill
                       value={query.answer}
-                      onChange={(e) => handleQueryChange(index, e)}
+                      onChange={(value) =>
+                        handleNewFaqQuillChange(index, value)
+                      }
                       className="w-full p-2 border border-gray-300 rounded"
                       required
                     />
@@ -290,15 +318,18 @@ const FAQs = () => {
                         type="text"
                         name="question"
                         value={query.question}
-                        onChange={(e) => handleQueryChange(index, e)}
+                        onChange={(e) =>
+                          handleQueryChange(index, e.target.value, "question")
+                        }
                         className="w-full p-2 border border-gray-300 rounded"
                         required
                       />
                       <label className="block mb-2 mt-2">Answer</label>
-                      <textarea
-                        name="answer"
+                      <ReactQuill
                         value={query.answer}
-                        onChange={(e) => handleQueryChange(index, e)}
+                        onChange={(value) =>
+                          handleEditFaqQuillChange(index, value)
+                        }
                         className="w-full p-2 border border-gray-300 rounded"
                         required
                       />

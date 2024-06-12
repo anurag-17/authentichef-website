@@ -1120,7 +1120,7 @@ const Checkout = () => {
                         value={paymentMethod}
                         onChange={handlePaymentMethodChange}
                       >
-                        <option value="COD">COD</option>
+                        {/* <option value="COD">COD</option> */}
                         <option value="card">Online Payment</option>
                       </select>
                       <form onSubmit={handleSubmit}>
@@ -1156,7 +1156,7 @@ const Checkout = () => {
                         </form>
                       </div>
                       <div className="pop-chef flex items-end">
-                        Order will arrive on day selected between 8am and 6pm
+                      Delivery days within 2-3 working days
                       </div>
                     </div>
                     <div className="2xl:my-[30px] xl:my-[20px] my-[15px]">

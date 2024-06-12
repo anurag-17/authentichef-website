@@ -20,7 +20,6 @@ const FAQs = () => {
       });
   }, []);
 
-
   const [openIndex, setOpenIndex] = useState(null);
 
   const toggleAccordion = (index) => {
@@ -64,8 +63,11 @@ const FAQs = () => {
 
           <div className="2xl:py-[60px] xl:py-[40px] lg:py-[20px] sm:py-[10px] py-[]">
             {faqs.map((category, catIndex) => (
-              <div className="2xl:mt-[60px] xl:mt-[40px] lg:mt-[20px] sm:mt-[10px] mt-[] text-center my-4" key={catIndex}>
-                <div >
+              <div
+                className="2xl:mt-[60px] xl:mt-[40px] lg:mt-[20px] sm:mt-[10px] mt-[] text-center my-4"
+                key={catIndex}
+              >
+                <div>
                   <h2 className="pop-head text-[#000000] alata font-[400]">
                     {category.title}
                   </h2>
@@ -138,7 +140,17 @@ const FAQs = () => {
                             </div>
                             {openIndex === `${catIndex}-${index}` && (
                               <div className="collapse-content xs:px-0">
-                                <p className="fourth_p">{item.answer}</p>
+                                <p className="fourth_p">
+                                  {/* {item.answer} */}
+                                  {item?.answer && (
+                                    <span
+                                      dangerouslySetInnerHTML={{
+                                        __html: item?.answer,
+                                      }}
+                                      className="alata"
+                                    />
+                                  )}
+                                </p>
                               </div>
                             )}
                           </div>
