@@ -3,8 +3,10 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import config from "@/config";
 import { useSelector } from "react-redux";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+import dynamic from "next/dynamic";
+import "react-quill/dist/quill.snow.css"; // Import the styles
+
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 const FAQs = () => {
   const [faqs, setFaqs] = useState([]);
