@@ -14,7 +14,7 @@ const ThankU = () => {
 
   const pollForSessionId = async () => {
     const pollInterval = 5000; 
-    const maxAttempts = 10; 
+    const maxAttempts = 2; 
 
     for (let attempt = 1; attempt <= maxAttempts; attempt++) {
       try {
