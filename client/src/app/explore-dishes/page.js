@@ -1350,7 +1350,8 @@ const ExploreDishes = () => {
                                 {item?.chef_id?.name}
                               </h4>
                               <p className="fourth_p text-[#6765EB]">
-                                {item?.Cuisines_id?.title}
+                              {item?.chef_id?.nationality}
+
                               </p>
                             </div>
                           </div>
