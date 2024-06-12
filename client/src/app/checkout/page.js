@@ -498,7 +498,10 @@ const Checkout = () => {
   };
 
   const calculateSubtotal = (cartItems) => {
-    const newSubtotal = cartItems.reduce((sum, item) => sum + item.totalPrice, 0);
+    const newSubtotal = cartItems.reduce(
+      (sum, item) => sum + item.totalPrice,
+      0
+    );
     setSubtotalPrice(newSubtotal);
   };
 
@@ -565,7 +568,6 @@ const Checkout = () => {
     }
   };
 
-  
   useEffect(() => {
     if (subtotalPrice >= shippingThreshold) {
       // Order meets the free delivery threshold
@@ -1139,13 +1141,14 @@ const Checkout = () => {
                         className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
                         value={paymentMethod}
                         onChange={handlePaymentMethodChange}
+                        style={{ appearance: 'none', WebkitAppearance: 'none', MozAppearance: 'none' }}
                       >
                         {/* <option value="COD">COD</option> */}
                         <option value="card">Online Payment</option>
                       </select>
                       <form onSubmit={handleSubmit}>
                         {/* form fields for delivery and billing info */}
-                        <button type="submit">Submit Order</button>
+                        {/* <button type="submit">Submit Order</button> */}
                       </form>
                     </div>
 
@@ -1176,7 +1179,12 @@ const Checkout = () => {
                         </form>
                       </div>
                       <div className="pop-chef flex items-end">
-                        Delivery days within 2-3 working days
+                        <span>
+                          Delivery days within 2-3 working days{" "}
+                          <Link href={"/FAQs"} target="_blank" className="ml-2">
+                            <span className="text-[#FF0000]">Read more</span>
+                          </Link>
+                        </span>
                       </div>
                     </div>
                     <div className="2xl:my-[30px] xl:my-[20px] my-[15px]">
