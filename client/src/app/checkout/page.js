@@ -202,6 +202,8 @@ const Checkout = () => {
         if (paymentMethod === "card") {
           const { sessionId, sessionUrl } = response.data;
           window.location.href = sessionUrl; // Redirect to Stripe payment page
+        } else if (paymentMethod === "COD") {
+          router.push("/thankyou"); // Redirect to Thank You page for COD
         } else {
           router.push("/explore-dishes");
         }
@@ -210,7 +212,7 @@ const Checkout = () => {
         console.log("Unexpected response status:", response.status);
       }
     } catch (error) {
-      toast.error("Order Failed");
+      toast.error("Failed to apply discount.");
       console.log("Error:", error);
     }
   };
@@ -276,7 +278,7 @@ const Checkout = () => {
         console.error("Error getting session ID:", error);
       }
 
-      await new Promise((resolve) => setTimeout(resolve, pollInterval)); 
+      await new Promise((resolve) => setTimeout(resolve, pollInterval));
     }
 
     toast.error("Failed to get session ID after multiple attempts.");
@@ -321,12 +323,10 @@ const Checkout = () => {
   const handleDateChange = (e) => {
     const inputDate = new Date(e.target.value);
     const dayOfWeek = inputDate.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
-
-    if (dayOfWeek !== 0 && dayOfWeek !== 6) {
+    if (dayOfWeek !== 0 && dayOfWeek !== 1 && dayOfWeek !== 6) {
       // Valid date, update delivery date
       const today = new Date();
       const selectedDate = new Date(e.target.value);
-
       // Check if the selected date is today
       if (
         selectedDate.getDate() === today.getDate() &&
@@ -340,17 +340,16 @@ const Checkout = () => {
         // If the selected date is not today, use the selected date as the delivery date
         setDeliveryDate(e.target.value);
       }
-
       // Generate delivery message
       const orderDay = inputDate.getDay();
       const currentHour = new Date().getHours();
       // const deliveryDay = getDeliveryDay(orderDay, currentHour);
     } else {
-      // Invalid date (weekend), reset the input
+      // Invalid date (weekend or Monday), reset the input
       e.target.value = "";
       setDeliveryDate("");
       setDeliveryMessage("");
-      toast.info("Delivery is not available on Saturday and Sunday");
+      toast.info("Delivery is not available on Saturday, Sunday, and Monday");
     }
   };
 
@@ -393,7 +392,6 @@ const Checkout = () => {
       setSubtotalPrice(newSubtotal);
     }
   }, [getCartItems]);
-
 
   const updateCartItemQuantity = async (cartId, menuId, quantity) => {
     try {
@@ -475,7 +473,6 @@ const Checkout = () => {
     if (item.quantity > 1) {
       updateCartItemQuantity(cartId, item.menuItem._id, item.quantity - 1);
       setRefreshKey((prevKey) => prevKey + 1);
-
     }
   };
 
