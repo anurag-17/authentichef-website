@@ -21,9 +21,8 @@ const Checkout = () => {
   const router = useRouter();
   const [refreshKey, setRefreshKey] = useState(0);
   const [isRefresh, setRefresh] = useState(false);
-  const refreshData = () => {
-    setRefresh(!isRefresh);
-  };
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const [Promo_code, setPromoCode] = useState("");
   const [isSameAsShippingAddress, setIsSameAsShippingAddress] = useState(true);
   const [deliveryInfo, setDeliveryInfo] = useState({
@@ -99,6 +98,19 @@ const Checkout = () => {
   };
 
   const handlePaymentMethodChange = (e) => setPaymentMethod(e.target.value);
+
+  useEffect(() => {
+    if (subtotalPrice < 30) {
+      setIsModalOpen(true);
+    }
+  }, [subtotalPrice]);
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+  const refreshData = () => {
+    setRefresh(!isRefresh);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -1173,18 +1185,31 @@ const Checkout = () => {
                         />
                       </label>
                       <span className="seven_p2 text-[#555555]">
-                        I have read and agree to the website
+                        I have read and agree to the website  
                         <Link href={"/term-condition"} target="_blank">
-                          <span className="text-[#FF0000] underline">
-                            terms and conditions*
+                          <span className="text-[#FF0000] underline pl-2">
+                             terms and conditions*
                           </span>
                         </Link>
                       </span>
                     </div>
                     {subtotalPrice < 30 && (
                       <p className="text-red-500 text-[18px] text-center mb-2 pt-4">
-                        Minimum order value must be $30 or more.
+                        Minimum order value must be £30 or more.
                       </p>
+                    )}
+                    {isModalOpen && (
+                      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 alata">
+                        <div className="bg-white p-6 rounded shadow-lg">
+                          <p>Minimum order value must be £30 or more.</p>
+                          <button
+                            onClick={closeModal}
+                            className="mt-4 bg-[#DB5353] text-white px-4 py-2 rounded"
+                          >
+                            Close
+                          </button>
+                        </div>
+                      </div>
                     )}
                     <button
                       onClick={handleSubmit}
@@ -1193,7 +1218,7 @@ const Checkout = () => {
                         isChecked
                           ? "bg-[#DB5353] cursor-pointer"
                           : "bg-[#DB5353] opacity-50 cursor-not-allowed pointer-events-none"
-                      } text-white mx-auto rounded-[5px] 2xl:text-[20px] xl:text-[14px] text-[10px] leading-[27.6px] px-3 py-1 2xl:h-[45px] xl:h-[30px] lg:h-[25px] 2xl:mt-[60px] xl:mt-[40px] mt-[30px]`}
+                      } text-white mx-auto rounded-[5px] 2xl:text-[20px] xl:text-[14px] text-[10px] leading-[27.6px] px-3 py-1 2xl:h-[45px] xl:h-[30px] lg:h-[25px] 2xl:mt-[60px] xl:mt-[40px] mt-[20px]`}
                     >
                       <Image
                         src={order}
