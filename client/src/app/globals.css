@@ -230,7 +230,7 @@ td {
 }
 
 .fourth_title {
-  @apply text-[#111111] alata font-[400] 2xl:text-[20px] 2xl:leading-[20px] xl:text-[14px] xl:leading-[18px] lg:text-[12px] lg:leading-[18px] text-[12px] leading-[18px];
+  @apply text-[#111111] alata font-[400] 2xl:text-[20px] 2xl:leading-[20px] xl:text-[14px] xl:leading-[18px] lg:text-[12px] lg:leading-[18px] text-[14px] leading-[18px];
 }
 
 .four_img2 {
@@ -246,7 +246,7 @@ td {
 }
 
 .four_btn {
-  @apply bg-[#E3E3E3] flex items-center rounded-[3px] xl:px-[15px] xl:py-[10px] gap-2 xl:h-[34px] xl:text-[16px] xl:leading-[24px] px-2 py-[2px];
+  @apply bg-[#E3E3E3] flex items-center rounded-[3px] xl:px-[15px] xl:py-[10px] gap-2 xl:h-[34px] xl:text-[16px] xl:leading-[24px] px-2 py-[4px];
 }
 
 .four_btnn {
@@ -263,7 +263,7 @@ td {
 }
 
 .five_p {
-  @apply alata font-[400] text-center 2xl:text-[18px] 2xl:leading-[30px] 2xl:w-[820px] xl:text-[12px] xl:leading-[20px] xl:w-[600px] sm:text-[10px] lg:leading-[22px] lg:w-[600px] text-[10px] leading-[22px] mx-5 sm:mx-auto;
+  @apply alata font-[400] text-center 2xl:text-[18px] 2xl:leading-[25px] 2xl:w-[820px] xl:text-[12px] xl:leading-[16px] xl:w-[600px] sm:text-[14px] sm:leading-[20px] lg:leading-[18px] lg:w-[600px] text-[12px] leading-[18px] mx-5 sm:mx-auto;
 }
 
 .five_pp {
@@ -280,15 +280,15 @@ td {
 
 /* =================Six================= */
 .six_head {
-  @apply alata font-[400] 2xl:text-[55px] 2xl:leading-[75px] xl:text-[35px] xl:leading-[45px] lg:text-[25px] lg:leading-[35px] sm:text-[25px] sm:leading-[35px] text-[20px] leading-[30px];
+  @apply alata font-[400] 2xl:text-[55px] 2xl:leading-[65px] xl:text-[35px] xl:leading-[40px] lg:text-[25px] lg:leading-[35px] sm:text-[30px] sm:leading-[35px] text-[25px] leading-[30px];
 }
 
 .six_img {
-  @apply 2xl:w-[327px] 2xl:h-[242px] xl:w-[210px] xl:h-auto lg:w-[160px] lg:h-auto sm:w-full w-[90%] mx-auto rounded-[5px];
+  @apply flex 2xl:w-[327px] 2xl:h-[242px] xl:w-[210px] xl:h-auto lg:w-[160px] lg:h-auto sm:w-full w-[100%] md:w-[90%] mx-auto rounded-[5px];
 }
 
 .six_p {
-  @apply alata font-[400] 2xl:text-[25px] 2xl:leading-[35px] 2xl:p-14 2xl:w-auto xl:text-[16px] xl:leading-[28px] xl:pl-6 xl:w-[260px] lg:text-[12px] lg:leading-[20px] lg:pl-4 lg:w-[190px] sm:text-[14px] sm:leading-[20px] sm:pl-0 w-[300px] text-center sm:text-start;
+  @apply alata font-[400] 2xl:text-[25px] 2xl:leading-[35px] 2xl:p-14 2xl:w-auto xl:text-[16px] xl:leading-[28px] xl:pl-6 xl:w-[260px] lg:text-[12px] lg:leading-[20px] lg:pl-4 lg:w-[190px] sm:text-[14px] sm:leading-[20px] sm:pl-0  text-center sm:text-start my-2 md:w-[90%] mx-auto;
 }
 
 /* =================Seven================= */
@@ -330,20 +330,20 @@ td {
 }
 
 .eight_p {
-  @apply alata font-[400] 2xl:text-[20px] 2xl:leading-[30px] 2xl:w-[520px] xl:text-[14px] xl:leading-[25px] xl:w-[350px] lg:text-[12px] lg:leading-[20px] lg:w-[386px] text-[12px] leading-[20px];
+  @apply alata font-[400] 2xl:text-[20px] 2xl:leading-[30px] 2xl:w-[520px] xl:text-[14px] xl:leading-[25px] xl:w-[350px] lg:text-[12px] lg:leading-[20px] lg:w-[386px] text-[14px] leading-[24px];
 }
 
 .eight_btn {
-  @apply alata font-[400] bg-[#DB5353] hover:bg-[#7e2727] text-white mx-auto lg:mx-0 rounded-[5px] 2xl:w-[250px] 2xl:h-[60px] 2xl:text-[20px] 2xl:leading-[27.6px] 2xl:my-[50px] xl:w-[160px] xl:h-[35px] xl:text-[14px] xl:leading-[25px] xl:my-[30px] lg:w-[120px] lg:h-[30px] lg:text-[14px] lg:leading-[25px] lg:my-[20px] w-[180px] h-[30px] text-[14px] leading-[25px] my-5;
+  @apply alata font-[400] bg-[#DB5353] hover:bg-[#7e2727] text-white mx-auto lg:mx-0 rounded-[5px] 2xl:w-[250px] 2xl:h-[60px] 2xl:text-[20px] 2xl:leading-[27.6px] 2xl:my-[50px] xl:w-[160px] xl:h-[35px] xl:text-[14px] xl:leading-[25px] xl:my-[30px] lg:w-[120px] lg:h-[30px] lg:text-[14px] lg:leading-[25px] lg:my-[20px] w-[100%] h-[37px] text-[14px] leading-[25px] mt-5 px-5;
 }
 
 /* =================Nine================= */
 .nine_start {
-  @apply lg:w-[60.64px] mx-auto w-[60px] mt-[12px] mb-[8px];
+  @apply lg:w-[60.64px] mx-auto w-[20px] mt-[12px] mb-[8px];
 }
 
 .nine_head {
-  @apply text-center alata font-[400] 2xl:text-[45px] 2xl:leading-[55px] lg:text-[35px] lg:leading-[60px] sm:text-[30px] leading-[45px] text-[30px];
+  @apply text-center alata font-[400] 2xl:text-[45px] 2xl:leading-[55px] lg:text-[35px] lg:leading-[45px] sm:text-[30px] leading-[45px] text-[30px];
 }
 
 .nine_p {
@@ -355,7 +355,7 @@ td {
 }
 
 .testi-img {
-  @apply mx-auto 2xl:w-[154px] xl:w-[80px] w-[60px] 2xl:h-[154px] xl:h-[80px] h-[60px] object-cover rounded-full
+  @apply mx-auto 2xl:w-[154px] xl:w-[80px] w-[90px] 2xl:h-[154px] xl:h-[80px] h-[90px] object-cover rounded-full
 }
 
 .nine_p2 {
@@ -364,6 +364,9 @@ td {
 
 .nine_name {
   @apply alata font-[400] text-[#DB5353] lg:text-[18px] leading-[28px] text-center sm:text-[16px] text-[15px];
+}
+.mask{
+  @apply w-[20px]
 }
 
 /* =================footer================= */
@@ -604,7 +607,7 @@ td {
   }
 
   .mexploreD {
-    width: 100% !important;
+    width: 23% !important;
     height: auto !important;
   }
 
@@ -1020,7 +1023,7 @@ td {
 }
 
 .overTitle {
-  @apply flex items-center break-words font-['Alata'] font-normal 2xl:text-[24px] xl:text-[16px] text-[15px] 2xl:leading-[1.417] text-[#000000]
+  @apply flex items-center break-words font-['Alata'] font-normal 2xl:text-[24px] xl:text-[16px] text-[12px] 2xl:leading-[1.417] text-[#000000]
 }
 
 .custom_container {
