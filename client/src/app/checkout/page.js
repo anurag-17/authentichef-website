@@ -462,8 +462,8 @@ const Checkout = () => {
     const item = getCartItems.find((item) => item._id === itemId);
     updateCartItemQuantity(cartId, item.menuItem._id, item.quantity + 1);
     setRefreshKey((prevKey) => prevKey + 1);
+    calculateSubtotal(updatedCartItems);
   };
-
   const handleDecrement = (itemId) => {
     setGetCartItems((prevCartItems) =>
       prevCartItems.map((item) =>
@@ -493,11 +493,29 @@ const Checkout = () => {
     if (item.quantity > 1) {
       updateCartItemQuantity(cartId, item.menuItem._id, item.quantity - 1);
       setRefreshKey((prevKey) => prevKey + 1);
+      calculateSubtotal(updatedCartItems);
     }
   };
 
+  const calculateSubtotal = (cartItems) => {
+    const newSubtotal = cartItems.reduce((sum, item) => sum + item.totalPrice, 0);
+    setSubtotalPrice(newSubtotal);
+  };
+
+  useEffect(() => {
+    const newSubtotal = updatedCartItems.reduce(
+      (sum, item) => sum + item.totalPrice,
+      0
+    );
+    setSubtotalPrice(newSubtotal);
+  }, [updatedCartItems]);
+
   useEffect(() => {
     console.log("Updated Cart Items:", updatedCartItems);
+  }, [updatedCartItems]);
+
+  useEffect(() => {
+    calculateSubtotal(updatedCartItems);
   }, [updatedCartItems]);
 
   const [phone, setPhone] = useState("");
@@ -537,6 +555,7 @@ const Checkout = () => {
         const data = response.data;
         setDiscountInfo(data);
         toast.success(data.message);
+        calculateSubtotal(updatedCartItems); // Call calculateSubtotal after applying discount
       } else {
         toast.error("Failed to apply discount.");
       }
@@ -546,6 +565,7 @@ const Checkout = () => {
     }
   };
 
+  
   useEffect(() => {
     if (subtotalPrice >= shippingThreshold) {
       // Order meets the free delivery threshold
@@ -1139,7 +1159,7 @@ const Checkout = () => {
                           <DatePicker
                             selected={deliveryDate}
                             onChange={handleDateChange}
-                            minDate={minDate} 
+                            minDate={minDate}
                             maxDate={maxDate}
                             placeholderText="Enter"
                             className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h/[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p/[10px] p-[8px] 2xl:mt/[10px] xl:mt/[5px] mt-[3px]"
@@ -1156,7 +1176,7 @@ const Checkout = () => {
                         </form>
                       </div>
                       <div className="pop-chef flex items-end">
-                      Delivery days within 2-3 working days
+                        Delivery days within 2-3 working days
                       </div>
                     </div>
                     <div className="2xl:my-[30px] xl:my-[20px] my-[15px]">
