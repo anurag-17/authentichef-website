@@ -1168,20 +1168,7 @@ const LandingPage = () => {
                     onClick={closeModal}
                     className="cursor-pointer relative custom_heading_text font-semibold leading-6 text-gray-900 mt lg:mt-0  right-5 text-[30px]"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      className="absolute right-0 lg:w-8 lg:h-8 w-[20px] h-[20px]"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M6 18 18 6M6 6l12 12"
-                      />
-                    </svg>
+                 
                   </Dialog.Title>
                   <DishDetails
                     defaultADish={defaultADish}
