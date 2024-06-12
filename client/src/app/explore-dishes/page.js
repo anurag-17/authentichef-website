@@ -816,18 +816,17 @@ const ExploreDishes = () => {
       });
   };
 
-
   return (
     <>
       <ToastContainer className="mt-24" autoClose={1000} />
       {isLoading && <Loader />}
       <section>
         <Navbar />
-        <div class="2xl:pt-[100px] xl:pt-[90px] pt-[60px] pb-[30px]">
-          <div class="main_section custom_container mt-auto mnavbar xl:py-[40px] lg:py-[40px]">
+        <div class="2xl:pt-[90px] xl:pt-[90px] pt-[60px] ">
+          <div class="main_section custom_container mt-auto mnavbar 2xl:py-[80px] xl:py-[70px]  lg:py-10 py-10">
             <div class="flex justify-between flex-col lg:flex-row   ">
               <div class=" lg:mb-0 md:mb-4 lg  lg:text-[2.25rem]  md:w-[30%] xs:text-[1.875rem] sm:text-[2.25rem] md:text-[29px]">
-                <h1 className="nine_head lg:mb-4 alata font-[400] 2xl:text-[55px] lg:text-left  text-center whitespace-nowrap SelectCuisine">
+                <h1 className="nine_head lg:mb-4 alata font-[400] 2xl:text-[55px] lg:text-left text-center whitespace-nowrap SelectCuisine">
                   {/*
         <div class="2xl:pt-[130px] xl:pt-[90px] pt-[60px] ">
           <div class="main_section 2xl:w-[1600px] xl:w-[1200px] md:w-[811px]  m-auto mt-auto mnavbar 2xl:py-[40px] xl:py-[30px] lg:py-[20px]">
@@ -837,7 +836,7 @@ const ExploreDishes = () => {
                   Select Cuisine
                 </h1>
               </div>
-              <div className="mnavbar sm:pt-[12px] sm:pb-[4px] 2xl:pt-[21px] md:pt-[9px] md:w-[700px]  2xl:py-[60px] xl:py-[10px] lg:pt-[7px] lg:pb-[40px]  py-[10px] xs:py-[10px] ">
+              <div className="mnavbar sm:pt-[12px] sm:pb-[4px] 2xl:pt-[21px] md:pt-[9px] md:w-[700px]  2xl:py-[20px] xl:py-[10px] lg:pt-[7px] lg:pb-[20px]  py-[10px] xs:py-[10px] ">
                 {/* <div className="mnavbar sm:pt-[12px] sm:pb-[4px] 2xl:pt-[21px] md:pt-[9px] md:w-[820px]   "> */}
                 {/* 2xl:py-[60px] xl:py-[10px] lg:pt-[7px] lg:pb-[40px]  py-[40px] xs:py-[10px] */}
 
@@ -910,7 +909,7 @@ const ExploreDishes = () => {
                   {/* =================Cuisines========================== */}
                   <button
                     onClick={defaultDish}
-                    className=" bt-1 alata font-[400] 2xl:text-[16px] 2xl:w-[153px] third_select flex justify-center items-center gap-3 md:text-[12px] sm:text-[12px] md:pl-2 sm:pl-2 flex"
+                    className=" w-auto px-2 bt-1 alata font-[400] 2xl:text-[16px] 2xl:w-[153px] third_select flex justify-center items-center gap-3 md:text-[12px] sm:text-[12px] md:pl-2 sm:pl-2 "
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -1281,183 +1280,157 @@ const ExploreDishes = () => {
 
         {/* All Dishes */}
 
-        <div className="sm:col-2">
-          {/* <div className=" ">
-            2xl:py-[120px] xl:py-[20px] py-[50px]
-            <div className="mnavbar 2xl:w-[1600px] xl:w-[1200px] lg:w-[850px]  md:w-[700px] w-[90%] mx-auto">
-              {Array.isArray(getAllDish) && getAllDish.length > 0 ? (
-                <div className="grid 2xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-[25px] lg:gap-[20px] xl:gap-[45px] 2xl:gap-[20px] md:my-5 lg:my-0 md:px-5 lg:px-0 exploreDishesmain">
-                  {getAllDish.map((item) => (
-                    <div
-                      key={item.id}
-                      className=" col-span-1 mx-auto sm:mx-0 relative rounded-[9.8px] mexploreD p-2" */}
-          <div className=" bg-[#F9F2F2]">
-            <div className="mnavbar custom_container 2xl:py-[50px] xl:py-[40px] md:py-[30px] py-[20px]">
-              {/* <div className="flex justify-center">
-                <div class="md:px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 mt-3 xs:text-center">
-                  <h4 class="nine_head text-center text-3xl sm:text-4xl md:text-55px md:pb-[10px]">
-                    Explore Dishes
-                  </h4>
-                  <p class="seven_p mt-4 text-base sm:text-lg md:text-xl lg:text-lg xl:text-xl 2xl:text-lg">
-                    Browse the world of authentic homemade dishes by our
-                    independent chef community. <br /> More chefs and dishes
-                    added every week.
-                  </p>
-                </div>
-              </div> */}
-              {/*
-              <div className=" flex flex-wrap gap-[20px] xl:gap-[25px] 2xl:gap-[70px] w-full px-10 md:px-0 mx-auto "> */}
-              {Array.isArray(getAllDish) && getAllDish.length > 0 ? (
-                <div className="grid grid-cols-2 lg:grid-cols-4 sm:grid-cols-3 xss:grid-cols-1 xss:gap-x-[25px] lg:gap-x-[20px] xl:gap-x-[40px] 2xl:gap-x-[30px] md:my-5 lg:my-0 md:px-5 px-0 gap-y-[15px] exploreDishesmain">
-                  {getAllDish.map((item) => (
-                    <div
-                      key={item.id}
-                      className="md:my-2 col-span-1 mx-auto sm:mx-0 relative rounded-[9.8px] mexploreD p-2"
-                    >
-                      <button className="" onClick={() => openModal(item._id)}>
+        <div className="flex justify-center 2xl:py-[100px] xl:py-[70px]  lg:py-10 py-10 bg-[#F9F2F2]">
+          <div className="custom_container mnavbar">
+            <div className="flex">
+              <h2 className="four_head nine_head">Popular Dishes</h2>
+            </div>
+            <div className="flex flex-col sm:flex-row flex-wrap md:gap-[25px] lg:gap-[21px] xl:gap-[32px] 2xl:gap-[35px] md:my-5 lg:my-0  sm:px-0  exploreDishesmain ">
+              {Array.isArray(getAllDish) &&
+                getAllDish.map((item, index) => (
+                  <div
+                    key={item.id}
+                    className=" mt-5 2xl:w-[371px] 2xl:h-[560px] lg:w-[23%] sm:w-[45%] md:w-[48%] w-full relative rounded-[9.8px] mexploreD  "
+                  >
+                    {console.log("ssss", item?.chef_id?.images)}
+                    <div className="w-full flex justify-center">
+                      <button
+                        className="w-full"
+                        onClick={() => openModal(item._id)}
+                      >
                         <img
-                          src={item.ProfileImage}
-                          alt={item.title}
-                          width={345}
-                          height={278}
-                          className="2xl:w-[365.5px] 2xl:h-[278px] xl:w-[280px] xl:h-[200px] lg:w-[220px] lg:h-[160px] object-cover xss:h-[200px] w-full h-[183px] rounded-[10px] mexplorimg"
+                          alt="spaghetti"
+                          src={item?.ProfileImage[0]}
+                          className="2xl:w-[365.5px] 2xl:h-[278px] xl:w-[280px] xl:h-[200px] lg:w-[220px] lg:h-[160px] w-[100%] h-[283px] object-cover rounded-[10px] mexplorimg"
                         />
                       </button>
-                      <div className="">
-                        <button
-                          className=""
-                          onClick={() => openModal(item._id)}
-                        >
-                          <h4 className="alata capitalize font-[400] text-[#DB5353] 2xl:my-4 xl:my-3 my-2 2xl:text-[20px] 2xl:leading-[20px] xl:text-[14px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[16px]">
-                            {item.name}
-                          </h4>
-                        </button>
-                        <Link
-                          href={`/pages/chef-details/${item?.chef_id?._id}`}
-                        >
-                          <div className="flex items-center 2xl:gap-3 xl:gap-2 lg:gap-2 gap-2 xl:my-3 lg:my-2 my-2">
-                            {item?.chef_id?.images ? (
-                              <img
-                                alt="image"
-                                src={item.chef_id.images}
-                                className="four_img2 border-[2px] border-[#DB5353] object-cover"
-                              />
-                            ) : (
-                              <Image src={cheficon} className="four_img2" />
-                            )}
-                            <div>
-                              <h4 className="fourth_name capitalize ">
-                                {item?.chef_id?.name}
-                              </h4>
-                              <p className="fourth_p text-[#6765EB]">
-                              {item?.chef_id?.nationality}
+                    </div>
+                    <div className="">
+                      <button className="" onClick={() => openModal(item._id)}>
+                        <h4 className="alata cursor-pointer capitalize font-[400] text-[#DB5353] 2xl:my-4 xl:my-3 my-2 2xl:text-[20px] 2xl:leading-[20px]  xl:text-[14px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[18px]">
+                          {item.name}
+                        </h4>
+                      </button>
 
-                              </p>
-                            </div>
-                          </div>
-                        </Link>
-                        <div className="flex flex-wrap gap-[5px] md:gap-5 2xl:my-[20px] xl:my-[15px] my-[5px] md:my-[12px]">
-                          {item?.Dietary_id.map((dietary) => (
-                            <div className="four_btn" key={dietary._id}>
-                              <img
-                                src={dietary.ProfileImage}
-                                className="2xl:h-[18px] 2xl:w-[18px] w-[16px] h-[16px]"
-                                alt={dietary.title}
-                              />
-                              <p className="fourth_day capitalize">
-                                {dietary.title}
-                              </p>
-                            </div>
-                          ))}
-                          {item?.Nutrition_id?.Nutritional ? (
-                            <div className="four_btn">
-                              <p className="fourth_day capitalize">
-                                {item?.Nutrition_id?.Nutritional}
-                              </p>
-                            </div>
-                          ) : (
-                            ""
-                          )}
-                        </div>
-                        <div className="flex items-center gap-5 2xl:my-[20px] xl:my-[15px] my-[5px] md:my-[12px]">
-                          <h4 className="fourth_p">Spice level</h4>
-                          <button className="four_btnn border">
+                      {/* ===============Chef ============= */}
+                      <Link href={`/pages/chef-details/${item?.chef_id?._id}`}>
+                        <div className="flex items-center 2xl:gap-3 xl:gap-2 lg:gap-2  gap-2 xl:my-3 lg:my-2 my-2">
+                          {item?.chef_id?.images ? (
                             <img
                               alt="image"
-                              src={item.spice_level_id.ProfileImage}
-                              className="w-[100%] h-auto"
+                              src={item.chef_id.images}
+                              className="four_img2 border-[2px] border-[#DB5353]"
                             />
-                            <p className="fourth_day capitalize">
-                              {item.spice_level_id.title}
-                            </p>
-                          </button>
-                        </div>
-                        <div className="w-full bottom-0 flex justify-between items-center 2xl:my-[22px] xl:my-[18px] my-[5px] md:my-[12px]">
-                          <p className="alata font-[400] text-[#000] 2xl:text-[20px] leading-[24px] text-[14px]">
-                            Serves {item?.portion_Size} | ({item?.weight}g) |
-                            <span className="text-[#DB5353]">
-                              {item?.price && `£${item.price.toFixed(2)}`}
-                            </span>
-                          </p>
-                          {token ? (
-                            <button
-                              onClick={() => {
-                                setItemId(item?._id);
-                                handleAddCart(item?._id);
-                              }}
-                            >
-                              <div className="drawer-content">
-                                <label
-                                  htmlFor="my-drawer-4"
-                                  className="drawer-button"
-                                >
-                                  <Image
-                                    src={addCart}
-                                    alt={item.title}
-                                    className="cursor-pointer 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
-                                  />
-                                </label>
-                              </div>
-                            </button>
                           ) : (
-                            <button
-                              onClick={() => {
-                                defaultADish(item?._id);
-                              }}
-                            >
-                              <div className="drawer-content">
-                                <label
-                                  htmlFor="my-drawer-4"
-                                  className="drawer-button"
-                                >
-                                  <Image
-                                    src={addCart}
-                                    alt={item.title}
-                                    className="cursor-pointer 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
-                                  />
-                                </label>
-                              </div>
-                            </button>
+                            <Image src={cheficon} className="four_img2" />
                           )}
+
+                          <div>
+                            <h4 className="fourth_name capitalize ">
+                              {item?.chef_id?.name}
+                            </h4>
+                            <p className="capitalize text-[#6765EB] alata font-[400] 2xl:text-[16px] 2xl:leading-[20px] xl:text-[14px] xl:leading-[18px] lg:text-[12px] lg:leading-[18px] md:text-[14px] md:leading-[22px] text-[12px] leading-[18px]">
+                              {item?.chef_id?.nationality}
+                            </p>
+                          </div>
                         </div>
+                      </Link>
+
+                      <div className="flex gap-5 2xl:my-[20px] xl:my-[15px] my-[12px]">
+                        <button className="four_btn">
+                          <img
+                            alt="image"
+                            src={item?.Dietary_id[0]?.ProfileImage}
+                            className="2xl:w-[13px] 2xl:h-[13px] lg:w-[10px] lg:h-[10px] w-[10px] h-auto"
+                          />
+                          <p className="fourth_title capitalize">
+                            {item?.Dietary_id[0]?.title}
+                          </p>
+                        </button>
+                        {item?.Nutrition_id?.Nutritional ? (
+                          <div className="four_btn">
+                            <p className="fourth_title capitalize">
+                              {item?.Nutrition_id?.Nutritional}
+                            </p>
+                          </div>
+                        ) : (
+                          ""
+                        )}
+                      </div>
+                      <div className="flex items-center gap-5  2xl:my-[20px] xl:my-[15px] my-[12px]">
+                        <h4 className="fourth_title">Spice level</h4>
+                        <button className="four_btnn border">
+                          <img
+                            alt="image"
+                            src={item.spice_level_id.ProfileImage}
+                            className=" w-[100%] h-auto"
+                          />
+                          <p className="fourth_title capitalize">
+                            {item.spice_level_id.title}
+                          </p>
+                        </button>
+                      </div>
+
+                      <div className=" w-full bottom-0 flex justify-between items-center  2xl:my-[22px] xl:my-[18px] my-[15px]">
+                        <p className="alata font-[400] text-[#000] 2xl:text-[20px] 2xl:leading-[24px] xl:text-[14px] xl:leading-[18px] lg:text-[12px] lg:leading-[16px] text-[16px] leading-[16px] ">
+                          Serves {item?.portion_Size} |({item?.weight}g) |
+                          <span className="text-[#DB5353]">
+                            {item?.price && `£${item.price.toFixed(2)}`}
+                          </span>
+                        </p>
+                        {token ? (
+                          <button
+                            className="cursor-pointer"
+                            onClick={() => {
+                              setItemId(item?._id);
+                              handleAddCart(item?._id);
+                            }}
+                          >
+                            <div className="drawer-content">
+                              <label
+                                htmlFor="my-drawer-4"
+                                className="drawer-button"
+                              >
+                                <Image
+                                  src={addCart}
+                                  alt={item.title}
+                                  className="cursor-pointer flex justify-center 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
+                                />
+                              </label>
+                            </div>
+                          </button>
+                        ) : (
+                          <button
+                            className="cursor-pointer"
+                            onClick={() => {
+                              defaultADish(item?._id);
+                            }}
+                          >
+                            <div className="drawer-content">
+                              <label
+                                htmlFor="my-drawer-4"
+                                className="drawer-button"
+                              >
+                                <Image
+                                  src={addCart}
+                                  alt={item.title}
+                                  className=" cursor-pointer flex justify-center 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
+                                />
+                              </label>
+                            </div>
+                          </button>
+                        )}
                       </div>
                     </div>
-                  ))}
-                  <div className="flex justify-center w-full"></div>
-                </div>
-              ) : (
-                <div className="text-center my-5">
-                  <h2 className="text-[40px] font-bold">No dishes found</h2>
-                  <div className="flex justify-center"></div>
-                </div>
-              )}
+                  </div>
+                ))}
             </div>
           </div>
         </div>
 
-        <div className="flex justify-center 2xl:py-[50px]  md:py-[40px] py-[30px]">
-          <div className="mnavbar custom_container">
-            <h4 className="nine_head">Testimonials</h4>
+        <div className="flex justify-center 2xl:py-[100px] xl:py-[70px]  lg:py-10 py-10">
+          <div className="custom_container mnavbar">
+            <h2 className="nine_head">Testimonials</h2>
             <p className="nine_p text-center">
               All our chefs have fans raving about their food
             </p>
@@ -1780,8 +1753,6 @@ const ExploreDishes = () => {
         </div>
       </div>
 
-    
-
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={() => {}}>
           <Transition.Child
@@ -1847,7 +1818,9 @@ const ExploreDishes = () => {
 };
 
 export default ExploreDishes;
-  {/* ===============PopUp=============== */}
+{
+  /* ===============PopUp=============== */
+}
 
 //   <dialog
 //   id="my_modal_10"
