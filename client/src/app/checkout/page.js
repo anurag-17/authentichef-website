@@ -13,6 +13,8 @@ import order from "./assets/order.svg";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import config from "@/config";
+import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from "react-datepicker";
 
 const Checkout = () => {
   const { token } = useSelector((state) => state?.auth);
@@ -102,6 +104,8 @@ const Checkout = () => {
   useEffect(() => {
     if (subtotalPrice < 30) {
       setIsModalOpen(true);
+    } else {
+      setIsModalOpen(false);
     }
   }, [subtotalPrice]);
 
@@ -332,13 +336,19 @@ const Checkout = () => {
       });
   };
 
-  const handleDateChange = (e) => {
-    const inputDate = new Date(e.target.value);
-    const dayOfWeek = inputDate.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+  const handleDateChange = (date) => {
+    if (!date) {
+      setDeliveryDate(null);
+      return;
+    }
+
+    const dayOfWeek = date.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+
     if (dayOfWeek !== 0 && dayOfWeek !== 1 && dayOfWeek !== 6) {
       // Valid date, update delivery date
       const today = new Date();
-      const selectedDate = new Date(e.target.value);
+      const selectedDate = new Date(date);
+
       // Check if the selected date is today
       if (
         selectedDate.getDate() === today.getDate() &&
@@ -347,23 +357,21 @@ const Checkout = () => {
       ) {
         // If the selected date is today, set the delivery date to 48 hours (2 days) later
         const deliveryDate = new Date(today.getTime() + 48 * 60 * 60 * 1000); // 48 hours in milliseconds
-        setDeliveryDate(deliveryDate.toISOString().split("T")[0]); // Set only the date part
+        setDeliveryDate(deliveryDate); // Set the delivery date
       } else {
         // If the selected date is not today, use the selected date as the delivery date
-        setDeliveryDate(e.target.value);
+        setDeliveryDate(date);
       }
-      // Generate delivery message
-      const orderDay = inputDate.getDay();
-      const currentHour = new Date().getHours();
-      // const deliveryDay = getDeliveryDay(orderDay, currentHour);
     } else {
       // Invalid date (weekend or Monday), reset the input
-      e.target.value = "";
-      setDeliveryDate("");
-      setDeliveryMessage("");
+      setDeliveryDate(null);
       toast.info("Delivery is not available on Saturday, Sunday, and Monday");
     }
   };
+
+  const minDate = new Date();
+  const maxDate = new Date();
+  maxDate.setFullYear(maxDate.getFullYear() + 1);
 
   const handlePromoCodeChange = (e) => {
     setPromoCode(e.target.value);
@@ -1128,15 +1136,19 @@ const Checkout = () => {
                             Delivery date
                             <span className="text-[#DB1414]">*</span>
                           </label>
-                          <input
-                            type="date"
-                            name="deliveryDate"
-                            placeholder="Enter"
-                            className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h/[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p/[10px] p-[8px] 2xl:mt/[10px] xl:mt/[5px] mt-[3px]"
-                            min={today}
-                            value={deliveryDate}
+                          <DatePicker
+                            selected={deliveryDate}
                             onChange={handleDateChange}
+                            minDate={minDate} 
+                            maxDate={maxDate}
+                            placeholderText="Enter"
+                            className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h/[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p/[10px] p-[8px] 2xl:mt/[10px] xl:mt/[5px] mt-[3px]"
+                            filterDate={(date) => {
+                              const day = date.getDay();
+                              return day !== 0 && day !== 1 && day !== 6; // Disable Saturday, Sunday, Monday
+                            }}
                             required
+                            dateFormat="dd/MM/yyyy"
                           />
                           {/* {deliveryMessage && (
             <div className="text-[#555555] mt-2">{deliveryMessage}</div>
@@ -1185,10 +1197,10 @@ const Checkout = () => {
                         />
                       </label>
                       <span className="seven_p2 text-[#555555]">
-                        I have read and agree to the website  
+                        I have read and agree to the website
                         <Link href={"/term-condition"} target="_blank">
                           <span className="text-[#FF0000] underline pl-2">
-                             terms and conditions*
+                            terms and conditions*
                           </span>
                         </Link>
                       </span>
@@ -1234,11 +1246,7 @@ const Checkout = () => {
                           {/* {subtotalPrice} */}
                         </h4>
                       </div>
-                      <div>
-                        {/* <button className=" alata font/[400] bg-[#DB5353] text-white mx-auto rounded/[5px] 2xl:w/[164px] 2xl:h/[56px] 2xl:text/[20px] 2xl:leading/[27.6px] xl:text/[12px] lg:text/[10px] xl:px-6 xl:py/[10px] lg:px-3 lg:py-1 px-3 py-1 ">
-          Checkout
-        </button> */}
-                      </div>
+                      <div></div>
                     </div>
                   </div>
                 </div>

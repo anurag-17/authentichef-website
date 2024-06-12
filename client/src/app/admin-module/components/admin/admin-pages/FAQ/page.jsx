@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import config from "@/config";
@@ -178,7 +178,7 @@ const FAQs = () => {
             <p>No FAQs available.</p>
           )}
         </div>
-      </div>
+      </div>    
 
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-50">
@@ -256,66 +256,70 @@ const FAQs = () => {
             className="fixed inset-0 bg-black opacity-50"
             onClick={closeEditModal}
           ></div>
-          <div className="bg-white rounded-lg p-8 shadow-lg z-10 w-full max-w-[1000px]">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-semibold">Edit FAQ</h2>
-              <button onClick={closeEditModal} className="text-gray-500">
-                &times;
-              </button>
+          <div className="bg-white rounded-lg shadow-lg z-10 w-full max-w-[1000px] max-h-[90vh] overflow-y-auto">
+            <div className="p-8">
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-xl font-semibold">Edit FAQ</h2>
+                <button onClick={closeEditModal} className="text-gray-500">
+                  &times;
+                </button>
+              </div>
+              <form onSubmit={handleFormSubmit}>
+                <div className="mb-4">
+                  <label className="block mb-2">Title</label>
+                  <input
+                    type="text"
+                    name="title"
+                    value={currentFaq.title}
+                    onChange={handleInputChange}
+                    className="w-full p-2 border border-gray-300 rounded"
+                    required
+                  />
+                </div>
+                <div
+                  className={`${
+                    currentFaq.Queries.length > 2
+                      ? "grid grid-cols-2 gap-4"
+                      : ""
+                  }`}
+                >
+                  {currentFaq.Queries.map((query, index) => (
+                    <div key={index} className="mb-4">
+                      <label className="block mb-2">Question</label>
+                      <input
+                        type="text"
+                        name="question"
+                        value={query.question}
+                        onChange={(e) => handleQueryChange(index, e)}
+                        className="w-full p-2 border border-gray-300 rounded"
+                        required
+                      />
+                      <label className="block mb-2 mt-2">Answer</label>
+                      <textarea
+                        name="answer"
+                        value={query.answer}
+                        onChange={(e) => handleQueryChange(index, e)}
+                        className="w-full p-2 border border-gray-300 rounded"
+                        required
+                      />
+                    </div>
+                  ))}
+                </div>
+                <button
+                  type="button"
+                  className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-4 rounded mb-4"
+                  onClick={handleAddQuery}
+                >
+                  Add Another Question
+                </button>
+                <button
+                  type="submit"
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                >
+                  Save FAQ
+                </button>
+              </form>
             </div>
-            <form onSubmit={handleFormSubmit}>
-              <div className="mb-4">
-                <label className="block mb-2">Title</label>
-                <input
-                  type="text"
-                  name="title"
-                  value={currentFaq.title}
-                  onChange={handleInputChange}
-                  className="w-full p-2 border border-gray-300 rounded"
-                  required
-                />
-              </div>
-              <div
-                className={`${
-                  currentFaq.Queries.length > 2 ? "grid grid-cols-2 gap-4" : ""
-                }`}
-              >
-                {currentFaq.Queries.map((query, index) => (
-                  <div key={index} className="mb-4">
-                    <label className="block mb-2">Question</label>
-                    <input
-                      type="text"
-                      name="question"
-                      value={query.question}
-                      onChange={(e) => handleQueryChange(index, e)}
-                      className="w-full p-2 border border-gray-300 rounded"
-                      required
-                    />
-                    <label className="block mb-2 mt-2">Answer</label>
-                    <textarea
-                      name="answer"
-                      value={query.answer}
-                      onChange={(e) => handleQueryChange(index, e)}
-                      className="w-full p-2 border border-gray-300 rounded"
-                      required
-                    />
-                  </div>
-                ))}
-              </div>
-              <button
-                type="button"
-                className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-4 rounded mb-4"
-                onClick={handleAddQuery}
-              >
-                Add Another Question
-              </button>
-              <button
-                type="submit"
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              >
-                Save FAQ
-              </button>
-            </form>
           </div>
         </div>
       )}
