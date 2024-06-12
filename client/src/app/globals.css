@@ -101,7 +101,7 @@ body {
 }
 
 .login-inputad {
-  @apply px-4 py-2 2xl:h-[60px] xl:h-[40px] lg:h-[40px] border-[#E4E4E4] bg-[#F3F3F3] rounded-[5px] text-[#262628] 2xl:text-[14px] xl:text-[10px] lg:text-[10px] text-[10px] font-[400px] leading-normal focus-visible:outline-none placeholder:text-[14px];
+  @apply px-4 py-2 2xl:h-[60px] xl:h-[40px] lg:h-[40px] border-[#E4E4E4] bg-[#F3F3F3] rounded-[5px] text-[#262628] 2xl:text-[14px] xl:text-[10px] lg:text-[10px] text-[12px] font-[400px] leading-normal focus-visible:outline-none  placeholder:text-[12px] md:placeholder:text-[14px];
 }
 
 .login-input-label {
@@ -429,7 +429,7 @@ td {
 }
 
 .social_div {
-  @apply flex items-center justify-center 2xl:h-[60px] xl:h-[35px] lg:h-[30px] border rounded-[5px] 2xl:w-[368px] xl:w-[230px] w-[190px];
+  @apply flex items-center justify-center 2xl:h-[60px] xl:h-[35px] lg:h-[30px] border rounded-[5px] 2xl:w-[368px] xl:w-[230px] ;
 }
 
 .social_btn {
