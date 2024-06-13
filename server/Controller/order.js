@@ -581,7 +581,7 @@ exports.PlaceOrder = async (req, res, next) => {
                 cancel_url: 'http://www.authentichef.com',
                 metadata: {
                     userId: req.user._id.toString(),
-                    deliveryDate: deliveryDate.toString(),
+                    deliveryDate: deliveryDate,
                     deliveryInfo: JSON.stringify(deliveryInfo),
                     BillingInfo: JSON.stringify(BillingInfo),
                     Type_of_Address: Type_of_Address || 'Shipping Address',
