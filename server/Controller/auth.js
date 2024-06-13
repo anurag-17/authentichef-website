@@ -374,7 +374,7 @@ exports.forgotPassword = async (req, res, next) => {
 
     await user.save();
 
-    const resetUrl = `http://13.43.174.21:4000/auth/reset-password/${resetToken}`;
+    const resetUrl = `http://13.43.174.21:4000/reset-password/${resetToken}`;
 
     const message = `
     <!DOCTYPE html>

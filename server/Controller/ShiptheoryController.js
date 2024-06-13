@@ -26,6 +26,9 @@ function formatDateToYYYYMMDD(date) {
     return date.toISOString().split('T')[0];
 }
 
+// Make a function to generate a Random Number
+
+
 // Example usage with a specific delivery date
 const deliveryDate = new Date(); // Use the actual delivery date here
 const formattedShipDate = formatDateToYYYYMMDD(deliveryDate);
