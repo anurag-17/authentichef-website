@@ -1,7 +1,9 @@
 "use client";
-import config from "@/config";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import axios from "axios";
+import config from "@/config";
+
 
 const ResetPassword = ({ params }) => {
   const [password, setPassword] = useState("");
@@ -10,7 +12,7 @@ const ResetPassword = ({ params }) => {
   const router = useRouter();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent default form submission behavior
     setLoading(true);
     try {
       const response = await axios.put(
@@ -32,10 +34,10 @@ const ResetPassword = ({ params }) => {
       }
     } catch (error) {
       console.error("Error during login:", error);
-
       setLoading(false);
     }
   };
+
   return (
     <>
       <section>
@@ -60,11 +62,12 @@ const ResetPassword = ({ params }) => {
               </div>
 
               <button
-                type="submit"
-                disabled={isLoading}
+                type="button"
+                // disabled={isLoading}
                 className="w-full bg-[#F38181] text-[14px] xl:text-[16px] 2xl:text-[18px] font-medium text-white p-2 rounded-lg hover:border hover:border-gray-300 h-[35px] lg:h-[40px] xl:h-[50px] 2xl:h-[60px] login-btn my-5"
               >
-                {isLoading ? "Loading.." : "Submit"}
+                {/* {isLoading ? "Loading.." : "Submit"} */}
+                Submit
               </button>
             </form>
           </div>
