@@ -310,10 +310,7 @@ const Navbar = () => {
   const cartData = cart[0]?.data?._id;
   const quantity = cart[0]?.quantity;
 
- 
-
   const lengths = 0;
-
 
   // const postCartToApi = async () => {
   //   try {
@@ -816,7 +813,7 @@ const Navbar = () => {
                       )}
                     </li>
                     <li className="2xl:mt-[5px] xl:mt-[2px] lg:mt-[0px] sm:mt-[8px] mt-[5px] pl-0">
-                      <Link  className="pl-0" href="about-us">
+                      <Link className="pl-0" href="about-us">
                         <Image
                           src={aboutauthentichef}
                           className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] w-[16px]"
@@ -825,7 +822,7 @@ const Navbar = () => {
                       </Link>
                     </li>
                     <li className="2xl:mt-[5px] xl:mt-[2px] lg:mt-[0px] sm:mt-[8px] mt-[5px] ">
-                      <Link  className="pl-0" href="/explore-dishes">
+                      <Link className="pl-0" href="/explore-dishes">
                         <Image
                           src={exploredish}
                           className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] w-[16px]"
@@ -834,7 +831,7 @@ const Navbar = () => {
                       </Link>
                     </li>
                     <li className="2xl:mt-[5px] xl:mt-[2px] lg:mt-[0px] sm:mt-[8px] mt-[5px] ">
-                      <Link  className="pl-0" href="/become-chef">
+                      <Link className="pl-0" href="/become-chef">
                         <Image
                           src={beacomechef}
                           className="2xl:w-[20px] 2xl:h-[20px] xl:w-[16px] w-[16px]"
@@ -903,7 +900,7 @@ const Navbar = () => {
             </div>
 
             <div className="w-1/3 flex justify-center ">
-              <a href="http://www.authentichef.com/user">
+              <a href="/user">
                 <Image alt="logo" src={logo} className="nav_logo" />
               </a>
             </div>
@@ -966,7 +963,7 @@ const Navbar = () => {
             className="drawer-overlay"
             onClick={handleDrawerClose}
           ></label>
-          <ul className="min-h-full text-base-content max-w-[310px] sm:max-w-[350px] md:w-[400px] md:max-w-[400px] 2xl:w-[450px] 2xl:max-w-[450px] bg-white">
+          <ul className="min-h-full text-base-content max-w-[310px] sm:max-w-[350px] md:w-[400px] md:max-w-[400px] 2xl:w-[470px] 2xl:max-w-[570px] bg-white">
             <div className="flex flex-col justify-center items-center p-[15px] md:p-[20px] h-[100vh]">
               {!updatedCart ||
               (Array.isArray(getCartItems) && getCartItems.length === 0) ? (
@@ -1020,7 +1017,7 @@ const Navbar = () => {
                             key={index}
                             className="my-5 flex w-full border rounded-md"
                           >
-                            <div className="flex gap-2 md:gap-4 w-full">
+                            <div className="flex gap-2 md:gap-2 w-full">
                               <div className="w-[45%] md:w-auto">
                                 <img
                                   src={data.ProfileImage}
@@ -1064,7 +1061,7 @@ const Navbar = () => {
                               </div>
                             </div>
                             <div className="flex flex-col justify-between">
-                              <p className="alata font-[600] 2xl:my-0 text-[13px] sm:text-[14px] xl:leading-[28px] text-right">
+                              <p className="alata font-[600] 2xl:my-0 text-[13px] sm:text-[14px] xl:leading-[28px] ">
                                 £{itemSubtotal.toFixed(2)}
                               </p>
                               <button
@@ -1085,7 +1082,7 @@ const Navbar = () => {
                           return (
                             <div
                               key={index}
-                              className="mt-3 md:mt-0 md:my-5 flex w-full gap-1 md:gap-6"
+                              className="mt-3 md:mt-0 md:my-5 flex w-full gap-1 md:gap-5"
                             >
                               <div className="flex gap-2 md:gap-4 w-full">
                                 <div className="w-[45%] md:w-auto">
@@ -1132,7 +1129,7 @@ const Navbar = () => {
                               </div>
 
                               <div className="flex flex-col justify-between">
-                                <p className="alata font-[600] 2xl:my-0 text-[13px] sm:text-[14px] xl:leading-[28px] text-right">
+                                <p className="alata font-[600] 2xl:my-0 text-[13px] sm:text-[14px] xl:leading-[28px] ">
                                   £{itemSubtotal.toFixed(2)}
                                 </p>
                                 <button
@@ -1377,9 +1374,9 @@ const Navbar = () => {
                     pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     title="enter valid email ex. abc@gmail.com"
                   />
-                  <label className="checkoutlable text-[#929292] cursor-pointer">
+                  {/* <label className="checkoutlable text-[#929292] cursor-pointer">
                     Forgot Email?
-                  </label>
+                  </label> */}
                 </div>
                 <div className="2xl:mt-[35px] mt-[20px]">
                   <input
@@ -1391,9 +1388,11 @@ const Navbar = () => {
                     pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     title="enter valid email ex. abc@gmail.com"
                   />
-                  <label className="checkoutlable text-[#929292] cursor-pointer">
-                    Forgot Password?
-                  </label>
+                  <Link href="/forgot-password">
+                    <label className="checkoutlable my-1 cursor-pointer">
+                      Forgot Password?
+                    </label>
+                  </Link>
                 </div>
                 <div className="flex">
                   <button

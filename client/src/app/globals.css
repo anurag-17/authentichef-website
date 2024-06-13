@@ -470,7 +470,7 @@ td {
 }
 
 .checkoutlable {
-  @apply alata font-[400] 2xl:text-[14px] 2xl:leading-[26px] xl:text-[10px] xl:leading-[20px] text-[12px] leading-[18px]
+  @apply alata font-[400] 2xl:text-[15px] 2xl:leading-[26px] xl:text-[12px] xl:leading-[20px] text-[12px] leading-[18px]
 }
 
 .profile_input {
@@ -814,7 +814,7 @@ td {
 }
 
 .aboutPara {
-  @apply alata font-[400] 2xl:text-[25px] 2xl:leading-[34px] 2xl:w-auto lg:text-[18px] lg:leading-[28px] sm:text-[16px] text-[16px] leading-[normal] 2xl:mt-[50px] text-justify sm:text-center
+  @apply alata font-[400] 2xl:text-[25px] 2xl:leading-[34px] 2xl:w-auto lg:text-[18px] lg:leading-[28px] sm:text-[16px] text-[16px] leading-[normal] 2xl:mt-[50px] text-justify 
 }
 
 .globalhead {

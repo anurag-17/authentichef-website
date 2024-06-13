@@ -322,6 +322,7 @@ const Checkout = () => {
         setSubtotalPrice(
           cartItems.reduce((sum, item) => sum + item.totalPrice, 0)
         );
+        refreshData();
         setShippingCost(userCart.Shipping_cost ?? 0); // Set the shipping cost
         setCartId(userCart._id); // Set the cart ID
       })
@@ -395,7 +396,7 @@ const Checkout = () => {
 
   useEffect(() => {
     defaultCartItems();
-  }, [isRefresh]);
+  }, [!isRefresh]);
 
   useEffect(() => {
     if (getCartItems) {
@@ -651,7 +652,7 @@ const Checkout = () => {
                     />
                   </svg>
                   <p className="alata font-[400] text-[#828282] 2xl:text-[16px] 2xl:leading-[20px] xl:text-[12px] xl:leading-[18px] text-[10px] leading-[16px]">
-                    Back to Chef’s Menu
+                    Back to Explore Dishes
                   </p>
                 </button>
               </Link>

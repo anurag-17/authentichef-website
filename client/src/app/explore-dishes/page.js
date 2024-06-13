@@ -1378,9 +1378,9 @@ const ExploreDishes = () => {
 
                       <div className=" w-full bottom-0 flex justify-between items-center  2xl:my-[22px] xl:my-[18px] my-[15px]">
                         <p className="alata font-[400] text-[#000] 2xl:text-[20px] 2xl:leading-[24px] xl:text-[14px] xl:leading-[18px] lg:text-[12px] lg:leading-[16px] text-[16px] leading-[16px] ">
-                          Serves {item?.portion_Size} |({item?.weight}g) |
+                          Serves {item?.portion_Size} | ({item?.weight}g) | 
                           <span className="text-[#DB5353]">
-                            {item?.price && `£${item.price.toFixed(2)}`}
+                            {item?.price && ` £${item.price.toFixed(2)}`}
                           </span>
                         </p>
                         {token ? (
@@ -1455,6 +1455,7 @@ const ExploreDishes = () => {
                           className=" testi-img"
                         />
                       </div>
+                      <p className="nine_name my-1 lg:my-3">{item?.Name}</p>
                       <div className="rating flex justify-center nine_start">
                         <label for="star1">
                           <input
@@ -1504,7 +1505,7 @@ const ExploreDishes = () => {
                         dangerouslySetInnerHTML={{ __html: item?.Description }}
                       />
 
-                      <p className="nine_name">{item?.Name}</p>
+                    
                     </div>
                   </div>
                 ))}
