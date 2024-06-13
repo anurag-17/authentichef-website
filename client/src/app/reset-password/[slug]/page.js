@@ -14,7 +14,7 @@ const ResetPassword = ({ params }) => {
     setLoading(true);
     try {
       const response = await axios.put(
-        "/api/auth/resetpassword",
+        `${config.baseURL}/api/auth/resetpassword`,
         { password: password },
         {
           headers: {
@@ -60,7 +60,6 @@ const ResetPassword = ({ params }) => {
                 />
               </div>
 
-          
               <button
                 type="submit"
                 disabled={isLoading}
