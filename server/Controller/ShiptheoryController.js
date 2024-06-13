@@ -8,17 +8,13 @@ exports.createShipment = async (order, person) => {
     // Extract delivery info
     const deliveryInfo = order.deliveryInfo[0]; // Assuming there's only one deliveryInfo object in the array
 
-    // Function to generate a random SKU ID
-    function generateRandomSKU() {
-        return Math.floor(100000000 + Math.random() * 900000000).toString(); // Generates a 9-digit number
-    }
 
     // Fetch menu items asynchronously and build the products array
     const products = await Promise.all(order.items.map(async (item) => {
         const menuItem = await menuItems.findOne({ _id: item.menuItem._id });
         return {
             name: menuItem.name,
-            sku: generateRandomSKU(), // Use the random SKU generator
+            sku: menuItem.SKU_Number, // Use the random SKU generator
             qty: item.quantity,
             value: item.price,
             weight: menuItem.weight,

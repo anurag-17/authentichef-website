@@ -389,7 +389,6 @@ exports.PlaceOrder = async (req, res, next) => {
         console.log("Total amount before discount:", totalAmount)
 
 
-
         let discountApplied = 0;
         let DiscountPercentage = 0;
 

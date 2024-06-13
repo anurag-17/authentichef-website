@@ -48,7 +48,7 @@ exports.upload = upload;
 exports.createMenuItem = async (req, res) => {
   try {
 
-    const { name, description, price, weight, portion_Size, Ingredients, Heating_Instruction, List_of_Allergens, Cuisines_id, Dishtype_id, Dietary_id, spice_level_id, chef_id, popular_dish , popular_chef , Nutrition_id , nutritional_information} = req.body;
+    const { name, description, price, weight, portion_Size, Ingredients, Heating_Instruction, List_of_Allergens, Cuisines_id, Dishtype_id, Dietary_id, spice_level_id, chef_id, popular_dish , popular_chef , Nutrition_id , nutritional_information , SKU_Number} = req.body;
 
     // Access the uploaded files from req.files
     const profileImages = req.files['ProfileImage'];
@@ -77,6 +77,13 @@ exports.createMenuItem = async (req, res) => {
       imageUrls.push(s3UploadResponse.Location);
     }
 
+    // check if SKU_Number already exists
+
+    const existingMenuItem = await MenuItem.findOne({ SKU_Number });
+    if (existingMenuItem) {
+      return res.status(400).json({ error: 'SKU Number already exists' });
+    }
+
     // Create a new menu item with the image URLs
     const menuItem = new MenuItem({
       name,
@@ -96,7 +103,8 @@ exports.createMenuItem = async (req, res) => {
       popular_dish: popular_dish || 'No',
       popular_chef: popular_chef || 'No',
       nutritional_information,
-      ProfileImage: imageUrls
+      ProfileImage: imageUrls,
+      SKU_Number
     });
 
     // Generate a QR code for the menu item

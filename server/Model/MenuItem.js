@@ -91,6 +91,9 @@ const menuItemSchema = new mongoose.Schema(
       type: Array,
     },
 
+    SKU_Number:{
+      type:String,
+    }
   },
   {
     timestamps: true,
