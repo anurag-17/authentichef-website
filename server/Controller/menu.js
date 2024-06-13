@@ -193,6 +193,17 @@ exports.updateMenuItemById = async (req, res, next) => {
           return res.status(404).json({ error: 'Menu item not found' });
       }
 
+       // Check if SKU_Number already exists in the database
+    if (req.body.SKU_Number) {
+
+      const existingItem = await MenuItem.findOne({ SKU_Number: req.body.SKU_Number});
+      console.log(existingItem)
+      if (existingItem) {
+        return res.status(400).json({ error: 'SKU_Number already exists. Please use a different SKU_Number.' });
+      }
+    }
+
+
          // Ensure fields that should be arrays are treated as arrays
          const arrayFields = [ 'Dietary_id'];
          arrayFields.forEach(field => {
