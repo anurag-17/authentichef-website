@@ -606,7 +606,9 @@ exports.PlaceOrder = async (req, res, next) => {
                     totalAmountBeforeDiscount: totalAmountBeforeDiscount,
                     discountApplied: discountApplied,
                     DiscountPercentage: DiscountPercentage,
-                    OrderNumber:MakeNumber()
+                    OrderNumber:MakeNumber(),
+                    totalAmount: totalAmount,
+                    shippingCharge: shippingCost
 
                 }
             });
@@ -835,6 +837,8 @@ exports.BookOrder = async (req, res) => {
         // Retrieve the checkout session from Stripe
         const session = await stripe.checkout.sessions.retrieve(sessionId);
 
+        console.log("Session", session)
+
         // Ensure the session is valid and belongs to the authenticated user
         if (!session || session.metadata.userId !== req.user._id.toString()) {
             return res.status(403).json({ message: 'Unauthorized' });
@@ -852,6 +856,8 @@ exports.BookOrder = async (req, res) => {
         const discountApplied = parseFloat(session.metadata.discountApplied) || 0;
         const DiscountPercentage = parseFloat(session.metadata.DiscountPercentage) || 0;
         const OrderNumber = session.metadata.OrderNumber;
+        const totalAmount = parseFloat(session.metadata.totalAmount) ;
+        const shippingCharge = parseFloat(session.metadata.shippingCharge) || 0;
         // Get the cart items
         const cartItems = await Cart.findOne({ user: userId }).populate('items.menuItem');
 
@@ -878,7 +884,7 @@ exports.BookOrder = async (req, res) => {
             Promo_code,
             deliveryInfo,
             BillingInfo,
-            totalAmount: session.amount_total / 100,
+            totalAmount,
             discountApplied,
             totalAmountBeforeDiscount,
             DiscountPercentage,
@@ -886,7 +892,8 @@ exports.BookOrder = async (req, res) => {
             payment: null,
             TransactionId: session.payment_intent,
             payment_method_types: 'card',
-            OrderNumber
+            OrderNumber,
+            shippingCharge
         });
 
         // Check if transaction ID is null
