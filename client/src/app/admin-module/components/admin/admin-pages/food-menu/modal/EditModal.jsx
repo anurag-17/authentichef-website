@@ -30,6 +30,7 @@ const EditModal = ({
     chef_id: "",
     ProfileImage: "",
     nutritional_information: "",
+    popular_dish: false,
   });
 
   const [isLoading, setLoading] = useState(false);
@@ -51,14 +52,19 @@ const EditModal = ({
         Heating_Instruction: editData.Heating_Instruction || "",
         List_of_Allergens: editData.List_of_Allergens || "",
         Dishtype_id: editData.Dishtype_id ? editData.Dishtype_id._id : "",
-        Dietary_id: editData.Dietary_id ? editData.Dietary_id.map(d => d._id) : [],
-        Nutrition_id: editData.Nutrition_id ? editData.Nutrition_id.map(n => n._id) : [],
+        Dietary_id: editData.Dietary_id
+          ? editData.Dietary_id.map((d) => d._id)
+          : [],
+        Nutrition_id: editData.Nutrition_id
+          ? editData.Nutrition_id.map((n) => n._id)
+          : [],
         nutritional_information: editData.nutritional_information,
         spice_level_id: editData.spice_level_id
           ? editData.spice_level_id._id
           : "",
         chef_id: editData.chef_id ? editData.chef_id._id : "",
         ProfileImage: editData.ProfileImage || null,
+        popular_dish: editData.popular_dish === "Yes",
       });
     }
   }, [editData]);
@@ -145,28 +151,28 @@ const EditModal = ({
     const { name, value } = e.target;
     if (name === "Dietary_id" || name === "Nutrition_id") {
       if (value && !formData[name].includes(value)) {
-        setFormData(prevState => ({
+        setFormData((prevState) => ({
           ...prevState,
-          [name]: [...prevState[name], value]
+          [name]: [...prevState[name], value],
         }));
       }
     } else if (name === "ProfileImage") {
       const file = e.target.files[0];
-      setFormData(prevState => ({ ...prevState, ProfileImage: file }));
+      setFormData((prevState) => ({ ...prevState, ProfileImage: file }));
     } else {
-      setFormData(prevState => ({ ...prevState, [name]: value }));
+      setFormData((prevState) => ({ ...prevState, [name]: value }));
     }
   };
 
   const removeDietary = (index) => {
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
       ...prevState,
       Dietary_id: prevState.Dietary_id.filter((_, i) => i !== index),
     }));
   };
 
   const removeNutrition = (index) => {
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
       ...prevState,
       Nutrition_id: prevState.Nutrition_id.filter((_, i) => i !== index),
     }));
@@ -175,10 +181,10 @@ const EditModal = ({
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-  
+
     try {
       const formDataToSend = new FormData();
-  
+
       // Append other form data
       formDataToSend.append("name", formData.name);
       formDataToSend.append("price", formData.price);
@@ -186,28 +192,35 @@ const EditModal = ({
       formDataToSend.append("weight", formData.weight);
       formDataToSend.append("portion_Size", formData.portion_Size);
       formDataToSend.append("Ingredients", formData.Ingredients);
-      formDataToSend.append("Heating_Instruction", formData.Heating_Instruction);
+      formDataToSend.append(
+        "Heating_Instruction",
+        formData.Heating_Instruction
+      );
       formDataToSend.append("List_of_Allergens", formData.List_of_Allergens);
       formDataToSend.append("Dishtype_id", formData.Dishtype_id);
       formDataToSend.append("spice_level_id", formData.spice_level_id);
       formDataToSend.append("chef_id", formData.chef_id);
-      formDataToSend.append("nutritional_information", formData.nutritional_information);
-  
+      formDataToSend.append(
+        "nutritional_information",
+        formData.nutritional_information
+      );
+      formDataToSend.append("popular_dish", formData.popular_dish ? "Yes" : "No");
+
       // Append each Dietary_id
       formData.Dietary_id.forEach((id, index) => {
         formDataToSend.append(`Dietary_id[${index}]`, id);
       });
-  
+
       // Append each Nutrition_id
       formData.Nutrition_id.forEach((id, index) => {
         formDataToSend.append(`Nutrition_id[${index}]`, id);
       });
-  
+
       // Append ProfileImage if available
       if (formData.ProfileImage) {
         formDataToSend.append("ProfileImage", formData.ProfileImage);
       }
-  
+
       const response = await axios.put(
         `${config.baseURL}/api/menu/menuItems/${updateId}`,
         formDataToSend,
@@ -218,7 +231,7 @@ const EditModal = ({
           },
         }
       );
-  
+
       if (response.status === 200) {
         toast.success("Item updated successfully");
         refreshData();
@@ -235,7 +248,7 @@ const EditModal = ({
   };
 
   const handleNutritionalChange = (value) => {
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
       ...prevState,
       nutritional_information: value,
     }));
@@ -310,6 +323,11 @@ const EditModal = ({
       ...prevState,
       Heating_Instruction: value,
     }));
+  };
+
+  const handleCheckboxChange = (e) => {
+    const { name, checked } = e.target;
+    setFormData((prevState) => ({ ...prevState, [name]: checked }));
   };
 
   return (
@@ -579,6 +597,23 @@ const EditModal = ({
                 />
               </div>
 
+              <div className="mt-6">
+                <label
+                  htmlFor="popular_dish"
+                  className="block font-medium text-gray-700"
+                >
+                  Popular Dish:
+                </label>
+                <input
+                  type="checkbox"
+                  id="popular_dish"
+                  name="popular_dish"
+                  checked={formData.popular_dish}
+                  onChange={handleCheckboxChange}
+                  className="mt-1"
+                />
+              </div>
+
               <div class="py-2">
                 <span class="login-input-label capitalize">
                   List of Allergens :
@@ -592,7 +627,7 @@ const EditModal = ({
                   required
                 ></textarea> */}
                 <ReactQuill
-                   name="List_of_Allergens"
+                  name="List_of_Allergens"
                   placeholder="Enter list of ingredients"
                   class="login-input w-full mt-1"
                   value={formData.List_of_Allergens}
