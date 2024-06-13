@@ -60,11 +60,11 @@ const ResetPassword = ({ params }) => {
     <>
       <section>
         <div className="flex justify-center my-20">
-          <div className="w-[50%] mx-auto border text-center">
+          <div className="w-full md:w-[50%] mx-auto border text-center">
             <h1 className="mb-2 2xl:text-[40px] sm:text-[35px] xl:text-[24px] md:text-[18px] text-[16px] xl:leading-[38px] font-bold">
               Reset Password
             </h1>
-            <form onSubmit={handleSubmit} className="w-1/2 mx-auto">
+            <form onSubmit={handleSubmit} className="w-full md:w-1/2 mx-auto px-[10px]">
               <div className="md:py-2 mx-auto">
                 <input
                   type="password"
