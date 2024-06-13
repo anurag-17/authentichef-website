@@ -391,14 +391,25 @@ exports.PlaceOrder = async (req, res, next) => {
 
         let discountApplied = 0;
         let DiscountPercentage = 0;
+        let couponCode = null;
 
         // Check if this is the user's first order and a promo code is provided
         const userOrder = await Order.find({ user: req.user._id });
 
-        if (userOrder.length === 0) {
+        if (userOrder.length ==  0) {
             if (Promo_code) {
                 console.log("First Order with Promo Code");
-                const coupon = await Coupon.findOne({ code: Promo_code , isActive: true });
+             // Check if Promo_code is not a code but a name
+               let coupon = await Coupon.findOne({ name: Promo_code, isActive: true });
+               if (!coupon) {
+                // If Promo_code is not found by name, assume it's a code
+                coupon = await Coupon.findOne({ code: Promo_code, isActive: true });
+                couponCode = Promo_code; // Set couponCode to Promo_code if it's a valid code
+            } else {
+                couponCode = coupon.code; // Set couponCode to found coupon's code
+                console.log("Coupon Code:", couponCode)
+            }
+
                 if (coupon) {
                     // Apply discount if conditions are met
                     if (totalAmount > 0) {
@@ -570,7 +581,7 @@ exports.PlaceOrder = async (req, res, next) => {
                     quantity: item.quantity,
                 })),
                 mode: 'payment',
-                discounts: Promo_code ? [{ coupon: Promo_code }] : [],
+                discounts: couponCode ? [{ coupon: couponCode }] : [],
                 customer: req.user.stripeCustomerId,
                 success_url: 'http://www.authentichef.com/thankyou?session_id={CHECKOUT_SESSION_ID}',
                 cancel_url: 'http://www.authentichef.com',
@@ -1282,7 +1293,7 @@ exports.checkDiscount = async (req, res, next) => {
 
         if (userOrder.length === 0) {
             // Check if the promo code is valid
-            const coupon = await Coupon.findOne({ code: Promo_code, isActive: true });
+            const coupon = await Coupon.findOne({ name: Promo_code, isActive: true });
             if (coupon) {
                 // Apply discount if conditions are met
                 if (totalAmount > 0) {
@@ -1322,6 +1333,81 @@ exports.checkDiscount = async (req, res, next) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 };
+
+
+// exports.CheckNewDiscount = async (req, res, next) => {
+//     try {
+//         const { Promo_code } = req.query;
+//         console.log("Promo Code", Promo_code)
+
+//         if (!Promo_code) {
+//             return res.status(400).json({ message: "Promo code is required" });
+//         }
+
+//         // Get the cart items
+//         const cartItems = await Cart.findOne({ user: req.user._id }).populate('items.menuItem');
+
+//         if (!cartItems || cartItems.items.length === 0) {
+//             return res.status(404).json({ message: "Cart is empty" });
+//         }
+
+//         // Calculate total amount from updated cart items
+//         let totalAmount = cartItems.items.reduce((total, item) => {
+//             return total + (item.menuItem.price * item.quantity);
+//         }, 0);
+
+//         // Format totalAmount to two decimal places
+//         totalAmount = parseFloat(totalAmount.toFixed(2));
+
+//         let discountApplied = 0;
+//         let DiscountPercentage = 0;
+
+//         // Check if this is the user's first order
+//         const userOrder = await Order.find({ user: req.user._id });
+
+//         if (userOrder.length === 0) {
+//             // Check if the promo code is valid
+//             const coupon = await Coupon.findOne({ name: Promo_code, isActive: true });
+//             console.log("Coupon", coupon)
+//             if (coupon) {
+//                 // Apply discount if conditions are met
+//                 if (totalAmount > 0) {
+//                     if (coupon.discountType === 'percentage') {
+//                         discountApplied = (coupon.discountValue / 100) * totalAmount;
+//                         DiscountPercentage = coupon.discountValue;
+//                     } else if (coupon.discountType === 'fixed') {
+//                         discountApplied = coupon.discountValue;
+//                     }
+//                     discountApplied = parseFloat(discountApplied.toFixed(2));
+//                 } else {
+//                     return res.status(400).json({ message: "Total amount is below $0. Promo code cannot be applied." });
+//                 }
+//             } else {
+//                 return res.status(400).json({ message: "Invalid or inactive promo code." });
+//             }
+
+//             // Calculate total amount after applying discount
+//             const totalAmountBeforeDiscount = totalAmount;
+//             totalAmount -= discountApplied;
+//             totalAmount = parseFloat(totalAmount.toFixed(2));
+
+//             res.status(200).json({
+//                 message: "Discount applied successfully",
+//                 totalAmountBeforeDiscount,
+//                 totalAmountAfterDiscount: totalAmount,
+//                 discountApplied,
+//                 DiscountPercentage
+//             });
+
+//         } else {
+//             return res.status(400).json({ message: "Promo code cannot be applied as this is not your first order." });
+//         }
+
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ message: 'Internal server error' });
+//     }
+// };
 
 
 
