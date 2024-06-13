@@ -3,8 +3,7 @@ import config from "@/config";
 import React, { useState } from "react";
 
 const ResetPassword = ({ params }) => {
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [password, setPassword] = useState("");
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -13,19 +12,10 @@ const ResetPassword = ({ params }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError("");
-    setSuccess("");
-
-    if (newPassword !== confirmPassword) {
-      setError("Passwords do not match");
-      setLoading(false);
-      return;
-    }
-
     try {
-      const response = await axios.post(
-        `${config.baseURL}/api/auth/resetpassword`,
-        { newPassword, confirmPassword },
+      const response = await axios.put(
+        "/api/auth/resetpassword",
+        { password: password },
         {
           headers: {
             "Content-Type": "application/json",
@@ -35,27 +25,17 @@ const ResetPassword = ({ params }) => {
       );
 
       if (response.status === 200) {
-        setSuccess("Password reset successfully");
+        setLoading(false);
+        router.push("/");
       } else {
-        setError(response.data.message || "Something went wrong");
+        setLoading(false);
       }
-    } catch (err) {
-      if (err.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
-        setError(err.response.data.message || "Something went wrong");
-      } else if (err.request) {
-        // The request was made but no response was received
-        setError("No response received from server");
-      } else {
-        // Something happened in setting up the request that triggered an Error
-        setError("An error occurred. Please try again later.");
-      }
-    } finally {
+    } catch (error) {
+      console.error("Error during login:", error);
+
       setLoading(false);
     }
   };
-
   return (
     <>
       <section>
@@ -64,7 +44,10 @@ const ResetPassword = ({ params }) => {
             <h1 className="mb-2 2xl:text-[40px] sm:text-[35px] xl:text-[24px] md:text-[18px] text-[16px] xl:leading-[38px] font-bold">
               Reset Password
             </h1>
-            <form onSubmit={handleSubmit} className="w-full md:w-1/2 mx-auto px-[10px]">
+            <form
+              onSubmit={handleSubmit}
+              className="w-full md:w-1/2 mx-auto px-[10px]"
+            >
               <div className="md:py-2 mx-auto">
                 <input
                   type="password"
@@ -72,23 +55,12 @@ const ResetPassword = ({ params }) => {
                   placeholder="New Password"
                   className="login-input w-full mt-2 custom-input h-[35px] lg:h-[40px] xl:h-[50px] 2xl:h-[60px]"
                   value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
+                  onChange={(e) => setPassword(!password)}
                   required
                 />
               </div>
-              <div className="md:py-2 mx-auto">
-                <input
-                  type="password"
-                  name="confirmPassword"
-                  placeholder="Confirm Password"
-                  className="login-input w-full mt-2 custom-input h-[35px] lg:h-[40px] xl:h-[50px] 2xl:h-[60px]"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  required
-                />
-              </div>
-              {error && <div className="text-red-500">{error}</div>}
-              {success && <div className="text-green-500">{success}</div>}
+
+          
               <button
                 type="submit"
                 disabled={isLoading}
