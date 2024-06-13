@@ -53,7 +53,7 @@ const MyOrder = () => {
                           {/* Delivered on {order.deliveryDate} */}
                         </li>
                       </ul>
-                      {order.items.map((item, itemIndex) => (
+                      {order?.items?.map((item, itemIndex) => (
                         <div
                           key={itemIndex}
                           className="flex justify-between items-center 2xl:mt-[20px] xl:mt-[10px] mt-[8px] border rounded-[10px] 2xl:p-[30px] xl:p-[20px] p-[15px]"
@@ -63,13 +63,13 @@ const MyOrder = () => {
                             className="flex items-center 2xl:gap-[15px] xl:gap-[10px] gap-[8px]"
                           >
                             <img
-                              src={item.menuItem.ProfileImage}
+                              src={item?.menuItem?.ProfileImage[0]}
                               className="rounded-[5.8px] 2xl:w-[95px] 2xl:h-[95px] xl:w-[70px] w-[50px] h-auto"
-                              alt={item.menuItem.name}
+                              alt={item?.menuItem?.name}
                             />
                             <div>
                               <h4 className="alata font-[400] 2xl:text-[24px] 2xl:leading-[34px] xl:text-[14px] xl:leading-[24px] lg:text-[14px] lg:leading-[20px]">
-                                {item.menuItem.name}
+                                {item?.menuItem?.name}
                               </h4>
                             </div>
                           </div>
