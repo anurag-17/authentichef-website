@@ -68,7 +68,7 @@ const AddCuisines = ({ closeDrawer, refreshData }) => {
       <ToastContainer autoClose={1000} />
       <div className=" mx-auto">
         <div className="flex justify-center items-center border border-[#f3f3f3] rounded-lg bg-white 2xl:px-5  2xl:h-[50px] 2xl:my-5 xl:px-4  xl:h-[40px] xl:my-4 lg:px-3  lg:h-[35px] lg:my-2 md:px-2  md:h-[30px] md:my-2 sm:px-1 sm:h-[25px] sm:my-2 px-1 h-[25px] my-2">
-          <h2 className="custom_heading_text font-semibold">Add New Dietary</h2>
+          <h2 className="custom_heading_text font-semibold">Add New Cuisine</h2>
         </div>
         <form
           onSubmit={handleSubmit}

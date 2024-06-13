@@ -97,9 +97,12 @@ const OrderList = () => {
               </thead>
               <tbody>
                 {Array.isArray(getOrders) &&
-                  getOrders.slice().reverse().map((order, orderIndex) => (
-                    <React.Fragment key={orderIndex}>
-                      {/* <tr>
+                  getOrders
+                    .slice()
+                    .reverse()
+                    .map((order, orderIndex) => (
+                      <React.Fragment key={orderIndex}>
+                        {/* <tr>
                         <td className="table_data">{orderIndex + 1}</td>
                         <td className="table_data capitalize">{order.user}</td>
                         <td className="table_data">{order.status}</td>
@@ -108,45 +111,49 @@ const OrderList = () => {
                         </td>
                         <td className="table_data">{order.totalAmount}</td>
                       </tr> */}
-                      {order.items.map((item, itemIndex) => (
-                        <tr key={itemIndex}>
-                          <td className="table_data">{orderIndex + 1}</td>
-                          <td className="table_data capitalize">
-                            {item.menuItem.name}
-                          </td>
-                          <td className="table_data">
-                            <img
-                              src={item.menuItem.ProfileImage[0]}
-                              className="w-10 rounded-md"
-                              alt={item.menuItem.name}
-                            />
-                          </td>
-                          {/* <td className="table_data">{item.quantity}</td> */}
-                          <td className="table_data">£{item.price}</td>
-                          <td className="table_data">
-                            <div className="table_btn_div">
-                              <Link
-                                href={`/pages/order-details/${item?.OrderId}`}
-                              >
-                                <button
-                                  className="secondary_btn py-1"
-                                  // onClick={() => openDrawerO(order._id)}
+                        {order.items.map((item, itemIndex) => (
+                          <tr key={itemIndex}>
+                            <td className="table_data">{orderIndex + 1}</td>
+                            <td className="table_data capitalize">
+                              {order.menuItem?.name || "N/A"}
+                            </td>
+                            <td className="table_data">
+                              {order.menuItem?.ProfileImage?.[0] ? (
+                                <img
+                                  src={order.menuItem.ProfileImage[0]}
+                                  alt="Dish"
+                                  style={{ width: "50px", height: "50px" }}
+                                />
+                              ) : (
+                                "No Image"
+                              )}
+                            </td>
+                            {/* <td className="table_data">{item.quantity}</td> */}
+                            <td className="table_data">£{item.price}</td>
+                            <td className="table_data">
+                              <div className="table_btn_div">
+                                <Link
+                                  href={`/pages/order-details/${item?.OrderId}`}
                                 >
-                                  View
+                                  <button
+                                    className="secondary_btn py-1"
+                                    // onClick={() => openDrawerO(order._id)}
+                                  >
+                                    View
+                                  </button>
+                                </Link>
+                                <button
+                                  className="delete_btn py-1"
+                                  onClick={() => handleDelete(order._id)}
+                                >
+                                  Cancel
                                 </button>
-                              </Link>
-                              <button
-                                className="delete_btn py-1"
-                                onClick={() => handleDelete(order._id)}
-                              >
-                                Cancel
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                      ))}
-                    </React.Fragment>
-                  ))}
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                      </React.Fragment>
+                    ))}
               </tbody>
             </table>
           </div>

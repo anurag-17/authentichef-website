@@ -113,10 +113,14 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
     } catch (error) {
       console.error(error);
 
-      if (error.response && error.response.data.message) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
         const errorMessage = error.response.data.message;
-
-        if (errorMessage.includes("SKU number already exists")) {
+        console.log(errorMessage);
+        if (errorMessage.includes("SKU Number already exists")) {
           toast.error(
             "SKU Number already exists. Please use a different SKU Number."
           );
@@ -124,7 +128,7 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
           toast.error(errorMessage);
         }
       } else {
-        toast.error("An error occurred while adding the Dish.");
+        toast.error("SKU Number already exists. Please use a different SKU Number.");
       }
     }
   };
@@ -321,174 +325,176 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="max-w-10xl mx-auto border border-gray-500 rounded-xl p-6 mt-4 mb-4 flex flex-wrap"
-    >
-      <div className="w-full flex justify-center text-[30px] my-4">
-        <div className="font-bold">Add new Dish</div>
-      </div>
-
-      {/* Left Column */}
-      <div className="w-full md:w-[50%] px-4 mb-1">
-        {/* Input fields */}
-
-        <div className="mb-4">
-          <label className="block mb-1" htmlFor="name">
-            Name:
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={menuItem.name}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border rounded"
-            required
-          />
+    <>
+      <ToastContainer autoClose={1000} />
+      <form
+        onSubmit={handleSubmit}
+        className="max-w-10xl mx-auto border border-gray-500 rounded-xl p-6 mt-4 mb-4 flex flex-wrap"
+      >
+        <div className="w-full flex justify-center text-[30px] my-4">
+          <div className="font-bold">Add new Dish</div>
         </div>
 
-        <div className="mb-4">
-          <label className="block mb-1" htmlFor="SKUnumber">
-            SKU Number
-          </label>
-          <input
-            type="text"
-            id="SKU_Number"
-            name="SKU_Number"
-            value={menuItem.SKU_Number}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border rounded"
-            required
-          />
-        </div>
+        {/* Left Column */}
+        <div className="w-full md:w-[50%] px-4 mb-1">
+          {/* Input fields */}
 
-        <div className="mb-4">
-          <label className="block mb-1" htmlFor="price">
-            Price:
-          </label>
-          <input
-            type="number"
-            id="price"
-            name="price"
-            value={menuItem.price}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border rounded"
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block mb-1" htmlFor="weight">
-            Weight:
-          </label>
-          <input
-            type="number"
-            id="weight"
-            name="weight"
-            value={menuItem.weight}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border rounded"
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block mb-1" htmlFor="portionSize">
-            Portion Size:
-          </label>
-          <select
-            id="portionSize"
-            name="portion_Size"
-            value={menuItem.portion_Size}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border rounded"
-            required
-          >
-            <option value="">Select portion size</option>
-            <option value="1">Serve for I</option>
-            <option value="2">Serve for II</option>
-            <option value="3">Serve for III</option>
-          </select>
-        </div>
-
-        <div className="mb-4">
-          <label className="block mb-1" htmlFor="description">
-            Description:
-          </label>
-          <ReactQuill
-            id="description"
-            name="description"
-            value={menuItem.description}
-            onChange={handleDescriptionChange}
-            className="w-full px-3 py-2 border rounded"
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block mb-1" htmlFor="ingredients">
-            Ingredients:
-          </label>
-          <ReactQuill
-            id="ingredients"
-            name="Ingredients"
-            value={menuItem.Ingredients}
-            onChange={handleIngredientsChange}
-            className="w-full px-3 py-2 border rounded"
-            required
-          />
-        </div>
-        {/* Checkbox for Popular Dish */}
-        <div className="mb-4">
-          <label className="block mb-1">
-            Popular Dish:
+          <div className="mb-4">
+            <label className="block mb-1" htmlFor="name">
+              Name:
+            </label>
             <input
-              type="checkbox"
-              name="popular_dish"
-              checked={menuItem.popular_dish === "Yes"} // Check if the value is "Yes"
-              onChange={handleCheckboxChange}
-              className="ml-2"
+              type="text"
+              id="name"
+              name="name"
+              value={menuItem.name}
+              onChange={handleChange}
+              className="w-full px-3 py-2 border rounded"
+              required
             />
-          </label>
-        </div>
-        <div className="mb-4">
-          <label className="block mb-1" htmlFor="nutritionalInformation">
-            Nutritional Information:
-          </label>
-          <ReactQuill
-            id="nutritionalInformation"
-            value={menuItem.nutritional_information}
-            onChange={handleNutritionalInformationChange}
-            className="w-full border rounded"
-            placeholder="Enter nutritional information"
-          />
-        </div>
-      </div>
+          </div>
 
-      {/* Right Column */}
-      <div className="w-full md:w-1/2 px-4 mt-1">
-        {/* Dropdowns */}
-        <div className="mb-4">
-          <label className="block mb-1" htmlFor="dishType">
-            Dish Type:
-          </label>
-          <select
-            id="dishType"
-            name="Dishtype_id"
-            value={menuItem.Dishtype_id}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border rounded mt-[10px]"
-            required
-          >
-            <option value="">Select Dish Type</option>
-            {Array.isArray(dishTypes) &&
-              dishTypes.map((type) => (
-                <option key={type._id} value={type._id}>
-                  {type.title}
-                </option>
-              ))}
-          </select>
+          <div className="mb-4">
+            <label className="block mb-1" htmlFor="SKUnumber">
+              SKU Number
+            </label>
+            <input
+              type="text"
+              id="SKU_Number"
+              name="SKU_Number"
+              value={menuItem.SKU_Number}
+              onChange={handleChange}
+              className="w-full px-3 py-2 border rounded"
+              required
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="block mb-1" htmlFor="price">
+              Price:
+            </label>
+            <input
+              type="number"
+              id="price"
+              name="price"
+              value={menuItem.price}
+              onChange={handleChange}
+              className="w-full px-3 py-2 border rounded"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block mb-1" htmlFor="weight">
+              Weight:
+            </label>
+            <input
+              type="number"
+              id="weight"
+              name="weight"
+              value={menuItem.weight}
+              onChange={handleChange}
+              className="w-full px-3 py-2 border rounded"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block mb-1" htmlFor="portionSize">
+              Portion Size:
+            </label>
+            <select
+              id="portionSize"
+              name="portion_Size"
+              value={menuItem.portion_Size}
+              onChange={handleChange}
+              className="w-full px-3 py-2 border rounded"
+              required
+            >
+              <option value="">Select portion size</option>
+              <option value="1">Serve for I</option>
+              <option value="2">Serve for II</option>
+              <option value="3">Serve for III</option>
+            </select>
+          </div>
+
+          <div className="mb-4">
+            <label className="block mb-1" htmlFor="description">
+              Description:
+            </label>
+            <ReactQuill
+              id="description"
+              name="description"
+              value={menuItem.description}
+              onChange={handleDescriptionChange}
+              className="w-full px-3 py-2 border rounded"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block mb-1" htmlFor="ingredients">
+              Ingredients:
+            </label>
+            <ReactQuill
+              id="ingredients"
+              name="Ingredients"
+              value={menuItem.Ingredients}
+              onChange={handleIngredientsChange}
+              className="w-full px-3 py-2 border rounded"
+              required
+            />
+          </div>
+          {/* Checkbox for Popular Dish */}
+          <div className="mb-4">
+            <label className="block mb-1">
+              Popular Dish:
+              <input
+                type="checkbox"
+                name="popular_dish"
+                checked={menuItem.popular_dish === "Yes"} // Check if the value is "Yes"
+                onChange={handleCheckboxChange}
+                className="ml-2"
+              />
+            </label>
+          </div>
+          <div className="mb-4">
+            <label className="block mb-1" htmlFor="nutritionalInformation">
+              Nutritional Information:
+            </label>
+            <ReactQuill
+              id="nutritionalInformation"
+              value={menuItem.nutritional_information}
+              onChange={handleNutritionalInformationChange}
+              className="w-full border rounded"
+              placeholder="Enter nutritional information"
+            />
+          </div>
         </div>
 
-        {/* <div>
+        {/* Right Column */}
+        <div className="w-full md:w-1/2 px-4 mt-1">
+          {/* Dropdowns */}
+          <div className="mb-4">
+            <label className="block mb-1" htmlFor="dishType">
+              Dish Type:
+            </label>
+            <select
+              id="dishType"
+              name="Dishtype_id"
+              value={menuItem.Dishtype_id}
+              onChange={handleChange}
+              className="w-full px-3 py-2 border rounded mt-[10px]"
+              required
+            >
+              <option value="">Select Dish Type</option>
+              {Array.isArray(dishTypes) &&
+                dishTypes.map((type) => (
+                  <option key={type._id} value={type._id}>
+                    {type.title}
+                  </option>
+                ))}
+            </select>
+          </div>
+
+          {/* <div>
           <div className="mb-4">
             <label className="block mb-1" htmlFor="dietary">
               Dietary:
@@ -529,160 +535,161 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
           </div>
         </div> */}
 
-        <div className="mb-4">
-          <label className="block mb-1" htmlFor="dietary">
-            Dietary:
-          </label>
-          <select
-            id="dietary"
-            name="Dietary_id"
-            value=""
-            onChange={handleDietaryChange}
-            className="w-full px-3 py-2 border rounded mt-[10px]"
-          >
-            <option value="">Select Dietary</option>
-            {Array.isArray(dietaries) &&
-              dietaries.map((dietary, index) => (
-                <option key={index} value={dietary._id}>
-                  {dietary.title}
-                </option>
-              ))}
-          </select>
-          <div className="grid md:grid-cols-2 flex-col gap-3 justify-between w-full px-2 py-2">
-            {Array.isArray(menuItem.Dietary_id) &&
-              menuItem.Dietary_id.length > 0 &&
-              menuItem.Dietary_id.map((item, index) => (
-                <p className="flex gap-x-2 text-[14px]" key={index}>
-                  <span className="max-w-[150px] text-ellipsis overflow-hidden flex whitespace-nowrap capitalize">
-                    <b className="mr-2">{index + 1}.</b>{" "}
-                    {
-                      dietaries.find((dietaryItem) => dietaryItem._id === item)
-                        ?.title
-                    }
-                  </span>
-                  <span
-                    className="cursor-pointer font-medium"
-                    onClick={() => removeDietary(index)}
-                  >
-                    x
-                  </span>
-                </p>
-              ))}
-          </div>
-        </div>
-
-        <div className="mb-4">
-          <label className="block mb-1" htmlFor="nutrition">
-            Nutrition:
-          </label>
-          <select
-            id="nutrition"
-            name="Nutrition_id"
-            value=""
-            onChange={handleNutritionChange}
-            className="w-full px-3 py-2 border rounded mt-[10px]"
-          >
-            <option value="">Select Nutrition</option>
-            {Array.isArray(nutrition) &&
-              nutrition.map((item, index) => (
-                <option key={index} value={item._id}>
-                  {item.Nutritional}
-                </option>
-              ))}
-          </select>
-          <div className="grid md:grid-cols-2 flex-col gap-3 justify-between w-full px-2 py-2">
-            {Array.isArray(menuItem.Nutrition_id) &&
-              menuItem.Nutrition_id.length > 0 &&
-              menuItem.Nutrition_id.map((item, index) => (
-                <p className="flex gap-x-2 text-[14px]" key={index}>
-                  <span className="max-w-[150px] text-ellipsis overflow-hidden flex whitespace-nowrap capitalize">
-                    <b className="mr-2">{index + 1}.</b>{" "}
-                    {/* Assuming the item here is the nutrition value */}
-                    {
-                      nutrition.find(
-                        (nutritionItem) => nutritionItem._id === item
-                      )?.Nutritional
-                    }
-                  </span>
-                  <span
-                    className="cursor-pointer font-medium"
-                    onClick={() => removeNutrition(index)}
-                  >
-                    x
-                  </span>
-                </p>
-              ))}
-          </div>
-        </div>
-
-        <div className="mb-4">
-          <label className="block mb-1" htmlFor="spiceLevel">
-            Spice Level:
-          </label>
-          <select
-            id="spiceLevel"
-            name="spice_level_id"
-            value={menuItem.spice_level_id}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border rounded mt-[10px]"
-            required
-          >
-            <option value="">Select Spice Level</option>
-            {spiceLevels.map((spiceLevel) => (
-              <option key={spiceLevel._id} value={spiceLevel._id}>
-                {spiceLevel.title}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="mb-4">
-          <label className="block mb-1" htmlFor="chef">
-            Chef:
-          </label>
-          <select
-            id="chef"
-            name="chef_id"
-            value={menuItem.chef_id}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border rounded mt-[10px]"
-            required
-          >
-            <option value="">Select Chef</option>
-            {chefs.map((chef) => (
-              <option key={chef._id} value={chef._id}>
-                {chef.name}
-              </option>
-            ))}
-          </select>
-        </div>
-        {cuisines.length > 0 && (
           <div className="mb-4">
-            <label className="block mb-1" htmlFor="cuisine_id">
-              Cuisine:
+            <label className="block mb-1" htmlFor="dietary">
+              Dietary:
             </label>
             <select
-              id="cuisine_id"
-              name="Cuisines_id" // Change name to "Cuisines_id" to match the state property name
-              value={menuItem.Cuisines_id}
+              id="dietary"
+              name="Dietary_id"
+              value=""
+              onChange={handleDietaryChange}
+              className="w-full px-3 py-2 border rounded mt-[10px]"
+            >
+              <option value="">Select Dietary</option>
+              {Array.isArray(dietaries) &&
+                dietaries.map((dietary, index) => (
+                  <option key={index} value={dietary._id}>
+                    {dietary.title}
+                  </option>
+                ))}
+            </select>
+            <div className="grid md:grid-cols-2 flex-col gap-3 justify-between w-full px-2 py-2">
+              {Array.isArray(menuItem.Dietary_id) &&
+                menuItem.Dietary_id.length > 0 &&
+                menuItem.Dietary_id.map((item, index) => (
+                  <p className="flex gap-x-2 text-[14px]" key={index}>
+                    <span className="max-w-[150px] text-ellipsis overflow-hidden flex whitespace-nowrap capitalize">
+                      <b className="mr-2">{index + 1}.</b>{" "}
+                      {
+                        dietaries.find(
+                          (dietaryItem) => dietaryItem._id === item
+                        )?.title
+                      }
+                    </span>
+                    <span
+                      className="cursor-pointer font-medium"
+                      onClick={() => removeDietary(index)}
+                    >
+                      x
+                    </span>
+                  </p>
+                ))}
+            </div>
+          </div>
+
+          <div className="mb-4">
+            <label className="block mb-1" htmlFor="nutrition">
+              Nutrition:
+            </label>
+            <select
+              id="nutrition"
+              name="Nutrition_id"
+              value=""
+              onChange={handleNutritionChange}
+              className="w-full px-3 py-2 border rounded mt-[10px]"
+            >
+              <option value="">Select Nutrition</option>
+              {Array.isArray(nutrition) &&
+                nutrition.map((item, index) => (
+                  <option key={index} value={item._id}>
+                    {item.Nutritional}
+                  </option>
+                ))}
+            </select>
+            <div className="grid md:grid-cols-2 flex-col gap-3 justify-between w-full px-2 py-2">
+              {Array.isArray(menuItem.Nutrition_id) &&
+                menuItem.Nutrition_id.length > 0 &&
+                menuItem.Nutrition_id.map((item, index) => (
+                  <p className="flex gap-x-2 text-[14px]" key={index}>
+                    <span className="max-w-[150px] text-ellipsis overflow-hidden flex whitespace-nowrap capitalize">
+                      <b className="mr-2">{index + 1}.</b>{" "}
+                      {/* Assuming the item here is the nutrition value */}
+                      {
+                        nutrition.find(
+                          (nutritionItem) => nutritionItem._id === item
+                        )?.Nutritional
+                      }
+                    </span>
+                    <span
+                      className="cursor-pointer font-medium"
+                      onClick={() => removeNutrition(index)}
+                    >
+                      x
+                    </span>
+                  </p>
+                ))}
+            </div>
+          </div>
+
+          <div className="mb-4">
+            <label className="block mb-1" htmlFor="spiceLevel">
+              Spice Level:
+            </label>
+            <select
+              id="spiceLevel"
+              name="spice_level_id"
+              value={menuItem.spice_level_id}
               onChange={handleChange}
-              className="w-full px-3 py-2 border rounded"
+              className="w-full px-3 py-2 border rounded mt-[10px]"
               required
             >
-              <option value="">Select Cuisine</option>
-              {cuisines.map((cuisine) => (
-                <option key={cuisine._id} value={cuisine._id}>
-                  {cuisine.title}
+              <option value="">Select Spice Level</option>
+              {spiceLevels.map((spiceLevel) => (
+                <option key={spiceLevel._id} value={spiceLevel._id}>
+                  {spiceLevel.title}
                 </option>
               ))}
             </select>
           </div>
-        )}
+          <div className="mb-4">
+            <label className="block mb-1" htmlFor="chef">
+              Chef:
+            </label>
+            <select
+              id="chef"
+              name="chef_id"
+              value={menuItem.chef_id}
+              onChange={handleChange}
+              className="w-full px-3 py-2 border rounded mt-[10px]"
+              required
+            >
+              <option value="">Select Chef</option>
+              {chefs.map((chef) => (
+                <option key={chef._id} value={chef._id}>
+                  {chef.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          {cuisines.length > 0 && (
+            <div className="mb-4">
+              <label className="block mb-1" htmlFor="cuisine_id">
+                Cuisine:
+              </label>
+              <select
+                id="cuisine_id"
+                name="Cuisines_id" // Change name to "Cuisines_id" to match the state property name
+                value={menuItem.Cuisines_id}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border rounded"
+                required
+              >
+                <option value="">Select Cuisine</option>
+                {cuisines.map((cuisine) => (
+                  <option key={cuisine._id} value={cuisine._id}>
+                    {cuisine.title}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
 
-        <div className="mb-4">
-          <label className="block mb-1" htmlFor="heatingInstructions">
-            Heating Instructions:
-          </label>
-          {/* <textarea
+          <div className="mb-4">
+            <label className="block mb-1" htmlFor="heatingInstructions">
+              Heating Instructions:
+            </label>
+            {/* <textarea
             id="heatingInstructions"
             name="Heating_Instruction"
             value={menuItem.Heating_Instruction}
@@ -690,20 +697,20 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
             className="w-full px-3 py-2 border rounded"
             required
           /> */}
-          <ReactQuill
-            id="heatingInstructions"
-            value={menuItem.Heating_Instruction}
-            onChange={handleHeatingInstructionChange}
-            className="w-full border rounded"
-            placeholder="Enter Heating Instruction"
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block mb-1" htmlFor="ingredientsList">
-            List of Allergens:
-          </label>
-          {/* <textarea
+            <ReactQuill
+              id="heatingInstructions"
+              value={menuItem.Heating_Instruction}
+              onChange={handleHeatingInstructionChange}
+              className="w-full border rounded"
+              placeholder="Enter Heating Instruction"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block mb-1" htmlFor="ingredientsList">
+              List of Allergens:
+            </label>
+            {/* <textarea
             id="ingredientsList"
             name="List_of_Allergens"
             value={menuItem.List_of_Allergens}
@@ -711,41 +718,42 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
             className="w-full px-3 py-2 border rounded"
             required
           /> */}
-          <ReactQuill
-            id="ingredientsList"
-            name="List_of_Allergens"
-            value={menuItem.List_of_Allergens}
-            onChange={handleChangeListofAllergens}
-            className="w-full px-3 py-2 border rounded"
-            required
-          />
+            <ReactQuill
+              id="ingredientsList"
+              name="List_of_Allergens"
+              value={menuItem.List_of_Allergens}
+              onChange={handleChangeListofAllergens}
+              className="w-full px-3 py-2 border rounded"
+              required
+            />
+          </div>
         </div>
-      </div>
 
-      {/* Image Upload */}
-      <div className="w-full px-4">
-        <label htmlFor="ProfileImages">Profile Images: </label>
-        <input
-          type="file"
-          id="ProfileImages"
-          name="ProfileImages"
-          onChange={handleImageChange}
-          accept="image/*"
-          multiple
-          required
-          className="mx-2"
-        />
-        <p className="text-sm text-red-500 mt-1">
-          Image size should be width 345px and height 278px pixels.
-        </p>
-      </div>
+        {/* Image Upload */}
+        <div className="w-full px-4">
+          <label htmlFor="ProfileImages">Profile Images: </label>
+          <input
+            type="file"
+            id="ProfileImages"
+            name="ProfileImages"
+            onChange={handleImageChange}
+            accept="image/*"
+            multiple
+            required
+            className="mx-2"
+          />
+          <p className="text-sm text-red-500 mt-1">
+            Image size should be width 345px and height 278px pixels.
+          </p>
+        </div>
 
-      <div className="w-full px-4 mt-4">
-        <button type="submit" className=" px-4 py-2 rounded primary_btn">
-          Submit
-        </button>
-      </div>
-    </form>
+        <div className="w-full px-4 mt-4">
+          <button type="submit" className=" px-4 py-2 rounded primary_btn">
+            Submit
+          </button>
+        </div>
+      </form>
+    </>
   );
 };
 
