@@ -242,8 +242,12 @@ const adminMailOptions = (
       <p>Thank you for your Order</p>
       <table class="order-details">
         <tr>
-          <th>Order Number</th>
+          <th>Order Id</th>
           <td>${savedOrder._id}</td>
+        </tr>
+         <tr>
+          <th>Order Number</th>
+          <td>${savedOrder.OrderNumber}</td>
         </tr>
         <tr>
           <th>Customer Name</th>

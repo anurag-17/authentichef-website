@@ -30,6 +30,13 @@ const emailConfig = {
 const transporter = nodemailer.createTransport(emailConfig);
 
 
+// Make a Random Number for Order Number  with Miximum 7 length//
+
+function MakeNumber(){
+    return Math.floor(1000000 + Math.random() * 9000000); // Generates a 7-digit number
+}
+
+
 // Check the Order List //
 
 // exports.PlaceOrder = async (req, res, next) => {
@@ -371,7 +378,7 @@ const transporter = nodemailer.createTransport(emailConfig);
 // Working code on Production ----------------------------
 exports.PlaceOrder = async (req, res, next) => {
     try {
-        const { deliveryDate, deliveryInfo, BillingInfo, status, paymentMethodToken, payment_method_types = 'COD', Type_of_Address, Delivery_instruction, Promo_code } = req.body;
+        const { deliveryDate, deliveryInfo, BillingInfo, status, paymentMethodToken, payment_method_types = 'COD', Type_of_Address, Delivery_instruction, Promo_code , OrderNumber } = req.body;
 
         // Get the cart items
         const cartItems = await Cart.findOne({ user: req.user._id }).populate('items.menuItem');
@@ -458,6 +465,8 @@ exports.PlaceOrder = async (req, res, next) => {
         // Format totalAmount to two decimal places
         totalAmount = parseFloat(totalAmount.toFixed(2));
 
+        console.log("totalAmount is " , totalAmount)
+
         // if (totalAmount < 30) {
         //     return res.status(400).json({ message: 'Order cannot be placed. Minimum order amount is £30.' });
         // }
@@ -512,7 +521,8 @@ exports.PlaceOrder = async (req, res, next) => {
                 status,
                 shippingCharge: shippingCost,
                 payment: payment._id,
-                TransactionId: transactionId // Include the transaction ID in the order
+                TransactionId: transactionId,
+                OrderNumber:MakeNumber()// Include the transaction ID in the order
             });
 
             const savedOrder = await newOrder.save();
@@ -596,6 +606,7 @@ exports.PlaceOrder = async (req, res, next) => {
                     totalAmountBeforeDiscount: totalAmountBeforeDiscount,
                     discountApplied: discountApplied,
                     DiscountPercentage: DiscountPercentage,
+                    OrderNumber:MakeNumber()
 
                 }
             });
@@ -840,7 +851,7 @@ exports.BookOrder = async (req, res) => {
         const totalAmountBeforeDiscount = parseFloat(session.metadata.totalAmountBeforeDiscount) || 0;
         const discountApplied = parseFloat(session.metadata.discountApplied) || 0;
         const DiscountPercentage = parseFloat(session.metadata.DiscountPercentage) || 0;
-
+        const OrderNumber = session.metadata.OrderNumber;
         // Get the cart items
         const cartItems = await Cart.findOne({ user: userId }).populate('items.menuItem');
 
@@ -874,7 +885,8 @@ exports.BookOrder = async (req, res) => {
             Type_of_Address,
             payment: null,
             TransactionId: session.payment_intent,
-            payment_method_types: 'card'
+            payment_method_types: 'card',
+            OrderNumber
         });
 
         // Check if transaction ID is null

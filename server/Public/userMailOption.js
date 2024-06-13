@@ -76,6 +76,7 @@ const userMailOptions = (req, savedOrder, deliveryDate, deliveryInfo, totalAmoun
                 <p>Dear ${req.user.firstname},</p>
                 <p>Thank you for placing your order with us! Your order has been successfully received.</p>
                 <p><strong>Order ID:</strong> ${savedOrder._id}</p>
+                <p><strong>Order Number:</strong> ${savedOrder.OrderNumber}</p>
                 <p><strong>Transaction ID:</strong> ${savedOrder.TransactionId}</p>
                 <p><strong>Delivery Date:</strong> ${formattedDeliveryDate}</p>
                 <p><strong>Payment Method:</strong> ${payment_method_types}</p>

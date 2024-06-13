@@ -164,7 +164,12 @@ const orderSchema = new mongoose.Schema({
 
     totalAmountBeforeDiscount: { type: Number, default: 0 },
     // Add totalAmountBeforeDiscount field
+     
+    // Enter the OrderNumber
 
+    OrderNumber: {
+        type: Number,
+    },
 
     payment: {
         type: mongoose.Schema.Types.ObjectId,
