@@ -9,6 +9,7 @@ const {
     getMenuItemByParams,
     getMenuItemsByChefId,
     getPopularDish,
+    getPopularChef,
     upload
 } = require("../Controller/menu");
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
@@ -18,6 +19,10 @@ router.post("/menuItems",  upload, createMenuItem);
 
 // Get popular dishes
 router.get("/menuItems/popular", getPopularDish);
+
+// Get popular chefs
+
+router.get("/menuItems/popularChef", getPopularChef);
 
 // Get all menu item
 router.route("/menuItems").get(getAllMenuItems);

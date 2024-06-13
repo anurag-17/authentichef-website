@@ -48,7 +48,7 @@ exports.upload = upload;
 exports.createMenuItem = async (req, res) => {
   try {
 
-    const { name, description, price, weight, portion_Size, Ingredients, Heating_Instruction, List_of_Allergens, Cuisines_id, Dishtype_id, Dietary_id, spice_level_id, chef_id, popular_dish , Nutrition_id , nutritional_information} = req.body;
+    const { name, description, price, weight, portion_Size, Ingredients, Heating_Instruction, List_of_Allergens, Cuisines_id, Dishtype_id, Dietary_id, spice_level_id, chef_id, popular_dish , popular_chef , Nutrition_id , nutritional_information} = req.body;
 
     // Access the uploaded files from req.files
     const profileImages = req.files['ProfileImage'];
@@ -94,6 +94,7 @@ exports.createMenuItem = async (req, res) => {
       chef_id,
       Nutrition_id,
       popular_dish: popular_dish || 'No',
+      popular_chef: popular_chef || 'No',
       nutritional_information,
       ProfileImage: imageUrls
     });
@@ -351,6 +352,23 @@ exports.getPopularDish = async (req, res) => {
     res.status(200).json(popularDish);
   } catch (error) {
   }
+}
+
+exports.getPopularChef = async (req, res) => {
+  
+    try {
+      const popularChef = await MenuItem.find({  popular_chef: 'Yes' })
+      .populate("chef_id").populate("Cuisines_id")
+      .populate("Dishtype_id").populate("Dietary_id")
+      .populate("spice_level_id").populate("Nutrition_id");
+  
+      if (!popularChef || popularChef.length === 0) {
+        return res.status(404).json({ error: 'Popular chef not found' });
+      }
+  
+      res.status(200).json(popularChef);
+    } catch (error) {
+    }
 }
 
 
