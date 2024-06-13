@@ -9,7 +9,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import config from "@/config";
 import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css"; 
+import "react-quill/dist/quill.snow.css";
+import { Kufam } from "next/font/google";
 
 const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
   const router = useRouter();
@@ -34,6 +35,7 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
     popular_dish: "",
     Cuisines_id: "",
     nutritional_information: "",
+    SKU_Number: "",
   });
   console.log(menuItem);
 
@@ -49,7 +51,6 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
     const files = Array.from(e.target.files); // Convert FileList to Array
     const selectedImages = files.slice(0, 5); // Limit to 5 images
 
-    // Update state with selected images
     setMenuItem({
       ...menuItem,
       ProfileImage: selectedImages,
@@ -79,13 +80,13 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
       formData.append("spice_level_id", menuItem.spice_level_id);
       formData.append("chef_id", menuItem.chef_id);
       formData.append("Cuisines_id", menuItem.Cuisines_id);
+      formData.append("SKU_Number", menuItem.SKU_Number);
       menuItem.Nutrition_id.forEach((id) => {
         formData.append("Nutrition_id[]", id);
       });
       // Append popular_dish
       formData.append("popular_dish", menuItem.popular_dish);
 
-      // Append ProfileImage
       for (let i = 0; i < menuItem.ProfileImage.length; i++) {
         formData.append("ProfileImage", menuItem.ProfileImage[i]);
       }
@@ -111,7 +112,20 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
       }
     } catch (error) {
       console.error(error);
-      toast.error("An error occurred while adding the Dish.");
+
+      if (error.response && error.response.data.message) {
+        const errorMessage = error.response.data.message;
+
+        if (errorMessage.includes("SKU number already exists")) {
+          toast.error(
+            "SKU Number already exists. Please use a different SKU Number."
+          );
+        } else {
+          toast.error(errorMessage);
+        }
+      } else {
+        toast.error("An error occurred while adding the Dish.");
+      }
     }
   };
 
@@ -124,7 +138,6 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
         const { cuisines } = response.data; // Extract the cuisines array from the response
         if (Array.isArray(cuisines)) {
           setCuisines(cuisines); // Update state with fetched cuisines
-          // Assuming you want to pre-select the first cuisine in the list
           if (cuisines.length > 0) {
             setMenuItem((prevState) => ({
               ...prevState,
@@ -203,7 +216,7 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
         const response = await axios.get(
           `${config.baseURL}/api/SpiceLevel/spiceLevels`
         );
-        setSpiceLevels(response.data.spiceLevels); // Update state with response data
+        setSpiceLevels(response.data.spiceLevels);
       } catch (error) {
         console.error("Error fetching spice levels:", error);
       }
@@ -229,7 +242,7 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
 
   const handleCheckboxChange = (e) => {
     const { checked } = e.target;
-    const newValue = checked ? "Yes" : "No"; 
+    const newValue = checked ? "Yes" : "No";
     setMenuItem({ ...menuItem, popular_dish: newValue });
   };
 
@@ -319,6 +332,7 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
       {/* Left Column */}
       <div className="w-full md:w-[50%] px-4 mb-1">
         {/* Input fields */}
+
         <div className="mb-4">
           <label className="block mb-1" htmlFor="name">
             Name:
@@ -333,6 +347,22 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
             required
           />
         </div>
+
+        <div className="mb-4">
+          <label className="block mb-1" htmlFor="SKUnumber">
+            SKU Number
+          </label>
+          <input
+            type="text"
+            id="SKU_Number"
+            name="SKU_Number"
+            value={menuItem.SKU_Number}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border rounded"
+            required
+          />
+        </div>
+
         <div className="mb-4">
           <label className="block mb-1" htmlFor="price">
             Price:
@@ -526,9 +556,8 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
                   <span className="max-w-[150px] text-ellipsis overflow-hidden flex whitespace-nowrap capitalize">
                     <b className="mr-2">{index + 1}.</b>{" "}
                     {
-                      dietaries.find(
-                        (dietaryItem) => dietaryItem._id === item
-                      )?.title
+                      dietaries.find((dietaryItem) => dietaryItem._id === item)
+                        ?.title
                     }
                   </span>
                   <span
@@ -541,7 +570,6 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
               ))}
           </div>
         </div>
-
 
         <div className="mb-4">
           <label className="block mb-1" htmlFor="nutrition">
@@ -684,7 +712,7 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
             required
           /> */}
           <ReactQuill
-             id="ingredientsList"
+            id="ingredientsList"
             name="List_of_Allergens"
             value={menuItem.List_of_Allergens}
             onChange={handleChangeListofAllergens}

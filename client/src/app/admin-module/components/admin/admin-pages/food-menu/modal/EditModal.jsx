@@ -31,6 +31,7 @@ const EditModal = ({
     ProfileImage: "",
     nutritional_information: "",
     popular_dish: false,
+    SKU_Number: "",
   });
 
   const [isLoading, setLoading] = useState(false);
@@ -65,6 +66,7 @@ const EditModal = ({
         chef_id: editData.chef_id ? editData.chef_id._id : "",
         ProfileImage: editData.ProfileImage || null,
         popular_dish: editData.popular_dish === "Yes",
+        SKU_Number: editData.SKU_Number || "",
       });
     }
   }, [editData]);
@@ -204,7 +206,11 @@ const EditModal = ({
         "nutritional_information",
         formData.nutritional_information
       );
-      formDataToSend.append("popular_dish", formData.popular_dish ? "Yes" : "No");
+      formDataToSend.append(
+        "popular_dish",
+        formData.popular_dish ? "Yes" : "No"
+      );
+      formDataToSend.append("SKU_Number", formData.SKU_Number);
 
       // Append each Dietary_id
       formData.Dietary_id.forEach((id, index) => {
@@ -217,7 +223,7 @@ const EditModal = ({
       });
 
       // Append ProfileImage if available
-      if (formData.ProfileImage) {
+      if (formData.ProfileImage && typeof formData.ProfileImage === "object") {
         formDataToSend.append("ProfileImage", formData.ProfileImage);
       }
 
@@ -240,8 +246,16 @@ const EditModal = ({
         toast.error("Failed to update item");
       }
     } catch (error) {
-      console.error("Error updating item:", error);
-      toast.error("An error occurred while updating item");
+      const errorMessage = error.response?.data?.message || error.message;
+
+      if (error.response && error.response.status === 409) {
+        toast.error(
+          "SKU number already exists. Please choose a different SKU."
+        );
+      } else {
+        console.error("Error updating item:", errorMessage);
+        toast.error("An error occurred while updating the item.");
+      }
     } finally {
       setLoading(false);
     }
@@ -345,6 +359,19 @@ const EditModal = ({
                   placeholder="Enter dish name"
                   class="login-input w-full mt-1"
                   value={formData.name}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div class="py-2">
+                <span class="login-input-label capitalize">SKU Number</span>
+                <input
+                  type="text"
+                  name="SKU_Number"
+                  placeholder="Enter SKU number"
+                  class="login-input w-full mt-1"
+                  value={formData.SKU_Number}
                   onChange={handleChange}
                   required
                 />
