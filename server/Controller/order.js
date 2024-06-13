@@ -571,11 +571,7 @@ exports.PlaceOrder = async (req, res, next) => {
                     quantity: item.quantity,
                 })),
                 mode: 'payment',
-                discounts: [
-                    {
-                        coupon: Promo_code
-                    }
-                ],
+                discounts: Promo_code ? [{ coupon: Promo_code }] : [],
                 customer: req.user.stripeCustomerId,
                 success_url: 'http://www.authentichef.com/thankyou?session_id={CHECKOUT_SESSION_ID}',
                 cancel_url: 'http://www.authentichef.com',
