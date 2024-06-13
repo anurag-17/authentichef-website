@@ -218,9 +218,6 @@ const LandingPage = () => {
       }
     } catch (error) {
       console.error("Error adding items to cart:", error);
-      toast.error(
-        "An error occurred while adding items to cart. Please try again."
-      );
     }
   };
   const [getCartItems, setGetCartItems] = useState({});
@@ -422,7 +419,6 @@ const LandingPage = () => {
 
         {/* ===================Four================== */}
 
-      
         <div className="flex justify-center 2xl:py-[100px] xl:py-[70px]  lg:py-10 py-10 bg-[#F9F2F2]">
           <div className="custom_container mnavbar">
             <div className="flex">
@@ -516,9 +512,9 @@ const LandingPage = () => {
 
                       <div className=" w-full bottom-0 flex justify-between items-center  2xl:my-[22px] xl:my-[18px] my-[15px]">
                         <p className="alata font-[400] text-[#000] 2xl:text-[20px] 2xl:leading-[24px] xl:text-[14px] xl:leading-[18px] lg:text-[12px] lg:leading-[16px] text-[16px] leading-[16px] ">
-                          Serves {item?.portion_Size} |({item?.weight}g) |
+                          Serves {item?.portion_Size} | ({item?.weight}g) |
                           <span className="text-[#DB5353]">
-                            {item?.price && `£${item.price.toFixed(2)}`}
+                            {item?.price && ` £${item.price.toFixed(2)}`}
                           </span>
                         </p>
                         {token ? (
@@ -564,15 +560,12 @@ const LandingPage = () => {
                           </button>
                         )}
                       </div>
-
-                      
                     </div>
                   </div>
                 ))}
             </div>
           </div>
         </div>
-
 
         {/* ===================Five================== */}
 
@@ -842,6 +835,9 @@ const LandingPage = () => {
                           className=" testi-img"
                         />
                       </div>
+
+                      <p className="nine_name my-1 lg:my-3">{item?.Name}</p>
+
                       <div className="rating flex justify-center nine_start">
                         <label for="star1">
                           <input
@@ -890,8 +886,6 @@ const LandingPage = () => {
                         className="nine_p2"
                         dangerouslySetInnerHTML={{ __html: item?.Description }}
                       />
-
-                      <p className="nine_name">{item?.Name}</p>
                     </div>
                   </div>
                 ))}
@@ -921,7 +915,7 @@ const LandingPage = () => {
           ></label>
           <ul className="min-h-full text-base-content max-w-[310px] sm:max-w-[350px] md:w-[400px] md:max-w-[400px] 2xl:w-[450px] 2xl:max-w-[450px] bg-white">
             <div className="flex flex-col justify-center items-center p-[15px] md:p-[20px] h-[100vh]">
-            {(!updatedCart || !Array.isArray(getCartItems) || getCartItems.length === 0) ? (
+              {!updatedCart || !getCartItems || getCartItems.length === 0 ? (
                 <div className="flex flex-col justify-center items-center">
                   <h4 className="alata font-[400] text-[#111] text-[24px] mb-[1rem]">
                     Your Basket is empty!
@@ -964,7 +958,7 @@ const LandingPage = () => {
                       </h4>
                     </div>
                     <div className="pt-[1rem]">
-                      {cart?.map((item, index) => {
+                      {updatedCart?.map((item, index) => {
                         const { data } = item;
                         const itemSubtotal = data.price * item.quantity;
                         return (
@@ -1175,9 +1169,7 @@ const LandingPage = () => {
                     as="h3"
                     onClick={closeModal}
                     className="cursor-pointer relative custom_heading_text font-semibold leading-6 text-gray-900 mt lg:mt-0  right-5 text-[30px]"
-                  >
-                 
-                  </Dialog.Title>
+                  ></Dialog.Title>
                   <DishDetails
                     defaultADish={defaultADish}
                     setItemId={setItemId}

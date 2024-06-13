@@ -34,10 +34,10 @@ const AboutUs = () => {
             </div>
           </div>
 
-          <div className="bg-[#FFE8E8] 2xl:h-[937px] flex items-center justify-center 2xl:py-[0px] xl:py-[50px] py-[40px] ">
+          <div className="bg-[#FFE8E8] flex items-center justify-center 2xl:py-[100px] xl:py-[70px]  lg:py-10 py-10 ">
             <div className="text-center 2xl:w-[1293px] xl:w-[870px] lg:w-[600px] sm:w-[] w-[]  mx-auto md:px-0 px-[20px]">
               <h4 className=" nine_head">The Ever-Growing Problem</h4>
-              <p className="aboutPara 2xl:mt-[50px] xl:mt-[30px] mt-[15px]">
+              <p className="aboutPara 2xl:mt-[50px] xl:mt-[30px] mt-[15px] 2xl:w-[1063px] xl:w-[670px] lg:w-[520px] mx-auto">
                 We get it. <br/> Hectic daily life makes it difficult to cook healthy,
                 delicious homemade meals. Catering to individual tastes and
                 dietary needs just add to the pressure.
@@ -59,20 +59,24 @@ const AboutUs = () => {
                 straight to your doorstep.
                 </span>
               </p>
-              <p className="aboutPara 2xl:mt-[30px]  xl:mt-[15px] mt-[8px] 2xl:w-[1259px] xl:w-[800px] lg:w-[600px] sm:w-[] w-[] mx-auto">
+              <p className="aboutPara 2xl:mt-[30px]  xl:mt-[15px] mt-[8px]  2xl:w-[1063px] xl:w-[670px] lg:w-[520px] mx-auto">
               With a wide range of dishes catering to different dietary needs, there’s something for everyone.
               </p>
-              <p className="aboutPara 2xl:mt-[30px]  xl:mt-[15px] mt-[8px] 2xl:w-[1259px] xl:w-[800px] lg:w-[600px] sm:w-[] w-[] mx-auto">
+              <p className="aboutPara 2xl:mt-[30px]  xl:mt-[15px] mt-[8px]  2xl:w-[1063px] xl:w-[670px] lg:w-[520px] mx-auto">
               Sit back and enjoy a unique culinary experience without spending hours in the kitchen.
               </p>
-              <p className="aboutPara 2xl:mt-[30px]  xl:mt-[15px] mt-[8px] 2xl:w-[723px] xl:w-[450px] lg:w-[350px] sm:w-[] w-[] mx-auto">
+              <p className="aboutPara 2xl:mt-[30px]  xl:mt-[15px] mt-[8px]  2xl:w-[1063px] xl:w-[670px] lg:w-[520px] mx-auto">
               Explore our menu, where each chef and dish tells a story of tradition, love, and care, fostering a deep connection with food.
               </p>
             </div>
           </div>
-
+          
+          <h4 className="nine_head 2xl:mt-[90px] xl:mt-[45px] mt-[25px]">
+              Ready. Set. Feast!
+              </h4>
           <div className="custom_container 2xl:py-[140px] xl:py-[50px]  py-[30px] flex justify-between mnavbar md:relative  items-center md:px-0 px-[20px] md:flex-row flex-col">
             {/* Ensure the container is set to flex and justify-between */}
+            
             <div>
               <div className="2xl:w-[1031px] xl:w-[680px] lg:w-[520px]">
                 <Image
@@ -134,7 +138,7 @@ const AboutUs = () => {
             </div>
           </div>
 
-          <div className="custom_container flex justify-between  mnavbar pb-[50px]">
+          <div className="custom_container flex justify-between  mnavbar 2xl:pb-[100px] xl:pb-[70px]  lg:pb-10 pb-10">
             <div className="flex xs:mx-[10px] w-full gap-[15px] sm:flex-row flex-col md:justify-between gap-y-[20px] ">
               <div className="w-full md:w-[48%]">
                 <Image
@@ -162,8 +166,8 @@ const AboutUs = () => {
             </div>
           </div>
 
-          <div className="bg-[#FFE8E8]  flex justify-center 2xl:py-[80px] xl:py-[60px] md:py-[50px] sm:px-[30px]  py-[30px] ">
-            <div className="text-center 2xl:w-[1293px] xl:w-[870px] lg:w-[600px] w-full mx-auto  md:px-0 px-[20px]">
+          <div className="bg-[#FFE8E8]  flex justify-center 2xl:py-[100px] xl:py-[70px]  lg:py-10 py-10  ">
+            <div className="text-center 2xl:w-[1063px] xl:w-[670px] lg:w-[520px] sm:w-[] w-[] mx-auto md:px-0 px-[20px]">
               <h4 className="nine_head capitalize">
                 <span>Diversity, Equity and Inclusion</span>
               </h4>
@@ -173,7 +177,7 @@ const AboutUs = () => {
                 passion for food with customers looking to experience homemade
                 dishes.
               </p>
-              <p className="aboutPara 2xl:mt-[30px] xl:mt-[15px] mt-[8px] 2xl:w-[1063px] xl:w-[670px] lg:w-[520px] w-full mx-auto">
+              <p className="aboutPara 2xl:mt-[30px] xl:mt-[15px] mt-[8px] 2xl:w-[1063px] xl:w-[670px] lg:w-[520px] sm:w-[]  w-full mx-auto">
                 <span style={{ color: "#F38181" }}>
                   Diversity, Equity and Inclusion
                 </span>{" "}

@@ -63,7 +63,7 @@ const MyOrder = () => {
                             className="flex items-center 2xl:gap-[15px] xl:gap-[10px] gap-[8px]"
                           >
                             <img
-                              src={item.menuItem.ProfileImage[0]}
+                              src={item.menuItem.ProfileImage}
                               className="rounded-[5.8px] 2xl:w-[95px] 2xl:h-[95px] xl:w-[70px] w-[50px] h-auto"
                               alt={item.menuItem.name}
                             />
