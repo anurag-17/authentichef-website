@@ -171,18 +171,12 @@ const Checkout = () => {
     ];
 
     let allFieldsValid = true;
-
     requiredFields.forEach((field) => {
       if (field.required !== false && !field.value) {
         toast.error(`${field.name} is required.`);
         allFieldsValid = false;
       }
     });
-
-    if (!deliveryDate) {
-      toast.error("Delivery date is required.");
-      allFieldsValid = false;
-    }
 
     if (!allFieldsValid) {
       return;
@@ -194,12 +188,14 @@ const Checkout = () => {
     );
 
     try {
+      await applyPromoCode();
+
       const response = await axios.post(
         `${config.baseURL}/api/order/createOrder`,
         {
           deliveryInfo: [deliveryInfo],
           billingInfo: [billingInfo],
-          deliveryDate,
+          // Remove the deliveryDate line
           Promo_code,
           Delivery_instruction,
           cartItems: updatedCartItems.length ? updatedCartItems : getCartItems,
@@ -214,7 +210,6 @@ const Checkout = () => {
 
       if (response.status >= 200 && response.status < 300) {
         toast.success("Order Placed");
-
         const { sessionId, sessionUrl } = response.data;
         window.location.href = sessionUrl; // Redirect to Stripe payment page
       } else {
@@ -222,7 +217,6 @@ const Checkout = () => {
         console.log("Unexpected response status:", response.status);
       }
     } catch (error) {
-      toast.error("Failed to apply discount.");
       console.log("Error:", error);
     }
   };
@@ -322,7 +316,6 @@ const Checkout = () => {
         setSubtotalPrice(
           cartItems.reduce((sum, item) => sum + item.totalPrice, 0)
         );
-        refreshData();
         setShippingCost(userCart.Shipping_cost ?? 0); // Set the shipping cost
         setCartId(userCart._id); // Set the cart ID
       })
@@ -396,7 +389,7 @@ const Checkout = () => {
 
   useEffect(() => {
     defaultCartItems();
-  }, [!isRefresh]);
+  }, [isRefresh]);
 
   useEffect(() => {
     if (getCartItems) {
@@ -520,7 +513,6 @@ const Checkout = () => {
 
   const handlePhoneChange = (e) => {
     const inputValue = e.target.value;
-    // Limit the input to 15 characters
     if (inputValue.length <= 15) {
       setPhone(inputValue);
     }
@@ -540,6 +532,10 @@ const Checkout = () => {
   };
 
   const applyPromoCode = async () => {
+    if (!Promo_code) {
+      return; // Exit the function if Promo_code is empty, without doing anything
+    }
+
     try {
       const response = await axios.get(
         `${config.baseURL}/api/order/checkDiscount?Promo_code=${Promo_code}`,
@@ -553,7 +549,7 @@ const Checkout = () => {
         const data = response.data;
         setDiscountInfo(data);
         toast.success(data.message);
-        calculateSubtotal(updatedCartItems); // Call calculateSubtotal after applying discount
+        calculateSubtotal(updatedCartItems);
       } else {
         toast.error("Failed to apply discount.");
       }
@@ -1153,56 +1149,27 @@ const Checkout = () => {
 
                     <div className="flex justify-between 2xl:gap-[20px] xl:gap-[15px] gap-[10px] xl:my-[10px] my-[8px] 2xl:my/[15px]">
                       <div className="2xl:w-[388px] w-full">
-                        <form onSubmit={handleSubmit}>
-                          <label className="checkoutlable">
-                            Delivery date
-                            <span className="text-[#DB1414]">*</span>
+                        <div className="2xl:my-[30px] xl:my-[20px] my-[15px]">
+                          <label className="seven_p2 text-[#555555]">
+                            Delivery Instruction
                           </label>
-                          <DatePicker
-                            selected={deliveryDate}
-                            onChange={handleDateChange}
-                            minDate={minDate}
-                            maxDate={maxDate}
-                            placeholderText="Select"
-                            className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h/[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p/[10px] p-[8px] 2xl:mt/[10px] xl:mt/[5px] mt-[3px]"
-                            filterDate={(date) => {
-                              const day = date.getDay();
-                              return day !== 0 && day !== 1 && day !== 6; // Disable Saturday, Sunday, Monday
-                            }}
-                            required
-                            dateFormat="dd/MM/yyyy"
-                          />
-                          {/* {deliveryMessage && (
-            <div className="text-[#555555] mt-2">{deliveryMessage}</div>
-          )} */}
-                        </form>
+                          <br></br>
+                          <span>
+                            Delivery days within 2-3 working days{" "}
+                            <Link
+                              href={"/FAQs"}
+                              target="_blank"
+                              className="ml-2"
+                            >
+                              <span className="text-[#FF0000]">read more</span>
+                            </Link>
+                          </span>
+                        </div>
                       </div>
-                      <div className="pop-chef flex items-end">
-                        <span>
-                          Delivery days within 2-3 working days{" "}
-                          <Link href={"/FAQs"} target="_blank" className="ml-2">
-                            <span className="text-[#FF0000]">Read more</span>
-                          </Link>
-                        </span>
-                      </div>
+                      <div className="pop-chef flex items-end"></div>
                     </div>
-                    <div className="2xl:my-[30px] xl:my-[20px] my-[15px]">
-                      <label className="seven_p2 text-[#555555]">
-                        Delivery instruction
-                      </label>
-                      <input
-                        type="text"
-                        name="deliveryInstruction"
-                        placeholder="Enter"
-                        className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h/[40px] h/[30px] 2xl:text-[16px] xl:text/[12px] text/[9px] 2xl:p/[20px] xl:p/[10px] p/[8px] 2xl:mt/[10px] xl:mt/[5px] mt/[3px]"
-                        value={Delivery_instruction}
-                        onChange={handleDeliveryInstructionChange}
-                      />
-                    </div>
-                    <div className="2xl:my/[30px] xl:my/[20px] my/[15px]">
-                      <label className="seven_p2 text-[#555555]">
-                        Delivery instruction
-                      </label>
+                    <div className=" my-[15px]"></div>
+                    <div className="2xl:my/[30px] my/[15px]">
                       <p className="fourth_p text-[#555555]">
                         Your personal data only be used to process your order
                         and support your experience. We do not sell or rent your

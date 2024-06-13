@@ -229,7 +229,7 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
 
   const handleCheckboxChange = (e) => {
     const { checked } = e.target;
-    const newValue = checked ? "Yes" : "No"; // Set value to "No" when unchecked
+    const newValue = checked ? "Yes" : "No"; 
     setMenuItem({ ...menuItem, popular_dish: newValue });
   };
 

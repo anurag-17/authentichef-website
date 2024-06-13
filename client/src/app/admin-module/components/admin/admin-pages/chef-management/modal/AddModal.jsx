@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
-// import ReactQuill from "react-quill";
-// import "react-quill/dist/quill.snow.css"; // Import the styles
 import Loader from "../../../loader/Index";
 import config from "@/config";
 import ReactQuill from "react-quill";
@@ -25,6 +23,7 @@ const AddModal = ({ closeModal, refreshData }) => {
     Instagram_Link: "",
     Facebook_Link: "",
     Dietary_id: [],
+    popular_chef: "No",
   });
   const [isLoading, setLoading] = useState(false);
 
@@ -63,7 +62,7 @@ const AddModal = ({ closeModal, refreshData }) => {
   }, []);
 
   const inputHandler = (e) => {
-    const { name, value, files } = e.target;
+    const { name, value, files, type, checked } = e.target;
 
     if (name === "images" || name === "bannerImage") {
       if (files && files[0]) {
@@ -113,6 +112,11 @@ const AddModal = ({ closeModal, refreshData }) => {
       setChefData({
         ...chefData,
         [name]: [...chefData[name], value],
+      });
+    } else if (type === "checkbox") {
+      setChefData({
+        ...chefData,
+        popular_chef: checked ? "Yes" : "No",
       });
     } else {
       setChefData({
@@ -165,6 +169,7 @@ const AddModal = ({ closeModal, refreshData }) => {
       formData.append("bannerImage", chefData.bannerImage);
       formData.append("Instagram_Link", chefData.Instagram_Link);
       formData.append("Facebook_Link", chefData.Facebook_Link);
+      formData.append("popular_chef", chefData.popular_chef); // Append new field
 
       const response = await axios.post(
         `${config.baseURL}/api/chef/chefs`,
@@ -225,11 +230,11 @@ const AddModal = ({ closeModal, refreshData }) => {
   };
 
   const removeDietary = (index) => {
-    const updatedDietary = [...menuItem.Dietary_id];
+    const updatedDietary = [...chefData.Dietary_id];
     updatedDietary.splice(index, 1);
 
-    setMenuItem({
-      ...menuItem,
+    setChefData({
+      ...chefData,
       Dietary_id: updatedDietary,
     });
   };
@@ -237,7 +242,7 @@ const AddModal = ({ closeModal, refreshData }) => {
   const removeCuisine = (cuisineId) => {
     setChefData((prevState) => ({
       ...prevState,
-      cuisineType: prevState.cuisineType.filter(
+      Cuisines_id: prevState.Cuisines_id.filter(
         (cuisine) => cuisine._id !== cuisineId
       ),
     }));
@@ -397,6 +402,18 @@ const AddModal = ({ closeModal, refreshData }) => {
                   className="custom_inputt"
                   accept="image/*"
                   required
+                />
+              </div>
+              <div className="mt-4">
+                <label className="login-input-label capitalize">
+                  Popular Chef:
+                </label>
+                <input
+                  type="checkbox"
+                  name="popular_chef"
+                  checked={chefData.popular_chef === "Yes"}
+                  onChange={inputHandler}
+                  className="ml-2"
                 />
               </div>
 
