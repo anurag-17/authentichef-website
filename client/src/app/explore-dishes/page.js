@@ -563,7 +563,7 @@ const ExploreDishes = () => {
         refreshData();
         setLoading(false);
       } else {
-        toast.error("Failed to add items to cart. Please try again.");
+       console.log("Failed to add items to cart. Please try again.");
       }
     } catch (error) {
       console.error("Error adding items to cart:", error);

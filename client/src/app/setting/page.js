@@ -72,9 +72,11 @@ const Setting = () => {
       if (res.status >= 200 && res.status < 300) {
         toast.success("Logout successfully");
         router.push("/explore-dishes");
-        dispatch(removeToken());
-        dispatch(removeUser());
-        dispatch(removeSuccess());
+        setTimeout(() => {
+          dispatch(removeToken());
+          dispatch(removeUser());
+          dispatch(removeSuccess());
+        }, 1000); // Adjust the delay time as needed
         refreshData();
       } else {
         console.log("Logout failed");
