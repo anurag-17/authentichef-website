@@ -1,7 +1,7 @@
 const express=require('express')
 const { isAuthenticatedUser,isAuthenticatedUserForAddtocard,authorizeRoles} = require('../middleware/auth')
-const {PlaceOrder,OrderList,getOrderById,UpdateOrder,DeleteOrder,  getChefAndOrderCounts , AllOrderList ,checkDiscount,BookOrder,CancelOrder,GetSessionId } = require("../Controller/order")
-const {getAllShipment}=require("../Controller/ShiptheoryController")
+const {PlaceOrder,OrderList,getOrderById,UpdateOrder,DeleteOrder,  getChefAndOrderCounts , AllOrderList ,checkDiscount,BookOrder,CancelOrder,GetSessionId ,CreateCouponStripe } = require("../Controller/order")
+const {getAllShipment,ShipmentPdf}=require("../Controller/ShiptheoryController")
 const {handleWebhook}=require("../Controller/handlehookcontroller")
 const router=express.Router()
 
@@ -24,6 +24,11 @@ router.get("/allOrderList", isAuthenticatedUser, authorizeRoles("admin"), AllOrd
 router.get("/checkDiscount", isAuthenticatedUser, checkDiscount)
 router.post("/cancelOrder", isAuthenticatedUser, CancelOrder)
 router.get("/", isAuthenticatedUser, getAllShipment)
+router.post("/shipmentPdf", ShipmentPdf)
 
 router.get("/getSessionId", isAuthenticatedUser, GetSessionId)
+
+// Coupen code
+
+router.post("/coupenStripe", CreateCouponStripe)
 module.exports=router

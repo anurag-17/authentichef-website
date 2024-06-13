@@ -399,7 +399,7 @@ exports.PlaceOrder = async (req, res, next) => {
         if (userOrder.length === 0) {
             if (Promo_code) {
                 console.log("First Order with Promo Code");
-                const coupon = await Coupon.findOne({ code: Promo_code, isActive: true });
+                const coupon = await Coupon.findOne({ code: Promo_code , isActive: true });
                 if (coupon) {
                     // Apply discount if conditions are met
                     if (totalAmount > 0) {
@@ -571,6 +571,11 @@ exports.PlaceOrder = async (req, res, next) => {
                     quantity: item.quantity,
                 })),
                 mode: 'payment',
+                discounts: [
+                    {
+                        coupon: Promo_code
+                    }
+                ],
                 customer: req.user.stripeCustomerId,
                 success_url: 'http://www.authentichef.com/thankyou?session_id={CHECKOUT_SESSION_ID}',
                 cancel_url: 'http://www.authentichef.com',
@@ -618,6 +623,71 @@ exports.PlaceOrder = async (req, res, next) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 };
+
+// make a api to create a coupon //
+
+exports.CreateCouponStripe = async (req, res) => {
+    try {
+      const { percentOff, duration, name, currency, maxRedemptions, redeemBy } = req.body;
+      const couponParams = {
+        percent_off: percentOff,
+        duration: duration,
+        name: name,
+        currency: currency,
+      };
+  
+      if (duration === 'repeating') {
+        // If the duration is repeating, ensure duration_in_months is set
+        couponParams.duration_in_months = req.body.duration_in_months; // Assuming duration_in_months is provided in req.body
+      }
+  
+      if (maxRedemptions) {
+        couponParams.max_redemptions = maxRedemptions;
+      }
+  
+      if (redeemBy) {
+        couponParams.redeem_by = redeemBy;
+      }
+  
+      const coupon = await stripe.coupons.create(couponParams);
+  
+      // Store coupon details in your database
+      const newCoupon = new Coupon({
+        code: coupon.id,
+        isActive: true,
+        discountValue: percentOff,
+        duration: duration,
+        duration_in_months: req.body.duration_in_months, // Store duration_in_months if provided
+        name: name,
+        currency: currency,
+        maxRedemptions: maxRedemptions,
+        expiryDate: redeemBy,
+      });
+  
+      await newCoupon.save();
+  
+      res.status(200).json({ message: 'Coupon created successfully', coupon });
+    } catch (error) {
+      console.error('Error creating coupon:', error);
+      res.status(500).send('Error creating coupon');
+    }
+  };
+
+
+
+// Delete the Coupon //
+
+exports.DeleteCouponStripe = async (req, res) => {
+    try {
+        const { couponId } = req.params;
+        const coupon = await stripe.coupons.del(couponId);
+        res.status(200).json({ message: 'Coupon deleted successfully', coupon });
+    } catch (error) {
+        console.error('Error deleting coupon:', error);
+        res.status(500).send('Error deleting coupon');
+    }
+
+}
 
 
 // Working

@@ -62,10 +62,21 @@ exports.updateFaq = async (req, res) => {
 
 exports.deleteFaq = async (req, res) => {
     try {
-        const faq = await FaqModel.findByIdAndDelete(req.params.id);
+        const { questionId } = req.params;
+        
+        // Find the FAQ containing the query with the given questionId
+        const faq = await FaqModel.findOne({ 'Queries.questionId': questionId });
+
         if (!faq) {
             return res.status(404).json({ message: 'Faq not found' });
         }
+
+        // Remove the specific query from the Queries array
+        faq.Queries = faq.Queries.filter(query => query.questionId != questionId);
+
+        // Save the updated FAQ document
+        await faq.save();
+
         res.status(200).send({ message: 'Faq deleted successfully' });
     } catch (error) {
         res.status(500).json({ message: error.message });

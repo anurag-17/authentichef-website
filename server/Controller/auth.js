@@ -326,6 +326,38 @@ exports.logout = async (req, res) => {
   }
 };
 
+// exports.logout = async (req, res) => {
+//   try {
+//     const { email } = req.body;
+
+//     if (!email) {
+//       return res.status(400).json({ message: "Email not provided" });
+//     }
+
+//     const userData = await User.findOne({ email });
+
+//     if (!userData) {
+//       return res.status(401).json({ message: "User not found" });
+//     }
+
+//     if (userData.activeToken) {
+//       await User.findOneAndUpdate(
+//         { email: email },
+//         { $unset: { activeToken: "" } }
+//       );
+
+//       return res.status(200).json({ message: `${email} is logged out successfully` });
+//     } else {
+//       return res.status(401).json({ message: "User is not currently logged in" });
+//     }
+//   } catch (error) {
+//     console.error("Error:", error);
+//     return res.status(500).json({ message: "Server error" });
+//   }
+// };
+
+
+
 exports.forgotPassword = async (req, res, next) => {
   console.log("Forget Pass");
   const { email } = req.body;
