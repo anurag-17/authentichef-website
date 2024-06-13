@@ -5,7 +5,7 @@ import axios from "axios";
 import Loader from "../../../loader/Index";
 import config from "@/config";
 import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css"; // Import the styles
+import "react-quill/dist/quill.snow.css";
 
 const EditModal = ({ closeModal, editData, updateId, token, refreshData }) => {
   const [formData, setFormData] = useState({
@@ -20,13 +20,14 @@ const EditModal = ({ closeModal, editData, updateId, token, refreshData }) => {
         : "", // Set the first banner image as default if available
     Instagram_Link: editData?.Instagram_Link || "",
     Facebook_Link: editData?.Facebook_Link || "",
+    popular_chef: editData?.popular_chef === "Yes" ? "Yes" : "No", // Initialize popular_chef with "Yes" or "No"
   });
 
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const inputHandler = (e) => {
-    const { name, value, files } = e.target;
+    const { name, value, files, type, checked } = e.target;
 
     if (name === "images" || name === "bannerImage") {
       const fileSize = files[0]?.size || 0; // in bytes
@@ -68,6 +69,11 @@ const EditModal = ({ closeModal, editData, updateId, token, refreshData }) => {
         });
         setError(""); // Clear error if file size is within the limit
       }
+    } else if (type === "checkbox") {
+      setFormData({
+        ...formData,
+        [name]: checked ? "Yes" : "No", // Set "Yes" or "No" based on checkbox state
+      });
     } else {
       setFormData({
         ...formData,
@@ -135,6 +141,7 @@ const EditModal = ({ closeModal, editData, updateId, token, refreshData }) => {
 
       formDataToSend.append("Instagram_Link", formData.Instagram_Link);
       formDataToSend.append("Facebook_Link", formData.Facebook_Link);
+      formDataToSend.append("popular_chef", formData.popular_chef); // Append popular_chef
 
       const response = await axios.put(
         `${config.baseURL}/api/chef/chefs/${updateId}`,
@@ -162,7 +169,6 @@ const EditModal = ({ closeModal, editData, updateId, token, refreshData }) => {
       setLoading(false);
     }
   };
-
   return (
     <>
       <ToastContainer autoClose={1000} />
@@ -262,6 +268,20 @@ const EditModal = ({ closeModal, editData, updateId, token, refreshData }) => {
                   className="mt-4"
                 />
               ) : null}
+            </div>
+
+            {/* Popular Chef */}
+            <div className="py-2">
+              <span className="login-input-label capitalize">
+                Popular Chef :
+              </span>
+              <input
+                type="checkbox"
+                name="popular_chef"
+                checked={formData.popular_chef === "Yes"}
+                className="ml-2"
+                onChange={inputHandler}
+              />
             </div>
 
             {/*------------------- image -------------------*/}

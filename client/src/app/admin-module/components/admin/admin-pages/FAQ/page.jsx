@@ -100,7 +100,7 @@ const FAQs = () => {
       .catch((error) => console.error("Error submitting FAQ:", error));
   };
 
-  const handleDeleteQuestion = (questionId) => {
+  const handleDeleteQuestion = (questionId, faqId) => {
     axios
       .delete(`${config.baseURL}/api/faq/${questionId}`, {
         headers: {
@@ -108,7 +108,18 @@ const FAQs = () => {
         },
       })
       .then(() => {
-        setFaqs((prevFaqs) => prevFaqs.filter((faq) => faq._id !== questionId));
+        setFaqs((prevFaqs) =>
+          prevFaqs.map((faq) =>
+            faq._id === faqId
+              ? {
+                  ...faq,
+                  Queries: faq.Queries.filter(
+                    (query) => query.questionId !== questionId
+                  ),
+                }
+              : faq
+          )
+        );
       })
       .catch((error) => console.error("Error deleting question:", error));
   };
@@ -126,7 +137,6 @@ const FAQs = () => {
     handleQueryChange(index, value, "answer");
   };
 
-  // Function to handle ReactQuill change for editing existing FAQs
   const handleEditFaqQuillChange = (index, value) => {
     handleQueryChange(index, value, "answer");
   };
@@ -190,7 +200,9 @@ const FAQs = () => {
                           </button>
                           <button
                             className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-4 rounded"
-                            onClick={() => handleDeleteQuestion(faq._id)}
+                            onClick={() =>
+                              handleDeleteQuestion(query.questionId, faq._id)
+                            }
                           >
                             Delete
                           </button>
