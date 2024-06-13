@@ -1,16 +1,18 @@
 "use client";
-import config from "@/config";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+import config from "@/config";
+
 
 const ResetPassword = ({ params }) => {
   const [password, setPassword] = useState("");
   const [isLoading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
   const resetToken = params?.slug || "";
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent default form submission behavior
     setLoading(true);
     try {
       const response = await axios.put(
@@ -32,10 +34,10 @@ const ResetPassword = ({ params }) => {
       }
     } catch (error) {
       console.error("Error during login:", error);
-
       setLoading(false);
     }
   };
+
   return (
     <>
       <section>
@@ -51,21 +53,21 @@ const ResetPassword = ({ params }) => {
               <div className="md:py-2 mx-auto">
                 <input
                   type="password"
-                  name="newPassword"
+                  name="password"
                   placeholder="New Password"
                   className="login-input w-full mt-2 custom-input h-[35px] lg:h-[40px] xl:h-[50px] 2xl:h-[60px]"
-                  value={newPassword}
                   onChange={(e) => setPassword(!password)}
                   required
                 />
               </div>
 
               <button
-                type="submit"
-                disabled={isLoading}
+                type="button"
+                // disabled={isLoading}
                 className="w-full bg-[#F38181] text-[14px] xl:text-[16px] 2xl:text-[18px] font-medium text-white p-2 rounded-lg hover:border hover:border-gray-300 h-[35px] lg:h-[40px] xl:h-[50px] 2xl:h-[60px] login-btn my-5"
               >
-                {isLoading ? "Loading.." : "Submit"}
+                {/* {isLoading ? "Loading.." : "Submit"} */}
+                Submit
               </button>
             </form>
           </div>

@@ -15,6 +15,9 @@ import { ToastContainer, toast } from "react-toastify";
 import config from "@/config";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
+import DeleteIcon from "../user/svg/DeleteIcon";
+import { MinusIcon } from "../user/svg/MinusIcon";
+import PlusIcon from "../user/svg/PlusIcon";
 
 const Checkout = () => {
   const { token } = useSelector((state) => state?.auth);
@@ -52,13 +55,15 @@ const Checkout = () => {
 
   const [deliveryDate, setDeliveryDate] = useState("");
   const [Delivery_instruction, setDeliveryInstruction] = useState("");
-  const [getCartItems, setGetCartItems] = useState([]);
+  // const [getCartItems, setGetCartItems] = useState([]);
+  const [getCartItems, setGetCartItems] = useState(token ? [] : {});
   const [updatedCartItems, setUpdatedCartItems] = useState([]);
   const [subtotalPrice, setSubtotalPrice] = useState(0);
   const [cartId, setCartId] = useState("");
   const [isChecked, setIsChecked] = useState(false);
   const [deliveryMessage, setDeliveryMessage] = useState("");
   const [discountInfo, setDiscountInfo] = useState(null);
+
   const [shippingCost, setShippingCost] = useState(0);
   const shippingThreshold = 55;
   const [paymentMethod, setPaymentMethod] = useState("COD");
@@ -313,6 +318,7 @@ const Checkout = () => {
         }));
         setGetCartItems(cartItems);
         setUpdatedCartItems(cartItems); // Initializing updatedCartItems with fetched data
+        refreshData();
         setSubtotalPrice(
           cartItems.reduce((sum, item) => sum + item.totalPrice, 0)
         );
@@ -547,6 +553,7 @@ const Checkout = () => {
       );
       if (response.status >= 200 && response.status < 300) {
         const data = response.data;
+        refreshData();
         setDiscountInfo(data);
         toast.success(data.message);
         calculateSubtotal(updatedCartItems);
@@ -623,6 +630,32 @@ const Checkout = () => {
     defaultUser();
   }, []);
 
+  const handleRemoveItem = async (itemId) => {
+    try {
+      const response = await axios.delete(
+        `${config.baseURL}/api/Orders/deleteCartItem/${itemId}`,
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+
+      if (response.status >= 200 && response.status < 300) {
+        toast.success("Item Removed From Cart");
+
+        setGetCartItems((prevCartItems) =>
+          prevCartItems.filter((item) => item.menuItem._id !== itemId)
+        );
+        setShouldRefresh(true);
+      } else {
+        console.log("Failed to remove item");
+      }
+    } catch (error) {
+      console.log(error?.response?.data?.message || "Server error");
+    }
+  };
+  const discountAmount = discountInfo?.discountApplied ?? 0;
   return (
     <>
       <ToastContainer autoClose={1000} />
@@ -660,8 +693,8 @@ const Checkout = () => {
             <h4 className="pop-head 2xl:my-[30px] xl:my-[20px] my-[15px] text-center lg:text-start">
               Delivery information
             </h4>
-            <div className=" 2xl:mb-[110px] xl:mb-[70px]">
-              <div className="lg:mx-0 mx-auto 2xl:w-[795px] xl:w-[595px] lg:w-[450px] w-[90%] md:w-full lg:flex lg:justify-between 2xl:gap-[55px] xl:gap-[40px] gap-[25px]">
+            <div className=" 2xl:mb-[110px] xl:mb-[70px] 2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[700px] w-full ">
+              <div className="lg:mx-0 mx-auto 2xl:w-[90%] xl:w-[90%] lg:w-[450px] w-[90%] md:w-full lg:flex lg:justify-between 2xl:gap-[55px] xl:gap-[40px] gap-[25px]">
                 <div>
                   <div>
                     <label className="checkoutlable">
@@ -1011,58 +1044,83 @@ const Checkout = () => {
                   </div>
                 </div>
                 {/* =========Right ============ */}
-                <div className="mx-auto 2xl:w-[597px] xl:w-[395px] lg:w-[350px] md:w-full w-[100%] p-5 border 2xl:mt-[35px] mt-10 lg:mt-0">
-                  <div className="">
+                <div className="mx-auto 2xl:w-[100%] xl:w-[100%] lg:w-[350px] md:w-full w-[100%] p-5 border 2xl:mt-[35px] mt-10 lg:mt-0">
+                  <div className="w-full">
                     <div className="max-h-[250px] overflow-y-scroll">
                       {Array.isArray(getCartItems) &&
-                        getCartItems.map((item) => (
-                          <div key={item._id}>
-                            <div className="flex justify-between items-center 2xl:my-6 my-2">
-                              <div className="flex items-center gap-2 2xl:gap-4 xl:h-[70px]">
-                                <img
-                                  src={item?.menuItem?.ProfileImage}
-                                  alt={item?.menuItem?.name}
-                                  className="2xl:w-[83px] 2xl:h-[83px] xl:w-[65px] lg:w-[50px] rounded-[10px]"
-                                />
-                                <div>
-                                  <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[24px] 2xl:leading-[34px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
-                                    {item?.menuItem?.name}
-                                  </h4>
-                                  <h4 className="alata font-[400] text-[#111] 2xl:my-0 2xl:text-[20px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
-                                    £
-                                    {item?.menuItem?.price &&
-                                      `${item?.menuItem?.price.toFixed(2)}`}
-                                  </h4>
+                        getCartItems.map((item, index) => {
+                          const itemSubtotal =
+                            item.menuItem.price * item.quantity;
+                          return (
+                            <div
+                              key={index}
+                              className="mt-3 md:mt-0 md:my-5 flex w-full gap-1 md:gap-5 border-b-[2px] "
+                            >
+                              <div className="flex gap-2 md:gap-4 w-full pb-[10px]">
+                                <div className="w-[45%] md:w-auto">
+                                  <img
+                                    src={item.menuItem.ProfileImage}
+                                    alt={item.menuItem.name}
+                                    className="md:w-[100px] h-[97px] object-cover w-[100%]"
+                                  />
+                                </div>
+
+                                <div className="flex flex-col justify-between w-[65px]">
+                                  <div className="flex flex-col w-[65px]">
+                                    <p className="alata font-[400] text-[#111111] my-0 text-[13px] sm:text-[14px] xl:text-[15px] leading-[22px] text-ellipsis whitespace-nowrap overflow-hidden max-w-[100px]">
+                                      {item.menuItem.name}
+                                    </p>
+                                    <p className="alata font-[400] text-[#111111] my-0 md:text-[14px] text-[13px] xl:text-[15px] leading-[20px]">
+                                      Price: £{item.menuItem.price.toFixed(2)}
+                                    </p>
+                                  </div>
+                                  <div className="flex gap-1 md:gap-2 items-center">
+                                    <div className="flex justify-center border-[#111111] border mt-1">
+                                      <button
+                                        className="text-[#111111] px-[10px] py-[5px]"
+                                        onClick={() => {
+                                          applyPromoCode();
+                                          handleDecrement(item._id);
+                                        }}
+                                      >
+                                        <MinusIcon />
+                                      </button>
+                                      <p className="px-[5px] py-[5px] flex mx-auto items-center 2xl:text-[16px] md:text-[14px] text-[13px] 2xl:leading-[22px]">
+                                        {item.quantity}
+                                      </p>
+                                      <button
+                                        className="text-[#111111] px-[10px] py-[5px]"
+                                        onClick={() => {
+                                          applyPromoCode();
+                                          handleIncrement(item._id);
+                                        }}
+                                      >
+                                        <PlusIcon />
+                                      </button>
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
-                              <div className="flex justify-center 2xl:w-[103px] 2xl:h-[39px] xl:w-[60px] xl:h-[22px] lg:w-[50px] lg:h-[20px] border rounded-[5px]">
-                                <button
-                                  className="text-[#DB5353] rounded-l w-1/3"
-                                  onClick={() => handleDecrement(item._id)}
-                                >
-                                  <Image
-                                    src={minus}
-                                    className="2xl:w-[15px] 2xl:h-[15px] xl:w-[10px] xl:h-[10px] lg:w/[8px] lg:h-[8px] mx-auto"
-                                    alt="decrement"
-                                  />
-                                </button>
-                                <p className="flex mx-auto items-center text-[10px] xl:text-[12px] 2xl:text-[18px] 2xl:leading-[28px]">
-                                  {item.quantity}
+
+                              <div className="flex flex-col justify-between">
+                                <p className="alata font-[600] 2xl:my-0 text-[13px] sm:text-[14px] xl:leading-[28px] ">
+                                  £{itemSubtotal.toFixed(2)}
                                 </p>
                                 <button
-                                  className="text-[#DB5353] rounded-r w-1/3"
-                                  onClick={() => handleIncrement(item._id)}
+                                  className="text-center mx-auto pb-[10px]"
+                                  onClick={() =>
+                                    token
+                                      ? handleRemoveItem(item.menuItem._id)
+                                      : ""
+                                  }
                                 >
-                                  <Image
-                                    src={plus}
-                                    className="2xl:w-[15px] 2xl:h-[15px] xl:w/[10px] xl:h/[10px] lg:w/[8px] lg:h-[8px] mx-auto"
-                                    alt="increment"
-                                  />
+                                  <DeleteIcon />
                                 </button>
                               </div>
+                              <hr />
                             </div>
-                          </div>
-                        ))}
+                          );
+                        })}
                     </div>
 
                     <div className="flex justify-between">
@@ -1073,6 +1131,33 @@ const Checkout = () => {
                         £{subtotalPrice.toFixed(2)}
                       </h4>
                     </div>
+                    {subtotalPrice < 30 && (
+                      <p className="text-red-500 text-[18px] text-center mb-2 pt-4">
+                        Minimum order value must be £30 or more.
+                      </p>
+                    )}
+                    {isModalOpen && (
+                      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 alata">
+                        <div className="bg-white p-6 rounded shadow-lg">
+                          <p>Minimum order value must be £30 or more.</p>
+                          <button
+                            onClick={closeModal}
+                            className="mt-4 bg-[#DB5353] text-white px-4 py-2 rounded"
+                          >
+                            Close
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                    <div className="flex justify-between my-2 lg:my-3">
+                      <h4 className="alata font-[400] text-[#555555] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
+                        Discount Applied
+                      </h4>
+                      <h4 className="alata font-[400] text-[#555555] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
+                        -£{discountAmount}
+                      </h4>
+                    </div>
+
                     <div className="flex justify-between 2xl:my-[25px] xl:my-[15px] my-[10px]">
                       <div>
                         <h4 className="alata font-[400] text-[#555555] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
@@ -1084,7 +1169,21 @@ const Checkout = () => {
                         £{shippingCost.toFixed(2)}
                       </h4>
                     </div>
-
+                   
+                    <div className="flex justify-between">
+                      <h4 className="alata font-[400] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading/[20px] lg:text-[10px] lg:leading-[18px]">
+                        Total
+                      </h4>
+                      <h4 className="alata font-[400] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading/[20px] lg:text-[10px] lg:leading/[18px]">
+                        £
+                        {discountInfo
+                          ? (
+                              discountInfo.totalAmountAfterDiscount +
+                              shippingCost
+                            ).toFixed(2)
+                          : (subtotalPrice + shippingCost).toFixed(2)}
+                      </h4>
+                    </div>
                     <div className="2xl:my-[30px] xl:my-[20px] my-[15px]">
                       <label className="seven_p2 text-[#555555]">
                         Promo code or Gift card
@@ -1106,21 +1205,6 @@ const Checkout = () => {
                           Apply
                         </button>
                       </div>
-                    </div>
-
-                    <div className="flex justify-between">
-                      <h4 className="alata font-[400] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading/[20px] lg:text-[10px] lg:leading-[18px]">
-                        Total
-                      </h4>
-                      <h4 className="alata font-[400] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading/[20px] lg:text-[10px] lg:leading/[18px]">
-                        £
-                        {discountInfo
-                          ? (
-                              discountInfo.totalAmountAfterDiscount +
-                              shippingCost
-                            ).toFixed(2)
-                          : (subtotalPrice + shippingCost).toFixed(2)}
-                      </h4>
                     </div>
 
                     <div className="2xl:my-[30px] xl:my-[20px] my-[15px]">
@@ -1199,24 +1283,8 @@ const Checkout = () => {
                         </Link>
                       </span>
                     </div>
-                    {subtotalPrice < 30 && (
-                      <p className="text-red-500 text-[18px] text-center mb-2 pt-4">
-                        Minimum order value must be £30 or more.
-                      </p>
-                    )}
-                    {isModalOpen && (
-                      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 alata">
-                        <div className="bg-white p-6 rounded shadow-lg">
-                          <p>Minimum order value must be £30 or more.</p>
-                          <button
-                            onClick={closeModal}
-                            className="mt-4 bg-[#DB5353] text-white px-4 py-2 rounded"
-                          >
-                            Close
-                          </button>
-                        </div>
-                      </div>
-                    )}
+                   
+
                     <button
                       onClick={handleSubmit}
                       disabled={!isChecked || subtotalPrice < 30}

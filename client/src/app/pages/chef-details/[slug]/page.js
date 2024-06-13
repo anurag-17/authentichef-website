@@ -475,7 +475,7 @@ Food Safety
                       </div>
                    
                       <div className="flex items-center gap-5  2xl:my-[20px] xl:my-[15px] my-[12px]">
-                        <h4 className="fourth_title">Spice level</h4>
+                        {/* <h4 className="fourth_title">Spice level</h4> */}
                         <button className="four_btnn border">
                           <img
                             alt="image"
@@ -488,11 +488,12 @@ Food Safety
                         </button>
                       </div>
                       <div className=" w-full bottom-0 flex justify-between items-center  2xl:my-[22px] xl:my-[18px] my-[15px]">
-                        <p className="alata font-[400] text-[#000] 2xl:text-[20px] 2xl:leading-[24px] xl:text-[14px] xl:leading-[18px] lg:text-[12px] lg:leading-[16px] text-[16px] leading-[16px] ">
-                          Serves {item?.portion_Size} |({item?.weight}g) |
-                          <span className="text-[#DB5353]">
-                            {item?.price && `£${item.price.toFixed(2)}`}
-                          </span>
+                      <p className="alata font-[400] text-[#000] 2xl:text-[20px] 2xl:leading-[24px] xl:text-[14px] xl:leading-[18px] lg:text-[12px] lg:leading-[16px] text-[16px] leading-[16px] ">
+                        <span className="text-[#DB5353]">
+                            {item?.price && ` £${item.price.toFixed(2)}`}
+                          </span> | 
+                         Weight: {item?.weight}g |  Serves {item?.portion_Size} 
+                        
                         </p>
                         {token ? (
                           <button
@@ -563,7 +564,7 @@ Food Safety
           ></label>
           <ul className="min-h-full text-base-content max-w-[310px] sm:max-w-[350px] md:w-[400px] md:max-w-[400px] 2xl:w-[450px] 2xl:max-w-[450px] bg-white">
             <div className="flex flex-col justify-center items-center p-[15px] md:p-[20px] h-[100vh]">
-              {!cart || getCartItems.length === 0 ? (
+            {!cart || !getCartItems || getCartItems.length === 0 ? (
                 <div className="flex flex-col justify-center items-center">
                   <h4 className="alata font-[400] text-[#111] text-[24px] mb-[1rem]">
                     Your Basket is empty!

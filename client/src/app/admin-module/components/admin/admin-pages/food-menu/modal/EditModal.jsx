@@ -31,7 +31,7 @@ const EditModal = ({
     ProfileImage: "",
     nutritional_information: "",
     popular_dish: false,
-    SKU_Number: "",
+    // SKU_Number: "",
   });
 
   const [isLoading, setLoading] = useState(false);
@@ -66,7 +66,7 @@ const EditModal = ({
         chef_id: editData.chef_id ? editData.chef_id._id : "",
         ProfileImage: editData.ProfileImage || null,
         popular_dish: editData.popular_dish === "Yes",
-        SKU_Number: editData.SKU_Number || "",
+        // SKU_Number: editData.SKU_Number || "",
       });
     }
   }, [editData]);
@@ -210,7 +210,7 @@ const EditModal = ({
         "popular_dish",
         formData.popular_dish ? "Yes" : "No"
       );
-      formDataToSend.append("SKU_Number", formData.SKU_Number);
+      // formDataToSend.append("SKU_Number", formData.SKU_Number);
 
       // Append each Dietary_id
       formData.Dietary_id.forEach((id, index) => {
@@ -364,7 +364,7 @@ const EditModal = ({
                 />
               </div>
 
-              <div class="py-2">
+              {/* <div class="py-2">
                 <span class="login-input-label capitalize">SKU Number</span>
                 <input
                   type="text"
@@ -375,7 +375,7 @@ const EditModal = ({
                   onChange={handleChange}
                   required
                 />
-              </div>
+              </div> */}
 
               <div class="py-2">
                 <span class="login-input-label capitalize"> Price :</span>

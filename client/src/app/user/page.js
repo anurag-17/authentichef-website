@@ -42,7 +42,7 @@ const LandingPage = () => {
   const [itemId, setItemId] = useState("");
 
   const [getAllDish, setGetAllDish] = useState({});
-  console.log(getAllDish, "dis");
+  // console.log(getAllDish, "dis");
   const [isOpen, setOpen] = useState(false);
   const [getADish, setGetADish] = useState("");
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -57,7 +57,7 @@ const LandingPage = () => {
   const quantity = cart[0]?.quantity;
   cart.forEach((item, index) => {
     const { data } = item;
-    console.log(data, `data from item ${index + 1}`);
+    // console.log(data, `data from item ${index + 1}`);
   });
 
   const handleIncrement = (itemId) => {
@@ -158,7 +158,7 @@ const LandingPage = () => {
       .request(option)
       .then((response) => {
         setGetAllDish(response?.data);
-        console.log(response?.data, "dish");
+        // console.log(response?.data, "dish");
         // console.log(response?.data, "DATA");
       })
       .catch((error) => {
@@ -294,15 +294,15 @@ const LandingPage = () => {
   const defaultChef = () => {
     const option = {
       method: "GET",
-      url: `${config.baseURL}/api/chef/chefs`,
+      url: `${config.baseURL}/api/chef/chefs/popular`,
 
       headers: {
         authorization: token,
       },
     };
     axios.request(option).then((response) => {
-      setGetAllChef(response?.data?.chefs);
-      // console.log(response?.data?.chefs, "chef");
+      setGetAllChef(response?.data);
+      // console.log(response?.data, "chef");
     });
   };
   const handleLoginClick = () => {
@@ -331,7 +331,7 @@ const LandingPage = () => {
       .request(option)
       .then((response) => {
         setTestimonials(response?.data);
-        console.log(response?.data, "testi");
+        // console.log(response?.data, "testi");
       })
       .catch((error) => {
         console.log(error, "Error");
@@ -431,7 +431,7 @@ const LandingPage = () => {
                     key={item.id}
                     className=" mt-5 2xl:w-[371px] 2xl:h-[560px] lg:w-[23%] sm:w-[45%] md:w-[48%] w-full relative rounded-[9.8px] mexploreD  "
                   >
-                    {console.log("ssss", item?.chef_id?.images)}
+                    {/* {console.log("ssss", item?.chef_id?.images)} */}
                     <div className="w-full flex justify-center">
                       <button
                         className="w-full"
@@ -476,16 +476,18 @@ const LandingPage = () => {
                       </Link>
 
                       <div className="flex gap-5 2xl:my-[20px] xl:my-[15px] my-[12px]">
-                        <button className="four_btn">
-                          <img
-                            alt="image"
-                            src={item?.Dietary_id[0]?.ProfileImage}
-                            className="2xl:w-[13px] 2xl:h-[13px] lg:w-[10px] lg:h-[10px] w-[10px] h-auto"
-                          />
-                          <p className="fourth_title capitalize">
-                            {item?.Dietary_id[0]?.title}
-                          </p>
-                        </button>
+                      <div className="flex flex-wrap gap-5 2xl:my-[20px] xl:my-[15px] my-[12px]">
+                        {item?.Dietary_id.map((dietary) => (
+                          <button className="four_btn" key={dietary._id}>
+                            <img
+                              src={dietary.ProfileImage}
+                              className="2xl:[18px] xl:w-[14px] w-[12px]"
+                              alt={dietary.title}
+                            />
+                            <p className="fourth_day">{dietary.title}</p>
+                          </button>
+                        ))}
+                      </div>
                         {item?.Nutrition_id?.Nutritional ? (
                           <div className="four_btn">
                             <p className="fourth_title capitalize">
@@ -497,7 +499,7 @@ const LandingPage = () => {
                         )}
                       </div>
                       <div className="flex items-center gap-5  2xl:my-[20px] xl:my-[15px] my-[12px]">
-                        <h4 className="fourth_title">Spice level</h4>
+                        {/* <h4 className="fourth_title">Weight</h4> */}
                         <button className="four_btnn border">
                           <img
                             alt="image"
@@ -511,11 +513,12 @@ const LandingPage = () => {
                       </div>
 
                       <div className=" w-full bottom-0 flex justify-between items-center  2xl:my-[22px] xl:my-[18px] my-[15px]">
-                        <p className="alata font-[400] text-[#000] 2xl:text-[20px] 2xl:leading-[24px] xl:text-[14px] xl:leading-[18px] lg:text-[12px] lg:leading-[16px] text-[16px] leading-[16px] ">
-                          Serves {item?.portion_Size} | ({item?.weight}g) |
-                          <span className="text-[#DB5353]">
+                      <p className="alata font-[400] text-[#000] 2xl:text-[20px] 2xl:leading-[24px] xl:text-[14px] xl:leading-[18px] lg:text-[12px] lg:leading-[16px] text-[16px] leading-[16px] ">
+                        <span className="text-[#DB5353]">
                             {item?.price && ` £${item.price.toFixed(2)}`}
-                          </span>
+                          </span> | 
+                         Weight: {item?.weight}g |  Serves {item?.portion_Size} 
+                        
                         </p>
                         {token ? (
                           <button

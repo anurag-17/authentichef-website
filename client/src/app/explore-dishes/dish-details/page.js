@@ -205,13 +205,10 @@ const DishDetails = ({
               </div>
               <div className="flex flex-wrap gap-2  pop-detail my-3">
                 <p className="">
-                  Price: £{getADish?.price && ` ${getADish.price.toFixed(2)}`}
-                </p> 
-                | 
-                <p className="">Weight: {getADish?.weight}g</p> | 
-                <p className="">
-                  Portion Size: Serves {getADish?.portion_Size}
+                  Price: £{getADish?.price && `${getADish.price.toFixed(2)}`}
                 </p>
+                |<p className="">Weight: {getADish?.weight}g</p> |
+                <p className="">Serves {getADish?.portion_Size}</p>
               </div>
               <div className="flex flex-wrap 2xl:gap-[10px] xl:gap-[8px] gap-[6px]  2xl:my-[15px] xl:my-[12px] my-[8px]">
                 {getADish?.Dietary_id?.title ? (
@@ -247,8 +244,6 @@ const DishDetails = ({
               </div>
 
               <div className="flex justify-between ">
-
-              
                 <div className="flex justify-center 2xl:w-[103px] 2xl:h-[56px] xl:w-[80px] xl:h-[35px]  lg:h-[40px] h-[50px] border rounded-[5px] 2xl:mt-[25px] xl:mt-[20px] mt-[15px] w-[25%]">
                   <button
                     className="text-[#DB5353] rounded-l w-1/3 text-[25px]"
@@ -328,7 +323,9 @@ const DishDetails = ({
             <div className="2xl:my-[20px] xl:my-[12px] my-[10px]">
               <div className="">
                 <div>
-                  <p className="fourth_p text-[#555555]">Main Ingredients</p>{" "}
+                  <p className="fourth_p text-[#555555] alata">
+                    Main Ingredients
+                  </p>{" "}
                   <p className="alata fourth_p ">
                     {/* {getADish?.Ingredients} */}
                     {getADish?.Ingredients && (
@@ -342,7 +339,9 @@ const DishDetails = ({
                   </p>
                 </div>
                 <div className="2xl:my-[20px] xl:my-[12px] my-[10px]">
-                  <p className="fourth_p text-[#555555] ">List of Allergens</p>{" "}
+                  <p className="fourth_p text-[#555555] alata">
+                    List of Allergens
+                  </p>{" "}
                   <p className="alata fourth_p ">
                     {/* {getADish?.List_of_Allergens} */}
                     {getADish?.List_of_Allergens && (
