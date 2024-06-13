@@ -1,13 +1,13 @@
 "use client";
 import config from "@/config";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const ResetPassword = ({ params }) => {
   const [password, setPassword] = useState("");
   const [isLoading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
   const resetToken = params?.slug || "";
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -51,10 +51,9 @@ const ResetPassword = ({ params }) => {
               <div className="md:py-2 mx-auto">
                 <input
                   type="password"
-                  name="newPassword"
+                  name="password"
                   placeholder="New Password"
                   className="login-input w-full mt-2 custom-input h-[35px] lg:h-[40px] xl:h-[50px] 2xl:h-[60px]"
-                  value={newPassword}
                   onChange={(e) => setPassword(!password)}
                   required
                 />
