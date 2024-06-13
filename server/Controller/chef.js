@@ -49,7 +49,7 @@ exports.upload = upload;
 
 exports.createChef = async (req, res, next) => {
   try {
-    const { name,  mobile,  specialty, bio, experience ,  Instagram_Link , Facebook_Link , nationality , Dietary_id , Cuisines_id} = req.body;
+    const { name,  mobile,  specialty, bio, experience ,  Instagram_Link , Facebook_Link , nationality , Dietary_id , Cuisines_id , popular_chef} = req.body;
 
     // Access uploaded files directly from req.files
     const images = req.files['images'];
@@ -102,7 +102,8 @@ exports.createChef = async (req, res, next) => {
       images: imageUrls,
       bannerImage: bannerImageUrl,
       Dietary_id,
-      Cuisines_id
+      Cuisines_id,
+      popular_chef: popular_chef || 'No'
 
     });
 
@@ -112,6 +113,32 @@ exports.createChef = async (req, res, next) => {
     next(error);
   }
 };
+
+
+exports.popular = async (req, res) => {
+  try {
+    // Fetch all chefs
+    const allChefs = await Chef.find().populate('Cuisines_id').populate('Dietary_id').exec();
+
+    // Filter chefs who are popular
+    const popularChefs = allChefs.filter(chef => chef.popular_chef === 'Yes');
+
+    // Sort popular chefs (example: by name or any other field)
+    popularChefs.sort((a, b) => a._id - b._id);
+
+    // Check if there are any popular chefs
+    if (popularChefs.length === 0) {
+      return res.status(404).json({ error: "Popular chefs not found" });
+    }
+
+    // Return the filtered and sorted list of popular chefs
+    res.status(200).json(popularChefs);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+
 
 // Get all chefs
 exports.getAllChefs = async (req, res, next) => {
@@ -148,7 +175,7 @@ exports.getAllChefs = async (req, res, next) => {
 };
 
 // Get a single chef by ID
-exports.getChefById = async (req, res, next) => {
+exports.getChefById = async (req, res) => {
   const { id } = req.params;
   validateMongoDbId(id);
 
@@ -439,6 +466,7 @@ exports.getChefByParams = async (req, res, next) => {
     next(error);
   }
 };
+
 
 
 

@@ -7,9 +7,12 @@ const {
   deleteChefById,
   updateChefById,
   getChefByParams,
+  popular,
   upload
 } = require("../Controller/chef");
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
+
+router.route("/chefs/popular").get(popular);
 
 // Create a new chef
 router.post("/chefs", upload, createChef);
@@ -30,5 +33,8 @@ router.route("/chefs/:id").delete(deleteChefById);
 
 
 router.route("/chefs/sort/:id").get(getChefByParams);
+
+
+
 
 module.exports = router;

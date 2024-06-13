@@ -57,6 +57,13 @@ const chefSchema = new mongoose.Schema({
     ref: "Cuisines"
   }],
 
+  popular_chef:{
+    type:String,
+    enum:['Yes','No'],
+    default:'No'
+  },
+  
+
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetExpires: Date,

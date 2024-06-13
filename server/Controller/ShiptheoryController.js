@@ -1,5 +1,6 @@
 const axios = require('axios');
 const menuItems = require('../Model/MenuItem');
+ // Adjust the path as necessary
 
 exports.createShipment = async (order, person) => {
     console.log("Order", order);
@@ -7,12 +8,17 @@ exports.createShipment = async (order, person) => {
     // Extract delivery info
     const deliveryInfo = order.deliveryInfo[0]; // Assuming there's only one deliveryInfo object in the array
 
+    // Function to generate a random SKU ID
+    function generateRandomSKU() {
+        return Math.floor(100000000 + Math.random() * 900000000).toString(); // Generates a 9-digit number
+    }
+
     // Fetch menu items asynchronously and build the products array
     const products = await Promise.all(order.items.map(async (item) => {
         const menuItem = await menuItems.findOne({ _id: item.menuItem._id });
         return {
             name: menuItem.name,
-            sku: menuItem._id,
+            sku: generateRandomSKU(), // Use the random SKU generator
             qty: item.quantity,
             value: item.price,
             weight: menuItem.weight,
@@ -20,21 +26,25 @@ exports.createShipment = async (order, person) => {
         };
     }));
 
-    // Validate and format the ship_date
-// Function to format date to YYYY-MM-DD
-function formatDateToYYYYMMDD(date) {
-    return date.toISOString().split('T')[0];
-}
+    // Function to format date to YYYY-MM-DD
+    function formatDateToYYYYMMDD(date) {
+        return date.toISOString().split('T')[0];
+    }
 
-// Example usage with a specific delivery date
-const deliveryDate = new Date(); // Use the actual delivery date here
-const formattedShipDate = formatDateToYYYYMMDD(deliveryDate);
+    // Function to generate a random number
+    function generateRandomNumber() {
+        return Math.floor(1000000000 + Math.random() * 9000000000); // Generates a 10-digit number
+    }
 
-console.log('Formatted ship_date:', formattedShipDate); // Debugging line
+    // Example usage with a specific delivery date
+    const deliveryDate = new Date(); // Use the actual delivery date here
+    const formattedShipDate = formatDateToYYYYMMDD(deliveryDate);
+
+    console.log('Formatted ship_date:', formattedShipDate); // Debugging line
 
     // Define the payload for the HTTP POST request
     const payload = {
-        reference: order._id.toString().slice(0, 25), // Using order ID as reference, ensuring it's within 25 characters
+        reference: order._id.toString().slice(0, 25), // Using a random number as the reference
         reference2: order._id.toString().slice(0, 25), // Provide a non-unique reference here
         shipment_detail: {
             weight: products.reduce((total, item) => total + item.weight, 0), // Total weight of all items
@@ -82,7 +92,7 @@ console.log('Formatted ship_date:', formattedShipDate); // Debugging line
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-               'Authorization': 'Bearer c881b8fd58999b1041e5194f1a5babb1e235b0280c3d5cfa27b832dfcfe39ba9'
+                'Authorization': 'Bearer c881b8fd58999b1041e5194f1a5babb1e235b0280c3d5cfa27b832dfcfe39ba9'
             }
         });
 
@@ -93,6 +103,7 @@ console.log('Formatted ship_date:', formattedShipDate); // Debugging line
         return null;
     }
 };
+
 
 
 

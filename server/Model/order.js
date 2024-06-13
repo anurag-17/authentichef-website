@@ -134,6 +134,7 @@ const orderSchema = new mongoose.Schema({
     BillingInfo: [BillingInfoSchema],
     deliveryDate: {
         type: Date,
+        default: () => moment.tz(Date.now(), "Europe/London").toDate()
     },
 
     totalAmount: {
