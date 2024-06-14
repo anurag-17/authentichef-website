@@ -43,7 +43,7 @@ const OrderDetails = ({ params }) => {
 
             <div className="flex flex-col items-center w-full px-[40px]">
               {/* Displaying total amount */}
-              <h1 className="2xl:text-[25px] xl:text-[16px] text-[12px] ">
+              <h1 className="2xl:text-[25px] xl:text-[16px] text-[12px] font-semibold">
                 Total Amount: £
                 {getOrders.totalAmount}
               </h1>
@@ -53,19 +53,19 @@ const OrderDetails = ({ params }) => {
                 getOrders.items.map((item, index) => (
                   <div
                     key={index}
-                    className="flex justify-between items-center mt-5 w-full"
+                    className="flex gap-5 md:gap-0 2xl:gap-10 justify-between items-center mt-5 w-full"
                   >
-                    <div className="w-1/2">
+                    <div className="w-[20%]">
                       <img
                         src={item.ProfileImage[0]}
-                        className="rounded-[15px] 2xl:w-[250px]  xl:w-[180px] h-[100px] w-[70%]"
+                        className="rounded-[15px] 2xl:w-[250px] h-auto w-full md:w-[80%]"
                         alt={item.name}
                       />
                     </div>
-                    <div className="flex flex-col items-start w-1/2 pop-detail">
-                      <h2 className="pop-head capitalize">{item.name}</h2>
-                      <p>Quantity : {item.quantity}</p>
-                      <p>Price : £
+                    <div className="flex flex-col items-start w-[80%] pop-detail">
+                      <h2 className=" 2xl:text-[25px] 2xl:leading-[35px] xl:text-[16px] text-[16px] lg:text-[14px] leading-[20px] lg:leading-[18px] xl:leading-[20px] capitalize">{item.name}</h2>
+                      <p className="text-[14px] leading-[18px] lg:text-[16px] xl:leading-[20px] 2xl:text-[18px] lg:my-1">Quantity : {item.quantity}</p>
+                      <p className="text-[14px] leading-[18px] lg:text-[16px] xl:leading-[20px] 2xl:text-[18px] lg:my-1">Price : £
                       {item.price}</p>
                     </div>
                   </div>

@@ -117,7 +117,7 @@ const MyOrder = () => {
             </div>
           ) : (
             <div className="text-center my-5">
-              <h2 className="text-[40px] font-bold">No Order found</h2>
+              <h2 className="2xl:text-[40px] xl:text-[25px] text-[16px] font-bold">No Order found</h2>
               <div className="flex justify-center"></div>
             </div>
           )}
