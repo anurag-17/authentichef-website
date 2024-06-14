@@ -425,7 +425,6 @@ const Footer = () => {
                     name="password"
                     placeholder="Password"
                     className="alata font-[400] login-inputad text-[#929292] w-full"
-                    pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     onChange={inputHandlers}
                     value={userDetail.password}
                   />
