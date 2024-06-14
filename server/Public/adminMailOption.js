@@ -239,13 +239,8 @@ const adminMailOptions = (
       <img src="https://authimages.s3.eu-west-2.amazonaws.com/logo.png" alt="authentichef">
     </div>
     <div class="header">
-      <p>Thank you for your Order</p>
+      <p><strong>Thank you for your Order</strong></p>
       <table class="order-details">
-        <tr>
-          <th>Order Id</th>
-          <td>${savedOrder._id}</td>
-        </tr>
-         <tr>
           <th>Order Number</th>
           <td>${savedOrder.OrderNumber}</td>
         </tr>
@@ -274,7 +269,7 @@ const adminMailOptions = (
 
         <tr>
           <th>Payment Method</th>
-          <td>${payment_method_types }(Stripe)</td>
+          <td>${payment_method_types } ( Stripe )</td>
         </tr>
         <tr>
           <th>Order Value</th>
@@ -282,7 +277,12 @@ const adminMailOptions = (
         </tr>
         <tr>
           <th>Discount</th>
-          <td>£${savedOrder.DiscountPercentage}</td>
+          <td>${savedOrder.DiscountPercentage} %</td>
+        </tr>
+
+        <tr>
+        <th>Discount Amount</th>
+        <td>£${savedOrder.discountApplied.toFixed(2)}</td>
         </tr>
 
         <tr>

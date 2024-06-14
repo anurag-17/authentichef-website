@@ -403,7 +403,7 @@ exports.PlaceOrder = async (req, res, next) => {
         // Check if this is the user's first order and a promo code is provided
         const userOrder = await Order.find({ user: req.user._id });
 
-        if (userOrder.length ==  0) {
+        if (userOrder.length!==0) {
             if (Promo_code) {
                 console.log("First Order with Promo Code");
              // Check if Promo_code is not a code but a name
@@ -453,19 +453,28 @@ exports.PlaceOrder = async (req, res, next) => {
         const totalAmountBeforeDiscount = totalAmount;
         totalAmount -= discountApplied;
 
-        console.log("Total amount after discount:", totalAmount)
+        console.log("Total amount after discount------->>>>>> :", totalAmount.toFixed(2))
 
         // Determine the shipping cost based on the total amount after discount
         let shippingCost = cartItems.Shipping_cost;
+        console.log("Shipping cost------>>>>>>>>>> :", shippingCost)
+
+
         if (totalAmount > 55) {
             shippingCost = 0; // Free shipping for orders above £55
-        }
+        } 
         totalAmount += shippingCost; // Add shipping cost
 
         // Format totalAmount to two decimal places
         totalAmount = parseFloat(totalAmount.toFixed(2));
 
-        console.log("totalAmount is " , totalAmount)
+          // Check again if the total amount is below £55 after discount
+          if (totalAmount < 55) {
+            shippingCost = 5.99; // Add shipping cost if below £55 after discount
+        }
+        totalAmount += shippingCost; // Add shipping cost
+
+        console.log("totalAmount is ", totalAmount);
 
         // if (totalAmount < 30) {
         //     return res.status(400).json({ message: 'Order cannot be placed. Minimum order amount is £30.' });
@@ -579,6 +588,28 @@ exports.PlaceOrder = async (req, res, next) => {
             // Payment with Stripe Checkout Session
             const session = await stripe.checkout.sessions.create({
                 payment_method_types: ['card'],
+                shipping_options: [
+                    {
+                        shipping_rate_data: {
+                            type: 'fixed_amount',
+                            fixed_amount: {
+                                amount: shippingCost * 100, // Stripe requires the amount in cents
+                                currency: 'gbp'
+                            },
+                            display_name: 'Standard Shipping',
+                            delivery_estimate: {
+                                minimum: {
+                                    unit: 'business_day',
+                                    value: 1
+                                },
+                                maximum: {
+                                    unit: 'business_day',
+                                    value: 2
+                                }
+                            }
+                        }
+                    }
+                ],
                 line_items: cartItems.items.map(item => ({
                     price_data: {
                         currency: 'gbp',
