@@ -344,7 +344,7 @@ const LandingPage = () => {
 
   return (
     <>
-      <ToastContainer autoClose={4000} />
+      <ToastContainer autoClose={2000} />
       <Navbar />
       <section className="">
         {/* ===================Second================== */}

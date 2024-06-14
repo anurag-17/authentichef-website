@@ -2,9 +2,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
-import config from "@/config";
 import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const ResetPassword = ({ params }) => {
   const router = useRouter();
@@ -35,7 +34,7 @@ const ResetPassword = ({ params }) => {
         setLoading(false);
       }
     } catch (error) {
-      console.error("Error during login:", error);
+      toast.error("Error during login:", error);
 
       setLoading(false);
     }
@@ -85,7 +84,6 @@ const ResetPassword = ({ params }) => {
 
               <div className="mt-4">
                 <button
-                  
                   // disabled={isLoading}
                   className="w-full bg-[#F38181] hover:bg-[#7e2727] text-[14px] xl:text-[16px] 2xl:text-[18px] font-medium text-white p-2 rounded-lg hover:border hover:border-gray-300 h-[35px] lg:h-[40px] xl:h-[50px] 2xl:h-[60px] login-btn my-5"
                 >
