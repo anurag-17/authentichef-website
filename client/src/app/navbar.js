@@ -188,7 +188,7 @@ const Navbar = () => {
       }
     } catch (error) {
       console.error("Error verifying token:", error);
-      toast.error("An error occurred during token verification.");
+      // toast.error("An error occurred during token verification.");
     }
   };
 
@@ -604,7 +604,7 @@ const Navbar = () => {
           toast.warn(`Retrying... (${attempt + 1}/${retries})`);
           await new Promise((res) => setTimeout(res, delay));
         } else {
-          toast.error("An error occurred during token verification.");
+          // toast.error("An error occurred during token verification.");
         }
       }
       attempt++;
