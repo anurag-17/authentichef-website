@@ -110,7 +110,6 @@ const Navbar = () => {
     setShowPassword(!showPassword);
   };
 
-
   const [loginDetail, setLoginDetail] = useState({
     email: "",
     password: "",
@@ -137,9 +136,6 @@ const Navbar = () => {
     }
   }, [success]);
 
-
-
-
   useEffect(() => {
     const tokenFromUrl = new URLSearchParams(window.location.search).get(
       "token"
@@ -164,7 +160,6 @@ const Navbar = () => {
     }
   };
 
-
   const handleTokenLogin = async (tokenFromUrl) => {
     try {
       const response = await axios.get(
@@ -173,15 +168,14 @@ const Navbar = () => {
       );
 
       if (response.status === 200) {
-        
-        setGoogle(response.data)
+        setGoogle(response.data);
         dispatch(setToken(tokenFromUrl));
         dispatch(setUser(response.data.data));
-        
+
         dispatch(setSuccess(true));
         localStorage.setItem("authToken", tokenFromUrl);
         toast.success("Logged in successfully!");
-        dispatch(setUserDetail(data.user)); 
+        dispatch(setUserDetail(data.user));
         router.push("/"); // Redirect to home or desired page
       } else {
         toast.error("Token verification failed");
@@ -566,8 +560,8 @@ const Navbar = () => {
   };
   const [google, setGoogle] = useState("");
 
-  console.log(google.data , "google")
- 
+  console.log(google.data, "google");
+
   const handleOAuthCallback = async (code, retries = 3, delay = 2000) => {
     let attempt = 0;
     while (attempt < retries) {
@@ -692,7 +686,6 @@ const Navbar = () => {
       setShouldRefresh(false);
     }
   }, [shouldRefresh, cartId, getCartItems]);
-
 
   const handleQuantityIncrement = (id) => {
     dispatch(incrementCartItemQuantity(id));
@@ -924,10 +917,14 @@ const Navbar = () => {
                   <p className="absolute 2xl:right-[-25px] 2xl:text-[20px] xl:right-[-13px] 2xl:top-6 xl:top-4 bg-white text-[#F38181] border rounded-full 2xl:px-2 xl:px-1 lg:right-[-15px] lg:top-1 lg:px-[5px] text-[12px] xl:text-[14x] md:right-[-15px] md:top-1 md:px-[5px] sm:right-[-15px] sm:top-1 sm:px-[5px] right-[-15px] top-1 px-[5px] cartCount">
                     {token ? totalCartItems : totalCartItems}
                   </p>
-                  <Image
-                    src={beg}
-                    className="2xl:w-10 2xl:h-10  w-[25px] h-[25px]"
-                  />
+                  {isLoggedIn === success ? (
+                    <Image
+                      src={beg}
+                      className="2xl:w-10 2xl:h-10  w-[25px] h-[25px]"
+                    />
+                  ) : (
+                    ""
+                  )}
                 </button>
               </div>
             </div>
@@ -1162,12 +1159,26 @@ const Navbar = () => {
                       </div>
                     ) : (
                       <div className="w-full">
+                        {/* <div className="flex justify-between">
+                          <h4 className="alata font-[400] 2xl:my-0 xl:text-[18px] 2xl:leading-[28px] text-[16px] lg:leading-[24px]">
+                            Subtotal:
+                          </h4>
+                          <h4 className="alata font-[400] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
+                            £{subtotalPrice.toFixed(2)}
+                          </h4>
+                        </div> */}
                         <button
                           onClick={handleLoginClick}
                           className="alata font-[400] bg-[#DB5353] text-white mx-auto 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[15px] text-[14px] w-full py-2 lg:h-[47px] flex flex-col items-center justify-center"
                         >
                           Checkout
                         </button>
+                        <p className="font-[500] text-[16px] py-[0.5rem]">
+                          Minimum order £30
+                        </p>
+                        <p className="font-[500] text-[16px] py-[0.5rem]">
+                          FREE delivery on orders over £55
+                        </p>
                       </div>
                     )}
                   </div>
@@ -1399,6 +1410,18 @@ const Navbar = () => {
                     </h4>
                   </button>
                 </div>
+                <div className="my-[12px] social_div social_btn h-[40px] gap-3 w-full ">
+                  <Image className="social_img " src={googlee} />
+                  <h3 className="checkoutlable menu">
+                    {isLoggedIn && currentUser ? (
+                      <>Welcome, {currentUser.firstname}</>
+                    ) : (
+                      <button onClick={handleGoogleOAuth}>
+                        Continue with Google
+                      </button>
+                    )}
+                  </h3>
+                </div>{" "}
               </div>
             </div>
           </form>
