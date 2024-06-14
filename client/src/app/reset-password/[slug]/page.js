@@ -16,7 +16,7 @@ const ResetPassword = ({ params }) => {
     setLoading(true);
     try {
       const response = await axios.put(
-        `${config.baseURL}/api/auth/resetpassword`,
+        `${config.baseURL}/api/auth/resetpassword/${resetToken}`,
         { password: password },
         {
           headers: {
@@ -56,7 +56,7 @@ const ResetPassword = ({ params }) => {
                   name="password"
                   placeholder="New Password"
                   className="login-input w-full mt-2 custom-input h-[35px] lg:h-[40px] xl:h-[50px] 2xl:h-[60px]"
-                  onChange={(e) => setPassword(!password)}
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                 />
               </div>
