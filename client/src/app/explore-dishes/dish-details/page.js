@@ -203,11 +203,11 @@ const DishDetails = ({
                 <h1 className="pop-head capitalize">{getADish?.name}</h1>
                 <p className="pop-chef">by Chef {getADish?.chef_id?.name}</p>
               </div>
-              <div className="flex flex-wrap gap-2  pop-detail my-3">
+              <div className="flex flex-wrap gap-2  font-[600] my-3">
                 <p className="">
                   Price: £{getADish?.price && `${getADish.price.toFixed(2)}`}
                 </p>
-                |<p className="">Weight: {getADish?.weight}g</p> |
+                |<p className=""> {getADish?.weight}g</p> |
                 <p className="">Serves {getADish?.portion_Size}</p>
               </div>
               <div className="flex flex-wrap 2xl:gap-[10px] xl:gap-[8px] gap-[6px]  2xl:my-[15px] xl:my-[12px] my-[8px]">
@@ -223,7 +223,7 @@ const DishDetails = ({
                   ""
                 )}
 
-                <button className="four_btnn border">
+                <button className="four_btnn border capitalize font-[500]">
                   <img
                     src={getADish?.spice_level_id?.ProfileImage}
                     className="2xl:[100%] h-auto "
