@@ -61,7 +61,7 @@
 //                     <img src="https://authimages.s3.eu-west-2.amazonaws.com/banner-images/Color+logo+with+background+(2)+1.png" alt="authentichef">
 //                 </div>
 //                 <h2>New Order Received</h2>
-//                 <p>A new order has been placed on your authentichef website.</p>
+//                 <p>A New order has been placed on your authentichef website.</p>
 //                 <table class="order-details">
 //                     <tr>
 //                         <th>Order ID</th>

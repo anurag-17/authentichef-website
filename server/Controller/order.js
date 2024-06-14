@@ -403,7 +403,7 @@ exports.PlaceOrder = async (req, res, next) => {
         // Check if this is the user's first order and a promo code is provided
         const userOrder = await Order.find({ user: req.user._id });
 
-        if (userOrder.length !== 0) {
+        if (userOrder.length == 0) {
             if (Promo_code) {
                 console.log("First Order with Promo Code");
              // Check if Promo_code is not a code but a name
