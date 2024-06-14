@@ -1326,7 +1326,7 @@ const Navbar = () => {
       <div className="">
         <dialog
           id="my_modal_2"
-          className="modal rounded-[10px] 2xl:w-[1000px] 2xl:h-[551px] xl:w-[620px] xl:h-[400px] lg:w-[480px] h-[350px] w-[90%] 2xl:mt-40 xl:mt-24 mt-14 p-0 loginpop"
+          className="modal rounded-[10px] 2xl:w-[1000px] 2xl:h-[651px] xl:w-[6700px] xl:h-[440px] lg:w-[480px] h-[350px] w-[90%] 2xl:mt-40 xl:mt-24 mt-14 p-0 loginpop"
         >
           <form
             method="dialog"
@@ -1398,7 +1398,7 @@ const Navbar = () => {
                     or
                   </p>
                 </div>
-                <div className="lg:my-[30px] flex justify-center my-[10px]">
+                <div className="lg:mt-[30px] flex justify-center mt-[10px]">
                   <button
                     onClick={() =>
                       document.getElementById("my_modal_1").showModal()
@@ -1410,21 +1410,21 @@ const Navbar = () => {
                     </h4>
                   </button>
                 </div>
-                <div className="my-[12px] social_div social_btn h-[40px] gap-3 w-full ">
-                  <Image className="social_img " src={googlee} />
-                  <h3 className="checkoutlable menu">
-                    {isLoggedIn && currentUser ? (
-                      <>Welcome, {currentUser.firstname}</>
-                    ) : (
-                      <button onClick={handleGoogleOAuth}>
-                        Continue with Google
-                      </button>
-                    )}
-                  </h3>
-                </div>{" "}
               </div>
             </div>
           </form>
+          <div className="social_div social_btn h-[40px] gap-3 w-full mx-auto 2xl:w-[368px] xl:w-[230px] w-full md:w-[50%] ">
+            <Image className="social_img " src={googlee} />
+            <h3 className="checkoutlable menu">
+              {isLoggedIn && currentUser ? (
+                <>Welcome, {currentUser.firstname}</>
+              ) : (
+                <button onClick={handleGoogleOAuth}>
+                  Continue with Google
+                </button>
+              )}
+            </h3>
+          </div>{" "}
         </dialog>
       </div>
     </>
