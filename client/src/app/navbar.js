@@ -1379,8 +1379,7 @@ const Navbar = () => {
                     onChange={InputHandler}
                     placeholder="Enter your Password"
                     className="alata font-[400] login-inputad w-full h-[40px]"
-                    pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-                    title="enter valid email ex. abc@gmail.com"
+                   
                   />
                   <Link href="/forgot-password">
                     <label className="checkoutlable my-1 cursor-pointer">
