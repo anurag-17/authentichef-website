@@ -416,9 +416,9 @@ const EditModal = ({
                   required
                 >
                   <option value="">Select portion size</option>
-                  <option value="1">Serve for I</option>
-                  <option value="2">Serve for II</option>
-                  <option value="3">Serve for III</option>
+                  <option value="1">Serve for 1</option>
+                  <option value="2">Serve for 2</option>
+                  <option value="3">Serve for 3</option>
                 </select>
               </div>
 
@@ -491,13 +491,13 @@ const EditModal = ({
                       : ""
                   }
                   onChange={handleChange}
-                  className="login-input w-full mt-1"
+                  className="login-input w-full mt-1 capitalize"
                   required
                 >
                   <option value="">Select Dietary</option>
                   {Array.isArray(dietaries) &&
                     dietaries.map((dietary) => (
-                      <option key={dietary._id} value={dietary._id}>
+                      <option key={dietary._id} value={dietary._id} className="capitalize">
                         {dietary.title}
                       </option>
                     ))}

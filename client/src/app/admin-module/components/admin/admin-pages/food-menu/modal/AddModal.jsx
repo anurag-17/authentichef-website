@@ -410,9 +410,9 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
               required
             >
               <option value="">Select portion size</option>
-              <option value="1">Serve for I</option>
-              <option value="2">Serve for II</option>
-              <option value="3">Serve for III</option>
+              <option value="1">Serve for 1</option>
+              <option value="2">Serve for 2</option>
+              <option value="3">Serve for 3</option>
             </select>
           </div>
 
@@ -487,7 +487,7 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
               <option value="">Select Dish Type</option>
               {Array.isArray(dishTypes) &&
                 dishTypes.map((type) => (
-                  <option key={type._id} value={type._id}>
+                  <option key={type._id} value={type._id} className="capitalize">
                     {type.title}
                   </option>
                 ))}
@@ -549,7 +549,7 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
               <option value="">Select Dietary</option>
               {Array.isArray(dietaries) &&
                 dietaries.map((dietary, index) => (
-                  <option key={index} value={dietary._id}>
+                  <option key={index} value={dietary._id} className="capitalize">
                     {dietary.title}
                   </option>
                 ))}

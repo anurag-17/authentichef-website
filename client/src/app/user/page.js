@@ -476,18 +476,20 @@ const LandingPage = () => {
                       </Link>
 
                       <div className="flex gap-5 2xl:my-[20px] xl:my-[15px] my-[12px]">
-                      <div className="flex flex-wrap gap-5 2xl:my-[20px] xl:my-[15px] my-[12px]">
-                        {item?.Dietary_id.map((dietary) => (
-                          <button className="four_btn" key={dietary._id}>
-                            <img
-                              src={dietary.ProfileImage}
-                              className="2xl:[18px] xl:w-[14px] w-[12px]"
-                              alt={dietary.title}
-                            />
-                            <p className="fourth_day">{dietary.title}</p>
-                          </button>
-                        ))}
-                      </div>
+                        <div className="flex flex-wrap gap-5 2xl:my-[20px] xl:my-[15px] my-[12px] capitalize">
+                          {item?.Dietary_id.map((dietary) => (
+                            <button className="four_btn" key={dietary._id}>
+                              <img
+                                src={dietary.ProfileImage}
+                                className="2xl:[18px] xl:w-[14px] w-[12px]"
+                                alt={dietary.title}
+                              />
+                              <p className="fourth_day capitalize">
+                                {dietary.title}
+                              </p>
+                            </button>
+                          ))}
+                        </div>
                         {item?.Nutrition_id?.Nutritional ? (
                           <div className="four_btn">
                             <p className="fourth_title capitalize">
@@ -513,12 +515,14 @@ const LandingPage = () => {
                       </div>
 
                       <div className=" w-full bottom-0 flex justify-between items-center  2xl:my-[22px] xl:my-[18px] my-[15px]">
-                      <p className="alata font-[400] text-[#000] 2xl:text-[20px] 2xl:leading-[24px] xl:text-[14px] xl:leading-[18px] lg:text-[12px] lg:leading-[16px] text-[16px] leading-[16px] ">
-                        <span className="text-[#DB5353]">
+                        <p className=" font-[400] text-[#000] 2xl:text-[20px] 2xl:leading-[24px] xl:text-[14px] xl:leading-[18px] lg:text-[12px] lg:leading-[16px] text-[16px] leading-[16px] ">
+                          <span className="text-[#DB5353] font-400 alata">
                             {item?.price && ` £${item.price.toFixed(2)}`}
-                          </span> | 
-                         Weight: {item?.weight}g |  Serves {item?.portion_Size} 
-                        
+                          </span>{" "}
+                          <span className="font-400 alata">
+                            | {item?.weight}g | Serves{" "}
+                          </span>
+                          <span className="text-500">{item?.portion_Size}</span>
                         </p>
                         {token ? (
                           <button

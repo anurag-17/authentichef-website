@@ -563,7 +563,7 @@ const ExploreDishes = () => {
         refreshData();
         setLoading(false);
       } else {
-       console.log("Failed to add items to cart. Please try again.");
+        console.log("Failed to add items to cart. Please try again.");
       }
     } catch (error) {
       console.error("Error adding items to cart:", error);
@@ -1341,19 +1341,19 @@ const ExploreDishes = () => {
                         </div>
                       </Link>
 
-                      <div className="flex gap-5 2xl:my-[20px] xl:my-[15px] my-[12px]">
-                      <div className="flex flex-wrap gap-5 2xl:my-[20px] xl:my-[15px] my-[12px]">
-                        {item?.Dietary_id.map((dietary) => (
-                          <button className="four_btn" key={dietary._id}>
-                            <img
-                              src={dietary.ProfileImage}
-                              className="2xl:[18px] xl:w-[14px] w-[12px]"
-                              alt={dietary.title}
-                            />
-                            <p className="fourth_day">{dietary.title}</p>
-                          </button>
-                        ))}
-                      </div>
+                      <div className="flex gap-5 2xl:my-[20px] xl:my-[15px] xs:mb-[-15px] my-[12px]">
+                        <div className="flex flex-wrap gap-5 2xl:my-[20px] xl:my-[15px] my-[12px]">
+                          {item?.Dietary_id.map((dietary) => (
+                            <button className="four_btn capitalize" key={dietary._id}>
+                              <img
+                                src={dietary.ProfileImage}
+                                className="2xl:[18px] xl:w-[14px] w-[12px]"
+                                alt={dietary.title}
+                              />
+                              <p className="fourth_day">{dietary.title}</p>
+                            </button>
+                          ))}
+                        </div>
                         {item?.Nutrition_id?.Nutritional ? (
                           <div className="four_btn">
                             <p className="fourth_title capitalize">
@@ -1379,12 +1379,17 @@ const ExploreDishes = () => {
                       </div>
 
                       <div className=" w-full bottom-0 flex justify-between items-center  2xl:my-[22px] xl:my-[18px] my-[15px]">
-                      <p className="alata font-[400] text-[#000] 2xl:text-[20px] 2xl:leading-[24px] xl:text-[14px] xl:leading-[18px] lg:text-[12px] lg:leading-[16px] text-[16px] leading-[16px] ">
-                        <span className="text-[#DB5353]">
+                        <p className=" text-[#000] 2xl:text-[20px] 2xl:leading-[24px] xl:text-[14px] xl:leading-[18px] lg:text-[12px] lg:leading-[16px] text-[16px] leading-[16px] ">
+                          <span className="text-[#DB5353] font-400 alata">
                             {item?.price && ` £${item.price.toFixed(2)}`}
-                          </span> | 
-                         Weight: {item?.weight}g |  Serves {item?.portion_Size} 
-                        
+                          </span>{" "}
+                          <span className="font-400 alata">
+                          |  {item?.weight}g | Serves{" "}
+                          </span>
+                          <span className="text-500">
+                          
+                          {item?.portion_Size}
+                          </span>
                         </p>
                         {token ? (
                           <button
@@ -1507,8 +1512,6 @@ const ExploreDishes = () => {
                         className="nine_p2"
                         dangerouslySetInnerHTML={{ __html: item?.Description }}
                       />
-
-                    
                     </div>
                   </div>
                 ))}
@@ -1740,6 +1743,9 @@ const ExploreDishes = () => {
                             Checkout
                           </button>
                         </Link>
+                        <p className="font-[500] text-[16px] py-[0.5rem]">
+                          Minimum order £30
+                        </p>
                         <p className="font-[500] text-[16px] py-[1rem]">
                           FREE delivery on orders over £55
                         </p>
@@ -1752,6 +1758,12 @@ const ExploreDishes = () => {
                         >
                           Checkout
                         </button>
+                        <p className="font-[500] text-[16px] py-[0.5rem]">
+                          Minimum order £30
+                        </p>
+                        <p className="font-[500] text-[16px] py-[0.5rem]">
+                          FREE delivery on orders over £55
+                        </p>
                       </div>
                     )}
                   </div>
@@ -1790,11 +1802,9 @@ const ExploreDishes = () => {
                 <Dialog.Panel className="2xl:w-[1000px] z-50 xl:w-[720px] w-[600px] md:w-[90%]  mx-auto rounded-[20px] px-[5px] my-auto transform overflow-hidden  bg-white text-left align-middle shadow-xl transition-all 2xl:mt-[125px] xl:mt-[85px] lg:mt-[55px] sm:mt-[50px] mt-14 ">
                   <Dialog.Title
                     as="h3"
-                   
                     className="cursor-pointer custom_heading_text font-semibold leading-6 text-gray-900 mt lg:mt-0 absolute right-5 text-[30px]"
                   >
                     {" "}
-                  
                   </Dialog.Title>
                   <DishDetails
                     defaultADish={defaultADish}

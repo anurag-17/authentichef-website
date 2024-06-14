@@ -44,7 +44,8 @@ const OrderDetails = ({ params }) => {
             <div className="flex flex-col items-center w-full px-[40px]">
               {/* Displaying total amount */}
               <h1 className="2xl:text-[25px] xl:text-[16px] text-[12px] ">
-                Total Amount: {getOrders.totalAmount}
+                Total Amount: £
+                {getOrders.totalAmount}
               </h1>
 
               {/* Iterating over the items */}
@@ -57,14 +58,15 @@ const OrderDetails = ({ params }) => {
                     <div className="w-1/2">
                       <img
                         src={item.ProfileImage[0]}
-                        className="rounded-[15px] 2xl:w-[320px]  xl:w-[180px] h-auto w-[70%]"
+                        className="rounded-[15px] 2xl:w-[250px]  xl:w-[180px] h-[100px] w-[70%]"
                         alt={item.name}
                       />
                     </div>
                     <div className="flex flex-col items-start w-1/2 pop-detail">
                       <h2 className="pop-head capitalize">{item.name}</h2>
                       <p>Quantity : {item.quantity}</p>
-                      <p>Price : ${item.price}</p>
+                      <p>Price : £
+                      {item.price}</p>
                     </div>
                   </div>
                 ))}
@@ -101,11 +103,11 @@ const OrderDetails = ({ params }) => {
                     {new Date(getOrders.deliveryDate).toLocaleDateString()}
                   </p>
                   <p className="footer_text flex w-full">Promo Code : {getOrders.Promo_code}</p>
-                  <p className="footer_text flex w-full">Discount Applied : ${getOrders.discountApplied}</p>
+                  <p className="footer_text flex w-full">Discount Applied : £{getOrders.discountApplied}</p>
                   <p className="footer_text flex w-full">Discount Percentage : {getOrders.DiscountPercentage}%</p>
-                  <p className="footer_text flex w-full">Shipping Charge : ${getOrders.shippingCharge}</p>
+                  <p className="footer_text flex w-full">Shipping Charge : £{getOrders.shippingCharge}</p>
                   <p className="footer_text flex w-full">
-                    Total Before Discount : $
+                    Total Before Discount : £
                     {getOrders.totalAmountBeforeDiscount}
                   </p>
                   <p className="footer_text flex w-full">Payment ID : {getOrders.payment}</p>
