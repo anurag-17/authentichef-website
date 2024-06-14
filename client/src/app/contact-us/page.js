@@ -8,6 +8,7 @@ import mail from "./assets/mail.svg";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import config from "@/config";
 
 const ContactUS = () => {
   const { token } = useSelector((state) => state?.auth);
@@ -62,7 +63,7 @@ const ContactUS = () => {
       }
     } catch (error) {
       console.error("Submission error:", error);
-      toast.error("An error occurred. Please try again later.");
+      toast.error("Please Login Before Submit The Form.");
     }
   };
 
@@ -70,11 +71,11 @@ const ContactUS = () => {
     <>
       <section>
         <Navbar />
-        <ToastContainer autoClose={1000} />
+        <ToastContainer autoClose={3000} className="2xl:mt-[100px] xl:mt-[80px] lg:mt-[50px] sm:mt-[45px] mt-12"/>
         <section>
           <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[800px] w-full px-10 md:px-0 text-center mx-auto 2xl:pt-[160px] xl:pt-[120px] md:pt-[90px] pt-[75px] mnavbar">
             <h1 className="globalhead">Get In Touch</h1>
-            <div className="flex justify-between items-center  2xl:my-[35px] xl:my-[30px] my-[15px]">
+            <div className="flex flex-col justify-center lg:flex lg:justify-between items-center  2xl:my-[35px] xl:my-[30px] my-[15px]">
               <div className="">
                 <Image
                   src={mail}
@@ -91,7 +92,7 @@ const ContactUS = () => {
                 </h3>
               </div>
 
-              <div className="w-[70%] px-10 md:px-0 text-center mr-040px 2xl:py-[40px] xl:py py-[30px] ">
+              <div className=" lg:w-[70%]  md:px-0 text-center mr-040px 2xl:py-[40px] xl:py py-[30px] ">
                 <h1 className="globalhead2 capitalize">
                   We would love to hear from you
                 </h1>
@@ -126,26 +127,17 @@ const ContactUS = () => {
                         required
                         onChange={(e) => {
                           const input = e.target.value;
-                          // Accept only numbers and limit to 15 characters
                           const filteredInput = input
                             .replace(/\D/g, "")
                             .slice(0, 15);
-                          // Update state with the filtered input
                           inputHandler({
                             target: { name: "Phone", value: filteredInput },
                           });
                         }}
                       />
                     </div>
-                    {/* <input
-                name="Phone"
-                placeholder="Phone"
-                type="number"
-                className="profile_input mt-3 lg:mt-[17px] xs:mt-2 w-full"
-                value={first.Phone}
-                onChange={inputHandler}
-              /> */}
-                    <div className="flex flex-col sm:flex-row gap-4 xs:gap-2">
+
+                    <div className="flex flex-col sm:flex-row gap-4 xs:gap-2 mt-3 lg:mt-0">
                       <input
                         name="Email"
                         placeholder="Email"
@@ -155,13 +147,7 @@ const ContactUS = () => {
                         onChange={inputHandler}
                         required
                       />
-                      {/* <input
-                name="Postcode"
-                placeholder="Post Code"
-                className="profile_input mt-3 lg:mt-[17px] xs:mt-2 w-full"
-                value={first.Postcode}
-                onChange={inputHandler}
-              /> */}
+
                       <input
                         name="Postcode"
                         placeholder="Post Code"
@@ -169,101 +155,21 @@ const ContactUS = () => {
                         className="profile_input mt-3 lg:mt-[17px] xs:mt-2 w-full sm:w-1/3"
                         value={first.Postcode}
                         required
-                        onChange={(e) => {
-                          const input = e.target.value;
-                          // Accept only numbers and limit to 15 characters
-                          const filteredInput = input
-                            .replace(/\D/g, "")
-                            .slice(0, 10);
-                          // Update state with the filtered input
-                          inputHandler({
-                            target: { name: "Postcode", value: filteredInput },
-                          });
-                        }}
+                        onChange={inputHandler}
+
+                      
                       />
-                      <button className=" bntform font-alata font-medium bg-[#DB5353] text-white rounded-5 py-2  mt-3 lg:mt-[17px] xs:mt-2 hover:bg-[#7e2727]  h-auto lg:w-30 lg:h-14  xl:h-14 2xl:h-14 w-1/3">
+                      <button className=" bntform font-alata font-medium bg-[#DB5353] text-white rounded-5 py-2  lg:mt-[17px] xs:mt-2 hover:bg-[#7e2727]  md:h-[48px] h-[40px] lg:w-30 lg:h-14  xl:h-14 2xl:h-14 w-1/3">
                         Submit
                       </button>
                     </div>
-                    {/* <button className="font-alata font-medium bg-[#DB5353] text-white rounded-5 py-2 mt-4 hover:bg-[#7e2727] w-auto h-auto lg:w-30 lg:h-14 xl:w-30 xl:h-14 2xl:w-30 2xl:h-14">
-                      Submit
-                    </button> */}
                   </form>
                 </div>
               </div>
             </div>
           </div>
         </section>
-        {/* <section>
-          <div className="2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[800px] w-full px-10 md:px-0 text-center mx-auto 2xl:py-[40px] xl:py py-[30px] mnavbar">
-            <h1 className="globalhead2 capitalize">We would love to hear from you</h1>
-            <div className="flex justify-center items-center sm:px-10 md:px-0">
-            <form
-              onSubmit={handleSubmit}
-              className="flex flex-col alata gap-3 lg:gap-5 xs:gap-2 w-[50%]"
-            >
-              <div className="flex flex-col sm:flex-row gap-4 xs:gap-2">
-                <input
-                  name="FirstName"
-                  placeholder="First Name"
-                  className="profile_input mt-3 lg:mt-[17px] xs:mt-2 w-full sm:w-1/2"
-                  value={first.FirstName}
-                  onChange={inputHandler}
-                />
-                <input
-                  name="Surname"
-                  placeholder="Last Name"
-                  className="profile_input mt-3 lg:mt-[17px] xs:mt-2 w-full sm:w-1/2"
-                  value={first.Surname}
-                  onChange={inputHandler}
-                />
-              </div>
-          
-              <input
-                name="Phone"
-                placeholder="Phone"
-                type="text"
-                className="profile_input mt-3 lg:mt-[17px] xs:mt-2 w-full"
-                value={first.Phone}
-                onChange={(e) => {
-                  const input = e.target.value;
-                  const filteredInput = input.replace(/\D/g, "").slice(0, 15);
-                  inputHandler({
-                    target: { name: "Phone", value: filteredInput },
-                  });
-                }}
-              />
 
-              <input
-                name="Email"
-                placeholder="Email"
-                type="email"
-                className="profile_input mt-3 lg:mt-[17px] xs:mt-2 w-full"
-                value={first.Email}
-                onChange={inputHandler}
-              />
-            
-              <input
-                name="Postcode"
-                placeholder="Post Code"
-                type="text"
-                className="profile_input mt-3 lg:mt-[17px] xs:mt-2 w-full"
-                value={first.Postcode}
-                onChange={(e) => {
-                  const input = e.target.value;
-                  const filteredInput = input.replace(/\D/g, "").slice(0, 10);
-                  inputHandler({
-                    target: { name: "Postcode", value: filteredInput },
-                  });
-                }}
-              />
-              <button className="font-alata font-medium bg-[#DB5353] text-white rounded-5 py-2 mt-4 hover:bg-[#7e2727] w-auto h-auto lg:w-30 lg:h-14 xl:w-30 xl:h-14 2xl:w-30 2xl:h-14">
-                Submit
-              </button>
-            </form>
-            </div>
-          </div>
-        </section> */}
         <Footer />
       </section>
     </>
