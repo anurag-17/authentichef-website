@@ -176,7 +176,8 @@ const Navbar = () => {
         
         setGoogle(response.data)
         dispatch(setToken(tokenFromUrl));
-        dispatch(setUser(user));
+        dispatch(setUser(response.data.data));
+        
         dispatch(setSuccess(true));
         localStorage.setItem("authToken", tokenFromUrl);
         toast.success("Logged in successfully!");
@@ -565,7 +566,7 @@ const Navbar = () => {
   };
   const [google, setGoogle] = useState("");
 
-  console.log(google , "google")
+  console.log(google.data , "google")
  
   const handleOAuthCallback = async (code, retries = 3, delay = 2000) => {
     let attempt = 0;
@@ -583,13 +584,13 @@ const Navbar = () => {
         const { token, data } = response.data;
         if (token) {
           dispatch(setToken(token));
-          dispatch(setUser(data.user));
+          dispatch(setUser(response.data.data));
           dispatch(setSuccess(true));
           localStorage.setItem("authToken", token);
           toast.success("Logged in successfully!");
           setIsLoggedIn(true);
           setCurrentUser(data.user);
-          setGoogle(response.data);
+          setGoogle(response.data.data);
           dispatch(setUserDetail(data.user)); // Add this line
           router.push("/");
           return;
