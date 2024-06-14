@@ -247,10 +247,11 @@ const Navbar = () => {
         dispatch(setToken(res?.data?.token));
         dispatch(setUser(res?.data?.user));
         dispatch(setSuccess(res?.data?.success));
-        // refreshData();
+
         handleClose();
         setLoading(false);
         setIsLoggedIn(true);
+        router.push("/");
         // setTimeout(() => {
         //   postCartToApi();
         // }, 3000);
@@ -278,7 +279,7 @@ const Navbar = () => {
         dispatch(removeSuccess());
         router.push("/explore-dishes");
         setIsLoggedIn(false);
-        window.location.reload(); 
+        window.location.reload();
         refreshData();
       } else {
         toast.error("Logout failed");
@@ -315,7 +316,6 @@ const Navbar = () => {
 
   const lengths = 0;
 
-  // const postCartToApi = async () => {
   //   try {
   //     const response = await axios.post(
   //       `${config.baseURL}/api/Orders/AddtoCart`,
@@ -713,11 +713,10 @@ const Navbar = () => {
   }, [cart, getCartItems]);
 
   useEffect(() => {
-    if (isLoggedIn === 'success') {
+    if (isLoggedIn === "success") {
       window.location.reload();
     }
   }, [isLoggedIn]);
-
 
   return (
     <>

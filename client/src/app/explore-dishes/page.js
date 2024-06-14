@@ -561,6 +561,7 @@ const ExploreDishes = () => {
         toast.success("Items added to cart successfully");
         handleDrawerOpen();
         refreshData();
+        router.push("/explore-dishes");
         setLoading(false);
       } else {
         console.log("Failed to add items to cart. Please try again.");
@@ -1344,7 +1345,10 @@ const ExploreDishes = () => {
                       <div className="flex gap-5 2xl:my-[20px] xl:my-[15px] xs:mb-[-15px] my-[12px]">
                         <div className="flex flex-wrap gap-5 ">
                           {item?.Dietary_id.map((dietary) => (
-                            <button className="four_btn capitalize" key={dietary._id}>
+                            <button
+                              className="four_btn capitalize"
+                              key={dietary._id}
+                            >
                               <img
                                 src={dietary.ProfileImage}
                                 className="2xl:[18px] xl:w-[14px] w-[12px]"
@@ -1384,12 +1388,9 @@ const ExploreDishes = () => {
                             {item?.price && ` £${item.price.toFixed(2)}`}
                           </span>{" "}
                           <span className="font-400 alata">
-                          |  {item?.weight}g | Serves{" "}
+                            | {item?.weight}g | Serves{" "}
                           </span>
-                          <span className="text-500">
-                          
-                          {item?.portion_Size}
-                          </span>
+                          <span className="text-500">{item?.portion_Size}</span>
                         </p>
                         {token ? (
                           <button
