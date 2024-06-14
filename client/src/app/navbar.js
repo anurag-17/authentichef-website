@@ -163,7 +163,7 @@ const Navbar = () => {
   const handleTokenLogin = async (tokenFromUrl) => {
     try {
       const response = await axios.get(
-        `https://server-backend-gamma.vercel.app/api/auth/verifyUserToken/${tokenFromUrl}`,
+        `http://13.43.174.21:4000/api/auth/verifyUserToken/${tokenFromUrl}`,
         {}
       );
 
