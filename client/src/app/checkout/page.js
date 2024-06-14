@@ -27,7 +27,8 @@ const Checkout = () => {
   const [refreshKey, setRefreshKey] = useState(0);
   const [isRefresh, setRefresh] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [shippingCost, setShippingCost] = useState(5.99);
   const [Promo_code, setPromoCode] = useState("");
   const [isSameAsShippingAddress, setIsSameAsShippingAddress] = useState(true);
   const [deliveryInfo, setDeliveryInfo] = useState({
@@ -63,8 +64,6 @@ const Checkout = () => {
   const [isChecked, setIsChecked] = useState(false);
   const [deliveryMessage, setDeliveryMessage] = useState("");
   const [discountInfo, setDiscountInfo] = useState(null);
-
-  const [shippingCost, setShippingCost] = useState(0);
   const shippingThreshold = 55;
   const [paymentMethod, setPaymentMethod] = useState("COD");
   const [sessionId, setSessionId] = useState("");
@@ -429,74 +428,81 @@ const Checkout = () => {
   };
 
   const handleIncrement = (itemId) => {
-    setGetCartItems((prevCartItems) =>
-      prevCartItems.map((item) =>
-        item._id === itemId
-          ? {
-              ...item,
-              quantity: item.quantity + 1,
-              totalPrice: item.menuItem.price * (item.quantity + 1),
-            }
-          : item
-      )
+    const updatedItems = getCartItems.map((item) =>
+      item._id === itemId
+        ? {
+            ...item,
+            quantity: item.quantity + 1,
+            totalPrice: item.menuItem.price * (item.quantity + 1),
+          }
+        : item
     );
 
-    setUpdatedCartItems((prevCartItems) =>
-      prevCartItems.map((item) =>
-        item._id === itemId
-          ? {
-              ...item,
-              quantity: item.quantity + 1,
-              totalPrice: item.menuItem.price * (item.quantity + 1),
-            }
-          : item
-      )
-    );
+    setGetCartItems(updatedItems);
+    setUpdatedCartItems(updatedItems);
 
     const item = getCartItems.find((item) => item._id === itemId);
     updateCartItemQuantity(cartId, item.menuItem._id, item.quantity + 1);
-    setRefreshKey((prevKey) => prevKey + 1);
-    calculateSubtotal(updatedCartItems);
+
+    // Calculate and update the subtotal and total price immediately
+    const newSubtotal = calculateSubtotal(updatedItems);
+    setSubtotalPrice(newSubtotal);
+
+    const discountAmount = discountInfo?.discountApplied ?? 0;
+    const total = calculateTotalPrice(newSubtotal, discountAmount);
+    setTotalPrice(total);
   };
+
   const handleDecrement = (itemId) => {
-    setGetCartItems((prevCartItems) =>
-      prevCartItems.map((item) =>
-        item._id === itemId && item.quantity > 1
-          ? {
-              ...item,
-              quantity: item.quantity - 1,
-              totalPrice: item.menuItem.price * (item.quantity - 1),
-            }
-          : item
-      )
+    const updatedItems = getCartItems.map((item) =>
+      item._id === itemId && item.quantity > 1
+        ? {
+            ...item,
+            quantity: item.quantity - 1,
+            totalPrice: item.menuItem.price * (item.quantity - 1),
+          }
+        : item
     );
 
-    setUpdatedCartItems((prevCartItems) =>
-      prevCartItems.map((item) =>
-        item._id === itemId && item.quantity > 1
-          ? {
-              ...item,
-              quantity: item.quantity - 1,
-              totalPrice: item.menuItem.price * (item.quantity - 1),
-            }
-          : item
-      )
-    );
+    setGetCartItems(updatedItems);
+    setUpdatedCartItems(updatedItems);
 
     const item = getCartItems.find((item) => item._id === itemId);
     if (item.quantity > 1) {
       updateCartItemQuantity(cartId, item.menuItem._id, item.quantity - 1);
-      setRefreshKey((prevKey) => prevKey + 1);
-      calculateSubtotal(updatedCartItems);
+
+      // Calculate and update the subtotal and total price immediately
+      const newSubtotal = calculateSubtotal(updatedItems);
+      setSubtotalPrice(newSubtotal);
+
+      const discountAmount = discountInfo?.discountApplied ?? 0;
+      const total = calculateTotalPrice(newSubtotal, discountAmount);
+      setTotalPrice(total);
     }
   };
 
-  const calculateSubtotal = (cartItems) => {
-    const newSubtotal = cartItems.reduce(
-      (sum, item) => sum + item.totalPrice,
-      0
-    );
-    setSubtotalPrice(newSubtotal);
+  useEffect(() => {
+    if (getCartItems) {
+      const newSubtotal = getCartItems.reduce(
+        (sum, item) => sum + item.totalPrice,
+        0
+      );
+      setSubtotalPrice(newSubtotal);
+    }
+  }, [getCartItems]);
+
+  useEffect(() => {
+    const discountAmount = discountInfo?.discountApplied ?? 0;
+    const total = calculateTotalPrice(subtotalPrice, discountAmount);
+    setTotalPrice(total);
+  }, [discountInfo, subtotalPrice]);
+
+  const calculateSubtotal = (items) => {
+    let subtotal = 0;
+    for (const item of items) {
+      subtotal += item.quantity * item.menuItem.price; // Use menuItem instead of productId
+    }
+    return subtotal;
   };
 
   useEffect(() => {
@@ -536,6 +542,37 @@ const Checkout = () => {
   const handleCheckboxChange = (e) => {
     setIsChecked(e.target.checked);
   };
+
+  const calculateTotalPrice = (subtotal, discount) => {
+    let total = subtotal;
+    if (discount) {
+      total -= (subtotal * discount) / 100;
+    }
+    if (total < shippingThreshold) {
+      total += shippingCost;
+    }
+    return total;
+  };
+
+  useEffect(() => {
+    const newSubtotal = updatedCartItems.reduce(
+      (sum, item) => sum + item.totalPrice,
+      0
+    );
+    setSubtotalPrice(newSubtotal);
+
+    const discountAmount = discountInfo?.discountApplied ?? 0;
+    const total = calculateTotalPrice(newSubtotal, discountAmount);
+    setTotalPrice(total);
+  }, [updatedCartItems, discountInfo]);
+
+  useEffect(() => {
+    const discountAmount = discountInfo?.discountApplied ?? 0;
+    const total = calculateTotalPrice(subtotalPrice, discountAmount);
+    setTotalPrice(total);
+  }, [discountInfo, subtotalPrice]);
+
+  // const total = calculateTotalPrice(subtotalPrice, discountAmount);
 
   const applyPromoCode = async () => {
     if (!Promo_code) {
@@ -656,6 +693,7 @@ const Checkout = () => {
     }
   };
   const discountAmount = discountInfo?.discountApplied ?? 0;
+
   return (
     <>
       <ToastContainer autoClose={1000} />
@@ -1163,27 +1201,39 @@ const Checkout = () => {
                         <h4 className="alata font-[400] text-[#555555] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
                           Shipping
                         </h4>
-                        <p>Spend over £55 for FREE delivery</p>
                       </div>
                       <h4 className="alata font-[400] text-[#555555] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
                         £{shippingCost.toFixed(2)}
                       </h4>
                     </div>
-                   
+                    {totalPrice < shippingThreshold && (
+                      <p className="flex items-center justify-center text-red-500 text-[18px] text-center ">
+                        Spend over £55 for FREE delivery
+                      </p>
+                    )}
                     <div className="flex justify-between">
-                      <h4 className="alata font-[400] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading/[20px] lg:text-[10px] lg:leading-[18px]">
+                      <h4 className="alata font-[400] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading/[20px] lg:text-[10px] lg:leading/[18px]">
                         Total
                       </h4>
-                      <h4 className="alata font-[400] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading/[20px] lg:text-[10px] lg:leading/[18px]">
+                      <h4 className="alata font-[400] 2xl:my-0 2xl:text-[18px] 2xl:leading/[28px] xl:text-[14px] xl:leading/[20px] lg:text-[10px] lg:leading/[18px]">
                         £
                         {discountInfo
                           ? (
                               discountInfo.totalAmountAfterDiscount +
-                              shippingCost
+                              (discountInfo.totalAmountAfterDiscount <
+                              shippingThreshold
+                                ? shippingCost
+                                : 0)
                             ).toFixed(2)
-                          : (subtotalPrice + shippingCost).toFixed(2)}
+                          : (
+                              subtotalPrice +
+                              (subtotalPrice < shippingThreshold
+                                ? shippingCost
+                                : 0)
+                            ).toFixed(2)}
                       </h4>
                     </div>
+
                     <div className="2xl:my-[30px] xl:my-[20px] my-[15px]">
                       <label className="seven_p2 text-[#555555]">
                         Promo code or Gift card
@@ -1283,7 +1333,6 @@ const Checkout = () => {
                         </Link>
                       </span>
                     </div>
-                   
 
                     <button
                       onClick={handleSubmit}
