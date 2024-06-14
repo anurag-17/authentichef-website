@@ -160,30 +160,30 @@ const Navbar = () => {
   };
 
 
-  const handleTokenLogin = async (tokenFromUrl) => {
-    try {
-      const response = await axios.get(
-        `http://13.43.174.21:4000/api/auth/verifyUserToken/${tokenFromUrl}`,
-        {}
-      );
+  // const handleTokenLogin = async (tokenFromUrl) => {
+  //   try {
+  //     const response = await axios.get(
+  //       `http://13.43.174.21:4000/api/auth/verifyUserToken/${tokenFromUrl}`,
+  //       {}
+  //     );
 
-      if (response.status === 200) {
+  //     if (response.status === 200) {
         
-        setGoogle(response.data)
-        dispatch(setToken(tokenFromUrl));
-        dispatch(setUser(user));
-        dispatch(setSuccess(true));
-        localStorage.setItem("authToken", tokenFromUrl);
-        toast.success("Logged in successfully!");
-        router.push("/"); // Redirect to home or desired page
-      } else {
-        toast.error("Token verification failed");
-      }
-    } catch (error) {
-      console.error("Error verifying token:", error);
-      toast.error("An error occurred during token verification.");
-    }
-  };
+  //       setGoogle(response.data)
+  //       dispatch(setToken(tokenFromUrl));
+  //       dispatch(setUser(user));
+  //       dispatch(setSuccess(true));
+  //       localStorage.setItem("authToken", tokenFromUrl);
+  //       toast.success("Logged in successfully!");
+  //       router.push("/"); // Redirect to home or desired page
+  //     } else {
+  //       toast.error("Token verification failed");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error verifying token:", error);
+  //     toast.error("An error occurred during token verification.");
+  //   }
+  // };
 
   const handleSubmits = async (e) => {
     e.preventDefault();
@@ -559,7 +559,7 @@ const Navbar = () => {
   };
   const [google, setGoogle] = useState("");
   console.log(google , "google")
-  const handleOAuthCallback = async (code, retries = 5, delay = 2000) => {
+  const handleOAuthCallback = async (code, retries = 4, delay = 2000) => {
     let attempt = 0;
     while (attempt < retries) {
       try {
