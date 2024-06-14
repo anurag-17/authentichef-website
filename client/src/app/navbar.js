@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import logo from "./assets/logo.png";
 import sidemanu from "../../public/images/side-menu.svg";
-import google from "./assets/google.svg";
+import googlee from "./assets/google.svg";
 import fb from "./assets/fb.svg";
 import profile from "./assets/profile.svg";
 import sidelogo from "./assets/sidebar-logo.svg";
@@ -1282,7 +1282,7 @@ const Navbar = () => {
                     )}
                   </div> */}
                   <div className="my-[12px] social_div social_btn h-[40px] gap-3 w-full ">
-                    <Image className="social_img " src={google} />
+                    <Image className="social_img " src={googlee} />
                     <h3 className="checkoutlable menu">
                       {isLoggedIn && currentUser ? (
                         <>Welcome, {currentUser.firstname}</>
@@ -1294,12 +1294,12 @@ const Navbar = () => {
                     </h3>
                   </div>{" "}
                   {/* </a> */}
-                  <Link href="https://www.facebook.com/login/" target="_blank">
+                  {/* <Link href="https://www.facebook.com/login/" target="_blank">
                     <div className="my-[12px] social_div social_btn h-[40px] gap-3 w-full">
                       <Image className="social_img " src={fb} />
                       <h3 className="checkoutlable">Continue with Facebook</h3>
                     </div>{" "}
-                  </Link>
+                  </Link> */}
                 </div>
               </div>
               {/* <div className="my-[30px]">
