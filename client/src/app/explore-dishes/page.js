@@ -1288,7 +1288,7 @@ const ExploreDishes = () => {
         <div className="flex justify-center 2xl:py-[100px] xl:py-[70px]  lg:py-10 py-10 bg-[#F9F2F2]">
           <div className="custom_container mnavbar">
             <div className="flex">
-              <h2 className="four_head nine_head">Popular Dishes</h2>
+              <h2 className="four_head nine_head">Explore Dishes</h2>
             </div>
             <div className="flex flex-col sm:flex-row flex-wrap md:gap-[25px] lg:gap-[21px] xl:gap-[32px] 2xl:gap-[35px] md:my-5 lg:my-0  sm:px-0  exploreDishesmain ">
               {Array.isArray(getAllDish) &&
@@ -1312,7 +1312,7 @@ const ExploreDishes = () => {
                     </div>
                     <div className="">
                       <button className="" onClick={() => openModal(item._id)}>
-                        <h4 className="alata cursor-pointer capitalize font-[400] text-[#DB5353] 2xl:my-4 xl:my-3 my-2 2xl:text-[20px] 2xl:leading-[20px]  xl:text-[14px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[18px]">
+                        <h4 className="alata cursor-pointer capitalize font-[400] text-[#DB5353] 2xl:my-4 xl:my-3 my-2 2xl:text-[20px] 2xl:leading-[20px]  xl:text-[14px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] text-[18px] text-start">
                           {item.name}
                         </h4>
                       </button>
@@ -1342,7 +1342,7 @@ const ExploreDishes = () => {
                       </Link>
 
                       <div className="flex gap-5 2xl:my-[20px] xl:my-[15px] xs:mb-[-15px] my-[12px]">
-                        <div className="flex flex-wrap gap-5 2xl:my-[20px] xl:my-[15px] my-[12px]">
+                        <div className="flex flex-wrap gap-5 ">
                           {item?.Dietary_id.map((dietary) => (
                             <button className="four_btn capitalize" key={dietary._id}>
                               <img
@@ -1365,7 +1365,7 @@ const ExploreDishes = () => {
                         )}
                       </div>
                       <div className="flex items-center gap-5  2xl:my-[20px] xl:my-[15px] my-[12px]">
-                        <h4 className="fourth_title">Spice level</h4>
+                        {/* <h4 className="fourth_title">Spice level</h4> */}
                         <button className="four_btnn border">
                           <img
                             alt="image"

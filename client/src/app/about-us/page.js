@@ -133,7 +133,7 @@ const AboutUs = () => {
                     Delivered directly to your door
                   </div>
                 </div>
-                <div className="2xl:mb-[30px] xl:mb-[15px] lg:gap-[] md:gap-[20px] flex md:flex-row flex-col md:text-start text-center md:items-normal items-center md:self-start box-sizing-border justify-between">
+                <div className="2xl:mb-[0px] xl:mb-[0px] lg:gap-[] md:gap-[20px] flex md:flex-row flex-col md:text-start text-center md:items-normal items-center md:self-start box-sizing-border justify-between">
                   <div className="flex items-center md:flex-row flex-col box-sizing-border  ">
                     <div className="overImgDiv">
                       <div className="flex justify-center items-center w-full box-sizing-border">

@@ -67,13 +67,17 @@ const BecomeChef = () => {
       }
     } catch (error) {
       console.error("Submission error:", error);
-      toast.error("An error occurred. Please try again later.");
+      toast.error("Please Login Before Submit The Form.");
     }
   };
 
   return (
     <>
-      <ToastContainer autoClose={1000} />
+      <ToastContainer
+        autoClose={3000}
+        className="2xl:mt-[100px] xl:mt-[80px] lg:mt-[50px] sm:mt-[45px] mt-12"
+      />
+
       <Navbar />
       <div className="w-full">
         <div className="flex justify-center">
@@ -84,10 +88,20 @@ const BecomeChef = () => {
               </h1>
               <div className="2xl:max-w-[1098px] alata xl:max-w-[700px] lg:max-w-[600px] mx-auto text-[#111111] mb-[25px] ">
                 <p className="font-alata text-[15px] md:text-lg 2xl:mt-[16px] lg:text-xl font-[400] xl:text-[16px]  2xl:text-[25px] leading-[1.5] md:leading-[1.4] xl:leading-[30px] 2xl:leading-[50px] mb-[3px]">
-                Our <span className="text-[#F38181]">diverse chef community </span>is at the heart of the food we serve.
+                  Our{" "}
+                  <span className="text-[#F38181]">
+                    diverse chef community{" "}
+                  </span>
+                  is at the heart of the food we serve.
                 </p>
                 <p className="font-alata alata  text-[15px] md:text-lg lg:text-xl 2xl:mt-[12px] font-[400] xl:text-[16px] 2xl:text-[25px] leading-[1.5] md:leading-[1.4] xl:leading-[22px] 2xl:leading-[35px]">
-                We help <span className="text-[#F38181]"> new and established chefs to start and grow </span> their food business and showcase their passion for creating culinary experiences
+                  We help{" "}
+                  <span className="text-[#F38181]">
+                    {" "}
+                    new and established chefs to start and grow{" "}
+                  </span>{" "}
+                  their food business and showcase their passion for creating
+                  culinary experiences
                 </p>
               </div>
               <div className="flex justify-center">
@@ -343,7 +357,6 @@ const BecomeChef = () => {
                   value={first.FirstName}
                   onChange={inputHandler}
                   required
-
                 />
                 <input
                   name="Surname"
@@ -352,7 +365,6 @@ const BecomeChef = () => {
                   value={first.Surname}
                   onChange={inputHandler}
                   required
-
                 />
               </div>
               {/* <input
@@ -370,7 +382,6 @@ const BecomeChef = () => {
                 className="profile_input w-full"
                 value={first.Phone}
                 required
-
                 onChange={(e) => {
                   const input = e.target.value;
                   // Accept only numbers and limit to 15 characters
@@ -390,7 +401,6 @@ const BecomeChef = () => {
                 value={first.Email}
                 onChange={inputHandler}
                 required
-
               />
               {/* <input
                 name="Postcode"
@@ -406,16 +416,7 @@ const BecomeChef = () => {
                 className="profile_input w-full"
                 value={first.Postcode}
                 required
-
-                onChange={(e) => {
-                  const input = e.target.value;
-                  // Accept only numbers and limit to 15 characters
-                  const filteredInput = input.replace(/\D/g, "").slice(0, 10);
-                  // Update state with the filtered input
-                  inputHandler({
-                    target: { name: "Postcode", value: filteredInput },
-                  });
-                }}
+                onChange={inputHandler}
               />
               <button className="font-alata font-medium bg-[#DB5353] text-white rounded-5 py-2 mt-4 hover:bg-[#7e2727] w-auto h-auto lg:w-30 lg:h-14 xl:w-30 xl:h-14 2xl:w-30 2xl:h-14">
                 Submit

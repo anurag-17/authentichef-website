@@ -1001,7 +1001,7 @@ td {
 /* // About-us */
 
 .overDive {
-  @apply lg:right-0 rounded-[15px] bg-[#FFFFFF] flex xl:gap-0 gap-y-[10px] flex-col 2xl:p-[61px_56px] xl:p-[25px] 2xl:w-[800px] 2xl:h-[479px] xl:w-[600px] xl:h-[55%] md:absolute left-[10px] md:left-auto pt-[30px] md:right-[10px] lg:bottom-[unset] md:bottom-[40px] md:p-[15px]
+  @apply lg:right-0 rounded-[15px] bg-[#FFFFFF] flex xl:gap-0 gap-y-[10px] flex-col 2xl:p-[61px_56px] xl:p-[25px] 2xl:w-[800px] 2xl:h-[479px] xl:w-[600px] xl:h-[65%] md:absolute left-[10px] md:left-auto pt-[30px] md:right-[10px] lg:bottom-[unset] md:bottom-[40px] md:p-[15px]
 }
 
 .overImgDiv {
