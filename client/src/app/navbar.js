@@ -67,6 +67,9 @@ const Navbar = () => {
   const [shouldRefresh, setShouldRefresh] = useState(false);
   const [updatedCartItems, setUpdatedCartItems] = useState([]);
   const [totalCartItems, setTotalCartItems] = useState(0);
+  const [oauthInitiated, setOauthInitiated] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
 
   const handleRemoveItem = async (itemId) => {
     try {
@@ -161,9 +164,7 @@ const Navbar = () => {
       const response = await axios.get(
         `http://13.43.174.21:4000/api/auth/verifyUserToken/${tokenFromUrl}`,
         {
-          headers: {
-            Authorization: `Bearer ${tokenFromUrl}`,
-          },
+          
         }
       );
 
@@ -574,60 +575,62 @@ const Navbar = () => {
     }
     handleAddCart();
   };
+
   const handleGoogleOAuth = () => {
     console.log("Initiating Google OAuth");
+    setOauthInitiated(true);
     window.location.href = `https://server-backend-gamma.vercel.app/Google_OAuth/google`;
-
-    // After successful Google OAuth, handle the token login
-    const tokenFromUrl = new URLSearchParams(window.location.search).get(
-      "token"
-    );
-    if (tokenFromUrl) {
-      handleTokenLogin(tokenFromUrl);
-    }
   };
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [currentUser, setCurrentUser] = useState(null);
-
-  const handleOAuthCallback = async (code) => {
-    try {
-      const response = await axios.post(
-        "https://server-backend-gamma.vercel.app/Google_OAuth/google/get-token",
-        { code },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
+  const handleOAuthCallback = async (code, retries = 5, delay = 2000) => {
+    let attempt = 0;
+    while (attempt < retries) {
+      try {
+        const response = await axios.post(
+          "https://server-backend-gamma.vercel.app/Google_OAuth/google/get-token",
+          { code },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        const { token, data } = response.data;
+        console.log(token, "---------------------------------token");
+        if (token) {
+          dispatch(setToken(token));
+          dispatch(setUser(data.user));
+          dispatch(setSuccess(true));
+          localStorage.setItem("authToken", token);
+          toast.success("Logged in successfully!");
+          setIsLoggedIn(true);
+          setCurrentUser(data.user);
+          router.push("/");
+          return;
+        } else {
+          toast.error("Token verification failed");
+          return;
         }
-      );
-
-      const { token } = response.data;
-
-      if (token) {
-        dispatch(setToken(token));
-        dispatch(setUser(data.user));
-        dispatch(setSuccess(true));
-        localStorage.setItem("authToken", token);
-        toast.success("Logged in successfully!");
-        setIsLoggedIn(true);
-        setCurrentUser(data.user);
-        router.push("/");
-      } else {
-        toast.error("Token verification failed");
+      } catch (error) {
+        console.error("Error verifying token:", error);
+        if (attempt < retries - 1) {
+          toast.warn(`Retrying... (${attempt + 1}/${retries})`);
+          await new Promise((res) => setTimeout(res, delay));
+        } else {
+          toast.error("An error occurred during token verification.");
+        }
       }
-    } catch (error) {
-      console.error("Error verifying token:", error);
-      toast.error("An error occurred during token verification.");
+      attempt++;
     }
   };
 
   useEffect(() => {
     const code = new URLSearchParams(window.location.search).get("code");
-    if (code) {
+    if (code && oauthInitiated) {
       handleOAuthCallback(code);
+      setOauthInitiated(false);
     }
-  }, [window.location.search]);
+  }, [window.location.search, oauthInitiated]);
 
   const handleIncrement = (itemId) => {
     setGetCartItems((prevCartItems) => {
