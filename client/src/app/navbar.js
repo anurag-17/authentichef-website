@@ -109,6 +109,8 @@ const Navbar = () => {
   const handleToggle = () => {
     setShowPassword(!showPassword);
   };
+
+
   const [loginDetail, setLoginDetail] = useState({
     email: "",
     password: "",
@@ -134,6 +136,9 @@ const Navbar = () => {
       setIsLoggedIn(success);
     }
   }, [success]);
+
+
+
 
   useEffect(() => {
     const tokenFromUrl = new URLSearchParams(window.location.search).get(
@@ -175,6 +180,7 @@ const Navbar = () => {
         dispatch(setSuccess(true));
         localStorage.setItem("authToken", tokenFromUrl);
         toast.success("Logged in successfully!");
+        dispatch(setUserDetail(data.user)); 
         router.push("/"); // Redirect to home or desired page
       } else {
         toast.error("Token verification failed");
@@ -558,7 +564,9 @@ const Navbar = () => {
     window.location.href = `https://server-backend-gamma.vercel.app/Google_OAuth/google`;
   };
   const [google, setGoogle] = useState("");
+
   console.log(google , "google")
+ 
   const handleOAuthCallback = async (code, retries = 3, delay = 2000) => {
     let attempt = 0;
     while (attempt < retries) {
@@ -582,7 +590,7 @@ const Navbar = () => {
           setIsLoggedIn(true);
           setCurrentUser(data.user);
           setGoogle(response.data);
-
+          dispatch(setUserDetail(data.user)); // Add this line
           router.push("/");
           return;
         } else {
