@@ -88,7 +88,7 @@ const ForgotPassword = () => {
                       <button
                         type="submit"
                         disabled={isLoading}
-                        className="w-full bg-[#F38181] text-[14px] xl:text-[16px] 2xl:text-[18px] font-medium text-white p-2 rounded-lg hover:border hover:border-gray-300 h-[35px] lg:h-[40px]  xl:h-[50px] 2xl:h-[60px] login-btn"
+                        className="w-full bg-[#F38181] hover:bg-[#7e2727] text-[14px] xl:text-[16px] 2xl:text-[18px] font-medium text-white p-2 rounded-lg hover:border hover:border-gray-300 h-[35px] lg:h-[40px]  xl:h-[50px] 2xl:h-[60px] login-btn"
                       >
                         {isLoading ? "Loading.." : "Get  link"}
                       </button>

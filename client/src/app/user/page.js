@@ -380,7 +380,7 @@ const LandingPage = () => {
             </h4>
             <div className="flex justify-center mt-4">
               <Link href="/explore-dishes">
-                <button className=" alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] px-4 py-2 border border-white">
+                <button className=" alata font-[400] hover:bg-[#7e2727] bg-[#DB5353] text-white mx-auto rounded-[5px] px-4 py-2 border border-white">
                   Explore Dishes
                 </button>
               </Link>
