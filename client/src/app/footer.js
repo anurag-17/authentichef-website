@@ -391,7 +391,6 @@ const Footer = () => {
                     name="firstname"
                     placeholder="First Name"
                     className="alata font-[400] login-inputad text-[#929292] w-full "
-                    pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     title="enter valid email ex. abc@gmail.com"
                     onChange={inputHandlers}
                     value={userDetail.firstname}
@@ -404,7 +403,6 @@ const Footer = () => {
                     name="lastname"
                     placeholder="Last Name"
                     className="alata font-[400] login-inputad text-[#929292] w-full"
-                    pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     title="enter valid email ex. abc@gmail.com"
                     onChange={inputHandlers}
                     value={userDetail.lastname}
