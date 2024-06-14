@@ -403,7 +403,7 @@ exports.PlaceOrder = async (req, res, next) => {
         // Check if this is the user's first order and a promo code is provided
         const userOrder = await Order.find({ user: req.user._id });
 
-        if (userOrder.length == 0) {
+        if (userOrder.length !== 0) {
             if (Promo_code) {
                 console.log("First Order with Promo Code");
              // Check if Promo_code is not a code but a name
@@ -470,7 +470,13 @@ exports.PlaceOrder = async (req, res, next) => {
 
           // Check again if the total amount is below £55 after discount
           if (totalAmount < 55) {
-            shippingCost = 5.99; // Add shipping cost if below £55 after discount
+            // check if the shipping cost is already added
+            if (shippingCost > 0) {
+                // Remove the shipping cost
+                totalAmount -= shippingCost;
+            }
+            // Add the shipping cost again
+            shippingCost = 5.99;
         }
         totalAmount += shippingCost; // Add shipping cost
 
