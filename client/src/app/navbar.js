@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import logo from "./assets/logo.png";
 import sidemanu from "../../public/images/side-menu.svg";
-import google from "./assets/google.svg";
+import googlee from "./assets/google.svg";
 import fb from "./assets/fb.svg";
 import profile from "./assets/profile.svg";
 import sidelogo from "./assets/sidebar-logo.svg";
@@ -54,7 +54,6 @@ const Navbar = () => {
   });
   const router = useRouter();
   const { token } = useSelector((state) => state?.auth);
-  console.log(token, "tpken");
   const { user } = useSelector((state) => state?.auth);
   const { success } = useSelector((state) => state?.auth);
   const userDetails = user;
@@ -70,6 +69,7 @@ const Navbar = () => {
   const [oauthInitiated, setOauthInitiated] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
+  const [errorMessg, setErrorMessg] = useState("");
 
   const handleRemoveItem = async (itemId) => {
     try {
@@ -109,6 +109,8 @@ const Navbar = () => {
   const handleToggle = () => {
     setShowPassword(!showPassword);
   };
+
+
   const [loginDetail, setLoginDetail] = useState({
     email: "",
     password: "",
@@ -135,6 +137,9 @@ const Navbar = () => {
     }
   }, [success]);
 
+
+
+
   useEffect(() => {
     const tokenFromUrl = new URLSearchParams(window.location.search).get(
       "token"
@@ -159,29 +164,31 @@ const Navbar = () => {
     }
   };
 
+
   const handleTokenLogin = async (tokenFromUrl) => {
     try {
       const response = await axios.get(
         `http://13.43.174.21:4000/api/auth/verifyUserToken/${tokenFromUrl}`,
-        {
-          
-        }
+        {}
       );
 
-      if (response.data.success) {
-        const user = response.data.user;
+      if (response.status === 200) {
+        
+        setGoogle(response.data)
         dispatch(setToken(tokenFromUrl));
-        dispatch(setUser(user));
+        dispatch(setUser(response.data.data));
+        
         dispatch(setSuccess(true));
         localStorage.setItem("authToken", tokenFromUrl);
         toast.success("Logged in successfully!");
+        dispatch(setUserDetail(data.user)); 
         router.push("/"); // Redirect to home or desired page
       } else {
         toast.error("Token verification failed");
       }
     } catch (error) {
       console.error("Error verifying token:", error);
-      toast.error("An error occurred during token verification.");
+      // toast.error("An error occurred during token verification.");
     }
   };
 
@@ -212,7 +219,8 @@ const Navbar = () => {
         toast.success("Registration Successful!");
         handleClosee();
       } else {
-        toast.error("Failed to Register. Please try again later.");
+        toast.error(response.data.error || "Server Error");
+        setErrorMessg(response.data.error || "Server Error");
       }
     } catch (error) {
       console.error(error);
@@ -307,7 +315,6 @@ const Navbar = () => {
   };
 
   const { cart } = useSelector((state) => state?.userCart);
-  console.log(cart, "cart");
   const cartData = cart[0]?.data?._id;
   const quantity = cart[0]?.quantity;
 
@@ -382,7 +389,6 @@ const Navbar = () => {
     }
   };
 
-  console.log(quantity, "cart");
   cart.forEach((item, index) => {
     const { data } = item;
   });
@@ -460,26 +466,6 @@ const Navbar = () => {
       alert(error?.response?.data?.message || "server error");
     }
   };
-  // const handleCartClear = async () => {
-  //   try {
-  //     const response = await axios.delete(
-  //       `${config.baseURL}/api/Orders/deleteAllCartItem`,
-  //       {
-  //         headers: {
-  //           authorization: token,
-  //         },
-  //       }
-  //     );
-  //     if (response.status >= 200 && response.status < 300) {
-  //       toast.success("All Items Are Removed");
-  //       refreshData();
-  //     } else {
-  //       alert("failed");
-  //     }
-  //   } catch (error) {
-  //     alert(error?.response?.data?.message || "server error");
-  //   }
-  // };
 
   useEffect(() => {
     const ids = cart.map((item) => ({
@@ -488,7 +474,6 @@ const Navbar = () => {
     }));
 
     setItemId(ids);
-    console.log(ids, "ids");
   }, [cart]);
 
   const itemIds = useSelector((state) =>
@@ -569,7 +554,6 @@ const Navbar = () => {
 
   const handleAddCartWrapper = () => {
     if (itemIds.length === 0) {
-      console.log("No items to add to cart.");
       toast.error("No items to add to cart.");
       return;
     }
@@ -577,12 +561,14 @@ const Navbar = () => {
   };
 
   const handleGoogleOAuth = () => {
-    console.log("Initiating Google OAuth");
     setOauthInitiated(true);
     window.location.href = `https://server-backend-gamma.vercel.app/Google_OAuth/google`;
   };
+  const [google, setGoogle] = useState("");
 
-  const handleOAuthCallback = async (code, retries = 5, delay = 2000) => {
+  console.log(google.data , "google")
+ 
+  const handleOAuthCallback = async (code, retries = 3, delay = 2000) => {
     let attempt = 0;
     while (attempt < retries) {
       try {
@@ -596,15 +582,16 @@ const Navbar = () => {
           }
         );
         const { token, data } = response.data;
-        console.log(token, "---------------------------------token");
         if (token) {
           dispatch(setToken(token));
-          dispatch(setUser(data.user));
+          dispatch(setUser(response.data.data));
           dispatch(setSuccess(true));
           localStorage.setItem("authToken", token);
           toast.success("Logged in successfully!");
           setIsLoggedIn(true);
           setCurrentUser(data.user);
+          setGoogle(response.data.data);
+          dispatch(setUserDetail(data.user)); // Add this line
           router.push("/");
           return;
         } else {
@@ -617,7 +604,7 @@ const Navbar = () => {
           toast.warn(`Retrying... (${attempt + 1}/${retries})`);
           await new Promise((res) => setTimeout(res, delay));
         } else {
-          toast.error("An error occurred during token verification.");
+          // toast.error("An error occurred during token verification.");
         }
       }
       attempt++;
@@ -662,7 +649,7 @@ const Navbar = () => {
         }
       );
       if (response.status >= 200 && response.status < 300) {
-        console.log("Cart item updated successfully");
+        toast.success("Cart item updated successfully");
       } else {
         console.log("Failed to update cart item", response.data.message);
       }
@@ -706,9 +693,6 @@ const Navbar = () => {
     }
   }, [shouldRefresh, cartId, getCartItems]);
 
-  useEffect(() => {
-    console.log("Updated Cart Items:", updatedCartItems);
-  }, [updatedCartItems]);
 
   const handleQuantityIncrement = (id) => {
     dispatch(incrementCartItemQuantity(id));
@@ -1263,6 +1247,7 @@ const Navbar = () => {
                     onChange={inputHandlers}
                     value={userDetail.email}
                   />
+                  <p className="text-red-700">{errorMessg}</p>
                 </div>
                 <div className="2xl:mt-[35px] mt-[25px] 2xl:w-[368px] xl:w-[230px] w-full">
                   <input
@@ -1297,7 +1282,7 @@ const Navbar = () => {
                     )}
                   </div> */}
                   <div className="my-[12px] social_div social_btn h-[40px] gap-3 w-full ">
-                    <Image className="social_img " src={google} />
+                    <Image className="social_img " src={googlee} />
                     <h3 className="checkoutlable menu">
                       {isLoggedIn && currentUser ? (
                         <>Welcome, {currentUser.firstname}</>
@@ -1309,12 +1294,12 @@ const Navbar = () => {
                     </h3>
                   </div>{" "}
                   {/* </a> */}
-                  <Link href="https://www.facebook.com/login/" target="_blank">
+                  {/* <Link href="https://www.facebook.com/login/" target="_blank">
                     <div className="my-[12px] social_div social_btn h-[40px] gap-3 w-full">
                       <Image className="social_img " src={fb} />
                       <h3 className="checkoutlable">Continue with Facebook</h3>
                     </div>{" "}
-                  </Link>
+                  </Link> */}
                 </div>
               </div>
               {/* <div className="my-[30px]">
@@ -1382,7 +1367,6 @@ const Navbar = () => {
                     onChange={InputHandler}
                     placeholder="Enter your Password"
                     className="alata font-[400] login-inputad w-full h-[40px]"
-                   
                   />
                   <Link href="/forgot-password">
                     <label className="checkoutlable my-1 cursor-pointer">
