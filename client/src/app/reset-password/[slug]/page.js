@@ -31,7 +31,7 @@ const ResetPassword = ({ params }) => {
 
       if (response.status === 201) {
         setLoading(false);
-        router.push("/user/user-login");
+        router.push("/");
         toast.success("Password Update Successfully");
       } else {
         setLoading(false);

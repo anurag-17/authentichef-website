@@ -814,7 +814,7 @@ td {
 }
 
 .aboutPara {
-  @apply alata font-[400] 2xl:text-[25px] 2xl:leading-[34px] 2xl:w-auto lg:text-[18px] lg:leading-[28px] sm:text-[16px] text-[16px] leading-[normal] 2xl:mt-[50px] text-start 
+  @apply alata font-[400] 2xl:text-[25px] 2xl:leading-[34px] 2xl:w-auto lg:text-[18px] lg:leading-[28px] sm:text-[16px] text-[16px] leading-[normal] 2xl:mt-[50px] text-center 
 }
 
 .globalhead {
