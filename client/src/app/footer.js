@@ -289,7 +289,6 @@ const Footer = () => {
                 <Link href="/term-condition">
                   <p className="footer_text">Terms of Service</p>
                 </Link>
-              
               </div>
             </div>
             <div className="lg:w-auto  sm:w-[27%] w-[50%] my-3 md:my-4 lg:my-0">
@@ -391,8 +390,6 @@ const Footer = () => {
                     name="firstname"
                     placeholder="First Name"
                     className="alata font-[400] login-inputad text-[#929292] w-full "
-                    pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-                    title="enter valid email ex. abc@gmail.com"
                     onChange={inputHandlers}
                     value={userDetail.firstname}
                     maxLength={100}
@@ -404,8 +401,6 @@ const Footer = () => {
                     name="lastname"
                     placeholder="Last Name"
                     className="alata font-[400] login-inputad text-[#929292] w-full"
-                    pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-                    title="enter valid email ex. abc@gmail.com"
                     onChange={inputHandlers}
                     value={userDetail.lastname}
                     maxLength={100}
@@ -429,8 +424,6 @@ const Footer = () => {
                     name="password"
                     placeholder="Password"
                     className="alata font-[400] login-inputad text-[#929292] w-full"
-                    pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-                    title="enter valid email ex. abc@gmail.com"
                     onChange={inputHandlers}
                     value={userDetail.password}
                   />
@@ -530,8 +523,6 @@ const Footer = () => {
                     onChange={InputHandler}
                     placeholder="Enter your Password"
                     className="alata font-[400] login-inputad  w-full"
-                    pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-                    title="enter valid email ex. abc@gmail.com"
                   />
                 </div>
                 <div className="flex">
