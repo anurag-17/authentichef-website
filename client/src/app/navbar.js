@@ -900,7 +900,7 @@ const Navbar = () => {
             </div>
 
             <div className="w-1/3 flex justify-center ">
-              <a href="/user">
+              <a href="/">
                 <Image alt="logo" src={logo} className="nav_logo" />
               </a>
             </div>
@@ -1233,7 +1233,6 @@ const Navbar = () => {
                     name="firstname"
                     placeholder="First Name"
                     className="alata font-[400] login-inputad text-[#929292] w-full h-[40px] "
-                    title="enter valid email ex. abc@gmail.com"
                     onChange={inputHandlers}
                     value={userDetail.firstname}
                     maxLength={100}
@@ -1245,7 +1244,6 @@ const Navbar = () => {
                     name="lastname"
                     placeholder="Last Name"
                     className="alata font-[400] login-inputad text-[#929292] w-full h-[40px]"
-                    title="enter valid email ex. abc@gmail.com"
                     onChange={inputHandlers}
                     value={userDetail.lastname}
                     maxLength={100}
@@ -1270,7 +1268,6 @@ const Navbar = () => {
                     placeholder="Password"
                     className="alata font-[400] login-inputad text-[#929292] w-full h-[40px]"
                     pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-                    title="enter valid email ex. abc@gmail.com"
                     onChange={inputHandlers}
                     value={userDetail.password}
                   />
