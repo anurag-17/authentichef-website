@@ -11,7 +11,8 @@ import { useSelector } from "react-redux";
 const MyOrder = () => {
   const { token } = useSelector((state) => state?.auth);
 
-  const [getAllOrders, setGetAllOrders] = useState("");
+  const [getAllOrders, setGetAllOrders] = useState([]);
+
   useEffect(() => {
     defaultorders();
   }, []);
@@ -20,7 +21,6 @@ const MyOrder = () => {
     const option = {
       method: "GET",
       url: `${config.baseURL}/api/order/orderList`,
-
       headers: {
         Authorization: token,
       },
@@ -35,9 +35,31 @@ const MyOrder = () => {
         console.log(error, "Error");
       });
   };
-  
 
-  
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+
+    const day = date.getDate();
+    const month = date.toLocaleString("default", { month: "long" });
+    const year = date.getFullYear();
+
+    const daySuffix = (day) => {
+      if (day > 3 && day < 21) return "th"; // Covers 11th to 19th
+      switch (day % 10) {
+        case 1:
+          return "st";
+        case 2:
+          return "nd";
+        case 3:
+          return "rd";
+        default:
+          return "th";
+      }
+    };
+
+    return `${day}${daySuffix(day)} ${month} ${year}`;
+  };
+
   return (
     <>
       <section>
@@ -77,7 +99,10 @@ const MyOrder = () => {
                             </div>
                           </div>
                           <div className="">
-                            <h4 className="my-2"> Delivered on {order.deliveryDate}</h4>
+                            <h4 className="my-2">
+                              {" "}
+                              <h4 className="my-2">Delivered on {formatDate(order.deliveryDate)}</h4>
+                              </h4>
 
                             <Link href={`/pages/order-details/${order?._id}`}>
                               <button className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[257px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] text-[10px] xl:w-[150px] xl:py-[10px] lg:px-3 lg:py-[6px] px-3 py-1 hover:bg-[#7e2727]">
