@@ -163,7 +163,7 @@ const Navbar = () => {
   const handleTokenLogin = async (tokenFromUrl) => {
     try {
       const response = await axios.get(
-        `http://13.43.174.21:4000/api/auth/verifyUserToken/${tokenFromUrl}`,
+        `https://server-backend-gamma.vercel.app/api/auth/verifyUserToken/${tokenFromUrl}`,
         {}
       );
 
@@ -278,6 +278,7 @@ const Navbar = () => {
         dispatch(removeSuccess());
         router.push("/explore-dishes");
         setIsLoggedIn(false);
+        window.location.reload(); 
         refreshData();
       } else {
         toast.error("Logout failed");
@@ -710,6 +711,13 @@ const Navbar = () => {
     setTotalCartItems(totalItems);
     refreshData();
   }, [cart, getCartItems]);
+
+  useEffect(() => {
+    if (isLoggedIn === 'success') {
+      window.location.reload();
+    }
+  }, [isLoggedIn]);
+
 
   return (
     <>
@@ -1153,6 +1161,9 @@ const Navbar = () => {
                             Checkout
                           </button>
                         </Link>
+                        <p className="font-[500] text-[16px] py-[0.5rem]">
+                          Minimum order £30
+                        </p>
                         <p className="font-[500] text-[16px] py-[1rem]">
                           FREE delivery on orders over £55
                         </p>

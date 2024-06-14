@@ -67,7 +67,7 @@ exports.register = async (req, res, next) => {
   }
 };
 
-// Function to generate reset password token
+
 const generateResetPasswordToken = () => {
   return crypto.randomBytes(20).toString("hex");
 };
@@ -82,7 +82,7 @@ exports.login = async (req, res, next) => {
   try {
     const findUser = await User.findOne({ email }).select("+password");
 
-    // If user exists and is authenticated via a third-party provider
+    
     if (findUser && !findUser.password) {
       const token = generateToken({ id: findUser._id });
 
