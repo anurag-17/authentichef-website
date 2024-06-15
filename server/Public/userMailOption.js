@@ -110,8 +110,8 @@ const userMailOptions = (req, savedOrder, deliveryDate, deliveryInfo, totalAmoun
             </table>
             
                 <p><strong>Amount:</strong> £${savedOrder.totalAmountBeforeDiscount.toFixed(2)}</p>
-                <p><strong>Discount:</strong>${savedOrder.DiscountPercentage} % </p>
-                <p><strong>Discount Amount:</strong> £${savedOrder.discountApplied.toFixed(2)}</p>
+                <p><strong>Discount:</strong> ${savedOrder.DiscountPercentage} % </p>
+                <p><strong>Discount Amount: </strong> £${savedOrder.discountApplied.toFixed(2)}</p>
                 <p><strong>Shipping Charges:</strong> £${savedOrder.shippingCharge}</p>
                 <p><strong>Total Amount:</strong> £${savedOrder.totalAmount.toFixed(2)}</p>
                 <p>We will notify you once your order has been processed and shipped.</p>
