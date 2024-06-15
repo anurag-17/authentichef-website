@@ -31,11 +31,13 @@ const EditModal = ({
     ProfileImage: "",
     nutritional_information: "",
     popular_dish: false,
-    // SKU_Number: "",
+    SKU_Number: "",
+    Cuisines_id: "",
   });
 
   const [isLoading, setLoading] = useState(false);
   const [dishTypes, setDishTypes] = useState([]);
+  const [cuisines, setCuisines] = useState([]);
   const [dietaries, setDietaries] = useState([]);
   const [spiceLevels, setSpiceLevels] = useState([]);
   const [chefs, setChefs] = useState([]);
@@ -66,7 +68,8 @@ const EditModal = ({
         chef_id: editData.chef_id ? editData.chef_id._id : "",
         ProfileImage: editData.ProfileImage || null,
         popular_dish: editData.popular_dish === "Yes",
-        // SKU_Number: editData.SKU_Number || "",
+        SKU_Number: editData.SKU_Number || "",
+        Cuisines_id: editData.Cuisines_id ? editData.Cuisines_id._id : "",
       });
     }
   }, [editData]);
@@ -202,6 +205,7 @@ const EditModal = ({
       formDataToSend.append("Dishtype_id", formData.Dishtype_id);
       formDataToSend.append("spice_level_id", formData.spice_level_id);
       formDataToSend.append("chef_id", formData.chef_id);
+      formDataToSend.append("Cuisines_id",formData.Cuisines_id)
       formDataToSend.append(
         "nutritional_information",
         formData.nutritional_information
@@ -281,6 +285,32 @@ const EditModal = ({
     }
 
     fetchDishTypes();
+  }, []);
+
+  useEffect(() => {
+    async function fetchCuisines() {
+      try {
+        const response = await axios.get(
+          `${config.baseURL}/api/cuisines/getAllCuisines`
+        );
+        const { cuisines } = response.data; // Extract the cuisines array from the response
+        if (Array.isArray(cuisines)) {
+          setCuisines(cuisines); // Update state with fetched cuisines
+          if (cuisines.length > 0) {
+            setMenuItem((prevState) => ({
+              ...prevState,
+              Cuisines_id: cuisines[0]._id,
+            }));
+          }
+        } else {
+          console.error("Invalid data format for cuisines:", cuisines);
+        }
+      } catch (error) {
+        console.error("Error fetching cuisines:", error);
+      }
+    }
+
+    fetchCuisines();
   }, []);
 
   const [nutrition, setNutrition] = useState([]);
@@ -364,7 +394,7 @@ const EditModal = ({
                 />
               </div>
 
-              {/* <div class="py-2">
+              <div class="py-2">
                 <span class="login-input-label capitalize">SKU Number</span>
                 <input
                   type="text"
@@ -374,8 +404,9 @@ const EditModal = ({
                   value={formData.SKU_Number}
                   onChange={handleChange}
                   required
+                  disabled
                 />
-              </div> */}
+              </div>
 
               <div class="py-2">
                 <span class="login-input-label capitalize"> Price :</span>
@@ -481,6 +512,25 @@ const EditModal = ({
                 </select>
               </div>
 
+              <div class="py-2">
+                <span class="login-input-label capitalize">Cuisine Type</span>
+                <select
+                  name="Cuisines_id"
+                  value={formData.Cuisines_id}
+                  onChange={handleChange}
+                  class="login-input w-full mt-1"
+                  required
+                >
+                  <option value="">Select cuisine type</option>
+                  {Array.isArray(cuisines) &&
+                    cuisines.map((type) => (
+                      <option key={type._id} value={type._id}>
+                        {type.title}
+                      </option>
+                    ))}
+                </select>
+              </div>
+
               <div className="py-2">
                 <span className="login-input-label capitalize">Dietary:</span>
                 <select
@@ -497,7 +547,11 @@ const EditModal = ({
                   <option value="">Select Dietary</option>
                   {Array.isArray(dietaries) &&
                     dietaries.map((dietary) => (
-                      <option key={dietary._id} value={dietary._id} className="capitalize">
+                      <option
+                        key={dietary._id}
+                        value={dietary._id}
+                        className="capitalize"
+                      >
                         {dietary.title}
                       </option>
                     ))}
