@@ -106,7 +106,7 @@
 //                     <th>Shipping Charges</th>
 //                     <td>$${savedOrder.shippingCharge}%</td>
 //                 </tr>
-                    
+
 
 //                     <tr>
 //                         <th>Total Amount</th>
@@ -269,7 +269,7 @@ const adminMailOptions = (
 
         <tr>
           <th>Payment Method</th>
-          <td>${payment_method_types } ( Stripe )</td>
+          <td> Stripe </td>
         </tr>
         <tr>
           <th>Order Value</th>
@@ -277,7 +277,7 @@ const adminMailOptions = (
         </tr>
         <tr>
           <th>Discount</th>
-          <td>${savedOrder.DiscountPercentage} %</td>
+          <td> ${savedOrder.DiscountPercentage} % </td>
         </tr>
 
         <tr>
