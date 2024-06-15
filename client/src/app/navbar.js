@@ -84,7 +84,7 @@ const Navbar = () => {
 
       if (response.status >= 200 && response.status < 300) {
         toast.success("Item Removed From Cart");
-
+        refreshData();
         setGetCartItems((prevCartItems) =>
           prevCartItems.filter((item) => item.menuItem._id !== itemId)
         );
@@ -151,14 +151,6 @@ const Navbar = () => {
   }, []);
 
   const [tokenFromUrl, setTokenFromUrl] = useState("");
-
-  const handleGetToken = () => {
-    const tokenFromUrl = prompt("Enter the token:");
-    if (tokenFromUrl) {
-      setTokenFromUrl(tokenFromUrl);
-      handleTokenLogin(tokenFromUrl);
-    }
-  };
 
   const handleTokenLogin = async (tokenFromUrl) => {
     try {
@@ -249,6 +241,7 @@ const Navbar = () => {
         dispatch(setUser(res?.data?.user));
         dispatch(setSuccess(res?.data?.success));
         refreshData();
+
         handleClose();
         setLoading(false);
         setIsLoggedIn(true);
@@ -321,10 +314,8 @@ const Navbar = () => {
   // const cartIt = getCartItems.length;
 
   useEffect(() => {
-    if (token) {
-      defaultCartItems(isRefresh);
-    }
-  }, [!isRefresh, token]);
+    defaultCartItems();
+  }, [!isRefresh]);
 
   useEffect(() => {
     if (cartId && getCartItems.length > 0) {
@@ -345,17 +336,17 @@ const Navbar = () => {
     axios
       .request(option)
       .then(async (response) => {
+        refreshData();
         const userCart = response?.data?.userCart;
         const cartItems = userCart?.items.map((item) => ({
           ...item,
           totalPrice: item.menuItem.price * item.quantity,
         }));
-        setGetCartItems(cartItems);
-        setUpdatedCartItems(cartItems);
         setSubtotalPrice(
           cartItems.reduce((sum, item) => sum + item.totalPrice, 0)
         );
-        // refreshData(!isRefresh);
+        setGetCartItems(cartItems);
+        setUpdatedCartItems(cartItems);
         setShippingCost(userCart.Shipping_cost ?? 0);
         setCartId(userCart._id);
         for (const item of cartItems) {
@@ -553,7 +544,7 @@ const Navbar = () => {
         }
       );
       if (response.status >= 200 && response.status < 300) {
-        toast.success("Cart item updated successfully");
+        console.log("Cart item updated successfully");
       } else {
         console.log("Failed to update cart item", response.data.message);
       }
@@ -862,10 +853,7 @@ const Navbar = () => {
           ></label>
           <ul className="min-h-full text-base-content max-w-[310px] sm:max-w-[350px] md:w-[400px] md:max-w-[400px] 2xl:w-[450px] 2xl:max-w-[450px] bg-white">
             <div className="flex flex-col justify-center items-center p-[15px] md:p-[20px] h-[100vh]">
-              {!updatedCart ||
-              !getCartItems ||
-              updatedCart.length === 0 ||
-              getCartItems.length === 0 ? (
+              {getCartItems.length === 0 ? (
                 <div className="flex flex-col justify-center items-center">
                   <h4 className="alata font-[400] text-[#111] text-[24px] mb-[1rem]">
                     Your Basket is empty!
@@ -1035,9 +1023,7 @@ const Navbar = () => {
                                 <button
                                   className="text-center mx-auto"
                                   onClick={() =>
-                                    token
-                                      ? handleRemoveItem(item.menuItem._id)
-                                      : ""
+                                    handleRemoveItem(item.menuItem._id)
                                   }
                                 >
                                   <DeleteIcon />
