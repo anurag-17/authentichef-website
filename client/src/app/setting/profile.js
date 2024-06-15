@@ -109,10 +109,8 @@ const Profile = () => {
       );
       if (response.status >= 200 && response.status < 300) {
         toast.success("Password Change Successfully");
-
       } else {
         toast.error("Password Change Failed");
-
       }
     } catch (error) {
       alert(error?.response?.data?.message || "Server error");
@@ -123,7 +121,7 @@ const Profile = () => {
     <>
       <ToastContainer autoClose={1000} />
       <section>
-        <div className="border rounded-[5px] 2xl:mt-[30px] xl:mt-[15px] mt-[15px] 2xl:px-[105px] 2xl:py-[80px] xl:px-[50px] xl:py-[40px] px-[40px] py-[25px] w-[80%]">
+        <div className="border rounded-[5px] 2xl:mt-[30px] xl:mt-[15px] mt-[15px] 2xl:px-[105px] 2xl:py-[80px] xl:px-[50px] xl:py-[40px] px-[10px] sm:px-[40px] py-[25px] w-full lg:w-[80%]">
           {/* <form
             onSubmit={(event) => {
               handleSubmit();
@@ -134,54 +132,54 @@ const Profile = () => {
           <form onSubmit={handleSubmit}>
             <div>
               <div className="flex 2xl:gap-[20px] xl:gap-[15px] gap-[10px]">
-                <div className="2xl:w-[375px] xl:w-[280px] w-[200px]">
+                <div className="2xl:w-[375px] xl:w-[280px] lg:w-[200px] w-full">
                   <input
                     name="firstname"
                     placeholder="First Name"
                     value={userData.firstname}
-                    className="profile_input"
+                    className="profile_inputs"
                     onChange={inputHandler}
                   />
                 </div>
-                <div className="2xl:w-[375px] xl:w-[280px] w-[200px]">
+                <div className="2xl:w-[375px] xl:w-[280px] lg:w-[200px] w-full">
                   <input
                     name="lastname"
                     placeholder="Last Name"
                     value={userData.lastname}
-                    className="profile_input"
+                    className="profile_inputs"
                     onChange={inputHandler}
                   />
                 </div>
               </div>
               <div className="flex 2xl:gap-[20px] xl:gap-[15px] gap-[10px]">
-              <div className="2xl:w-[375px] xl:w-[280px] w-[200px] 2xl:mt-[15px] xl:mt-[10px] mt-[8px]">
-                <input
-                  name="email"
-                  placeholder="Email"
-                  value={userData.email}
-                  className="profile_input"
-                  onChange={inputHandler}
-                />
-              </div>
-              <div className="2xl:w-[375px] xl:w-[280px] w-[200px] 2xl:mt-[15px] xl:mt-[10px] mt-[8px]">
-                <input
-                  placeholder="Enter phone number"
-                  type="number"
-                  name="mobile"
-                  value={userData.mobile}
-                  onChange={inputHandler}
-                  maxLength={15}
-                  className="w-full bg-[#F3F3F3] 2xl:h-[60px] xl:h-[40px] h-[30px] 2xl:text-[16px] xl:text-[12px] text-[9px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
-                  required
-                />
-              </div>
+                <div className="2xl:w-[375px] xl:w-[280px] lg:w-[200px] w-full 2xl:mt-[15px] xl:mt-[10px] mt-[8px]">
+                  <input
+                    name="email"
+                    placeholder="Email"
+                    value={userData.email}
+                    className="profile_inputs"
+                    onChange={inputHandler}
+                  />
+                </div>
+                <div className="2xl:w-[375px] xl:w-[280px] lg:w-[200px] w-full 2xl:mt-[15px] xl:mt-[10px] mt-[8px]">
+                  <input
+                    placeholder="Enter phone number"
+                    type="number"
+                    name="mobile"
+                    value={userData.mobile}
+                    onChange={inputHandler}
+                    maxLength={15}
+                    className="profile_inputs"
+                    required
+                  />
+                </div>
               </div>
             </div>
 
             <div className="2xl:my-[30px] xl:my-[20px] my-[10px]">
               <button
                 type="submit"
-                className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[120px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] text-[10px] xl:w-[80px] xl:py-[8px] lg:py-[6px] lg:px-4 px-3 py-1 hover:bg-[#7e2727]"
+                className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[120px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] text-[12px] xl:w-[80px] xl:py-[8px] lg:py-[6px] lg:px-4 px-3 py-1 hover:bg-[#7e2727]  md:h-[40px] h-[30px] md:w-[100px] w-[100px]"
               >
                 Update
               </button>
@@ -193,30 +191,30 @@ const Profile = () => {
               Password Change <span className="text-[#DB1414]">*</span>
             </label>
             <div className="flex 2xl:gap-[20px] xl:gap-[15px] gap-[10px]">
-              <div className="2xl:w-[375px] xl:w-[280px] w-[200px]">
+              <div className="2xl:w-[375px] xl:w-[280px] lg:w-[200px] w-full">
                 <input
                   type="password"
                   name="oldPassword"
                   placeholder="Old Password"
                   value={passwordUpdate.oldPassword}
                   onChange={inputHandlerr}
-                  className="profile_input"
+                  className="profile_inputs"
                 />
               </div>
-              <div className="2xl:w-[375px] xl:w-[280px] w-[200px]">
+              <div className="2xl:w-[375px] xl:w-[280px] lg:w-[200px] w-full">
                 <input
                   type="password"
                   name="newPassword"
                   placeholder="New Password"
                   value={passwordUpdate.newPassword}
                   onChange={inputHandlerr}
-                  className="profile_input"
+                  className="profile_inputs"
                 />
               </div>
               <div className=" flex flex-col justify-end">
                 <button
                   type="submit"
-                  className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[120px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] text-[10px] xl:w-[80px] xl:py-[8px] lg:py-[6px] lg:px-4 px-3 py-1 hover:bg-[#7e2727]"
+                  className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[120px] 2xl:h-[56px] 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[12px] text-[12px] xl:w-[80px] xl:py-[8px] lg:py-[6px] lg:px-4 px-3 py-1 hover:bg-[#7e2727]  md:h-[40px] h-[30px]  md:w-[100px] w-[100px]"
                 >
                   Update
                 </button>
