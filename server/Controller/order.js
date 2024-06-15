@@ -1540,7 +1540,7 @@ exports.AllOrderList = async (req, res, next) => {
         const currentPage = parseInt(page, 10);
         const itemsPerPage = parseInt(limit, 10);
 
-        let orderQuery = Order.find()
+        let orderQuery = Order.find().sort({ orderDate: -1 }) // Filter by user_id
             .populate('payment'); // Filter by user_id
 
         if (search) {
@@ -1580,7 +1580,9 @@ exports.AllOrderList = async (req, res, next) => {
             discountApplied: order.discountApplied,
             totalAmountBeforeDiscount: order.totalAmountBeforeDiscount,
             discountPercentage: order.DiscountPercentage,
-            payment: order.payment
+            payment: order.payment,
+            orderDate: order.orderDate,
+            OrderNumber: order.OrderNumber,
 
         }));
 
