@@ -422,52 +422,6 @@ const ExploreDishes = () => {
     }
   };
 
-  // ========= Add to Cart =======
-
-  // const handleAddToCart = async (id) => {
-  //    setLoading(true);
-  //   try {
-  //     const response = await axios.post(
-  //       `${config.baseURL}/api/Orders/AddtoCart`,
-  //       {
-  //         menuItem: id,
-  //       }
-  //     );
-
-  //     if (response.status === 200) {
-  //       // toast.success("Added to Cart!");
-  //       refreshData();
-  //        setLoading(false);
-  //     } else {
-  //       // toast.error("Failed. Something went wrong!");
-  //        setLoading(false);
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //     // toast.error("Failed. Something went wrong!");
-  //   }
-  // };
-  // ========= Get Cart Item =======
-  const [getCartItem, setGetCartItem] = useState("");
-
-  // useEffect(() => {
-  //   defaultCartItem();
-  // }, []);
-  // const defaultCartItem = () => {
-  //   const option = {
-  //     method: "GET",
-  //     url: `${config.baseURL}/api/Orders/getCartItem`,
-  //   };
-  //   axios
-  //     .request(option)
-  //     .then((response) => {
-  //       setGetCartItem(response?.data?.cart);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error, "Error");
-  //     });
-  // };
-
   const handleAllClear = async () => {
     setLoading(true);
 
@@ -559,9 +513,11 @@ const ExploreDishes = () => {
       );
       if (response.status >= 200 && response.status < 300) {
         toast.success("Items added to cart successfully");
-        handleDrawerOpen();
         refreshData();
+        handleDrawerOpen();
+        router.push("/explore-dishes");
         setLoading(false);
+
       } else {
         console.log("Failed to add items to cart. Please try again.");
       }
@@ -1344,7 +1300,10 @@ const ExploreDishes = () => {
                       <div className="flex gap-5 2xl:my-[20px] xl:my-[15px] xs:mb-[-15px] my-[12px]">
                         <div className="flex flex-wrap gap-5 ">
                           {item?.Dietary_id.map((dietary) => (
-                            <button className="four_btn capitalize" key={dietary._id}>
+                            <button
+                              className="four_btn capitalize"
+                              key={dietary._id}
+                            >
                               <img
                                 src={dietary.ProfileImage}
                                 className="2xl:[18px] xl:w-[14px] w-[12px]"
@@ -1384,12 +1343,9 @@ const ExploreDishes = () => {
                             {item?.price && ` £${item.price.toFixed(2)}`}
                           </span>{" "}
                           <span className="font-400 alata">
-                          |  {item?.weight}g | Serves{" "}
+                            | {item?.weight}g | Serves{" "}
                           </span>
-                          <span className="text-500">
-                          
-                          {item?.portion_Size}
-                          </span>
+                          <span className="text-500">{item?.portion_Size}</span>
                         </p>
                         {token ? (
                           <button

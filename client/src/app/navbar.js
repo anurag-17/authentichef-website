@@ -247,10 +247,11 @@ const Navbar = () => {
         dispatch(setToken(res?.data?.token));
         dispatch(setUser(res?.data?.user));
         dispatch(setSuccess(res?.data?.success));
-        // refreshData();
+
         handleClose();
         setLoading(false);
         setIsLoggedIn(true);
+        router.push("/");
         // setTimeout(() => {
         //   postCartToApi();
         // }, 3000);
@@ -278,7 +279,7 @@ const Navbar = () => {
         dispatch(removeSuccess());
         router.push("/explore-dishes");
         setIsLoggedIn(false);
-        window.location.reload(); 
+        window.location.reload();
         refreshData();
       } else {
         toast.error("Logout failed");
@@ -310,79 +311,6 @@ const Navbar = () => {
   };
 
   const { cart } = useSelector((state) => state?.userCart);
-  const cartData = cart[0]?.data?._id;
-  const quantity = cart[0]?.quantity;
-
-  const lengths = 0;
-
-  // const postCartToApi = async () => {
-  //   try {
-  //     const response = await axios.post(
-  //       `${config.baseURL}/api/Orders/AddtoCart`,
-  //       {
-  //         items: [
-  //           {
-  //             menuItem: cartData,
-  //             quantity: quantity,
-  //           },
-  //         ],
-  //       },
-  //       {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: token, // Assuming token is defined somewhere
-  //         },
-  //       }
-  //     );
-
-  //     if (response.status !== 200) {
-  //       throw new Error("Failed to post cart data");
-  //     }
-
-  //     return response.data;
-  //   } catch (error) {
-  //     console.error("Error posting cart data:", error);
-  //     throw error;
-  //   }
-  // };
-
-  // Helper function to save state to localStorage and post to API
-  const saveState = async (state) => {
-    try {
-      const stateToSave = {
-        message: "Cart",
-        userCart: {
-          items: state.cart.map((item) => ({
-            menuItem: item.data._id, // Use item ID here
-            quantity: item.quantity,
-          })),
-          totalQuantity: state.totalQuantity,
-          totalAmount: state.totalAmount,
-        },
-      };
-      const serializedState = JSON.stringify(stateToSave);
-      localStorage.setItem("cart", serializedState);
-
-      // Post the cart data to the API if the token is available
-      if (state.token) {
-        const cartData = {
-          items: state.cart.map((item) => ({
-            menuItem: item.data._id, // Use item ID here
-            quantity: item.quantity,
-          })),
-        };
-        const response = await postCartToApi(
-          cartData,
-          state.token,
-          state.cartId
-        );
-        return response;
-      }
-    } catch (err) {
-      console.error("Error saving state:", err);
-      // Ignore write errors.
-    }
-  };
 
   cart.forEach((item, index) => {
     const { data } = item;
@@ -403,7 +331,7 @@ const Navbar = () => {
         updateCartItemQuantity(cartId, item.menuItem._id, item.quantity);
       });
     }
-  }, [cartId, getCartItems]);
+  }, [cartId, getCartItems, !isRefresh]);
 
   const defaultCartItems = () => {
     const option = {
@@ -426,6 +354,7 @@ const Navbar = () => {
         setSubtotalPrice(
           cartItems.reduce((sum, item) => sum + item.totalPrice, 0)
         );
+        // refreshData(!isRefresh); 
         setShippingCost(userCart.Shipping_cost ?? 0);
         setCartId(userCart._id);
         for (const item of cartItems) {
@@ -440,28 +369,6 @@ const Navbar = () => {
         console.log(error, "Error");
       });
   };
-
-  const handleItemRemove = async (id) => {
-    try {
-      const response = await axios.delete(
-        `${config.baseURL}/api/Orders/deleteCartItem/${id}`,
-        {
-          headers: {
-            authorization: token,
-          },
-        }
-      );
-      if (response.status >= 200 && response.status < 300) {
-        toast.success("Item Remove From Cart");
-        refreshData();
-      } else {
-        alert("failed");
-      }
-    } catch (error) {
-      alert(error?.response?.data?.message || "server error");
-    }
-  };
-
   useEffect(() => {
     const ids = cart.map((item) => ({
       menuItem: item.data._id,
@@ -713,15 +620,13 @@ const Navbar = () => {
   }, [cart, getCartItems]);
 
   useEffect(() => {
-    if (isLoggedIn === 'success') {
+    if (isLoggedIn === "success") {
       window.location.reload();
     }
   }, [isLoggedIn]);
 
-
   return (
     <>
-      {/* <ToastContainer className="mt-24" autoClose={1000} /> */}
       <section>
         <nav className="z-50 flex justify-center bg-[#F38181] 2xl:h-[116px] xl:h-[80px] lg:h-[50px] sm:h-[45px] h-12 w-full mnavbar-h fixed">
           <div className="custom_container flex justify-between items-center mnavbar">
@@ -1337,7 +1242,7 @@ const Navbar = () => {
       <div className="">
         <dialog
           id="my_modal_2"
-          className="modal rounded-[10px] 2xl:w-[1000px] 2xl:h-[651px] xl:w-[6700px] xl:h-[440px] lg:w-[480px] h-[350px] w-[90%] 2xl:mt-40 xl:mt-24 mt-14 p-0 loginpop"
+          className="modal rounded-[10px] 2xl:w-[1000px] 2xl:h-[651px] xl:w-[670px] xl:h-[440px] lg:w-[480px] h-[380px] md:w-[80%] w-[90%] 2xl:mt-40 xl:mt-24 mt-14 p-0 loginpop"
         >
           <form
             method="dialog"
@@ -1367,7 +1272,7 @@ const Navbar = () => {
                 </div>
                 <h4 className="fourth_p">Login</h4>
               </div>
-              <div className="2xl:w-[368px] xl:w-[280px] lg:w-[490px] w-full mx-auto">
+              <div className="2xl:w-[368px] xl:w-[280px] lg:w-[320px] w-full mx-auto">
                 <div className="2xl:mt-[35px] mt-[25px]">
                   <input
                     type="email"
@@ -1405,26 +1310,27 @@ const Navbar = () => {
                   </button>
                 </div>
                 <div>
-                  <p className="alata font-[400] 2xl:my-[20px] xl:my-[10px] text-[14px] leading-[26px] text-center">
+                  <p className="alata font-[400] 2xl:mt-[20px] xl:mt-[10px] text-[14px] leading-[26px] text-center">
                     or
                   </p>
-                </div>
-                <div className="lg:mt-[30px] flex justify-center mt-[10px]">
-                  <button
-                    onClick={() =>
-                      document.getElementById("my_modal_1").showModal()
-                    }
-                    className="nav_login1"
-                  >
-                    <h4 className="text-[#DB5353] alata font-[400] text-[14px] leading-[26px] text-center mx-auto ">
-                      Sign Up
-                    </h4>
-                  </button>
                 </div>
               </div>
             </div>
           </form>
-          <div className="social_div social_btn h-[40px] gap-3 w-full mx-auto 2xl:w-[368px] xl:w-[230px] w-full md:w-[50%] ">
+                <div className=" flex justify-center ">
+                  <button
+                    onClick={() => {
+                      document.getElementById("my_modal_1").showModal();
+                      handleClose();
+                    }}
+                    className="nav_login1"
+                  >
+                    <h4 className="text-[#DB5353] alata font-[400] text-[14px] leading-[26px] text-center mx-auto">
+                      Sign Up
+                    </h4>
+                  </button>
+                </div>
+          <div className="social_div social_btn h-[40px] gap-3 sm:w-[50%] mx-auto 2xl:w-[368px] xl:w-[230px]  ">
             <Image className="social_img " src={googlee} />
             <h3 className="checkoutlable menu">
               {isLoggedIn && currentUser ? (

@@ -35,6 +35,7 @@ import CloseIcon from "./svg/CloseIcon";
 import { MinusIcon } from "./svg/MinusIcon";
 import PlusIcon from "./svg/PlusIcon";
 import DeleteIcon from "./svg/DeleteIcon";
+import { useRouter } from "next/navigation";
 
 const LandingPage = () => {
   const { token } = useSelector((state) => state?.auth);
@@ -59,6 +60,7 @@ const LandingPage = () => {
     const { data } = item;
     // console.log(data, `data from item ${index + 1}`);
   });
+  const router = useRouter();
 
   const handleIncrement = (itemId) => {
     setGetCartItems((prevCartItems) => {
@@ -213,6 +215,7 @@ const LandingPage = () => {
         toast.success("Items added to cart successfully");
         refreshData();
         handleDrawerOpen();
+        router.push("/user")
       } else {
         toast.error("Failed to add items to cart. Please try again.");
       }
