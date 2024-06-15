@@ -171,13 +171,13 @@ const Navbar = () => {
         setGoogle(response.data);
         dispatch(setToken(tokenFromUrl));
         dispatch(setUser(response.data.data));
-        //dispatch(setSuccess(true));
+        dispatch(setSuccess(true));
         localStorage.setItem("authToken", tokenFromUrl);
-        if (!localStorage.getItem("loginToastShown")) {
-          toast.success("Logged in successfully!");
-          localStorage.setItem("loginToastShown", "true");
-        }
-        toast.success("Logged in successfully!");
+        // if (!localStorage.getItem("loginToastShown")) {
+        //   toast.success("Logged in successfully!");
+        //   localStorage.setItem("loginToastShown", "true");
+        // }
+        // toast.success("Logged in successfully!");
         dispatch(setUserDetail(data.user));
         router.push("/"); 
       } else {
