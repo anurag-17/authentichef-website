@@ -854,7 +854,7 @@ const Navbar = () => {
           <ul className="min-h-full text-base-content max-w-[310px] sm:max-w-[350px] md:w-[400px] md:max-w-[400px] 2xl:w-[450px] 2xl:max-w-[450px] bg-white">
             <div className="flex flex-col justify-center items-center p-[15px] md:p-[20px] h-[100vh]">
               {token ? (
-                <div>
+                <div className="flex flex-col justify-center items-center w-full h-[100vh]">
                   {getCartItems.length === 0 ? (
                     <div className="flex flex-col justify-center items-center">
                       <h4 className="alata font-regular text-[#111] text-[24px] mb-[1rem]">
