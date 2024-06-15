@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 export const headItems = [
   "S. No.",
   "Customer Name",
-  "Order ID",
+  "Order Number",
   "Dish Name",
   "Dish Image",
   "Order Price",
@@ -59,13 +59,12 @@ const OrderList = () => {
   };
 
   const handleDelete = (orderId) => {
-    // Implement delete functionality
     console.log("Delete order with ID:", orderId);
   };
 
   const handleSearchInput = (e) => {
     setSearchText(e.target.value);
-    setCurrentPage(1); // Reset to first page on new search
+    setCurrentPage(1); 
   };
 
   const handleClearSearch = () => {
@@ -130,7 +129,6 @@ const OrderList = () => {
                 {Array.isArray(getOrders) &&
                   getOrders
                     .slice()
-
                     .map((order, orderIndex) => (
                       <React.Fragment key={orderIndex}>
                         {order.items.map((item, itemIndex) => (
@@ -154,7 +152,7 @@ const OrderList = () => {
                                   className="table_data"
                                   rowSpan={order.items.length}
                                 >
-                                  {order._id}
+                                  {order.OrderNumber}
                                 </td>
                               </>
                             )}
@@ -223,7 +221,7 @@ const OrderList = () => {
       </div>
 
       {selectedOrder && (
-        <div className="custom-modal">
+        <div className="custom-modal w-[50%]">
           <div className="custom-modal-content">
             <span className="close" onClick={closeModal}>
               &times;
@@ -237,9 +235,9 @@ const OrderList = () => {
               {selectedOrder.deliveryInfo[0]?.FirstName}{" "}
               {selectedOrder.deliveryInfo[0]?.LastName}
             </p>
-            <p>
+            {/* <p>
               <strong>Order Status:</strong> {selectedOrder.status}
-            </p>
+            </p> */}
             <p>
               <strong>Delivery Date:</strong> 2-3 Working Days{" "}
               {/* Placeholder text */}
@@ -264,7 +262,7 @@ const OrderList = () => {
                 <h3>Payment Details:</h3>
                 <p>
                   <strong>Payment Method:</strong>{" "}
-                  {selectedOrder.payment.paymentMethod.join(", ")}
+                  {/* {selectedOrder.payment.paymentMethod.join(", ")} */} Stripe
                 </p>
                 <p>
                   <strong>Payment Status:</strong>{" "}
