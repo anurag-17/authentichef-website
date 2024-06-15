@@ -248,7 +248,7 @@ const Navbar = () => {
         dispatch(setToken(res?.data?.token));
         dispatch(setUser(res?.data?.user));
         dispatch(setSuccess(res?.data?.success));
-
+        refreshData();
         handleClose();
         setLoading(false);
         setIsLoggedIn(true);
@@ -392,7 +392,7 @@ const Navbar = () => {
 
   const [itemId, setItemId] = useState([]);
   const [updatedCart, setUpdatedCart] = useState(cart);
-  console.log(updatedCart ,"updacart")
+  console.log(updatedCart, "updacart");
 
   const handleAddCart = async () => {
     try {
@@ -1070,14 +1070,13 @@ const Navbar = () => {
                           </button>
                         </Link>
                         <p className="font-[500] text-[16px] py-[5px]">
-                        Minimum order value must be £30 or more.
+                          Minimum order value must be £30 or more.
                         </p>
                         <p className="font-[500] text-[16px] py-[5px]">
-                         Minimum order value must be £30 or more.
+                          Minimum order value must be £30 or more.
                         </p>
                       </div>
                     ) : (
-                    
                       <div className="w-full">
                         <div className="flex justify-between">
                           <h4 className="alata font-[400] 2xl:my-0 xl:text-[18px] 2xl:leading-[28px] text-[16px] lg:leading-[24px]">
@@ -1094,7 +1093,7 @@ const Navbar = () => {
                           Checkout
                         </button>
                         <p className="font-[500] text-[16px] py-[5px]">
-                        Minimum order value must be £30 or more.
+                          Minimum order value must be £30 or more.
                         </p>
                         <p className="font-[500] text-[16px] py-[5px]">
                           FREE delivery on orders over £55
