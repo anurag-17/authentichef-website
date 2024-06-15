@@ -306,7 +306,7 @@ const adminMailOptions = (
     <p class="header">Follow us to discover new dishes and chefs.</p>
     <div class="svg-box">
       <a href="https://www.facebook.com/people/Authentichef/61553576243338/" target="_blank">
-        <svg class="svg" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg"
+        <svg class="svg" viewBox="0 0 48 48" version="1.1" xmlns="https://authimages.s3.eu-west-2.amazonaws.com/download.png"
           xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000">
           <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
           <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -325,7 +325,7 @@ const adminMailOptions = (
         </svg>
       </a>
       <a href="https://www.instagram.com/authentichef/" target="_blank">
-        <svg class="svg" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg class="svg" viewBox="0 0 32 32" fill="none" xmlns="https://authimages.s3.eu-west-2.amazonaws.com/download.jpeg">
           <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
           <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
           <g id="SVGRepo_iconCarrier">
