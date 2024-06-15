@@ -42,11 +42,11 @@ const ContactUS = () => {
       const response = await axios.post(
         `${config.baseURL}/api/chefProfile`,
         first,
-        {
-          headers: {
-            authorization: token,
-          },
-        }
+        // {
+        //   headers: {
+        //     authorization: token,
+        //   },
+        // }
       );
 
       if (response.status === 201) {
