@@ -8,17 +8,10 @@ import {
   decrementQuantity,
   removeItemFromCart,
   clearCart,
-  addItemToCart,
 } from "@/app/redux/dishSlice";
 import config from "@/config";
 
-const DishDetails = ({
-  closeModal,
-  dishID,
-  defaultADish,
-  handleAddCart,
-  setItemId,
-}) => {
+const DishDetails = ({ closeModal, dishID, defaultADish }) => {
   const { token } = useSelector((state) => state?.auth);
   const dispatch = useDispatch();
   const [count, setCount] = useState(1);
@@ -29,7 +22,7 @@ const DishDetails = ({
   const [cartId, setCartId] = useState("");
   const [getCartItems, setGetCartItems] = useState({});
   const [isRefresh, setRefresh] = useState(false);
-
+  const [itemId, setItemId] = useState("");
   useEffect(() => {
     defaultDish();
   }, []);
@@ -168,6 +161,42 @@ const DishDetails = ({
     console.log("Updated Cart Items:", updatedCartItems);
   }, [updatedCartItems]);
 
+  const handleAddCart = async (id) => {
+    try {
+      // Ensure id is an array
+      let ids = Array.isArray(id) ? id : [id];
+
+      // Create the payload with menuItems and default quantity
+      let payload = {
+        items: ids.map((id) => ({
+          menuItem: id,
+          quantity: 1, // Default quantity is set to 1
+        })),
+      };
+      if (!token) {
+        toast.error("You need to be logged in to add items to the cart.");
+        return;
+      }
+      const response = await axios.post(
+        `${config.baseURL}/api/Orders/AddtoCart`,
+        payload,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      if (response.status >= 200 && response.status < 300) {
+        toast.success("Items added to cart successfully");
+        refreshData();
+        handleDrawerOpen();
+      } else {
+        toast.error("Failed to add items to cart. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error adding items to cart:", error);
+    }
+  };
   return (
     <>
       <section>
@@ -233,7 +262,7 @@ const DishDetails = ({
 
                 {getADish?.Nutrition_id &&
                   getADish?.Nutrition_id.length > 0 && (
-                    <div className="four_btns flex flex-wrap">
+                    <div className="four_btn flex flex-wrap">
                       {getADish.Nutrition_id.map((nutrition, index) => (
                         <span key={index} className="fourth_day capitalize">
                           {index > 0 && " | "} {nutrition.Nutritional}
@@ -264,7 +293,7 @@ const DishDetails = ({
                   </button>
                 </div>
 
-                <div className="w-[70%]">
+                {/* <div className="w-[70%]">
                   <button
                     onClick={() => {
                       if (token) {
@@ -299,6 +328,51 @@ const DishDetails = ({
                       </label>
                     </div>
                   </button>
+                </div> */}
+
+                <div className="w-[70%]">
+                  {token ? (
+                    <button
+                      onClick={() => {
+                        setItemId(getADish?._id);
+                        handleAddCart(getADish?._id);
+                      }}
+                      className="pop-btn w-full"
+                    >
+                      <div className="w-[100%]">
+                        <button className="">
+                          <div className="drawer-content">
+                            <label
+                              htmlFor="my-drawer-4"
+                              className="drawer-button cursor-pointer"
+                            >
+                              Add to basket
+                            </label>
+                          </div>
+                        </button>
+                      </div>
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        handleLoginClick();
+                      }}
+                      className="pop-btn w-full"
+                    >
+                      <div className="w-[100%]">
+                        <button className="">
+                          <div className="drawer-content">
+                            <label
+                              htmlFor="my-drawer-4"
+                              className="drawer-button cursor-pointer"
+                            >
+                              Add to basket
+                            </label>
+                          </div>
+                        </button>
+                      </div>
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
