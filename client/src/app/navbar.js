@@ -171,25 +171,26 @@ const Navbar = () => {
         setGoogle(response.data);
         dispatch(setToken(tokenFromUrl));
         dispatch(setUser(response.data.data));
-
-        dispatch(setSuccess(true));
+        //dispatch(setSuccess(true));
         localStorage.setItem("authToken", tokenFromUrl);
+        if (!localStorage.getItem("loginToastShown")) {
+          toast.success("Logged in successfully!");
+          localStorage.setItem("loginToastShown", "true");
+        }
         toast.success("Logged in successfully!");
         dispatch(setUserDetail(data.user));
-        router.push("/"); // Redirect to home or desired page
+        router.push("/"); 
       } else {
         toast.error("Token verification failed");
       }
     } catch (error) {
       console.error("Error verifying token:", error);
-      // toast.error("An error occurred during token verification.");
     }
   };
 
   const handleSubmits = async (e) => {
     e.preventDefault();
 
-    // Check if the userDetail object is empty or has default values
     const isUserDetailEmpty =
       !userDetail.firstname &&
       !userDetail.lastname &&
