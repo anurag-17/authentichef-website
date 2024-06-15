@@ -124,7 +124,7 @@ const Checkout = () => {
     e.preventDefault();
 
     if (subtotalPrice < 30) {
-      toast.info("Minimum order value must be $30 or more.");
+      toast.info("Minimum order value must be £30 or more.");
       return;
     }
 
@@ -831,7 +831,7 @@ const Checkout = () => {
                     </div>
                     <div className="2xl:w-[251px] xl:w-[180px] w-[140px]">
                       <label className="checkoutlable">
-                        County <span className="text-[#DB1414]">*</span>
+                        Country <span className="text-[#DB1414]">*</span>
                       </label>
                       <input
                         name="country"
@@ -1020,7 +1020,7 @@ const Checkout = () => {
                     </div>
                     <div className="2xl:w-[251px] xl:w-[180px] w-[140px]">
                       <label className="checkoutlable">
-                        County <span className="text-[#DB1414]">*</span>
+                        Country <span className="text-[#DB1414]">*</span>
                       </label>
                       <input
                         name="country"

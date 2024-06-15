@@ -175,7 +175,7 @@ const Address = () => {
                   </div>
                   <div className="2xl:w-[251px] xl:w-[180px] w-[140px]">
                     <label className="checkoutlable">
-                      County <span className="text-[#DB1414]">*</span>
+                      Country <span className="text-[#DB1414]">*</span>
                     </label>
                     <input
                       name="country"
@@ -278,7 +278,7 @@ const Address = () => {
                   </div>
                   <div className="2xl:w-[251px] xl:w-[180px] w-[140px]">
                     <label className="checkoutlable">
-                      County <span className="text-[#DB1414]">*</span>
+                      Country <span className="text-[#DB1414]">*</span>
                     </label>
                     <input
                       name="country"

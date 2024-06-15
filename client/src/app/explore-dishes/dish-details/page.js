@@ -233,7 +233,7 @@ const DishDetails = ({
 
                 {getADish?.Nutrition_id &&
                   getADish?.Nutrition_id.length > 0 && (
-                    <div className="four_btn">
+                    <div className="four_btns flex flex-wrap">
                       {getADish.Nutrition_id.map((nutrition, index) => (
                         <span key={index} className="fourth_day capitalize">
                           {index > 0 && " | "} {nutrition.Nutritional}
