@@ -108,7 +108,7 @@ const Address = () => {
       <ToastContainer autoClose={1000} />
 
       <section>
-        <div className="border rounded-[5px] 2xl:mt-[30px] xl:mt-[15px] mt-[15px] 2xl:px-[105px] 2xl:py-[40px] xl:px-[50px] xl:py-[20px] px-[40px] py-[15px] w-[80%]">
+        <div className="border rounded-[5px] 2xl:mt-[30px] xl:mt-[15px] mt-[15px] 2xl:px-[105px] 2xl:py-[40px] xl:px-[50px] xl:py-[20px] px-[10px] sm:px-[40px] py-[15px] ">
           <form onSubmit={handleSubmit}>
             <div>
               <div>

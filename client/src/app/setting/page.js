@@ -95,12 +95,12 @@ const Setting = () => {
       <section>
         <Navbar />
         <div className="2xl:pt-[100px] xl:pt-[80px] pt-[50px]">
-          <div className="mnavbar 2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] xs:w-[82%] md:w-[700px] flex justify-between mx-auto 2xl:pt-[70px] xl:pt-[40px] pt-[30px]">
+          <div className="mnavbar px-6 md:px-0  2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px] lg:flex lg:justify-between mx-auto 2xl:pt-[70px] xl:pt-[40px] pt-[30px]">
             <div
               className={`flex flex-col justify-between 2xl:w-[278px] xl:w-[200px] w-[170px] drawer ${
                 showDrawer
                   ? "block absolute top-0 left-0 is-show"
-                  : "hidden lg:block"
+                  : "block"
               }`}
             >
               <div className="relative text-white flex flex-col gap-[5px] cursor-pointer lg:hidden text-right mr-3 mt-2">
@@ -151,7 +151,7 @@ const Setting = () => {
                 ) : null}
               </div>
             </div>
-            <div className="2xl:w-[1215px] xl:w-[830px] w-[620px] msettingCom">
+            <div className="2xl:w-[1215px] xl:w-[830px] lg:w-[620px] w-full msettingCom">
               {menulist.map((item, index) => (
                 <Fragment key={index}>
                   {ComponentId === item.id && item.component}
