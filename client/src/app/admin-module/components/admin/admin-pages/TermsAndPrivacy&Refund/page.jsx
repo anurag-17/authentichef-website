@@ -1,11 +1,14 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import ReactQuill from "react-quill";
+// import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
 import "tailwindcss/tailwind.css";
 import { useSelector } from "react-redux";
 import config from "@/config";
+import dynamic from "next/dynamic";
+
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 const TermsandCondition = () => {
   const [refundPolicies, setRefundPolicies] = useState([]);
