@@ -264,7 +264,7 @@ const adminMailOptions = (
         </tr>
         <tr>
           <th>Delivery Date</th>
-          <td>${formattedDeliveryDate}</td>
+          <td> 2-3 Working Days </td>
         </tr>
 
         <tr>
