@@ -246,7 +246,7 @@ td {
 }
 
 .four_btn {
-  @apply bg-[#E3E3E3] flex items-center rounded-[3px] xl:px-[15px] xl:py-[10px] gap-2 xl:h-[34px] xl:text-[16px] xl:leading-[24px] px-2 py-[4px];
+  @apply bg-[#E3E3E3] flex items-center rounded-[3px] xl:px-[15px]  gap-2 xl:h-[34px] xl:text-[16px] xl:leading-[24px] px-2 py-[4px];
 }
 .four_btns{
   @apply bg-[#E3E3E3] flex items-center rounded-[3px] xl:px-[15px] xl:py-[10px] gap-2  xl:text-[16px] xl:leading-[24px] px-2 h-auto py-2;
