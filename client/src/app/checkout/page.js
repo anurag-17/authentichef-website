@@ -1103,9 +1103,9 @@ const Checkout = () => {
                                   />
                                 </div>
 
-                                <div className="flex flex-col justify-between w-[65px]">
-                                  <div className="flex flex-col w-[65px]">
-                                    <p className="alata font-[400] text-[#111111] my-0 text-[13px] sm:text-[14px] xl:text-[15px] leading-[22px] text-ellipsis whitespace-nowrap overflow-hidden max-w-[100px]">
+                                <div className="flex flex-col justify-between 2xl:w-[250px]">
+                                  <div className="flex flex-col 2xl:w-[250px]">
+                                    <p className="alata font-[400] text-[#111111] my-0 text-[13px] sm:text-[14px] xl:text-[15px] leading-[22px] text-ellipsis whitespace-nowrap overflow-hidden 2xl:max-w-[250px]">
                                       {item.menuItem.name}
                                     </p>
                                     <p className="alata font-[400] text-[#111111] my-0 md:text-[14px] text-[13px] xl:text-[15px] leading-[20px]">

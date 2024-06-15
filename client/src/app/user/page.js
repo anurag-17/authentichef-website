@@ -1161,7 +1161,7 @@ const LandingPage = () => {
                           Minimum order value must be £30 or more.
                         </p>
                         <p className="font-[500] text-[16px] py-[5px]">
-                          Minimum order value must be £30 or more.
+                        FREE delivery on orders over £55
                         </p>
                       </div>
                     ) : (
