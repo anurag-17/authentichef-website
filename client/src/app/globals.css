@@ -476,7 +476,9 @@ td {
 .profile_input {
   @apply w-full bg-[#F3F3F3] text-black font-[400] 2xl:h-[60px] md:h-[48px] h-[40px] lg:text-[14px] 2xl:text-[16px] md:text-[15px] text-[14px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px] placeholder:text-[14px] 2xl:placeholder:text-[16px]
 }
-
+.profile_inputs{
+  @apply w-full bg-[#F3F3F3] text-black font-[400] 2xl:h-[60px] md:h-[40px] sm:h-[35px] h-[30px] lg:text-[14px] 2xl:text-[16px] md:text-[15px] text-[14px] 2xl:p-[20px] xl:p-[10px] p-[8px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px] placeholder:text-[14px] 2xl:placeholder:text-[16px]
+}
 .become-no {
   @apply alata font-[400] 2xl:text-[25px] 2xl:leading-[35px] xl:text-[16px] xl:leading-[24px] text-[13px] leading-[18px]
 }
