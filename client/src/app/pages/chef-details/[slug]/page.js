@@ -216,11 +216,11 @@ const ChefDetails = ({ params }) => {
         handleDrawerOpen();
         refreshData();
       } else {
-        toast.error("Failed to add items to cart. Please try again.");
+        console.log("Failed to add items to cart. Please try again.");
       }
     } catch (error) {
       console.error("Error adding items to cart:", error);
-      toast.error(
+      console.log(
         "An error occurred while adding items to cart. Please try again."
       );
     }
@@ -809,7 +809,7 @@ Food Safety
                           Minimum order value must be £30 or more.
                         </p>
                         <p className="font-[500] text-[16px] py-[5px]">
-                          Minimum order value must be £30 or more.
+                        FREE delivery on orders over £55
                         </p>
                       </div>
                     ) : (
