@@ -354,7 +354,7 @@ const Navbar = () => {
         setSubtotalPrice(
           cartItems.reduce((sum, item) => sum + item.totalPrice, 0)
         );
-        // refreshData(!isRefresh); 
+        // refreshData(!isRefresh);
         setShippingCost(userCart.Shipping_cost ?? 0);
         setCartId(userCart._id);
         for (const item of cartItems) {
@@ -798,11 +798,11 @@ const Navbar = () => {
               </a>
             </div>
 
-            <div className="w-1/3 flex justify-end h-full ">
-              <div className="flex justify-end md:gap-0 gap-2 ">
-                {isLoggedIn === success ? (
-                  <div className="flex justify-end 2xl:gap-7 md:gap-5  gap-1 w-1/3">
-                    <div className="nav_login1 md:flex items-center  gap-1 lg:gap-2 hidden sm:block">
+            <div className="w-1/3 flex justify-end h-full">
+              <div className="flex justify-end md:gap-0 gap-2">
+                {isLoggedIn ? (
+                  <div className="flex justify-end 2xl:gap-7 md:gap-5 gap-1 w-1/3">
+                    <div className="nav_login1 md:flex items-center gap-1 lg:gap-2 hidden sm:block">
                       Welcome <p>{userDetails?.firstname}!</p>
                     </div>
                     <button>
@@ -823,21 +823,16 @@ const Navbar = () => {
                     >
                       Sign Up
                     </button>
-                    <button>{/* Add your Image component here */}</button>
                   </div>
                 )}
                 <button onClick={handleDrawerOpen} className="relative">
-                  <p className="absolute 2xl:right-[-25px] 2xl:text-[20px] xl:right-[-13px] 2xl:top-6 xl:top-4 bg-white text-[#F38181] border rounded-full 2xl:px-2 xl:px-1 lg:right-[-15px] lg:top-1 lg:px-[5px] text-[12px] xl:text-[14x] md:right-[-15px] md:top-1 md:px-[5px] sm:right-[-15px] sm:top-1 sm:px-[5px] right-[-15px] top-1 px-[5px] cartCount">
-                    {token ? totalCartItems : totalCartItems}
+                  <p className="absolute 2xl:right-[-25px] 2xl:text-[20px] xl:right-[-13px] 2xl:top-6 xl:top-4 bg-white text-[#F38181] border rounded-full 2xl:px-2 xl:px-1 lg:right-[-15px] lg:top-1 lg:px-[5px] text-[12px] xl:text-[14px] md:right-[-15px] md:top-1 md:px-[5px] sm:right-[-15px] sm:top-1 sm:px-[5px] right-[-15px] top-1 px-[5px] cartCount">
+                    {totalCartItems}
                   </p>
-                  {isLoggedIn === success ? (
-                    <Image
-                      src={beg}
-                      className="2xl:w-10 2xl:h-10  w-[25px] h-[25px]"
-                    />
-                  ) : (
-                    ""
-                  )}
+                  <Image
+                    src={beg}
+                    className="2xl:w-10 2xl:h-10 w-[25px] h-[25px] ml-6"
+                  />
                 </button>
               </div>
             </div>
@@ -1317,19 +1312,19 @@ const Navbar = () => {
               </div>
             </div>
           </form>
-                <div className=" flex justify-center ">
-                  <button
-                    onClick={() => {
-                      document.getElementById("my_modal_1").showModal();
-                      handleClose();
-                    }}
-                    className="nav_login1"
-                  >
-                    <h4 className="text-[#DB5353] alata font-[400] text-[14px] leading-[26px] text-center mx-auto">
-                      Sign Up
-                    </h4>
-                  </button>
-                </div>
+          <div className=" flex justify-center ">
+            <button
+              onClick={() => {
+                document.getElementById("my_modal_1").showModal();
+                handleClose();
+              }}
+              className="nav_login1"
+            >
+              <h4 className="text-[#DB5353] alata font-[400] text-[14px] leading-[26px] text-center mx-auto">
+                Sign Up
+              </h4>
+            </button>
+          </div>
           <div className="social_div social_btn h-[40px] gap-3 sm:w-[50%] mx-auto 2xl:w-[368px] xl:w-[230px]  ">
             <Image className="social_img " src={googlee} />
             <h3 className="checkoutlable menu">

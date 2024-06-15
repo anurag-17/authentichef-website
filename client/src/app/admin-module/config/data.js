@@ -10,6 +10,7 @@ import User from "../components/admin/admin-pages/user/User";
 import FAQs from "../components/admin/admin-pages/FAQ/page";
 import Testimonial from "../components/admin/admin-pages/Testimonial/page";
 import { Component } from "react";
+import TermsandCondition from "../components/admin/admin-pages/TermsAndPrivacy&Refund/page";
 
 export const sideMenus = [
   {
@@ -73,5 +74,10 @@ export const sideMenus = [
     id: 10,
     label: "Testimonial",
     component : <Testimonial />
-  }
+  },
+  {
+    id : 11,
+    label: "Termsandcondition",
+    component: <TermsandCondition/>
+  },
 ];
