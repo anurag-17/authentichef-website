@@ -422,52 +422,6 @@ const ExploreDishes = () => {
     }
   };
 
-  // ========= Add to Cart =======
-
-  // const handleAddToCart = async (id) => {
-  //    setLoading(true);
-  //   try {
-  //     const response = await axios.post(
-  //       `${config.baseURL}/api/Orders/AddtoCart`,
-  //       {
-  //         menuItem: id,
-  //       }
-  //     );
-
-  //     if (response.status === 200) {
-  //       // toast.success("Added to Cart!");
-  //       refreshData();
-  //        setLoading(false);
-  //     } else {
-  //       // toast.error("Failed. Something went wrong!");
-  //        setLoading(false);
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //     // toast.error("Failed. Something went wrong!");
-  //   }
-  // };
-  // ========= Get Cart Item =======
-  const [getCartItem, setGetCartItem] = useState("");
-
-  // useEffect(() => {
-  //   defaultCartItem();
-  // }, []);
-  // const defaultCartItem = () => {
-  //   const option = {
-  //     method: "GET",
-  //     url: `${config.baseURL}/api/Orders/getCartItem`,
-  //   };
-  //   axios
-  //     .request(option)
-  //     .then((response) => {
-  //       setGetCartItem(response?.data?.cart);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error, "Error");
-  //     });
-  // };
-
   const handleAllClear = async () => {
     setLoading(true);
 
@@ -559,10 +513,11 @@ const ExploreDishes = () => {
       );
       if (response.status >= 200 && response.status < 300) {
         toast.success("Items added to cart successfully");
-        handleDrawerOpen();
         refreshData();
+        handleDrawerOpen();
         router.push("/explore-dishes");
         setLoading(false);
+
       } else {
         console.log("Failed to add items to cart. Please try again.");
       }

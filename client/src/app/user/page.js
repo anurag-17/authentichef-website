@@ -215,7 +215,7 @@ const LandingPage = () => {
         toast.success("Items added to cart successfully");
         refreshData();
         handleDrawerOpen();
-        router.push("/")
+        router.push("/user")
       } else {
         toast.error("Failed to add items to cart. Please try again.");
       }
