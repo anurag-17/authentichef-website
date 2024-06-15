@@ -79,6 +79,31 @@ const OrderList = () => {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+
+    const day = date.getDate();
+    const month = date.toLocaleString("default", { month: "long" });
+    const year = date.getFullYear();
+
+    const daySuffix = (day) => {
+      if (day > 3 && day < 21) return "th"; // Covers 11th to 19th
+      switch (day % 10) {
+        case 1:
+          return "st";
+        case 2:
+          return "nd";
+        case 3:
+          return "rd";
+        default:
+          return "th";
+      }
+    };
+
+    return `${day}${daySuffix(day)} ${month} ${year}`;
+  };
+
+
   return (
     <section className="w-full">
       <div className="mx-auto">
@@ -228,6 +253,10 @@ const OrderList = () => {
             </span>
             <h2>Order Details</h2>
             <p>
+              <strong>Order Date:</strong> 
+              {formatDate(selectedOrder.orderDate)}
+            </p>
+            <p>
               <strong>Order ID:</strong> {selectedOrder._id}
             </p>
             <p>
@@ -253,6 +282,7 @@ const OrderList = () => {
               <strong>Total Amount Before Discount:</strong> £
               {selectedOrder.totalAmountBeforeDiscount.toFixed(2)}
             </p>
+            
             <p>
               <strong>Discount Percentage:</strong>{" "}
               {selectedOrder.discountPercentage}%
