@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 // import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
-import "tailwindcss/tailwind.css";
 import { useSelector } from "react-redux";
 import config from "@/config";
 import dynamic from "next/dynamic";
@@ -17,7 +16,6 @@ const TermsandCondition = () => {
   const [modalOpen, setModalOpen] = useState(false); // State to control modal visibility
   const { token } = useSelector((state) => state?.auth);
 
-  // Fetch refund policies
   useEffect(() => {
     axios
       .get(`${config.baseURL}/api/Refund/getRefundPolicies`)
@@ -48,7 +46,7 @@ const TermsandCondition = () => {
           policyContent,
           {
             headers: {
-              Authorization: ` ${token}`,
+              Authorization: token,
             },
           }
         )
@@ -75,7 +73,7 @@ const TermsandCondition = () => {
           policyContent,
           {
             headers: {
-              Authorization: ` ${token}`,
+              Authorization: token,
             },
           }
         )
@@ -98,7 +96,7 @@ const TermsandCondition = () => {
     axios
       .delete(`${config.baseURL}/api/Refund/deleteRefundPolicy/${id}`, {
         headers: {
-          Authorization: ` ${token}`,
+          Authorization: token,
         },
       })
       .then((response) => {
