@@ -515,7 +515,6 @@ const ExploreDishes = () => {
         toast.success("Items added to cart successfully");
         refreshData();
         handleDrawerOpen();
-        router.push("/explore-dishes");
         setLoading(false);
 
       } else {
@@ -1372,6 +1371,27 @@ const ExploreDishes = () => {
                           <button
                             className="cursor-pointer"
                             onClick={() => {
+                              handleLoginClick();
+                            }}
+                          >
+                            <div className="drawer-content">
+                              <label
+                                htmlFor="my-drawer-4"
+                                className="drawer-button"
+                              >
+                                <Image
+                                  src={addCart}
+                                  alt={item.title}
+                                  className=" cursor-pointer flex justify-center 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
+                                />
+                              </label>
+                            </div>
+                          </button> 
+                         
+                        )}
+                        {/* <button
+                            className="cursor-pointer"
+                            onClick={() => {
                               defaultADish(item?._id);
                             }}
                           >
@@ -1387,8 +1407,7 @@ const ExploreDishes = () => {
                                 />
                               </label>
                             </div>
-                          </button>
-                        )}
+                          </button> */}
                       </div>
                     </div>
                   </div>
@@ -1496,10 +1515,7 @@ const ExploreDishes = () => {
           ></label>
           <ul className="min-h-full text-base-content max-w-[310px] sm:max-w-[350px] md:w-[400px] md:max-w-[400px] 2xl:w-[450px] 2xl:max-w-[450px] bg-white">
             <div className="flex flex-col justify-center items-center p-[15px] md:p-[20px] h-[100vh]">
-              {!updatedCart ||
-              !getCartItems ||
-              updatedCart.length === 0 ||
-              getCartItems.length === 0 ? (
+            {!cart || getCartItems.length === 0 ? (
                 <div className="flex flex-col justify-center items-center">
                   <h4 className="alata font-[400] text-[#111] text-[24px] mb-[1rem]">
                     Your Basket is empty!
