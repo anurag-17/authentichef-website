@@ -98,9 +98,7 @@ const Setting = () => {
           <div className="mnavbar px-6 md:px-0  2xl:w-[1600px] xl:w-[1100px] lg:w-[850px]  md:w-[700px] lg:flex lg:justify-between mx-auto 2xl:pt-[70px] xl:pt-[40px] pt-[30px]">
             <div
               className={`flex flex-col justify-between 2xl:w-[278px] xl:w-[200px] w-[170px] drawer ${
-                showDrawer
-                  ? "block absolute top-0 left-0 is-show"
-                  : "block"
+                showDrawer ? "block absolute top-0 left-0 is-show" : "block"
               }`}
             >
               <div className="relative text-white flex flex-col gap-[5px] cursor-pointer lg:hidden text-right mr-3 mt-2">
@@ -118,7 +116,7 @@ const Setting = () => {
                       }`}
                       onClick={() => handleClick(item.id)}
                     >
-                      <p className="capitalize whitespace-nowrap alata font-[400] 2xl:text-[25px] xl:text-[14px] lg:text-[14px] md:text-[14px] sm:text-[12px] text-[11px]">
+                      <p className="capitalize whitespace-nowrap alata font-[400] 2xl:text-[25px] xl:text-[14px] lg:text-[14px] md:text-[14px] sm:text-[12px] text-[14px]">
                         {item.label}
                       </p>
                       <Image

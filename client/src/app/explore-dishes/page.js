@@ -1496,7 +1496,10 @@ const ExploreDishes = () => {
           ></label>
           <ul className="min-h-full text-base-content max-w-[310px] sm:max-w-[350px] md:w-[400px] md:max-w-[400px] 2xl:w-[450px] 2xl:max-w-[450px] bg-white">
             <div className="flex flex-col justify-center items-center p-[15px] md:p-[20px] h-[100vh]">
-              {!updatedCart || getCartItems.length === 0 ? (
+              {!updatedCart ||
+              !getCartItems ||
+              updatedCart.length === 0 ||
+              getCartItems.length === 0 ? (
                 <div className="flex flex-col justify-center items-center">
                   <h4 className="alata font-[400] text-[#111] text-[24px] mb-[1rem]">
                     Your Basket is empty!
@@ -1542,6 +1545,7 @@ const ExploreDishes = () => {
                       {updatedCart?.map((item, index) => {
                         const { data } = item;
                         const itemSubtotal = data.price * item.quantity;
+                        const subTotal = data.price;
                         return (
                           <div
                             key={index}
@@ -1699,25 +1703,34 @@ const ExploreDishes = () => {
                             Checkout
                           </button>
                         </Link>
-                        <p className="font-[500] text-[16px] py-[0.5rem]">
-                          Minimum order £30
+                        <p className="font-[500] text-[16px] py-[5px]">
+                        Minimum order value must be £30 or more.
                         </p>
-                        <p className="font-[500] text-[16px] py-[1rem]">
-                          FREE delivery on orders over £55
+                        <p className="font-[500] text-[16px] py-[5px]">
+                         Minimum order value must be £30 or more.
                         </p>
                       </div>
                     ) : (
+                    
                       <div className="w-full">
+                        <div className="flex justify-between">
+                          <h4 className="alata font-[400] 2xl:my-0 xl:text-[18px] 2xl:leading-[28px] text-[16px] lg:leading-[24px]">
+                            Subtotal:
+                          </h4>
+                          <h4 className="alata font-[400] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
+                            £{subtotalPrice.toFixed(2)}
+                          </h4>
+                        </div>
                         <button
                           onClick={handleLoginClick}
                           className="alata font-[400] bg-[#DB5353] text-white mx-auto 2xl:text-[20px] 2xl:leading-[27.6px] xl:text-[15px] text-[14px] w-full py-2 lg:h-[47px] flex flex-col items-center justify-center"
                         >
                           Checkout
                         </button>
-                        <p className="font-[500] text-[16px] py-[0.5rem]">
-                          Minimum order £30
+                        <p className="font-[500] text-[16px] py-[5px]">
+                        Minimum order value must be £30 or more.
                         </p>
-                        <p className="font-[500] text-[16px] py-[0.5rem]">
+                        <p className="font-[500] text-[16px] py-[5px]">
                           FREE delivery on orders over £55
                         </p>
                       </div>
@@ -1729,7 +1742,6 @@ const ExploreDishes = () => {
           </ul>
         </div>
       </div>
-
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={() => {}}>
           <Transition.Child

@@ -248,6 +248,9 @@ td {
 .four_btn {
   @apply bg-[#E3E3E3] flex items-center rounded-[3px] xl:px-[15px] xl:py-[10px] gap-2 xl:h-[34px] xl:text-[16px] xl:leading-[24px] px-2 py-[4px];
 }
+.four_btns{
+  @apply bg-[#E3E3E3] flex items-center rounded-[3px] xl:px-[15px] xl:py-[10px] gap-2  xl:text-[16px] xl:leading-[24px] px-2 h-auto py-2;
+}
 
 .four_btnn {
   @apply flex items-center rounded-[3px] px-[15px] py-[5px] gap-2 h-[34px] 2xl:text-[16px] xl:text-[14px] text-[12px] 2xl:leading-[24px];
