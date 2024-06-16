@@ -1474,7 +1474,7 @@ exports.OrderList = async (req, res, next) => {
         const currentPage = parseInt(page, 10);
         const itemsPerPage = parseInt(limit, 10);
 
-        let orderQuery = Order.find({ user: req.user._id }).populate('payment'); // Filter by user_id
+        let orderQuery = Order.find({ user: req.user._id }).sort({ orderDate: -1 }).populate('payment'); // Filter by user_id
 
         if (search) {
             const startDate = new Date(search);
@@ -1522,6 +1522,12 @@ exports.OrderList = async (req, res, next) => {
             currentPage,
             orders: formattedOrders
         });
+
+        // Check If Orders are empty
+
+        if (totalOrders === 0) {
+            res.status(404).json({ message: 'No orders found' });
+        }
     } catch (error) {
         next(error);
     }
