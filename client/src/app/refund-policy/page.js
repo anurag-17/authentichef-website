@@ -1,12 +1,44 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Footer from "../footer";
 import Navbar from "../navbar";
 
 const RefundPolicy = () => {
+  const [refundPolicy, setRefundPolicy] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchRefundPolicy = async () => {
+      try {
+        const response = await fetch(
+          "http://13.43.174.21:4000/api/Refund/getRefundPolicies"
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+        const result = await response.json();
+        setRefundPolicy(result.data[0]);
+        setLoading(false);
+      } catch (error) {
+        setError(error.message);
+        setLoading(false);
+      }
+    };
+
+    fetchRefundPolicy();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
   return (
     <>
-      <section>
+      {/* <section>
         <Navbar />
         <div className="2xl:w-[1600px] mnavbar alata xl:w-[1100px] lg:w-[850px]  md:w-[747px] xs:w-[90%] sm:w-[93%]  mx-auto 2xl:pt-[160px] xl:pt-[120px] md:pt-[90px] pt-[75px] mnavbar">
         <div className="pb-[10px] 2xl:pb-[30px]">
@@ -84,7 +116,7 @@ const RefundPolicy = () => {
 
             {/* Add more sections as needed */}
 
-            <h2 className="mb-2 privacyHead font-[400] capitalize">2.
+      {/* <h2 className="mb-2 privacyHead font-[400] capitalize">2.
             refund process</h2>
 
             <p className="footer_text mb-7 2xl:mb-10">
@@ -121,6 +153,37 @@ const RefundPolicy = () => {
             <p className="footer_text mb-7 2xl:mb-10">
               This Refund Policy was last updated in April 2024.
             </p>
+          </div>
+        </div>
+        <Footer />
+      </section> */}
+
+      <section>
+        <Navbar />
+        <div className="2xl:w-[1600px] mnavbar alata xl:w-[1100px] lg:w-[850px] md:w-[747px] xs:w-[90%] sm:w-[93%] mx-auto 2xl:pt-[160px] xl:pt-[120px] md:pt-[90px] pt-[75px] mnavbar">
+          <div className="pb-[10px] 2xl:pb-[30px]">
+            <h1 className="third_head capitalize mb-7 alata 2xl:mb-7 xl:mb-6 lg:mb-5 md:mb-4 sm:mb-4 xs:mb-4 xs:items-center xs:justify-center">
+              {refundPolicy.title}
+            </h1>
+
+            <p className="footer_text mb-7 2xl:mb-10 alata">
+              {refundPolicy.intro}
+            </p>
+
+            {refundPolicy.sections.map((section) => (
+              <div key={section._id}>
+                <h2 className="mb-2 privacyHead font-[400] alata capitalize">
+                  {section.title}
+                </h2>
+                <div
+                  className="footer_text mb-7 2xl:mb-10"
+                  dangerouslySetInnerHTML={{ __html: section.content }}
+                ></div>
+              </div>
+            ))}
+
+            <p className="footer_text mb-7 2xl:mb-10">{refundPolicy.queries}</p>
+            <p className="footer_text mb-7 2xl:mb-10">{refundPolicy.Note}</p>
           </div>
         </div>
         <Footer />

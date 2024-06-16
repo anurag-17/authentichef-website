@@ -1359,7 +1359,7 @@ const ExploreDishes = () => {
                                 htmlFor="my-drawer-4"
                                 className="drawer-button"
                               >
-                                <Image
+                                <addCart
                                   src={addCart}
                                   alt={item.title}
                                   className="cursor-pointer flex justify-center 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
