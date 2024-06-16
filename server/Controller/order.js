@@ -1524,10 +1524,6 @@ exports.OrderList = async (req, res, next) => {
         });
 
         // Check If Orders are empty
-
-        if (totalOrders === 0) {
-            res.status(404).json({ message: 'No orders found' });
-        }
     } catch (error) {
         next(error);
     }
