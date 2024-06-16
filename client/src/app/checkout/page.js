@@ -1084,7 +1084,7 @@ const Checkout = () => {
                 {/* =========Right ============ */}
                 <div className="mx-auto 2xl:w-[100%] xl:w-[100%] lg:w-[350px] md:w-full w-[100%] p-5 border 2xl:mt-[35px] mt-10 lg:mt-0">
                   <div className="w-full">
-                    <div className="max-h-[250px] overflow-y-scroll">
+                    <div className="max-h-[650px] overflow-y-scroll">
                       {Array.isArray(getCartItems) &&
                         getCartItems.map((item, index) => {
                           const itemSubtotal =

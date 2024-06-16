@@ -1297,7 +1297,7 @@ const Navbar = () => {
                     type="email"
                     name="email"
                     onChange={InputHandler}
-                    placeholder="Enter your mail id"
+                    placeholder="Enter your mail"
                     className="alata font-[400] login-inputad w-full h-[40px]"
                     pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     title="enter valid email ex. abc@gmail.com"
