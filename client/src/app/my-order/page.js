@@ -104,7 +104,7 @@ const MyOrder = () => {
                               className="table_data"
                               rowSpan={order.items.length}
                             >
-                              {order.totalAmount}
+                              £{order.totalAmount}
                             </td>
                             <td
                               className="table_data"
