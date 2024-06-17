@@ -70,7 +70,6 @@ const Checkout = () => {
   const [sessionId, setSessionId] = useState("");
   const [stockWarnings, setStockWarnings] = useState([]);
 
-
   const today = new Date().toISOString().split("T")[0];
 
   const handleInputChange = (e, setInfo, updateBilling = false) => {
@@ -327,12 +326,12 @@ const Checkout = () => {
         Authorization: token,
       },
     };
-  
+
     axios
       .request(option)
       .then((response) => {
         const userCart = response?.data?.userCart;
-  
+
         const cartItems = userCart?.items.map((item) => {
           const totalPrice = item.menuItem.price * item.quantity;
           return {
@@ -340,7 +339,7 @@ const Checkout = () => {
             totalPrice,
           };
         });
-  
+
         setGetCartItems(cartItems);
         setUpdatedCartItems(cartItems); // Initializing updatedCartItems with fetched data
         refreshData();
@@ -349,12 +348,12 @@ const Checkout = () => {
         );
         setShippingCost(userCart.Shipping_cost ?? 0); // Set the shipping cost
         setCartId(userCart._id); // Set the cart ID
-  
+
         // Check if any item's cart quantity exceeds stock
         const stockWarnings = cartItems.filter(
           (item) => item.quantity > item.menuItem.stocks
         );
-  
+
         if (stockWarnings.length > 0) {
           const warningMessages = stockWarnings.map(
             (item) =>
@@ -369,7 +368,6 @@ const Checkout = () => {
         console.log(error, "Error");
       });
   };
-  
 
   const handleDateChange = (date) => {
     if (!date) {
@@ -618,24 +616,25 @@ const Checkout = () => {
 
   const applyPromoCode = async () => {
     if (!Promo_code) {
-      return; // Exit the function if Promo_code is empty, without doing anything
+      return;
     }
-
     try {
       const response = await axios.get(
         `${config.baseURL}/api/order/checkDiscount?Promo_code=${Promo_code}`,
         {
-          headers: {
-            Authorization: token,
-          },
+          headers: { Authorization: token },
         }
       );
       if (response.status >= 200 && response.status < 300) {
         const data = response.data;
-        refreshData();
         setDiscountInfo(data);
+
+        const discountRate = data.discountApplied; // Assuming discountApplied is a percentage
+        const newTotal = calculateTotalPrice(subtotalPrice, discountRate);
+
+        setTotalPrice(newTotal);
+        console.log("Final Total:", newTotal);
         toast.success(data.message);
-        calculateSubtotal(updatedCartItems);
       } else {
         toast.error("Failed to apply discount.");
       }
@@ -1203,12 +1202,12 @@ const Checkout = () => {
                     </div>
 
                     {stockWarnings.length > 0 && (
-      <div className="mt-4 text-red-600 text-lg">
-        {stockWarnings.map((message, index) => (
-          <div key={index}>{message}</div>
-        ))}
-      </div>
-    )}
+                      <div className="mt-4 text-red-600 text-lg">
+                        {stockWarnings.map((message, index) => (
+                          <div key={index}>{message}</div>
+                        ))}
+                      </div>
+                    )}
 
                     <div className="flex justify-between">
                       <h4 className="alata font-[400] text-[#555555] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
@@ -1252,9 +1251,6 @@ const Checkout = () => {
                         </h4>
                       </div>
                       <h4 className="alata font-[400] text-[#555555] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
-                        {/* {totalPrice < shippingThreshold || totalPrice
-                          ? "£5.99"
-                          : "£0.00"} */}
                         {discountAmount === 0
                           ? subtotalPrice < 55
                             ? "£5.99"
@@ -1275,20 +1271,16 @@ const Checkout = () => {
                       </h4>
                       <h4 className="alata font-[400] 2xl:my-0 2xl:text-[18px] 2xl:leading/[28px] xl:text-[14px] xl:leading/[20px] lg:text-[10px] lg:leading/[18px]">
                         £
-                        {discountInfo
-                          ? (
-                              discountInfo.totalAmountAfterDiscount +
-                              (discountInfo.totalAmountAfterDiscount <
-                              shippingThreshold
-                                ? shippingCost
-                                : 0)
-                            ).toFixed(2)
-                          : (
-                              subtotalPrice +
-                              (subtotalPrice < shippingThreshold
-                                ? shippingCost
-                                : 0)
-                            ).toFixed(2)}
+                        {(() => {
+                          const discountRate = discountInfo
+                            ? discountInfo.discountApplied
+                            : 0;
+                          const newTotal = calculateTotalPrice(
+                            subtotalPrice,
+                            discountRate
+                          );
+                          return newTotal.toFixed(2);
+                        })()}
                       </h4>
                     </div>
 
