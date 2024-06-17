@@ -1084,7 +1084,7 @@ const Checkout = () => {
                 {/* =========Right ============ */}
                 <div className="mx-auto 2xl:w-[100%] xl:w-[100%] lg:w-[350px] md:w-full w-[100%] p-5 border 2xl:mt-[35px] mt-10 lg:mt-0">
                   <div className="w-full">
-                    <div className="max-h-[250px] overflow-y-scroll">
+                    <div className="max-h-[650px] overflow-y-scroll">
                       {Array.isArray(getCartItems) &&
                         getCartItems.map((item, index) => {
                           const itemSubtotal =
@@ -1203,7 +1203,7 @@ const Checkout = () => {
                         </h4>
                       </div>
                       <h4 className="alata font-[400] text-[#555555] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
-                      {totalPrice < shippingThreshold ? "£5.99" : "£0.00"}
+                      {totalPrice < shippingThreshold || totalPrice  ? "£5.99" : "£0.00"}
                       </h4>
                     </div>
                     {totalPrice < shippingThreshold && (

@@ -109,11 +109,11 @@ const OrderDetails = ({ params }) => {
                   </p>
                   <p className="footer_text flex w-full">Promo Code : {getOrders.Promo_code}</p>
                   <p className="footer_text flex w-full">Discount Applied : £{getOrders.discountApplied}</p>
-                  <p className="footer_text flex w-full">Discount Percentage : {getOrders.DiscountPercentage.tofixed(2)}%</p>
+                  <p className="footer_text flex w-full">Discount Percentage : {getOrders.DiscountPercentage}%</p>
                   <p className="footer_text flex w-full">Shipping Charge : £{getOrders.shippingCharge}</p>
                   <p className="footer_text flex w-full">
                     Total Before Discount : £
-                    {getOrders.totalAmountBeforeDiscount.toFixed(2)}                  </p>
+                    {getOrders.totalAmountBeforeDiscount}                  </p>
                   <p className="footer_text flex w-full">Payment ID : {getOrders.payment}</p>
                   <p className="footer_text flex w-full">Transaction ID : {getOrders.TransactionId}</p>
                   
