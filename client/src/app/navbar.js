@@ -1368,6 +1368,7 @@ const Navbar = () => {
                         2xl:right-7 2xl:top-[30px] xl:right-5 xl:top-[20px] lg:right-5 lg:top-[20px] top-[20px] right-5 "
                     onClick={handleToggle}
                   >
+                  
                     {showPassword ? (
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
