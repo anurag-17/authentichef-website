@@ -44,7 +44,7 @@ const OrderDetails = ({ params }) => {
             <div className="flex flex-col items-center w-full px-[40px]">
               <h1 className="2xl:text-[25px] xl:text-[16px] text-[12px] font-semibold">
                 Total Amount: £
-                {getOrders.totalAmount}
+                {getOrders.totalAmount?.toFixed(2)}
               </h1>
 
               {/* Iterating over the items */}
@@ -65,7 +65,7 @@ const OrderDetails = ({ params }) => {
                       <h2 className=" 2xl:text-[25px] 2xl:leading-[35px] xl:text-[16px] text-[16px] lg:text-[14px] leading-[20px] lg:leading-[18px] xl:leading-[20px] capitalize">{item.name}</h2>
                       <p className="text-[14px] leading-[18px] lg:text-[16px] xl:leading-[20px] 2xl:text-[18px] lg:my-1">Quantity : {item.quantity}</p>
                       <p className="text-[14px] leading-[18px] lg:text-[16px] xl:leading-[20px] 2xl:text-[18px] lg:my-1">Price : £
-                      {item.price}</p>
+                      {item.price?.toFixed(2)}</p>
                     </div>
                   </div>
                 ))}
@@ -107,12 +107,15 @@ const OrderDetails = ({ params }) => {
                     2-3 Working Days
                   </p>
                   <p className="footer_text flex w-full">Promo Code : {getOrders.Promo_code}</p>
-                  <p className="footer_text flex w-full">Discount Applied : £{getOrders.discountApplied}</p>
+                  <p className="footer_text flex w-full">Discount Applied : £{getOrders.discountApplied?.toFixed(2)}</p>
                   <p className="footer_text flex w-full">Discount Percentage : {getOrders.DiscountPercentage}%</p>
-                  <p className="footer_text flex w-full">Shipping Charge : £{getOrders.shippingCharge}</p>
+                  <p className="footer_text flex w-full">Shipping Charge : £{getOrders.shippingCharge?.toFixed(2)}</p>
                   <p className="footer_text flex w-full">
                     Total Before Discount : £
-                    {getOrders.totalAmountBeforeDiscount}                  </p>
+
+                    {getOrders.totalAmountBeforeDiscount?.toFixed(2)}
+                  </p>
+
                   <p className="footer_text flex w-full">Payment ID : {getOrders.payment}</p>
                   <p className="footer_text flex w-full">Transaction ID : {getOrders.TransactionId}</p>
                   

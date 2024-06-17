@@ -17,6 +17,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import Address from "./address";
+import UserProtectedRoute from "../admin-module/config/user-protected-router";
 
 const Setting = () => {
   const menulist = [
@@ -166,4 +167,4 @@ const Setting = () => {
   );
 };
 
-export default Setting;
+export default UserProtectedRoute(Setting);

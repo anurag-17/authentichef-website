@@ -18,6 +18,7 @@ import DatePicker from "react-datepicker";
 import DeleteIcon from "../user/svg/DeleteIcon";
 import { MinusIcon } from "../user/svg/MinusIcon";
 import PlusIcon from "../user/svg/PlusIcon";
+import UserProtectedRoute from "../admin-module/config/user-protected-router";
 
 const Checkout = () => {
   const { token } = useSelector((state) => state?.auth);
@@ -1371,4 +1372,4 @@ const Checkout = () => {
   );
 };
 
-export default Checkout;
+export default UserProtectedRoute(Checkout);

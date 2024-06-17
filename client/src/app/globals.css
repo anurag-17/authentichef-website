@@ -453,7 +453,7 @@ td {
 }
 
 .pop-head {
-  @apply alata font-[400] 2xl:text-[45px] 2xl:leading-[55px] lg:text-[30px] lg:leading-[40px] md:text-[25px] xl:text-[30px] xl:leading-[40px] text-[18px] leading-[24px]
+  @apply alata font-[400] 2xl:text-[43px] 2xl:leading-[55px] lg:text-[27px] lg:leading-[40px] md:text-[25px] xl:text-[27px] xl:leading-[40px] text-[18px] leading-[24px]
 }
 
 .pop-heads {
