@@ -168,7 +168,6 @@ const ExploreDishes = () => {
   // Function to handle login click
   const handleLoginClick = async (state) => {
     try {
-      // Save state and post to API before showing the modal
       await saveState(state);
 
       // Open the modal after saving the state
@@ -500,12 +499,15 @@ const ExploreDishes = () => {
       .request(option)
       .then((response) => {
         setGetADish(response?.data);
-        dispatch(addItemToCart(response));
-        handleDrawerOpen();
+        if (response?.data?.stocks > 0) {
+          dispatch(addItemToCart(response));
+          handleDrawerOpen();
+        }
         setLoading(false);
       })
       .catch((error) => {
         console.log(error, "Error");
+        setLoading(false);
       });
   };
 
@@ -902,7 +904,7 @@ const ExploreDishes = () => {
                     </div>
                   </div>
                   {/* =================Cuisines========================== */}
-               
+
                   <button
                     onClick={defaultDish}
                     className=" w-auto px-2 bt-1 alata font-[400] 2xl:text-[16px] 2xl:w-[153px] third_select flex justify-center items-center gap-3 md:text-[12px] sm:text-[12px] md:pl-2 sm:pl-2 "
@@ -1383,26 +1385,32 @@ const ExploreDishes = () => {
                           <span className="text-500">{item?.portion_Size}</span>
                         </p>
                         {token ? (
-                          <button
-                            className="cursor-pointer"
-                            onClick={() => {
-                              setItemId(item?._id);
-                              handleAddCart(item?._id);
-                            }}
-                          >
-                            <div className="drawer-content">
-                              <label
-                                htmlFor="my-drawer-4"
-                                className="drawer-button"
-                              >
-                                <Image
-                                  src={addCart}
-                                  alt={item.title}
-                                  className="cursor-pointer flex justify-center 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
-                                />
-                              </label>
+                          item.stocks > 0 ? (
+                            <button
+                              className="cursor-pointer"
+                              onClick={() => {
+                                setItemId(item?._id);
+                                handleAddCart(item?._id);
+                              }}
+                            >
+                              <div className="drawer-content">
+                                <label
+                                  htmlFor="my-drawer-4"
+                                  className="drawer-button"
+                                >
+                                  <Image
+                                    src={addCart}
+                                    alt={item.title}
+                                    className="cursor-pointer flex justify-center 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
+                                  />
+                                </label>
+                              </div>
+                            </button>
+                          ) : (
+                            <div className="text-red-500 font-[500] text-[22px]">
+                            out of stock
                             </div>
-                          </button>
+                          )
                         ) : (
                           <button
                             className="cursor-pointer"
@@ -1418,12 +1426,13 @@ const ExploreDishes = () => {
                                 <Image
                                   src={addCart}
                                   alt={item.title}
-                                  className=" cursor-pointer flex justify-center 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
+                                  className="cursor-pointer flex justify-center 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
                                 />
                               </label>
                             </div>
                           </button>
                         )}
+
                         {/* <button
                             className="cursor-pointer"
                             onClick={() => {
