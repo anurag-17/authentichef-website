@@ -383,6 +383,7 @@ exports.PlaceOrder = async (req, res, next) => {
         // Get the cart items
         const cartItems = await Cart.findOne({ user: req.user._id }).populate('items.menuItem');
 
+    
         // Check the stocks of the menu items
         for (let i = 0; i < cartItems.items.length; i++) {
             const item = cartItems.items[i];
@@ -870,8 +871,6 @@ exports.BookOrder = async (req, res) => {
         // Retrieve the checkout session from Stripe
         const session = await stripe.checkout.sessions.retrieve(sessionId);
 
-        console.log("Session", session)
-
         // Ensure the session is valid and belongs to the authenticated user
         if (!session || session.metadata.userId !== req.user._id.toString()) {
             return res.status(403).json({ message: 'Unauthorized' });
@@ -891,6 +890,7 @@ exports.BookOrder = async (req, res) => {
         const OrderNumber = session.metadata.OrderNumber;
         const totalAmount = parseFloat(session.metadata.totalAmount) ;
         const shippingCharge = parseFloat(session.metadata.shippingCharge) || 0;
+
         // Get the cart items
         const cartItems = await Cart.findOne({ user: userId }).populate('items.menuItem');
 
@@ -938,8 +938,7 @@ exports.BookOrder = async (req, res) => {
         if (!savedOrder) {
             return res.status(400).json({ message: 'Order creation failed' });
         }
-
-        // Check one more condition if stocks reduced 
+     
 
       // update the stock of the menu items
       for (let i = 0; i < cartItems.items.length; i++) {
@@ -968,9 +967,16 @@ exports.BookOrder = async (req, res) => {
         savedOrder.payment = payment._id;
         await savedOrder.save();
 
+        // store the Billing info and delivery info in the user model
+        
+        const user = await User.findById(userId);
+        user.BillingInfo = BillingInfo;
+        user.deliveryInfo = deliveryInfo;
+        await user.save();
+
+
         // save the order in Shiptheory
         const shipmentCart = await createShipment(savedOrder);
-        console.log("Shipment Cart", shipmentCart);
 
         // Delete the cart after placing the order
         await Cart.deleteOne({ _id: cartItems._id });

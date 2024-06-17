@@ -18,7 +18,7 @@ exports.uploadImage = async (req, res, next) => {
     let fileName = req.file.originalname;
 
     let url = await uploadOnS3(req.file.buffer, fileName);
-    console.log("URL:::=>", url);
+ 
     return res.status(200).json({ status: true, url: url });
   } catch (error) {
     console.error(error);

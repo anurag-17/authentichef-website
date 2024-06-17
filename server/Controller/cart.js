@@ -185,7 +185,6 @@ exports.getCartItems = async (req, res) => {
       return res.status(200).json({ message: "Cart is empty", length: 0 });
   }
   
-
     const TotalPricePerQuntity = userCart.items.map(item => item.menuItem.price * item.quantity).reduce((a, b) => a + b, 0);
     
     //calculate Total Quantity of items in the cart
@@ -196,10 +195,12 @@ exports.getCartItems = async (req, res) => {
     // want to count number of items in the cart
     const userCartCount =userCart.items.length;
 
+
     if (!userCart) {
       return res.status(200).json({ message: "Cart is empty" });
     }
    
+
 
     res.status(200).json({message:'Cart',userCart,userCartCount,TotalPricePerQuntity,TotalQuantity})
   } catch (error) {
