@@ -1447,6 +1447,7 @@ const Navbar = () => {
                 Sign Up
               </h4>
             </button>
+            
           </div>
           <div className="social_div social_btn h-[40px] gap-3 sm:w-[50%] mx-auto 2xl:w-[368px] xl:w-[230px]  ">
             <Image className="social_img " src={googlee} />
