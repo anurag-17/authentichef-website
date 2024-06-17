@@ -254,7 +254,7 @@ const Navbar = () => {
         setLoading(false);
       }
     } catch (error) {
-      toast.error(error.response.data);
+      toast.error(error?.response?.data);
       setLoading(false);
     }
   };
@@ -1132,7 +1132,7 @@ const Navbar = () => {
         >
           <form
             method="dialog"
-            className="  h-full mt-0 w-[90%] md:w-[70%]"
+            className="  mt-0 w-[90%] md:w-[70%]"
             onSubmit={handleSubmits}
           >
             {/* if there is a button in form, it will close the modal */}
@@ -1216,6 +1216,16 @@ const Navbar = () => {
                   or
                 </p>
               </div>
+              <p
+              onClick={() => {
+                handleLoginClick();
+              }}
+              className="nav_login1"
+            >
+              <p className="text-[#DB5353] alata font-[400] text-[14px] leading-[26px] text-center mx-auto">
+              Log in
+              </p>
+            </p>
               <div className="flex 2xl:mt-[20px]">
                 <div className="mx-auto 2xl:w-[368px] xl:w-[230px] w-full md:w-[50%]">
                   {/* <div className="menu">
@@ -1255,6 +1265,9 @@ const Navbar = () => {
               </div> */}
             </div>
           </form>
+          <div className=" flex justify-center ">
+          
+          </div>
         </dialog>
       </div>
       {/* =======Login======= */}
