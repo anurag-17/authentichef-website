@@ -939,7 +939,6 @@ exports.BookOrder = async (req, res) => {
         }
 
         const savedOrder = await newOrder.save();
-
         if (!savedOrder) {
             return res.status(400).json({ message: 'Order creation failed' });
         }
