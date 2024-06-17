@@ -961,7 +961,7 @@ const ExploreDishes = () => {
                         onClick={() =>
                           document.getElementById("my_modal_3").close()
                         }
-                        className="absolute 2xl:top-2 2xl:right-4 xl:top-2 xl:right-2 xl:w-6 2xl:w-auto"
+                        className="absolute 2xl:top-2 2xl:right-1 xl:top-2 xl:right-2 xl:w-6 2xl:w-auto"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -1044,7 +1044,7 @@ const ExploreDishes = () => {
                         onClick={() =>
                           document.getElementById("my_modal_4").close()
                         }
-                        className="absolute 2xl:top-2 2xl:right-4 xl:top-2 xl:right-2 xl:w-6 2xl:w-auto"
+                        className="absolute 2xl:top-2 2xl:right-1 xl:top-2 xl:right-2 xl:w-6 2xl:w-auto"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -1130,7 +1130,7 @@ const ExploreDishes = () => {
                         onClick={() =>
                           document.getElementById("my_modal_5").close()
                         }
-                        className="absolute 2xl:top-2 2xl:right-4 xl:top-2 xl:right-2 xl:w-6 2xl:w-auto"
+                        className="absolute 2xl:top-2 2xl:right-1 xl:top-2 xl:right-2 xl:w-6 2xl:w-auto"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -1152,7 +1152,7 @@ const ExploreDishes = () => {
                       {/* ================= Dish Type =========== */}
 
                       <div className="flex justify-around 2xl:w-[1602px] w-full h-auto mx-auto">
-                        <div>
+                        <div className="w-[50%]">
                           <h4 className="alata font-[400] 2xl:text-[20px] xl:text-[14px] lg:text-[10px] sm:text-[] text-[] my-1 2xl:my-2 ">
                             Dish Type
                           </h4>
@@ -1185,8 +1185,8 @@ const ExploreDishes = () => {
                               ))}
                           </div>
                         </div>
-                        <div>
-                          <h4 className="alata font-[400] 2xl:text-[20px] xl:text-[14px] lg:text-[10px] sm:text-[] text-[] my-1 2xl:my-2 ">
+                        <div className="w-[46%]">
+                          <h4 className="alata font-[400] 2xl:text-[20px] xl:text-[14px] lg:text-[10px] sm:text-[] text-[] my-1 2xl:my-2 max-w-[95%]">
                             Spice Level
                           </h4>
                           <div className=" flex flex-wrap gap-[20px] ">
