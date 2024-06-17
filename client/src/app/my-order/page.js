@@ -59,7 +59,15 @@ const MyOrder = () => {
 
     return `${day}${daySuffix(day)} ${month} ${year}`;
   };
+  const [showMessage, setShowMessage] = useState(false);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowMessage(true);
+    }, 2000); // Adjust the delay time (3000ms = 3 seconds) as needed
+
+    return () => clearTimeout(timer); // Cleanup the timer on component unmount
+  }, []);
   return (
     <>
       <section>
@@ -104,7 +112,9 @@ const MyOrder = () => {
                               className="table_data"
                               rowSpan={order.items.length}
                             >
-                              £{order.totalAmount}
+
+                              £{order.totalAmount?.toFixed(2)}
+
                             </td>
                             <td
                               className="table_data"
@@ -135,11 +145,15 @@ const MyOrder = () => {
             </table>
           ) : (
             <div className="text-center my-5">
-              <h2 className="2xl:text-[40px] xl:text-[25px] text-[16px] font-bold">
-                No Order found
-              </h2>
-              <div className="flex justify-center"></div>
-            </div>
+      {showMessage && (
+        <>
+          <h2 className="2xl:text-[40px] xl:text-[25px] text-[16px] font-bold">
+            No Order found
+          </h2>
+          <div className="flex justify-center"></div>
+        </>
+      )}
+    </div>
           )}
         </div>
       </section>
