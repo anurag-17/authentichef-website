@@ -48,7 +48,7 @@ exports.upload = upload;
 exports.createMenuItem = async (req, res) => {
   try {
 
-    const { name, description, price, weight, portion_Size, Ingredients, Heating_Instruction, List_of_Allergens, Cuisines_id, Dishtype_id, Dietary_id, spice_level_id, chef_id, popular_dish , popular_chef , Nutrition_id , nutritional_information , SKU_Number} = req.body;
+    const { name, description, price, weight, portion_Size, Ingredients, Heating_Instruction, List_of_Allergens, Cuisines_id, Dishtype_id, Dietary_id, spice_level_id, chef_id, popular_dish , popular_chef , Nutrition_id , nutritional_information , SKU_Number , stocks} = req.body;
 
     // Access the uploaded files from req.files
     const profileImages = req.files['ProfileImage'];
@@ -104,7 +104,8 @@ exports.createMenuItem = async (req, res) => {
       popular_chef: popular_chef || 'No',
       nutritional_information,
       ProfileImage: imageUrls,
-      SKU_Number
+      SKU_Number,
+      stocks
     });
 
     // Generate a QR code for the menu item

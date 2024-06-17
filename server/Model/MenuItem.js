@@ -93,6 +93,12 @@ const menuItemSchema = new mongoose.Schema(
 
     SKU_Number:{
       type:String,
+    },
+    
+    stocks: {
+      type: Number,
+      min: 0, // Ensure the stock count can't be negative
+      default: 0
     }
   },
   {

@@ -383,6 +383,19 @@ exports.PlaceOrder = async (req, res, next) => {
         // Get the cart items
         const cartItems = await Cart.findOne({ user: req.user._id }).populate('items.menuItem');
 
+        // Check the stocks of the menu items
+        for (let i = 0; i < cartItems.items.length; i++) {
+            const item = cartItems.items[i];
+            const menuItem = item.menuItem;
+            const quantity = item.quantity;
+
+            if (menuItem.stocks < quantity) {
+                return res.status(400).json({ message: `${menuItem.name} is out of stock` });
+            }
+        }
+
+
+
         if (!cartItems || cartItems.items.length === 0) {
             return res.status(404).json({ message: "Cart is empty" });
         }
@@ -925,6 +938,20 @@ exports.BookOrder = async (req, res) => {
         if (!savedOrder) {
             return res.status(400).json({ message: 'Order creation failed' });
         }
+
+        // Check one more condition if stocks reduced 
+
+      // update the stock of the menu items
+      for (let i = 0; i < cartItems.items.length; i++) {
+        const item = cartItems.items[i];
+        const menuItem = item.menuItem;
+        const quantity = item.quantity;
+       
+        // But in one conditiion
+
+        menuItem.stocks -= quantity;
+        await menuItem.save();
+    }
 
         // Create a payment record
         const payment = new Payment({
