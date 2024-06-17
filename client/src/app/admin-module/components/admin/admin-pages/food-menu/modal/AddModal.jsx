@@ -36,6 +36,8 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
     Cuisines_id: "",
     nutritional_information: "",
     SKU_Number: "",
+    stocks:"",
+
   });
   console.log(menuItem);
 
@@ -70,6 +72,7 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
       formData.append("Heating_Instruction", menuItem.Heating_Instruction);
       formData.append("List_of_Allergens", menuItem.List_of_Allergens);
       formData.append("Dishtype_id",menuItem.Dishtype_id)
+      formData.append("stocks",menuItem.stocks)
       formData.append(
         "nutritional_information",
         menuItem.nutritional_information
@@ -364,6 +367,21 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
               id="SKU_Number"
               name="SKU_Number"
               value={menuItem.SKU_Number}
+              onChange={handleChange}
+              className="w-full px-3 py-2 border rounded"
+              required
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="block mb-1" htmlFor="stocks">
+              Quantity
+            </label>
+            <input
+              type="number"
+              id="stocks"
+              name="stocks"
+              value={menuItem.stocks}
               onChange={handleChange}
               className="w-full px-3 py-2 border rounded"
               required

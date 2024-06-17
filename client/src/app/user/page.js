@@ -146,22 +146,23 @@ const LandingPage = () => {
   useEffect(() => {
     defaultDish();
   }, []);
+
   const defaultDish = () => {
     const option = {
       method: "GET",
       url: `${config.baseURL}/api/menu/menuItems/popular`,
-      // params: {
-      //   Cuisines_id: cuisinesFilter,
-      //   Dietary_id: dietaryFilter,
-      //   Dishtype_id: moreFilters,
-      // },
     };
+
     axios
       .request(option)
       .then((response) => {
-        setGetAllDish(response?.data);
-        // console.log(response?.data, "dish");
-        // console.log(response?.data, "DATA");
+        // Assuming response.data contains an array of dishes
+        const dishesWithStock = response.data.map((dish) => ({
+          ...dish,
+          stocks: dish.stocks, // Ensure stocks is a property in the dish object from the response
+        }));
+
+        setGetAllDish(dishesWithStock);
       })
       .catch((error) => {
         console.log(error, "Error");
@@ -537,26 +538,32 @@ const LandingPage = () => {
                           <span className="text-500">{item?.portion_Size}</span>
                         </p>
                         {token ? (
-                          <button
-                            className="cursor-pointer"
-                            onClick={() => {
-                              setItemId(item?._id);
-                              handleAddCart(item?._id);
-                            }}
-                          >
-                            <div className="drawer-content">
-                              <label
-                                htmlFor="my-drawer-4"
-                                className="drawer-button"
-                              >
-                                <Image
-                                  src={addCart}
-                                  alt={item.title}
-                                  className="cursor-pointer flex justify-center 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
-                                />
-                              </label>
+                          item.stocks > 0 ? (
+                            <button
+                              className="cursor-pointer"
+                              onClick={() => {
+                                setItemId(item?._id);
+                                handleAddCart(item?._id);
+                              }}
+                            >
+                              <div className="drawer-content">
+                                <label
+                                  htmlFor="my-drawer-4"
+                                  className="drawer-button"
+                                >
+                                  <Image
+                                    src={addCart}
+                                    alt={item.title}
+                                    className="cursor-pointer flex justify-center 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
+                                  />
+                                </label>
+                              </div>
+                            </button>
+                          ) : (
+                            <div className="text-red-500 font-[500] text-[22px]">
+                              out of stock
                             </div>
-                          </button>
+                          )
                         ) : (
                           <button
                             className="cursor-pointer"
@@ -572,7 +579,7 @@ const LandingPage = () => {
                                 <Image
                                   src={addCart}
                                   alt={item.title}
-                                  className=" cursor-pointer flex justify-center 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
+                                  className="cursor-pointer flex justify-center 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
                                 />
                               </label>
                             </div>

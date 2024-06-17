@@ -192,6 +192,25 @@ const Checkout = () => {
       updatedCartItems.length ? updatedCartItems : getCartItems
     );
 
+    const outOfStockItems = [];
+    const cartItems = updatedCartItems.length ? updatedCartItems : getCartItems;
+
+    for (const item of cartItems) {
+      if (item.menuItem.stocks === 0) {
+        outOfStockItems.push(item.menuItem.name);
+      }
+    }
+
+    if (outOfStockItems.length > 0) {
+      const outOfStockMessage = `The following items are out of stock: ${outOfStockItems.join(
+        ", "
+      )}`;
+      toast.error(outOfStockMessage);
+      return;
+    }
+
+    console.log("Submitting order with the following cart items:", cartItems);
+
     try {
       await applyPromoCode();
 
@@ -216,7 +235,7 @@ const Checkout = () => {
       if (response.status >= 200 && response.status < 300) {
         toast.success("Order Placed");
         const { sessionId, sessionUrl } = response.data;
-        window.location.href = sessionUrl; // Redirect to Stripe payment page
+        window.location.href = sessionUrl; 
       } else {
         toast.error(response.data.message || "Order Failed");
         console.log("Unexpected response status:", response.status);
@@ -246,7 +265,6 @@ const Checkout = () => {
           const { sessionId, successUrl } = sessionIdResponse.data.success;
           console.log("Session ID:", sessionId);
 
-          // Send the session ID to the second API
           try {
             const bookOrderResponse = await axios.post(
               "http://localhost:4000/api/order/bookOrder",
