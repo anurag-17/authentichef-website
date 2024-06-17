@@ -42,7 +42,6 @@ const OrderDetails = ({ params }) => {
             </h1>
 
             <div className="flex flex-col items-center w-full px-[40px]">
-              {/* Displaying total amount */}
               <h1 className="2xl:text-[25px] xl:text-[16px] text-[12px] font-semibold">
                 Total Amount: £
                 {getOrders.totalAmount}
