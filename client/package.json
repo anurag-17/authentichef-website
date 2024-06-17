@@ -16,6 +16,7 @@
     "@splidejs/splide-extension-auto-scroll": "^0.5.3",
     "axios": "^1.6.8",
     "flowbite-react": "^0.7.5",
+    "moment": "^2.30.1",
     "next": "^14.2.3",
     "quill": "^2.0.2",
     "react": "^18",

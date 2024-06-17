@@ -371,7 +371,7 @@ const FoodMenu = () => {
                     as="h3"
                     className="xl:text-[20px] text-[18px] font-medium leading-6 text-gray-900 "
                   >
-                    Edit chefs details
+                    Edit Menu details
                   </Dialog.Title>
                   <div
                     className="absolute right-5 top-5 z-10"

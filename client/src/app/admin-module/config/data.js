@@ -11,6 +11,7 @@ import FAQs from "../components/admin/admin-pages/FAQ/page";
 import Testimonial from "../components/admin/admin-pages/Testimonial/page";
 import { Component } from "react";
 import TermsandCondition from "../components/admin/admin-pages/TermsAndPrivacy&Refund/page";
+import TermCondition from "../components/admin/admin-pages/Termsandcondition/page";
 
 export const sideMenus = [
   {
@@ -77,7 +78,12 @@ export const sideMenus = [
   },
   {
     id : 11,
-    label: "Termsandcondition",
+    label: "RefundPolicy",
     component: <TermsandCondition/>
+  },
+  {
+    id : 12,
+    label: "TermsCondition",
+    component: <TermCondition/>
   },
 ];

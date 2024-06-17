@@ -136,12 +136,12 @@ const TermsandCondition = () => {
                   </div>
                 ))}
             </div>
-            <p className="mb-2">
+            {/* <p className="mb-2">
               <strong>Queries:</strong> {policy.queries}
             </p>
             <p className="mb-2">
               <strong>Note:</strong> {policy.Note}
-            </p>
+            </p> */}
             <div className="flex justify-end">
               <button
                 onClick={() => handleEdit(policy)}
@@ -234,49 +234,45 @@ const TermsandCondition = () => {
                 className="border p-2 w-full"
               />
             </div>
-            {policyContent.sections &&
-              policyContent.sections.map((section, index) => (
-                <div key={index} className="mb-4">
-                  <label className="block mb-2">{`Section ${
-                    index + 1
-                  } Title`}</label>
-                  <input
-                    type="text"
-                    value={section.title || ""}
-                    onChange={(e) => {
-                      const newSections = [...policyContent.sections];
-                      newSections[index].title = e.target.value;
-                      setPolicyContent({
-                        ...policyContent,
-                        sections: newSections,
-                      });
-                    }}
-                    className="border p-2 w-full"
-                  />
-                  <label className="block mb-2">{`Section ${
-                    index + 1
-                  } Content`}</label>
-                  <ReactQuill
-                    value={section.content || ""}
-                    onChange={(content) => {
-                      const newSections = [...policyContent.sections];
-                      newSections[index].content = content;
-                      setPolicyContent({
-                        ...policyContent,
-                        sections: newSections,
-                      });
-                    }}
-                    className="mb-4"
-                  />
-                </div>
-              ))}
-            <button
+            {policyContent.sections && policyContent.sections.length > 0 && (
+              <div className="mb-4">
+                {/* <label className="block mb-2">Section Title</label>
+                <input
+                  type="text"
+                  value={policyContent.sections[0].title || ""}
+                  onChange={(e) => {
+                    const newSections = [...policyContent.sections];
+                    newSections[0].title = e.target.value;
+                    setPolicyContent({
+                      ...policyContent,
+                      sections: newSections,
+                    });
+                  }}
+                  className="border p-2 w-full"
+                /> */}
+                <label className="block mb-2">Section Content</label>
+                <ReactQuill
+                  value={policyContent.sections[0].content || ""}
+                  onChange={(content) => {
+                    const newSections = [...policyContent.sections];
+                    newSections[0].content = content;
+                    setPolicyContent({
+                      ...policyContent,
+                      sections: newSections,
+                    });
+                  }}
+                  className="mb-4"
+                />
+              </div>
+            )}
+
+            {/* <button
               onClick={addNewSection}
               className="bg-blue-500 text-white px-3 py-1 rounded mb-4"
             >
               Add Section
-            </button>
-            <div className="mb-4">
+            </button> */}
+            {/* <div className="mb-4">
               <label className="block mb-2">Queries</label>
               <input
                 type="text"
@@ -289,8 +285,8 @@ const TermsandCondition = () => {
                 }
                 className="border p-2 w-full"
               />
-            </div>
-            <div className="mb-4">
+            </div> */}
+            {/* <div className="mb-4">
               <label className="block mb-2">Note</label>
               <input
                 type="text"
@@ -300,7 +296,7 @@ const TermsandCondition = () => {
                 }
                 className="border p-2 w-full"
               />
-            </div>
+            </div> */}
             <div className="flex justify-end">
               <button
                 onClick={handleSave}
