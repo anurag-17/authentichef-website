@@ -765,7 +765,7 @@ const DishDetails = ({ closeModal, dishID, defaultADish }) => {
                           </button>
                         </Link>
                         <p className="font-[500] text-[16px] py-[5px]">
-                          Minimum order value must be £30 or more.
+                          Minimum order value must be £30.
                         </p>
                         <p className="font-[500] text-[16px] py-[5px]">
                           FREE delivery on orders over £55
@@ -788,7 +788,7 @@ const DishDetails = ({ closeModal, dishID, defaultADish }) => {
                           Checkout
                         </button>
                         <p className="font-[500] text-[16px] py-[5px]">
-                          Minimum order value must be £30 or more.
+                          Minimum order value must be £30.
                         </p>
                         <p className="font-[500] text-[16px] py-[5px]">
                           FREE delivery on orders over £55
