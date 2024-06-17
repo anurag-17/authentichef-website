@@ -331,7 +331,7 @@ const ExploreDishes = () => {
       setCuisinesFilter(_id);
       const options = {
         method: "GET",
-        url: `${config.baseURL}/api/menu/menuItem/sort?Cuisines_id=${_id}&Dietary_id=${dietaryFilter}&Dishtype_id=${moreFilters}`,
+        url: `${config.baseURL}/api/menu/menuItem/sort?Cuisines_id=${_id}&Dietary_id=${dietaryFilter}&Dishtype_id=${moreFilters}&spice_level_id=${spiceLevel}`,
       };
       axios
         .request(options)
@@ -363,7 +363,7 @@ const ExploreDishes = () => {
       setDietaryFilter(_id);
       const options = {
         method: "GET",
-        url: `${config.baseURL}/api/menu/menuItem/sort?Dietary_id=${_id}&Cuisines_id=${cuisinesFilter}&Dishtype_id=${moreFilters}`,
+        url: `${config.baseURL}/api/menu/menuItem/sort?Dietary_id=${_id}&Cuisines_id=${cuisinesFilter}&Dishtype_id=${moreFilters}&spice_level_id=${spiceLevel}`,
       };
       axios
         .request(options)
@@ -398,7 +398,7 @@ const ExploreDishes = () => {
       setMoreFilters(_id);
       const options = {
         method: "GET",
-        url: `${config.baseURL}/api/menu/menuItem/sort?Dishtype_id=${_id}&Cuisines_id=${cuisinesFilter}&Dietary_id=${dietaryFilter}`,
+        url: `${config.baseURL}/api/menu/menuItem/sort?Dishtype_id=${_id}&Cuisines_id=${cuisinesFilter}&Dietary_id=${dietaryFilter}&spice_level_id=${spiceLevel}`,
       };
       axios
         .request(options)
@@ -1254,6 +1254,7 @@ const ExploreDishes = () => {
                     <button
                       key={item._id}
                       onClick={() => handleSearchCuisines(item._id)}
+                    
                       className="mcusinimgs buttonHov"
                     >
                       {" "}
