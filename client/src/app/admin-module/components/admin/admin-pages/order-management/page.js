@@ -254,11 +254,15 @@ const OrderList = () => {
             <h2>Order Details</h2>
             <p>
               <strong>Order Date:</strong> 
-              {formatDate(selectedOrder.orderDate)}
+              {/* {formatDate(selectedOrder.orderDate)} */}
+              {selectedOrder.orderDate}
             </p>
             <p>
               <strong>Order ID:</strong> {selectedOrder._id}
             </p>
+            {/* <p>
+              <strong>Email:</strong> {selectedOrder.Email}
+            </p> */}
             <p>
               <strong>Customer Name:</strong>{" "}
               {selectedOrder.deliveryInfo[0]?.FirstName}{" "}
