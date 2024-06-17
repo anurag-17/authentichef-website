@@ -589,11 +589,11 @@ exports.PlaceOrder = async (req, res, next) => {
                             delivery_estimate: {
                                 minimum: {
                                     unit: 'business_day',
-                                    value: 1
+                                    value: 2
                                 },
                                 maximum: {
                                     unit: 'business_day',
-                                    value: 2
+                                    value: 3
                                 }
                             }
                         }
