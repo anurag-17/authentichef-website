@@ -1203,7 +1203,7 @@ const Checkout = () => {
                         </h4>
                       </div>
                       <h4 className="alata font-[400] text-[#555555] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
-                      {totalPrice < shippingThreshold ? "£5.99" : "£0.00"}
+                      {totalPrice < shippingThreshold || totalPrice  ? "£5.99" : "£0.00"}
                       </h4>
                     </div>
                     {totalPrice < shippingThreshold && (
