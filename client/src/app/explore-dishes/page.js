@@ -208,7 +208,7 @@ const ExploreDishes = () => {
 
   const [getAllDish, setGetAllDish] = useState("");
 
-  const defaultDish = () => {
+  const defaultDish = (newState) => {
     setLoading(true);
     const option = {
       method: "GET",
@@ -223,6 +223,7 @@ const ExploreDishes = () => {
     axios
       .request(option)
       .then((response) => {
+        setRefresh(newState);
         setGetAllDish(response?.data?.menuItems);
         setLoading(false);
       })
@@ -901,6 +902,7 @@ const ExploreDishes = () => {
                     </div>
                   </div>
                   {/* =================Cuisines========================== */}
+               
                   <button
                     onClick={defaultDish}
                     className=" w-auto px-2 bt-1 alata font-[400] 2xl:text-[16px] 2xl:w-[153px] third_select flex justify-center items-center gap-3 md:text-[12px] sm:text-[12px] md:pl-2 sm:pl-2 "
@@ -1254,7 +1256,6 @@ const ExploreDishes = () => {
                     <button
                       key={item._id}
                       onClick={() => handleSearchCuisines(item._id)}
-                    
                       className="mcusinimgs buttonHov"
                     >
                       {" "}
