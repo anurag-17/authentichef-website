@@ -7,6 +7,7 @@ import { useSearchParams } from "next/navigation";
 import config from "@/config";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import moment from 'moment';
 
 const MyOrder = () => {
   const { token } = useSelector((state) => state?.auth);
@@ -125,7 +126,7 @@ const MyOrder = () => {
                               rowSpan={order.items.length}
                             >
                               {/* {formatDate(order.orderDate)} */}
-                              {order.orderDate}
+                              {moment(order.orderDate).format('MM/DD/YYYY')}
                             </td>
                           </>
                         )}
