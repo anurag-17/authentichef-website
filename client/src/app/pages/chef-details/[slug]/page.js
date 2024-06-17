@@ -806,7 +806,7 @@ Food Safety
                           </button>
                         </Link>
                         <p className="font-[500] text-[16px] py-[5px]">
-                          Minimum order value must be £30 or more.
+                          Minimum order value must be £30.
                         </p>
                         <p className="font-[500] text-[16px] py-[5px]">
                         FREE delivery on orders over £55
@@ -829,7 +829,7 @@ Food Safety
                           Checkout
                         </button>
                         <p className="font-[500] text-[16px] py-[5px]">
-                          Minimum order value must be £30 or more.
+                          Minimum order value must be £30.
                         </p>
                         <p className="font-[500] text-[16px] py-[5px]">
                           FREE delivery on orders over £55

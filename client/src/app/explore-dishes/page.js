@@ -217,6 +217,7 @@ const ExploreDishes = () => {
         Cuisines_id: cuisinesFilter,
         Dietary_id: dietaryFilter,
         Dishtype_id: moreFilters,
+        spice_level_id: spiceLevel,
       },
     };
     axios
@@ -422,6 +423,40 @@ const ExploreDishes = () => {
     }
   };
 
+  // ========= Filter By MoreFilter Spice level =======
+
+  const [spiceLevel, setSpiceLevel] = useState("");
+
+  const handleSearchSpiceLevel = (_id) => {
+    setLoading(true);
+    try {
+      setSpiceLevel(_id);
+      const options = {
+        method: "GET",
+        url: `${config.baseURL}/api/menu/menuItem/sort?spice_level_id=${_id}&Dishtype_id=${moreFilters}&Cuisines_id=${cuisinesFilter}&Dietary_id=${dietaryFilter}`,
+      };
+      axios
+        .request(options)
+        .then((response) => {
+          if (response.status === 200) {
+            setGetAllDish(response?.data?.menuItem);
+            document.getElementById("my_modal_5").close();
+
+            setLoading(false);
+          } else {
+            setLoading(false);
+            return;
+          }
+        })
+        .catch(function (error) {
+          console.error(error);
+          setLoading(false);
+        });
+    } catch {
+      console.error(error);
+      setLoading(false);
+    }
+  };
   const handleAllClear = async () => {
     setLoading(true);
 
@@ -1163,7 +1198,7 @@ const ExploreDishes = () => {
                                 <button
                                   key={item._id}
                                   onClick={() =>
-                                    handleSearchMoreFilter(item._id)
+                                    handleSearchSpiceLevel(item._id)
                                   }
                                 >
                                   <div className="dropbox3 gap-3">
@@ -1718,7 +1753,7 @@ const ExploreDishes = () => {
                           </button>
                         </Link>
                         <p className="font-[500] text-[16px] py-[5px]">
-                          Minimum order value must be £30 or more.
+                          Minimum order value must be £30.
                         </p>
                         <p className="font-[500] text-[16px] py-[5px]">
                           FREE delivery on orders over £55
@@ -1741,7 +1776,7 @@ const ExploreDishes = () => {
                           Checkout
                         </button>
                         <p className="font-[500] text-[16px] py-[5px]">
-                          Minimum order value must be £30 or more.
+                          Minimum order value must be £30.
                         </p>
                         <p className="font-[500] text-[16px] py-[5px]">
                           FREE delivery on orders over £55
@@ -1805,4 +1840,3 @@ const ExploreDishes = () => {
 };
 
 export default ExploreDishes;
-
