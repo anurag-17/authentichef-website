@@ -125,7 +125,7 @@ const Checkout = () => {
     e.preventDefault();
 
     if (subtotalPrice < 30) {
-      toast.info("Minimum order value must be £30 or more.");
+      toast.info("Minimum order value must be £30.");
       return;
     }
 
@@ -1172,13 +1172,13 @@ const Checkout = () => {
                     </div>
                     {subtotalPrice < 30 && (
                       <p className="text-red-500 text-[18px] text-center mb-2 pt-4">
-                        Minimum order value must be £30 or more.
+                        Minimum order value must be £30.
                       </p>
                     )}
                     {isModalOpen && (
                       <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 alata">
                         <div className="bg-white p-6 rounded shadow-lg">
-                          <p>Minimum order value must be £30 or more.</p>
+                          <p>Minimum order value must be £30.</p>
                           <button
                             onClick={closeModal}
                             className="mt-4 bg-[#DB5353] text-white px-4 py-2 rounded"
@@ -1204,7 +1204,16 @@ const Checkout = () => {
                         </h4>
                       </div>
                       <h4 className="alata font-[400] text-[#555555] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
-                      {totalPrice < shippingThreshold || totalPrice  ? "£5.99" : "£0.00"}
+                        {/* {totalPrice < shippingThreshold || totalPrice
+                          ? "£5.99"
+                          : "£0.00"} */}
+                        {discountAmount === 0
+                          ? subtotalPrice < 55
+                            ? "£5.99"
+                            : "£0.00"
+                          : totalPrice < 55
+                          ? "£5.99"
+                          : "£0.00"}
                       </h4>
                     </div>
                     {totalPrice < shippingThreshold && (
