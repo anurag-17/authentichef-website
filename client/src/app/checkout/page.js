@@ -68,6 +68,8 @@ const Checkout = () => {
   const shippingThreshold = 55;
   const [paymentMethod, setPaymentMethod] = useState("COD");
   const [sessionId, setSessionId] = useState("");
+  const [stockWarnings, setStockWarnings] = useState([]);
+
 
   const today = new Date().toISOString().split("T")[0];
 
@@ -192,6 +194,25 @@ const Checkout = () => {
       updatedCartItems.length ? updatedCartItems : getCartItems
     );
 
+    const outOfStockItems = [];
+    const cartItems = updatedCartItems.length ? updatedCartItems : getCartItems;
+
+    for (const item of cartItems) {
+      if (item.menuItem.stocks === 0) {
+        outOfStockItems.push(item.menuItem.name);
+      }
+    }
+
+    if (outOfStockItems.length > 0) {
+      const outOfStockMessage = `The following items are out of stock: ${outOfStockItems.join(
+        ", "
+      )}`;
+      toast.error(outOfStockMessage);
+      return;
+    }
+
+    console.log("Submitting order with the following cart items:", cartItems);
+
     try {
       await applyPromoCode();
 
@@ -216,7 +237,7 @@ const Checkout = () => {
       if (response.status >= 200 && response.status < 300) {
         toast.success("Order Placed");
         const { sessionId, sessionUrl } = response.data;
-        window.location.href = sessionUrl; // Redirect to Stripe payment page
+        window.location.href = sessionUrl;
       } else {
         toast.error(response.data.message || "Order Failed");
         console.log("Unexpected response status:", response.status);
@@ -246,7 +267,6 @@ const Checkout = () => {
           const { sessionId, successUrl } = sessionIdResponse.data.success;
           console.log("Session ID:", sessionId);
 
-          // Send the session ID to the second API
           try {
             const bookOrderResponse = await axios.post(
               "http://localhost:4000/api/order/bookOrder",
@@ -307,15 +327,20 @@ const Checkout = () => {
         Authorization: token,
       },
     };
+  
     axios
       .request(option)
       .then((response) => {
         const userCart = response?.data?.userCart;
-
-        const cartItems = userCart?.items.map((item) => ({
-          ...item,
-          totalPrice: item.menuItem.price * item.quantity,
-        }));
+  
+        const cartItems = userCart?.items.map((item) => {
+          const totalPrice = item.menuItem.price * item.quantity;
+          return {
+            ...item,
+            totalPrice,
+          };
+        });
+  
         setGetCartItems(cartItems);
         setUpdatedCartItems(cartItems); // Initializing updatedCartItems with fetched data
         refreshData();
@@ -324,11 +349,27 @@ const Checkout = () => {
         );
         setShippingCost(userCart.Shipping_cost ?? 0); // Set the shipping cost
         setCartId(userCart._id); // Set the cart ID
+  
+        // Check if any item's cart quantity exceeds stock
+        const stockWarnings = cartItems.filter(
+          (item) => item.quantity > item.menuItem.stocks
+        );
+  
+        if (stockWarnings.length > 0) {
+          const warningMessages = stockWarnings.map(
+            (item) =>
+              `We have only ${item.menuItem.stocks} units of ${item.menuItem.name} left in stock.`
+          );
+          setStockWarnings(warningMessages);
+        } else {
+          setStockWarnings([]); // Clear warnings if no issues
+        }
       })
       .catch((error) => {
         console.log(error, "Error");
       });
   };
+  
 
   const handleDateChange = (date) => {
     if (!date) {
@@ -629,7 +670,6 @@ const Checkout = () => {
         const userData = response.data.user;
         console.log("User data from API:", userData);
 
-        // Check if deliveryInfo is an array and has at least one item
         if (
           Array.isArray(userData.deliveryInfo) &&
           userData.deliveryInfo.length > 0
@@ -1162,6 +1202,14 @@ const Checkout = () => {
                         })}
                     </div>
 
+                    {stockWarnings.length > 0 && (
+      <div className="mt-4 text-red-600 text-lg">
+        {stockWarnings.map((message, index) => (
+          <div key={index}>{message}</div>
+        ))}
+      </div>
+    )}
+
                     <div className="flex justify-between">
                       <h4 className="alata font-[400] text-[#555555] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
                         Subtotal
@@ -1226,35 +1274,21 @@ const Checkout = () => {
                         Total
                       </h4>
                       <h4 className="alata font-[400] 2xl:my-0 2xl:text-[18px] 2xl:leading/[28px] xl:text-[14px] xl:leading/[20px] lg:text-[10px] lg:leading/[18px]">
-                        {discountAmount === 0 ? (
-                          <span>
-                            £
-                            {discountInfo
-                              ? (
-                                  discountInfo.totalAmountAfterDiscount +
-                                  (discountInfo.totalAmountAfterDiscount <
-                                  shippingThreshold
-                                    ? shippingCost
-                                    : 0)
-                                ).toFixed(2)
-                              : (
-                                  subtotalPrice +
-                                  (subtotalPrice < shippingThreshold
-                                    ? shippingCost
-                                    : 0)
-                                ).toFixed(2)}
-                          </span>
-                        ) : (
-                          <span>
-                            £
-                            {(
-                              totalPrice +
-                              (totalPrice < shippingThreshold
+                        £
+                        {discountInfo
+                          ? (
+                              discountInfo.totalAmountAfterDiscount +
+                              (discountInfo.totalAmountAfterDiscount <
+                              shippingThreshold
+                                ? shippingCost
+                                : 0)
+                            ).toFixed(2)
+                          : (
+                              subtotalPrice +
+                              (subtotalPrice < shippingThreshold
                                 ? shippingCost
                                 : 0)
                             ).toFixed(2)}
-                          </span>
-                        )}
                       </h4>
                     </div>
 

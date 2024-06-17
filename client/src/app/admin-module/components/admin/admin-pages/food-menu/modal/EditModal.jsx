@@ -33,6 +33,7 @@ const EditModal = ({
     popular_dish: false,
     SKU_Number: "",
     Cuisines_id: "",
+    stocks:"",
   });
 
   const [isLoading, setLoading] = useState(false);
@@ -70,6 +71,7 @@ const EditModal = ({
         popular_dish: editData.popular_dish === "Yes",
         SKU_Number: editData.SKU_Number || "",
         Cuisines_id: editData.Cuisines_id ? editData.Cuisines_id._id : "",
+        stocks:editData.stocks || 0,
       });
     }
   }, [editData]);
@@ -206,6 +208,7 @@ const EditModal = ({
       formDataToSend.append("spice_level_id", formData.spice_level_id);
       formDataToSend.append("chef_id", formData.chef_id);
       formDataToSend.append("Cuisines_id",formData.Cuisines_id)
+      formDataToSend.append("stocks",formData.stocks)
       formDataToSend.append(
         "nutritional_information",
         formData.nutritional_information
@@ -405,6 +408,19 @@ const EditModal = ({
                   onChange={handleChange}
                   required
                   disabled
+                />
+              </div>
+
+
+              <div class="py-2">
+                <span class="login-input-label capitalize">Quntity</span>
+                <input
+                  type="number"
+                  name="stocks"
+                  placeholder="Enter quntity number"
+                  class="login-input w-full mt-1"
+                  value={formData.stocks}
+                  onChange={handleChange} 
                 />
               </div>
 

@@ -262,8 +262,8 @@ const DishDetails = ({ closeModal, dishID, defaultADish }) => {
         handleDrawerOpen();
         setIsDrawerOpen(true);
         setAddToCartSuccess(true);
-        setTimeout(() => setAddToCartSuccess(false), 3000); 
-      }else {
+        setTimeout(() => setAddToCartSuccess(false), 3000);
+      } else {
         toast.error("Failed to add items to cart. Please try again.");
       }
     } catch (error) {
@@ -274,7 +274,7 @@ const DishDetails = ({ closeModal, dishID, defaultADish }) => {
   return (
     <>
       <section>
-      <ToastContainer className="" autoClose={1000} />
+        <ToastContainer className="" autoClose={1000} />
         <div className="flex justify-end 2xl:py-[20px] xl:py-[10px] py-[10px] 2xl:px-[10px] xl:px-[7px] px-[5px]">
           <button onClick={closeModal}>
             <svg
@@ -408,25 +408,27 @@ const DishDetails = ({ closeModal, dishID, defaultADish }) => {
 
                 <div className="w-[70%]">
                   {token ? (
-                    <button
-                      onClick={() => {
-                        if (token) {
+                    getADish?.stocks > 0 ? (
+                      <button
+                        onClick={() => {
                           handleAddCart(getADish?._id);
-                        } else {
-                          handleLoginClick();
-                        }
-                      }}
-                      className="pop-btn w-full"
-                    >
-                      <div className="drawer-content">
-                        <label
-                          htmlFor="my-drawer-4"
-                          className="drawer-button cursor-pointer"
-                        >
-                          Add to basket
-                        </label>
+                        }}
+                        className="pop-btn w-full"
+                      >
+                        <div className="drawer-content">
+                          <label
+                            htmlFor="my-drawer-4"
+                            className="drawer-button cursor-pointer"
+                          >
+                            Add to basket
+                          </label>
+                        </div>
+                      </button>
+                    ) : (
+                      <div className="mt-4 text-red-600 text-lg">
+                        Item is out of stock
                       </div>
-                    </button>
+                    )
                   ) : (
                     <button
                       onClick={() => {
@@ -435,16 +437,14 @@ const DishDetails = ({ closeModal, dishID, defaultADish }) => {
                       className="pop-btn w-full"
                     >
                       <div className="w-[100%]">
-                        <button className="">
-                          <div className="drawer-content">
-                            <label
-                              htmlFor="my-drawer-4"
-                              className="drawer-button cursor-pointer"
-                            >
-                              Add to basket
-                            </label>
-                          </div>
-                        </button>
+                        <div className="drawer-content">
+                          <label
+                            htmlFor="my-drawer-4"
+                            className="drawer-button cursor-pointer"
+                          >
+                            Add to basket
+                          </label>
+                        </div>
                       </div>
                     </button>
                   )}

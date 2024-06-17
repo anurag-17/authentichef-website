@@ -126,7 +126,8 @@ const MyOrder = () => {
                               rowSpan={order.items.length}
                             >
                               {/* {formatDate(order.orderDate)} */}
-                              {moment(order.orderDate).format('MM/DD/YYYY')}
+                              {moment(order.orderDate).format('DD/MM/YYYY HH:mm')
+                              }
                             </td>
                           </>
                         )}

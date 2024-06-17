@@ -120,12 +120,11 @@ const ChefDetails = ({ params }) => {
       if (response.status >= 200 && response.status < 300) {
         toast.success("Item Removed From Cart");
 
-        // Update the local state only if the backend confirms the deletion
+
         setGetCartItems((prevCartItems) =>
           prevCartItems.filter((item) => item.menuItem._id !== itemId)
         );
-        setShouldRefresh(true); // Trigger any necessary refresh actions
-      } else {
+        setShouldRefresh(true); 
         alert("Failed to remove item");
       }
     } catch (error) {
@@ -155,20 +154,29 @@ const ChefDetails = ({ params }) => {
   useEffect(() => {
     defaultChefMenu();
   }, []);
+
   const defaultChefMenu = () => {
     const option = {
       method: "GET",
       url: `${config.baseURL}/api/menu/menuItems/chef/${params.slug}`,
     };
+
     axios
       .request(option)
       .then((response) => {
-        setChefItems(response?.data);
+        // Assuming response.data contains an array of menu items
+        const chefItemsWithStock = response.data.map((item) => ({
+          ...item,
+          stocks: item.stocks, // Ensure stocks is a property in the item object from the response
+        }));
+
+        setChefItems(chefItemsWithStock);
       })
       .catch((error) => {
         console.log(error, "Error");
       });
   };
+
   const defaultADish = (_id) => {
     const option = {
       method: "GET",
@@ -186,6 +194,7 @@ const ChefDetails = ({ params }) => {
         console.log(error, "Error");
       });
   };
+
   const handleAddCart = async (id) => {
     try {
       // Ensure id is an array
@@ -503,26 +512,32 @@ Food Safety
                           <span className="text-500">{item?.portion_Size}</span>
                         </p>
                         {token ? (
-                          <button
-                            className="cursor-pointer"
-                            onClick={() => {
-                              setItemId(item?._id);
-                              handleAddCart(item?._id);
-                            }}
-                          >
-                            <div className="drawer-content">
-                              <label
-                                htmlFor="my-drawer-4"
-                                className="drawer-button"
-                              >
-                                <Image
-                                  src={addCart}
-                                  alt={item.title}
-                                  className="cursor-pointer flex justify-center 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
-                                />
-                              </label>
+                          item.stocks > 0 ? (
+                            <button
+                              className="cursor-pointer"
+                              onClick={() => {
+                                setItemId(item?._id);
+                                handleAddCart(item?._id);
+                              }}
+                            >
+                              <div className="drawer-content">
+                                <label
+                                  htmlFor="my-drawer-4"
+                                  className="drawer-button"
+                                >
+                                  <Image
+                                    src={addCart}
+                                    alt={item.title}
+                                    className="cursor-pointer flex justify-center 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
+                                  />
+                                </label>
+                              </div>
+                            </button>
+                          ) : (
+                            <div className="text-red-500 font-[500] text-[22px]">
+                              out of stock
                             </div>
-                          </button>
+                          )
                         ) : (
                           <button
                             className="cursor-pointer"
@@ -538,7 +553,7 @@ Food Safety
                                 <Image
                                   src={addCart}
                                   alt={item.title}
-                                  className=" cursor-pointer flex justify-center 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
+                                  className="cursor-pointer flex justify-center 2xl:w-[40px] 2xl:h-[40px] xl:w-[25px] xl:h-[25px] lg:w-[25px] lg:h-[25px] w-[25px] h-[25px]"
                                 />
                               </label>
                             </div>
@@ -590,7 +605,7 @@ Food Safety
           ></label>
           <ul className="min-h-full text-base-content max-w-[310px] sm:max-w-[350px] md:w-[400px] md:max-w-[400px] 2xl:w-[450px] 2xl:max-w-[450px] bg-white">
             <div className="flex flex-col justify-center items-center p-[15px] md:p-[20px] h-[100vh]">
-              { getCartItems.length === 0 ? (
+              {getCartItems.length === 0 ? (
                 <div className="flex flex-col justify-center items-center">
                   <h4 className="alata font-[400] text-[#111] text-[24px] mb-[1rem]">
                     Your Basket is empty!
@@ -809,7 +824,7 @@ Food Safety
                           Minimum order value must be £30.
                         </p>
                         <p className="font-[500] text-[16px] py-[5px]">
-                        FREE delivery on orders over £55
+                          FREE delivery on orders over £55
                         </p>
                       </div>
                     ) : (
