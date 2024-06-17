@@ -2,35 +2,35 @@ const mongoose = require("mongoose");
 const moment = require('moment-timezone');
 
 
-// const getLondonTime = () => {
-//     // Get current date and time
-//     const now = new Date();
+const getLondonTime = () => {
+    // Get current date and time
+    const now = new Date();
 
-//     // Format the date to the "Europe/London" timezone
-//     const formatter = new Intl.DateTimeFormat('en-GB', {
-//         timeZone: 'Europe/London',
-//         year: 'numeric',
-//         month: '2-digit',
-//         day: '2-digit',
-//         hour: '2-digit',
-//         minute: '2-digit',
-//         second: '2-digit',
-//     });
+    // Format the date to the "Europe/London" timezone
+    const formatter = new Intl.DateTimeFormat('en-GB', {
+        timeZone: 'Europe/London',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+    });
 
-//     // Get the formatted date and time parts
-//     const parts = formatter.formatToParts(now);
+    // Get the formatted date and time parts
+    const parts = formatter.formatToParts(now);
 
-//     // Extract the date and time components
-//     const dateParts = {};
-//     parts.forEach(({ type, value }) => {
-//         dateParts[type] = value;
-//     });
+    // Extract the date and time components
+    const dateParts = {};
+    parts.forEach(({ type, value }) => {
+        dateParts[type] = value;
+    });
 
-//     // Construct the London time as a Date object
-//     const londonTime = new Date(`${dateParts.year}-${dateParts.month}-${dateParts.day}T${dateParts.hour}:${dateParts.minute}:${dateParts.second}Z`);
+    // Construct the London time as a Date object
+    const londonTime = new Date(`${dateParts.year}-${dateParts.month}-${dateParts.day}T${dateParts.hour}:${dateParts.minute}:${dateParts.second}Z`);
 
-//     return londonTime;
-// };
+    return londonTime;
+};
 
 
 const deliveryInfoSchema = new mongoose.Schema({
@@ -158,7 +158,8 @@ const orderSchema = new mongoose.Schema({
 
     orderDate: {
         type: Date,
-        default: moment.tz(Date.now(), "Europe/London").toDate()
+        default: getLondonTime
+        // default: moment.tz(Date.now(), "Europe/London").toDate()
     },
 
 
