@@ -69,6 +69,7 @@ const MenuItemForm = ({ closeAddPopup, updateId, refreshData }) => {
       formData.append("Ingredients", menuItem.Ingredients);
       formData.append("Heating_Instruction", menuItem.Heating_Instruction);
       formData.append("List_of_Allergens", menuItem.List_of_Allergens);
+      formData.append("Dishtype_id",menuItem.Dishtype_id)
       formData.append(
         "nutritional_information",
         menuItem.nutritional_information

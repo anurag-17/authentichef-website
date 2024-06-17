@@ -37,28 +37,25 @@ const MyOrder = () => {
   };
 
   const formatDate = (dateString) => {
-    const date = new Date(dateString);
-
-    const day = date.getDate();
-    const month = date.toLocaleString("default", { month: "long" });
-    const year = date.getFullYear();
-
-    const daySuffix = (day) => {
-      if (day > 3 && day < 21) return "th"; // Covers 11th to 19th
-      switch (day % 10) {
-        case 1:
-          return "st";
-        case 2:
-          return "nd";
-        case 3:
-          return "rd";
-        default:
-          return "th";
-      }
+    const options = {
+      timeZone: "Europe/London",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
     };
 
-    return `${day}${daySuffix(day)} ${month} ${year}`;
+    const date = new Date(dateString);
+    const formatter = new Intl.DateTimeFormat("en-GB", options);
+    const formattedDate = formatter.format(date);
+
+    return formattedDate;
   };
+
+  // Example usage:
+  const dateStr = "2024-06-17T12:00:00Z"; 
+  const formatted = formatDate(dateStr);
+  console.log(formatted); // Output: 17 June 2024
+
   const [showMessage, setShowMessage] = useState(false);
 
   useEffect(() => {
@@ -85,7 +82,6 @@ const MyOrder = () => {
                   <th className="px-4 py-2 text-start">Item</th>
 
                   <th className="px-4 py-2 text-start">Quantity</th>
-
                 </tr>
               </thead>
               <tbody>
@@ -112,31 +108,28 @@ const MyOrder = () => {
                               className="table_data"
                               rowSpan={order.items.length}
                             >
-
                               £{order.totalAmount?.toFixed(2)}
-
                             </td>
                             <td
                               className="table_data"
                               rowSpan={order.items.length}
                             >
                               <Link href={`/pages/order-details/${order?._id}`}>
-                              <button className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[80px] 2xl:h-[40px] 2xl:text-[16px] 2xl:leading-[27.6px] xl:text-[12px] text-[10px] xl:w-[60px] xl:py-[5px] lg:px-2 lg:py-[6px] px-3 py-1 2xl:px-0 2xl:py-0 hover:bg-[#7e2727]">
-                                View 
-                              </button>
-                            </Link>
+                                <button className="alata font-[400] bg-[#DB5353] text-white mx-auto rounded-[5px] 2xl:w-[80px] 2xl:h-[40px] 2xl:text-[16px] 2xl:leading-[27.6px] xl:text-[12px] text-[10px] xl:w-[60px] xl:py-[5px] lg:px-2 lg:py-[6px] px-3 py-1 2xl:px-0 2xl:py-0 hover:bg-[#7e2727]">
+                                  View
+                                </button>
+                              </Link>
                             </td>
                             <td
                               className="table_data"
                               rowSpan={order.items.length}
                             >
-                             {formatDate(order.deliveryDate)}
+                              {formatDate(order.deliveryDate)}
                             </td>
                           </>
                         )}
                         <td className="table_data">{item.name}</td>
                         <td className="table_data">{item.quantity}</td>
-                       
                       </tr>
                     ))}
                   </React.Fragment>
@@ -145,15 +138,15 @@ const MyOrder = () => {
             </table>
           ) : (
             <div className="text-center my-5">
-      {showMessage && (
-        <>
-          <h2 className="2xl:text-[40px] xl:text-[25px] text-[16px] font-bold">
-            No Order found
-          </h2>
-          <div className="flex justify-center"></div>
-        </>
-      )}
-    </div>
+              {showMessage && (
+                <>
+                  <h2 className="2xl:text-[40px] xl:text-[25px] text-[16px] font-bold">
+                    No Order found
+                  </h2>
+                  <div className="flex justify-center"></div>
+                </>
+              )}
+            </div>
           )}
         </div>
       </section>
@@ -163,8 +156,8 @@ const MyOrder = () => {
 
 export default MyOrder;
 
-
-{/* <div className="">
+{
+  /* <div className="">
                             <h4 className="my-2">
                               {" "}
                               <h4 className="my-2">Delivered on {formatDate(order.deliveryDate)}</h4>
@@ -175,4 +168,5 @@ export default MyOrder;
                                 View Order Details
                               </button>
                             </Link>
-                          </div> */}
+                          </div> */
+}
