@@ -120,12 +120,11 @@ const ChefDetails = ({ params }) => {
       if (response.status >= 200 && response.status < 300) {
         toast.success("Item Removed From Cart");
 
-        // Update the local state only if the backend confirms the deletion
+
         setGetCartItems((prevCartItems) =>
           prevCartItems.filter((item) => item.menuItem._id !== itemId)
         );
-        setShouldRefresh(true); // Trigger any necessary refresh actions
-      } else {
+        setShouldRefresh(true); 
         alert("Failed to remove item");
       }
     } catch (error) {
