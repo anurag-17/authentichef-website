@@ -1226,35 +1226,21 @@ const Checkout = () => {
                         Total
                       </h4>
                       <h4 className="alata font-[400] 2xl:my-0 2xl:text-[18px] 2xl:leading/[28px] xl:text-[14px] xl:leading/[20px] lg:text-[10px] lg:leading/[18px]">
-                        {discountAmount === 0 ? (
-                          <span>
-                            £
-                            {discountInfo
-                              ? (
-                                  discountInfo.totalAmountAfterDiscount +
-                                  (discountInfo.totalAmountAfterDiscount <
-                                  shippingThreshold
-                                    ? shippingCost
-                                    : 0)
-                                ).toFixed(2)
-                              : (
-                                  subtotalPrice +
-                                  (subtotalPrice < shippingThreshold
-                                    ? shippingCost
-                                    : 0)
-                                ).toFixed(2)}
-                          </span>
-                        ) : (
-                          <span>
-                            £
-                            {(
-                              totalPrice +
-                              (totalPrice < shippingThreshold
+                        £
+                        {discountInfo
+                          ? (
+                              discountInfo.totalAmountAfterDiscount +
+                              (discountInfo.totalAmountAfterDiscount <
+                              shippingThreshold
+                                ? shippingCost
+                                : 0)
+                            ).toFixed(2)
+                          : (
+                              subtotalPrice +
+                              (subtotalPrice < shippingThreshold
                                 ? shippingCost
                                 : 0)
                             ).toFixed(2)}
-                          </span>
-                        )}
                       </h4>
                     </div>
 
