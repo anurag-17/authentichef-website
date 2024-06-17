@@ -59,7 +59,7 @@ const Navbar = () => {
   const userDetails = user;
   const [isLoading, setLoading] = useState(false);
   const [isRefresh, setRefresh] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
+
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [cartId, setCartId] = useState("");
   const [subtotalPrice, setSubtotalPrice] = useState(0);
@@ -70,7 +70,10 @@ const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [errorMessg, setErrorMessg] = useState("");
-
+  const [showPassword, setShowPassword] = useState(false);
+  const handleToggle = () => {
+    setShowPassword(!showPassword);
+  };
   const handleRemoveItem = async (itemId) => {
     try {
       const response = await axios.delete(
@@ -105,9 +108,6 @@ const Navbar = () => {
   };
   const handleDrawerClose = () => {
     setIsDrawerOpen(false);
-  };
-  const handleToggle = () => {
-    setShowPassword(!showPassword);
   };
 
   const [loginDetail, setLoginDetail] = useState({
@@ -1195,14 +1195,58 @@ const Navbar = () => {
                   />
                   <p className="text-red-700">{errorMessg}</p>
                 </div>
-                <div className="2xl:mt-[35px] mt-[25px] 2xl:w-[368px] xl:w-[230px] w-full">
+                <div className="2xl:mt-[35px] mt-[25px] 2xl:w-[368px] xl:w-[230px] w-full relative">
+                  <button
+                    type="button"
+                    className=" absolute  transform -translate-y-1/2 cursor-pointer 
+                        2xl:right-7 2xl:top-[30px] xl:right-5 xl:top-[20px] lg:right-5 lg:top-[20px] top-[20px] right-5 "
+                    onClick={handleToggle}
+                  >
+                    {showPassword ? (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] xl:h-[18px] lg:w-[15px] lg:h-[15px] w-[15px] h-[15px]"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88"
+                        />
+                      </svg>
+                    ) : (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] xl:h-[18px] lg:w-[15px] lg:h-[15px] w-[15px] h-[15px]"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"
+                        />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                        />
+                      </svg>
+                    )}
+                  </button>
                   <input
-                    type="password"
                     name="password"
                     placeholder="Password"
                     className="alata font-[400] login-inputad text-[#929292] w-full h-[40px]"
                     onChange={inputHandlers}
                     value={userDetail.password}
+                    type={showPassword ? "text" : "password"}
+                    checked={showPassword}
                   />
                 </div>
               </div>
@@ -1217,15 +1261,15 @@ const Navbar = () => {
                 </p>
               </div>
               <p
-              onClick={() => {
-                handleLoginClick();
-              }}
-              className="nav_login1"
-            >
-              <p className="text-[#DB5353] alata font-[400] text-[14px] leading-[26px] text-center mx-auto">
-              Log in
+                onClick={() => {
+                  handleLoginClick();
+                }}
+                className="nav_login1"
+              >
+                <p className="text-[#DB5353] alata font-[400] text-[14px] leading-[26px] text-center mx-auto">
+                  Log in
+                </p>
               </p>
-            </p>
               <div className="flex 2xl:mt-[20px]">
                 <div className="mx-auto 2xl:w-[368px] xl:w-[230px] w-full md:w-[50%]">
                   {/* <div className="menu">
@@ -1265,9 +1309,7 @@ const Navbar = () => {
               </div> */}
             </div>
           </form>
-          <div className=" flex justify-center ">
-          
-          </div>
+          <div className=" flex justify-center "></div>
         </dialog>
       </div>
       {/* =======Login======= */}
@@ -1319,13 +1361,57 @@ const Navbar = () => {
                     Forgot Email?
                   </label> */}
                 </div>
-                <div className="2xl:mt-[35px] mt-[20px]">
+                <div className="2xl:mt-[35px] mt-[20px] relative">
+                  <button
+                    type="button"
+                    className=" absolute  transform -translate-y-1/2 cursor-pointer 
+                        2xl:right-7 2xl:top-[30px] xl:right-5 xl:top-[20px] lg:right-5 lg:top-[20px] top-[20px] right-5 "
+                    onClick={handleToggle}
+                  >
+                    {showPassword ? (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] xl:h-[18px] lg:w-[15px] lg:h-[15px] w-[15px] h-[15px]"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88"
+                        />
+                      </svg>
+                    ) : (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] xl:h-[18px] lg:w-[15px] lg:h-[15px] w-[15px] h-[15px]"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"
+                        />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                        />
+                      </svg>
+                    )}
+                  </button>
                   <input
-                    type="password"
                     name="password"
                     onChange={InputHandler}
                     placeholder="Enter your Password"
                     className="alata font-[400] login-inputad w-full h-[40px]"
+                    type={showPassword ? "text" : "password"}
+                    checked={showPassword}
                   />
                   <Link href="/forgot-password">
                     <label className="checkoutlable my-1 cursor-pointer">
