@@ -232,33 +232,40 @@ const User = () => {
                 </thead>
                 <tbody>
                   {Array.isArray(allData) &&
-                    allData.length > 0 &&
-                    allData.map((items, index) => (
-                      <tr key={index}>
-                        <td className="table_data">
-                          {index + 1 + (currentPage - 1) * visiblePageCount}
-                        </td>
-                        <td className="table_data capitalize">
-                          {items?.firstname} {items?.lastname}
-                        </td>
-                        <td className="table_data">{items?.mobile}</td>
-                        <td className="table_data">{items?.email}</td>
-                        <td className="table_data">{items?.orderCount}</td> {/* Display order count */}
-                        <td className="table_data">
-                          {new Date(items?.createdAt).toLocaleString()}
-                        </td>
-                        <td className="table_data">
-                          <div className="table_btn_div">
-                            <button
-                              className="delete_btn py-1"
-                              onClick={() => handleDelete(items?._id)}
-                            >
-                              Delete
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
+                    allData
+                      .slice() // Create a copy to avoid mutating the original array
+                      .sort(
+                        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+                      )
+                      .map((items, index) => (
+                        <tr key={index}>
+                          <td className="table_data">
+                            {index + 1 + (currentPage - 1) * visiblePageCount}
+                          </td>
+                          <td className="table_data capitalize">
+                            {items?.firstname} {items?.lastname}
+                          </td>
+                          <td className="table_data">{items?.mobile}</td>
+                          <td className="table_data">{items?.email}</td>
+                          <td className="table_data">
+                            {items?.orderCount}
+                          </td>{" "}
+                          {/* Display order count */}
+                          <td className="table_data">
+                            {new Date(items?.createdAt).toLocaleString()}
+                          </td>
+                          <td className="table_data">
+                            <div className="table_btn_div">
+                              <button
+                                className="delete_btn py-1"
+                                onClick={() => handleDelete(items?._id)}
+                              >
+                                Delete
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
                 </tbody>
               </table>
             </div>

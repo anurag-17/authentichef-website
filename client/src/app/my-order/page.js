@@ -112,7 +112,9 @@ const MyOrder = () => {
                               className="table_data"
                               rowSpan={order.items.length}
                             >
-                              {order.totalAmount?.toFixed(2)}
+
+                              £{order.totalAmount?.toFixed(2)}
+
                             </td>
                             <td
                               className="table_data"

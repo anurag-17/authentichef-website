@@ -112,8 +112,10 @@ const OrderDetails = ({ params }) => {
                   <p className="footer_text flex w-full">Shipping Charge : £{getOrders.shippingCharge?.toFixed(2)}</p>
                   <p className="footer_text flex w-full">
                     Total Before Discount : £
+
                     {getOrders.totalAmountBeforeDiscount?.toFixed(2)}
                   </p>
+
                   <p className="footer_text flex w-full">Payment ID : {getOrders.payment}</p>
                   <p className="footer_text flex w-full">Transaction ID : {getOrders.TransactionId}</p>
                   

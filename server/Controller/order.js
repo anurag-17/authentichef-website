@@ -939,7 +939,6 @@ exports.BookOrder = async (req, res) => {
         }
 
         const savedOrder = await newOrder.save();
-
         if (!savedOrder) {
             return res.status(400).json({ message: 'Order creation failed' });
         }
@@ -1474,7 +1473,7 @@ exports.OrderList = async (req, res, next) => {
         const currentPage = parseInt(page, 10);
         const itemsPerPage = parseInt(limit, 10);
 
-        let orderQuery = Order.find({ user: req.user._id }).populate('payment'); // Filter by user_id
+        let orderQuery = Order.find({ user: req.user._id }).sort({ orderDate: -1 }).populate('payment'); // Filter by user_id
 
         if (search) {
             const startDate = new Date(search);
@@ -1522,6 +1521,8 @@ exports.OrderList = async (req, res, next) => {
             currentPage,
             orders: formattedOrders
         });
+
+        // Check If Orders are empty
     } catch (error) {
         next(error);
     }
@@ -1540,7 +1541,7 @@ exports.AllOrderList = async (req, res, next) => {
         const currentPage = parseInt(page, 10);
         const itemsPerPage = parseInt(limit, 10);
 
-        let orderQuery = Order.find()
+        let orderQuery = Order.find().sort({ orderDate: -1 }) // Filter by user_id
             .populate('payment'); // Filter by user_id
 
         if (search) {
@@ -1580,7 +1581,9 @@ exports.AllOrderList = async (req, res, next) => {
             discountApplied: order.discountApplied,
             totalAmountBeforeDiscount: order.totalAmountBeforeDiscount,
             discountPercentage: order.DiscountPercentage,
-            payment: order.payment
+            payment: order.payment,
+            orderDate: order.orderDate,
+            OrderNumber: order.OrderNumber,
 
         }));
 

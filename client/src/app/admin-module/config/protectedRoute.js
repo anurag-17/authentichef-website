@@ -36,7 +36,7 @@ const protectedRoute = (WrappedComponent) => {
         if (res.status === 200) {
           setIsAuth(true);
           setIsLoading(false);
-          toast.success("Registration success")
+          // toast.success("Registration success")
         } else {
           dispatch(removeToken());
           router.push("/admin-module/admin/sign-in");

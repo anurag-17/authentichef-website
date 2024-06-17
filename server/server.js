@@ -71,6 +71,7 @@ server.use('/api/chefProfile', require('./Route/chefjoinRouter'));
 server.use('/api/Testimonial', require('./Route/TestimonalRouter'));
 server.use('/api/faq', require('./Route/FaqRouter'));
 server.use('/api/privacy', require('./Route/privacyPolicyRouter'));
+server.use('/api/Refund', require('./Route/RefundPolicy'));
 
 // Serve static assets in productionm
 if (process.env.NODE_ENV === 'production') {
