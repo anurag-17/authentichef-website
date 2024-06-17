@@ -124,7 +124,8 @@ const MyOrder = () => {
                               className="table_data"
                               rowSpan={order.items.length}
                             >
-                              {formatDate(order.deliveryDate)}
+                              {/* {formatDate(order.orderDate)} */}
+                              {order.orderDate}
                             </td>
                           </>
                         )}

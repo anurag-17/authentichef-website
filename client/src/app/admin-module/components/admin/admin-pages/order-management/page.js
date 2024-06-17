@@ -280,7 +280,7 @@ const OrderList = () => {
             </p>
             <p>
               <strong>Discount Applied:</strong> £
-              {selectedOrder.discountApplied}
+              {selectedOrder.discountApplied.toFixed(2)}
             </p>
             <p>
               <strong>Total Amount Before Discount:</strong> £
