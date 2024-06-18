@@ -43,7 +43,6 @@ const LandingPage = () => {
   const [itemId, setItemId] = useState("");
 
   const [getAllDish, setGetAllDish] = useState({});
-  // console.log(getAllDish, "dis");
   const [isOpen, setOpen] = useState(false);
   const [getADish, setGetADish] = useState("");
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -58,7 +57,6 @@ const LandingPage = () => {
   const quantity = cart[0]?.quantity;
   cart.forEach((item, index) => {
     const { data } = item;
-    // console.log(data, `data from item ${index + 1}`);
   });
   const router = useRouter();
 
@@ -181,7 +179,6 @@ const LandingPage = () => {
         dispatch(addItemToCart(response));
         handleDrawerOpen();
 
-        // console.log(response?.data, "haryy");
       })
       .catch((error) => {
         console.log(error, "Error");
@@ -315,7 +312,6 @@ const LandingPage = () => {
     };
     axios.request(option).then((response) => {
       setGetAllChef(response?.data);
-      // console.log(response?.data, "chef");
     });
   };
   const handleLoginClick = () => {
@@ -344,7 +340,6 @@ const LandingPage = () => {
       .request(option)
       .then((response) => {
         setTestimonials(response?.data);
-        // console.log(response?.data, "testi");
       })
       .catch((error) => {
         console.log(error, "Error");
@@ -444,7 +439,6 @@ const LandingPage = () => {
                     key={item.id}
                     className=" mt-5 2xl:w-[371px] 2xl:h-[560px] lg:w-[23%] sm:w-[45%] md:w-[48%] w-full relative rounded-[9.8px] mexploreD  "
                   >
-                    {/* {console.log("ssss", item?.chef_id?.images)} */}
                     <div className="w-full flex justify-center">
                       <button
                         className="w-full"

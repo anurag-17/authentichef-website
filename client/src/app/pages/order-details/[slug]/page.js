@@ -25,7 +25,6 @@ const OrderDetails = ({ params }) => {
       .request(option)
       .then((response) => {
         setGetOrders(response?.data?.order);
-        console.log(response?.data?.order, "orders");
       })
       .catch((error) => {
         console.log(error, "Error");
@@ -43,8 +42,7 @@ const OrderDetails = ({ params }) => {
 
             <div className="flex flex-col items-center w-full px-[40px]">
               <h1 className="2xl:text-[25px] xl:text-[16px] text-[12px] font-semibold">
-                Total Amount: £
-                {getOrders.totalAmount?.toFixed(2)}
+                Total Amount: £{getOrders.totalAmount?.toFixed(2)}
               </h1>
 
               {/* Iterating over the items */}
@@ -62,10 +60,15 @@ const OrderDetails = ({ params }) => {
                       />
                     </div>
                     <div className="flex flex-col items-start w-[80%] pop-detail">
-                      <h2 className=" 2xl:text-[25px] 2xl:leading-[35px] xl:text-[16px] text-[16px] lg:text-[14px] leading-[20px] lg:leading-[18px] xl:leading-[20px] capitalize">{item.name}</h2>
-                      <p className="text-[14px] leading-[18px] lg:text-[16px] xl:leading-[20px] 2xl:text-[18px] lg:my-1">Quantity : {item.quantity}</p>
-                      <p className="text-[14px] leading-[18px] lg:text-[16px] xl:leading-[20px] 2xl:text-[18px] lg:my-1">Price : £
-                      {item.price?.toFixed(2)}</p>
+                      <h2 className=" 2xl:text-[25px] 2xl:leading-[35px] xl:text-[16px] text-[16px] lg:text-[14px] leading-[20px] lg:leading-[18px] xl:leading-[20px] capitalize">
+                        {item.name}
+                      </h2>
+                      <p className="text-[14px] leading-[18px] lg:text-[16px] xl:leading-[20px] 2xl:text-[18px] lg:my-1">
+                        Quantity : {item.quantity}
+                      </p>
+                      <p className="text-[14px] leading-[18px] lg:text-[16px] xl:leading-[20px] 2xl:text-[18px] lg:my-1">
+                        Price : £{item.price?.toFixed(2)}
+                      </p>
                     </div>
                   </div>
                 ))}
@@ -78,15 +81,33 @@ const OrderDetails = ({ params }) => {
                         <h2 className="font-semibold 2xl:text-[25px] xl:text-[16px] text-[16px]">
                           Delivery Information:
                         </h2>
-                        <p className="footer_text flex w-full">Phone : {info.phone}</p>
-                        <p className="footer_text flex w-full">House No : {info.houseNo}</p>
-                        <p className="footer_text flex w-full">Building : {info.buildingName}</p>
-                        <p className="footer_text flex w-full">Street : {info.streetName}</p>
-                        <p className="footer_text flex w-full">City : {info.City}</p>
-                        <p className="footer_text flex w-full">Country : {info.country}</p>
-                        <p className="footer_text flex w-full">First Name : {info.FirstName}</p>
-                        <p className="footer_text flex w-full">Last Name : {info.LastName}</p>
-                        <p className="footer_text flex w-full">Type of Address : {info.Type_of_Address}</p>
+                        <p className="footer_text flex w-full">
+                          Phone : {info.phone}
+                        </p>
+                        <p className="footer_text flex w-full">
+                          House No : {info.houseNo}
+                        </p>
+                        <p className="footer_text flex w-full">
+                          Building : {info.buildingName}
+                        </p>
+                        <p className="footer_text flex w-full">
+                          Street : {info.streetName}
+                        </p>
+                        <p className="footer_text flex w-full">
+                          City : {info.City}
+                        </p>
+                        <p className="footer_text flex w-full">
+                          Country : {info.country}
+                        </p>
+                        <p className="footer_text flex w-full">
+                          First Name : {info.FirstName}
+                        </p>
+                        <p className="footer_text flex w-full">
+                          Last Name : {info.LastName}
+                        </p>
+                        <p className="footer_text flex w-full">
+                          Type of Address : {info.Type_of_Address}
+                        </p>
                       </div>
                     ))}
                 </div>
@@ -96,7 +117,9 @@ const OrderDetails = ({ params }) => {
                   <h2 className="2xl:text-[25px] xl:text-[16px] text-[16px] font-semibold">
                     Order Details:
                   </h2>
-                  <p className="footer_text flex w-full">Status : {getOrders.status}</p>
+                  <p className="footer_text flex w-full">
+                    Status : {getOrders.status}
+                  </p>
                   <p className="footer_text flex w-full">
                     Order Date :{" "}
                     {new Date(getOrders.orderDate).toLocaleString()}
@@ -106,19 +129,26 @@ const OrderDetails = ({ params }) => {
                     {/* {new Date(getOrders.deliveryDate).toLocaleDateString()} */}
                     2-3 Working Days
                   </p>
-                  <p className="footer_text flex w-full">Promo Code : {getOrders.Promo_code}</p>
-                  <p className="footer_text flex w-full">Discount Applied : £{getOrders.discountApplied?.toFixed(2)}</p>
-                  <p className="footer_text flex w-full">Discount Percentage : {getOrders.DiscountPercentage}%</p>
-                  <p className="footer_text flex w-full">Shipping Charge : £{getOrders.shippingCharge?.toFixed(2)}</p>
+                  <p className="footer_text flex w-full">
+                    Promo Code : {getOrders.Promo_code}
+                  </p>
+                  <p className="footer_text flex w-full">
+                    Discount Applied : £{getOrders.discountApplied?.toFixed(2)}
+                  </p>
+                  <p className="footer_text flex w-full">
+                    Discount Percentage : {getOrders.DiscountPercentage}%
+                  </p>
+                  <p className="footer_text flex w-full">
+                    Shipping Charge : £{getOrders.shippingCharge?.toFixed(2)}
+                  </p>
                   <p className="footer_text flex w-full">
                     Total Before Discount : £
-
                     {getOrders.totalAmountBeforeDiscount?.toFixed(2)}
                   </p>
 
-                  <p className="footer_text flex w-full">Payment ID : {getOrders.payment}</p>
-                  <p className="footer_text flex w-full">Transaction ID : {getOrders.TransactionId}</p>
-                  
+                  <p className="footer_text flex w-full">
+                    Payment ID : {getOrders.payment}
+                  </p>
                 </div>
               </div>
             </div>
@@ -131,7 +161,6 @@ const OrderDetails = ({ params }) => {
 };
 
 export default OrderDetails;
-
 
 // {
 //   "totalOrders": 1,

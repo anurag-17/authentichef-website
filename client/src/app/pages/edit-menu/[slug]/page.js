@@ -82,7 +82,6 @@ const EditModal = ({ params }) => {
     const reader = new FileReader();
 
     reader.onloadend = () => {
-      console.log("Image data:", reader.result); // Log the image data
       setFormData({ ...formData, ProfileImage: reader.result });
     };
 
@@ -94,7 +93,6 @@ const EditModal = ({ params }) => {
   const handleProfileImageUpdate = (e) => {
     e.preventDefault();
     const profileImageInput = document.getElementById("profileImageInput");
-    console.log("Profile Image Input:", profileImageInput);
     if (profileImageInput) {
       profileImageInput.click();
     } else {
@@ -103,7 +101,6 @@ const EditModal = ({ params }) => {
   };
 
   const handleSubmit = async (e) => {
-    console.log("handleSubmit function called");
     e.preventDefault();
     setLoading(true);
 
@@ -174,7 +171,6 @@ const EditModal = ({ params }) => {
     axios
       .request(options)
       .then(function (response) {
-        console.log(response);
         if (response.status === 200) {
           setLoading(false);
           toast.success("Removed successfully !");
@@ -219,7 +215,6 @@ const EditModal = ({ params }) => {
   };
 
   const uploadImage = async () => {
-    console.log(formData);
     return;
 
     setImageUploading(true);
@@ -284,7 +279,6 @@ const EditModal = ({ params }) => {
 
     fetchDietaries();
   }, []);
-  console.log(dietaries);
 
   useEffect(() => {
     async function fetchSpiceLevels() {
