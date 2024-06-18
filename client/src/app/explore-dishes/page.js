@@ -975,7 +975,7 @@ const ExploreDishes = () => {
                     </form>
                     <div className=" flex flex-wrap gap-[20px]  2xl:w-[1602px] xl:w-[1050px] h-auto mx-[0px] optionDiv">
                       {/* ================= Cuisines =========== */}
-                      <button>
+                      <button onClick={handleRefresh}>
                         <div className="dropbox all_cuisines">
                           <Image
                             src={allCuisines}
