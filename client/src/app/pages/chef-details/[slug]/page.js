@@ -46,6 +46,7 @@ const ChefDetails = ({ params }) => {
   const [subtotalPrice, setSubtotalPrice] = useState(0);
   const [updatedCartItems, setUpdatedCartItems] = useState([]);
   const [shouldRefresh, setShouldRefresh] = useState(false);
+  const [cartId, setCartId] = useState("");
 
   const [loginDetails, setLoginDetails] = useState({
     email: "",
@@ -56,6 +57,7 @@ const ChefDetails = ({ params }) => {
     const { data } = item;
     console.log(data, `data from item ${index + 1}`);
   });
+
   const handleIncrement = (itemId) => {
     setGetCartItems((prevCartItems) => {
       const updatedCartItems = prevCartItems.map((item) =>
@@ -73,6 +75,30 @@ const ChefDetails = ({ params }) => {
 
     setShouldRefresh(true);
   };
+
+  const updateCartItemQuantity = async (cartId, menuId, quantity) => {
+    try {
+      const response = await axios.put(
+        `${config.baseURL}/api/Orders/updateItem/${menuId}`,
+        { quantity },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      if (response.status >= 200 && response.status < 300) {
+        console.log("Cart item updated successfully");
+      } else {
+        console.log("Failed to update cart item", response.data.message);
+      }
+    } catch (error) {
+      console.log("Error updating cart item:", error);
+    }
+  };
+
+
+
   const handleDecrement = (itemId) => {
     setGetCartItems((prevCartItems) => {
       const updatedCartItems = prevCartItems.map((item) =>
@@ -90,6 +116,7 @@ const ChefDetails = ({ params }) => {
 
     setShouldRefresh(true);
   };
+
   const refreshData = () => {
     setRefresh(!isRefresh);
   };
@@ -120,11 +147,10 @@ const ChefDetails = ({ params }) => {
       if (response.status >= 200 && response.status < 300) {
         toast.success("Item Removed From Cart");
 
-
         setGetCartItems((prevCartItems) =>
           prevCartItems.filter((item) => item.menuItem._id !== itemId)
         );
-        setShouldRefresh(true); 
+        setShouldRefresh(true);
         alert("Failed to remove item");
       }
     } catch (error) {
@@ -356,6 +382,24 @@ const ChefDetails = ({ params }) => {
     dispatch(removeItemFromCart(id));
     toast.success("Item Removed From Cart");
   };
+
+
+  useEffect(() => {
+    if (shouldRefresh) {
+      getCartItems.forEach((item) => {
+        updateCartItemQuantity(cartId, item.menuItem._id, item.quantity);
+      });
+
+      // Recalculate the subtotal price after updating quantities
+      const newSubtotalPrice = getCartItems.reduce(
+        (sum, item) => sum + item.totalPrice,
+        0
+      );
+      setSubtotalPrice(newSubtotalPrice);
+
+      setShouldRefresh(false);
+    }
+  }, [shouldRefresh, cartId, getCartItems]);
   return (
     <>
       <ToastContainer autoClose={1000} />
