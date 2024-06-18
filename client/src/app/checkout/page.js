@@ -108,7 +108,9 @@ const Checkout = () => {
   const handlePaymentMethodChange = (e) => setPaymentMethod(e.target.value);
 
   useEffect(() => {
-    if (subtotalPrice < 30) {
+    const hasClosedModal = localStorage.getItem('hasClosedModal');
+
+    if (subtotalPrice < 30 && !hasClosedModal) {
       setIsModalOpen(true);
     } else {
       setIsModalOpen(false);
@@ -117,6 +119,7 @@ const Checkout = () => {
 
   const closeModal = () => {
     setIsModalOpen(false);
+    localStorage.setItem('hasClosedModal', 'true');
   };
   const refreshData = () => {
     setRefresh(!isRefresh);
