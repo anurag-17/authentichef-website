@@ -61,6 +61,7 @@ const ExploreDishes = () => {
   const [dishID, setDishID] = useState("");
   const closeModal = () => setOpen(false);
   const [getADish, setGetADish] = useState("");
+  const [getAllDish, setGetAllDish] = useState("");
 
   const dispatch = useDispatch();
   const [updatedCartItems, setUpdatedCartItems] = useState([]);
@@ -71,6 +72,7 @@ const ExploreDishes = () => {
   const [shouldRefresh, setShouldRefresh] = useState(false);
   const [subtotalPrice, setSubtotalPrice] = useState(0);
   const [isLoading, setLoading] = useState(false);
+  const [isRefresh, setRefresh] = useState(false);
 
   // const price = item?.price?.toFixed(2);
 
@@ -78,7 +80,6 @@ const ExploreDishes = () => {
 
   cart.forEach((item, index) => {
     const { data } = item;
-    console.log(data, `data from item ${index + 1}`);
   });
 
   const handleRemoveItem = async (itemId) => {
@@ -201,13 +202,11 @@ const ExploreDishes = () => {
     defaultDishtype();
     defaultDish();
     defaultSpicelevel();
-  }, []);
+  }, [!isRefresh]);
 
   // ========= Get All Dish  =============
 
-  const [getAllDish, setGetAllDish] = useState("");
-
-  const defaultDish = (newState) => {
+  const defaultDish = () => {
     setLoading(true);
     const option = {
       method: "GET",
@@ -222,7 +221,6 @@ const ExploreDishes = () => {
     axios
       .request(option)
       .then((response) => {
-        setRefresh(newState);
         setGetAllDish(response?.data?.menuItems);
         setLoading(false);
       })
@@ -232,7 +230,6 @@ const ExploreDishes = () => {
   };
 
   // ========= Search Dish  =============
-  const [isRefresh, setRefresh] = useState(false);
 
   const refreshData = () => {
     setRefresh(!isRefresh);
@@ -513,9 +510,7 @@ const ExploreDishes = () => {
 
   useEffect(() => {
     const ids = cart.map((item) => item?.data?._id);
-    // console.log(cart, "item");
     setItemId(ids);
-    console.log(ids, "ids");
   }, []);
   const [itemId, setItemId] = useState([]);
   const saveCartToLocalStorage = (cart) => {
@@ -670,7 +665,6 @@ const ExploreDishes = () => {
           ...item,
           totalPrice: item.menuItem.price * item.quantity,
         }));
-        console.log("User cart is -------------->>>>>>>>>>>>>", userCart._id);
         setGetCartItems(cartItems);
         setUpdatedCartItems(cartItems); // Initializing updatedCartItems with fetched data
         setSubtotalPrice(
@@ -771,7 +765,6 @@ const ExploreDishes = () => {
   }, [shouldRefresh, cartId, getCartItems]);
 
   useEffect(() => {
-    console.log("Updated Cart Items:", updatedCartItems);
   }, [updatedCartItems]);
 
   const handleQuantityIncrement = (id) => {
@@ -802,7 +795,6 @@ const ExploreDishes = () => {
       .request(option)
       .then((response) => {
         setTestimonials(response?.data);
-        console.log(response?.data, "testi");
       })
       .catch((error) => {
         console.log(error, "Error");
@@ -812,7 +804,9 @@ const ExploreDishes = () => {
   useEffect(() => {
     setUpdatedCart(cart);
   }, [cart]);
-
+  const handleRefresh = () => {
+    window.location.reload();
+  };
   return (
     <>
       <ToastContainer className="mt-24" autoClose={1000} />
@@ -906,7 +900,7 @@ const ExploreDishes = () => {
                   {/* =================Cuisines========================== */}
 
                   <button
-                    onClick={defaultDish}
+                    onClick={handleRefresh}
                     className=" w-auto px-2 bt-1 alata font-[400] 2xl:text-[16px] 2xl:w-[153px] third_select flex justify-center items-center gap-3 md:text-[12px] sm:text-[12px] md:pl-2 sm:pl-2 "
                   >
                     <svg
@@ -1290,7 +1284,6 @@ const ExploreDishes = () => {
                     key={item.id}
                     className=" mt-5 2xl:w-[371px] 2xl:h-[560px] lg:w-[23%] sm:w-[45%] md:w-[48%] w-full relative rounded-[9.8px] mexploreD  "
                   >
-                    {console.log("ssss", item?.chef_id?.images)}
                     <div className="w-full flex justify-center">
                       <button
                         className="w-full"
@@ -1408,7 +1401,7 @@ const ExploreDishes = () => {
                             </button>
                           ) : (
                             <div className="text-red-500 font-[500] text-[22px]">
-                            out of stock
+                              out of stock
                             </div>
                           )
                         ) : (
