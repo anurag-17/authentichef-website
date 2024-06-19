@@ -49,8 +49,7 @@ const Navbar = () => {
     firstname: "",
     lastname: "",
     email: "",
-    password: "",
-    role: "",
+    password: ""
   });
   const router = useRouter();
   const { token } = useSelector((state) => state?.auth);
@@ -187,12 +186,10 @@ const Navbar = () => {
       !userDetail.firstname &&
       !userDetail.lastname &&
       !userDetail.email &&
-      !userDetail.password &&
-      !userDetail.role;
+      !userDetail.password
+      // !userDetail.role;
 
     if (isUserDetailEmpty) {
-      // The userDetail object is empty, likely due to Google OAuth sign-up
-      // You can optionally log a message or return early
       console.log("Google OAuth sign-up detected, skipping form registration.");
       return;
     }
