@@ -49,7 +49,7 @@ const Navbar = () => {
     firstname: "",
     lastname: "",
     email: "",
-    password: ""
+    password: "",
   });
   const router = useRouter();
   const { token } = useSelector((state) => state?.auth);
@@ -186,8 +186,8 @@ const Navbar = () => {
       !userDetail.firstname &&
       !userDetail.lastname &&
       !userDetail.email &&
-      !userDetail.password
-      // !userDetail.role;
+      !userDetail.password;
+    // !userDetail.role;
 
     if (isUserDetailEmpty) {
       console.log("Google OAuth sign-up detected, skipping form registration.");
@@ -273,7 +273,14 @@ const Navbar = () => {
         window.location.reload();
         refreshData();
       } else {
-        toast.error("Logout failed");
+        toast.success("Logout successfully");
+        dispatch(removeToken());
+        dispatch(removeUser());
+        dispatch(removeSuccess());
+        router.push("/explore-dishes");
+        setIsLoggedIn(false);
+        window.location.reload();
+        refreshData();
       }
     } catch (error) {
       console.error("Error logging out:", error);
@@ -1153,7 +1160,7 @@ const Navbar = () => {
                   />
                 </svg>
               </div>
-              <h4 className="fourth_p">Sign Up</h4>
+              <h4 className="login">Sign Up</h4>
             </div>
             <div className=" my-3 ">
               <div className="flex flex-wrap justify-between 2xl:w-[775px] xl:w-[480px] mx-auto w-full">
@@ -1253,7 +1260,7 @@ const Navbar = () => {
                 </button>
               </div>
               <div>
-                <p className="alata font-[400] 2xl:my-[20px] xl:my-[10px] text-[14px] leading-[26px] text-center">
+                <p className="fourth_p 2xl:my-[20px] xl:my-[10px] text-center">
                   or
                 </p>
               </div>
@@ -1263,7 +1270,7 @@ const Navbar = () => {
                 }}
                 className="nav_login1"
               >
-                <p className="text-[#DB5353] alata font-[400] text-[14px] leading-[26px] text-center mx-auto">
+                <p className="text-[#DB5353] alata font-[400] text-[12px] xl:text-[14px] 2xl:text-[18px] leading-[26px] text-center mx-auto">
                   Log in
                 </p>
               </p>
@@ -1341,7 +1348,7 @@ const Navbar = () => {
                     />
                   </svg>
                 </div>
-                <h4 className="fourth_p">Login</h4>
+                <h4 className="login">Log In</h4>
               </div>
               <div className="2xl:w-[368px] xl:w-[280px] lg:w-[320px] w-full mx-auto">
                 <div className="2xl:mt-[35px] mt-[25px]">
@@ -1349,7 +1356,7 @@ const Navbar = () => {
                     type="email"
                     name="email"
                     onChange={InputHandler}
-                    placeholder="Enter your mail"
+                    placeholder="Enter your Email"
                     className="alata font-[400] login-inputad w-full h-[40px]"
                     pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     title="enter valid email ex. abc@gmail.com"
@@ -1365,7 +1372,6 @@ const Navbar = () => {
                         2xl:right-7 2xl:top-[30px] xl:right-5 xl:top-[20px] lg:right-5 lg:top-[20px] top-[20px] right-5 "
                     onClick={handleToggle}
                   >
-                  
                     {showPassword ? (
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -1426,7 +1432,7 @@ const Navbar = () => {
                   </button>
                 </div>
                 <div>
-                  <p className="alata font-[400] 2xl:mt-[20px] xl:mt-[10px] text-[14px] leading-[26px] text-center">
+                  <p className="fourth_p 2xl:mt-[20px] xl:mt-[10px] text-center">
                     or
                   </p>
                 </div>
@@ -1441,11 +1447,11 @@ const Navbar = () => {
               }}
               className="nav_login1"
             >
-              <h4 className="text-[#DB5353] alata font-[400] text-[14px] leading-[26px] text-center mx-auto">
+                            <p className="text-[#DB5353] alata font-[400] text-[12px] xl:text-[14px] 2xl:text-[18px] leading-[26px] text-center mx-auto">
+
                 Sign Up
-              </h4>
+              </p>
             </button>
-            
           </div>
           <div className="social_div social_btn h-[40px] gap-3 sm:w-[50%] mx-auto 2xl:w-[368px] xl:w-[230px]  ">
             <Image className="social_img " src={googlee} />

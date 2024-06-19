@@ -383,8 +383,11 @@ td {
 }
 
 .footer_heading {
-  @apply poppins font-[600] text-[#111111] 2xl:text-[18px] 2xl:leading-[27px] 2xl:mb-5 xl:mb-5 xl:text-[14px] xl:leading-[23px] lg:text-[12px] lg:leading-[18px] lg:mb-2 text-[14px] leading-[18px] mb-1;
+  @apply poppins font-[600] text-[#111111] 2xl:text-[18px] 2xl:leading-[27px] 2xl:mb-5 xl:mb-5 xl:text-[14px] xl:leading-[23px] lg:text-[12px] lg:leading-[18px] lg:mb-2 text-[14px] leading-[18px] mb-1 ;
 
+}
+.login{
+  @apply poppins font-[600] text-center 2xl:text-[25px] 2xl:leading-[27px] xl:text-[16px] xl:leading-[23px] lg:text-[14px] lg:leading-[18px] text-[14px] leading-[18px] mt-2 lg:mt-0;
 }
 
 .footer_text_b {
@@ -716,13 +719,13 @@ td {
 
 @media (min-width: 1536px) and (max-width: 1800px) {
   .signup {
-    height: 85% !important;
+    height: 70% !important;
     margin-top: 80px !important;
 
   }
 
   .loginpop {
-    height: 75% !important;
+    height: 62% !important;
     margin-top: 80px !important;
 
   }
