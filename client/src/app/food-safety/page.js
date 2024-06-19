@@ -44,7 +44,7 @@ const FoodSefty = () => {
                 order to sell their dishes on authentichef.
               </h2>
             </div>
-            <div className="2xl:mt-[65px] xl:mt-[40px] mt-[20px] flex flex-wrap flex-row justify-between 2xl:w-[1600px] xl:w-[1100px] lg:w-[850px] md:w-[100%] sm:w-[95%] w-[90%] mx-auto">
+            <div className="2xl:mt-[65px] xl:mt-[40px] mt-[20px] flex md:flex-wrap xs:flex-wrap sm:flex-wrap 2xl:flex-nowrap flex-row justify-between 2xl:w-[100%] xl:w-[1100px] lg:w-[850px] md:w-[100%] sm:w-[95%] w-[90%] mx-auto">
               {/* First item */}
               <div className="2xl:w-[364px] xl:w-[270px] lg:w-[180px] md:w-[150px] my-3 md:my-0 w-[45%]   ">
                 <Image
