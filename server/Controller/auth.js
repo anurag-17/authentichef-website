@@ -8,6 +8,7 @@ const uploadOnS3 = require("../Utils/uploadImage");
 const Chef = require("../Model/Chef");
 const crypto = require("crypto");
 const Order=require("../Model/order")
+const mongoose =require('mongoose')
 
 exports.uploadImage = async (req, res, next) => {
   try {
@@ -683,5 +684,33 @@ exports.updatePassword = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Password change failed" });
+  }
+};
+
+
+
+// Delelte Muliple Users
+
+exports.MultipleDelete = async (req, res, next) => {
+  try {
+      const { ids } = req.body;
+
+      if (!ids || !Array.isArray(ids) || ids.length === 0) {
+          return res.status(400).json({ message: 'No IDs provided or IDs is not an array' });
+      }
+
+      if (ids.some(id => !mongoose.Types.ObjectId.isValid(id))) {
+          return res.status(400).json({ message: 'Invalid ID(s) provided' });
+      }
+
+      // Delete orders with the provided IDs
+      const result = await User.deleteMany({ _id: { $in: ids } });
+
+      res.status(200).json({
+          message: 'Users deleted successfully',
+          deletedCount: result.deletedCount
+      });
+  } catch (error) {
+      next(error);
   }
 };

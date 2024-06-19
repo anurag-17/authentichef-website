@@ -18,7 +18,8 @@ const {
   updatedUser,
   updatePassword,
   uploadImage,
-  verifyUser
+  verifyUser,
+  MultipleDelete
 } = require("../Controller/auth");
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
 const storage = multer.memoryStorage();
@@ -105,5 +106,7 @@ router.route("/forgotpassword").post(forgotPassword);
 router.route("/resetpassword/:resetToken").put(resetPassword);
 
 router.route("/uploadImage").post(isAuthenticatedUser, authorizeRoles("admin"), upload.single('file'),uploadImage)
+
+router.delete("/MultipleUsers" , isAuthenticatedUser, authorizeRoles("admin")  , MultipleDelete)
 
 module.exports = router;

@@ -13,7 +13,6 @@ const Coupon = require("../Model/Coupon");
 const User = require("../Model/User")
 const sessionData = require("../Model/session")
 const{createShipment}=require("./ShiptheoryController")
-const mongoose = require("mongoose")
 require('dotenv').config(); // Import dotenv to use environment variables
 
 // Define your email credentials and configuration
@@ -1619,29 +1618,7 @@ exports.AllOrderList = async (req, res, next) => {
 
 // I have to delete the Multiple Orders //
 
-exports.MultipleDelete = async (req, res, next) => {
-    try {
-        const { ids } = req.body;
 
-        if (!ids || !Array.isArray(ids) || ids.length === 0) {
-            return res.status(400).json({ message: 'No IDs provided or IDs is not an array' });
-        }
-
-        if (ids.some(id => !mongoose.Types.ObjectId.isValid(id))) {
-            return res.status(400).json({ message: 'Invalid ID(s) provided' });
-        }
-
-        // Delete orders with the provided IDs
-        const result = await Order.deleteMany({ _id: { $in: ids } });
-
-        res.status(200).json({
-            message: 'Orders deleted successfully',
-            deletedCount: result.deletedCount
-        });
-    } catch (error) {
-        next(error);
-    }
-};
 
 
 // Get Order By Id
