@@ -1,6 +1,6 @@
 const express=require('express')
 const { isAuthenticatedUser,isAuthenticatedUserForAddtocard,authorizeRoles} = require('../middleware/auth')
-const {PlaceOrder,OrderList,getOrderById,UpdateOrder,DeleteOrder,  getChefAndOrderCounts , AllOrderList ,checkDiscount,BookOrder,CancelOrder,GetSessionId ,CreateCouponStripe  } = require("../Controller/order")
+const {PlaceOrder,OrderList,getOrderById,UpdateOrder,DeleteOrder,  getChefAndOrderCounts , AllOrderList ,checkDiscount,BookOrder,CancelOrder,GetSessionId ,CreateCouponStripe,MultipleDelete } = require("../Controller/order")
 const {getAllShipment,ShipmentPdf}=require("../Controller/ShiptheoryController")
 const {handleWebhook}=require("../Controller/handlehookcontroller")
 const router=express.Router()
@@ -25,6 +25,7 @@ router.get("/checkDiscount", isAuthenticatedUser, checkDiscount)
 router.post("/cancelOrder", isAuthenticatedUser, CancelOrder)
 router.get("/", isAuthenticatedUser, getAllShipment)
 router.post("/shipmentPdf", ShipmentPdf)
+router.delete("/multipleDelete", isAuthenticatedUser, authorizeRoles("admin"), MultipleDelete)
 
 router.get("/getSessionId", isAuthenticatedUser, GetSessionId)
 
