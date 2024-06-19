@@ -51,7 +51,7 @@ const GlobalCusines = () => {
             </div>
           </div>
 
-          <div className="custom_container flex justify-between mx-auto 2xl:mb-[80px] xl:mb-[50px] mb-[90px] mnavbar">
+          <div className="custom_container flex justify-between mx-auto 2xl:mb-[80px] xl:mb-[50px] mb-[90px]">
             <div className="custom_container">
               <div className="text-center mt-[160px] 2xl:mt-[250px] xl:mt-[160px] lg:mt-[140px] md:mt-[140px] sm:mt-[50px]">
                 <h4 className="globalhead2">Popular Cuisines</h4>
