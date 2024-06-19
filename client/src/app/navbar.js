@@ -627,7 +627,6 @@ const Navbar = () => {
   }, [cart]);
   return (
     <>
-      {token ? window.location.reload() : ""}
       <section>
         <nav className="z-50 flex justify-center bg-[#F38181] 2xl:h-[116px] xl:h-[80px] lg:h-[50px] sm:h-[45px] h-12 w-full mnavbar-h fixed">
           <div className="custom_container flex justify-between items-center mnavbar">
