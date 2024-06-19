@@ -627,6 +627,7 @@ const Navbar = () => {
   }, [cart]);
   return (
     <>
+      {token ? window.location.reload() : ""}
       <section>
         <nav className="z-50 flex justify-center bg-[#F38181] 2xl:h-[116px] xl:h-[80px] lg:h-[50px] sm:h-[45px] h-12 w-full mnavbar-h fixed">
           <div className="custom_container flex justify-between items-center mnavbar">
@@ -1447,8 +1448,7 @@ const Navbar = () => {
               }}
               className="nav_login1"
             >
-                            <p className="text-[#DB5353] alata font-[400] text-[12px] xl:text-[14px] 2xl:text-[18px] leading-[26px] text-center mx-auto">
-
+              <p className="text-[#DB5353] alata font-[400] text-[12px] xl:text-[14px] 2xl:text-[18px] leading-[26px] text-center mx-auto">
                 Sign Up
               </p>
             </button>
