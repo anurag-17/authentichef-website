@@ -283,8 +283,14 @@ const Navbar = () => {
         refreshData();
       }
     } catch (error) {
-      console.error("Error logging out:", error);
-      toast.error("Logout failed");
+      toast.success("Logout successfully");
+      dispatch(removeToken());
+      dispatch(removeUser());
+      dispatch(removeSuccess());
+      router.push("/explore-dishes");
+      setIsLoggedIn(false);
+      window.location.reload();
+      refreshData();
     }
   };
 

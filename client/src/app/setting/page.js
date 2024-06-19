@@ -90,9 +90,14 @@ const Setting = () => {
         refreshData();
       }
     } catch (error) {
-      console.error("Error logging out:", error);
-      toast.error("Logout failed");
-      router.push("/explore-dishes");
+      toast.success("Logout successfully");
+        router.push("/explore-dishes");
+        setTimeout(() => {
+          dispatch(removeToken());
+          dispatch(removeUser());
+          dispatch(removeSuccess());
+        }, 1000);
+        refreshData();
     }
   };
 
