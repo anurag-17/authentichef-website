@@ -61,6 +61,7 @@ const ExploreDishes = () => {
   const [dishID, setDishID] = useState("");
   const closeModal = () => setOpen(false);
   const [getADish, setGetADish] = useState("");
+  const [getAllDish, setGetAllDish] = useState("");
 
   const dispatch = useDispatch();
   const [updatedCartItems, setUpdatedCartItems] = useState([]);
@@ -71,6 +72,7 @@ const ExploreDishes = () => {
   const [shouldRefresh, setShouldRefresh] = useState(false);
   const [subtotalPrice, setSubtotalPrice] = useState(0);
   const [isLoading, setLoading] = useState(false);
+  const [isRefresh, setRefresh] = useState(false);
 
   // const price = item?.price?.toFixed(2);
 
@@ -78,7 +80,6 @@ const ExploreDishes = () => {
 
   cart.forEach((item, index) => {
     const { data } = item;
-    console.log(data, `data from item ${index + 1}`);
   });
 
   const handleRemoveItem = async (itemId) => {
@@ -201,13 +202,11 @@ const ExploreDishes = () => {
     defaultDishtype();
     defaultDish();
     defaultSpicelevel();
-  }, []);
+  }, [!isRefresh]);
 
   // ========= Get All Dish  =============
 
-  const [getAllDish, setGetAllDish] = useState("");
-
-  const defaultDish = (newState) => {
+  const defaultDish = () => {
     setLoading(true);
     const option = {
       method: "GET",
@@ -222,7 +221,6 @@ const ExploreDishes = () => {
     axios
       .request(option)
       .then((response) => {
-        setRefresh(newState);
         setGetAllDish(response?.data?.menuItems);
         setLoading(false);
       })
@@ -232,7 +230,6 @@ const ExploreDishes = () => {
   };
 
   // ========= Search Dish  =============
-  const [isRefresh, setRefresh] = useState(false);
 
   const refreshData = () => {
     setRefresh(!isRefresh);
@@ -513,9 +510,7 @@ const ExploreDishes = () => {
 
   useEffect(() => {
     const ids = cart.map((item) => item?.data?._id);
-    // console.log(cart, "item");
     setItemId(ids);
-    console.log(ids, "ids");
   }, []);
   const [itemId, setItemId] = useState([]);
   const saveCartToLocalStorage = (cart) => {
@@ -670,9 +665,8 @@ const ExploreDishes = () => {
           ...item,
           totalPrice: item.menuItem.price * item.quantity,
         }));
-        console.log("User cart is -------------->>>>>>>>>>>>>", userCart._id);
         setGetCartItems(cartItems);
-        setUpdatedCartItems(cartItems); // Initializing updatedCartItems with fetched data
+        setUpdatedCartItems(cartItems);
         setSubtotalPrice(
           cartItems.reduce((sum, item) => sum + item.totalPrice, 0)
         );
@@ -770,9 +764,7 @@ const ExploreDishes = () => {
     }
   }, [shouldRefresh, cartId, getCartItems]);
 
-  useEffect(() => {
-    console.log("Updated Cart Items:", updatedCartItems);
-  }, [updatedCartItems]);
+  useEffect(() => {}, [updatedCartItems]);
 
   const handleQuantityIncrement = (id) => {
     dispatch(incrementCartItemQuantity(id));
@@ -802,7 +794,6 @@ const ExploreDishes = () => {
       .request(option)
       .then((response) => {
         setTestimonials(response?.data);
-        console.log(response?.data, "testi");
       })
       .catch((error) => {
         console.log(error, "Error");
@@ -812,7 +803,9 @@ const ExploreDishes = () => {
   useEffect(() => {
     setUpdatedCart(cart);
   }, [cart]);
-
+  const handleRefresh = () => {
+    window.location.reload();
+  };
   return (
     <>
       <ToastContainer className="mt-24" autoClose={1000} />
@@ -906,7 +899,7 @@ const ExploreDishes = () => {
                   {/* =================Cuisines========================== */}
 
                   <button
-                    onClick={defaultDish}
+                    onClick={handleRefresh}
                     className=" w-auto px-2 bt-1 alata font-[400] 2xl:text-[16px] 2xl:w-[153px] third_select flex justify-center items-center gap-3 md:text-[12px] sm:text-[12px] md:pl-2 sm:pl-2 "
                   >
                     <svg
@@ -961,7 +954,7 @@ const ExploreDishes = () => {
                         onClick={() =>
                           document.getElementById("my_modal_3").close()
                         }
-                        className="absolute 2xl:top-2 2xl:right-4 xl:top-2 xl:right-2 xl:w-6 2xl:w-auto"
+                        className="absolute 2xl:top-2 2xl:right-1 xl:top-2 xl:right-2 xl:w-6 2xl:w-auto"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -981,7 +974,7 @@ const ExploreDishes = () => {
                     </form>
                     <div className=" flex flex-wrap gap-[20px]  2xl:w-[1602px] xl:w-[1050px] h-auto mx-[0px] optionDiv">
                       {/* ================= Cuisines =========== */}
-                      <button>
+                      <button onClick={handleRefresh}>
                         <div className="dropbox all_cuisines">
                           <Image
                             src={allCuisines}
@@ -1044,7 +1037,7 @@ const ExploreDishes = () => {
                         onClick={() =>
                           document.getElementById("my_modal_4").close()
                         }
-                        className="absolute 2xl:top-2 2xl:right-4 xl:top-2 xl:right-2 xl:w-6 2xl:w-auto"
+                        className="absolute 2xl:top-2 2xl:right-1 xl:top-2 xl:right-2 xl:w-6 2xl:w-auto"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -1130,7 +1123,7 @@ const ExploreDishes = () => {
                         onClick={() =>
                           document.getElementById("my_modal_5").close()
                         }
-                        className="absolute 2xl:top-2 2xl:right-4 xl:top-2 xl:right-2 xl:w-6 2xl:w-auto"
+                        className="absolute 2xl:top-2 2xl:right-1 xl:top-2 xl:right-2 xl:w-6 2xl:w-auto"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -1152,7 +1145,7 @@ const ExploreDishes = () => {
                       {/* ================= Dish Type =========== */}
 
                       <div className="flex justify-around 2xl:w-[1602px] w-full h-auto mx-auto">
-                        <div>
+                        <div className="w-[50%]">
                           <h4 className="alata font-[400] 2xl:text-[20px] xl:text-[14px] lg:text-[10px] sm:text-[] text-[] my-1 2xl:my-2 ">
                             Dish Type
                           </h4>
@@ -1185,8 +1178,8 @@ const ExploreDishes = () => {
                               ))}
                           </div>
                         </div>
-                        <div>
-                          <h4 className="alata font-[400] 2xl:text-[20px] xl:text-[14px] lg:text-[10px] sm:text-[] text-[] my-1 2xl:my-2 ">
+                        <div className="w-[46%]">
+                          <h4 className="alata font-[400] 2xl:text-[20px] xl:text-[14px] lg:text-[10px] sm:text-[] text-[] my-1 2xl:my-2 max-w-[95%]">
                             Spice Level
                           </h4>
                           <div className=" flex flex-wrap gap-[20px] ">
@@ -1290,7 +1283,6 @@ const ExploreDishes = () => {
                     key={item.id}
                     className=" mt-5 2xl:w-[371px] 2xl:h-[560px] lg:w-[23%] sm:w-[45%] md:w-[48%] w-full relative rounded-[9.8px] mexploreD  "
                   >
-                    {console.log("ssss", item?.chef_id?.images)}
                     <div className="w-full flex justify-center">
                       <button
                         className="w-full"
@@ -1408,7 +1400,7 @@ const ExploreDishes = () => {
                             </button>
                           ) : (
                             <div className="text-red-500 font-[500] text-[22px]">
-                            out of stock
+                              out of stock
                             </div>
                           )
                         ) : (
@@ -1559,7 +1551,7 @@ const ExploreDishes = () => {
           ></label>
           <ul className="min-h-full text-base-content max-w-[310px] sm:max-w-[350px] md:w-[400px] md:max-w-[400px] 2xl:w-[450px] 2xl:max-w-[450px] bg-white">
             <div className="flex flex-col justify-center items-center p-[15px] md:p-[20px] h-[100vh]">
-              {!cart || getCartItems.length === 0 ? (
+              {!cart || !getCartItems || getCartItems.length === 0 ? (
                 <div className="flex flex-col justify-center items-center">
                   <h4 className="alata font-[400] text-[#111] text-[24px] mb-[1rem]">
                     Your Basket is empty!

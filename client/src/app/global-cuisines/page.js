@@ -51,14 +51,14 @@ const GlobalCusines = () => {
             </div>
           </div>
 
-          <div className="custom_container flex justify-between mx-auto 2xl:mb-[80px] xl:mb-[50px] mb-[90px] mnavbar">
+          <div className="custom_container flex justify-between mx-auto 2xl:mb-[80px] xl:mb-[50px] mb-[90px]">
             <div className="custom_container">
               <div className="text-center mt-[160px] 2xl:mt-[250px] xl:mt-[160px] lg:mt-[140px] md:mt-[140px] sm:mt-[50px]">
                 <h4 className="globalhead2">Popular Cuisines</h4>
-                <div className="flex justify-center mt-[10px] xl:mt-[40px] lg:mt-[30px] md:mt-[30px] sm:mt-[30px] xs:flex-col xs:items-center">
-                  <div className=" flex w-full md:flex-none md:w-[49%] ">
-                    <div className="lg:w-[320px] 2xl:w-[500px] md:w-[230px] sm:w-[20%] xs:w-full my-3 md:my-0">
-                      <div className="text-center border-e-[2px] 2xl:w-[400px] xl:pr-[0px] pr-[0px]">
+                <div className="md:flex justify-center mt-[10px] xl:mt-[40px] lg:mt-[30px] md:mt-[30px] sm:mt-[30px]">
+                  <div className=" flex w-full md:flex-none md:w-[49%] sm:w-[100%] ">
+                    <div className="lg:w-[320px] 2xl:w-[500px] md:w-[230px] sm:w-[50%] xs:w-full my-3 md:my-0">
+                      <div className="text-center border-e-[2px] 2xl:w-[400px] xl:px-[0px] px-[0px] mr-0">
                         <h4 className="global_h">Asian Cuisine</h4>
                         <p className="globaltext 2xl:mt-[30px] xl:mt-[20px] mt-[10px]">
                           Chinese Cuisine
@@ -68,8 +68,8 @@ const GlobalCusines = () => {
                         <p className="globaltext">Japanese Cuisine</p>
                       </div>
                     </div>
-                    <div className="lg:w-[320px] 2xl:w-[500px] md:w-[230px] sm:w-[20%] xs:w-full my-3 md:my-0">
-                      <div className="text-center border-e-[2px] 2xl:w-[400px] xl:px-[0px] px-[0px]">
+                    <div className="lg:w-[320px] 2xl:w-[500px] md:w-[230px] sm:w-[50%] xs:w-full my-3 md:my-0">
+                      <div className="text-center md:border-e-[2px] 2xl:w-[400px] xl:px-[0px] px-[0px] mr-0">
                         <h4 className="global_h">European Cuisine</h4>
                         <p className="globaltext 2xl:mt-[30px] xl:mt-[20px] mt-[10px]">
                           Italian Cuisine
@@ -80,8 +80,8 @@ const GlobalCusines = () => {
                       </div>
                     </div>
                   </div>
-                  <div className=" flex w-full md:flex-none md:w-[49%] ">
-                    <div className="lg:w-[320px] md:w-[230px] 2xl:w-[500px] sm:w-[20%] xs:w-full my-3 md:my-0">
+                  <div className=" flex w-full md:flex-none md:w-[49%] sm:w-[100%] ">
+                    <div className="lg:w-[320px] md:w-[230px] 2xl:w-[500px] sm:w-[50%] xs:w-full my-3 md:my-0">
                       <div className="text-center border-e-[2px] 2xl:w-[400px] xl:px-[0px] px-[0px] mr-0">
                         <h4 className="global_h">South-East Asian Cuisine</h4>
                         <p className="globaltext 2xl:mt-[30px] xl:mt-[20px] mt-[10px]">
@@ -92,7 +92,7 @@ const GlobalCusines = () => {
                         <p className="globaltext">Sri Lankan Cuisine </p>
                       </div>
                     </div>
-                    <div class="lg:w-[320px] md:w-[230px] 2xl:w-[500px] sm:w-[20%] xs:w-full my-3 md:my-0">
+                    <div class="lg:w-[320px] md:w-[230px] 2xl:w-[500px] sm:w-[50%] xs:w-full my-3 md:my-0">
                       <div class="text-center 2xl:w-[400px] xl:pl-[0px] pl-[0px]">
                         <h4 class="global_h">Middle Eastern Cuisine</h4>
                         <p class="globaltext 2xl:mt-[30px] xl:mt-[20px] mt-[10px]">
@@ -108,9 +108,9 @@ const GlobalCusines = () => {
               </div>
               <div className="text-center mt-[10px] xl:mt-[40px] lg:mt-[30px] md:mt-[30px] sm:mt-[50px]">
                 <h4 className="globalhead2">Popular Dishes</h4>
-                <div className="flex justify-center mt-[10px] xl:mt-[40px] lg:mt-[30px] md:mt-[20px] sm:mt-[30px]  xs:flex-col xs:items-center">
-                  <div className=" flex w-full md:flex-none md:w-[49%] ">
-                    <div className="lg:w-[320px] md:w-[230px] 2xl:w-[500px] sm:w-[20%] xs:w-full my-3 md:my-0">
+                <div className="md:flex justify-center mt-[10px] xl:mt-[40px] lg:mt-[30px] md:mt-[30px] sm:mt-[30px]">
+                  <div className=" flex w-full md:flex-none md:w-[49%] sm:w-[100%] ">
+                    <div className="lg:w-[320px] md:w-[230px] 2xl:w-[500px] sm:w-[50%] xs:w-full my-3 md:my-0">
                       <div className="text-center border-e-[2px] 2xl:w-[400px] xl:pr-[0px] pr-[0px]">
                         <h4 className="global_h">Best Family Dishes</h4>
                         <p className="globaltext 2xl:mt-[30px] xl:mt-[20px] mt-[10px]">
@@ -120,8 +120,8 @@ const GlobalCusines = () => {
                         <p className="globaltext">Dum Aloo </p>
                       </div>
                     </div>
-                    <div className="lg:w-[320px] md:w-[230px] 2xl:w-[500px] sm:w-[20%] xs:w-full my-3 md:my-0">
-                      <div className="text-center border-e-[2px] 2xl:w-[400px] xl:px-[0px] px-[0px]">
+                    <div className="lg:w-[320px] md:w-[230px] 2xl:w-[500px] sm:w-[50%] xs:w-full my-3 md:my-0">
+                      <div className="text-center md:border-e-[2px] 2xl:w-[400px] xl:px-[0px] px-[0px]">
                         <h4 className="global_h">Most Popular</h4>
                         <p className="globaltext 2xl:mt-[30px] xl:mt-[20px] mt-[10px]">
                           Dhaba Style Chicken
@@ -131,8 +131,8 @@ const GlobalCusines = () => {
                       </div>
                     </div>
                   </div>
-                  <div className=" flex w-full md:flex-none md:w-[49%] ">
-                    <div className="lg:w-[320px] md:w-[230px] 2xl:w-[500px] sm:w-[20%] xs:w-full my-3 md:my-0">
+                  <div className=" flex w-full md:flex-none md:w-[49%] sm:w-[100%] ">
+                    <div className="lg:w-[320px] md:w-[230px] 2xl:w-[500px] sm:w-[50%] xs:w-full my-3 md:my-0">
                       <div className="text-center border-e-[2px] 2xl:w-[400px] xl:px-[0px] px-[0px] mr-0">
                         <h4 className="global_h"> Top Healthy Dishes</h4>
                         <p className="globaltext 2xl:mt-[30px] xl:mt-[20px] mt-[10px]">
@@ -142,7 +142,7 @@ const GlobalCusines = () => {
                         <p className="globaltext"> HK Chicken Salad</p>
                       </div>
                     </div>
-                    <div className="lg:w-[320px] md:w-[230px] 2xl:w-[500px] sm:w-[20%] xs:w-full my-3 md:my-0">
+                    <div className="lg:w-[320px] md:w-[230px] 2xl:w-[500px] sm:w-[50%] xs:w-full my-3 md:my-0">
                       <div className="text-center 2xl:w-[400px] xl:pl-[0px] pl-[0px] ">
                         <h4 className="global_h"> Top Sharing Dishes</h4>
                         <p className="globaltext 2xl:mt-[30px] xl:mt-[20px] mt-[10px]">

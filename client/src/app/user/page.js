@@ -41,15 +41,15 @@ const LandingPage = () => {
   const { token } = useSelector((state) => state?.auth);
   const [isRefresh, setRefresh] = useState(false);
   const [itemId, setItemId] = useState("");
-
+  const [isLoading, setLoading] = useState(false);
   const [getAllDish, setGetAllDish] = useState({});
-  // console.log(getAllDish, "dis");
   const [isOpen, setOpen] = useState(false);
   const [getADish, setGetADish] = useState("");
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [dishID, setDishID] = useState("");
   const closeModal = () => setOpen(false);
   const dispatch = useDispatch();
+  const [cartId, setCartId] = useState("");
   const [subtotalPrice, setSubtotalPrice] = useState(0);
   const [updatedCartItems, setUpdatedCartItems] = useState([]);
   const [shouldRefresh, setShouldRefresh] = useState(false);
@@ -58,7 +58,6 @@ const LandingPage = () => {
   const quantity = cart[0]?.quantity;
   cart.forEach((item, index) => {
     const { data } = item;
-    // console.log(data, `data from item ${index + 1}`);
   });
   const router = useRouter();
 
@@ -79,6 +78,8 @@ const LandingPage = () => {
 
     setShouldRefresh(true);
   };
+
+
   const handleDecrement = (itemId) => {
     setGetCartItems((prevCartItems) => {
       const updatedCartItems = prevCartItems.map((item) =>
@@ -96,6 +97,7 @@ const LandingPage = () => {
 
     setShouldRefresh(true);
   };
+
   const refreshData = () => {
     setRefresh(!isRefresh);
   };
@@ -180,14 +182,14 @@ const LandingPage = () => {
         setGetADish(response?.data);
         dispatch(addItemToCart(response));
         handleDrawerOpen();
-
-        // console.log(response?.data, "haryy");
       })
       .catch((error) => {
         console.log(error, "Error");
       });
   };
   const handleAddCart = async (id) => {
+    setLoading(true);
+
     try {
       // Ensure id is an array
       let ids = Array.isArray(id) ? id : [id];
@@ -216,8 +218,9 @@ const LandingPage = () => {
         toast.success("Items added to cart successfully");
         refreshData();
         handleDrawerOpen();
+        setLoading(false);
       } else {
-        toast.error("Failed to add items to cart. Please try again.");
+        console.log("Failed to add items to cart. Please try again.");
       }
     } catch (error) {
       console.error("Error adding items to cart:", error);
@@ -298,6 +301,45 @@ const LandingPage = () => {
     }
   };
 
+  const updateCartItemQuantity = async (cartId, menuId, quantity) => {
+    try {
+      const response = await axios.put(
+        `${config.baseURL}/api/Orders/updateItem/${menuId}`,
+        { quantity },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      if (response.status >= 200 && response.status < 300) {
+        console.log("Cart item updated successfully");
+      } else {
+        console.log("Failed to update cart item", response.data.message);
+      }
+    } catch (error) {
+      console.log("Error updating cart item:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (shouldRefresh) {
+      getCartItems.forEach((item) => {
+        updateCartItemQuantity(cartId, item.menuItem._id, item.quantity);
+      });
+
+      // Recalculate the subtotal price after updating quantities
+      const newSubtotalPrice = getCartItems.reduce(
+        (sum, item) => sum + item.totalPrice,
+        0
+      );
+      setSubtotalPrice(newSubtotalPrice);
+
+      setShouldRefresh(false);
+    }
+  }, [shouldRefresh, cartId, getCartItems]);
+
+
   const [updatedCart, setUpdatedCart] = useState(cart);
 
   const [getAllChef, setGetAllChef] = useState("");
@@ -315,7 +357,6 @@ const LandingPage = () => {
     };
     axios.request(option).then((response) => {
       setGetAllChef(response?.data);
-      // console.log(response?.data, "chef");
     });
   };
   const handleLoginClick = () => {
@@ -344,7 +385,6 @@ const LandingPage = () => {
       .request(option)
       .then((response) => {
         setTestimonials(response?.data);
-        // console.log(response?.data, "testi");
       })
       .catch((error) => {
         console.log(error, "Error");
@@ -444,7 +484,6 @@ const LandingPage = () => {
                     key={item.id}
                     className=" mt-5 2xl:w-[371px] 2xl:h-[560px] lg:w-[23%] sm:w-[45%] md:w-[48%] w-full relative rounded-[9.8px] mexploreD  "
                   >
-                    {/* {console.log("ssss", item?.chef_id?.images)} */}
                     <div className="w-full flex justify-center">
                       <button
                         className="w-full"

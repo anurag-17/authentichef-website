@@ -70,7 +70,6 @@ const Checkout = () => {
   const [sessionId, setSessionId] = useState("");
   const [stockWarnings, setStockWarnings] = useState([]);
 
-
   const today = new Date().toISOString().split("T")[0];
 
   const handleInputChange = (e, setInfo, updateBilling = false) => {
@@ -109,7 +108,9 @@ const Checkout = () => {
   const handlePaymentMethodChange = (e) => setPaymentMethod(e.target.value);
 
   useEffect(() => {
-    if (subtotalPrice < 30) {
+    const hasClosedModal = localStorage.getItem('hasClosedModal');
+
+    if (subtotalPrice < 30 && !hasClosedModal) {
       setIsModalOpen(true);
     } else {
       setIsModalOpen(false);
@@ -118,6 +119,7 @@ const Checkout = () => {
 
   const closeModal = () => {
     setIsModalOpen(false);
+    localStorage.setItem('hasClosedModal', 'true');
   };
   const refreshData = () => {
     setRefresh(!isRefresh);
@@ -327,12 +329,12 @@ const Checkout = () => {
         Authorization: token,
       },
     };
-  
+
     axios
       .request(option)
       .then((response) => {
         const userCart = response?.data?.userCart;
-  
+
         const cartItems = userCart?.items.map((item) => {
           const totalPrice = item.menuItem.price * item.quantity;
           return {
@@ -340,7 +342,7 @@ const Checkout = () => {
             totalPrice,
           };
         });
-  
+
         setGetCartItems(cartItems);
         setUpdatedCartItems(cartItems); // Initializing updatedCartItems with fetched data
         refreshData();
@@ -349,12 +351,12 @@ const Checkout = () => {
         );
         setShippingCost(userCart.Shipping_cost ?? 0); // Set the shipping cost
         setCartId(userCart._id); // Set the cart ID
-  
+
         // Check if any item's cart quantity exceeds stock
         const stockWarnings = cartItems.filter(
           (item) => item.quantity > item.menuItem.stocks
         );
-  
+
         if (stockWarnings.length > 0) {
           const warningMessages = stockWarnings.map(
             (item) =>
@@ -369,7 +371,6 @@ const Checkout = () => {
         console.log(error, "Error");
       });
   };
-  
 
   const handleDateChange = (date) => {
     if (!date) {
@@ -544,7 +545,9 @@ const Checkout = () => {
     for (const item of items) {
       subtotal += item.quantity * item.menuItem.price; // Use menuItem instead of productId
     }
-    return subtotal;
+    const subtotalFixed = subtotal.toFixed(2); // Get string representation with two decimal places
+    console.log(subtotalFixed, "------------==============="); // Log the fixed value
+    return parseFloat(subtotalFixed); // Convert back to number and return
   };
 
   useEffect(() => {
@@ -585,14 +588,41 @@ const Checkout = () => {
     setIsChecked(e.target.checked);
   };
 
-  const calculateTotalPrice = (subtotal, discount) => {
-    let total = subtotal;
-    if (discount) {
-      total -= (subtotal * discount) / 100;
+  const calculateTotalPrice = (
+    subtotalFixed,
+    discount,
+    shippingThreshold = 55,
+    shippingCost = 5.99
+  ) => {
+    // Ensure subtotalFixed and discount are valid numbers
+    if (
+      isNaN(subtotalFixed) ||
+      subtotalFixed < 0 ||
+      isNaN(discount) ||
+      discount < 0
+    ) {
+      throw new Error(
+        "Invalid input: subtotalFixed and discount must be non-negative numbers."
+      );
     }
+
+    // Calculate discounted price
+    let total = subtotalFixed;
+    if (discount) {
+      total = subtotalFixed - discount;
+    }
+
+    // Ensure total doesn't go below zero
+    total = Math.max(total, 0);
+
+    // Add shipping cost if below threshold
     if (total < shippingThreshold) {
       total += shippingCost;
     }
+
+    // Ensure total is rounded to two decimal places
+    total = Math.round(total * 100) / 100;
+
     return total;
   };
 
@@ -601,10 +631,13 @@ const Checkout = () => {
       (sum, item) => sum + item.totalPrice,
       0
     );
-    setSubtotalPrice(newSubtotal);
+
+    const subtotalFixed = parseFloat(newSubtotal.toFixed(2));
+    console.log(subtotalFixed, "subtotalFixed VALUE");
+    setSubtotalPrice(subtotalFixed);
 
     const discountAmount = discountInfo?.discountApplied ?? 0;
-    const total = calculateTotalPrice(newSubtotal, discountAmount);
+    const total = calculateTotalPrice(subtotalFixed, discountAmount);
     setTotalPrice(total);
   }, [updatedCartItems, discountInfo]);
 
@@ -618,24 +651,27 @@ const Checkout = () => {
 
   const applyPromoCode = async () => {
     if (!Promo_code) {
-      return; // Exit the function if Promo_code is empty, without doing anything
+      return;
     }
-
     try {
       const response = await axios.get(
         `${config.baseURL}/api/order/checkDiscount?Promo_code=${Promo_code}`,
         {
-          headers: {
-            Authorization: token,
-          },
+          headers: { Authorization: token },
         }
       );
       if (response.status >= 200 && response.status < 300) {
         const data = response.data;
-        refreshData();
         setDiscountInfo(data);
+
+        const discountRate = data.discountApplied; // Assuming discountApplied is a percentage
+        const newTotal = calculateTotalPrice(subtotalPrice, discountRate);
+        console.log(discountRate, "discount rate");
+        console.log(newTotal, "new total");
+        console.log(subtotalPrice, "subtotalPrice");
+        setTotalPrice(newTotal);
+        console.log("Final Total:", newTotal);
         toast.success(data.message);
-        calculateSubtotal(updatedCartItems);
       } else {
         toast.error("Failed to apply discount.");
       }
@@ -1203,12 +1239,12 @@ const Checkout = () => {
                     </div>
 
                     {stockWarnings.length > 0 && (
-      <div className="mt-4 text-red-600 text-lg">
-        {stockWarnings.map((message, index) => (
-          <div key={index}>{message}</div>
-        ))}
-      </div>
-    )}
+                      <div className="mt-4 text-red-600 text-lg">
+                        {stockWarnings.map((message, index) => (
+                          <div key={index}>{message}</div>
+                        ))}
+                      </div>
+                    )}
 
                     <div className="flex justify-between">
                       <h4 className="alata font-[400] text-[#555555] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
@@ -1241,7 +1277,7 @@ const Checkout = () => {
                         Discount Applied
                       </h4>
                       <h4 className="alata font-[400] text-[#555555] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
-                        -£{discountAmount}
+                        -£{discountAmount.toFixed(2)}
                       </h4>
                     </div>
 
@@ -1252,9 +1288,6 @@ const Checkout = () => {
                         </h4>
                       </div>
                       <h4 className="alata font-[400] text-[#555555] 2xl:my-0 2xl:text-[18px] 2xl:leading-[28px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[18px]">
-                        {/* {totalPrice < shippingThreshold || totalPrice
-                          ? "£5.99"
-                          : "£0.00"} */}
                         {discountAmount === 0
                           ? subtotalPrice < 55
                             ? "£5.99"
@@ -1275,20 +1308,16 @@ const Checkout = () => {
                       </h4>
                       <h4 className="alata font-[400] 2xl:my-0 2xl:text-[18px] 2xl:leading/[28px] xl:text-[14px] xl:leading/[20px] lg:text-[10px] lg:leading/[18px]">
                         £
-                        {discountInfo
-                          ? (
-                              discountInfo.totalAmountAfterDiscount +
-                              (discountInfo.totalAmountAfterDiscount <
-                              shippingThreshold
-                                ? shippingCost
-                                : 0)
-                            ).toFixed(2)
-                          : (
-                              subtotalPrice +
-                              (subtotalPrice < shippingThreshold
-                                ? shippingCost
-                                : 0)
-                            ).toFixed(2)}
+                        {(() => {
+                          const discountRate = discountInfo
+                            ? discountInfo.discountApplied
+                            : 0;
+                          const newTotal = calculateTotalPrice(
+                            subtotalPrice,
+                            discountRate
+                          );
+                          return newTotal.toFixed(2);
+                        })()}
                       </h4>
                     </div>
 
