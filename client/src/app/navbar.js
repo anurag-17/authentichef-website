@@ -180,7 +180,73 @@ const Navbar = () => {
   // };
 
   const [tokenFromUrl, setTokenFromUrl] = useState("");
+  const [tokenFound, setTokenFound] = useState(false);
 
+
+  useEffect(() => {
+    if (!oauthInitiated || tokenFound) return; // Only run the effect if OAuth has been initiated and token is not found
+
+    const getTokenFromAPI = async () => {
+      try {
+        const response = await axios.get(
+          "https://server-backend-gamma.vercel.app/Google_OAuth/google/get-token"
+        );
+        if (response.data.success) {
+          const apiToken = response.data.token;
+          handleTokenLogin(apiToken);
+          console.log(
+            apiToken,
+            "token ---------------------------------------"
+          );
+          setTokenFound(true);
+        } else {
+          toast.error("Failed to retrieve token from API");
+          setTimeout(getTokenFromAPI, 5000); // Retry after 5 seconds
+        }
+      } catch (error) {
+        console.error("Error retrieving token from API:", error);
+        setTimeout(getTokenFromAPI, 5000); // Retry after 5 seconds
+      }
+    };
+
+    const tokenFromUrl = new URLSearchParams(window.location.search).get(
+      "token"
+    );
+    if (tokenFromUrl) {
+      handleTokenLogin(tokenFromUrl);
+      setTokenFound(true);
+    } else {
+      const tokenFromStorage = localStorage.getItem("authToken");
+      if (tokenFromStorage) {
+        handleTokenLogin(tokenFromStorage);
+        setTokenFound(true);
+      } else {
+        getTokenFromAPI();
+      }
+    }
+  }, [oauthInitiated, tokenFound]);
+
+  const handleTokenLogin = async (token) => {
+    try {
+      const response = await axios.get(
+        `http://13.43.174.21:4000/api/auth/verifyUserToken/${token}`
+      );
+
+      if (response.status === 200) {
+        setGoogle(response.data); // Assuming setGoogle is defined elsewhere
+        dispatch(setToken(token));
+        dispatch(setUser(response.data.data));
+        dispatch(setSuccess(true));
+        localStorage.setItem("authToken", token);
+        dispatch(setUserDetail(response.data.data.user));
+        router.push("/");
+      } else {
+        toast.error("Token verification failed");
+      }
+    } catch (error) {
+      console.error("Error verifying token:", error);
+    }
+  };
   const handleSubmits = async (e) => {
     e.preventDefault();
 
@@ -472,68 +538,6 @@ const Navbar = () => {
     window.location.href = `https://server-backend-gamma.vercel.app/Google_OAuth/google`;
   };
   const [google, setGoogle] = useState("");
-
-
-  useEffect(() => {
-    if (!oauthInitiated) return; // Only run the effect if OAuth has been initiated
-
-    const getTokenFromAPI = async () => {
-      try {
-        const response = await axios.get(
-          "https://server-backend-gamma.vercel.app/Google_OAuth/google/get-token"
-        );
-        if (response.data.success) {
-          const apiToken = response.data.token;
-          handleTokenLogin(apiToken);
-          console.log(
-            apiToken,
-            "token ---------------------------------------"
-          );
-        } else {
-          toast.error("Failed to retrieve token from API");
-        }
-      } catch (error) {
-        console.error("Error retrieving token from API:", error);
-      }
-    };
-
-    const tokenFromUrl = new URLSearchParams(window.location.search).get(
-      "token"
-    );
-    if (tokenFromUrl) {
-      handleTokenLogin(tokenFromUrl);
-    } else {
-      const tokenFromStorage = localStorage.getItem("authToken");
-      if (tokenFromStorage) {
-        handleTokenLogin(tokenFromStorage);
-      } else {
-        getTokenFromAPI();
-      }
-    }
-  }, [oauthInitiated]);
-
-  const handleTokenLogin = async (token) => {
-    try {
-      const response = await axios.get(
-        `http://13.43.174.21:4000/api/auth/verifyUserToken/${token}`
-      );
-
-      if (response.status === 200) {
-        setGoogle(response.data); // Assuming setGoogle is defined elsewhere
-        dispatch(setToken(token));
-        dispatch(setUser(response.data.data));
-        dispatch(setSuccess(true));
-        localStorage.setItem("authToken", token);
-        dispatch(setUserDetail(response.data.data.user));
-        router.push("/");
-      } else {
-        toast.error("Token verification failed");
-      }
-    } catch (error) {
-      console.error("Error verifying token:", error);
-    }
-  };
-
 
   console.log(google.data, "google");
 
