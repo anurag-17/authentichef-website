@@ -181,10 +181,12 @@ const Navbar = () => {
 
   const [tokenFromUrl, setTokenFromUrl] = useState("");
   const [tokenFound, setTokenFound] = useState(false);
-  const [redirectedToOAuth, setRedirectedToOAuth] = useState(false); // New state variable
+  const [redirectedToOAuth, setRedirectedToOAuth] = useState(
+    sessionStorage.getItem("redirectedToOAuth") === "true"
+  );
 
   useEffect(() => {
-    if (!oauthInitiated || tokenFound || !redirectedToOAuth) return; // Check the new state variable
+    if (!oauthInitiated || tokenFound || !redirectedToOAuth) return;
 
     const getTokenFromAPI = async () => {
       try {
@@ -224,7 +226,7 @@ const Navbar = () => {
         getTokenFromAPI();
       }
     }
-  }, [oauthInitiated, tokenFound, redirectedToOAuth]); // Include the new state variable in the dependency array
+  }, [oauthInitiated, tokenFound, redirectedToOAuth]);
 
   const handleTokenLogin = async (token) => {
     try {
@@ -536,6 +538,8 @@ const Navbar = () => {
 
   const handleGoogleOAuth = () => {
     setOauthInitiated(true);
+    setRedirectedToOAuth(true); // Set the new state variable to true
+    sessionStorage.setItem("redirectedToOAuth", "true"); // Store the state in session storage
     window.location.href = `https://server-backend-gamma.vercel.app/Google_OAuth/google`;
   };
   const [google, setGoogle] = useState("");
