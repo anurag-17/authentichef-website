@@ -179,16 +179,23 @@ const Navbar = () => {
   //   }
   // };
 
-
-  const [tokenFromUrl, setTokenFromUrl] = useState('');
+  const [tokenFromUrl, setTokenFromUrl] = useState("");
 
   useEffect(() => {
+    if (!oauthInitiated) return; // Only run the effect if OAuth has been initiated
+
     const getTokenFromAPI = async () => {
       try {
-        const response = await axios.get('https://server-backend-gamma.vercel.app/Google_OAuth/google/get-token');
+        const response = await axios.get(
+          "https://server-backend-gamma.vercel.app/Google_OAuth/google/get-token"
+        );
         if (response.data.success) {
           const apiToken = response.data.token;
           handleTokenLogin(apiToken);
+          console.log(
+            apiToken,
+            "token ---------------------------------------"
+          );
         } else {
           toast.error("Failed to retrieve token from API");
         }
@@ -197,7 +204,9 @@ const Navbar = () => {
       }
     };
 
-    const tokenFromUrl = new URLSearchParams(window.location.search).get("token");
+    const tokenFromUrl = new URLSearchParams(window.location.search).get(
+      "token"
+    );
     if (tokenFromUrl) {
       handleTokenLogin(tokenFromUrl);
     } else {
@@ -208,11 +217,13 @@ const Navbar = () => {
         getTokenFromAPI();
       }
     }
-  }, []);
+  }, [oauthInitiated]);
 
   const handleTokenLogin = async (token) => {
     try {
-      const response = await axios.get(`http://13.43.174.21:4000/api/auth/verifyUserToken/${token}`);
+      const response = await axios.get(
+        `http://13.43.174.21:4000/api/auth/verifyUserToken/${token}`
+      );
 
       if (response.status === 200) {
         setGoogle(response.data); // Assuming setGoogle is defined elsewhere
