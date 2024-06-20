@@ -215,11 +215,11 @@ const Navbar = () => {
         router.push("/");
       } else {
         toast.error("Token verification failed");
-        setTimeout(() => handleTokenLogin(token), 5000); // Retry after 5 seconds
+        setTimeout(() => handleTokenLogin(token), 2000); // Retry after 5 seconds
       }
     } catch (error) {
       console.error("Error verifying token:", error);
-      setTimeout(() => handleTokenLogin(token), 5000); // Retry after 5 seconds
+      setTimeout(() => handleTokenLogin(token), 2000); // Retry after 5 seconds
     }
   };
 
