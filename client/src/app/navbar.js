@@ -181,10 +181,10 @@ const Navbar = () => {
 
   const [tokenFromUrl, setTokenFromUrl] = useState("");
   const [tokenFound, setTokenFound] = useState(false);
-
+  const [redirectedToOAuth, setRedirectedToOAuth] = useState(false); // New state variable
 
   useEffect(() => {
-    if (!oauthInitiated || tokenFound) return; // Only run the effect if OAuth has been initiated and token is not found
+    if (!oauthInitiated || tokenFound || !redirectedToOAuth) return; // Check the new state variable
 
     const getTokenFromAPI = async () => {
       try {
@@ -224,7 +224,7 @@ const Navbar = () => {
         getTokenFromAPI();
       }
     }
-  }, [oauthInitiated, tokenFound]);
+  }, [oauthInitiated, tokenFound, redirectedToOAuth]); // Include the new state variable in the dependency array
 
   const handleTokenLogin = async (token) => {
     try {
@@ -247,6 +247,7 @@ const Navbar = () => {
       console.error("Error verifying token:", error);
     }
   };
+
   const handleSubmits = async (e) => {
     e.preventDefault();
 
