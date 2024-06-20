@@ -9,16 +9,20 @@ const passport = require('passport');
 require('./config/googleconfig')(passport);
 require('./config/facebookconfig')(passport);
 const session = require('express-session'); // Import express-session module
+const cookieParser = require('cookie-parser');
 
 // const corsOptions = {
 //   origin: ['http://13.43.174.21:3000','http://13.43.174.21:3001', '*'],
 //   credentials: true,
 // };
+// Use cookie-parser middleware
 
 const server = express();
 
+
 // cors config
 server.use(cors());
+server.use(cookieParser());
 
 // Session middleware
 server.use(session({
