@@ -135,41 +135,92 @@ const Navbar = () => {
     }
   }, [success]);
 
+  // useEffect(() => {
+  //   const tokenFromUrl = new URLSearchParams(window.location.search).get(
+  //     "token"
+  //   );
+  //   if (tokenFromUrl) {
+  //     handleTokenLogin(tokenFromUrl);
+  //   } else {
+  //     const tokenFromStorage = localStorage.getItem("authToken");
+  //     if (tokenFromStorage) {
+  //       handleTokenLogin(tokenFromStorage);
+  //     }
+  //   }
+  // }, []);
+
+  // const [tokenFromUrl, setTokenFromUrl] = useState("");
+
+  // const handleTokenLogin = async (tokenFromUrl) => {
+  //   try {
+  //     const response = await axios.get(
+  //       `http://13.43.174.21:4000/api/auth/verifyUserToken/${tokenFromUrl}`,
+  //       {}
+  //     );
+
+  //     if (response.status === 200) {
+  //       setGoogle(response.data);
+  //       dispatch(setToken(tokenFromUrl));
+  //       dispatch(setUser(response.data.data));
+  //       dispatch(setSuccess(true));
+  //       localStorage.setItem("authToken", tokenFromUrl);
+  //       // if (!localStorage.getItem("loginToastShown")) {
+  //       //   toast.success("Logged in successfully!");
+  //       //   localStorage.setItem("loginToastShown", "true");
+  //       // }
+  //       // toast.success("Logged in successfully!");
+  //       dispatch(setUserDetail(data.user));
+  //       router.push("/");
+  //     } else {
+  //       toast.error("Token verification failed");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error verifying token:", error);
+  //   }
+  // };
+
+
+  const [tokenFromUrl, setTokenFromUrl] = useState('');
+
   useEffect(() => {
-    const tokenFromUrl = new URLSearchParams(window.location.search).get(
-      "token"
-    );
+    const getTokenFromAPI = async () => {
+      try {
+        const response = await axios.get('https://server-backend-gamma.vercel.app/Google_OAuth/google/get-token');
+        if (response.data.success) {
+          const apiToken = response.data.token;
+          handleTokenLogin(apiToken);
+        } else {
+          toast.error("Failed to retrieve token from API");
+        }
+      } catch (error) {
+        console.error("Error retrieving token from API:", error);
+      }
+    };
+
+    const tokenFromUrl = new URLSearchParams(window.location.search).get("token");
     if (tokenFromUrl) {
       handleTokenLogin(tokenFromUrl);
     } else {
       const tokenFromStorage = localStorage.getItem("authToken");
       if (tokenFromStorage) {
         handleTokenLogin(tokenFromStorage);
+      } else {
+        getTokenFromAPI();
       }
     }
   }, []);
 
-  const [tokenFromUrl, setTokenFromUrl] = useState("");
-
-  const handleTokenLogin = async (tokenFromUrl) => {
+  const handleTokenLogin = async (token) => {
     try {
-      const response = await axios.get(
-        `http://13.43.174.21:4000/api/auth/verifyUserToken/${tokenFromUrl}`,
-        {}
-      );
+      const response = await axios.get(`http://13.43.174.21:4000/api/auth/verifyUserToken/${token}`);
 
       if (response.status === 200) {
-        setGoogle(response.data);
-        dispatch(setToken(tokenFromUrl));
+        setGoogle(response.data); // Assuming setGoogle is defined elsewhere
+        dispatch(setToken(token));
         dispatch(setUser(response.data.data));
         dispatch(setSuccess(true));
-        localStorage.setItem("authToken", tokenFromUrl);
-        // if (!localStorage.getItem("loginToastShown")) {
-        //   toast.success("Logged in successfully!");
-        //   localStorage.setItem("loginToastShown", "true");
-        // }
-        // toast.success("Logged in successfully!");
-        dispatch(setUserDetail(data.user));
+        localStorage.setItem("authToken", token);
+        dispatch(setUserDetail(response.data.data.user));
         router.push("/");
       } else {
         toast.error("Token verification failed");
@@ -477,7 +528,7 @@ const Navbar = () => {
     let attempt = 0;
     while (attempt < retries) {
       try {
-        const response = await axios.post(
+        const response = await axios.get(
           "https://server-backend-gamma.vercel.app/Google_OAuth/google/get-token",
           { code },
           {
