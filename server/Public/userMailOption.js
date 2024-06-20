@@ -212,12 +212,6 @@ const userMailOptions = (req, savedOrder, deliveryDate, deliveryInfo, totalAmoun
       width: 30px;
       margin: 0px 5px;
     }
-
-    .svg-box {
-      display: flex;
-      justify-content: center;
-
-    }
     .policy{
       text-align: center;
     }
@@ -305,16 +299,16 @@ const userMailOptions = (req, savedOrder, deliveryDate, deliveryInfo, totalAmoun
     </div>
 
     <p class="header">Follow us to discover new dishes and chefs.</p>
-    <div class="svg-box">
-      <a href="https://www.facebook.com/people/Authentichef/61553576243338/" target="_blank">
-        <img class="svg" src="https://authimages.s3.eu-west-2.amazonaws.com/download.png"/>
-        
-      </a>
-      
-      <a href="https://www.instagram.com/authentichef/" target="_blank">
+  <div class="svg-box" style="text-align: center;">
+  <a href="https://www.facebook.com/people/Authentichef/61553576243338/" target="_blank">
+    <img class="svg" src="https://authimages.s3.eu-west-2.amazonaws.com/download.png" />
+  </a>
+  
+  <a href="https://www.instagram.com/authentichef/" target="_blank">
+    <img class="svg" src="https://authimages.s3.eu-west-2.amazonaws.com/download.jpeg" />
+  </a>
+</div>
 
-      <img class="svg" src="https://authimages.s3.eu-west-2.amazonaws.com/download.jpeg"/></a>
-    </div>
     <p class="header">Authentichef Ltd Registered office 167-169, Great Portland Street, 5th Floor, London W1W 5PF.
       Registered in
       England. Company registration number 15236453. VAT number 465 112 412</p>
