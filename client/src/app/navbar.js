@@ -183,29 +183,33 @@ const Navbar = () => {
 
   const getTokenFromAPI = async () => {
     try {
+      console.log("Attempting to retrieve token from API...");
       const response = await axios.get(
         "https://server-backend-gamma.vercel.app/Google_OAuth/google/get-token"
       );
       if (response.data.success) {
         const apiToken = response.data.token;
+        console.log("Token retrieved from API:", apiToken);
         handleTokenLogin(apiToken);
       } else {
         toast.error("Failed to retrieve token from API");
-        setTimeout(getTokenFromAPI, 2000); // Retry after 5 seconds
+        setTimeout(getTokenFromAPI, 2000); // Retry after 2 seconds
       }
     } catch (error) {
       console.error("Error retrieving token from API:", error);
-      setTimeout(getTokenFromAPI, 2000); // Retry after 5 seconds
+      setTimeout(getTokenFromAPI, 2000); // Retry after 2 seconds
     }
   };
 
   const handleTokenLogin = async (token) => {
     try {
+      console.log("Attempting to verify token...");
       const response = await axios.get(
         `http://13.43.174.21:4000/api/auth/verifyUserToken/${token}`
       );
 
       if (response.status === 200) {
+        console.log("Token verification successful:", response.data);
         setGoogle(response.data); // Assuming setGoogle is defined elsewhere
         dispatch(setToken(token));
         dispatch(setUser(response.data.data));
@@ -215,11 +219,11 @@ const Navbar = () => {
         router.push("/");
       } else {
         toast.error("Token verification failed");
-        setTimeout(() => handleTokenLogin(token), 2000); // Retry after 5 seconds
+        setTimeout(() => handleTokenLogin(token), 2000); // Retry after 2 seconds
       }
     } catch (error) {
       console.error("Error verifying token:", error);
-      setTimeout(() => handleTokenLogin(token), 2000); // Retry after 5 seconds
+      setTimeout(() => handleTokenLogin(token), 2000); // Retry after 2 seconds
     }
   };
 
@@ -228,16 +232,20 @@ const Navbar = () => {
       "token"
     );
     if (tokenFromUrl) {
+      console.log("Token found in URL:", tokenFromUrl);
       handleTokenLogin(tokenFromUrl);
     } else {
       const tokenFromStorage = localStorage.getItem("authToken");
       if (tokenFromStorage) {
+        console.log("Token found in localStorage:", tokenFromStorage);
         handleTokenLogin(tokenFromStorage);
       } else {
+        console.log("No token found, attempting to retrieve from API...");
         getTokenFromAPI();
       }
     }
   }, []);
+
   const handleSubmits = async (e) => {
     e.preventDefault();
 
