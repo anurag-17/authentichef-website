@@ -180,53 +180,24 @@ const Navbar = () => {
   // };
 
   const [tokenFromUrl, setTokenFromUrl] = useState("");
-  const [tokenFound, setTokenFound] = useState(false);
-  const [redirectedToOAuth, setRedirectedToOAuth] = useState(
-    sessionStorage.getItem("redirectedToOAuth") === "true"
-  );
 
-  useEffect(() => {
-    if (!oauthInitiated || tokenFound || !redirectedToOAuth) return;
-
-    const getTokenFromAPI = async () => {
-      try {
-        const response = await axios.get(
-          "https://server-backend-gamma.vercel.app/Google_OAuth/google/get-token"
-        );
-        if (response.data.success) {
-          const apiToken = response.data.token;
-          handleTokenLogin(apiToken);
-          console.log(
-            apiToken,
-            "token ---------------------------------------"
-          );
-          setTokenFound(true);
-        } else {
-          toast.error("Failed to retrieve token from API");
-          setTimeout(getTokenFromAPI, 5000); // Retry after 5 seconds
-        }
-      } catch (error) {
-        console.error("Error retrieving token from API:", error);
-        setTimeout(getTokenFromAPI, 5000); // Retry after 5 seconds
-      }
-    };
-
-    const tokenFromUrl = new URLSearchParams(window.location.search).get(
-      "token"
-    );
-    if (tokenFromUrl) {
-      handleTokenLogin(tokenFromUrl);
-      setTokenFound(true);
-    } else {
-      const tokenFromStorage = localStorage.getItem("authToken");
-      if (tokenFromStorage) {
-        handleTokenLogin(tokenFromStorage);
-        setTokenFound(true);
+  const getTokenFromAPI = async () => {
+    try {
+      const response = await axios.get(
+        "https://server-backend-gamma.vercel.app/Google_OAuth/google/get-token"
+      );
+      if (response.data.success) {
+        const apiToken = response.data.token;
+        handleTokenLogin(apiToken);
       } else {
-        getTokenFromAPI();
+        toast.error("Failed to retrieve token from API");
+        setTimeout(getTokenFromAPI, 2000); // Retry after 5 seconds
       }
+    } catch (error) {
+      console.error("Error retrieving token from API:", error);
+      setTimeout(getTokenFromAPI, 2000); // Retry after 5 seconds
     }
-  }, [oauthInitiated, tokenFound, redirectedToOAuth]);
+  };
 
   const handleTokenLogin = async (token) => {
     try {
@@ -244,12 +215,29 @@ const Navbar = () => {
         router.push("/");
       } else {
         toast.error("Token verification failed");
+        setTimeout(() => handleTokenLogin(token), 5000); // Retry after 5 seconds
       }
     } catch (error) {
       console.error("Error verifying token:", error);
+      setTimeout(() => handleTokenLogin(token), 5000); // Retry after 5 seconds
     }
   };
 
+  useEffect(() => {
+    const tokenFromUrl = new URLSearchParams(window.location.search).get(
+      "token"
+    );
+    if (tokenFromUrl) {
+      handleTokenLogin(tokenFromUrl);
+    } else {
+      const tokenFromStorage = localStorage.getItem("authToken");
+      if (tokenFromStorage) {
+        handleTokenLogin(tokenFromStorage);
+      } else {
+        getTokenFromAPI();
+      }
+    }
+  }, []);
   const handleSubmits = async (e) => {
     e.preventDefault();
 
@@ -538,8 +526,6 @@ const Navbar = () => {
 
   const handleGoogleOAuth = () => {
     setOauthInitiated(true);
-    setRedirectedToOAuth(true); // Set the new state variable to true
-    sessionStorage.setItem("redirectedToOAuth", "true"); // Store the state in session storage
     window.location.href = `https://server-backend-gamma.vercel.app/Google_OAuth/google`;
   };
   const [google, setGoogle] = useState("");
