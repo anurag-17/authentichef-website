@@ -47,7 +47,7 @@ const AdminDashboard = () => {
   };
 
   return (
-    <section className="bg-black">
+    <section className="bg-black ">
       <div className="flex max-h-screen relative lg:static">
         <div
           className="py-2 px-3  absolute top-4 left-2 flex flex-col gap-[5px] cursor-pointer lg:hidden"
@@ -59,7 +59,7 @@ const AdminDashboard = () => {
         </div>
 
         <div
-          className={`xl:w-[20%] lg:w-[25%]  w-[280px] md:h-auto h-full z-[11] bg-theme-color text-white xl:py-[40px] xl:px-[25px] px-[10px] py-[10px] transition-all duration-1000 delay-100 ease-linear
+          className={`xl:w-[20%] lg:w-[25%]  w-[280px] md:h-auto h-full z-[11] bg-theme-color text-white xl:py-[40px] xl:px-[25px] px-[10px] py-[10px] transition-all duration-1000 delay-100 ease-linear h-screen overflow-y-scroll
                  ${
                    showDrawer
                      ? "block  absolute top-0 left-0 min-h-screen is-show"
@@ -67,7 +67,7 @@ const AdminDashboard = () => {
                  }`}
         >
           <div
-            className="relative text-white  flex flex-col gap-[5px] cursor-pointer lg:hidden  text-right mr-3 mt-2"
+            className="relative text-white  flex flex-col gap-[5px] cursor-pointer lg:hidden  text-right mr-3 mt-2 "
             onClick={() => setShowDrawer(false)}
           >
             <div className="">
@@ -82,7 +82,7 @@ const AdminDashboard = () => {
               </h1>
             </div>
             <div className="bg-white h-[1px] w-[70%] mx-auto overscroll-y-auto"></div>
-            <div className="flex flex-col 2xl:gap-5 gap-2 pt-[30px]">
+            <div className="flex flex-col 2xl:gap-5 gap-2 pt-[30px] ">
               {sideMenus.map((item, index) => (
                 <div
                   key={index}

@@ -7,11 +7,11 @@ import CloseIcon from "../Svg/CloseIcon";
 import Loader from "../../loader/Index";
 import DeleteUser from "./DeleteUser";
 import protectedRoute from "@/app/admin-module/config/protectedRoute";
+import { ToastContainer, toast } from "react-toastify";
 
 export const headItems = [
   "S. No.",
   "Name",
-  "Contact No",
   "Email",
   "Total Orders",
   "Created Time",
@@ -20,6 +20,7 @@ export const headItems = [
 
 const User = () => {
   const { token } = useSelector((state) => state?.auth);
+  console.log(token, "token");
   const [isRefresh, setRefresh] = useState(false);
   const [allData, setAllData] = useState([]);
   const [isLoader, setIsLoader] = useState(false);
@@ -148,7 +149,7 @@ const User = () => {
 
   useEffect(() => {
     getAllData(currentPage);
-  }, [isRefresh, currentPage]);
+  }, [!isRefresh, currentPage]);
 
   const handleToggleBlocked = async (userId, isBlocked) => {
     if (isBlocked === undefined) return;
@@ -183,13 +184,50 @@ const User = () => {
     }
   };
 
+  const [selectedID, setSelectedID] = useState([]);
+
+  console.log(selectedID, "selectedID");
+  const handleCheckboxChange = (event) => {
+    const { value, checked } = event.target;
+    setSelectedID((prevSelectedID) => {
+      if (checked) {
+        return [...prevSelectedID, value];
+      } else {
+        return prevSelectedID.filter((id) => id !== value);
+      }
+    });
+  };
+  const handleSelectDelete = async () => {
+    try {
+      const response = await axios.delete(
+        `${config.baseURL}/api/auth/MultipleUsers`,
+        {
+          data: { ids: selectedID },
+          headers: {
+            authorization: `${token}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        toast.success("Users Removed Successfully");
+        refreshdata();
+      } else {
+        toast.error("Failed Please Try Again");
+      }
+    } catch (error) {
+      toast.error( "No Users Are Selected");
+    }
+  };
+  
+
   return (
     <>
+    <ToastContainer autoClose={1000}/>
       {isLoader && <Loader />}
       <section className="w-full">
         <div className="mx-auto">
           <div className="rounded-[10px] bg-white py-[20px] flexBetween flex-col md:flex-row gap-3 px-[20px] mt-[20px] lg:mt-0">
-            <p className="text-[22px] font-semibold">User list</p>
+            <p className="text-[22px] font-semibold">User List</p>
             <div className="flexCenter gap-x-7 lg:gap-x-5 md:flex-auto flex-wrap gap-y-3 md:justify-end">
               <div className="border border-primary bg-[#302f2f82]] flexCenter h-[32px] pl-[10px] md:w-auto w-full">
                 <input
@@ -217,10 +255,16 @@ const User = () => {
             </div>
           </div>
           <div className="">
+            <div className="table_btn_div flex justify-end  mr-10 my-5">
+              <button className="delete_btn py-1" onClick={handleSelectDelete}>
+                Delete Selected
+              </button>
+            </div>
             <div className="outer_table">
               <table className="w-full min-w-[640px] table-auto mt-[20px]">
                 <thead>
                   <tr>
+                    <th></th>
                     {headItems.map((items, inx) => (
                       <th className="table_head" key={inx}>
                         <p className="block text-[13px] font-medium uppercase whitespace-nowrap text-[#72727b]">
@@ -239,13 +283,20 @@ const User = () => {
                       )
                       .map((items, index) => (
                         <tr key={index}>
+                          <td>
+                            <input
+                              type="checkbox"
+                              className="checkbox rounded-md w-[15px] h-[15px] xl:w-[18px] xl:h-[18px] 2xl:w-[22px] 2xl:h-[22px]"
+                              value={items?._id}
+                              onChange={handleCheckboxChange}
+                            />
+                          </td>
                           <td className="table_data">
                             {index + 1 + (currentPage - 1) * visiblePageCount}
                           </td>
                           <td className="table_data capitalize">
                             {items?.firstname} {items?.lastname}
                           </td>
-                          <td className="table_data">{items?.mobile}</td>
                           <td className="table_data">{items?.email}</td>
                           <td className="table_data">
                             {items?.orderCount}

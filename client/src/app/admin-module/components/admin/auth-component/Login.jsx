@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import Link from "next/link";
 import { setToken, removeToken } from "@/app/redux/slice";
@@ -10,6 +10,8 @@ import RightSection from "./RightSection";
 import config from "@/config";
 
 const Login = () => {
+  const { token } = useSelector((state) => state?.auth);
+
   const dispatch = useDispatch();
   const router = useRouter();
   const [loginDetails, setLoginDetails] = useState({
@@ -59,6 +61,7 @@ const Login = () => {
 
   return (
     <>
+      {token ? router.push("/admin-module/admin") : ""}
       <div className="flexCenter lg:min-h-screen  ">
         <div className="md:px-[40px] w-full mx-auto">
           <div className="relative flexCenter flex-col 2xl:gap-x-20 xl:gap-x-10 gap-x-7 min-h-screen lg:shadow-none lg:flex-row space-y-8 md:space-y-0 w-[100%] px-[10px]bg-white lg:px-[40px] py-[20px] md:py-[40px] ">
@@ -118,11 +121,11 @@ const Login = () => {
                     >
                       {isLoading ? "Loading.." : "Sign In"}
                     </button>
-                    <Link href="/forgot-password">
+                    {/* <Link href="/forgot-password">
                       <div className="regular-16 underline text-center py-3 cursor-password">
                         Forgot password
                       </div>
-                    </Link>
+                    </Link> */}
                   </div>
                 </div>
               </form>
