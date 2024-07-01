@@ -67,36 +67,52 @@ Feel free to customize it further based on your specific project requirements.
 
 
 
-## Authentichef Backend
-- Welcome to Authentichef's backend repository! This repository contains the server-side code for Authentichef, a platform dedicated to delivering authentic homemade food from local independent chefs.
+# Authentichef Backend
+
+Welcome to the Authentichef backend repository! This repository contains the server-side code for Authentichef, a platform dedicated to delivering authentic homemade food from local independent chefs.
 
 ## About Authentichef
-- Authentichef is a platform where food enthusiasts can explore a variety of dishes and global flavors prepared by local chefs. Whether you're craving something familiar or eager to try something new, Authentichef ensures no compromise on quality and offers a satisfying dining experience.
 
-## Website: authentichef.com
-## Contact: support@authentichef.com
-# Features
-## Authentication: Secure authentication using JWT (JSON Web Tokens) and OAuth 2.0 (Google and Facebook).
-## Data Storage: MongoDB database hosted on MongoDB Atlas, providing scalable storage solutions.
-## Image Storage: AWS S3 bucket for storing and serving images related to dishes and user profiles.
-## Payment Integration: Integration with Stripe for handling payment transactions securely.
-## Email Notifications: Nodemailer integration for sending email notifications to users.
+Authentichef is a platform where food enthusiasts can explore a variety of dishes and global flavors prepared by local chefs. Whether you're craving something familiar or eager to try something new, Authentichef ensures no compromise on quality and offers a satisfying dining experience.
+
+- **Website**: [authentichef.com](http://authentichef.com)
+- **Contact**: support@authentichef.com
+
+## Features
+
+- **Authentication**: Secure authentication using JWT (JSON Web Tokens) and OAuth 2.0 (Google and Facebook).
+- **Data Storage**: MongoDB database hosted on MongoDB Atlas, providing scalable storage solutions.
+- **Image Storage**: AWS S3 bucket for storing and serving images related to dishes and user profiles.
+- **Payment Integration**: Integration with Stripe for handling payment transactions securely.
+- **Email Notifications**: Nodemailer integration for sending email notifications to users.
+
 ## Technologies Used
-## Node.js: Backend server environment.
-## Express: Web framework for Node.js.
-## MongoDB: NoSQL database for storing application data.
-## AWS: S3 for image storage and EC2 for hosting application components.
-## Stripe: Payment processing integration.
-## Passport.js: Middleware for authentication strategies.
-Getting Started
+
+- **Node.js**: Backend server environment.
+- **Express**: Web framework for Node.js.
+- **MongoDB**: NoSQL database for storing application data.
+- **AWS**: S3 for image storage and EC2 for hosting application components.
+- **Stripe**: Payment processing integration.
+- **Passport.js**: Middleware for authentication strategies.
+
+## Getting Started
+
 To get started with Authentichef's backend:
 
-## Clone this repository.
-Install dependencies using npm install.
-Set up environment variables:
+1. Clone this repository.
+2. Install dependencies using `npm install`.
+3. Set up environment variables:
+   - Create a `.env` file based on `.env.example` and configure necessary variables like MongoDB URI, AWS credentials, and Stripe API keys.
+4. Run the development server: `npm run dev`.
 
 ## Contributing
+
 Contributions are welcome! If you have suggestions, enhancements, or bug fixes, please fork the repository and submit a pull request. For major changes, please open an issue first to discuss potential changes.
 
 ## License
-This project is licensed under the ISC License - see the LICENSE file for details.
+
+This project is licensed under the ISC License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+Feel free to customize this `README.md` further to include specific instructions, deployment details, or additional information relevant to your backend application for Authentichef.
