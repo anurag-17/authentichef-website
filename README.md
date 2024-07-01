@@ -67,9 +67,9 @@ Feel free to customize it further based on your specific project requirements.
 
 
 
-# Authentichef Backend
+## Authentichef Backend
 
-Welcome to the Authentichef backend repository! This repository contains the server-side code for Authentichef, a platform dedicated to delivering authentic homemade food from local independent chefs.
+- Welcome to the Authentichef backend repository! This repository contains the server-side code for Authentichef, a platform dedicated to delivering authentic homemade food from local independent chefs.
 
 ## About Authentichef
 
@@ -115,4 +115,3 @@ This project is licensed under the ISC License - see the [LICENSE](LICENSE) file
 
 ---
 
-Feel free to customize this `README.md` further to include specific instructions, deployment details, or additional information relevant to your backend application for Authentichef.
