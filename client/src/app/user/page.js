@@ -79,7 +79,6 @@ const LandingPage = () => {
     setShouldRefresh(true);
   };
 
-
   const handleDecrement = (itemId) => {
     setGetCartItems((prevCartItems) => {
       const updatedCartItems = prevCartItems.map((item) =>
@@ -339,7 +338,6 @@ const LandingPage = () => {
     }
   }, [shouldRefresh, cartId, getCartItems]);
 
-
   const [updatedCart, setUpdatedCart] = useState(cart);
 
   const [getAllChef, setGetAllChef] = useState("");
@@ -458,13 +456,18 @@ const LandingPage = () => {
 
           {/* <div className=" Fv  h-screen flex justify-center "> */}
         </div>
-        <div className="offer-bg flex justify-center items-center 2xl:gap-[30px] xl:gap-[10px] gap-[8px] 2xl:h-[150px] xl:h-[100px] md:h-[60px] h-[40px] moffers">
-          <Image
+        <div className="offer-bg flex justify-center items-center 2xl:gap-[30px] xl:gap-[10px] gap-[8px] 2xl:h-[150px] xl:h-[100px] md:h-[60px] sm:h-[70px] xs:h-[70px] h-[40px] moffers">
+          {/* <Image
             src={offer}
             className="2xl:w-[48px] 2xl:h-[48px] 2xl:w-[30px] 2xl:h-[30px] md:w-[25px] md:h-[25px]  w-[20px] sm:h-[20px]"
-          />
-          <h3 className="alata font-[400] 2xl:text-[40px] 2xl:leading-[50px] xl:text-[25px] leading-[35px] md:text-[20px] text-[14px] sm:text-[14px]">
-            30% off on your first order ‘WELCOME30’
+          /> */}
+          <h3 className="alata user_offer font-[400] 2xl:text-[38px] 2xl:leading-[50px] xl:text-[32px]  tracking-[-0.075rem] lg:text-[25px] md:text-[20px] text-[14px] sm:text-[17px] xs:text-[16px]">
+            High Quality Homemade Ready Meals, Delivered |{" "}
+            <br className="hidden lg:hidden 2xl:hidden xl:hidden xs:block justify-center items-center " />
+            {/* Meal Prep Done | Explore Global Cuisines */}
+            <span className="xs:block xs:text-center">
+              Meal Prep Done | Explore Global Cuisines
+            </span>
           </h3>
         </div>
 

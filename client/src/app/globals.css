@@ -717,6 +717,15 @@ td {
   }
 }
 
+@media (min-width: 1536px) and (max-width: 1570px) {
+  .user_offer{
+    font-size: 30px;
+    padding-left: 20xp;
+    padding-right: 20px;
+  }
+}
+
+
 @media (min-width: 1536px) and (max-width: 1800px) {
   .signup {
     height: 70% !important;
