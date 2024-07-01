@@ -91,13 +91,13 @@ const Setting = () => {
       }
     } catch (error) {
       toast.success("Logout successfully");
-        router.push("/explore-dishes");
-        setTimeout(() => {
-          dispatch(removeToken());
-          dispatch(removeUser());
-          dispatch(removeSuccess());
-        }, 1000);
-        refreshData();
+      router.push("/explore-dishes");
+      setTimeout(() => {
+        dispatch(removeToken());
+        dispatch(removeUser());
+        dispatch(removeSuccess());
+      }, 1000);
+      refreshData();
     }
   };
 
